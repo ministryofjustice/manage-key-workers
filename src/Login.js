@@ -6,8 +6,11 @@ class Login extends Component {
     super();
     this.state = {
       error: null,
+      username: '',
+      password: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
 
   }
 
@@ -16,10 +19,10 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.error("handle submit.." + event);
+
     axios.post('/login', {
-      username: 'itag_user',
-      password: 'password'
+      username: this.state.username,
+      password: this.state.password
     }).then(data => {
       this.props.onLogin(data.headers['jwt'], this.props.history);
     })
@@ -28,6 +31,16 @@ class Login extends Component {
           error: error.response.data || 'Something went wrong',
         })
       })
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
@@ -41,13 +54,19 @@ class Login extends Component {
             <div> {this.state.error} </div>
           </div>
         </div>}
-        <div>
+        <div className={"pure-u-md-8-12"}>
           <form onSubmit={this.handleSubmit}>
-            <label className="form-label" htmlFor="full-name-f1">Username</label>
-            <input className="form-control" id="full-name-f1" type="text" name="username"/>
-            <label className="form-label" htmlFor="password">Password</label>
-            <input className="form-control" id="password" type="password" name="password"/>
-            <button className="button" type="submit" value="Sign in" />
+            <div className={"form-group"}>
+              <label className="form-label" htmlFor="full-name-f1">Username</label>
+              <input className="form-control" value={this.state.username} id="full-name-f1" type="text" name="username"
+                     onChange={this.handleInputChange}/>
+            </div>
+            <div className={"form-group"}>
+              <label className="form-label" htmlFor="password">Password</label>
+              <input className="form-control" value={this.state.password} id="password" type="password" name="password"
+                     onChange={this.handleInputChange}/>
+            </div>
+            <button className="button pure-u-md-2-12" type="submit">Sign in</button>
           </form>
         </div>
       </div>
