@@ -9,6 +9,7 @@ class Login extends Component {
     }
   }
   componentDidMount(){
+    console.error('mounted');
      axios.post('/login', {
        username: 'username',
        password: 'password'
@@ -23,17 +24,17 @@ class Login extends Component {
   }
 
   render() {
+    console.error('render');
     return (
       <div> 
         <h1 className="heading-large"> Login  </h1>   
-        
-        {this.state.error && 
-        <div className="error-summary">
-          <div className="error-message">
-             <div> {this.state.error} </div>
-          </div>
-        </div>}
 
+        {this.state && this.state.error &&     
+        <div className="error-summary">
+            <div className="error-message">
+                 <div>{this.state && this.state.error}</div>
+             </div>
+         </div> }
       </div>
     );
   }
