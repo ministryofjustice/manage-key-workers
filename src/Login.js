@@ -42,11 +42,11 @@ class Login extends Component {
         </div>}
         <div>
           <form>
-            <label class="form-label" for="full-name-f1">Username</label>
-            <input class="form-control" id="full-name-f1" type="text" name="username"/>
-            <label class="form-label" for="password">Password</label>
-            <input class="form-control" id="password" type="password" name="password"/>
-            <button type="submit" value="Sign in" onSubmit={this.handleSubmit}/>
+            <label className="form-label" htmlFor="full-name-f1">Username</label>
+            <input className="form-control" id="full-name-f1" type="text" name="username"/>
+            <label className="form-label" htmlFor="password">Password</label>
+            <input className="form-control" id="password" type="password" name="password"/>
+            <input type="submit" value="Sign in" onSubmit={this.handleSubmit}/>
           </form>
         </div>
       </div>
