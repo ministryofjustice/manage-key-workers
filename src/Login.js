@@ -15,9 +15,11 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+    console.error("handle submit.." + event);
     axios.post('/login', {
       username: 'itag_user',
-      password: 'password2'
+      password: 'password'
     }).then(data => {
       this.props.onLogin(data.headers['jwt'], this.props.history);
     })
@@ -26,7 +28,6 @@ class Login extends Component {
           error: error.response.data || 'Something went wrong',
         })
       })
-    event.preventDefault();
   }
 
   render() {
@@ -41,12 +42,12 @@ class Login extends Component {
           </div>
         </div>}
         <div>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <label className="form-label" htmlFor="full-name-f1">Username</label>
             <input className="form-control" id="full-name-f1" type="text" name="username"/>
             <label className="form-label" htmlFor="password">Password</label>
             <input className="form-control" id="password" type="password" name="password"/>
-            <input type="submit" value="Sign in" onSubmit={this.handleSubmit}/>
+            <button className="button" type="submit" value="Sign in" />
           </form>
         </div>
       </div>
