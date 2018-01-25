@@ -46,7 +46,7 @@ class Login extends Component {
             <input class="form-control" id="full-name-f1" type="text" name="username"/>
             <label class="form-label" for="password">Password</label>
             <input class="form-control" id="password" type="password" name="password"/>
-            <input type="submit" value="Sign in" onSubmit={this.handleSubmit}/>
+            <button type="submit" value="Sign in" onSubmit={this.handleSubmit}/>
           </form>
         </div>
       </div>

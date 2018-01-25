@@ -13,13 +13,13 @@ describe('Login component',() => {
        const error = 'could not login';
        mock.onPost('/login').reply(403, error);
 
-       const component = shallow(<Login/>); 
-       
-       component.instance().componentDidMount();
+       const component = shallow(<Login/>);
 
-       setTimeout(() => {
-           done();
-           expect(component.contains(<div>{error}</div>)).toBe(true);
-        },1);
+       const button = component.find('button');
+       console.error(button);
+       
+       component.find('button').simulate('click');
+
+       expect(component.contains(<div> {error} </div>)).toBe(true);
     });
 });
