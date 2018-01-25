@@ -17,20 +17,21 @@ class Login extends Component {
   componentDidMount() {
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
-    axios.post('/login', {
-      username: this.state.username,
-      password: this.state.password
-    }).then(data => {
+    try {
+      const data = await axios.post('/login', {
+        username: this.state.username,
+        password: this.state.password
+      });
       this.props.onLogin(data.headers['jwt'], this.props.history);
-    })
-      .catch(error => {
-        this.setState({
-          error: error.response.data || 'Something went wrong',
-        })
+    }
+    catch (error) {
+      this.setState({
+        error: error.response.data || 'Something went wrong',
       })
+    }
   }
 
   handleInputChange(event) {
