@@ -23,13 +23,18 @@
     "start": "node scripts/customized-config start",
     "start-backend": "node backend/index",
     "build": "node scripts/customized-config build",
-    "test": "node scripts/customized-config test --env=jsdom"
+    "test": "node scripts/customized-config test --env=jsdom",
+    "lint": "node_modules/eslint/bin/eslint.js src backend",
+    "verify": "node scripts/customized-config test --coverage && yarn lint"
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "axios-mock-adapter": "^1.11.0",
+    "babel-eslint": "^8.2.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-react": "^7.6.0",
     "node-sass": "^4.7.2",
     "proxyquire": "^1.8.0",
     "rewire": "^3.0.2",
