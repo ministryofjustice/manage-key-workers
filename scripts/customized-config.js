@@ -27,13 +27,14 @@ switch(process.argv[2]) {
   case 'test':
     // Load customizations from the config-overrides.testing file.
     // That file should export a single function that takes a config and returns a config
-    let customizer = loadCustomizer('../config-overrides.testing');
+    let customizer = loadCustomizer('./config-overrides.testing.js');
+
     proxyquire('react-scripts/scripts/test.js', {
       // When test.js asks for '../utils/createJestConfig' it will get this instead:
-      '../utils/createJestConfig': (...args) => {
+      './utils/createJestConfig': (...args) => {
         // Use the existing createJestConfig function to create a config, then pass
         // it through the customizer
-        var createJestConfig = require('react-scripts/utils/createJestConfig');
+        var createJestConfig = require('react-scripts/scripts/utils/createJestConfig.js');
         return customizer(createJestConfig(...args));
       }
     });
