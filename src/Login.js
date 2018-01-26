@@ -8,7 +8,7 @@ class Login extends Component {
       error: null,
       username: '',
       password: ''
-    }
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
@@ -17,22 +17,22 @@ class Login extends Component {
   componentDidMount() {
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
-    axios.post('/login', {
-      username: this.state.username,
-      password: this.state.password
-    }).then(data => {
+    try {
+      const data = await axios.post('/login', {
+        username: this.state.username,
+        password: this.state.password
+      });
       this.props.onLogin(data.headers['jwt'], this.props.history);
-    })
-      .catch(error => {
-        this.setState({
-          error: error.response.data || 'Something went wrong',
-        })
+    }
+    catch (error) {
+      this.setState({
+        error: error.response && error.response.data || 'Something went wrong',
       })
+    }
   }
-
   handleInputChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -57,8 +57,8 @@ class Login extends Component {
         <div className={"pure-u-md-8-12"}>
           <form onSubmit={this.handleSubmit}>
             <div className={"form-group"}>
-              <label className="form-label" htmlFor="full-name-f1">Username</label>
-              <input className="form-control" value={this.state.username} id="full-name-f1" type="text" name="username"
+              <label className="form-label" htmlFor="username">Username</label>
+              <input className="form-control" value={this.state.username} id="username" type="text" name="username"
                      onChange={this.handleInputChange}/>
             </div>
             <div className={"form-group"}>
