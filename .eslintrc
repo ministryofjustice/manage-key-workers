@@ -1,0 +1,7 @@
+{
+    "extends": "react",
+    "rules": {
+      "no-undef": 0,
+      "new-cap": 0
+    }
+  }
