@@ -6,7 +6,7 @@ const key = process.env.NOMS_TOKEN || 'test';
 const newJWT = (data) => jwt.sign({ data: {
   ...data
 },
-  exp: Math.floor(Date.now() / 1000) + (60 * minutes),
+exp: Math.floor(Date.now() / 1000) + (60 * minutes)
 }, key);
 
 const getSessionData = (headers) => {
@@ -26,7 +26,7 @@ const service = {
   isAuthenticated,
   getSessionData,
   newJWT,
-  extendSession,
+  extendSession
 };
 
 module.exports = service;
