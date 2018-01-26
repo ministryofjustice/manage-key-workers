@@ -5,10 +5,6 @@ class Unallocated extends Component {
   constructor (props) {
     super();
     console.log('in constructor ' + props.jwt);
-    this.state = {
-      error: null
-    };
-    console.log('component ');
   }
 
   componentWillMount () {
@@ -21,9 +17,7 @@ class Unallocated extends Component {
       console.log('data from api call ' + this.props.data);
     })
       .catch(error => {
-        this.setState({
-          error: error.response && error.response.data || 'Something went wrong'
-        });
+        this.props.displayError(error);
       });
   }
 
