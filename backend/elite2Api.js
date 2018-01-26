@@ -1,13 +1,15 @@
 const gateway = require('./gateway-api');
 
-const login = (req) => gateway.httpRequest({
-    method: 'post',
-    url: '/users/login',
-    data: req.body,
-}); 
+const login = (req) => gateway.login(req);
+
+const unallocated = (req) => gateway.getRequest({
+  method: 'get',
+  url: 'key-worker/offenders/unallocated',
+  headers: {}
+});
 
 const service = { 
-   login,
+   login,unallocated
 };
 
 module.exports = service;

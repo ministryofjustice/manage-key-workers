@@ -87,6 +87,11 @@ const service = {
   postRequest,
   refreshTokenRequest,
   retryRequest: (options) => axios(options),
+  login: (req) => axios({
+    method: 'post',
+    url: '/users/login',
+    data: req.body,
+  })
 };
 
 module.exports = service;
