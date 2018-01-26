@@ -8,7 +8,7 @@ class Login extends Component {
       error: null,
       username: '',
       password: ''
-    }
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
@@ -58,8 +58,8 @@ class Login extends Component {
         <div className={"pure-u-md-8-12"}>
           <form onSubmit={this.handleSubmit}>
             <div className={"form-group"}>
-              <label className="form-label" htmlFor="full-name-f1">Username</label>
-              <input className="form-control" value={this.state.username} id="full-name-f1" type="text" name="username"
+              <label className="form-label" htmlFor="username">Username</label>
+              <input className="form-control" value={this.state.username} id="username" type="text" name="username"
                      onChange={this.handleInputChange}/>
             </div>
             <div className={"form-group"}>

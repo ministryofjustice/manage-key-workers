@@ -18,16 +18,20 @@ describe('Login component', () => {
     const error = 'could not login';
     mock.onPost('/login').reply(
       (input) => {
-        // TODO  expect(input.username).toBe("user1");
-        // TODO  expect(input.password).toBe("password1");
+        // Request is JSON, TODO: currently blank values
+        expect(input.data).toBe('{"username":"","password":""}');
         const output = [403, error];
         return output;
       });
 
     const component = mount(<Login/>);
 
-    const button = component.find('button');
-    console.log(button);
+    const username = component.find('#username').getElement();
+
+    // <input ref={(node) => this.textInput = node} />
+    // const node = this.textInput;
+    //username.props.value =('user1');
+     //ReactTestUtils.Simulate.change(username);
 
     component.find('button').simulate('submit');
   });
