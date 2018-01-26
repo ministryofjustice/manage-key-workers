@@ -8,16 +8,16 @@ const asyncMiddleware = fn =>
         const data = error && error.response && error.response.data;
         const errorStatusCode = (data && data.status || error.statusCode) || 500;
         const message = (data && data.userMessage) || (error && error.response && error.response.statusText);
-        
+
         res.status(errorStatusCode);
-       
-        if(message) {
+
+        if (message) {
           res.json(message);
-        }else{
-           res.end();
+        } else {
+          res.end();
         }
         throw error;
       });
   };
-  
-  module.exports = asyncMiddleware;
+
+module.exports = asyncMiddleware;

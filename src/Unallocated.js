@@ -1,32 +1,33 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 class Unallocated extends Component {
-  constructor(props) {
+  constructor (props) {
     super();
     console.log('in constructor ' + props.jwt);
     this.state = {
       error: null
-    }
+    };
     console.log('component ');
   }
 
-  componentWillMount() {
+  componentWillMount () {
     console.log('in componentWillMount');
     axios.get('/unallocated', {
       headers: {
         jwt: this.props.jwt
-      }}).then(data => {
+      }
+    }).then(data => {
       console.log('data from api call ' + this.props.data);
     })
       .catch(error => {
         this.setState({
-          error: error.response && error.response.data || 'Something went wrong',
-        })
-      })
+          error: error.response && error.response.data || 'Something went wrong'
+        });
+      });
   }
 
-  render() {
+  render () {
     return (
       <div>hello
       </div>
@@ -35,4 +36,4 @@ class Unallocated extends Component {
   }
 }
 
-export default Unallocated
+export default Unallocated;

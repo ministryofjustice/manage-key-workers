@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 class Login extends Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       error: null,
@@ -11,13 +11,12 @@ class Login extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-
   }
 
-  componentDidMount() {
+  componentDidMount () {
   }
 
-  async handleSubmit(event) {
+  async handleSubmit (event) {
     event.preventDefault();
 
     try {
@@ -26,14 +25,14 @@ class Login extends Component {
         password: this.state.password
       });
       this.props.onLogin(data.headers['jwt'], this.props.history);
-    }
-    catch (error) {
+    } catch (error) {
       this.setState({
-        error: error.response && error.response.data || 'Something went wrong',
-      })
+        error: error.response && error.response.data || 'Something went wrong'
+      });
     }
   }
-  handleInputChange(event) {
+
+  handleInputChange (event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -43,7 +42,7 @@ class Login extends Component {
     });
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h1 className="heading-large"> Login </h1>
@@ -59,12 +58,12 @@ class Login extends Component {
             <div className={"form-group"}>
               <label className="form-label" htmlFor="username">Username</label>
               <input className="form-control" value={this.state.username} id="username" type="text" name="username"
-                     onChange={this.handleInputChange}/>
+                onChange={this.handleInputChange}/>
             </div>
             <div className={"form-group"}>
               <label className="form-label" htmlFor="password">Password</label>
               <input className="form-control" value={this.state.password} id="password" type="password" name="password"
-                     onChange={this.handleInputChange}/>
+                onChange={this.handleInputChange}/>
             </div>
             <button className="button pure-u-md-2-12" type="submit">Sign in</button>
           </form>

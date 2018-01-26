@@ -4,33 +4,32 @@ import Adapter from 'enzyme-adapter-react-16';
 import axios from 'axios';
 import MockAdaptor from 'axios-mock-adapter';
 import Login from './Login';
-import jsdom from 'jsdom'
-import { setTimeout } from 'timers';
+import jsdom from 'jsdom';
 
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
 global.document = doc;
 global.window = doc.defaultView;
 let mock = new MockAdaptor(axios);
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 
 describe('Login component', () => {
-
-  it('should call onLogin with correct parameters on a successful login',async () => {
-
+  it('should call onLogin with correct parameters on a successful login', async () => {
     const jwt = '1234';
 
-    mock.onPost('/login').reply(200,{},{
+    mock.onPost('/login').reply(200, {}, {
       jwt
     });
 
     let onLoginCallBack = jest.fn();
-    const historyCallBack = () => {};
+    const historyCallBack = () => {
+    };
 
-    const component = shallow(<Login onLogin={onLoginCallBack} history={historyCallBack} />);
+    const component = shallow(<Login onLogin={onLoginCallBack} history={historyCallBack}/>);
 
     await component.instance().handleSubmit({
-      preventDefault: () => {},
+      preventDefault: () => {
+      }
     });
 
     expect(onLoginCallBack.mock.calls[0][0]).toBe(jwt);
@@ -47,14 +46,15 @@ describe('Login component', () => {
         return output;
       });
 
-    const component = mount(<Login onLogin={() => {}} history={() => {}}/>);
+    const component = mount(<Login onLogin={() => {
+    }} history={() => {
+    }}/>);
 
-    const username = component.find('#username').getElement();
 
     // <input ref={(node) => this.textInput = node} />
     // const node = this.textInput;
-    //username.props.value =('user1');
-     //ReactTestUtils.Simulate.change(username);
+    // username.props.value =('user1');
+    // ReactTestUtils.Simulate.change(username);
 
     component.find('button').simulate('submit');
   });

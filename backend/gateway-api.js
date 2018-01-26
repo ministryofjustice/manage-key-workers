@@ -20,17 +20,28 @@ const getRequest = ({ req, url, headers }) => service.callApi({
   url,
   headers: headers || {},
   reqHeaders: req.headers,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
+  onTokenRefresh: (token) => {
+    req.headers.jwt = token;
+  }
 });
 
-const postRequest =  ({ req, url, headers }) => service.callApi({
+const postRequest = ({ req, url, headers }) => service.callApi({
   method: 'post',
   url,
   headers: headers || {},
   reqHeaders: req.headers,
   data: req.data,
-  onTokenRefresh: (token) => { req.headers.jwt = token },
+  onTokenRefresh: (token) => {
+    req.headers.jwt = token;
+  }
 });
+
+const getHeaders = ({ headers, reqHeaders, token }) => {
+  return Object.assign({}, headers, {
+    "authorization": token,
+    'access-control-allow-origin': reqHeaders.host
+  });
+};
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
@@ -40,7 +51,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     method,
     responseType,
     data,
-    headers: getHeaders({ headers, reqHeaders, token }),
+    headers: getHeaders({ headers, reqHeaders, token })
   }).catch(error => {
     if (error.response.status === 401) {
       return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
@@ -49,9 +60,9 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
           url,
           method,
           responseType,
-          headers: getHeaders({ headers, reqHeaders, token: response.data.token }),
+          headers: getHeaders({ headers, reqHeaders, token: response.data.token })
         });
-      })
+      });
     }
     throw error;
   });
@@ -60,28 +71,20 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
   url: '/users/token',
-  headers: getHeaders({ headers, reqHeaders, token }),
+  headers: getHeaders({ headers, reqHeaders, token })
 });
 
-const getHeaders = ({ headers, reqHeaders, token }) => {
-  return Object.assign({}, headers, {
-    authorization: token,
-    'access-control-allow-origin': reqHeaders.host,
-  });
-};
-
-
-function gatewayToken() {
-    const nomsToken = process.env.NOMS_TOKEN;
-    const milliseconds = Math.round((new Date()).getTime() / 1000);
-    const payload = {
-      iat: milliseconds,
-      token: nomsToken,
-    };
-    const privateKey = process.env.NOMS_PRIVATE_KEY || '';
-    const cert = new Buffer(privateKey);
-    return jwt.sign(payload, cert, { algorithm: 'ES256' });
-  }
+function gatewayToken () {
+  const nomsToken = process.env.NOMS_TOKEN;
+  const milliseconds = Math.round((new Date()).getTime() / 1000);
+  const payload = {
+    iat: milliseconds,
+    token: nomsToken
+  };
+  const privateKey = process.env.NOMS_PRIVATE_KEY || '';
+  const cert = new Buffer(privateKey);
+  return jwt.sign(payload, cert, { algorithm: 'ES256' });
+}
 
 const service = {
   callApi,
@@ -92,7 +95,7 @@ const service = {
   login: (req) => axios({
     method: 'post',
     url: '/users/login',
-    data: req.body,
+    data: req.body
   })
 };
 
