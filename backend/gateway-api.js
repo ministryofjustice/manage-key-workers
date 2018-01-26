@@ -63,10 +63,12 @@ const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   headers: getHeaders({ headers, reqHeaders, token }),
 });
 
-const getHeaders = ({ headers, reqHeaders, token }) => Object.assign({}, headers, {
-  authorization: token,
-  'access-control-allow-origin': reqHeaders.host,
-});
+const getHeaders = ({ headers, reqHeaders, token }) => {
+  return Object.assign({}, headers, {
+    authorization: token,
+    'access-control-allow-origin': reqHeaders.host,
+  });
+};
 
 
 function gatewayToken() {

@@ -2,23 +2,26 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class Unallocated extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    console.log('in constructor');
+    console.log('in constructor ' + props.jwt);
     this.state = {
-      error: null,
+      error: null
     }
     console.log('component ');
   }
 
   componentWillMount() {
-    console.log('in console will');
-    axios.get('/unallocated').then(data => {
+    console.log('in componentWillMount');
+    axios.get('/unallocated', {
+      headers: {
+        jwt: this.props.jwt
+      }}).then(data => {
       console.log('data from api call ' + this.props.data);
     })
       .catch(error => {
         this.setState({
-          error: error.response.data || 'Something went wrong',
+          error: error.response && error.response.data || 'Something went wrong',
         })
       })
   }
