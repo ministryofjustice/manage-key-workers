@@ -29,11 +29,10 @@ class Login extends Component {
     }
     catch (error) {
       this.setState({
-        error: error.response.data || 'Something went wrong',
+        error: error.response && error.response.data || 'Something went wrong',
       })
     }
   }
-
   handleInputChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
