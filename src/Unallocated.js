@@ -9,7 +9,6 @@ class Unallocated extends Component {
       error: null,
     }
     console.log('component ');
-    this.componentWillMount();
   }
 
   componentWillMount() {
