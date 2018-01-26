@@ -21,7 +21,7 @@ const getRequest = ({ req, url, headers }) => service.callApi({
   headers: headers || {},
   reqHeaders: req.headers,
   onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r(response.data)));
+});
 
 const postRequest =  ({ req, url, headers }) => service.callApi({
   method: 'post',
@@ -30,12 +30,12 @@ const postRequest =  ({ req, url, headers }) => service.callApi({
   reqHeaders: req.headers,
   data: req.data,
   onTokenRefresh: (token) => { req.headers.jwt = token },
-}).then(response => new Promise(r => r(response.data)));
+});
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
   const { token, refreshToken } = session.getSessionData(reqHeaders);
 
-  return service.httpRequest({
+  return axios({
     url,
     method,
     responseType,
@@ -45,7 +45,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     if (error.response.status === 401) {
       return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
         onTokenRefresh(session.newJWT(response.data));
-        return service.httpRequestRetry({
+        return service.retryRequest({
           url,
           method,
           responseType,
@@ -56,14 +56,6 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     throw error;
   });
 };
-
-function httpRequest(options) {
-  return axios(options);
-}
-
-function httpRequestRetry(options) {
-  return axios(options);
-}
 
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
@@ -76,7 +68,6 @@ const getHeaders = ({ headers, reqHeaders, token }) => Object.assign({}, headers
   'access-control-allow-origin': reqHeaders.host,
 });
 
-const errorStatusCode = (response) => (response && response.status) || 500;
 
 function gatewayToken() {
     const nomsToken = process.env.NOMS_TOKEN;
@@ -92,9 +83,10 @@ function gatewayToken() {
 
 const service = {
   callApi,
-  httpRequest,
-  httpRequestRetry,
+  getRequest,
   postRequest,
+  refreshTokenRequest,
+  retryRequest: (options) => axios(options),
 };
 
 module.exports = service;
