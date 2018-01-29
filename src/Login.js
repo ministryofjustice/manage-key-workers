@@ -27,7 +27,7 @@ class Login extends Component {
       this.props.onLogin(data.headers['jwt'], this.props.history);
     } catch (error) {
       this.setState({
-        error: error.response && error.response.data || 'Something went wrong'
+        error: (error.response && error.response.data) || 'Something went wrong'
       });
     }
   }

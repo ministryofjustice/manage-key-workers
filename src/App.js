@@ -1,9 +1,7 @@
 import React from 'react';
-
 import Login from './Login';
 import HomePage from './HomePage';
-import Unallocated from './Unallocated';
-
+import AllocateParent from './AllocateParent';
 import {
   BrowserRouter as Router,
   Route
@@ -26,7 +24,9 @@ class App extends React.Component {
         <div className="pure-g">
           <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
           <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
-          <Route exact path="/unallocated" render={() => <Unallocated jwt={this.state.jwt}/>}/>
+          <Route exact path="/unallocated" render={() => <AllocateParent jwt={this.state.jwt} page={1}/>}/>
+          <Route exact path="/autoallocate" render={() => <AllocateParent jwt={this.state.jwt} page={2}/>}/>
+          <Route exact path="/keyworkerchanged" render={() => <AllocateParent jwt={this.state.jwt} page={3}/>}/>
         </div>
       </div>
     </Router>);
