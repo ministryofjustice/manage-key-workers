@@ -6,8 +6,7 @@ const asyncMiddleware = require('../middleware/asyncHandler');
 
 router.get('/', asyncMiddleware(async (req, res) => {
   const response = await elite2Api.unallocated(req);
-  res.status(200);
-  res.end();
+  res.json(response.data);
 }));
 
 
