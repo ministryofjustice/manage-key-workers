@@ -15,7 +15,7 @@ class App extends React.Component {
 
   onLogin (jwt, history) {
     this.setState({ jwt });
-    history.push('/autoallocate');
+    history.push('/unallocated');
   }
 
   render () {
