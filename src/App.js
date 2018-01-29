@@ -15,7 +15,7 @@ class App extends React.Component {
 
   onLogin (jwt, history) {
     this.setState({ jwt });
-    history.push('/unallocated');
+    history.push('/autoallocate');
   }
 
   render () {
@@ -32,5 +32,6 @@ class App extends React.Component {
     </Router>);
   }
 }
+
 
 export default App;
