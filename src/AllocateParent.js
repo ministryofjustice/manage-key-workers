@@ -13,6 +13,8 @@ class AllocateParent extends Component {
       autoAllocatedOffenders: []
     };
     this.displayError = this.displayError.bind(this);
+    this.setUnallocatedOffenders = this.setUnallocatedOffenders.bind(this);
+    this.setAutoAllocatedOffenders = this.setAutoAllocatedOffenders.bind(this);
   }
 
   displayError(error) {
@@ -21,17 +23,32 @@ class AllocateParent extends Component {
     });
   }
 
+  setUnallocatedOffenders(list) {
+    this.setState({
+      error: null,
+      unallocatedOffenders: list,
+      autoAllocatedOffenders: []
+    })
+  }
+
+  setAutoAllocatedOffenders(list) {
+    this.setState({
+      error: null,
+      unallocatedOffenders: [],
+      autoAllocatedOffenders: list
+    })
+  }
+
   render() {
     switch (this.props.page) {
       case 1:
-        return <Unallocated displayError={this.displayError} jwt={this.props.jwt} />
-        break;
+        return <Unallocated list={this.state.unallocatedOffenders} displayError={this.displayError}
+                            setUnallocatedOffenders={this.setUnallocatedOffenders} jwt={this.props.jwt}/>
       case 2:
-        return <ManualAllocation displayError={this.displayError} jwt={this.props.jwt}/>
-        break;
+        return <ManualAllocation setAutoAllocatedOffenders={this.setAutoAllocatedOffenders} jwt={this.props.jwt}/>
       case 3:
-        return <KeyworkerReason displayError={this.displayError} jwt={this.props.jwt}/>
-        break;
+        return <KeyworkerReason jwt={this.props.jwt}/>
+      default:
     }
   }
 }
