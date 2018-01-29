@@ -8,8 +8,14 @@ const unallocated = (req) => gateway.getRequest({
   url: 'key-worker/offenders/unallocated'
 });
 
+const allocated = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: 'key-worker/offenders/allocated'
+});
+
 const service = {
-  login, unallocated
+  login, unallocated, allocated
 };
 
 module.exports = service;

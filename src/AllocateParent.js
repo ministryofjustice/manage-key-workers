@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Unallocated from './Unallocated.js';
 import ManualAllocation from './ManualAllocation.js';
 import KeyworkerReason from './KeyworkerReason.js';
+import PropTypes from 'prop-types';
 
 class AllocateParent extends Component {
   constructor (props) {
@@ -44,12 +45,19 @@ class AllocateParent extends Component {
       case 1:
         return (<Unallocated list={this.state.unallocatedOffenders} displayError={this.displayError} setUnallocatedOffenders={this.setUnallocatedOffenders} {...this.props} />);
       case 2:
-        return <ManualAllocation setAutoAllocatedOffenders={this.setAutoAllocatedOffenders} {...this.props} />;
+        return <ManualAllocation list={this.state.autoAllocatedOffenders} setAutoAllocatedOffenders={this.setAutoAllocatedOffenders} {...this.props} />;
       case 3:
         return <KeyworkerReason {...this.props} />;
       default:
     }
   }
 }
+
+AllocateParent.propTypes = {
+  error: PropTypes.string,
+  unallocatedOffenders: PropTypes.array,
+  autoAllocatedOffenders: PropTypes.array,
+  jwt: PropTypes.string
+};
 
 export default AllocateParent;
