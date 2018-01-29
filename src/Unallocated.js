@@ -26,6 +26,14 @@ class Unallocated extends Component {
     const offenders = this.props.list.map((a) => {
       return (
         <tr>
+          <td><a href={a.bookingId}>{a.lastName}, {a.firstName}</a></td>
+          <td>{a.offenderNo}</td>
+          <td>{a.internalLocationDesc}</td>
+          <td>release date todo</td>
+          <td>csra todo</td>
+        </tr>
+    )});
+        <tr>
         <td>{a.lastName}, {a.firstName}</td>
         <td>{a.offenderNo}</td>
         <td>{a.internalLocationDesc}</td>
@@ -35,8 +43,8 @@ class Unallocated extends Component {
     )});
     return (
       <div>
-        <h1>Prisoners without key workers</h1>
-        <div>These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.</div>
+        <h1 className="heading-large">Prisoners without key workers</h1>
+        <p>These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.</p>
         <table>
           <thead>
           <tr>
@@ -49,7 +57,7 @@ class Unallocated extends Component {
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button onClick={() => this.jumpTo('asdf')}>Allocate</button>
+        <button className="button pure-u-md-2-12" onClick={() => this.jumpTo('asdf')}>Allocate</button>
       </div>
     )
   }
