@@ -11,11 +11,16 @@ class App extends React.Component {
   constructor () {
     super();
     this.onLogin = this.onLogin.bind(this);
+    this.onAllocate = this.onAllocate.bind(this);
   }
 
   onLogin (jwt, history) {
     this.setState({ jwt });
     history.push('/unallocated');
+  }
+
+  onAllocate (history) {
+    history.push('/autoallocate');
   }
 
   render () {
@@ -24,9 +29,9 @@ class App extends React.Component {
         <div className="pure-g">
           <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
           <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
-          <Route exact path="/unallocated" render={() => <AllocateParent jwt={this.state.jwt} page={1}/>}/>
-          <Route exact path="/autoallocate" render={() => <AllocateParent jwt={this.state.jwt} page={2}/>}/>
-          <Route exact path="/keyworkerchanged" render={() => <AllocateParent jwt={this.state.jwt} page={3}/>}/>
+          <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} page={1} onAllocate={this.onAllocate} {...props}/>}/>
+          <Route exact path="/autoallocate" render={(props) => <AllocateParent jwt={this.state.jwt} page={2} {...props}/>}/>
+          <Route exact path="/keyworkerchanged" render={(props) => <AllocateParent jwt={this.state.jwt} page={3} {...props}/>}/>
         </div>
       </div>
     </Router>);
