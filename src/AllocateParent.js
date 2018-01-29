@@ -45,7 +45,7 @@ class AllocateParent extends Component {
       case 1:
         return (<Unallocated list={this.state.unallocatedOffenders} displayError={this.displayError} setUnallocatedOffenders={this.setUnallocatedOffenders} {...this.props} />);
       case 2:
-        return <ManualAllocation list={this.state.autoAllocatedOffenders} setAutoAllocatedOffenders={this.setAutoAllocatedOffenders} {...this.props} />;
+        return <ManualAllocation list={this.state.autoAllocatedOffenders} displayError={this.displayError} setAutoAllocatedOffenders={this.setAutoAllocatedOffenders} {...this.props} />;
       case 3:
         return <KeyworkerReason {...this.props} />;
       default:
