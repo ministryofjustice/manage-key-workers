@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { properCaseName } from './stringUtils';
-import {withRouter} from 'react-router-dom';
 
 class ManualAllocation extends Component {
   constructor (props) {
@@ -9,26 +7,11 @@ class ManualAllocation extends Component {
     console.log('in constructor ManualAllocation() ' + props);
   }
 
-  componentWillMount () {
-    console.log('in componentWillMount');
-    axios.get('/allocated', {
-      headers: {
-        jwt: this.props.jwt
-      }
-    }).then(response => {
-      console.log('data from manual allocated api call ' + response.data);
-      this.props.setAutoAllocatedOffenders(response.data);
-    })
-      .catch(error => {
-        this.props.displayError(error);
-      });
-  }
-
   render () {
     const offenders = this.props.list.map((a) => {
       const formattedName = (properCaseName(a.lastName) + ', ' + properCaseName(a.firstName));
       return (
-        <tr>
+        <tr key={a.bookingId}>
           <td><a href={a.bookingId}>{formattedName}</a></td>
           <td>{a.offenderNo}</td>
           <td>{a.internalLocationDesc}</td>
@@ -53,7 +36,7 @@ class ManualAllocation extends Component {
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button className="button pure-u-md-2-12" onClick={() => this.jumpTo('asdf')}>Allocate</button>
+        <button className="button pure-u-md-2-12" onClick={() => this.props.gotoNext()}>Allocate</button>
       </div>
     );
   }
