@@ -36,6 +36,17 @@ const postRequest = ({ req, url, headers }) => service.callApi({
   }
 });
 
+const putRequest = ({ req, url, headers }) => service.callApi({
+  method: 'put',
+  url,
+  headers: headers || {},
+  reqHeaders: req.headers,
+  data: req.data,
+  onTokenRefresh: (token) => {
+    req.headers.jwt = token;
+  }
+});
+
 const getHeaders = ({ headers, reqHeaders, token }) => {
   return Object.assign({}, headers, {
     "authorization": token,
@@ -90,6 +101,7 @@ const service = {
   callApi,
   getRequest,
   postRequest,
+  putRequest,
   refreshTokenRequest,
   retryRequest: (options) => axios(options),
   login: (req) => axios({

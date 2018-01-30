@@ -14,8 +14,16 @@ const allocated = (req) => gateway.getRequest({
   url: 'key-worker/offenders/allocated'
 });
 
+const updateReason = (req) => { return { data: "" };}; // Mocked out to return nothing for now
+
+/*const updateReasonReal = (req) => gateway.putRequest({
+  req: req,
+  method: 'put',
+  url: 'key-worker/update-reason'
+});*/
+
 const service = {
-  login, unallocated, allocated
+  login, unallocated, allocated, updateReason
 };
 
 module.exports = service;
