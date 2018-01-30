@@ -17,7 +17,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.0"
+    "react-scripts": "1.1.0",
+    "react-tooltip": "^3.4.0"
   },
   "scripts": {
     "start": "node scripts/customized-config start",
@@ -35,6 +36,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-react": "^7.6.0",
+    "mocha": "^5.0.0",
     "node-sass": "^4.7.2",
     "proxyquire": "^1.8.0",
     "rewire": "^3.0.2",
