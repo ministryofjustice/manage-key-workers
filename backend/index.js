@@ -11,7 +11,7 @@ const jsonParser = bodyParser.json();
 
 app.use('/login', jsonParser, login);
 app.use('/unallocated', jsonParser, unallocated);
-app.use('/allocated', jsonParser, allocated);
+app.use('/allocated', jsonParser, allocated.router);
 app.use('/update-reason', jsonParser, updateReason);
 
 app.listen(3001, function () {

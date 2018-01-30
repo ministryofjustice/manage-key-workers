@@ -50,7 +50,7 @@ class AllocateParent extends Component {
         }
       });
       console.log('data from manual allocated api call ' + response.data);
-      return response.data;
+      return response.data.allocatedResponse;
     } catch (error) {
       this.displayError(error);
     }
