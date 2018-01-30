@@ -3,6 +3,7 @@ import Unallocated from './Unallocated.js';
 import ManualAllocation from './ManualAllocation.js';
 import KeyworkerReason from './KeyworkerReason.js';
 import PropTypes from 'prop-types';
+import './allocation.scss';
 
 class AllocateParent extends Component {
   constructor (props) {
@@ -16,6 +17,7 @@ class AllocateParent extends Component {
     this.displayError = this.displayError.bind(this);
     this.setUnallocatedOffenders = this.setUnallocatedOffenders.bind(this);
     this.setAutoAllocatedOffenders = this.setAutoAllocatedOffenders.bind(this);
+    this.setSavedOffenders = this.setSavedOffenders.bind(this);
   }
 
   displayError (error) {
@@ -40,6 +42,15 @@ class AllocateParent extends Component {
     });
   }
 
+  setSavedOffenders (list) {
+    this.setState({
+      error: null,
+      unallocatedOffenders: [],
+      autoAllocatedOffenders: [],
+      savedOffenders: list
+    });
+  }
+
   render () {
     switch (this.props.page) {
       case 1:
@@ -47,7 +58,7 @@ class AllocateParent extends Component {
       case 2:
         return <ManualAllocation list={this.state.autoAllocatedOffenders} displayError={this.displayError} setAutoAllocatedOffenders={this.setAutoAllocatedOffenders} {...this.props} />;
       case 3:
-        return <KeyworkerReason {...this.props} />;
+        return <KeyworkerReason list={this.state.savedOffenders} displayError={this.displayError} setSavedOffenders={this.setSavedOffenders} {...this.props} />;
       default:
     }
   }
@@ -57,6 +68,7 @@ AllocateParent.propTypes = {
   error: PropTypes.string,
   unallocatedOffenders: PropTypes.array,
   autoAllocatedOffenders: PropTypes.array,
+  savedOffenders: PropTypes.array,
   jwt: PropTypes.string
 };
 

@@ -23,6 +23,10 @@ class App extends React.Component {
     history.push('/autoallocate');
   }
 
+  onSaveReasons (history) {
+    history.push('/home');
+  }
+
   render () {
     return (<Router>
       <div className="content">
@@ -31,7 +35,7 @@ class App extends React.Component {
           <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
           <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} page={1} onAllocate={this.onAllocate} {...props}/>}/>
           <Route exact path="/autoallocate" render={(props) => <AllocateParent jwt={this.state.jwt} page={2} {...props}/>}/>
-          <Route exact path="/keyworkerchanged" render={(props) => <AllocateParent jwt={this.state.jwt} page={3} {...props}/>}/>
+          <Route exact path="/keyworkerchanged" render={(props) => <AllocateParent jwt={this.state.jwt} page={3} onSaveReasons={this.onSaveReasons} {...props}/>}/>
         </div>
       </div>
     </Router>);
