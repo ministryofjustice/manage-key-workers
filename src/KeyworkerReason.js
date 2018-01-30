@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class KeyworkerReason extends Component {
   constructor (props) {
@@ -7,28 +6,13 @@ class KeyworkerReason extends Component {
     console.log('in constructor KeyworkerReason() ' + props);
   }
 
-  async componentWillMount () {
-    console.log('in componentWillMount');
-    try {
-      // TODO should push reasons list
-      const response = await axios.put('/update-reason', {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
-      console.log('data from api call ' + response);
-      // list returned is of offenders with old + new KWs
-      this.props.setSavedOffenders(response.data);
-    } catch (error) {
-      this.props.displayError(error);
-    }
-  }
-
   render () {
-    if (!this.props.list) return "Nothing to show (WIP)";
+    if (!this.props.list) {
+      return <div><p> Nothing to show (WIP)</p><button className="button top-gutter" onClick={() => this.props.onFinishAllocation(this.props.history)}>Save and continue</button></div>;
+    }
     const offenders = this.props.list.map((a) => {
       return (
-        <tr className="data-item">
+        <tr key={a.bookingId}>
           <td className="row-gutters"><a href={a.bookingId}>{a.lastName}, {a.firstName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
@@ -58,7 +42,7 @@ class KeyworkerReason extends Component {
           </table>
         </div>
         <div>
-          <button className="button top-gutter" onClick={() => this.props.onSaveReasons(this.props.history)}>Save and continue</button>
+          <button className="button top-gutter" onClick={() => this.props.onFinishAllocation(this.props.history)}>Save and continue</button>
         </div>
       </div>
     );

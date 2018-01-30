@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class Unallocated extends Component {
   constructor (props) {
@@ -7,25 +6,10 @@ class Unallocated extends Component {
     console.log('in constructor ' + props.jwt);
   }
 
-  async componentWillMount () {
-    console.log('in componentWillMount');
-    try {
-      const response = await axios.get('/unallocated', {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
-      console.log('data from api call ' + response);
-      this.props.setUnallocatedOffenders(response.data);
-    } catch (error) {
-      this.props.displayError(error);
-    }
-  }
-
   render () {
     const offenders = this.props.list.map((a) => {
       return (
-        <tr>
+        <tr key={a.bookingId}>
           <td className="row-gutters"><a href={a.bookingId}>{a.lastName}, {a.firstName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
@@ -54,7 +38,7 @@ class Unallocated extends Component {
           </table>
         </div>
         <div>
-          <button className="button top-gutter" onClick={() => this.props.onAllocate(this.props.history)}>Allocate</button>
+          <button className="button top-gutter" onClick={() => this.props.gotoNext()}>Allocate</button>
         </div>
       </div>
     );
