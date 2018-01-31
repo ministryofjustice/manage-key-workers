@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 
 class Unallocated extends Component {
-  constructor (props) {
-    super();
-    console.log('in constructor ' + props.jwt);
-  }
-
   render () {
-    const offenders = this.props.list.map((a) => {
+    const offenders = this.props.list.map(a => {
       return (
         <tr key={a.bookingId}>
           <td className="row-gutters"><a href={a.bookingId}>{a.lastName}, {a.firstName}</a></td>

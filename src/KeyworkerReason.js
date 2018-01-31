@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 class KeyworkerReason extends Component {
-  constructor (props) {
-    super();
-    console.log('in constructor KeyworkerReason() ' + props);
-  }
-
   render () {
     if (!this.props.list) {
       return <div><p> Nothing to show (WIP)</p><button className="button top-gutter" onClick={() => this.props.onFinishAllocation(this.props.history)}>Save and continue</button></div>;
