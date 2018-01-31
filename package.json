@@ -26,7 +26,8 @@
     "build": "node scripts/customized-config build",
     "test": "node scripts/customized-config test --env=jsdom",
     "lint": "node_modules/eslint/bin/eslint.js src backend",
-    "verify": "node scripts/customized-config test --coverage && yarn lint"
+    "verify": "node scripts/customized-config test --coverage && yarn lint",
+    "record-build-info": "node scripts/record-build-info"
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
