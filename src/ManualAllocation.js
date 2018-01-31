@@ -20,7 +20,7 @@ class ManualAllocation extends Component {
           <td>release date todo</td>
           <td>csra todo</td>
           <td>{formattedKeyworkerName}
-            <span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img className="tooltipImage" src="images/icon-information.png"/></span>
+            <span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img alt="current Key worker allocation" className="tooltipImage" src="images/icon-information.png"/></span>
             <ReactTooltip place="top" effect="solid" theme="info" />
           </td>
         </tr>
