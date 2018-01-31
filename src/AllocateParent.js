@@ -20,59 +20,51 @@ class AllocateParent extends Component {
   }
 
   async componentWillMount () {
-    const list = await this.getUnallocated();
-    this.setState({
-      error: null,
-      page: 1,
-      list: list
-    });
+    try {
+      const list = await this.getUnallocated();
+      this.setState({
+        error: null,
+        page: 1,
+        list: list
+      });
+    } catch (error) {
+      this.displayError(error);
+    }
   }
 
   async getUnallocated () {
-    try {
-      const response = await axios.get('/unallocated', {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
-      console.log('data from api call ' + response);
-      return response.data;
-    } catch (error) {
-      this.displayError(error);
-    }
+    const response = await axios.get('/unallocated', {
+      headers: {
+        jwt: this.props.jwt
+      }
+    });
+    console.log('data from api call ' + response);
+    return response.data;
   }
 
   async getAllocated () {
-    try {
-      const response = await axios.get('/allocated', {
-        headers: {
-          jwt: this.props.jwt
-        },
-        params: {
-          agencyId: this.props.agencyId
-        }
-      });
-      console.log('data from manual allocated api call ' + response.data);
-      return response.data.allocatedResponse;
-    } catch (error) {
-      this.displayError(error);
-    }
+    const response = await axios.get('/allocated', {
+      headers: {
+        jwt: this.props.jwt
+      },
+      params: {
+        agencyId: this.props.agencyId
+      }
+    });
+    console.log('data from manual allocated api call ' + response.data);
+    return response.data.allocatedResponse;
   }
 
   async getConfirmationList () {
-    try {
-      // TODO shouldnt do put here, should get confirmed manual allocs
-      const response = await axios.put('/update-reason', {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
-      console.log('data from api call ' + response);
-      // list returned is of offenders with old + new KWs
-      return response.data;
-    } catch (error) {
-      this.displayError(error);
-    }
+    // TODO shouldnt do put here, should get confirmed manual allocs
+    const response = await axios.put('/update-reason', {
+      headers: {
+        jwt: this.props.jwt
+      }
+    });
+    console.log('data from api call ' + response);
+    // list returned is of offenders with old + new KWs
+    return response.data;
   }
 
   displayError (error) {
@@ -84,17 +76,25 @@ class AllocateParent extends Component {
   }
 
   async gotoManualAllocation () {
-    this.setState({
-      page: 2,
-      list: await this.getAllocated()
-    });
+    try {
+      this.setState({
+        page: 2,
+        list: await this.getAllocated()
+      });
+    } catch (error) {
+      this.displayError(error);
+    }
   }
 
   async gotoKeyworkerReason () {
-    this.setState({
-      page: 3,
-      list: await this.getConfirmationList()
-    });
+    try {
+      this.setState({
+        page: 3,
+        list: await this.getConfirmationList()
+      });
+    } catch (error) {
+      this.displayError(error);
+    }
   }
 
   render () {
