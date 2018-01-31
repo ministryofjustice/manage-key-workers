@@ -14,8 +14,11 @@ class App extends React.Component {
     this.onFinishAllocation = this.onFinishAllocation.bind(this);
   }
 
-  onLogin (jwt, history) {
-    this.setState({ jwt });
+  onLogin (jwt, currentUser, history) {
+    this.setState({
+      jwt: jwt,
+      agencyId: currentUser.data.activeCaseLoadId
+    });
     history.push('/unallocated');
   }
 
@@ -29,7 +32,7 @@ class App extends React.Component {
         <div className="pure-g">
           <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
           <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
-          <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+          <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
         </div>
       </div>
     </Router>);

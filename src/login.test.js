@@ -17,7 +17,11 @@ describe('Login component', () => {
   it('should call onLogin with correct parameters on a successful login', async () => {
     const jwt = '1234';
 
-    mock.onPost('/login').reply(200, {}, {
+    const data = {
+      activeCaseLoadId: 'LEI'
+    };
+
+    mock.onPost('/login').reply(200, data, {
       jwt
     });
 
@@ -33,7 +37,8 @@ describe('Login component', () => {
     });
 
     expect(onLoginCallBack.mock.calls[0][0]).toBe(jwt);
-    expect(onLoginCallBack.mock.calls[0][1]).toBe(historyCallBack);
+    expect(onLoginCallBack.mock.calls[0][1].data).toEqual(data);
+    expect(onLoginCallBack.mock.calls[0][2]).toBe(historyCallBack);
   });
 
   it('should show relevant message when an error has occurred ', () => {

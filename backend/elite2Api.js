@@ -11,29 +11,19 @@ const unallocated = (req) => gateway.getRequest({
 const allocated = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: 'key-worker/offenders/allocated'
+  url: `key-worker/offenders/allocated?agencyId=${req.query.agencyId}`
 });
 
-const availableKeyworkers = (req) => new Promise(callback => {
-  callback({ data: [{
-    staffId: 123,
-    firstName: 'Amy',
-    lastName: 'Hanson',
-    numberAllocated: 4
-  },
-  {
-    staffId: -1,
-    firstName: 'James',
-    lastName: 'Nesbit',
-    numberAllocated: 1
-  },
-  {
-    staffId: -2,
-    firstName: 'Clem',
-    lastName: 'Fandango',
-    numberAllocated: 7
-  }
-  ] });
+const availableKeyworkers = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `key-worker/${req.query.agencyId}/available`
+});
+
+const currentUser = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: 'users/me'
 });
 
 
@@ -46,7 +36,7 @@ const updateReason = (req) => { return { data: "" };}; // Mocked out to return n
 });*/
 
 const service = {
-  login, unallocated, allocated, updateReason, availableKeyworkers
+  login, unallocated, allocated, updateReason, availableKeyworkers, currentUser
 };
 
 module.exports = service;
