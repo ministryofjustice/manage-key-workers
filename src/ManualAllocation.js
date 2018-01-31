@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { properCaseName } from './stringUtils';
+import ReactTooltip from 'react-tooltip';
 
 class ManualAllocation extends Component {
   constructor (props) {
@@ -9,6 +10,7 @@ class ManualAllocation extends Component {
 
   render () {
     const offenders = this.props.list.map((a) => {
+      const formattedKeyworkerName = (properCaseName(a.keyworkerLastName) + ', ' + properCaseName(a.keyworkerFirstName));
       const formattedName = (properCaseName(a.lastName) + ', ' + properCaseName(a.firstName));
       return (
         <tr key={a.bookingId}>
@@ -17,6 +19,10 @@ class ManualAllocation extends Component {
           <td>{a.internalLocationDesc}</td>
           <td>release date todo</td>
           <td>csra todo</td>
+          <td>{formattedKeyworkerName}
+            <span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img alt="current Key worker allocation" className="tooltipImage" src="images/icon-information.png"/></span>
+            <ReactTooltip place="top" effect="solid" theme="info" />
+          </td>
         </tr>
       );
     });
@@ -32,11 +38,12 @@ class ManualAllocation extends Component {
               <th>Location</th>
               <th>RD</th>
               <th>CSRA</th>
+              <th>Allocated Key worker</th>
             </tr>
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button className="button pure-u-md-2-12" onClick={() => this.props.gotoNext()}>Allocate</button>
+        <button className="button top-gutter pure-u-md-2-12" onClick={() => this.props.gotoNext()}>Allocate</button>
       </div>
     );
   }

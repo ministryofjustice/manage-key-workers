@@ -24,7 +24,7 @@ class Login extends Component {
         username: this.state.username,
         password: this.state.password
       });
-      this.props.onLogin(data.headers['jwt'], this.props.history);
+      this.props.onLogin(data.headers['jwt'], data, this.props.history);
     } catch (error) {
       this.setState({
         error: (error.response && error.response.data) || 'Something went wrong'

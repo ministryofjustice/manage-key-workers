@@ -1,0 +1,107 @@
+defaults: &defaults
+  working_directory: /tmp/circleci-keyworker-ui
+  docker:
+    - image: circleci/node:8.4.0-browsers
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+      - run:
+          name: Install Dependencies
+          command: yarn --frozen-lockfile
+      - save_cache:
+          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: NODE_ENV=production yarn build
+      - run: |
+             DATE=$(date '+%Y-%m-%d')
+             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
+             export GIT_REF=${CIRCLE_SHA1}
+             export GIT_DATE=${DATE}
+             yarn record-build-info
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+            - build
+            - build-info.json
+
+  deploy_release:
+      <<: *defaults
+      steps:
+        - checkout
+        - attach_workspace:
+            at: /tmp/circleci-keyworker-ui/
+        - run: |
+            BUILD_NUMBER=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+            GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
+            git add --force --verbose build-info.json build
+            git config user.name "Circle CI"
+            git config user.email "circle@circleci.com"
+            CI_MESSAGE=$(git log --format=%B -n 1 $GIT_REF)
+            git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $GIT_REF"
+            git push --force origin HEAD:deploy-to-dev
+            git tag release_${BUILD_NUMBER}
+            git push --tags
+
+  build_docker:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/circleci-keyworker-ui/
+      - setup_remote_docker:
+          exclusive: true
+      - run:
+          command: |
+             VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+             GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
+             GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
+             if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+               BUILD_VERSION=KEYWORKER_UI_${VERSION}
+             else
+               BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}
+             fi
+
+             docker build --rm=false . \
+                 --build-arg CLIENT=hmpps \
+                 --build-arg BUILD_NUMBER=$VERSION \
+                 --build-arg GIT_REF=$GIT_REF \
+                 --build-arg GIT_DATE=$GIT_DATE \
+                 --tag "mojdigitalstudio/keyworker-ui:$BUILD_VERSION" \
+                 --label "maintainer=michael.willis@digital.justice.gov.uk" \
+                 --label "build.number=$CIRCLE_BUILD_NUM" \
+                 --label "build.url=$CIRCLE_BUILD_URL" \
+                 --label "build.gitref=$GIT_REF"
+             docker login -u $DOCKER_USER -p $DOCKER_PASS
+             docker push mojdigitalstudio/keyworker-ui:$BUILD_VERSION
+
+             if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+               docker tag mojdigitalstudio/keyworker-ui:$BUILD_VERSION mojdigitalstudio/keyworker-ui:latest
+               docker push mojdigitalstudio/keyworker-ui:latest
+             fi
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                  - deploy-to-dev
+      - build_docker:
+          requires:
+            - build
+      - deploy_release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
