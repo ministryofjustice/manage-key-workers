@@ -64,7 +64,7 @@ jobs:
              GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
              GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-               BUILD_VERSION=ELITE2_WEB_${VERSION}
+               BUILD_VERSION=KEYWORKER_UI_${VERSION}
              else
                BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}
              fi
