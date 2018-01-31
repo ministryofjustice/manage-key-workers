@@ -47,6 +47,9 @@ class AllocateParent extends Component {
       const response = await axios.get('/allocated', {
         headers: {
           jwt: this.props.jwt
+        },
+        params: {
+          agencyId: this.props.agencyId
         }
       });
       console.log('data from manual allocated api call ' + response.data);

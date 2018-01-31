@@ -7,10 +7,10 @@ const asyncMiddleware = require('../middleware/asyncHandler');
 router.post('/', asyncMiddleware(async (req, res) => {
   const response = await elite2Api.login(req);
   const jwtToken = session.newJWT(response.data);
+  req.headers.jwt = jwtToken;
+  const currentUserResponse = await elite2Api.currentUser(req);
   res.setHeader('jwt', jwtToken);
-
-  res.status(200);
-  res.end();
+  res.json(currentUserResponse.data);
 }));
 
 

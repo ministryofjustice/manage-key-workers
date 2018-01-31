@@ -25,7 +25,7 @@ describe('Allocated controller', async () => {
     expect(response.allocatedResponse[0].numberAllocated).toBe(4);
 
     // todo wire up when API available
-    expect(response.allocatedResponse[4].keyworkerFirstName).toBe('in keyworkers list');
+    expect(response.allocatedResponse[4].keyworkerLastName).toBe('not available');
   });
 });
 
