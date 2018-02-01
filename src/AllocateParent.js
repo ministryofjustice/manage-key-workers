@@ -3,8 +3,9 @@ import Unallocated from './Unallocated.js';
 import ManualAllocation from './ManualAllocation.js';
 import KeyworkerReason from './KeyworkerReason.js';
 import PropTypes from 'prop-types';
+import axiosWrapper from './backendWrapper';
+
 import './allocation.scss';
-import axios from "axios/index";
 
 class AllocateParent extends Component {
   constructor (props) {
@@ -33,7 +34,7 @@ class AllocateParent extends Component {
   }
 
   async getUnallocated () {
-    const response = await axios.get('/unallocated', {
+    const response = await axiosWrapper.get('/unallocated', {
       headers: {
         jwt: this.props.jwt
       }
@@ -43,7 +44,7 @@ class AllocateParent extends Component {
   }
 
   async getAllocated () {
-    const response = await axios.get('/allocated', {
+    const response = await axiosWrapper.get('/allocated', {
       headers: {
         jwt: this.props.jwt
       },
@@ -57,7 +58,7 @@ class AllocateParent extends Component {
 
   async getConfirmationList () {
     // TODO shouldnt do put here, should get confirmed manual allocs
-    const response = await axios.put('/update-reason', {
+    const response = await axiosWrapper.put('/update-reason', {
       headers: {
         jwt: this.props.jwt
       }
@@ -123,7 +124,8 @@ AllocateParent.propTypes = {
   unallocatedOffenders: PropTypes.array,
   autoAllocatedOffenders: PropTypes.array,
   savedOffenders: PropTypes.array,
-  jwt: PropTypes.string
+  jwt: PropTypes.string,
+  agencyId: PropTypes.number
 };
 
 export default AllocateParent;

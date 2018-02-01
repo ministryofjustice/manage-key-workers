@@ -63,6 +63,9 @@ ShallowWrapper {
                               <th>
                                         CSRA
                               </th>
+                              <th>
+                                        Allocated Key worker
+                              </th>
                     </tr>
           </thead>
           <tbody>
@@ -86,6 +89,27 @@ ShallowWrapper {
                               <td>
                                         csra todo
                               </td>
+                              <td>
+                                        , 
+                                        <span
+                                                  className="tooltipSpan"
+                                                  data-tip="undefined allocated"
+                                        >
+                                                  <img
+                                                            alt="current Key worker allocation"
+                                                            className="tooltipImage"
+                                                            src="images/icon-information.png"
+                                                  />
+                                        </span>
+                                        <ReactTooltip
+                                                  effect="solid"
+                                                  insecure={true}
+                                                  place="top"
+                                                  resizeHide={true}
+                                                  theme="info"
+                                                  wrapper="div"
+                                        />
+                              </td>
                     </tr>
                     <tr>
                               <td>
@@ -107,11 +131,32 @@ ShallowWrapper {
                               <td>
                                         csra todo
                               </td>
+                              <td>
+                                        , 
+                                        <span
+                                                  className="tooltipSpan"
+                                                  data-tip="undefined allocated"
+                                        >
+                                                  <img
+                                                            alt="current Key worker allocation"
+                                                            className="tooltipImage"
+                                                            src="images/icon-information.png"
+                                                  />
+                                        </span>
+                                        <ReactTooltip
+                                                  effect="solid"
+                                                  insecure={true}
+                                                  place="top"
+                                                  resizeHide={true}
+                                                  theme="info"
+                                                  wrapper="div"
+                                        />
+                              </td>
                     </tr>
           </tbody>
 </table>,
         <button
-          className="button pure-u-md-2-12"
+          className="button top-gutter pure-u-md-2-12"
           onClick={[Function]}
 >
           Allocate
@@ -166,6 +211,9 @@ ShallowWrapper {
                             <th>
                                           CSRA
                             </th>
+                            <th>
+                                          Allocated Key worker
+                            </th>
               </tr>
 </thead>,
             <tbody>
@@ -189,6 +237,27 @@ ShallowWrapper {
                             <td>
                                           csra todo
                             </td>
+                            <td>
+                                          , 
+                                          <span
+                                                        className="tooltipSpan"
+                                                        data-tip="undefined allocated"
+                                          >
+                                                        <img
+                                                                      alt="current Key worker allocation"
+                                                                      className="tooltipImage"
+                                                                      src="images/icon-information.png"
+                                                        />
+                                          </span>
+                                          <ReactTooltip
+                                                        effect="solid"
+                                                        insecure={true}
+                                                        place="top"
+                                                        resizeHide={true}
+                                                        theme="info"
+                                                        wrapper="div"
+                                          />
+                            </td>
               </tr>
               <tr>
                             <td>
@@ -209,6 +278,27 @@ ShallowWrapper {
                             </td>
                             <td>
                                           csra todo
+                            </td>
+                            <td>
+                                          , 
+                                          <span
+                                                        className="tooltipSpan"
+                                                        data-tip="undefined allocated"
+                                          >
+                                                        <img
+                                                                      alt="current Key worker allocation"
+                                                                      className="tooltipImage"
+                                                                      src="images/icon-information.png"
+                                                        />
+                                          </span>
+                                          <ReactTooltip
+                                                        effect="solid"
+                                                        insecure={true}
+                                                        place="top"
+                                                        resizeHide={true}
+                                                        theme="info"
+                                                        wrapper="div"
+                                          />
                             </td>
               </tr>
 </tbody>,
@@ -237,6 +327,9 @@ ShallowWrapper {
                 <th>
                                 CSRA
                 </th>
+                <th>
+                                Allocated Key worker
+                </th>
 </tr>,
             },
             "ref": null,
@@ -260,6 +353,9 @@ ShallowWrapper {
 </th>,
                   <th>
                     CSRA
+</th>,
+                  <th>
+                    Allocated Key worker
 </th>,
                 ],
               },
@@ -320,6 +416,17 @@ ShallowWrapper {
                   "rendered": "CSRA",
                   "type": "th",
                 },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Allocated Key worker",
+                  },
+                  "ref": null,
+                  "rendered": "Allocated Key worker",
+                  "type": "th",
+                },
               ],
               "type": "tr",
             },
@@ -351,6 +458,27 @@ ShallowWrapper {
                   <td>
                                     csra todo
                   </td>
+                  <td>
+                                    , 
+                                    <span
+                                                      className="tooltipSpan"
+                                                      data-tip="undefined allocated"
+                                    >
+                                                      <img
+                                                                        alt="current Key worker allocation"
+                                                                        className="tooltipImage"
+                                                                        src="images/icon-information.png"
+                                                      />
+                                    </span>
+                                    <ReactTooltip
+                                                      effect="solid"
+                                                      insecure={true}
+                                                      place="top"
+                                                      resizeHide={true}
+                                                      theme="info"
+                                                      wrapper="div"
+                                    />
+                  </td>
 </tr>,
                 <tr>
                   <td>
@@ -371,6 +499,27 @@ ShallowWrapper {
                   </td>
                   <td>
                                     csra todo
+                  </td>
+                  <td>
+                                    , 
+                                    <span
+                                                      className="tooltipSpan"
+                                                      data-tip="undefined allocated"
+                                    >
+                                                      <img
+                                                                        alt="current Key worker allocation"
+                                                                        className="tooltipImage"
+                                                                        src="images/icon-information.png"
+                                                      />
+                                    </span>
+                                    <ReactTooltip
+                                                      effect="solid"
+                                                      insecure={true}
+                                                      place="top"
+                                                      resizeHide={true}
+                                                      theme="info"
+                                                      wrapper="div"
+                                    />
                   </td>
 </tr>,
               ],
@@ -401,6 +550,27 @@ ShallowWrapper {
 </td>,
                     <td>
                       csra todo
+</td>,
+                    <td>
+                      , 
+                      <span
+                                            className="tooltipSpan"
+                                            data-tip="undefined allocated"
+                      >
+                                            <img
+                                                                  alt="current Key worker allocation"
+                                                                  className="tooltipImage"
+                                                                  src="images/icon-information.png"
+                                            />
+                      </span>
+                      <ReactTooltip
+                                            effect="solid"
+                                            insecure={true}
+                                            place="top"
+                                            resizeHide={true}
+                                            theme="info"
+                                            wrapper="div"
+                      />
 </td>,
                   ],
                 },
@@ -476,6 +646,84 @@ ShallowWrapper {
                     "rendered": "csra todo",
                     "type": "td",
                   },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        ", ",
+                        <span
+                          className="tooltipSpan"
+                          data-tip="undefined allocated"
+>
+                          <img
+                                                    alt="current Key worker allocation"
+                                                    className="tooltipImage"
+                                                    src="images/icon-information.png"
+                          />
+</span>,
+                        <ReactTooltip
+                          effect="solid"
+                          insecure={true}
+                          place="top"
+                          resizeHide={true}
+                          theme="info"
+                          wrapper="div"
+/>,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      ", ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <img
+                            alt="current Key worker allocation"
+                            className="tooltipImage"
+                            src="images/icon-information.png"
+/>,
+                          "className": "tooltipSpan",
+                          "data-tip": "undefined allocated",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "alt": "current Key worker allocation",
+                            "className": "tooltipImage",
+                            "src": "images/icon-information.png",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "img",
+                        },
+                        "type": "span",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "effect": "solid",
+                          "insecure": true,
+                          "place": "top",
+                          "resizeHide": true,
+                          "theme": "info",
+                          "wrapper": "div",
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": "td",
+                  },
                 ],
                 "type": "tr",
               },
@@ -503,6 +751,27 @@ ShallowWrapper {
 </td>,
                     <td>
                       csra todo
+</td>,
+                    <td>
+                      , 
+                      <span
+                                            className="tooltipSpan"
+                                            data-tip="undefined allocated"
+                      >
+                                            <img
+                                                                  alt="current Key worker allocation"
+                                                                  className="tooltipImage"
+                                                                  src="images/icon-information.png"
+                                            />
+                      </span>
+                      <ReactTooltip
+                                            effect="solid"
+                                            insecure={true}
+                                            place="top"
+                                            resizeHide={true}
+                                            theme="info"
+                                            wrapper="div"
+                      />
 </td>,
                   ],
                 },
@@ -578,6 +847,84 @@ ShallowWrapper {
                     "rendered": "csra todo",
                     "type": "td",
                   },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        ", ",
+                        <span
+                          className="tooltipSpan"
+                          data-tip="undefined allocated"
+>
+                          <img
+                                                    alt="current Key worker allocation"
+                                                    className="tooltipImage"
+                                                    src="images/icon-information.png"
+                          />
+</span>,
+                        <ReactTooltip
+                          effect="solid"
+                          insecure={true}
+                          place="top"
+                          resizeHide={true}
+                          theme="info"
+                          wrapper="div"
+/>,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      ", ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <img
+                            alt="current Key worker allocation"
+                            className="tooltipImage"
+                            src="images/icon-information.png"
+/>,
+                          "className": "tooltipSpan",
+                          "data-tip": "undefined allocated",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "alt": "current Key worker allocation",
+                            "className": "tooltipImage",
+                            "src": "images/icon-information.png",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "img",
+                        },
+                        "type": "span",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "effect": "solid",
+                          "insecure": true,
+                          "place": "top",
+                          "resizeHide": true,
+                          "theme": "info",
+                          "wrapper": "div",
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": "td",
+                  },
                 ],
                 "type": "tr",
               },
@@ -593,7 +940,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": "Allocate",
-          "className": "button pure-u-md-2-12",
+          "className": "button top-gutter pure-u-md-2-12",
           "onClick": [Function],
         },
         "ref": null,
@@ -636,6 +983,9 @@ ShallowWrapper {
                                     <th>
                                                 CSRA
                                     </th>
+                                    <th>
+                                                Allocated Key worker
+                                    </th>
                         </tr>
             </thead>
             <tbody>
@@ -659,6 +1009,27 @@ ShallowWrapper {
                                     <td>
                                                 csra todo
                                     </td>
+                                    <td>
+                                                , 
+                                                <span
+                                                            className="tooltipSpan"
+                                                            data-tip="undefined allocated"
+                                                >
+                                                            <img
+                                                                        alt="current Key worker allocation"
+                                                                        className="tooltipImage"
+                                                                        src="images/icon-information.png"
+                                                            />
+                                                </span>
+                                                <ReactTooltip
+                                                            effect="solid"
+                                                            insecure={true}
+                                                            place="top"
+                                                            resizeHide={true}
+                                                            theme="info"
+                                                            wrapper="div"
+                                                />
+                                    </td>
                         </tr>
                         <tr>
                                     <td>
@@ -680,11 +1051,32 @@ ShallowWrapper {
                                     <td>
                                                 csra todo
                                     </td>
+                                    <td>
+                                                , 
+                                                <span
+                                                            className="tooltipSpan"
+                                                            data-tip="undefined allocated"
+                                                >
+                                                            <img
+                                                                        alt="current Key worker allocation"
+                                                                        className="tooltipImage"
+                                                                        src="images/icon-information.png"
+                                                            />
+                                                </span>
+                                                <ReactTooltip
+                                                            effect="solid"
+                                                            insecure={true}
+                                                            place="top"
+                                                            resizeHide={true}
+                                                            theme="info"
+                                                            wrapper="div"
+                                                />
+                                    </td>
                         </tr>
             </tbody>
 </table>,
           <button
-            className="button pure-u-md-2-12"
+            className="button top-gutter pure-u-md-2-12"
             onClick={[Function]}
 >
             Allocate
@@ -739,6 +1131,9 @@ ShallowWrapper {
                                 <th>
                                                 CSRA
                                 </th>
+                                <th>
+                                                Allocated Key worker
+                                </th>
                 </tr>
 </thead>,
               <tbody>
@@ -762,6 +1157,27 @@ ShallowWrapper {
                                 <td>
                                                 csra todo
                                 </td>
+                                <td>
+                                                , 
+                                                <span
+                                                                className="tooltipSpan"
+                                                                data-tip="undefined allocated"
+                                                >
+                                                                <img
+                                                                                alt="current Key worker allocation"
+                                                                                className="tooltipImage"
+                                                                                src="images/icon-information.png"
+                                                                />
+                                                </span>
+                                                <ReactTooltip
+                                                                effect="solid"
+                                                                insecure={true}
+                                                                place="top"
+                                                                resizeHide={true}
+                                                                theme="info"
+                                                                wrapper="div"
+                                                />
+                                </td>
                 </tr>
                 <tr>
                                 <td>
@@ -782,6 +1198,27 @@ ShallowWrapper {
                                 </td>
                                 <td>
                                                 csra todo
+                                </td>
+                                <td>
+                                                , 
+                                                <span
+                                                                className="tooltipSpan"
+                                                                data-tip="undefined allocated"
+                                                >
+                                                                <img
+                                                                                alt="current Key worker allocation"
+                                                                                className="tooltipImage"
+                                                                                src="images/icon-information.png"
+                                                                />
+                                                </span>
+                                                <ReactTooltip
+                                                                effect="solid"
+                                                                insecure={true}
+                                                                place="top"
+                                                                resizeHide={true}
+                                                                theme="info"
+                                                                wrapper="div"
+                                                />
                                 </td>
                 </tr>
 </tbody>,
@@ -810,6 +1247,9 @@ ShallowWrapper {
                   <th>
                                     CSRA
                   </th>
+                  <th>
+                                    Allocated Key worker
+                  </th>
 </tr>,
               },
               "ref": null,
@@ -833,6 +1273,9 @@ ShallowWrapper {
 </th>,
                     <th>
                       CSRA
+</th>,
+                    <th>
+                      Allocated Key worker
 </th>,
                   ],
                 },
@@ -893,6 +1336,17 @@ ShallowWrapper {
                     "rendered": "CSRA",
                     "type": "th",
                   },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Allocated Key worker",
+                    },
+                    "ref": null,
+                    "rendered": "Allocated Key worker",
+                    "type": "th",
+                  },
                 ],
                 "type": "tr",
               },
@@ -924,6 +1378,27 @@ ShallowWrapper {
                     <td>
                                         csra todo
                     </td>
+                    <td>
+                                        , 
+                                        <span
+                                                            className="tooltipSpan"
+                                                            data-tip="undefined allocated"
+                                        >
+                                                            <img
+                                                                                alt="current Key worker allocation"
+                                                                                className="tooltipImage"
+                                                                                src="images/icon-information.png"
+                                                            />
+                                        </span>
+                                        <ReactTooltip
+                                                            effect="solid"
+                                                            insecure={true}
+                                                            place="top"
+                                                            resizeHide={true}
+                                                            theme="info"
+                                                            wrapper="div"
+                                        />
+                    </td>
 </tr>,
                   <tr>
                     <td>
@@ -944,6 +1419,27 @@ ShallowWrapper {
                     </td>
                     <td>
                                         csra todo
+                    </td>
+                    <td>
+                                        , 
+                                        <span
+                                                            className="tooltipSpan"
+                                                            data-tip="undefined allocated"
+                                        >
+                                                            <img
+                                                                                alt="current Key worker allocation"
+                                                                                className="tooltipImage"
+                                                                                src="images/icon-information.png"
+                                                            />
+                                        </span>
+                                        <ReactTooltip
+                                                            effect="solid"
+                                                            insecure={true}
+                                                            place="top"
+                                                            resizeHide={true}
+                                                            theme="info"
+                                                            wrapper="div"
+                                        />
                     </td>
 </tr>,
                 ],
@@ -974,6 +1470,27 @@ ShallowWrapper {
 </td>,
                       <td>
                         csra todo
+</td>,
+                      <td>
+                        , 
+                        <span
+                                                className="tooltipSpan"
+                                                data-tip="undefined allocated"
+                        >
+                                                <img
+                                                                        alt="current Key worker allocation"
+                                                                        className="tooltipImage"
+                                                                        src="images/icon-information.png"
+                                                />
+                        </span>
+                        <ReactTooltip
+                                                effect="solid"
+                                                insecure={true}
+                                                place="top"
+                                                resizeHide={true}
+                                                theme="info"
+                                                wrapper="div"
+                        />
 </td>,
                     ],
                   },
@@ -1049,6 +1566,84 @@ ShallowWrapper {
                       "rendered": "csra todo",
                       "type": "td",
                     },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          ", ",
+                          <span
+                            className="tooltipSpan"
+                            data-tip="undefined allocated"
+>
+                            <img
+                                                        alt="current Key worker allocation"
+                                                        className="tooltipImage"
+                                                        src="images/icon-information.png"
+                            />
+</span>,
+                          <ReactTooltip
+                            effect="solid"
+                            insecure={true}
+                            place="top"
+                            resizeHide={true}
+                            theme="info"
+                            wrapper="div"
+/>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        ", ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <img
+                              alt="current Key worker allocation"
+                              className="tooltipImage"
+                              src="images/icon-information.png"
+/>,
+                            "className": "tooltipSpan",
+                            "data-tip": "undefined allocated",
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "alt": "current Key worker allocation",
+                              "className": "tooltipImage",
+                              "src": "images/icon-information.png",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "img",
+                          },
+                          "type": "span",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "effect": "solid",
+                            "insecure": true,
+                            "place": "top",
+                            "resizeHide": true,
+                            "theme": "info",
+                            "wrapper": "div",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": "td",
+                    },
                   ],
                   "type": "tr",
                 },
@@ -1076,6 +1671,27 @@ ShallowWrapper {
 </td>,
                       <td>
                         csra todo
+</td>,
+                      <td>
+                        , 
+                        <span
+                                                className="tooltipSpan"
+                                                data-tip="undefined allocated"
+                        >
+                                                <img
+                                                                        alt="current Key worker allocation"
+                                                                        className="tooltipImage"
+                                                                        src="images/icon-information.png"
+                                                />
+                        </span>
+                        <ReactTooltip
+                                                effect="solid"
+                                                insecure={true}
+                                                place="top"
+                                                resizeHide={true}
+                                                theme="info"
+                                                wrapper="div"
+                        />
 </td>,
                     ],
                   },
@@ -1151,6 +1767,84 @@ ShallowWrapper {
                       "rendered": "csra todo",
                       "type": "td",
                     },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          ", ",
+                          <span
+                            className="tooltipSpan"
+                            data-tip="undefined allocated"
+>
+                            <img
+                                                        alt="current Key worker allocation"
+                                                        className="tooltipImage"
+                                                        src="images/icon-information.png"
+                            />
+</span>,
+                          <ReactTooltip
+                            effect="solid"
+                            insecure={true}
+                            place="top"
+                            resizeHide={true}
+                            theme="info"
+                            wrapper="div"
+/>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        ", ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <img
+                              alt="current Key worker allocation"
+                              className="tooltipImage"
+                              src="images/icon-information.png"
+/>,
+                            "className": "tooltipSpan",
+                            "data-tip": "undefined allocated",
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "alt": "current Key worker allocation",
+                              "className": "tooltipImage",
+                              "src": "images/icon-information.png",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "img",
+                          },
+                          "type": "span",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "effect": "solid",
+                            "insecure": true,
+                            "place": "top",
+                            "resizeHide": true,
+                            "theme": "info",
+                            "wrapper": "div",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                      ],
+                      "type": "td",
+                    },
                   ],
                   "type": "tr",
                 },
@@ -1166,7 +1860,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Allocate",
-            "className": "button pure-u-md-2-12",
+            "className": "button top-gutter pure-u-md-2-12",
             "onClick": [Function],
           },
           "ref": null,

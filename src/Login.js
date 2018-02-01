@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axiosWrapper from './backendWrapper';
 
 class Login extends Component {
   constructor () {
@@ -20,7 +20,7 @@ class Login extends Component {
     event.preventDefault();
 
     try {
-      const data = await axios.post('/login', {
+      const data = await axiosWrapper.post('/login', {
         username: this.state.username,
         password: this.state.password
       });
