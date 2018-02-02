@@ -36,6 +36,9 @@ class AllocateParent extends Component {
     const response = await axios.get('/unallocated', {
       headers: {
         jwt: this.props.jwt
+      },
+      params: {
+        agencyId: this.props.agencyId
       }
     });
     console.log('data from api call ' + response);
@@ -52,7 +55,7 @@ class AllocateParent extends Component {
       }
     });
     console.log('data from manual allocated api call ' + response.data);
-    return response.data.allocatedResponse;
+    return response.data;
   }
 
   async getConfirmationList () {
@@ -77,9 +80,11 @@ class AllocateParent extends Component {
 
   async gotoManualAllocation () {
     try {
+      const viewModel = await this.getAllocated();
       this.setState({
         page: 2,
-        list: await this.getAllocated()
+        allocatedList: viewModel.allocatedResponse,
+        keyworkerList: viewModel.keyworkerResponse
       });
     } catch (error) {
       this.displayError(error);
@@ -109,7 +114,7 @@ class AllocateParent extends Component {
       case 1:
         return <Unallocated list={this.state.list} gotoNext={this.gotoManualAllocation} {...this.props} />;
       case 2:
-        return <ManualAllocation list={this.state.list} gotoNext={this.gotoKeyworkerReason} {...this.props} />;
+        return <ManualAllocation allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList} gotoNext={this.gotoKeyworkerReason} {...this.props} />;
       case 3:
         return <KeyworkerReason list={this.state.list} {...this.props} />;
       default:

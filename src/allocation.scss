@@ -1,7 +1,7 @@
 
 .row-gutters {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 17px;
+    padding-bottom: 17px;
 }
 
 .top-gutter {
@@ -16,3 +16,20 @@
     padding-left: 15px;
     padding-bottom: 3px;
 }
+
+table th, table td, table .form-control {
+    font-size: 17px;
+}
+
+select.form-control{
+    width: 100%;
+}
+
+/*  Define the background color for all the ODD background rows  */
+table tr:nth-child(even){
+    background: #f6f6f6;
+}
+
+
+
+

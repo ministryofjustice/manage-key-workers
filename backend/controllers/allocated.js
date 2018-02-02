@@ -11,27 +11,76 @@ router.get('/', asyncMiddleware(async (req, res) => {
 
 const allocated = async (req) => {
   const keyworkerResponse = await elite2Api.availableKeyworkers(req);
+
   const allocatedResponse = await elite2Api.allocated(req);
 
   let allocatedData = allocatedResponse.data;
   const keyworkerData = keyworkerResponse.data;
-  for (let element of allocatedData) {
-    let kw = keyworkerData.find(i => i.staffId === element.staffId);
+  for (let row of allocatedData) {
+    let kw = keyworkerData.find(i => i.staffId === row.staffId);
     if (kw) {
-      element.keyworkerFirstName = kw.firstName;
-      element.keyworkerLastName = kw.lastName;
-      element.numberAllocated = kw.numberAllocated;
+      row.keyworkerDisplay = `${kw.lastName}, ${kw.firstName}`;
+      row.numberAllocated = kw.numberAllocated;
     } else {
-      element.keyworkerFirstName = '';
-      element.keyworkerLastName = 'not available';
-      element.numberAllocated = 999;
+      // TODO wire up
+      row.keyworkerDisplay = '--';
+      row.numberAllocated = '999';
     }
+    req.query.bookingId = row.bookingId;
+
+    await addCrsaClassification(req, row);
+    await addReleaseDate(req, row);
   }
   return {
     keyworkerResponse: keyworkerResponse.data,
     allocatedResponse: allocatedResponse.data
   };
 };
+
+async function addCrsaClassification (req, row) {
+  try {
+    const assessmentResponse = await elite2Api.assessment(req);
+    console.log(`Assessment for booking ${row.bookingId} = ${assessmentResponse.data.classification}`);
+    row.crsaClassification = assessmentResponse.data.classification ? assessmentResponse.data.classification : '--';
+  } catch (error) {
+    if (error.response.status === 404) {
+      console.log(`No assessment found for booking Id ${row.bookingId}`);
+      row.crsaClassification = '--';
+    } else {
+      throw error;
+    }
+  }
+}
+
+async function addReleaseDate (req, row) {
+  try {
+    const sentenceResponse = await elite2Api.sentenceDetail(req);
+    row.confirmedReleaseDate = sentenceResponse.data.confirmedReleaseDate ? sentenceResponse.data.confirmedReleaseDate : '--';
+    console.log(`release date for offender ${row.offenderNo} = ${row.confirmedReleaseDate}`);
+  } catch (error) {
+    if (error.response.status === 404) {
+      console.log(`No sentence detail found for booking Id ${row.bookingId}`);
+      row.confirmedReleaseDate = '--';
+    } else {
+      throw error;
+    }
+  }
+}
+
+async function addUnavailableKeyworker (req, row) {
+  try {
+    const keyworkerResponse = await elite2Api.keyworker(req);
+    row.keyworkerDisplay = `${keyworkerResponse.data.lastName}, ${keyworkerResponse.data.firstName}`;
+    console.log(`keyworker for booking ${row.bookingId} = ${row.keyworkerDisplay}`);
+  } catch (error) {
+    if (error.response.status === 404) {
+      console.log(`No keyworker found for booking Id ${row.bookingId}`);
+      row.keyworkerDisplay = '--';
+    } else {
+      throw error;
+    }
+  }
+}
 
 module.exports = {
   router,

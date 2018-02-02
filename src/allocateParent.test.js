@@ -32,7 +32,7 @@ describe('AllocateParent component', () => {
     setupMocks();
     expect.assertions(3);
 
-    const component = await shallow(<AllocateParent jwt={"dummy-jwt"}/>);
+    await shallow(<AllocateParent jwt={"dummy-jwt"}/>);
 
     await expect(calledUnallocated).toBe(true);
     await expect(calledAllocated).toBe(false);

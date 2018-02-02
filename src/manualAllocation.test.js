@@ -7,7 +7,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('ManualAllocation component', () => {
   it('should render list correctly', async () => {
-    const list = [{
+    const allocatedList = [{
       bookingId: 1,
       lastName: "Rendell",
       firstName: "Steve",
@@ -22,7 +22,20 @@ describe('ManualAllocation component', () => {
       internalLocationDesc: "L-1-2"
     }];
 
-    const component = shallow(<ManualAllocation list={list} />);
+    const keyworkList = [{
+      staffId: 123,
+      firstName: 'Amy',
+      lastName: 'Hanson',
+      numberAllocated: 4
+    },
+    {
+      staffId: 113,
+      firstName: 'Sam',
+      lastName: 'Hanson',
+      numberAllocated: 6
+    }];
+
+    const component = shallow(<ManualAllocation allocatedList={allocatedList} keyworkerList={keyworkList}/>);
 
     expect(component).toMatchSnapshot();
   });
@@ -30,7 +43,7 @@ describe('ManualAllocation component', () => {
   it('should handle click correctly', async () => {
     let callBack = jest.fn();
 
-    const component = shallow(<ManualAllocation list={[]} gotoNext={callBack}/>);
+    const component = shallow(<ManualAllocation allocatedList={[]} keyworkerList={[]} gotoNext={callBack}/>);
 
     component.find('button').simulate('click');
     expect(callBack.mock.calls.length).toEqual(1);
