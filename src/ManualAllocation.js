@@ -5,23 +5,43 @@ import ReactTooltip from 'react-tooltip';
 class ManualAllocation extends Component {
   constructor (props) {
     super();
+    this.state = {
+      keyworker: ''
+    };
     console.log('in constructor ManualAllocation() ' + props);
   }
 
+  handleKeyworkerChange () {
+    console.log('in handleKeyworkerChange');
+  }
+
   render () {
-    const offenders = this.props.list.map((a) => {
-      const formattedKeyworkerName = (properCaseName(a.keyworkerLastName) + ', ' + properCaseName(a.keyworkerFirstName));
+    const keyworkerOptions = this.props.keyworkerList.map((kw) => {
+      return <option value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+    });
+
+    const offenders = this.props.allocatedList.map((a) => {
       const formattedName = (properCaseName(a.lastName) + ', ' + properCaseName(a.firstName));
+      let tooltip = '';
+      if (a.keyworkerDisplay !== '--') {
+        tooltip = (<span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img
+          alt="current Key worker allocation" className="tooltipImage" src="images/icon-information.png"/></span>);
+      }
       return (
-        <tr key={a.bookingId}>
-          <td><a href={a.bookingId}>{formattedName}</a></td>
-          <td>{a.offenderNo}</td>
-          <td>{a.internalLocationDesc}</td>
-          <td>release date todo</td>
-          <td>csra todo</td>
-          <td>{formattedKeyworkerName}
-            <span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img alt="current Key worker allocation" className="tooltipImage" src="images/icon-information.png"/></span>
+        <tr key={a.bookingId} className="row-gutters">
+          <td className="row-gutters"><a href={a.bookingId}>{formattedName}</a></td>
+          <td className="row-gutters">{a.offenderNo}</td>
+          <td className="row-gutters">{a.internalLocationDesc}</td>
+          <td className="row-gutters">{a.confirmedReleaseDate}</td>
+          <td className="row-gutters">{a.crsaClassification}</td>
+          <td className="row-gutters">{a.keyworkerDisplay}
+            {tooltip}
             <ReactTooltip place="top" effect="solid" theme="info" />
+          </td>
+          <td className="row-gutters">
+            <select id="keyworker-select" className="form-control" value={this.state.keyworker} onChange={this.handleKeyworkerChange}>
+              {keyworkerOptions}
+            </select>
           </td>
         </tr>
       );
@@ -36,9 +56,10 @@ class ManualAllocation extends Component {
               <th>Name</th>
               <th>NOMS ID</th>
               <th>Location</th>
-              <th>RD</th>
+              <th>CRD</th>
               <th>CSRA</th>
               <th>Allocated Key worker</th>
+              <th>Assign to new key worker</th>
             </tr>
           </thead>
           <tbody>{offenders}</tbody>

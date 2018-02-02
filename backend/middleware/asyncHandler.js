@@ -5,6 +5,7 @@ const asyncMiddleware = fn =>
     res.setHeader('jwt', session.extendSession(req.headers));
     Promise.resolve(fn(req, res, next))
       .catch(error => {
+        console.error(error);
         const data = error && error.response && error.response.data;
         const errorStatusCode = (data && data.status || error.statusCode) || 500;
         const message = (data && data.userMessage) || (error && error.response && error.response.statusText);

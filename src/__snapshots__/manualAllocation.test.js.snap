@@ -5,7 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ManualAllocation
-    list={
+    allocatedList={
         Array [
             Object {
               "bookingId": 1,
@@ -20,6 +20,22 @@ ShallowWrapper {
               "internalLocationDesc": "L-1-2",
               "lastName": "Rendell2",
               "offenderNo": "ZZ125WX",
+            },
+          ]
+    }
+    keyworkerList={
+        Array [
+            Object {
+              "firstName": "Amy",
+              "lastName": "Hanson",
+              "numberAllocated": 4,
+              "staffId": 123,
+            },
+            Object {
+              "firstName": "Sam",
+              "lastName": "Hanson",
+              "numberAllocated": 6,
+              "staffId": 113,
             },
           ]
     }
@@ -58,7 +74,7 @@ ShallowWrapper {
                                         Location
                               </th>
                               <th>
-                                        RD
+                                        CRD
                               </th>
                               <th>
                                         CSRA
@@ -66,31 +82,43 @@ ShallowWrapper {
                               <th>
                                         Allocated Key worker
                               </th>
+                              <th>
+                                        Assign to new key worker
+                              </th>
                     </tr>
           </thead>
           <tbody>
-                    <tr>
-                              <td>
+                    <tr
+                              className="row-gutters"
+                    >
+                              <td
+                                        className="row-gutters"
+                              >
                                         <a
                                                   href={1}
                                         >
                                                   Rendell, Steve
                                         </a>
                               </td>
-                              <td>
+                              <td
+                                        className="row-gutters"
+                              >
                                         ZZ124WX
                               </td>
-                              <td>
+                              <td
+                                        className="row-gutters"
+                              >
                                         L-1-1
                               </td>
-                              <td>
-                                        release date todo
-                              </td>
-                              <td>
-                                        csra todo
-                              </td>
-                              <td>
-                                        , 
+                              <td
+                                        className="row-gutters"
+                              />
+                              <td
+                                        className="row-gutters"
+                              />
+                              <td
+                                        className="row-gutters"
+                              >
                                         <span
                                                   className="tooltipSpan"
                                                   data-tip="undefined allocated"
@@ -110,29 +138,69 @@ ShallowWrapper {
                                                   wrapper="div"
                                         />
                               </td>
+                              <td
+                                        className="row-gutters"
+                              >
+                                        <select
+                                                  className="form-control"
+                                                  id="keyworker-select"
+                                                  onChange={[Function]}
+                                                  value=""
+                                        >
+                                                  <option
+                                                            value={123}
+                                                  >
+                                                            Hanson
+                                                            , 
+                                                            Amy
+                                                             (
+                                                            4
+                                                            )
+                                                  </option>
+                                                  <option
+                                                            value={113}
+                                                  >
+                                                            Hanson
+                                                            , 
+                                                            Sam
+                                                             (
+                                                            6
+                                                            )
+                                                  </option>
+                                        </select>
+                              </td>
                     </tr>
-                    <tr>
-                              <td>
+                    <tr
+                              className="row-gutters"
+                    >
+                              <td
+                                        className="row-gutters"
+                              >
                                         <a
                                                   href={2}
                                         >
                                                   Rendell2, Steve2
                                         </a>
                               </td>
-                              <td>
+                              <td
+                                        className="row-gutters"
+                              >
                                         ZZ125WX
                               </td>
-                              <td>
+                              <td
+                                        className="row-gutters"
+                              >
                                         L-1-2
                               </td>
-                              <td>
-                                        release date todo
-                              </td>
-                              <td>
-                                        csra todo
-                              </td>
-                              <td>
-                                        , 
+                              <td
+                                        className="row-gutters"
+                              />
+                              <td
+                                        className="row-gutters"
+                              />
+                              <td
+                                        className="row-gutters"
+                              >
                                         <span
                                                   className="tooltipSpan"
                                                   data-tip="undefined allocated"
@@ -151,6 +219,37 @@ ShallowWrapper {
                                                   theme="info"
                                                   wrapper="div"
                                         />
+                              </td>
+                              <td
+                                        className="row-gutters"
+                              >
+                                        <select
+                                                  className="form-control"
+                                                  id="keyworker-select"
+                                                  onChange={[Function]}
+                                                  value=""
+                                        >
+                                                  <option
+                                                            value={123}
+                                                  >
+                                                            Hanson
+                                                            , 
+                                                            Amy
+                                                             (
+                                                            4
+                                                            )
+                                                  </option>
+                                                  <option
+                                                            value={113}
+                                                  >
+                                                            Hanson
+                                                            , 
+                                                            Sam
+                                                             (
+                                                            6
+                                                            )
+                                                  </option>
+                                        </select>
                               </td>
                     </tr>
           </tbody>
@@ -206,7 +305,7 @@ ShallowWrapper {
                                           Location
                             </th>
                             <th>
-                                          RD
+                                          CRD
                             </th>
                             <th>
                                           CSRA
@@ -214,31 +313,43 @@ ShallowWrapper {
                             <th>
                                           Allocated Key worker
                             </th>
+                            <th>
+                                          Assign to new key worker
+                            </th>
               </tr>
 </thead>,
             <tbody>
-              <tr>
-                            <td>
+              <tr
+                            className="row-gutters"
+              >
+                            <td
+                                          className="row-gutters"
+                            >
                                           <a
                                                         href={1}
                                           >
                                                         Rendell, Steve
                                           </a>
                             </td>
-                            <td>
+                            <td
+                                          className="row-gutters"
+                            >
                                           ZZ124WX
                             </td>
-                            <td>
+                            <td
+                                          className="row-gutters"
+                            >
                                           L-1-1
                             </td>
-                            <td>
-                                          release date todo
-                            </td>
-                            <td>
-                                          csra todo
-                            </td>
-                            <td>
-                                          , 
+                            <td
+                                          className="row-gutters"
+                            />
+                            <td
+                                          className="row-gutters"
+                            />
+                            <td
+                                          className="row-gutters"
+                            >
                                           <span
                                                         className="tooltipSpan"
                                                         data-tip="undefined allocated"
@@ -258,29 +369,69 @@ ShallowWrapper {
                                                         wrapper="div"
                                           />
                             </td>
+                            <td
+                                          className="row-gutters"
+                            >
+                                          <select
+                                                        className="form-control"
+                                                        id="keyworker-select"
+                                                        onChange={[Function]}
+                                                        value=""
+                                          >
+                                                        <option
+                                                                      value={123}
+                                                        >
+                                                                      Hanson
+                                                                      , 
+                                                                      Amy
+                                                                       (
+                                                                      4
+                                                                      )
+                                                        </option>
+                                                        <option
+                                                                      value={113}
+                                                        >
+                                                                      Hanson
+                                                                      , 
+                                                                      Sam
+                                                                       (
+                                                                      6
+                                                                      )
+                                                        </option>
+                                          </select>
+                            </td>
               </tr>
-              <tr>
-                            <td>
+              <tr
+                            className="row-gutters"
+              >
+                            <td
+                                          className="row-gutters"
+                            >
                                           <a
                                                         href={2}
                                           >
                                                         Rendell2, Steve2
                                           </a>
                             </td>
-                            <td>
+                            <td
+                                          className="row-gutters"
+                            >
                                           ZZ125WX
                             </td>
-                            <td>
+                            <td
+                                          className="row-gutters"
+                            >
                                           L-1-2
                             </td>
-                            <td>
-                                          release date todo
-                            </td>
-                            <td>
-                                          csra todo
-                            </td>
-                            <td>
-                                          , 
+                            <td
+                                          className="row-gutters"
+                            />
+                            <td
+                                          className="row-gutters"
+                            />
+                            <td
+                                          className="row-gutters"
+                            >
                                           <span
                                                         className="tooltipSpan"
                                                         data-tip="undefined allocated"
@@ -299,6 +450,37 @@ ShallowWrapper {
                                                         theme="info"
                                                         wrapper="div"
                                           />
+                            </td>
+                            <td
+                                          className="row-gutters"
+                            >
+                                          <select
+                                                        className="form-control"
+                                                        id="keyworker-select"
+                                                        onChange={[Function]}
+                                                        value=""
+                                          >
+                                                        <option
+                                                                      value={123}
+                                                        >
+                                                                      Hanson
+                                                                      , 
+                                                                      Amy
+                                                                       (
+                                                                      4
+                                                                      )
+                                                        </option>
+                                                        <option
+                                                                      value={113}
+                                                        >
+                                                                      Hanson
+                                                                      , 
+                                                                      Sam
+                                                                       (
+                                                                      6
+                                                                      )
+                                                        </option>
+                                          </select>
                             </td>
               </tr>
 </tbody>,
@@ -322,13 +504,16 @@ ShallowWrapper {
                                 Location
                 </th>
                 <th>
-                                RD
+                                CRD
                 </th>
                 <th>
                                 CSRA
                 </th>
                 <th>
                                 Allocated Key worker
+                </th>
+                <th>
+                                Assign to new key worker
                 </th>
 </tr>,
             },
@@ -349,13 +534,16 @@ ShallowWrapper {
                     Location
 </th>,
                   <th>
-                    RD
+                    CRD
 </th>,
                   <th>
                     CSRA
 </th>,
                   <th>
                     Allocated Key worker
+</th>,
+                  <th>
+                    Assign to new key worker
 </th>,
                 ],
               },
@@ -399,10 +587,10 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "RD",
+                    "children": "CRD",
                   },
                   "ref": null,
-                  "rendered": "RD",
+                  "rendered": "CRD",
                   "type": "th",
                 },
                 Object {
@@ -427,6 +615,17 @@ ShallowWrapper {
                   "rendered": "Allocated Key worker",
                   "type": "th",
                 },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Assign to new key worker",
+                  },
+                  "ref": null,
+                  "rendered": "Assign to new key worker",
+                  "type": "th",
+                },
               ],
               "type": "tr",
             },
@@ -438,28 +637,37 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <tr>
-                  <td>
+                <tr
+                  className="row-gutters"
+>
+                  <td
+                                    className="row-gutters"
+                  >
                                     <a
                                                       href={1}
                                     >
                                                       Rendell, Steve
                                     </a>
                   </td>
-                  <td>
+                  <td
+                                    className="row-gutters"
+                  >
                                     ZZ124WX
                   </td>
-                  <td>
+                  <td
+                                    className="row-gutters"
+                  >
                                     L-1-1
                   </td>
-                  <td>
-                                    release date todo
-                  </td>
-                  <td>
-                                    csra todo
-                  </td>
-                  <td>
-                                    , 
+                  <td
+                                    className="row-gutters"
+                  />
+                  <td
+                                    className="row-gutters"
+                  />
+                  <td
+                                    className="row-gutters"
+                  >
                                     <span
                                                       className="tooltipSpan"
                                                       data-tip="undefined allocated"
@@ -479,29 +687,69 @@ ShallowWrapper {
                                                       wrapper="div"
                                     />
                   </td>
+                  <td
+                                    className="row-gutters"
+                  >
+                                    <select
+                                                      className="form-control"
+                                                      id="keyworker-select"
+                                                      onChange={[Function]}
+                                                      value=""
+                                    >
+                                                      <option
+                                                                        value={123}
+                                                      >
+                                                                        Hanson
+                                                                        , 
+                                                                        Amy
+                                                                         (
+                                                                        4
+                                                                        )
+                                                      </option>
+                                                      <option
+                                                                        value={113}
+                                                      >
+                                                                        Hanson
+                                                                        , 
+                                                                        Sam
+                                                                         (
+                                                                        6
+                                                                        )
+                                                      </option>
+                                    </select>
+                  </td>
 </tr>,
-                <tr>
-                  <td>
+                <tr
+                  className="row-gutters"
+>
+                  <td
+                                    className="row-gutters"
+                  >
                                     <a
                                                       href={2}
                                     >
                                                       Rendell2, Steve2
                                     </a>
                   </td>
-                  <td>
+                  <td
+                                    className="row-gutters"
+                  >
                                     ZZ125WX
                   </td>
-                  <td>
+                  <td
+                                    className="row-gutters"
+                  >
                                     L-1-2
                   </td>
-                  <td>
-                                    release date todo
-                  </td>
-                  <td>
-                                    csra todo
-                  </td>
-                  <td>
-                                    , 
+                  <td
+                                    className="row-gutters"
+                  />
+                  <td
+                                    className="row-gutters"
+                  />
+                  <td
+                                    className="row-gutters"
+                  >
                                     <span
                                                       className="tooltipSpan"
                                                       data-tip="undefined allocated"
@@ -520,6 +768,37 @@ ShallowWrapper {
                                                       theme="info"
                                                       wrapper="div"
                                     />
+                  </td>
+                  <td
+                                    className="row-gutters"
+                  >
+                                    <select
+                                                      className="form-control"
+                                                      id="keyworker-select"
+                                                      onChange={[Function]}
+                                                      value=""
+                                    >
+                                                      <option
+                                                                        value={123}
+                                                      >
+                                                                        Hanson
+                                                                        , 
+                                                                        Amy
+                                                                         (
+                                                                        4
+                                                                        )
+                                                      </option>
+                                                      <option
+                                                                        value={113}
+                                                      >
+                                                                        Hanson
+                                                                        , 
+                                                                        Sam
+                                                                         (
+                                                                        6
+                                                                        )
+                                                      </option>
+                                    </select>
                   </td>
 </tr>,
               ],
@@ -532,27 +811,34 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <td>
+                    <td
+                      className="row-gutters"
+>
                       <a
                                             href={1}
                       >
                                             Rendell, Steve
                       </a>
 </td>,
-                    <td>
+                    <td
+                      className="row-gutters"
+>
                       ZZ124WX
 </td>,
-                    <td>
+                    <td
+                      className="row-gutters"
+>
                       L-1-1
 </td>,
-                    <td>
-                      release date todo
-</td>,
-                    <td>
-                      csra todo
-</td>,
-                    <td>
-                      , 
+                    <td
+                      className="row-gutters"
+/>,
+                    <td
+                      className="row-gutters"
+/>,
+                    <td
+                      className="row-gutters"
+>
                       <span
                                             className="tooltipSpan"
                                             data-tip="undefined allocated"
@@ -572,7 +858,39 @@ ShallowWrapper {
                                             wrapper="div"
                       />
 </td>,
+                    <td
+                      className="row-gutters"
+>
+                      <select
+                                            className="form-control"
+                                            id="keyworker-select"
+                                            onChange={[Function]}
+                                            value=""
+                      >
+                                            <option
+                                                                  value={123}
+                                            >
+                                                                  Hanson
+                                                                  , 
+                                                                  Amy
+                                                                   (
+                                                                  4
+                                                                  )
+                                            </option>
+                                            <option
+                                                                  value={113}
+                                            >
+                                                                  Hanson
+                                                                  , 
+                                                                  Sam
+                                                                   (
+                                                                  6
+                                                                  )
+                                            </option>
+                      </select>
+</td>,
                   ],
+                  "className": "row-gutters",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -586,6 +904,7 @@ ShallowWrapper {
 >
                         Rendell, Steve
 </a>,
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -608,6 +927,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": "ZZ124WX",
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": "ZZ124WX",
@@ -619,6 +939,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": "L-1-1",
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": "L-1-1",
@@ -629,10 +950,11 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "release date todo",
+                      "children": undefined,
+                      "className": "row-gutters",
                     },
                     "ref": null,
-                    "rendered": "release date todo",
+                    "rendered": null,
                     "type": "td",
                   },
                   Object {
@@ -640,10 +962,11 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "csra todo",
+                      "children": undefined,
+                      "className": "row-gutters",
                     },
                     "ref": null,
-                    "rendered": "csra todo",
+                    "rendered": null,
                     "type": "td",
                   },
                   Object {
@@ -652,7 +975,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
-                        ", ",
+                        undefined,
                         <span
                           className="tooltipSpan"
                           data-tip="undefined allocated"
@@ -672,10 +995,11 @@ ShallowWrapper {
                           wrapper="div"
 />,
                       ],
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": Array [
-                      ", ",
+                      undefined,
                       Object {
                         "instance": null,
                         "key": undefined,
@@ -724,6 +1048,132 @@ ShallowWrapper {
                     ],
                     "type": "td",
                   },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <select
+                        className="form-control"
+                        id="keyworker-select"
+                        onChange={[Function]}
+                        value=""
+>
+                        <option
+                                                value={123}
+                        >
+                                                Hanson
+                                                , 
+                                                Amy
+                                                 (
+                                                4
+                                                )
+                        </option>
+                        <option
+                                                value={113}
+                        >
+                                                Hanson
+                                                , 
+                                                Sam
+                                                 (
+                                                6
+                                                )
+                        </option>
+</select>,
+                      "className": "row-gutters",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <option
+                            value={123}
+>
+                            Hanson
+                            , 
+                            Amy
+                             (
+                            4
+                            )
+</option>,
+                          <option
+                            value={113}
+>
+                            Hanson
+                            , 
+                            Sam
+                             (
+                            6
+                            )
+</option>,
+                        ],
+                        "className": "form-control",
+                        "id": "keyworker-select",
+                        "onChange": [Function],
+                        "value": "",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              "Hanson",
+                              ", ",
+                              "Amy",
+                              " (",
+                              4,
+                              ")",
+                            ],
+                            "value": 123,
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "Hanson",
+                            ", ",
+                            "Amy",
+                            " (",
+                            4,
+                            ")",
+                          ],
+                          "type": "option",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              "Hanson",
+                              ", ",
+                              "Sam",
+                              " (",
+                              6,
+                              ")",
+                            ],
+                            "value": 113,
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "Hanson",
+                            ", ",
+                            "Sam",
+                            " (",
+                            6,
+                            ")",
+                          ],
+                          "type": "option",
+                        },
+                      ],
+                      "type": "select",
+                    },
+                    "type": "td",
+                  },
                 ],
                 "type": "tr",
               },
@@ -733,27 +1183,34 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <td>
+                    <td
+                      className="row-gutters"
+>
                       <a
                                             href={2}
                       >
                                             Rendell2, Steve2
                       </a>
 </td>,
-                    <td>
+                    <td
+                      className="row-gutters"
+>
                       ZZ125WX
 </td>,
-                    <td>
+                    <td
+                      className="row-gutters"
+>
                       L-1-2
 </td>,
-                    <td>
-                      release date todo
-</td>,
-                    <td>
-                      csra todo
-</td>,
-                    <td>
-                      , 
+                    <td
+                      className="row-gutters"
+/>,
+                    <td
+                      className="row-gutters"
+/>,
+                    <td
+                      className="row-gutters"
+>
                       <span
                                             className="tooltipSpan"
                                             data-tip="undefined allocated"
@@ -773,7 +1230,39 @@ ShallowWrapper {
                                             wrapper="div"
                       />
 </td>,
+                    <td
+                      className="row-gutters"
+>
+                      <select
+                                            className="form-control"
+                                            id="keyworker-select"
+                                            onChange={[Function]}
+                                            value=""
+                      >
+                                            <option
+                                                                  value={123}
+                                            >
+                                                                  Hanson
+                                                                  , 
+                                                                  Amy
+                                                                   (
+                                                                  4
+                                                                  )
+                                            </option>
+                                            <option
+                                                                  value={113}
+                                            >
+                                                                  Hanson
+                                                                  , 
+                                                                  Sam
+                                                                   (
+                                                                  6
+                                                                  )
+                                            </option>
+                      </select>
+</td>,
                   ],
+                  "className": "row-gutters",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -787,6 +1276,7 @@ ShallowWrapper {
 >
                         Rendell2, Steve2
 </a>,
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -809,6 +1299,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": "ZZ125WX",
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": "ZZ125WX",
@@ -820,6 +1311,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": "L-1-2",
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": "L-1-2",
@@ -830,10 +1322,11 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "release date todo",
+                      "children": undefined,
+                      "className": "row-gutters",
                     },
                     "ref": null,
-                    "rendered": "release date todo",
+                    "rendered": null,
                     "type": "td",
                   },
                   Object {
@@ -841,10 +1334,11 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "csra todo",
+                      "children": undefined,
+                      "className": "row-gutters",
                     },
                     "ref": null,
-                    "rendered": "csra todo",
+                    "rendered": null,
                     "type": "td",
                   },
                   Object {
@@ -853,7 +1347,7 @@ ShallowWrapper {
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
-                        ", ",
+                        undefined,
                         <span
                           className="tooltipSpan"
                           data-tip="undefined allocated"
@@ -873,10 +1367,11 @@ ShallowWrapper {
                           wrapper="div"
 />,
                       ],
+                      "className": "row-gutters",
                     },
                     "ref": null,
                     "rendered": Array [
-                      ", ",
+                      undefined,
                       Object {
                         "instance": null,
                         "key": undefined,
@@ -923,6 +1418,132 @@ ShallowWrapper {
                         "type": [Function],
                       },
                     ],
+                    "type": "td",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <select
+                        className="form-control"
+                        id="keyworker-select"
+                        onChange={[Function]}
+                        value=""
+>
+                        <option
+                                                value={123}
+                        >
+                                                Hanson
+                                                , 
+                                                Amy
+                                                 (
+                                                4
+                                                )
+                        </option>
+                        <option
+                                                value={113}
+                        >
+                                                Hanson
+                                                , 
+                                                Sam
+                                                 (
+                                                6
+                                                )
+                        </option>
+</select>,
+                      "className": "row-gutters",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <option
+                            value={123}
+>
+                            Hanson
+                            , 
+                            Amy
+                             (
+                            4
+                            )
+</option>,
+                          <option
+                            value={113}
+>
+                            Hanson
+                            , 
+                            Sam
+                             (
+                            6
+                            )
+</option>,
+                        ],
+                        "className": "form-control",
+                        "id": "keyworker-select",
+                        "onChange": [Function],
+                        "value": "",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              "Hanson",
+                              ", ",
+                              "Amy",
+                              " (",
+                              4,
+                              ")",
+                            ],
+                            "value": 123,
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "Hanson",
+                            ", ",
+                            "Amy",
+                            " (",
+                            4,
+                            ")",
+                          ],
+                          "type": "option",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              "Hanson",
+                              ", ",
+                              "Sam",
+                              " (",
+                              6,
+                              ")",
+                            ],
+                            "value": 113,
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            "Hanson",
+                            ", ",
+                            "Sam",
+                            " (",
+                            6,
+                            ")",
+                          ],
+                          "type": "option",
+                        },
+                      ],
+                      "type": "select",
+                    },
                     "type": "td",
                   },
                 ],
@@ -978,7 +1599,7 @@ ShallowWrapper {
                                                 Location
                                     </th>
                                     <th>
-                                                RD
+                                                CRD
                                     </th>
                                     <th>
                                                 CSRA
@@ -986,31 +1607,43 @@ ShallowWrapper {
                                     <th>
                                                 Allocated Key worker
                                     </th>
+                                    <th>
+                                                Assign to new key worker
+                                    </th>
                         </tr>
             </thead>
             <tbody>
-                        <tr>
-                                    <td>
+                        <tr
+                                    className="row-gutters"
+                        >
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 <a
                                                             href={1}
                                                 >
                                                             Rendell, Steve
                                                 </a>
                                     </td>
-                                    <td>
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 ZZ124WX
                                     </td>
-                                    <td>
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 L-1-1
                                     </td>
-                                    <td>
-                                                release date todo
-                                    </td>
-                                    <td>
-                                                csra todo
-                                    </td>
-                                    <td>
-                                                , 
+                                    <td
+                                                className="row-gutters"
+                                    />
+                                    <td
+                                                className="row-gutters"
+                                    />
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 <span
                                                             className="tooltipSpan"
                                                             data-tip="undefined allocated"
@@ -1030,29 +1663,69 @@ ShallowWrapper {
                                                             wrapper="div"
                                                 />
                                     </td>
+                                    <td
+                                                className="row-gutters"
+                                    >
+                                                <select
+                                                            className="form-control"
+                                                            id="keyworker-select"
+                                                            onChange={[Function]}
+                                                            value=""
+                                                >
+                                                            <option
+                                                                        value={123}
+                                                            >
+                                                                        Hanson
+                                                                        , 
+                                                                        Amy
+                                                                         (
+                                                                        4
+                                                                        )
+                                                            </option>
+                                                            <option
+                                                                        value={113}
+                                                            >
+                                                                        Hanson
+                                                                        , 
+                                                                        Sam
+                                                                         (
+                                                                        6
+                                                                        )
+                                                            </option>
+                                                </select>
+                                    </td>
                         </tr>
-                        <tr>
-                                    <td>
+                        <tr
+                                    className="row-gutters"
+                        >
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 <a
                                                             href={2}
                                                 >
                                                             Rendell2, Steve2
                                                 </a>
                                     </td>
-                                    <td>
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 ZZ125WX
                                     </td>
-                                    <td>
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 L-1-2
                                     </td>
-                                    <td>
-                                                release date todo
-                                    </td>
-                                    <td>
-                                                csra todo
-                                    </td>
-                                    <td>
-                                                , 
+                                    <td
+                                                className="row-gutters"
+                                    />
+                                    <td
+                                                className="row-gutters"
+                                    />
+                                    <td
+                                                className="row-gutters"
+                                    >
                                                 <span
                                                             className="tooltipSpan"
                                                             data-tip="undefined allocated"
@@ -1071,6 +1744,37 @@ ShallowWrapper {
                                                             theme="info"
                                                             wrapper="div"
                                                 />
+                                    </td>
+                                    <td
+                                                className="row-gutters"
+                                    >
+                                                <select
+                                                            className="form-control"
+                                                            id="keyworker-select"
+                                                            onChange={[Function]}
+                                                            value=""
+                                                >
+                                                            <option
+                                                                        value={123}
+                                                            >
+                                                                        Hanson
+                                                                        , 
+                                                                        Amy
+                                                                         (
+                                                                        4
+                                                                        )
+                                                            </option>
+                                                            <option
+                                                                        value={113}
+                                                            >
+                                                                        Hanson
+                                                                        , 
+                                                                        Sam
+                                                                         (
+                                                                        6
+                                                                        )
+                                                            </option>
+                                                </select>
                                     </td>
                         </tr>
             </tbody>
@@ -1126,7 +1830,7 @@ ShallowWrapper {
                                                 Location
                                 </th>
                                 <th>
-                                                RD
+                                                CRD
                                 </th>
                                 <th>
                                                 CSRA
@@ -1134,31 +1838,43 @@ ShallowWrapper {
                                 <th>
                                                 Allocated Key worker
                                 </th>
+                                <th>
+                                                Assign to new key worker
+                                </th>
                 </tr>
 </thead>,
               <tbody>
-                <tr>
-                                <td>
+                <tr
+                                className="row-gutters"
+                >
+                                <td
+                                                className="row-gutters"
+                                >
                                                 <a
                                                                 href={1}
                                                 >
                                                                 Rendell, Steve
                                                 </a>
                                 </td>
-                                <td>
+                                <td
+                                                className="row-gutters"
+                                >
                                                 ZZ124WX
                                 </td>
-                                <td>
+                                <td
+                                                className="row-gutters"
+                                >
                                                 L-1-1
                                 </td>
-                                <td>
-                                                release date todo
-                                </td>
-                                <td>
-                                                csra todo
-                                </td>
-                                <td>
-                                                , 
+                                <td
+                                                className="row-gutters"
+                                />
+                                <td
+                                                className="row-gutters"
+                                />
+                                <td
+                                                className="row-gutters"
+                                >
                                                 <span
                                                                 className="tooltipSpan"
                                                                 data-tip="undefined allocated"
@@ -1178,29 +1894,69 @@ ShallowWrapper {
                                                                 wrapper="div"
                                                 />
                                 </td>
+                                <td
+                                                className="row-gutters"
+                                >
+                                                <select
+                                                                className="form-control"
+                                                                id="keyworker-select"
+                                                                onChange={[Function]}
+                                                                value=""
+                                                >
+                                                                <option
+                                                                                value={123}
+                                                                >
+                                                                                Hanson
+                                                                                , 
+                                                                                Amy
+                                                                                 (
+                                                                                4
+                                                                                )
+                                                                </option>
+                                                                <option
+                                                                                value={113}
+                                                                >
+                                                                                Hanson
+                                                                                , 
+                                                                                Sam
+                                                                                 (
+                                                                                6
+                                                                                )
+                                                                </option>
+                                                </select>
+                                </td>
                 </tr>
-                <tr>
-                                <td>
+                <tr
+                                className="row-gutters"
+                >
+                                <td
+                                                className="row-gutters"
+                                >
                                                 <a
                                                                 href={2}
                                                 >
                                                                 Rendell2, Steve2
                                                 </a>
                                 </td>
-                                <td>
+                                <td
+                                                className="row-gutters"
+                                >
                                                 ZZ125WX
                                 </td>
-                                <td>
+                                <td
+                                                className="row-gutters"
+                                >
                                                 L-1-2
                                 </td>
-                                <td>
-                                                release date todo
-                                </td>
-                                <td>
-                                                csra todo
-                                </td>
-                                <td>
-                                                , 
+                                <td
+                                                className="row-gutters"
+                                />
+                                <td
+                                                className="row-gutters"
+                                />
+                                <td
+                                                className="row-gutters"
+                                >
                                                 <span
                                                                 className="tooltipSpan"
                                                                 data-tip="undefined allocated"
@@ -1219,6 +1975,37 @@ ShallowWrapper {
                                                                 theme="info"
                                                                 wrapper="div"
                                                 />
+                                </td>
+                                <td
+                                                className="row-gutters"
+                                >
+                                                <select
+                                                                className="form-control"
+                                                                id="keyworker-select"
+                                                                onChange={[Function]}
+                                                                value=""
+                                                >
+                                                                <option
+                                                                                value={123}
+                                                                >
+                                                                                Hanson
+                                                                                , 
+                                                                                Amy
+                                                                                 (
+                                                                                4
+                                                                                )
+                                                                </option>
+                                                                <option
+                                                                                value={113}
+                                                                >
+                                                                                Hanson
+                                                                                , 
+                                                                                Sam
+                                                                                 (
+                                                                                6
+                                                                                )
+                                                                </option>
+                                                </select>
                                 </td>
                 </tr>
 </tbody>,
@@ -1242,13 +2029,16 @@ ShallowWrapper {
                                     Location
                   </th>
                   <th>
-                                    RD
+                                    CRD
                   </th>
                   <th>
                                     CSRA
                   </th>
                   <th>
                                     Allocated Key worker
+                  </th>
+                  <th>
+                                    Assign to new key worker
                   </th>
 </tr>,
               },
@@ -1269,13 +2059,16 @@ ShallowWrapper {
                       Location
 </th>,
                     <th>
-                      RD
+                      CRD
 </th>,
                     <th>
                       CSRA
 </th>,
                     <th>
                       Allocated Key worker
+</th>,
+                    <th>
+                      Assign to new key worker
 </th>,
                   ],
                 },
@@ -1319,10 +2112,10 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": "RD",
+                      "children": "CRD",
                     },
                     "ref": null,
-                    "rendered": "RD",
+                    "rendered": "CRD",
                     "type": "th",
                   },
                   Object {
@@ -1347,6 +2140,17 @@ ShallowWrapper {
                     "rendered": "Allocated Key worker",
                     "type": "th",
                   },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Assign to new key worker",
+                    },
+                    "ref": null,
+                    "rendered": "Assign to new key worker",
+                    "type": "th",
+                  },
                 ],
                 "type": "tr",
               },
@@ -1358,28 +2162,37 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <tr>
-                    <td>
+                  <tr
+                    className="row-gutters"
+>
+                    <td
+                                        className="row-gutters"
+                    >
                                         <a
                                                             href={1}
                                         >
                                                             Rendell, Steve
                                         </a>
                     </td>
-                    <td>
+                    <td
+                                        className="row-gutters"
+                    >
                                         ZZ124WX
                     </td>
-                    <td>
+                    <td
+                                        className="row-gutters"
+                    >
                                         L-1-1
                     </td>
-                    <td>
-                                        release date todo
-                    </td>
-                    <td>
-                                        csra todo
-                    </td>
-                    <td>
-                                        , 
+                    <td
+                                        className="row-gutters"
+                    />
+                    <td
+                                        className="row-gutters"
+                    />
+                    <td
+                                        className="row-gutters"
+                    >
                                         <span
                                                             className="tooltipSpan"
                                                             data-tip="undefined allocated"
@@ -1399,29 +2212,69 @@ ShallowWrapper {
                                                             wrapper="div"
                                         />
                     </td>
+                    <td
+                                        className="row-gutters"
+                    >
+                                        <select
+                                                            className="form-control"
+                                                            id="keyworker-select"
+                                                            onChange={[Function]}
+                                                            value=""
+                                        >
+                                                            <option
+                                                                                value={123}
+                                                            >
+                                                                                Hanson
+                                                                                , 
+                                                                                Amy
+                                                                                 (
+                                                                                4
+                                                                                )
+                                                            </option>
+                                                            <option
+                                                                                value={113}
+                                                            >
+                                                                                Hanson
+                                                                                , 
+                                                                                Sam
+                                                                                 (
+                                                                                6
+                                                                                )
+                                                            </option>
+                                        </select>
+                    </td>
 </tr>,
-                  <tr>
-                    <td>
+                  <tr
+                    className="row-gutters"
+>
+                    <td
+                                        className="row-gutters"
+                    >
                                         <a
                                                             href={2}
                                         >
                                                             Rendell2, Steve2
                                         </a>
                     </td>
-                    <td>
+                    <td
+                                        className="row-gutters"
+                    >
                                         ZZ125WX
                     </td>
-                    <td>
+                    <td
+                                        className="row-gutters"
+                    >
                                         L-1-2
                     </td>
-                    <td>
-                                        release date todo
-                    </td>
-                    <td>
-                                        csra todo
-                    </td>
-                    <td>
-                                        , 
+                    <td
+                                        className="row-gutters"
+                    />
+                    <td
+                                        className="row-gutters"
+                    />
+                    <td
+                                        className="row-gutters"
+                    >
                                         <span
                                                             className="tooltipSpan"
                                                             data-tip="undefined allocated"
@@ -1440,6 +2293,37 @@ ShallowWrapper {
                                                             theme="info"
                                                             wrapper="div"
                                         />
+                    </td>
+                    <td
+                                        className="row-gutters"
+                    >
+                                        <select
+                                                            className="form-control"
+                                                            id="keyworker-select"
+                                                            onChange={[Function]}
+                                                            value=""
+                                        >
+                                                            <option
+                                                                                value={123}
+                                                            >
+                                                                                Hanson
+                                                                                , 
+                                                                                Amy
+                                                                                 (
+                                                                                4
+                                                                                )
+                                                            </option>
+                                                            <option
+                                                                                value={113}
+                                                            >
+                                                                                Hanson
+                                                                                , 
+                                                                                Sam
+                                                                                 (
+                                                                                6
+                                                                                )
+                                                            </option>
+                                        </select>
                     </td>
 </tr>,
                 ],
@@ -1452,27 +2336,34 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
-                      <td>
+                      <td
+                        className="row-gutters"
+>
                         <a
                                                 href={1}
                         >
                                                 Rendell, Steve
                         </a>
 </td>,
-                      <td>
+                      <td
+                        className="row-gutters"
+>
                         ZZ124WX
 </td>,
-                      <td>
+                      <td
+                        className="row-gutters"
+>
                         L-1-1
 </td>,
-                      <td>
-                        release date todo
-</td>,
-                      <td>
-                        csra todo
-</td>,
-                      <td>
-                        , 
+                      <td
+                        className="row-gutters"
+/>,
+                      <td
+                        className="row-gutters"
+/>,
+                      <td
+                        className="row-gutters"
+>
                         <span
                                                 className="tooltipSpan"
                                                 data-tip="undefined allocated"
@@ -1492,7 +2383,39 @@ ShallowWrapper {
                                                 wrapper="div"
                         />
 </td>,
+                      <td
+                        className="row-gutters"
+>
+                        <select
+                                                className="form-control"
+                                                id="keyworker-select"
+                                                onChange={[Function]}
+                                                value=""
+                        >
+                                                <option
+                                                                        value={123}
+                                                >
+                                                                        Hanson
+                                                                        , 
+                                                                        Amy
+                                                                         (
+                                                                        4
+                                                                        )
+                                                </option>
+                                                <option
+                                                                        value={113}
+                                                >
+                                                                        Hanson
+                                                                        , 
+                                                                        Sam
+                                                                         (
+                                                                        6
+                                                                        )
+                                                </option>
+                        </select>
+</td>,
                     ],
+                    "className": "row-gutters",
                   },
                   "ref": null,
                   "rendered": Array [
@@ -1506,6 +2429,7 @@ ShallowWrapper {
 >
                           Rendell, Steve
 </a>,
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": Object {
@@ -1528,6 +2452,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": "ZZ124WX",
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": "ZZ124WX",
@@ -1539,6 +2464,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": "L-1-1",
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": "L-1-1",
@@ -1549,10 +2475,11 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "release date todo",
+                        "children": undefined,
+                        "className": "row-gutters",
                       },
                       "ref": null,
-                      "rendered": "release date todo",
+                      "rendered": null,
                       "type": "td",
                     },
                     Object {
@@ -1560,10 +2487,11 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "csra todo",
+                        "children": undefined,
+                        "className": "row-gutters",
                       },
                       "ref": null,
-                      "rendered": "csra todo",
+                      "rendered": null,
                       "type": "td",
                     },
                     Object {
@@ -1572,7 +2500,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": Array [
-                          ", ",
+                          undefined,
                           <span
                             className="tooltipSpan"
                             data-tip="undefined allocated"
@@ -1592,10 +2520,11 @@ ShallowWrapper {
                             wrapper="div"
 />,
                         ],
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": Array [
-                        ", ",
+                        undefined,
                         Object {
                           "instance": null,
                           "key": undefined,
@@ -1644,6 +2573,132 @@ ShallowWrapper {
                       ],
                       "type": "td",
                     },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <select
+                          className="form-control"
+                          id="keyworker-select"
+                          onChange={[Function]}
+                          value=""
+>
+                          <option
+                                                    value={123}
+                          >
+                                                    Hanson
+                                                    , 
+                                                    Amy
+                                                     (
+                                                    4
+                                                    )
+                          </option>
+                          <option
+                                                    value={113}
+                          >
+                                                    Hanson
+                                                    , 
+                                                    Sam
+                                                     (
+                                                    6
+                                                    )
+                          </option>
+</select>,
+                        "className": "row-gutters",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <option
+                              value={123}
+>
+                              Hanson
+                              , 
+                              Amy
+                               (
+                              4
+                              )
+</option>,
+                            <option
+                              value={113}
+>
+                              Hanson
+                              , 
+                              Sam
+                               (
+                              6
+                              )
+</option>,
+                          ],
+                          "className": "form-control",
+                          "id": "keyworker-select",
+                          "onChange": [Function],
+                          "value": "",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                "Hanson",
+                                ", ",
+                                "Amy",
+                                " (",
+                                4,
+                                ")",
+                              ],
+                              "value": 123,
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "Hanson",
+                              ", ",
+                              "Amy",
+                              " (",
+                              4,
+                              ")",
+                            ],
+                            "type": "option",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                "Hanson",
+                                ", ",
+                                "Sam",
+                                " (",
+                                6,
+                                ")",
+                              ],
+                              "value": 113,
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "Hanson",
+                              ", ",
+                              "Sam",
+                              " (",
+                              6,
+                              ")",
+                            ],
+                            "type": "option",
+                          },
+                        ],
+                        "type": "select",
+                      },
+                      "type": "td",
+                    },
                   ],
                   "type": "tr",
                 },
@@ -1653,27 +2708,34 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
-                      <td>
+                      <td
+                        className="row-gutters"
+>
                         <a
                                                 href={2}
                         >
                                                 Rendell2, Steve2
                         </a>
 </td>,
-                      <td>
+                      <td
+                        className="row-gutters"
+>
                         ZZ125WX
 </td>,
-                      <td>
+                      <td
+                        className="row-gutters"
+>
                         L-1-2
 </td>,
-                      <td>
-                        release date todo
-</td>,
-                      <td>
-                        csra todo
-</td>,
-                      <td>
-                        , 
+                      <td
+                        className="row-gutters"
+/>,
+                      <td
+                        className="row-gutters"
+/>,
+                      <td
+                        className="row-gutters"
+>
                         <span
                                                 className="tooltipSpan"
                                                 data-tip="undefined allocated"
@@ -1693,7 +2755,39 @@ ShallowWrapper {
                                                 wrapper="div"
                         />
 </td>,
+                      <td
+                        className="row-gutters"
+>
+                        <select
+                                                className="form-control"
+                                                id="keyworker-select"
+                                                onChange={[Function]}
+                                                value=""
+                        >
+                                                <option
+                                                                        value={123}
+                                                >
+                                                                        Hanson
+                                                                        , 
+                                                                        Amy
+                                                                         (
+                                                                        4
+                                                                        )
+                                                </option>
+                                                <option
+                                                                        value={113}
+                                                >
+                                                                        Hanson
+                                                                        , 
+                                                                        Sam
+                                                                         (
+                                                                        6
+                                                                        )
+                                                </option>
+                        </select>
+</td>,
                     ],
+                    "className": "row-gutters",
                   },
                   "ref": null,
                   "rendered": Array [
@@ -1707,6 +2801,7 @@ ShallowWrapper {
 >
                           Rendell2, Steve2
 </a>,
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": Object {
@@ -1729,6 +2824,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": "ZZ125WX",
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": "ZZ125WX",
@@ -1740,6 +2836,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": "L-1-2",
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": "L-1-2",
@@ -1750,10 +2847,11 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "release date todo",
+                        "children": undefined,
+                        "className": "row-gutters",
                       },
                       "ref": null,
-                      "rendered": "release date todo",
+                      "rendered": null,
                       "type": "td",
                     },
                     Object {
@@ -1761,10 +2859,11 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "csra todo",
+                        "children": undefined,
+                        "className": "row-gutters",
                       },
                       "ref": null,
-                      "rendered": "csra todo",
+                      "rendered": null,
                       "type": "td",
                     },
                     Object {
@@ -1773,7 +2872,7 @@ ShallowWrapper {
                       "nodeType": "host",
                       "props": Object {
                         "children": Array [
-                          ", ",
+                          undefined,
                           <span
                             className="tooltipSpan"
                             data-tip="undefined allocated"
@@ -1793,10 +2892,11 @@ ShallowWrapper {
                             wrapper="div"
 />,
                         ],
+                        "className": "row-gutters",
                       },
                       "ref": null,
                       "rendered": Array [
-                        ", ",
+                        undefined,
                         Object {
                           "instance": null,
                           "key": undefined,
@@ -1843,6 +2943,132 @@ ShallowWrapper {
                           "type": [Function],
                         },
                       ],
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <select
+                          className="form-control"
+                          id="keyworker-select"
+                          onChange={[Function]}
+                          value=""
+>
+                          <option
+                                                    value={123}
+                          >
+                                                    Hanson
+                                                    , 
+                                                    Amy
+                                                     (
+                                                    4
+                                                    )
+                          </option>
+                          <option
+                                                    value={113}
+                          >
+                                                    Hanson
+                                                    , 
+                                                    Sam
+                                                     (
+                                                    6
+                                                    )
+                          </option>
+</select>,
+                        "className": "row-gutters",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <option
+                              value={123}
+>
+                              Hanson
+                              , 
+                              Amy
+                               (
+                              4
+                              )
+</option>,
+                            <option
+                              value={113}
+>
+                              Hanson
+                              , 
+                              Sam
+                               (
+                              6
+                              )
+</option>,
+                          ],
+                          "className": "form-control",
+                          "id": "keyworker-select",
+                          "onChange": [Function],
+                          "value": "",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                "Hanson",
+                                ", ",
+                                "Amy",
+                                " (",
+                                4,
+                                ")",
+                              ],
+                              "value": 123,
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "Hanson",
+                              ", ",
+                              "Amy",
+                              " (",
+                              4,
+                              ")",
+                            ],
+                            "type": "option",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                "Hanson",
+                                ", ",
+                                "Sam",
+                                " (",
+                                6,
+                                ")",
+                              ],
+                              "value": 113,
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "Hanson",
+                              ", ",
+                              "Sam",
+                              " (",
+                              6,
+                              ")",
+                            ],
+                            "type": "option",
+                          },
+                        ],
+                        "type": "select",
+                      },
                       "type": "td",
                     },
                   ],
