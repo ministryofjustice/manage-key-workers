@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20;
-const key = process.env.NOMS_TOKEN || 'test';
+const key = process.env.API_GATEWAY_TOKEN || 'test';
 
 const newJWT = (data) => jwt.sign({ data: {
   ...data
