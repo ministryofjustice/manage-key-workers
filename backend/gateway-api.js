@@ -86,13 +86,13 @@ const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
 });
 
 function gatewayToken () {
-  const nomsToken = process.env.NOMS_TOKEN;
+  const apiGatewayToken = process.env.API_GATEWAY_TOKEN;
   const milliseconds = Math.round((new Date()).getTime() / 1000);
   const payload = {
     iat: milliseconds,
-    token: nomsToken
+    token: apiGatewayToken
   };
-  const privateKey = process.env.NOMS_PRIVATE_KEY || '';
+  const privateKey = process.env.API_GATEWAY_PRIVATE_KEY || '';
   const cert = new Buffer(privateKey);
   return jwt.sign(payload, cert, { algorithm: 'ES256' });
 }
