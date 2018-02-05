@@ -8,6 +8,13 @@ const allocated = require('./controllers/allocated');
 const updateReason = require('./controllers/update-reason');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const bunyanMiddleware = require('bunyan-middleware');
+const log = require('./log');
+
+app.use(bunyanMiddleware({
+  logger: log,
+  obscureHeaders: ['Authorization']
+}));
 
 app.use('/login', jsonParser, login);
 app.use('/unallocated', jsonParser, unallocated);
