@@ -2,6 +2,7 @@ const axios = require('axios');
 const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const jwt = require('jsonwebtoken');
+const log = require('./log');
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
 axios.interceptors.request.use((config) => {
@@ -64,7 +65,8 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     data,
     headers: getHeaders({ headers, reqHeaders, token })
   }).catch(error => {
-    if (error.response.status === 401) {
+    log.info({ error }, 'Error returned from API call');
+    if (error.response && error.response.status === 401) {
       return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
         onTokenRefresh(session.newJWT(response.data));
         return service.retryRequest({
