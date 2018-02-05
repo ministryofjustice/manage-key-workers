@@ -65,17 +65,19 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     data,
     headers: getHeaders({ headers, reqHeaders, token })
   }).catch(error => {
-    log.info({ error }, 'Error returned from API call');
-    if (error.response && error.response.status === 401) {
-      return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
-        onTokenRefresh(session.newJWT(response.data));
-        return service.retryRequest({
-          url,
-          method,
-          responseType,
-          headers: getHeaders({ headers, reqHeaders, token: response.data.token })
+    if (error.response) {
+      log.info({ url: url, status: error.response.data }, 'Error returned from API call');
+      if (error.response.status === 401) {
+        return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
+          onTokenRefresh(session.newJWT(response.data));
+          return service.retryRequest({
+            url,
+            method,
+            responseType,
+            headers: getHeaders({ headers, reqHeaders, token: response.data.token })
+          });
         });
-      });
+      }
     }
     throw error;
   });
