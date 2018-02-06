@@ -6,22 +6,13 @@ class ManualAllocation extends Component {
   constructor (props) {
     super();
     this.state = {
-      keyworker: ''
+      allocatedKeyworkers: []
     };
-    console.log('in constructor ManualAllocation() ' + props);
   }
 
-  handleKeyworkerChange () {
-    console.log('in handleKeyworkerChange');
-  }
-
-  render () {
-    const keyworkerOptions = this.props.keyworkerList.map((kw) => {
-      return <option value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
-    });
-
-    const offenders = this.props.allocatedList.map((a) => {
-      const formattedName = (properCaseName(a.lastName) + ', ' + properCaseName(a.firstName));
+  buildTableForRender (keyworkerOptions) {
+    const offenders = this.props.allocatedList.map((a, index) => {
+      const currentSelectValue = this.props.allocatedKeyworkers[index] ? this.props.allocatedKeyworkers[index].staffId : '';
       let tooltip = '';
       if (a.keyworkerDisplay !== '--') {
         tooltip = (<span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img
@@ -29,23 +20,35 @@ class ManualAllocation extends Component {
       }
       return (
         <tr key={a.bookingId} className="row-gutters">
-          <td className="row-gutters"><a href={a.bookingId}>{formattedName}</a></td>
+          <td className="row-gutters"><a href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate}</td>
           <td className="row-gutters">{a.crsaClassification}</td>
           <td className="row-gutters">{a.keyworkerDisplay}
             {tooltip}
-            <ReactTooltip place="top" effect="solid" theme="info" />
+            <ReactTooltip place="top" effect="solid" theme="info"/>
           </td>
           <td className="row-gutters">
-            <select id="keyworker-select" className="form-control" value={this.state.keyworker} onChange={this.handleKeyworkerChange}>
-              {keyworkerOptions}
+            <select id="keyworker-select-{a.bookingID}" className="form-control" value={currentSelectValue}
+              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
+              <option key="choose" value="">-- Select --</option>
+              {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
             </select>
           </td>
         </tr>
       );
     });
+    return offenders;
+  }
+
+  render () {
+    const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
+      return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+    });
+
+    const offenders = this.buildTableForRender(keyworkerOptions);
+
     return (
       <div>
         <h1 className="heading-large">Key worker allocation</h1>
@@ -64,7 +67,7 @@ class ManualAllocation extends Component {
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button className="button top-gutter pure-u-md-2-12" onClick={() => this.props.gotoNext()}>Allocate</button>
+        <button className="button top-gutter pure-u-md-2-12" onClick={() => this.props.postManualOverride(this.props.history)}>Save and continue</button>
       </div>
     );
   }

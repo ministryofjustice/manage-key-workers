@@ -29,7 +29,7 @@ const getRequest = ({ req, url, headers }) => service.callApi({
 const postRequest = ({ req, url, headers }) => service.callApi({
   method: 'post',
   url,
-  headers: headers || {},
+  headers: headers || { 'content-type': 'application/json' },
   reqHeaders: req.headers,
   data: req.data,
   onTokenRefresh: (token) => {
@@ -40,7 +40,7 @@ const postRequest = ({ req, url, headers }) => service.callApi({
 const putRequest = ({ req, url, headers }) => service.callApi({
   method: 'put',
   url,
-  headers: headers || {},
+  headers: headers || { 'content-type': 'application/json' },
   reqHeaders: req.headers,
   data: req.data,
   onTokenRefresh: (token) => {

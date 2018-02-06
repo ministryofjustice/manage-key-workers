@@ -12,11 +12,13 @@ class AllocateParent extends Component {
     super();
     this.displayError = this.displayError.bind(this);
     this.gotoManualAllocation = this.gotoManualAllocation.bind(this);
-    this.gotoKeyworkerReason = this.gotoKeyworkerReason.bind(this);
+    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
+    this.postManualOverride = this.postManualOverride.bind(this);
     this.state = {
       error: null,
       page: 0,
-      list: []
+      list: [],
+      allocatedKeyworkers: []
     };
   }
 
@@ -26,7 +28,8 @@ class AllocateParent extends Component {
       this.setState({
         error: null,
         page: 1,
-        list: list
+        list: list,
+        allocatedKeyworkers: []
       });
     } catch (error) {
       this.displayError(error);
@@ -42,7 +45,6 @@ class AllocateParent extends Component {
         agencyId: this.props.agencyId
       }
     });
-    console.log('data from api call ' + response);
     return response.data;
   }
 
@@ -52,29 +54,47 @@ class AllocateParent extends Component {
         jwt: this.props.jwt
       },
       params: {
-        agencyId: this.props.agencyId
+        agencyId: this.props.agencyId,
+        allocationType: 'A'
       }
     });
-    console.log('data from manual allocated api call ' + response.data);
     return response.data;
   }
 
-  async getConfirmationList () {
-    // TODO shouldnt do put here, should get confirmed manual allocs
-    const response = await axiosWrapper.put('/update-reason', {
-      headers: {
-        jwt: this.props.jwt
-      }
+  handleKeyworkerChange (event, index, bookingId) {
+    const allocatedKeyworkers = this.state.allocatedKeyworkers;
+
+    allocatedKeyworkers[index] = {
+      staffId: event.target.value,
+      bookingId: bookingId
+    };
+
+    this.setState({
+      allocatedKeyworkers
     });
-    console.log('data from api call ' + response);
-    // list returned is of offenders with old + new KWs
-    return response.data;
+  }
+
+  async postManualOverride (history) {
+    try {
+      if (this.state.allocatedKeyworkers && this.state.allocatedKeyworkers > 1) {
+        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.state.allocatedKeyworkers }, {
+          headers: {
+            jwt: this.props.jwt
+          }
+        });
+      }
+      this.props.onFinishAllocation(history);
+      // return response.data;
+    } catch (error) {
+      this.displayError(error);
+    }
   }
 
   displayError (error) {
     this.setState({
       page: this.state.page,
       list: [],
+      allocatedKeyworkers: [],
       error: (error.response && error.response.data) || 'Something went wrong: ' + error
     });
   }
@@ -85,18 +105,8 @@ class AllocateParent extends Component {
       this.setState({
         page: 2,
         allocatedList: viewModel.allocatedResponse,
-        keyworkerList: viewModel.keyworkerResponse
-      });
-    } catch (error) {
-      this.displayError(error);
-    }
-  }
-
-  async gotoKeyworkerReason () {
-    try {
-      this.setState({
-        page: 3,
-        list: await this.getConfirmationList()
+        keyworkerList: viewModel.keyworkerResponse,
+        allocatedKeyworkers: []
       });
     } catch (error) {
       this.displayError(error);
@@ -115,7 +125,8 @@ class AllocateParent extends Component {
       case 1:
         return <Unallocated list={this.state.list} gotoNext={this.gotoManualAllocation} {...this.props} />;
       case 2:
-        return <ManualAllocation allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList} gotoNext={this.gotoKeyworkerReason} {...this.props} />;
+        return (<ManualAllocation allocatedKeyworkers={this.state.allocatedKeyworkers} allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList}
+          handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride} {...this.props} />);
       case 3:
         return <KeyworkerReason list={this.state.list} {...this.props} />;
       default:
@@ -129,8 +140,9 @@ AllocateParent.propTypes = {
   unallocatedOffenders: PropTypes.array,
   autoAllocatedOffenders: PropTypes.array,
   savedOffenders: PropTypes.array,
+  allocatedKeyworkers: PropTypes.array,
   jwt: PropTypes.string,
-  agencyId: PropTypes.number
+  agencyId: PropTypes.string
 };
 
 export default AllocateParent;

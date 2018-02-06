@@ -76,9 +76,7 @@ ShallowWrapper {
                                                   <a
                                                             href={1}
                                                   >
-                                                            Rendell
-                                                            , 
-                                                            Steve
+                                                            Rendell, Steve
                                                   </a>
                                         </td>
                                         <td
@@ -94,12 +92,12 @@ ShallowWrapper {
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  release date todo
+                                                  release date na?
                                         </td>
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  csra todo
+                                                  csra na?
                                         </td>
                               </tr>
                               <tr>
@@ -109,9 +107,7 @@ ShallowWrapper {
                                                   <a
                                                             href={2}
                                                   >
-                                                            Rendell2
-                                                            , 
-                                                            Steve2
+                                                            Rendell2, Steve2
                                                   </a>
                                         </td>
                                         <td
@@ -127,12 +123,12 @@ ShallowWrapper {
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  release date todo
+                                                  release date na?
                                         </td>
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  csra todo
+                                                  csra na?
                                         </td>
                               </tr>
                     </tbody>
@@ -192,9 +188,7 @@ ShallowWrapper {
                                                         <a
                                                                       href={1}
                                                         >
-                                                                      Rendell
-                                                                      , 
-                                                                      Steve
+                                                                      Rendell, Steve
                                                         </a>
                                           </td>
                                           <td
@@ -210,12 +204,12 @@ ShallowWrapper {
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        release date todo
+                                                        release date na?
                                           </td>
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        csra todo
+                                                        csra na?
                                           </td>
                             </tr>
                             <tr>
@@ -225,9 +219,7 @@ ShallowWrapper {
                                                         <a
                                                                       href={2}
                                                         >
-                                                                      Rendell2
-                                                                      , 
-                                                                      Steve2
+                                                                      Rendell2, Steve2
                                                         </a>
                                           </td>
                                           <td
@@ -243,12 +235,12 @@ ShallowWrapper {
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        release date todo
+                                                        release date na?
                                           </td>
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        csra todo
+                                                        csra na?
                                           </td>
                             </tr>
               </tbody>
@@ -314,9 +306,7 @@ ShallowWrapper {
                                                       <a
                                                                         href={1}
                                                       >
-                                                                        Rendell
-                                                                        , 
-                                                                        Steve
+                                                                        Rendell, Steve
                                                       </a>
                                     </td>
                                     <td
@@ -332,12 +322,12 @@ ShallowWrapper {
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      release date todo
+                                                      release date na?
                                     </td>
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      csra todo
+                                                      csra na?
                                     </td>
                   </tr>
                   <tr>
@@ -347,9 +337,7 @@ ShallowWrapper {
                                                       <a
                                                                         href={2}
                                                       >
-                                                                        Rendell2
-                                                                        , 
-                                                                        Steve2
+                                                                        Rendell2, Steve2
                                                       </a>
                                     </td>
                                     <td
@@ -365,12 +353,12 @@ ShallowWrapper {
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      release date todo
+                                                      release date na?
                                     </td>
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      csra todo
+                                                      csra na?
                                     </td>
                   </tr>
 </tbody>,
@@ -500,9 +488,7 @@ ShallowWrapper {
                                             <a
                                                                   href={1}
                                             >
-                                                                  Rendell
-                                                                  , 
-                                                                  Steve
+                                                                  Rendell, Steve
                                             </a>
                       </td>
                       <td
@@ -518,12 +504,12 @@ ShallowWrapper {
                       <td
                                             className="row-gutters"
                       >
-                                            release date todo
+                                            release date na?
                       </td>
                       <td
                                             className="row-gutters"
                       >
-                                            csra todo
+                                            csra na?
                       </td>
 </tr>,
                     <tr>
@@ -533,9 +519,7 @@ ShallowWrapper {
                                             <a
                                                                   href={2}
                                             >
-                                                                  Rendell2
-                                                                  , 
-                                                                  Steve2
+                                                                  Rendell2, Steve2
                                             </a>
                       </td>
                       <td
@@ -551,12 +535,12 @@ ShallowWrapper {
                       <td
                                             className="row-gutters"
                       >
-                                            release date todo
+                                            release date na?
                       </td>
                       <td
                                             className="row-gutters"
                       >
-                                            csra todo
+                                            csra na?
                       </td>
 </tr>,
                   ],
@@ -575,9 +559,7 @@ ShallowWrapper {
                           <a
                                                     href={1}
                           >
-                                                    Rendell
-                                                    , 
-                                                    Steve
+                                                    Rendell, Steve
                           </a>
 </td>,
                         <td
@@ -593,12 +575,12 @@ ShallowWrapper {
                         <td
                           className="row-gutters"
 >
-                          release date todo
+                          release date na?
 </td>,
                         <td
                           className="row-gutters"
 >
-                          csra todo
+                          csra na?
 </td>,
                       ],
                     },
@@ -612,9 +594,7 @@ ShallowWrapper {
                           "children": <a
                             href={1}
 >
-                            Rendell
-                            , 
-                            Steve
+                            Rendell, Steve
 </a>,
                           "className": "row-gutters",
                         },
@@ -624,19 +604,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": Array [
-                              "Rendell",
-                              ", ",
-                              "Steve",
-                            ],
+                            "children": "Rendell, Steve",
                             "href": 1,
                           },
                           "ref": null,
-                          "rendered": Array [
-                            "Rendell",
-                            ", ",
-                            "Steve",
-                          ],
+                          "rendered": "Rendell, Steve",
                           "type": "a",
                         },
                         "type": "td",
@@ -670,11 +642,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "release date todo",
+                          "children": "release date na?",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "release date todo",
+                        "rendered": "release date na?",
                         "type": "td",
                       },
                       Object {
@@ -682,11 +654,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "csra todo",
+                          "children": "csra na?",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "csra todo",
+                        "rendered": "csra na?",
                         "type": "td",
                       },
                     ],
@@ -704,9 +676,7 @@ ShallowWrapper {
                           <a
                                                     href={2}
                           >
-                                                    Rendell2
-                                                    , 
-                                                    Steve2
+                                                    Rendell2, Steve2
                           </a>
 </td>,
                         <td
@@ -722,12 +692,12 @@ ShallowWrapper {
                         <td
                           className="row-gutters"
 >
-                          release date todo
+                          release date na?
 </td>,
                         <td
                           className="row-gutters"
 >
-                          csra todo
+                          csra na?
 </td>,
                       ],
                     },
@@ -741,9 +711,7 @@ ShallowWrapper {
                           "children": <a
                             href={2}
 >
-                            Rendell2
-                            , 
-                            Steve2
+                            Rendell2, Steve2
 </a>,
                           "className": "row-gutters",
                         },
@@ -753,19 +721,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": Array [
-                              "Rendell2",
-                              ", ",
-                              "Steve2",
-                            ],
+                            "children": "Rendell2, Steve2",
                             "href": 2,
                           },
                           "ref": null,
-                          "rendered": Array [
-                            "Rendell2",
-                            ", ",
-                            "Steve2",
-                          ],
+                          "rendered": "Rendell2, Steve2",
                           "type": "a",
                         },
                         "type": "td",
@@ -799,11 +759,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "release date todo",
+                          "children": "release date na?",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "release date todo",
+                        "rendered": "release date na?",
                         "type": "td",
                       },
                       Object {
@@ -811,11 +771,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "csra todo",
+                          "children": "csra na?",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "csra todo",
+                        "rendered": "csra na?",
                         "type": "td",
                       },
                     ],
@@ -907,9 +867,7 @@ ShallowWrapper {
                                                             <a
                                                                         href={1}
                                                             >
-                                                                        Rendell
-                                                                        , 
-                                                                        Steve
+                                                                        Rendell, Steve
                                                             </a>
                                                 </td>
                                                 <td
@@ -925,12 +883,12 @@ ShallowWrapper {
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            release date todo
+                                                            release date na?
                                                 </td>
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            csra todo
+                                                            csra na?
                                                 </td>
                                     </tr>
                                     <tr>
@@ -940,9 +898,7 @@ ShallowWrapper {
                                                             <a
                                                                         href={2}
                                                             >
-                                                                        Rendell2
-                                                                        , 
-                                                                        Steve2
+                                                                        Rendell2, Steve2
                                                             </a>
                                                 </td>
                                                 <td
@@ -958,12 +914,12 @@ ShallowWrapper {
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            release date todo
+                                                            release date na?
                                                 </td>
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            csra todo
+                                                            csra na?
                                                 </td>
                                     </tr>
                         </tbody>
@@ -1023,9 +979,7 @@ ShallowWrapper {
                                                                 <a
                                                                                 href={1}
                                                                 >
-                                                                                Rendell
-                                                                                , 
-                                                                                Steve
+                                                                                Rendell, Steve
                                                                 </a>
                                                 </td>
                                                 <td
@@ -1041,12 +995,12 @@ ShallowWrapper {
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                release date todo
+                                                                release date na?
                                                 </td>
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                csra todo
+                                                                csra na?
                                                 </td>
                                 </tr>
                                 <tr>
@@ -1056,9 +1010,7 @@ ShallowWrapper {
                                                                 <a
                                                                                 href={2}
                                                                 >
-                                                                                Rendell2
-                                                                                , 
-                                                                                Steve2
+                                                                                Rendell2, Steve2
                                                                 </a>
                                                 </td>
                                                 <td
@@ -1074,12 +1026,12 @@ ShallowWrapper {
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                release date todo
+                                                                release date na?
                                                 </td>
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                csra todo
+                                                                csra na?
                                                 </td>
                                 </tr>
                 </tbody>
@@ -1145,9 +1097,7 @@ ShallowWrapper {
                                                             <a
                                                                                 href={1}
                                                             >
-                                                                                Rendell
-                                                                                , 
-                                                                                Steve
+                                                                                Rendell, Steve
                                                             </a>
                                         </td>
                                         <td
@@ -1163,12 +1113,12 @@ ShallowWrapper {
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            release date todo
+                                                            release date na?
                                         </td>
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            csra todo
+                                                            csra na?
                                         </td>
                     </tr>
                     <tr>
@@ -1178,9 +1128,7 @@ ShallowWrapper {
                                                             <a
                                                                                 href={2}
                                                             >
-                                                                                Rendell2
-                                                                                , 
-                                                                                Steve2
+                                                                                Rendell2, Steve2
                                                             </a>
                                         </td>
                                         <td
@@ -1196,12 +1144,12 @@ ShallowWrapper {
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            release date todo
+                                                            release date na?
                                         </td>
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            csra todo
+                                                            csra na?
                                         </td>
                     </tr>
 </tbody>,
@@ -1331,9 +1279,7 @@ ShallowWrapper {
                                                 <a
                                                                         href={1}
                                                 >
-                                                                        Rendell
-                                                                        , 
-                                                                        Steve
+                                                                        Rendell, Steve
                                                 </a>
                         </td>
                         <td
@@ -1349,12 +1295,12 @@ ShallowWrapper {
                         <td
                                                 className="row-gutters"
                         >
-                                                release date todo
+                                                release date na?
                         </td>
                         <td
                                                 className="row-gutters"
                         >
-                                                csra todo
+                                                csra na?
                         </td>
 </tr>,
                       <tr>
@@ -1364,9 +1310,7 @@ ShallowWrapper {
                                                 <a
                                                                         href={2}
                                                 >
-                                                                        Rendell2
-                                                                        , 
-                                                                        Steve2
+                                                                        Rendell2, Steve2
                                                 </a>
                         </td>
                         <td
@@ -1382,12 +1326,12 @@ ShallowWrapper {
                         <td
                                                 className="row-gutters"
                         >
-                                                release date todo
+                                                release date na?
                         </td>
                         <td
                                                 className="row-gutters"
                         >
-                                                csra todo
+                                                csra na?
                         </td>
 </tr>,
                     ],
@@ -1406,9 +1350,7 @@ ShallowWrapper {
                             <a
                                                         href={1}
                             >
-                                                        Rendell
-                                                        , 
-                                                        Steve
+                                                        Rendell, Steve
                             </a>
 </td>,
                           <td
@@ -1424,12 +1366,12 @@ ShallowWrapper {
                           <td
                             className="row-gutters"
 >
-                            release date todo
+                            release date na?
 </td>,
                           <td
                             className="row-gutters"
 >
-                            csra todo
+                            csra na?
 </td>,
                         ],
                       },
@@ -1443,9 +1385,7 @@ ShallowWrapper {
                             "children": <a
                               href={1}
 >
-                              Rendell
-                              , 
-                              Steve
+                              Rendell, Steve
 </a>,
                             "className": "row-gutters",
                           },
@@ -1455,19 +1395,11 @@ ShallowWrapper {
                             "key": undefined,
                             "nodeType": "host",
                             "props": Object {
-                              "children": Array [
-                                "Rendell",
-                                ", ",
-                                "Steve",
-                              ],
+                              "children": "Rendell, Steve",
                               "href": 1,
                             },
                             "ref": null,
-                            "rendered": Array [
-                              "Rendell",
-                              ", ",
-                              "Steve",
-                            ],
+                            "rendered": "Rendell, Steve",
                             "type": "a",
                           },
                           "type": "td",
@@ -1501,11 +1433,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "release date todo",
+                            "children": "release date na?",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "release date todo",
+                          "rendered": "release date na?",
                           "type": "td",
                         },
                         Object {
@@ -1513,11 +1445,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "csra todo",
+                            "children": "csra na?",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "csra todo",
+                          "rendered": "csra na?",
                           "type": "td",
                         },
                       ],
@@ -1535,9 +1467,7 @@ ShallowWrapper {
                             <a
                                                         href={2}
                             >
-                                                        Rendell2
-                                                        , 
-                                                        Steve2
+                                                        Rendell2, Steve2
                             </a>
 </td>,
                           <td
@@ -1553,12 +1483,12 @@ ShallowWrapper {
                           <td
                             className="row-gutters"
 >
-                            release date todo
+                            release date na?
 </td>,
                           <td
                             className="row-gutters"
 >
-                            csra todo
+                            csra na?
 </td>,
                         ],
                       },
@@ -1572,9 +1502,7 @@ ShallowWrapper {
                             "children": <a
                               href={2}
 >
-                              Rendell2
-                              , 
-                              Steve2
+                              Rendell2, Steve2
 </a>,
                             "className": "row-gutters",
                           },
@@ -1584,19 +1512,11 @@ ShallowWrapper {
                             "key": undefined,
                             "nodeType": "host",
                             "props": Object {
-                              "children": Array [
-                                "Rendell2",
-                                ", ",
-                                "Steve2",
-                              ],
+                              "children": "Rendell2, Steve2",
                               "href": 2,
                             },
                             "ref": null,
-                            "rendered": Array [
-                              "Rendell2",
-                              ", ",
-                              "Steve2",
-                            ],
+                            "rendered": "Rendell2, Steve2",
                             "type": "a",
                           },
                           "type": "td",
@@ -1630,11 +1550,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "release date todo",
+                            "children": "release date na?",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "release date todo",
+                          "rendered": "release date na?",
                           "type": "td",
                         },
                         Object {
@@ -1642,11 +1562,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "csra todo",
+                            "children": "csra na?",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "csra todo",
+                          "rendered": "csra na?",
                           "type": "td",
                         },
                       ],
