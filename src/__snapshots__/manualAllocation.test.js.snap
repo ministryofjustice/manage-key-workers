@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <ManualAllocation
+    allocatedKeyworkers={Array []}
     allocatedList={
         Array [
             Object {
@@ -97,7 +98,9 @@ ShallowWrapper {
                                         <a
                                                   href={1}
                                         >
-                                                  Rendell, Steve
+                                                  Rendell
+                                                  , 
+                                                  Steve
                                         </a>
                               </td>
                               <td
@@ -143,10 +146,15 @@ ShallowWrapper {
                               >
                                         <select
                                                   className="form-control"
-                                                  id="keyworker-select"
+                                                  id="keyworker-select-{a.bookingID}"
                                                   onChange={[Function]}
                                                   value=""
                                         >
+                                                  <option
+                                                            value=""
+                                                  >
+                                                            -- Select --
+                                                  </option>
                                                   <option
                                                             value={123}
                                                   >
@@ -179,7 +187,9 @@ ShallowWrapper {
                                         <a
                                                   href={2}
                                         >
-                                                  Rendell2, Steve2
+                                                  Rendell2
+                                                  , 
+                                                  Steve2
                                         </a>
                               </td>
                               <td
@@ -225,10 +235,15 @@ ShallowWrapper {
                               >
                                         <select
                                                   className="form-control"
-                                                  id="keyworker-select"
+                                                  id="keyworker-select-{a.bookingID}"
                                                   onChange={[Function]}
                                                   value=""
                                         >
+                                                  <option
+                                                            value=""
+                                                  >
+                                                            -- Select --
+                                                  </option>
                                                   <option
                                                             value={123}
                                                   >
@@ -258,7 +273,7 @@ ShallowWrapper {
           className="button top-gutter pure-u-md-2-12"
           onClick={[Function]}
 >
-          Allocate
+          Save and continue
 </button>,
       ],
     },
@@ -328,7 +343,9 @@ ShallowWrapper {
                                           <a
                                                         href={1}
                                           >
-                                                        Rendell, Steve
+                                                        Rendell
+                                                        , 
+                                                        Steve
                                           </a>
                             </td>
                             <td
@@ -374,10 +391,15 @@ ShallowWrapper {
                             >
                                           <select
                                                         className="form-control"
-                                                        id="keyworker-select"
+                                                        id="keyworker-select-{a.bookingID}"
                                                         onChange={[Function]}
                                                         value=""
                                           >
+                                                        <option
+                                                                      value=""
+                                                        >
+                                                                      -- Select --
+                                                        </option>
                                                         <option
                                                                       value={123}
                                                         >
@@ -410,7 +432,9 @@ ShallowWrapper {
                                           <a
                                                         href={2}
                                           >
-                                                        Rendell2, Steve2
+                                                        Rendell2
+                                                        , 
+                                                        Steve2
                                           </a>
                             </td>
                             <td
@@ -456,10 +480,15 @@ ShallowWrapper {
                             >
                                           <select
                                                         className="form-control"
-                                                        id="keyworker-select"
+                                                        id="keyworker-select-{a.bookingID}"
                                                         onChange={[Function]}
                                                         value=""
                                           >
+                                                        <option
+                                                                      value=""
+                                                        >
+                                                                      -- Select --
+                                                        </option>
                                                         <option
                                                                       value={123}
                                                         >
@@ -646,7 +675,9 @@ ShallowWrapper {
                                     <a
                                                       href={1}
                                     >
-                                                      Rendell, Steve
+                                                      Rendell
+                                                      , 
+                                                      Steve
                                     </a>
                   </td>
                   <td
@@ -692,10 +723,15 @@ ShallowWrapper {
                   >
                                     <select
                                                       className="form-control"
-                                                      id="keyworker-select"
+                                                      id="keyworker-select-{a.bookingID}"
                                                       onChange={[Function]}
                                                       value=""
                                     >
+                                                      <option
+                                                                        value=""
+                                                      >
+                                                                        -- Select --
+                                                      </option>
                                                       <option
                                                                         value={123}
                                                       >
@@ -728,7 +764,9 @@ ShallowWrapper {
                                     <a
                                                       href={2}
                                     >
-                                                      Rendell2, Steve2
+                                                      Rendell2
+                                                      , 
+                                                      Steve2
                                     </a>
                   </td>
                   <td
@@ -774,10 +812,15 @@ ShallowWrapper {
                   >
                                     <select
                                                       className="form-control"
-                                                      id="keyworker-select"
+                                                      id="keyworker-select-{a.bookingID}"
                                                       onChange={[Function]}
                                                       value=""
                                     >
+                                                      <option
+                                                                        value=""
+                                                      >
+                                                                        -- Select --
+                                                      </option>
                                                       <option
                                                                         value={123}
                                                       >
@@ -817,7 +860,9 @@ ShallowWrapper {
                       <a
                                             href={1}
                       >
-                                            Rendell, Steve
+                                            Rendell
+                                            , 
+                                            Steve
                       </a>
 </td>,
                     <td
@@ -863,10 +908,15 @@ ShallowWrapper {
 >
                       <select
                                             className="form-control"
-                                            id="keyworker-select"
+                                            id="keyworker-select-{a.bookingID}"
                                             onChange={[Function]}
                                             value=""
                       >
+                                            <option
+                                                                  value=""
+                                            >
+                                                                  -- Select --
+                                            </option>
                                             <option
                                                                   value={123}
                                             >
@@ -902,7 +952,9 @@ ShallowWrapper {
                       "children": <a
                         href={1}
 >
-                        Rendell, Steve
+                        Rendell
+                        , 
+                        Steve
 </a>,
                       "className": "row-gutters",
                     },
@@ -912,11 +964,19 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "Rendell, Steve",
+                        "children": Array [
+                          "Rendell",
+                          ", ",
+                          "Steve",
+                        ],
                         "href": 1,
                       },
                       "ref": null,
-                      "rendered": "Rendell, Steve",
+                      "rendered": Array [
+                        "Rendell",
+                        ", ",
+                        "Steve",
+                      ],
                       "type": "a",
                     },
                     "type": "td",
@@ -1055,10 +1115,15 @@ ShallowWrapper {
                     "props": Object {
                       "children": <select
                         className="form-control"
-                        id="keyworker-select"
+                        id="keyworker-select-{a.bookingID}"
                         onChange={[Function]}
                         value=""
 >
+                        <option
+                                                value=""
+                        >
+                                                -- Select --
+                        </option>
                         <option
                                                 value={123}
                         >
@@ -1090,28 +1155,35 @@ ShallowWrapper {
                       "props": Object {
                         "children": Array [
                           <option
-                            value={123}
+                            value=""
 >
-                            Hanson
-                            , 
-                            Amy
-                             (
-                            4
-                            )
+                            -- Select --
 </option>,
-                          <option
-                            value={113}
+                          Array [
+                            <option
+                              value={123}
 >
-                            Hanson
-                            , 
-                            Sam
-                             (
-                            6
-                            )
+                              Hanson
+                              , 
+                              Amy
+                               (
+                              4
+                              )
 </option>,
+                            <option
+                              value={113}
+>
+                              Hanson
+                              , 
+                              Sam
+                               (
+                              6
+                              )
+</option>,
+                          ],
                         ],
                         "className": "form-control",
-                        "id": "keyworker-select",
+                        "id": "keyworker-select-{a.bookingID}",
                         "onChange": [Function],
                         "value": "",
                       },
@@ -1119,7 +1191,19 @@ ShallowWrapper {
                       "rendered": Array [
                         Object {
                           "instance": null,
-                          "key": undefined,
+                          "key": "choose",
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "-- Select --",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": "-- Select --",
+                          "type": "option",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": "option_0_123",
                           "nodeType": "host",
                           "props": Object {
                             "children": Array [
@@ -1145,7 +1229,7 @@ ShallowWrapper {
                         },
                         Object {
                           "instance": null,
-                          "key": undefined,
+                          "key": "option_1_113",
                           "nodeType": "host",
                           "props": Object {
                             "children": Array [
@@ -1189,7 +1273,9 @@ ShallowWrapper {
                       <a
                                             href={2}
                       >
-                                            Rendell2, Steve2
+                                            Rendell2
+                                            , 
+                                            Steve2
                       </a>
 </td>,
                     <td
@@ -1235,10 +1321,15 @@ ShallowWrapper {
 >
                       <select
                                             className="form-control"
-                                            id="keyworker-select"
+                                            id="keyworker-select-{a.bookingID}"
                                             onChange={[Function]}
                                             value=""
                       >
+                                            <option
+                                                                  value=""
+                                            >
+                                                                  -- Select --
+                                            </option>
                                             <option
                                                                   value={123}
                                             >
@@ -1274,7 +1365,9 @@ ShallowWrapper {
                       "children": <a
                         href={2}
 >
-                        Rendell2, Steve2
+                        Rendell2
+                        , 
+                        Steve2
 </a>,
                       "className": "row-gutters",
                     },
@@ -1284,11 +1377,19 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "Rendell2, Steve2",
+                        "children": Array [
+                          "Rendell2",
+                          ", ",
+                          "Steve2",
+                        ],
                         "href": 2,
                       },
                       "ref": null,
-                      "rendered": "Rendell2, Steve2",
+                      "rendered": Array [
+                        "Rendell2",
+                        ", ",
+                        "Steve2",
+                      ],
                       "type": "a",
                     },
                     "type": "td",
@@ -1427,10 +1528,15 @@ ShallowWrapper {
                     "props": Object {
                       "children": <select
                         className="form-control"
-                        id="keyworker-select"
+                        id="keyworker-select-{a.bookingID}"
                         onChange={[Function]}
                         value=""
 >
+                        <option
+                                                value=""
+                        >
+                                                -- Select --
+                        </option>
                         <option
                                                 value={123}
                         >
@@ -1462,28 +1568,35 @@ ShallowWrapper {
                       "props": Object {
                         "children": Array [
                           <option
-                            value={123}
+                            value=""
 >
-                            Hanson
-                            , 
-                            Amy
-                             (
-                            4
-                            )
+                            -- Select --
 </option>,
-                          <option
-                            value={113}
+                          Array [
+                            <option
+                              value={123}
 >
-                            Hanson
-                            , 
-                            Sam
-                             (
-                            6
-                            )
+                              Hanson
+                              , 
+                              Amy
+                               (
+                              4
+                              )
 </option>,
+                            <option
+                              value={113}
+>
+                              Hanson
+                              , 
+                              Sam
+                               (
+                              6
+                              )
+</option>,
+                          ],
                         ],
                         "className": "form-control",
-                        "id": "keyworker-select",
+                        "id": "keyworker-select-{a.bookingID}",
                         "onChange": [Function],
                         "value": "",
                       },
@@ -1491,7 +1604,19 @@ ShallowWrapper {
                       "rendered": Array [
                         Object {
                           "instance": null,
-                          "key": undefined,
+                          "key": "choose",
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "-- Select --",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": "-- Select --",
+                          "type": "option",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": "option_0_123",
                           "nodeType": "host",
                           "props": Object {
                             "children": Array [
@@ -1517,7 +1642,7 @@ ShallowWrapper {
                         },
                         Object {
                           "instance": null,
-                          "key": undefined,
+                          "key": "option_1_113",
                           "nodeType": "host",
                           "props": Object {
                             "children": Array [
@@ -1560,12 +1685,12 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "Allocate",
+          "children": "Save and continue",
           "className": "button top-gutter pure-u-md-2-12",
           "onClick": [Function],
         },
         "ref": null,
-        "rendered": "Allocate",
+        "rendered": "Save and continue",
         "type": "button",
       },
     ],
@@ -1622,7 +1747,9 @@ ShallowWrapper {
                                                 <a
                                                             href={1}
                                                 >
-                                                            Rendell, Steve
+                                                            Rendell
+                                                            , 
+                                                            Steve
                                                 </a>
                                     </td>
                                     <td
@@ -1668,10 +1795,15 @@ ShallowWrapper {
                                     >
                                                 <select
                                                             className="form-control"
-                                                            id="keyworker-select"
+                                                            id="keyworker-select-{a.bookingID}"
                                                             onChange={[Function]}
                                                             value=""
                                                 >
+                                                            <option
+                                                                        value=""
+                                                            >
+                                                                        -- Select --
+                                                            </option>
                                                             <option
                                                                         value={123}
                                                             >
@@ -1704,7 +1836,9 @@ ShallowWrapper {
                                                 <a
                                                             href={2}
                                                 >
-                                                            Rendell2, Steve2
+                                                            Rendell2
+                                                            , 
+                                                            Steve2
                                                 </a>
                                     </td>
                                     <td
@@ -1750,10 +1884,15 @@ ShallowWrapper {
                                     >
                                                 <select
                                                             className="form-control"
-                                                            id="keyworker-select"
+                                                            id="keyworker-select-{a.bookingID}"
                                                             onChange={[Function]}
                                                             value=""
                                                 >
+                                                            <option
+                                                                        value=""
+                                                            >
+                                                                        -- Select --
+                                                            </option>
                                                             <option
                                                                         value={123}
                                                             >
@@ -1783,7 +1922,7 @@ ShallowWrapper {
             className="button top-gutter pure-u-md-2-12"
             onClick={[Function]}
 >
-            Allocate
+            Save and continue
 </button>,
         ],
       },
@@ -1853,7 +1992,9 @@ ShallowWrapper {
                                                 <a
                                                                 href={1}
                                                 >
-                                                                Rendell, Steve
+                                                                Rendell
+                                                                , 
+                                                                Steve
                                                 </a>
                                 </td>
                                 <td
@@ -1899,10 +2040,15 @@ ShallowWrapper {
                                 >
                                                 <select
                                                                 className="form-control"
-                                                                id="keyworker-select"
+                                                                id="keyworker-select-{a.bookingID}"
                                                                 onChange={[Function]}
                                                                 value=""
                                                 >
+                                                                <option
+                                                                                value=""
+                                                                >
+                                                                                -- Select --
+                                                                </option>
                                                                 <option
                                                                                 value={123}
                                                                 >
@@ -1935,7 +2081,9 @@ ShallowWrapper {
                                                 <a
                                                                 href={2}
                                                 >
-                                                                Rendell2, Steve2
+                                                                Rendell2
+                                                                , 
+                                                                Steve2
                                                 </a>
                                 </td>
                                 <td
@@ -1981,10 +2129,15 @@ ShallowWrapper {
                                 >
                                                 <select
                                                                 className="form-control"
-                                                                id="keyworker-select"
+                                                                id="keyworker-select-{a.bookingID}"
                                                                 onChange={[Function]}
                                                                 value=""
                                                 >
+                                                                <option
+                                                                                value=""
+                                                                >
+                                                                                -- Select --
+                                                                </option>
                                                                 <option
                                                                                 value={123}
                                                                 >
@@ -2171,7 +2324,9 @@ ShallowWrapper {
                                         <a
                                                             href={1}
                                         >
-                                                            Rendell, Steve
+                                                            Rendell
+                                                            , 
+                                                            Steve
                                         </a>
                     </td>
                     <td
@@ -2217,10 +2372,15 @@ ShallowWrapper {
                     >
                                         <select
                                                             className="form-control"
-                                                            id="keyworker-select"
+                                                            id="keyworker-select-{a.bookingID}"
                                                             onChange={[Function]}
                                                             value=""
                                         >
+                                                            <option
+                                                                                value=""
+                                                            >
+                                                                                -- Select --
+                                                            </option>
                                                             <option
                                                                                 value={123}
                                                             >
@@ -2253,7 +2413,9 @@ ShallowWrapper {
                                         <a
                                                             href={2}
                                         >
-                                                            Rendell2, Steve2
+                                                            Rendell2
+                                                            , 
+                                                            Steve2
                                         </a>
                     </td>
                     <td
@@ -2299,10 +2461,15 @@ ShallowWrapper {
                     >
                                         <select
                                                             className="form-control"
-                                                            id="keyworker-select"
+                                                            id="keyworker-select-{a.bookingID}"
                                                             onChange={[Function]}
                                                             value=""
                                         >
+                                                            <option
+                                                                                value=""
+                                                            >
+                                                                                -- Select --
+                                                            </option>
                                                             <option
                                                                                 value={123}
                                                             >
@@ -2342,7 +2509,9 @@ ShallowWrapper {
                         <a
                                                 href={1}
                         >
-                                                Rendell, Steve
+                                                Rendell
+                                                , 
+                                                Steve
                         </a>
 </td>,
                       <td
@@ -2388,10 +2557,15 @@ ShallowWrapper {
 >
                         <select
                                                 className="form-control"
-                                                id="keyworker-select"
+                                                id="keyworker-select-{a.bookingID}"
                                                 onChange={[Function]}
                                                 value=""
                         >
+                                                <option
+                                                                        value=""
+                                                >
+                                                                        -- Select --
+                                                </option>
                                                 <option
                                                                         value={123}
                                                 >
@@ -2427,7 +2601,9 @@ ShallowWrapper {
                         "children": <a
                           href={1}
 >
-                          Rendell, Steve
+                          Rendell
+                          , 
+                          Steve
 </a>,
                         "className": "row-gutters",
                       },
@@ -2437,11 +2613,19 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "Rendell, Steve",
+                          "children": Array [
+                            "Rendell",
+                            ", ",
+                            "Steve",
+                          ],
                           "href": 1,
                         },
                         "ref": null,
-                        "rendered": "Rendell, Steve",
+                        "rendered": Array [
+                          "Rendell",
+                          ", ",
+                          "Steve",
+                        ],
                         "type": "a",
                       },
                       "type": "td",
@@ -2580,10 +2764,15 @@ ShallowWrapper {
                       "props": Object {
                         "children": <select
                           className="form-control"
-                          id="keyworker-select"
+                          id="keyworker-select-{a.bookingID}"
                           onChange={[Function]}
                           value=""
 >
+                          <option
+                                                    value=""
+                          >
+                                                    -- Select --
+                          </option>
                           <option
                                                     value={123}
                           >
@@ -2615,28 +2804,35 @@ ShallowWrapper {
                         "props": Object {
                           "children": Array [
                             <option
-                              value={123}
+                              value=""
 >
-                              Hanson
-                              , 
-                              Amy
-                               (
-                              4
-                              )
+                              -- Select --
 </option>,
-                            <option
-                              value={113}
+                            Array [
+                              <option
+                                value={123}
 >
-                              Hanson
-                              , 
-                              Sam
-                               (
-                              6
-                              )
+                                Hanson
+                                , 
+                                Amy
+                                 (
+                                4
+                                )
 </option>,
+                              <option
+                                value={113}
+>
+                                Hanson
+                                , 
+                                Sam
+                                 (
+                                6
+                                )
+</option>,
+                            ],
                           ],
                           "className": "form-control",
-                          "id": "keyworker-select",
+                          "id": "keyworker-select-{a.bookingID}",
                           "onChange": [Function],
                           "value": "",
                         },
@@ -2644,7 +2840,19 @@ ShallowWrapper {
                         "rendered": Array [
                           Object {
                             "instance": null,
-                            "key": undefined,
+                            "key": "choose",
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "-- Select --",
+                              "value": "",
+                            },
+                            "ref": null,
+                            "rendered": "-- Select --",
+                            "type": "option",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": "option_0_123",
                             "nodeType": "host",
                             "props": Object {
                               "children": Array [
@@ -2670,7 +2878,7 @@ ShallowWrapper {
                           },
                           Object {
                             "instance": null,
-                            "key": undefined,
+                            "key": "option_1_113",
                             "nodeType": "host",
                             "props": Object {
                               "children": Array [
@@ -2714,7 +2922,9 @@ ShallowWrapper {
                         <a
                                                 href={2}
                         >
-                                                Rendell2, Steve2
+                                                Rendell2
+                                                , 
+                                                Steve2
                         </a>
 </td>,
                       <td
@@ -2760,10 +2970,15 @@ ShallowWrapper {
 >
                         <select
                                                 className="form-control"
-                                                id="keyworker-select"
+                                                id="keyworker-select-{a.bookingID}"
                                                 onChange={[Function]}
                                                 value=""
                         >
+                                                <option
+                                                                        value=""
+                                                >
+                                                                        -- Select --
+                                                </option>
                                                 <option
                                                                         value={123}
                                                 >
@@ -2799,7 +3014,9 @@ ShallowWrapper {
                         "children": <a
                           href={2}
 >
-                          Rendell2, Steve2
+                          Rendell2
+                          , 
+                          Steve2
 </a>,
                         "className": "row-gutters",
                       },
@@ -2809,11 +3026,19 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "Rendell2, Steve2",
+                          "children": Array [
+                            "Rendell2",
+                            ", ",
+                            "Steve2",
+                          ],
                           "href": 2,
                         },
                         "ref": null,
-                        "rendered": "Rendell2, Steve2",
+                        "rendered": Array [
+                          "Rendell2",
+                          ", ",
+                          "Steve2",
+                        ],
                         "type": "a",
                       },
                       "type": "td",
@@ -2952,10 +3177,15 @@ ShallowWrapper {
                       "props": Object {
                         "children": <select
                           className="form-control"
-                          id="keyworker-select"
+                          id="keyworker-select-{a.bookingID}"
                           onChange={[Function]}
                           value=""
 >
+                          <option
+                                                    value=""
+                          >
+                                                    -- Select --
+                          </option>
                           <option
                                                     value={123}
                           >
@@ -2987,28 +3217,35 @@ ShallowWrapper {
                         "props": Object {
                           "children": Array [
                             <option
-                              value={123}
+                              value=""
 >
-                              Hanson
-                              , 
-                              Amy
-                               (
-                              4
-                              )
+                              -- Select --
 </option>,
-                            <option
-                              value={113}
+                            Array [
+                              <option
+                                value={123}
 >
-                              Hanson
-                              , 
-                              Sam
-                               (
-                              6
-                              )
+                                Hanson
+                                , 
+                                Amy
+                                 (
+                                4
+                                )
 </option>,
+                              <option
+                                value={113}
+>
+                                Hanson
+                                , 
+                                Sam
+                                 (
+                                6
+                                )
+</option>,
+                            ],
                           ],
                           "className": "form-control",
-                          "id": "keyworker-select",
+                          "id": "keyworker-select-{a.bookingID}",
                           "onChange": [Function],
                           "value": "",
                         },
@@ -3016,7 +3253,19 @@ ShallowWrapper {
                         "rendered": Array [
                           Object {
                             "instance": null,
-                            "key": undefined,
+                            "key": "choose",
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "-- Select --",
+                              "value": "",
+                            },
+                            "ref": null,
+                            "rendered": "-- Select --",
+                            "type": "option",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": "option_0_123",
                             "nodeType": "host",
                             "props": Object {
                               "children": Array [
@@ -3042,7 +3291,7 @@ ShallowWrapper {
                           },
                           Object {
                             "instance": null,
-                            "key": undefined,
+                            "key": "option_1_113",
                             "nodeType": "host",
                             "props": Object {
                               "children": Array [
@@ -3085,12 +3334,12 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "Allocate",
+            "children": "Save and continue",
             "className": "button top-gutter pure-u-md-2-12",
             "onClick": [Function],
           },
           "ref": null,
-          "rendered": "Allocate",
+          "rendered": "Save and continue",
           "type": "button",
         },
       ],

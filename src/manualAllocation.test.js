@@ -35,17 +35,18 @@ describe('ManualAllocation component', () => {
       numberAllocated: 6
     }];
 
-    const component = shallow(<ManualAllocation allocatedList={allocatedList} keyworkerList={keyworkList}/>);
+    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList}/>);
 
     expect(component).toMatchSnapshot();
   });
 
   it('should handle click correctly', async () => {
+    let postCallBack = jest.fn();
     let callBack = jest.fn();
 
-    const component = shallow(<ManualAllocation allocatedList={[]} keyworkerList={[]} gotoNext={callBack}/>);
+    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={[]} keyworkerList={[]} handleKeyworkerChange={callBack} postManualOverride={postCallBack}/>);
 
     component.find('button').simulate('click');
-    expect(callBack.mock.calls.length).toEqual(1);
+    expect(postCallBack.mock.calls.length).toEqual(1);
   });
 });

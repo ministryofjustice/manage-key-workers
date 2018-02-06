@@ -15,7 +15,7 @@ const allocated = async (req) => {
   const keyworkerResponse = await elite2Api.availableKeyworkers(req);
   log.debug({ availableKeyworkers: keyworkerResponse.data }, 'Response from available keyworker request');
 
-  const allocatedResponse = await elite2Api.allocated(req);
+  const allocatedResponse = await elite2Api.autoallocated(req);
   log.debug({ availableKeyworkers: allocatedResponse.data }, 'Response from allocated offenders request');
 
   let allocatedData = allocatedResponse.data;

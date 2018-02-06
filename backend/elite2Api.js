@@ -16,6 +16,12 @@ const allocated = (req) => gateway.getRequest({
   headers: { 'Page-Limit': 200 }
 });
 
+const autoallocated = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `key-worker/${req.query.agencyId}/allocations?allocationType=A`
+});
+
 const availableKeyworkers = (req) => gateway.getRequest({
   req: req,
   method: 'get',
@@ -46,8 +52,14 @@ const currentUser = (req) => gateway.getRequest({
   url: 'users/me'
 });
 
+const allocate = (req) => gateway.postRequest({
+  req: req,
+  method: 'post',
+  url: `key-worker/allocate`
+});
+
 const service = {
-  login, unallocated, allocated, availableKeyworkers, currentUser, sentenceDetail, assessment, keyworker
+  login, unallocated, allocated, availableKeyworkers, currentUser, sentenceDetail, assessment, keyworker, allocate, autoallocated
 };
 
 module.exports = service;

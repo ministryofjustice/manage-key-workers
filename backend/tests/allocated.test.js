@@ -1,5 +1,4 @@
 const allocated = require('../controllers/allocated').allocated;
-
 const elite2Api = require('../elite2Api');
 
 const req = {
@@ -15,7 +14,7 @@ const allocationResponse = createAllocatedDataResponse();
 describe('Allocated controller', async () => {
   it('Should add keyworker details to allocated data array', async () => {
     elite2Api.availableKeyworkers = jest.fn();
-    elite2Api.allocated = jest.fn();
+    elite2Api.autoallocated = jest.fn();
     elite2Api.sentenceDetail = jest
       .fn()
       .mockImplementationOnce(() => createSentenceDetailResponse('2024-03-03'))
@@ -32,7 +31,7 @@ describe('Allocated controller', async () => {
       .mockImplementationOnce(() => createAssessmentResponse('Silly'))
       .mockImplementationOnce(() => createAssessmentResponse('Low'));
 
-    elite2Api.allocated.mockReturnValueOnce(allocationResponse);
+    elite2Api.autoallocated.mockReturnValueOnce(allocationResponse);
 
     elite2Api.availableKeyworkers.mockReturnValueOnce(keyworkResponse);
 

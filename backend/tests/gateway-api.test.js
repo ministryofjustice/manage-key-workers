@@ -2,6 +2,7 @@ const gatewayApi = require('../gateway-api');
 const session = require('../session');
 const axios = require('axios');
 const MockAdaptor = require('axios-mock-adapter');
+const log = require('../log');
 
 let mock = new MockAdaptor(axios);
 
@@ -13,6 +14,9 @@ const req = {
     })
   }
 };
+
+log.debug = jest.fn();
+log.info = jest.fn();
 
 describe('Gateway api', () => {
   it('should retry request with a new token once expired ', async () => {

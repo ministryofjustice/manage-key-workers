@@ -30,7 +30,7 @@ describe('AllocateParent component', () => {
     // /allocated
     mockAxios.mockReturnValueOnce([200, ["s3", "s4"], {}]);
 
-    const component = await shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={42} />);
+    const component = await shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={'LEI'} />);
     // Simulate clicking to 2nd page
     component.instance().gotoManualAllocation();
 
@@ -39,7 +39,7 @@ describe('AllocateParent component', () => {
     expect(mockAxios.mock.calls[0][AXIOS_CONFIG].headers.jwt).toBe('dummy-jwt');
     expect(mockAxios.mock.calls[1][AXIOS_URL]).toBe('/allocated');
     expect(mockAxios.mock.calls[1][AXIOS_CONFIG].headers.jwt).toBe('dummy-jwt');
-    expect(mockAxios.mock.calls[1][AXIOS_CONFIG].params.agencyId).toBe(42);
+    expect(mockAxios.mock.calls[1][AXIOS_CONFIG].params.agencyId).toBe('LEI');
   });
 
   // page 3 TODO
