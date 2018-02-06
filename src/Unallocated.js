@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import { properCaseName } from "./stringUtils";
 
 class Unallocated extends Component {
   render () {
     const offenders = this.props.list.map(a => {
+      const formattedName = (properCaseName(a.lastName) + ', ' + properCaseName(a.firstName));
       return (
         <tr key={a.bookingId}>
-          <td className="row-gutters"><a href={a.bookingId}>{a.lastName}, {a.firstName}</a></td>
+          <td className="row-gutters"><a href={a.bookingId}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">release date todo</td>
-          <td className="row-gutters">csra todo</td>
+          <td className="row-gutters">release date na?</td>
+          <td className="row-gutters">csra na?</td>
         </tr>
       );
     });
