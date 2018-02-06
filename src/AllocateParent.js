@@ -64,10 +64,14 @@ class AllocateParent extends Component {
   handleKeyworkerChange (event, index, bookingId) {
     const allocatedKeyworkers = this.state.allocatedKeyworkers;
 
-    allocatedKeyworkers[index] = {
-      staffId: event.target.value,
-      bookingId: bookingId
-    };
+    if (event.target.value === '--') {
+      allocatedKeyworkers[index] = null;
+    } else {
+      allocatedKeyworkers[index] = {
+        staffId: event.target.value,
+        bookingId: bookingId
+      };
+    }
 
     this.setState({
       allocatedKeyworkers
@@ -76,13 +80,11 @@ class AllocateParent extends Component {
 
   async postManualOverride (history) {
     try {
-      if (this.state.allocatedKeyworkers && this.state.allocatedKeyworkers > 1) {
-        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.state.allocatedKeyworkers }, {
-          headers: {
-            jwt: this.props.jwt
-          }
-        });
-      }
+      await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.state.allocatedKeyworkers }, {
+        headers: {
+          jwt: this.props.jwt
+        }
+      });
       this.props.onFinishAllocation(history);
       // return response.data;
     } catch (error) {
@@ -125,8 +127,10 @@ class AllocateParent extends Component {
       case 1:
         return <Unallocated list={this.state.list} gotoNext={this.gotoManualAllocation} {...this.props} />;
       case 2:
-        return (<ManualAllocation allocatedKeyworkers={this.state.allocatedKeyworkers} allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList}
-          handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride} {...this.props} />);
+        return (<ManualAllocation allocatedKeyworkers={this.state.allocatedKeyworkers}
+          allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList}
+          handleKeyworkerChange={this.handleKeyworkerChange}
+          postManualOverride={this.postManualOverride} {...this.props} />);
       case 3:
         return <KeyworkerReason list={this.state.list} {...this.props} />;
       default:

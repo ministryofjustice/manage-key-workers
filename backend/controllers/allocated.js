@@ -26,9 +26,7 @@ const allocated = async (req) => {
       row.keyworkerDisplay = `${kw.lastName}, ${kw.firstName}`;
       row.numberAllocated = kw.numberAllocated;
     } else {
-      // TODO wire up
-      row.keyworkerDisplay = '--';
-      row.numberAllocated = '999';
+      addMissingKeyworkerDetails(req, row);
     }
     req.query.bookingId = row.bookingId;
 
@@ -40,6 +38,25 @@ const allocated = async (req) => {
     allocatedResponse: allocatedResponse.data
   };
 };
+
+async function addMissingKeyworkerDetails (req, row) {
+  try {
+    req.query.staffId = row.staffId;
+    const keyworkerResponse = await elite2Api.keyworker(req);
+    const keyworkerData = keyworkerResponse.data;
+    log.debug(`keyworker for booking ${row.bookingId} = ${keyworkerResponse.data}`);
+    row.keyworkerDisplay = `${keyworkerData.lastName}, ${keyworkerData.firstName}`;
+    row.numberAllocated = keyworkerData.numberAllocated;
+  } catch (error) {
+    if (error.response.status === 404) {
+      log.info(`No keyworker found for staffId Id ${row.staffId} on booking ${row.bookingId}`);
+      row.keyworkerDisplay = '--';
+      row.numberAllocated = 'n/a';
+    } else {
+      throw error;
+    }
+  }
+}
 
 async function addCrsaClassification (req, row) {
   try {
