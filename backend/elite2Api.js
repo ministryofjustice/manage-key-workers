@@ -5,13 +5,15 @@ const login = (req) => gateway.login(req);
 const unallocated = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: `key-worker/${req.query.agencyId}/offenders/unallocated`
+  url: `key-worker/${req.query.agencyId}/offenders/unallocated`,
+  headers: { 'Page-Limit': 200 }
 });
 
 const allocated = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: `key-worker/${req.query.agencyId}/allocations`
+  url: `key-worker/${req.query.agencyId}/allocations`,
+  headers: { 'Page-Limit': 200 }
 });
 
 const availableKeyworkers = (req) => gateway.getRequest({
@@ -44,17 +46,8 @@ const currentUser = (req) => gateway.getRequest({
   url: 'users/me'
 });
 
-
-const updateReason = (req) => { return { data: "" };}; // Mocked out to return nothing for now
-
-/*const updateReasonReal = (req) => gateway.putRequest({
-  req: req,
-  method: 'put',
-  url: 'key-worker/update-reason'
-});*/
-
 const service = {
-  login, unallocated, allocated, updateReason, availableKeyworkers, currentUser, sentenceDetail, assessment, keyworker
+  login, unallocated, allocated, availableKeyworkers, currentUser, sentenceDetail, assessment, keyworker
 };
 
 module.exports = service;
