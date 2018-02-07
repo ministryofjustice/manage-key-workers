@@ -26,12 +26,12 @@ const allocated = async (req) => {
       row.keyworkerDisplay = `${kw.lastName}, ${kw.firstName}`;
       row.numberAllocated = kw.numberAllocated;
     } else {
-      addMissingKeyworkerDetails(req, row);
+      await addMissingKeyworkerDetails(req, row);
     }
     req.query.bookingId = row.bookingId;
 
-    addCrsaClassification(req, row);
-    addReleaseDate(req, row);
+    await addCrsaClassification(req, row);
+    await addReleaseDate(req, row);
   }
   return {
     keyworkerResponse: keyworkerResponse.data,
