@@ -30,8 +30,8 @@ const allocated = async (req) => {
     }
     req.query.bookingId = row.bookingId;
 
-    await addCrsaClassification(req, row);
-    await addReleaseDate(req, row);
+    addCrsaClassification(req, row);
+    addReleaseDate(req, row);
   }
   return {
     keyworkerResponse: keyworkerResponse.data,
