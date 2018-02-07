@@ -3,13 +3,6 @@ import { properCaseName } from './stringUtils';
 import ReactTooltip from 'react-tooltip';
 
 class ManualAllocation extends Component {
-  constructor (props) {
-    super();
-    this.state = {
-      allocatedKeyworkers: []
-    };
-  }
-
   buildTableForRender (keyworkerOptions) {
     const offenders = this.props.allocatedList.map((a, index) => {
       const currentSelectValue = this.props.allocatedKeyworkers[index] ? this.props.allocatedKeyworkers[index].staffId : '';
@@ -32,7 +25,7 @@ class ManualAllocation extends Component {
           <td className="row-gutters">
             <select id="keyworker-select-{a.bookingID}" className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
-              <option key="choose" value="">-- Select --</option>
+              <option key="choose" value="--">-- Select --</option>
               {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
             </select>
           </td>
