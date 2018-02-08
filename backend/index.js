@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const path = require('path');
 const express = require('express');
 const app = express();
 const login = require('./controllers/login');
@@ -21,6 +22,10 @@ app.use('/unallocated', jsonParser, unallocated);
 app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 
-app.listen(3001, function () {
-  console.log('Backend running on port 3001');
+app.use('/', express.static(path.join(__dirname, '../build')));
+
+const port = process.env.PORT || 3001;
+
+app.listen(port, function () {
+  console.log('Backend running on port %s', port);
 });
