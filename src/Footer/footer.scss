@@ -1,0 +1,64 @@
+.FooterContainer {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #dee0e2;
+  vertical-align: baseline;
+  height: 100px;
+  bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .FooterContainer {
+    display: flex;
+  }
+}
+
+.FooterLinksContainer{
+  padding-top: 10px;
+}
+
+.FooterLink{
+  float: left;
+  padding: 0 19px;
+  border-right: 1px solid #0B0C0C;
+  height: 19px;
+  cursor: pointer;
+
+  &:last-child {
+    border-right: 0;
+  }
+  &:first-child {
+    padding-left: 14px;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.FooterSignature{
+  clear: left;
+  margin-top: 37px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .main-content, .header-content, .footer-content, .nav-content {
+    width: 738px;
+  }
+}
+@media (min-width: 992px) {
+  .main-content, .header-content, .footer-content, .nav-content {
+    width: 962px;
+  }
+}
+@media (min-width: 1200px) {
+  .main-content, .header-content, .footer-content, .nav-content {
+    width: 1170px;
+  }
+}

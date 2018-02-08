@@ -15,7 +15,7 @@ describe('AllocateParent component', () => {
     axiosWrapper.get = mockAxios;
     mockAxios.mockReturnValueOnce([200, ["s1", "s2"], {}]);
 
-    await shallow(<AllocateParent jwt={"dummy-jwt"}/>);
+    await shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} />);
 
     expect(mockAxios.mock.calls.length).toBe(1);
     expect(mockAxios.mock.calls[0][0]).toBe('/unallocated');
@@ -30,7 +30,7 @@ describe('AllocateParent component', () => {
     // /allocated
     mockAxios.mockReturnValueOnce([200, ["s3", "s4"], {}]);
 
-    const component = await shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={'LEI'} />);
+    const component = await shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} />);
     // Simulate clicking to 2nd page
     component.instance().gotoManualAllocation();
 
@@ -51,7 +51,7 @@ describe('AllocateParent component', () => {
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
 
-    const component = shallow(<AllocateParent jwt={"dummy-jwt"}/>);
+    const component = shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} />);
 
     setTimeout(() => {
       component.update();
@@ -71,7 +71,7 @@ describe('AllocateParent component', () => {
     // /allocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
-    const component = shallow(<AllocateParent jwt={"dummy-jwt"}/>);
+    const component = shallow(<AllocateParent jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} />);
     // Simulate clicking to 2nd page
     component.instance().gotoManualAllocation();
 
