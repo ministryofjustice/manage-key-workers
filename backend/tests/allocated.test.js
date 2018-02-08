@@ -31,6 +31,10 @@ describe('Allocated controller', async () => {
       .mockImplementationOnce(() => createAssessmentResponse('Silly'))
       .mockImplementationOnce(() => createAssessmentResponse('Low'));
 
+    elite2Api.keyworker = jest
+      .fn()
+      .mockImplementation(() => createSingleKeyworkerResponse());
+
     elite2Api.autoallocated.mockReturnValueOnce(allocationResponse);
 
     elite2Api.availableKeyworkers.mockReturnValueOnce(keyworkResponse);
@@ -50,8 +54,8 @@ describe('Allocated controller', async () => {
     expect(response.allocatedResponse[0].crsaClassification).toBe('High');
     expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03');
 
-    // todo wire up when API available
-    expect(response.allocatedResponse[4].keyworkerDisplay).toBe('--');
+
+    expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Lard, Ben');
   });
 });
 
@@ -142,6 +146,17 @@ function createAvailableKeyworkerResponse () {
       numberAllocated: 7
     }
     ]
+  };
+}
+
+function createSingleKeyworkerResponse () {
+  return {
+    data: {
+      staffId: -2,
+      firstName: 'Ben',
+      lastName: 'Lard',
+      numberAllocated: 4
+    }
   };
 }
 
