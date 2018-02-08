@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const login = require('./controllers/login');
+const userCaseLoads = require('./controllers/usercaseloads');
+const setActiveCaseLoad = require('./controllers/setactivecaseload');
 const unallocated = require('./controllers/unallocated');
 const allocated = require('./controllers/allocated');
 const manualoverride = require('./controllers/manualoverride');
@@ -17,6 +19,8 @@ app.use(bunyanMiddleware({
 }));
 
 app.use('/login', jsonParser, login);
+app.use('/usercaseloads', jsonParser, userCaseLoads);
+app.use('/setactivecaseload', jsonParser, setActiveCaseLoad);
 app.use('/unallocated', jsonParser, unallocated);
 app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);

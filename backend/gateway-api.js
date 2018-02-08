@@ -42,7 +42,7 @@ const putRequest = ({ req, url, headers }) => service.callApi({
   url,
   headers: headers || { 'content-type': 'application/json' },
   reqHeaders: req.headers,
-  data: req.data,
+  data: req.body,
   onTokenRefresh: (token) => {
     req.headers.jwt = token;
   }
@@ -56,19 +56,23 @@ const getHeaders = ({ headers, reqHeaders, token }) => {
 };
 
 const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
-  const { token, refreshToken } = session.getSessionData(reqHeaders);
-
+  const sessionData = session.getSessionData(reqHeaders);
+  if (sessionData == null) {
+    const message = "Null session or missing jwt";
+    log.error(message);
+    throw new Error(message);
+  }
   return axios({
     url,
     method,
     responseType,
     data,
-    headers: getHeaders({ headers, reqHeaders, token })
+    headers: getHeaders({ headers, reqHeaders, token: sessionData.token })
   }).catch(error => {
     if (error.response) {
       log.info({ url: url, status: error.response.data }, 'Error returned from API call');
       if (error.response.status === 401) {
-        return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
+        return service.refreshTokenRequest({ token: sessionData.refreshToken, headers, reqHeaders }).then(response => {
           onTokenRefresh(session.newJWT(response.data));
           return service.retryRequest({
             url,

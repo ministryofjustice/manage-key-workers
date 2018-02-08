@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Unallocated from './Unallocated.js';
 import ManualAllocation from './ManualAllocation.js';
-import KeyworkerReason from './KeyworkerReason.js';
 import PropTypes from 'prop-types';
 import axiosWrapper from './backendWrapper';
 
@@ -24,7 +23,7 @@ class AllocateParent extends Component {
 
   async componentWillMount () {
     try {
-      const list = await this.getUnallocated();
+      const list = await this.getUnallocated(this.props.agencyId);
       this.setState({
         error: null,
         page: 1,
@@ -36,13 +35,29 @@ class AllocateParent extends Component {
     }
   }
 
-  async getUnallocated () {
+  async componentWillReceiveProps (nextProps) {
+    if (nextProps.agencyId !== this.props.agencyId) {
+      try {
+        const list = await this.getUnallocated(nextProps.agencyId);
+        this.setState({
+          error: null,
+          page: 1,
+          list: list,
+          allocatedKeyworkers: []
+        });
+      } catch (error) {
+        this.displayError(error);
+      }
+    }
+  }
+
+  async getUnallocated (agencyId) {
     const response = await axiosWrapper.get('/unallocated', {
       headers: {
         jwt: this.props.jwt
       },
       params: {
-        agencyId: this.props.agencyId
+        agencyId: agencyId
       }
     });
     return response.data;
@@ -127,8 +142,6 @@ class AllocateParent extends Component {
       case 2:
         return (<ManualAllocation allocatedKeyworkers={this.state.allocatedKeyworkers} allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList}
           handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride} {...this.props} />);
-      case 3:
-        return <KeyworkerReason list={this.state.list} {...this.props} />;
       default:
         return "";
     }
@@ -141,8 +154,9 @@ AllocateParent.propTypes = {
   autoAllocatedOffenders: PropTypes.array,
   savedOffenders: PropTypes.array,
   allocatedKeyworkers: PropTypes.array,
-  jwt: PropTypes.string,
-  agencyId: PropTypes.string
+  jwt: PropTypes.string.isRequired,
+  onFinishAllocation: PropTypes.func.isRequired,
+  agencyId: PropTypes.string.isRequired
 };
 
 export default AllocateParent;

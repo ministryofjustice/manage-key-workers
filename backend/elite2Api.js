@@ -52,6 +52,18 @@ const currentUser = (req) => gateway.getRequest({
   url: 'users/me'
 });
 
+const userCaseLoads = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: 'users/me/caseLoads'
+});
+
+const setActiveCaseLoad = (req) => gateway.putRequest({
+  req: req,
+  method: 'put',
+  url: 'users/me/activeCaseLoad'
+});
+
 const allocate = (req) => gateway.postRequest({
   req: req,
   method: 'post',
@@ -59,7 +71,7 @@ const allocate = (req) => gateway.postRequest({
 });
 
 const service = {
-  login, unallocated, allocated, availableKeyworkers, currentUser, sentenceDetail, assessment, keyworker, allocate, autoallocated
+  login, unallocated, allocated, availableKeyworkers, currentUser, userCaseLoads, setActiveCaseLoad, sentenceDetail, assessment, keyworker, allocate, autoallocated
 };
 
 module.exports = service;
