@@ -12,14 +12,18 @@ describe('Unallocated component', () => {
       lastName: "Rendell",
       firstName: "Steve",
       offenderNo: "ZZ124WX",
-      internalLocationDesc: "L-1-1"
+      internalLocationDesc: "L-1-1",
+      confirmedReleaseDate: "2020-01-02",
+      crsaClassification: "High"
     },
     {
       bookingId: 2,
       lastName: "Rendell2",
       firstName: "Steve2",
       offenderNo: "ZZ125WX",
-      internalLocationDesc: "L-1-2"
+      internalLocationDesc: "L-1-2",
+      confirmedReleaseDate: null,
+      crsaClassification: null
     }];
 
     const component = shallow(<Unallocated list={list} />);

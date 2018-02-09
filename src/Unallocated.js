@@ -4,14 +4,22 @@ import { properCaseName } from "./stringUtils";
 class Unallocated extends Component {
   render () {
     const offenders = this.props.list.map(a => {
-      const formattedName = (properCaseName(a.lastName) + ', ' + properCaseName(a.firstName));
+      const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
+      let confirmedReleaseDate = a.confirmedReleaseDate;
+      if (confirmedReleaseDate == null) {
+        confirmedReleaseDate = "--";
+      }
+      let crsaClassification = a.crsaClassification;
+      if (crsaClassification == null) {
+        crsaClassification = "--";
+      }
       return (
         <tr key={a.bookingId}>
           <td className="row-gutters"><a href={a.bookingId}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">release date na?</td>
-          <td className="row-gutters">csra na?</td>
+          <td className="row-gutters">{confirmedReleaseDate}</td>
+          <td className="row-gutters">{crsaClassification}</td>
         </tr>
       );
     });
