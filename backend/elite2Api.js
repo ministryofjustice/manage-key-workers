@@ -1,4 +1,6 @@
 const gateway = require('./gateway-api');
+const isoDateFormat = require('./constants').isoDateFormat;
+const moment = require('moment');
 
 const login = (req) => gateway.login(req);
 
@@ -19,7 +21,7 @@ const allocated = (req) => gateway.getRequest({
 const autoallocated = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: `key-worker/${req.query.agencyId}/allocations?allocationType=A`
+  url: `key-worker/${req.query.agencyId}/allocations?allocationType=A&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`
 });
 
 const availableKeyworkers = (req) => gateway.getRequest({
@@ -73,5 +75,9 @@ const allocate = (req) => gateway.postRequest({
 const service = {
   login, unallocated, allocated, availableKeyworkers, currentUser, userCaseLoads, setActiveCaseLoad, sentenceDetail, assessment, keyworker, allocate, autoallocated
 };
+
+function formatDate (inputDate) {
+  return moment(inputDate, 'DD/MM/YYYY').format(isoDateFormat);
+}
 
 module.exports = service;
