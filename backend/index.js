@@ -22,7 +22,7 @@ app.use(bunyanMiddleware({
 app.use('/login', jsonParser, login);
 app.use('/usercaseloads', jsonParser, userCaseLoads);
 app.use('/setactivecaseload', jsonParser, setActiveCaseLoad);
-app.use('/unallocated', jsonParser, unallocated);
+app.use('/unallocated', jsonParser, unallocated.router);
 app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 

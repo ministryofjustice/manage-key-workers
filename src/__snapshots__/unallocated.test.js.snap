@@ -9,6 +9,8 @@ ShallowWrapper {
         Array [
             Object {
               "bookingId": 1,
+              "confirmedReleaseDate": "2020-01-02",
+              "crsaClassification": "High",
               "firstName": "Steve",
               "internalLocationDesc": "L-1-1",
               "lastName": "Rendell",
@@ -16,6 +18,8 @@ ShallowWrapper {
             },
             Object {
               "bookingId": 2,
+              "confirmedReleaseDate": null,
+              "crsaClassification": null,
               "firstName": "Steve2",
               "internalLocationDesc": "L-1-2",
               "lastName": "Rendell2",
@@ -92,12 +96,12 @@ ShallowWrapper {
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  release date na?
+                                                  2020-01-02
                                         </td>
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  csra na?
+                                                  High
                                         </td>
                               </tr>
                               <tr>
@@ -123,12 +127,12 @@ ShallowWrapper {
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  release date na?
+                                                  --
                                         </td>
                                         <td
                                                   className="row-gutters"
                                         >
-                                                  csra na?
+                                                  --
                                         </td>
                               </tr>
                     </tbody>
@@ -204,12 +208,12 @@ ShallowWrapper {
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        release date na?
+                                                        2020-01-02
                                           </td>
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        csra na?
+                                                        High
                                           </td>
                             </tr>
                             <tr>
@@ -235,12 +239,12 @@ ShallowWrapper {
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        release date na?
+                                                        --
                                           </td>
                                           <td
                                                         className="row-gutters"
                                           >
-                                                        csra na?
+                                                        --
                                           </td>
                             </tr>
               </tbody>
@@ -322,12 +326,12 @@ ShallowWrapper {
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      release date na?
+                                                      2020-01-02
                                     </td>
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      csra na?
+                                                      High
                                     </td>
                   </tr>
                   <tr>
@@ -353,12 +357,12 @@ ShallowWrapper {
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      release date na?
+                                                      --
                                     </td>
                                     <td
                                                       className="row-gutters"
                                     >
-                                                      csra na?
+                                                      --
                                     </td>
                   </tr>
 </tbody>,
@@ -504,12 +508,12 @@ ShallowWrapper {
                       <td
                                             className="row-gutters"
                       >
-                                            release date na?
+                                            2020-01-02
                       </td>
                       <td
                                             className="row-gutters"
                       >
-                                            csra na?
+                                            High
                       </td>
 </tr>,
                     <tr>
@@ -535,12 +539,12 @@ ShallowWrapper {
                       <td
                                             className="row-gutters"
                       >
-                                            release date na?
+                                            --
                       </td>
                       <td
                                             className="row-gutters"
                       >
-                                            csra na?
+                                            --
                       </td>
 </tr>,
                   ],
@@ -575,12 +579,12 @@ ShallowWrapper {
                         <td
                           className="row-gutters"
 >
-                          release date na?
+                          2020-01-02
 </td>,
                         <td
                           className="row-gutters"
 >
-                          csra na?
+                          High
 </td>,
                       ],
                     },
@@ -642,11 +646,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "release date na?",
+                          "children": "2020-01-02",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "release date na?",
+                        "rendered": "2020-01-02",
                         "type": "td",
                       },
                       Object {
@@ -654,11 +658,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "csra na?",
+                          "children": "High",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "csra na?",
+                        "rendered": "High",
                         "type": "td",
                       },
                     ],
@@ -692,12 +696,12 @@ ShallowWrapper {
                         <td
                           className="row-gutters"
 >
-                          release date na?
+                          --
 </td>,
                         <td
                           className="row-gutters"
 >
-                          csra na?
+                          --
 </td>,
                       ],
                     },
@@ -759,11 +763,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "release date na?",
+                          "children": "--",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "release date na?",
+                        "rendered": "--",
                         "type": "td",
                       },
                       Object {
@@ -771,11 +775,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "csra na?",
+                          "children": "--",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "csra na?",
+                        "rendered": "--",
                         "type": "td",
                       },
                     ],
@@ -883,12 +887,12 @@ ShallowWrapper {
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            release date na?
+                                                            2020-01-02
                                                 </td>
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            csra na?
+                                                            High
                                                 </td>
                                     </tr>
                                     <tr>
@@ -914,12 +918,12 @@ ShallowWrapper {
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            release date na?
+                                                            --
                                                 </td>
                                                 <td
                                                             className="row-gutters"
                                                 >
-                                                            csra na?
+                                                            --
                                                 </td>
                                     </tr>
                         </tbody>
@@ -995,12 +999,12 @@ ShallowWrapper {
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                release date na?
+                                                                2020-01-02
                                                 </td>
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                csra na?
+                                                                High
                                                 </td>
                                 </tr>
                                 <tr>
@@ -1026,12 +1030,12 @@ ShallowWrapper {
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                release date na?
+                                                                --
                                                 </td>
                                                 <td
                                                                 className="row-gutters"
                                                 >
-                                                                csra na?
+                                                                --
                                                 </td>
                                 </tr>
                 </tbody>
@@ -1113,12 +1117,12 @@ ShallowWrapper {
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            release date na?
+                                                            2020-01-02
                                         </td>
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            csra na?
+                                                            High
                                         </td>
                     </tr>
                     <tr>
@@ -1144,12 +1148,12 @@ ShallowWrapper {
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            release date na?
+                                                            --
                                         </td>
                                         <td
                                                             className="row-gutters"
                                         >
-                                                            csra na?
+                                                            --
                                         </td>
                     </tr>
 </tbody>,
@@ -1295,12 +1299,12 @@ ShallowWrapper {
                         <td
                                                 className="row-gutters"
                         >
-                                                release date na?
+                                                2020-01-02
                         </td>
                         <td
                                                 className="row-gutters"
                         >
-                                                csra na?
+                                                High
                         </td>
 </tr>,
                       <tr>
@@ -1326,12 +1330,12 @@ ShallowWrapper {
                         <td
                                                 className="row-gutters"
                         >
-                                                release date na?
+                                                --
                         </td>
                         <td
                                                 className="row-gutters"
                         >
-                                                csra na?
+                                                --
                         </td>
 </tr>,
                     ],
@@ -1366,12 +1370,12 @@ ShallowWrapper {
                           <td
                             className="row-gutters"
 >
-                            release date na?
+                            2020-01-02
 </td>,
                           <td
                             className="row-gutters"
 >
-                            csra na?
+                            High
 </td>,
                         ],
                       },
@@ -1433,11 +1437,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "release date na?",
+                            "children": "2020-01-02",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "release date na?",
+                          "rendered": "2020-01-02",
                           "type": "td",
                         },
                         Object {
@@ -1445,11 +1449,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "csra na?",
+                            "children": "High",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "csra na?",
+                          "rendered": "High",
                           "type": "td",
                         },
                       ],
@@ -1483,12 +1487,12 @@ ShallowWrapper {
                           <td
                             className="row-gutters"
 >
-                            release date na?
+                            --
 </td>,
                           <td
                             className="row-gutters"
 >
-                            csra na?
+                            --
 </td>,
                         ],
                       },
@@ -1550,11 +1554,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "release date na?",
+                            "children": "--",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "release date na?",
+                          "rendered": "--",
                           "type": "td",
                         },
                         Object {
@@ -1562,11 +1566,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "csra na?",
+                            "children": "--",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "csra na?",
+                          "rendered": "--",
                           "type": "td",
                         },
                       ],
