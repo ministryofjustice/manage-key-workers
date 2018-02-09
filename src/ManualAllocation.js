@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { properCaseName } from './stringUtils';
 import ReactTooltip from 'react-tooltip';
+import DateFilter from './DateFilter.js';
 
 class ManualAllocation extends Component {
   buildTableForRender (keyworkerOptions) {
@@ -39,14 +40,16 @@ class ManualAllocation extends Component {
     const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
       return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
     });
-
     const offenders = this.buildTableForRender(keyworkerOptions);
-
     return (
       <div>
-        <h1 className="heading-large">Key worker allocation</h1>
-        <p>These prisoners below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it. The number in the brackets indicates the current total of allocated prisoners to each Key worker.</p>
-        <table>
+        <div className="pure-g">
+
+          <div className="pure-u-md-7-12"><h1 className="heading-large">Key worker allocation</h1><p>These prisoners below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it.
+          The number in the brackets indicates the current total of allocated prisoners to each Key worker.</p></div>
+          {this.props.displayDateFilter && <div className="pure-u-md-5-12"><DateFilter {...this.props} /></div>}
+        </div>
+        <table className="row-gutters">
           <thead>
             <tr>
               <th>Name</th>

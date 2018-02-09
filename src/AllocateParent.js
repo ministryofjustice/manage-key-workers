@@ -3,6 +3,7 @@ import Unallocated from './Unallocated.js';
 import ManualAllocation from './ManualAllocation.js';
 import PropTypes from 'prop-types';
 import axiosWrapper from './backendWrapper';
+import moment from 'moment';
 
 import './allocation.scss';
 
@@ -12,12 +13,16 @@ class AllocateParent extends Component {
     this.displayError = this.displayError.bind(this);
     this.gotoManualAllocation = this.gotoManualAllocation.bind(this);
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
+    this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.postManualOverride = this.postManualOverride.bind(this);
+    this.applyDateFilter = this.applyDateFilter.bind(this);
     this.state = {
       error: null,
       page: 0,
       list: [],
-      allocatedKeyworkers: []
+      allocatedKeyworkers: [],
+      toDate: '',
+      fromDate: ''
     };
   }
 
@@ -28,7 +33,9 @@ class AllocateParent extends Component {
         error: null,
         page: 1,
         list: list,
-        allocatedKeyworkers: []
+        allocatedKeyworkers: [],
+        toDate: moment().format('DD/MM/YYYY'),
+        fromDate: moment().subtract(2, "years").format('DD/MM/YYYY')
       });
     } catch (error) {
       this.displayError(error);
@@ -70,7 +77,9 @@ class AllocateParent extends Component {
       },
       params: {
         agencyId: this.props.agencyId,
-        allocationType: 'A'
+        allocationType: 'A',
+        fromDate: this.state.fromDate,
+        toDate: this.state.toDate
       }
     });
     return response.data;
@@ -91,6 +100,14 @@ class AllocateParent extends Component {
     this.setState({
       allocatedKeyworkers
     });
+  }
+
+  handleDateFilterChange (date, name) {
+    if (date) {
+      const newState = {};
+      newState[name] = moment(date).format('DD/MM/YYYY');
+      this.setState(newState);
+    }
   }
 
   async postManualOverride (history) {
@@ -130,6 +147,10 @@ class AllocateParent extends Component {
     }
   }
 
+  async applyDateFilter () {
+    this.gotoManualAllocation();
+  }
+
   render () {
     if (this.state.error) {
       return (<div className="error-summary">
@@ -142,10 +163,10 @@ class AllocateParent extends Component {
       case 1:
         return <Unallocated list={this.state.list} gotoNext={this.gotoManualAllocation} {...this.props} />;
       case 2:
-        return (<ManualAllocation allocatedKeyworkers={this.state.allocatedKeyworkers}
+        return (<ManualAllocation displayDateFilter allocatedKeyworkers={this.state.allocatedKeyworkers}
           allocatedList={this.state.allocatedList} keyworkerList={this.state.keyworkerList}
-          handleKeyworkerChange={this.handleKeyworkerChange}
-          postManualOverride={this.postManualOverride} {...this.props} />);
+          handleKeyworkerChange={this.handleKeyworkerChange} toDate={this.state.toDate} fromDate={this.state.fromDate}
+          postManualOverride={this.postManualOverride} applyDateFilter={this.applyDateFilter} handleDateFilterChange={this.handleDateFilterChange} {...this.props} />);
       default:
         return "";
     }
