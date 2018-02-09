@@ -15,6 +15,7 @@ const addMissingKeyworkerDetails = async function (req, row) {
       row.keyworkerDisplay = '--';
       row.numberAllocated = 'n/a';
     } else {
+      log.error('Error in addMissingKeyworkerDetails' + error);
       throw error;
     }
   }
@@ -27,9 +28,10 @@ const addCrsaClassification = async function (req, row) {
     row.crsaClassification = assessmentResponse.data.classification ? assessmentResponse.data.classification : '--';
   } catch (error) {
     if (error.response.status === 404) {
-      log.info(`No assessment found for booking Id ${row.bookingId}`);
+      log.debug(`No assessment found for booking Id ${row.bookingId}`);
       row.crsaClassification = '--';
     } else {
+      log.error('Error in addCrsaClassification' + error);
       throw error;
     }
   }
@@ -42,9 +44,10 @@ const addReleaseDate = async function (req, row) {
     log.debug(`release date for offender ${row.offenderNo} = ${row.confirmedReleaseDate}`);
   } catch (error) {
     if (error.response.status === 404) {
-      log.error(`No sentence detail found for booking Id ${row.bookingId}`);
+      log.debug(`No sentence detail found for booking Id ${row.bookingId}`);
       row.confirmedReleaseDate = '--';
     } else {
+      log.error('Error in addReleaseDate' + error);
       throw error;
     }
   }
