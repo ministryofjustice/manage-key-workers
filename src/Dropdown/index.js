@@ -30,9 +30,7 @@ class Dropdown extends Component {
     return (
       <div className="menu-wrapper" >
         <div className="info-wrapper clickable" onClick={() => this.toggleMenu()}>
-          <strong className="user-name">{toFullName(user)}
-            {/*<div className="notification-number notification-number-user">{user.totalAssignments}</div>*/}
-          </strong>
+          <strong className="user-name">{toFullName(user)}</strong>
           <span className="case-load">{caseLoadDesc}</span>
         </div>
         <div className="dropdown-menu">
@@ -47,7 +45,7 @@ class Dropdown extends Component {
                 {option.description}
               </a>))
             }
-            <a className="dropdown-menu-link" key={'logout'} onClick={() => this.closeMenu()} to={'/logout'}>
+            <a className="dropdown-menu-link" key={'logout'} onClick={() => this.closeMenu()} href={'/'}>
               Log out
             </a>
           </div> }
