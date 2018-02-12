@@ -62,6 +62,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     log.error(message);
     throw new Error(message);
   }
+  log.info({ url: url, status: data }, 'Calling API');
   return axios({
     url,
     method,
@@ -69,8 +70,8 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     data,
     headers: getHeaders({ headers, reqHeaders, token: sessionData.token })
   }).catch(error => {
+    log.error({ url: url, error: error }, 'Error returned from API call');
     if (error.response) {
-      log.info({ url: url, status: error.response.data }, 'Error returned from API call');
       if (error.response.status === 401) {
         return service.refreshTokenRequest({ token: sessionData.refreshToken, headers, reqHeaders }).then(response => {
           onTokenRefresh(session.newJWT(response.data));
