@@ -46,19 +46,3 @@
   text-align: center;
   opacity: 0.6;
 }
-
-@media (min-width: 768px) {
-  .main-content, .header-content, .footer-content, .nav-content {
-    width: 738px;
-  }
-}
-@media (min-width: 992px) {
-  .main-content, .header-content, .footer-content, .nav-content {
-    width: 962px;
-  }
-}
-@media (min-width: 1200px) {
-  .main-content, .header-content, .footer-content, .nav-content {
-    width: 1170px;
-  }
-}

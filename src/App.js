@@ -18,7 +18,8 @@ class App extends React.Component {
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
     this.state = {
       agencyId: "",
-      user: null
+      user: null,
+      shouldShowTerms: false
     };
   }
 
@@ -76,7 +77,7 @@ class App extends React.Component {
               <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>
-          <Footer modalData={{ key: 'modalData' }} setModalData={() => {}} setModalOpen={() => {}}/>
+          <Footer showTermsAndConditions={this.state.shouldShowTerms}/>
         </div>
       </Router>);
   }
