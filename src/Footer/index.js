@@ -24,7 +24,7 @@ Footer.propTypes = {
 Footer.defaultProps = {
 };
 
-const mapStateToProps = createStructuredSelector({
+/*const mapStateToProps = createStructuredSelector({
 
 });
 
@@ -32,4 +32,5 @@ const mapDispatchToProps = (dispatch) => ({
   showTermsAndConditions: () => dispatch(showTerms())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);*/
+export default Footer;

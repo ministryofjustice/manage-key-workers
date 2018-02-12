@@ -2,8 +2,9 @@ import React from 'react';
 import Login from './Login';
 import HomePage from './HomePage';
 import AllocateParent from './AllocateParent';
-import Footer from './Footer/index';
 import Header from './Header/index';
+import Footer from './Footer/index';
+import Terms from './Footer/terms-and-conditions';
 import {
   BrowserRouter as Router,
   Route
@@ -16,6 +17,8 @@ class App extends React.Component {
     this.onLogin = this.onLogin.bind(this);
     this.onFinishAllocation = this.onFinishAllocation.bind(this);
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
+    this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
+    this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
     this.state = {
       agencyId: "",
       user: null,
@@ -63,6 +66,20 @@ class App extends React.Component {
     }
   }
 
+  showTermsAndConditions () {
+    this.setState({
+      ...this.state,
+      shouldShowTerms: true
+    });
+  }
+
+  hideTermsAndConditions () {
+    this.setState({
+      ...this.state,
+      shouldShowTerms: false
+    });
+  }
+
   render () {
     return (
       <Router>
@@ -70,14 +87,15 @@ class App extends React.Component {
           <Route render={(props) => (
             <Header user={this.state.user} switchCaseLoad={this.switchCaseLoad} {...props} />
           )} />
-          <div className="content">
+          {!this.state.shouldShowTerms && <div className="content">
             <div className="pure-g">
               <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
               <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
-          </div>
-          <Footer showTermsAndConditions={this.state.shouldShowTerms}/>
+          </div>}
+          {this.state.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
+          <Footer showTermsAndConditions={this.showTermsAndConditions}/>
         </div>
       </Router>);
   }
