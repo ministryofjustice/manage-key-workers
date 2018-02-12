@@ -4,7 +4,7 @@ const elite2Api = require('../elite2Api');
 const common = require('./common');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
-
+const telemetry = require('../azure-appinsights');
 
 router.get('/', asyncMiddleware(async (req, res) => {
   const viewModel = await allocated(req);
@@ -17,6 +17,7 @@ const allocated = async (req) => {
 
   const allocatedResponse = await elite2Api.autoallocated(req);
   log.debug({ availableKeyworkers: allocatedResponse.data }, 'Response from allocated offenders request');
+  telemetry.trackEvent({ name: "Auto allocation" }); // Example of app insight custom event
 
   let allocatedData = allocatedResponse.data;
   const keyworkerData = keyworkerResponse.data;
