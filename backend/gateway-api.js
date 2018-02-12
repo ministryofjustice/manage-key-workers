@@ -3,6 +3,7 @@ const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const jwt = require('jsonwebtoken');
 const log = require('./log');
+const logError = require('./logError').logError;
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
 axios.interceptors.request.use((config) => {
@@ -62,6 +63,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     log.error(message);
     throw new Error(message);
   }
+  log.debug({ url, data }, 'Calling API');
   return axios({
     url,
     method,
@@ -70,7 +72,6 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     headers: getHeaders({ headers, reqHeaders, token: sessionData.token })
   }).catch(error => {
     if (error.response) {
-      log.info({ url: url, status: error.response.data }, 'Error returned from API call');
       if (error.response.status === 401) {
         return service.refreshTokenRequest({ token: sessionData.refreshToken, headers, reqHeaders }).then(response => {
           onTokenRefresh(session.newJWT(response.data));
@@ -81,8 +82,11 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
             headers: getHeaders({ headers, reqHeaders, token: response.data.token })
           });
         });
+      } else if (error.response.status === 404) {
+        throw error;
       }
     }
+    logError(url, error, 'Unexpected error caught in callApi');
     throw error;
   });
 };

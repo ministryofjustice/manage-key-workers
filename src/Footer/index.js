@@ -1,34 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+//import { connect } from 'react-redux';
+//import { createStructuredSelector } from 'reselect';
+
+//import { showTerms } from 'globalReducers/app';
 
 import './footer.scss';
 
-function Footer ({ modalData, setModalOpen, setModalData }) {
-  const linkClick = (e) => {
-    setModalOpen(true);
-    setModalData(modalData[e.currentTarget.dataset.name]);
-  };
-
-  return (
-    <footer className="FooterContainer" data-name={'Footer'}>
-      <div className="footer-content">
-        <div className="FooterLinksContainer">
-          <div className="FooterLink" data-name={'terms'} onClick={linkClick}>Terms and conditions</div>
-        </div>
-        <div className="FooterSignature">Powered by Syscon Justice Systems</div>
+const Footer = ({ showTermsAndConditions }) =>
+  (<footer className="FooterContainer">
+    <div className="footer-content">
+      <div className="FooterLinksContainer">
+        <div className="FooterLink" onClick={() => showTermsAndConditions()}>Terms and conditions</div>
       </div>
-    </footer>
-  );
-}
+      <div className="FooterSignature">Powered by TBC</div>
+    </div>
+  </footer>);
 
 Footer.propTypes = {
-  setModalOpen: PropTypes.func.isRequired,
-  setModalData: PropTypes.func.isRequired,
-  modalData: PropTypes.object.isRequired
+  showTermsAndConditions: PropTypes.func.isRequired
 };
 
 Footer.defaultProps = {
-
 };
 
+/*const mapStateToProps = createStructuredSelector({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  showTermsAndConditions: () => dispatch(showTerms())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);*/
 export default Footer;
