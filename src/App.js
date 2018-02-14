@@ -20,8 +20,7 @@ class App extends React.Component {
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
     this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
     this.state = {
-      agencyId: "",
-      user: null,
+      user: { activeCaseLoadId: null },
       shouldShowTerms: false
     };
   }
@@ -35,7 +34,6 @@ class App extends React.Component {
     currentUser.data.caseLoadOptions = caseloads.data;
     this.setState({
       jwt: jwt,
-      agencyId: currentUser.data.activeCaseLoadId,
       user: currentUser.data
     });
     history.push('/unallocated');
@@ -58,7 +56,6 @@ class App extends React.Component {
         });
       this.setState({
         jwt: this.state.jwt,
-        agencyId: newCaseload,
         user: currentUserData
       });
     } catch (error) {
@@ -91,7 +88,7 @@ class App extends React.Component {
             <div className="pure-g">
               <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
-              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer jwt={this.state.jwt} agencyId={this.state.user.activeCaseLoadId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
           {this.state.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
