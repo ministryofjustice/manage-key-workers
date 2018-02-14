@@ -26,7 +26,7 @@ describe('Unallocated component', () => {
       crsaClassification: null
     }];
 
-    const component = shallow(<Unallocated list={list} />);
+    const component = shallow(<Unallocated unallocatedList={list} gotoNext={() => {}} />);
 
     expect(component).toMatchSnapshot();
   });
@@ -34,7 +34,7 @@ describe('Unallocated component', () => {
   it('should handle click correctly', async () => {
     let callBack = jest.fn();
 
-    const component = shallow(<Unallocated list={[]} gotoNext={callBack}/>);
+    const component = shallow(<Unallocated unallocatedList={[]} gotoNext={callBack}/>);
 
     component.find('button').simulate('click');
     expect(callBack.mock.calls.length).toEqual(1);

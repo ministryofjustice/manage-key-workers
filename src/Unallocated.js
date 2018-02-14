@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { properCaseName } from "./stringUtils";
+import PropTypes from 'prop-types';
 
 class Unallocated extends Component {
   render () {
-    const offenders = this.props.list.map(a => {
+    const offenders = this.props.unallocatedList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       let confirmedReleaseDate = a.confirmedReleaseDate;
       if (confirmedReleaseDate == null) {
@@ -49,5 +50,10 @@ class Unallocated extends Component {
     );
   }
 }
+
+Unallocated.propTypes = {
+  unallocatedList: PropTypes.array,
+  gotoNext: PropTypes.func.isRequired
+};
 
 export default Unallocated;

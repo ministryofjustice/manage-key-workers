@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { properCaseName } from './stringUtils';
 import ReactTooltip from 'react-tooltip';
 import DateFilter from './DateFilter.js';
+import PropTypes from 'prop-types';
 
 class ManualAllocation extends Component {
   buildTableForRender (keyworkerOptions) {
@@ -14,7 +15,8 @@ class ManualAllocation extends Component {
       }
       return (
         <tr key={a.bookingId} className="row-gutters">
-          <td className="row-gutters"><a href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
+          <td className="row-gutters"><a
+            href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate}</td>
@@ -24,7 +26,8 @@ class ManualAllocation extends Component {
             <ReactTooltip place="top" effect="solid" theme="info"/>
           </td>
           <td className="row-gutters">
-            <select id="keyworker-select-{a.bookingID}" className="form-control" value={currentSelectValue}
+
+            <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
               <option key="choose" value="--">-- Select --</option>
               {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
@@ -68,5 +71,17 @@ class ManualAllocation extends Component {
     );
   }
 }
+
+ManualAllocation.propTypes = {
+  displayDateFilter: PropTypes.bool,
+  allocatedList: PropTypes.array,
+  keyworkerList: PropTypes.array,
+  history: PropTypes.object,
+  allocatedKeyworkers: PropTypes.array,
+  handleKeyworkerChange: PropTypes.func.isRequired,
+  postManualOverride: PropTypes.func.isRequired,
+  fromDate: PropTypes.string,
+  toDate: PropTypes.string
+};
 
 export default ManualAllocation;

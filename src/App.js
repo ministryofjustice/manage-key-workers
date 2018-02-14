@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import HomePage from './HomePage';
-import AllocateParent from './AllocateParent';
+import { AllocateParentContainer } from './AllocateParent';
 import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
@@ -91,7 +91,7 @@ class App extends React.Component {
             <div className="pure-g">
               <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
-              <Route exact path="/unallocated" render={(props) => <AllocateParent jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
           {this.state.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}

@@ -26,8 +26,7 @@ describe('Login component', () => {
     });
 
     let onLoginCallBack = jest.fn();
-    const historyCallBack = () => {
-    };
+    const historyCallBack = {};
 
     const component = shallow(<Login onLogin={onLoginCallBack} history={historyCallBack}/>);
 
@@ -52,7 +51,7 @@ describe('Login component', () => {
       });
 
     const component = mount(<Login onLogin={() => {
-    }} history={() => {
+    }} history={{
     }}/>);
 
 

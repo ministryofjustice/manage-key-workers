@@ -5,7 +5,8 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Unallocated
-    list={
+    gotoNext={[Function]}
+    unallocatedList={
         Array [
             Object {
               "bookingId": 1,
