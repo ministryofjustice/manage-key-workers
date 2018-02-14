@@ -12,6 +12,8 @@ router.get('/', asyncMiddleware(async (req, res) => {
 }));
 
 const allocated = async (req) => {
+  await elite2Api.autoAllocate(req);
+
   const keyworkerResponse = await elite2Api.availableKeyworkers(req);
   log.debug({ availableKeyworkers: keyworkerResponse.data }, 'Response from available keyworker request');
 
