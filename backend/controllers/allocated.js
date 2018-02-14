@@ -17,7 +17,9 @@ const allocated = async (req) => {
 
   const allocatedResponse = await elite2Api.autoallocated(req);
   log.debug({ availableKeyworkers: allocatedResponse.data }, 'Response from allocated offenders request');
-  telemetry.trackEvent({ name: "Auto allocation" }); // Example of app insight custom event
+  if (telemetry) {
+    telemetry.trackEvent({ name: "Auto allocation" });
+  } // Example of app insight custom event
 
   let allocatedData = allocatedResponse.data;
   const keyworkerData = keyworkerResponse.data;

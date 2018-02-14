@@ -1,3 +1,4 @@
+Reflect.deleteProperty(process.env, 'APPINSIGHTS_INSTRUMENTATIONKEY');
 const allocated = require('../controllers/allocated').allocated;
 const elite2Api = require('../elite2Api');
 

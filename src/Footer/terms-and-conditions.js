@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ close }) => <div className="add-gutter-margin-top">
+export default ({ close }) => (<div className="add-gutter-margin-top">
 
   <h1 className="heading-large"> Terms and conditions </h1>
 
@@ -30,4 +30,4 @@ export default ({ close }) => <div className="add-gutter-margin-top">
     </p>
   </div>
   <button className="button" onClick={close}>OK, continue</button>
-</div>
+</div>);

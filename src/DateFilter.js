@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from './datePicker';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 class DateFilter extends Component {
   render () {
@@ -16,4 +17,11 @@ class DateFilter extends Component {
     );
   }
 }
+
+DateFilter.propTypes = {
+  keyworkerList: PropTypes.array,
+  history: PropTypes.object,
+  toDate: PropTypes.string,
+  fromDate: PropTypes.string
+};
 export default DateFilter;

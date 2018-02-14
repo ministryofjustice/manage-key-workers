@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axiosWrapper from './backendWrapper';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   constructor () {
@@ -73,5 +74,11 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.object,
+  onLogin: PropTypes.func.isRequired,
+  fromDate: PropTypes.string
+};
 
 export default Login;

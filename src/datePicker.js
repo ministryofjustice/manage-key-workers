@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import PropTypes from 'prop-types';
 
 class DatePicker extends Component {
   constructor () {
@@ -49,5 +50,13 @@ class DatePicker extends Component {
       </div>);
   }
 }
+
+DatePicker.propTypes = {
+  handleDateFilterChange: PropTypes.func.isRequired,
+  shouldShowDay: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  name: PropTypes.string,
+  title: PropTypes.string
+};
 
 export default DatePicker;
