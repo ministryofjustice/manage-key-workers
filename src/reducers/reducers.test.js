@@ -31,8 +31,75 @@ describe('app (global) reducer', () => {
   it('should return the initial state', () => {
     expect(app(undefined, {})).toEqual(
       {
+        user: { activeCaseLoadId: null },
+        shouldShowTerms: false,
+        error: null,
+        username: '',
+        password: '',
+        page: 0
+      }
+    );
+  });
+
+  it('should handle SET_LOGIN_DETAILS', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SET_LOGIN_DETAILS,
+        jwt: 'hithere',
+        user: { field: 'value' }
+      })
+    ).toEqual(
+      {
         page: 0,
-        error: null
+        error: null,
+        jwt: 'hithere',
+        user: { field: 'value' }
+      }
+    );
+  });
+
+  it('should handle SET_LOGIN_INPUT_CHANGE', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SET_LOGIN_INPUT_CHANGE,
+        fieldName: 'username',
+        value: 'myuser'
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        username: 'myuser'
+      }
+    );
+  });
+
+  it('should handle SWITCH_AGENCY', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SWITCH_AGENCY,
+        activeCaseLoadId: 'BXI'
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        user: { activeCaseLoadId: 'BXI' }
+      }
+    );
+  });
+
+  it('should handle SET_TERMS_VISIBILITY', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SET_TERMS_VISIBILITY,
+        shouldShowTerms: true
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        shouldShowTerms: true
       }
     );
   });
@@ -50,6 +117,7 @@ describe('app (global) reducer', () => {
       }
     );
   });
+
   it('should handle SET_ERROR', () => {
     expect(
       app(appInitialState, {

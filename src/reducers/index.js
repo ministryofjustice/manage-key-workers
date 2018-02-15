@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 import * as ActionTypes from '../actions/actionTypes';
 import moment from 'moment';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-// Initial State
 const unallocatedInitialState = {
   unallocatedList: []
 };
 
-// Initial State
 const allocatedInitialState = {
   allocatedList: [],
   keyworkerList: [],
@@ -16,14 +15,32 @@ const allocatedInitialState = {
   fromDate: moment().format('DD/MM/YYYY')
 };
 
-// Initial State
 const appInitialState = {
+  user: { activeCaseLoadId: null },
+  shouldShowTerms: false,
   error: null,
+  username: '',
+  password: '',
   page: 0
 };
 
 export function app (state = appInitialState, action) {
   switch (action.type) {
+    case ActionTypes.SET_LOGIN_DETAILS:
+      return updateObject(state, {
+        jwt: action.jwt,
+        user: action.user
+      });
+    case ActionTypes.SET_LOGIN_INPUT_CHANGE:
+      return updateObject(state, {
+        [action.fieldName]: action.value
+      });
+    case ActionTypes.SWITCH_AGENCY:
+      return { ...state, user: { ...state.user, activeCaseLoadId: action.activeCaseLoadId } };
+
+    case ActionTypes.SET_TERMS_VISIBILITY:
+      return { ...state, shouldShowTerms: action.shouldShowTerms };
+
     case ActionTypes.SET_CURRENT_PAGE:
       return updateObject(state, {
         page: action.page,
@@ -77,9 +94,8 @@ function updateObject (oldObject, newValues) {
 const allocationApp = combineReducers({
   allocated,
   unallocated,
-  app
+  app,
+  routing: routerReducer
 });
 
 export default allocationApp;
-
-

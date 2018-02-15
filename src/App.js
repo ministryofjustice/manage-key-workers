@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './Login';
+import { LoginContainer } from './Login';
 import HomePage from './HomePage';
 import { AllocateParentContainer } from './AllocateParent';
 import Header from './Header/index';
@@ -10,6 +10,9 @@ import {
   Route
 } from 'react-router-dom';
 import axiosWrapper from "./backendWrapper";
+import PropTypes from 'prop-types';
+import { switchAgency, setTermsVisibility, setError, setLoginDetails } from './actions';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
   constructor () {
@@ -19,23 +22,14 @@ class App extends React.Component {
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
     this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
-    this.state = {
-      user: { activeCaseLoadId: null },
-      shouldShowTerms: false
-    };
   }
 
   async onLogin (jwt, currentUser, history) {
     const caseloads = await axiosWrapper.get('/usercaseloads', {
-      headers: {
-        jwt: jwt
-      }
+      headers: { jwt }
     });
     currentUser.data.caseLoadOptions = caseloads.data;
-    this.setState({
-      jwt: jwt,
-      user: currentUser.data
-    });
+    this.props.loginDetailsDispatch(jwt, currentUser.data);
     history.push('/unallocated');
   }
 
@@ -44,58 +38,83 @@ class App extends React.Component {
   }
 
   async switchCaseLoad (newCaseload) {
-    const currentUserData = this.state.user;
-    currentUserData.activeCaseLoadId = newCaseload;
     try {
       await axiosWrapper.put('/setactivecaseload',
         { caseLoadId: newCaseload },
         {
           headers: {
-            jwt: this.state.jwt
+            jwt: this.props.jwt
           }
         });
-      this.setState({
-        jwt: this.state.jwt,
-        user: currentUserData
-      });
+      this.props.switchAgencyDispatch(newCaseload);
     } catch (error) {
-      console.error(error);
+      this.props.setErrorDispatch(error);
     }
   }
 
   showTermsAndConditions () {
-    this.setState({
-      ...this.state,
-      shouldShowTerms: true
-    });
+    this.props.setTermsVisibilityDispatch(true);
   }
 
   hideTermsAndConditions () {
-    this.setState({
-      ...this.state,
-      shouldShowTerms: false
-    });
+    this.props.setTermsVisibilityDispatch(false);
   }
 
   render () {
     return (
-      <Router>
+      <Router history={history}>
         <div>
-          <Route render={(props) => (
-            <Header user={this.state.user} switchCaseLoad={this.switchCaseLoad} {...props} />
-          )} />
-          {!this.state.shouldShowTerms && <div className="content">
+          <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} {...props} {...this.props} />}/>
+          {!this.props.shouldShowTerms && <div className="content">
             <div className="pure-g">
-              <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
-              <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
-              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer jwt={this.state.jwt} agencyId={this.state.user.activeCaseLoadId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+              <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
+              <Route exact path="/home" render={() => <HomePage {...this.props} />}/>
+              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer agencyId={this.props.user.activeCaseLoadId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
-          {this.state.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
+          {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           <Footer showTermsAndConditions={this.showTermsAndConditions}/>
         </div>
       </Router>);
   }
 }
 
+App.propTypes = {
+  error: PropTypes.string,
+  page: PropTypes.number,
+  jwt: PropTypes.string,
+  user: PropTypes.object,
+  shouldShowTerms: PropTypes.bool,
+  loginDetailsDispatch: PropTypes.func.isRequired,
+  switchAgencyDispatch: PropTypes.func.isRequired,
+  setTermsVisibilityDispatch: PropTypes.func.isRequired,
+  setErrorDispatch: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    error: state.app.error,
+    page: state.app.page,
+    jwt: state.app.jwt,
+    user: state.app.user,
+    shouldShowTerms: state.app.shouldShowTerms
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginDetailsDispatch: (jwt, user) => dispatch(setLoginDetails(jwt, user)),
+    switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
+    setTermsVisibilityDispatch: (shouldShowTerms) =>      dispatch(setTermsVisibility(shouldShowTerms))    ,
+    setErrorDispatch: (error) =>     dispatch(setError(error))
+    redirectToRoute: (route) => dispatch(push(route)),
+  };
+};
+
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export {
+  App,
+  AppContainer
+};
 export default App;

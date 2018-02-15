@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const logError = require('./logError').logError;
 
 const minutes = process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20;
 const key = process.env.API_GATEWAY_TOKEN || 'test';
@@ -15,7 +16,9 @@ const getSessionData = (headers) => {
     if (!token) return null;
 
     return jwt.verify(token, key).data;
-  } catch (e) { } // eslint-disable-line no-empty
+  } catch (e) {
+    logError('', e, e.message);
+  }
   return null;
 };
 

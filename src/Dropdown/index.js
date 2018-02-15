@@ -57,6 +57,7 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   user: PropTypes.object,
+  isOpen: PropTypes.bool,
   switchCaseLoad: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -64,8 +65,17 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
   user: {
     firstName: 'first',
-    activeCaseLoadId: 'id'
+    activeCaseLoadId: 'id',
+    isOpen: false
   }
 };
+
+/*const mapStateToProps = state => {
+  return {
+    isOpen: state.app.isOpen
+  };
+};*/
+
+//const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(Login);
 
 export default Dropdown;
