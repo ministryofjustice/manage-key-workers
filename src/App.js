@@ -62,9 +62,9 @@ class App extends React.Component {
 
   render () {
     return (
-      <Router history={history}>
+      <Router>
         <div>
-          <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} {...props} {...this.props} />}/>
+          <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
           {!this.props.shouldShowTerms && <div className="content">
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
@@ -105,9 +105,8 @@ const mapDispatchToProps = dispatch => {
   return {
     loginDetailsDispatch: (jwt, user) => dispatch(setLoginDetails(jwt, user)),
     switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
-    setTermsVisibilityDispatch: (shouldShowTerms) =>      dispatch(setTermsVisibility(shouldShowTerms))    ,
-    setErrorDispatch: (error) =>     dispatch(setError(error))
-    redirectToRoute: (route) => dispatch(push(route)),
+    setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
+    setErrorDispatch: (error) => dispatch(setError(error))
   };
 };
 

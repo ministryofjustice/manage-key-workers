@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import * as ActionTypes from '../actions/actionTypes';
 import moment from 'moment';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 const unallocatedInitialState = {
   unallocatedList: []
@@ -94,8 +93,7 @@ function updateObject (oldObject, newValues) {
 const allocationApp = combineReducers({
   allocated,
   unallocated,
-  app,
-  routing: routerReducer
+  app
 });
 
 export default allocationApp;
