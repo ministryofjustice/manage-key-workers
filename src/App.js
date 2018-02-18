@@ -90,7 +90,7 @@ class App extends React.Component {
           {!this.state.shouldShowTerms && <div className="content">
             <div className="pure-g">
               <Route exact path="/" render={(props) => <Login onLogin={this.onLogin} {...props} />}/>
-              <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt}/>}/>
+              <Route exact path="/home" render={() => <HomePage jwt={this.state.jwt} message="key workers successfully updated"/>}/>
               <Route exact path="/unallocated" render={(props) => <AllocateParentContainer jwt={this.state.jwt} agencyId={this.state.agencyId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
