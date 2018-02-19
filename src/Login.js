@@ -15,9 +15,11 @@ class Login extends Component {
     event.preventDefault();
 
     try {
-      const data = await axiosWrapper.post('/login', {
-        username: this.props.username,
-        password: this.props.password
+      const data = await axiosWrapper.post('/login', {}, {
+        params: {
+          username: this.props.username,
+          password: this.props.password
+        }
       });
       await this.props.onLogin(data.headers['jwt'], data, this.props.history);
     } catch (error) {

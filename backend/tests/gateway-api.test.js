@@ -22,7 +22,7 @@ describe('Gateway api', () => {
     };
 
     mock.onGet('/users/me').replyOnce(401);
-    mock.onPost('/users/token').reply(200, newTokenData);
+    mock.onPost('/oauth/token').reply(200, newTokenData);
     mock.onGet('/users/me').replyOnce(200);
 
     gatewayApi.retryRequest = jest.fn();
@@ -30,6 +30,6 @@ describe('Gateway api', () => {
     await gatewayApi.getRequest({ req, url: 'users/me' });
 
     expect(gatewayApi.retryRequest.mock.calls[0][0].headers.authorization)
-      .toBe(newTokenData.token);
+      .toBe('Bearer ' + newTokenData.token);
   });
 });
