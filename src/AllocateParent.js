@@ -125,7 +125,7 @@ class AllocateParent extends Component {
     if (this.props.error) {
       return (<div className="error-summary">
         <div className="error-message">
-          <div> {this.props.error} </div>
+          <div> {this.props.error.message || this.props.error} </div>
         </div>
       </div>);
     }

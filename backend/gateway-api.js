@@ -1,9 +1,9 @@
 const axios = require('axios');
 const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
-const jwt = require('jsonwebtoken');
 const log = require('./log');
 const logError = require('./logError').logError;
+const querystring = require('querystring');
 
 axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
 axios.interceptors.request.use((config) => {
@@ -51,7 +51,7 @@ const putRequest = ({ req, url, headers }) => service.callApi({
 
 const getHeaders = ({ headers, reqHeaders, token }) => {
   return Object.assign({}, headers, {
-    "authorization": token,
+    "authorization": 'Bearer ' + token,
     'access-control-allow-origin': reqHeaders.host
   });
 };
@@ -69,7 +69,7 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     method,
     responseType,
     data,
-    headers: getHeaders({ headers, reqHeaders, token: sessionData.token })
+    headers: getHeaders({ headers, reqHeaders, token: sessionData.access_token })
   }).catch(error => {
     if (error.response) {
       if (error.response.status === 401) {
@@ -93,21 +93,23 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
 
 const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   method: 'post',
-  url: '/users/token',
-  headers: getHeaders({ headers, reqHeaders, token })
+  url: 'oauth/token',
+  headers: getClientHeaders({ headers, reqHeaders }),
+  params: {
+    grant_type: 'refresh_token',
+    refresh_token: token
+  }
 });
 
-function gatewayToken () {
-  const apiGatewayToken = process.env.API_GATEWAY_TOKEN;
-  const milliseconds = Math.round((new Date()).getTime() / 1000);
-  const payload = {
-    iat: milliseconds,
-    token: apiGatewayToken
-  };
-  const privateKey = process.env.API_GATEWAY_PRIVATE_KEY || '';
-  const cert = new Buffer(privateKey);
-  return jwt.sign(payload, cert, { algorithm: 'ES256' });
-}
+const apiClientId = process.env.API_CLIENT_ID || 'elite2apiclient';
+const apiClientSecret = process.env.API_CLIENT_SECRET || 'clientsecret';
+const encodeClientCredentials = () => new Buffer(`${querystring.escape(apiClientId)}:${querystring.escape(apiClientSecret)}`).toString('base64');
+
+const getClientHeaders = ({ headers, reqHeaders }) => Object.assign({}, headers, {
+  "authorization": `Basic ${encodeClientCredentials()}`,
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'access-control-allow-origin': reqHeaders.host
+});
 
 const service = {
   callApi,
@@ -116,11 +118,24 @@ const service = {
   putRequest,
   refreshTokenRequest,
   retryRequest: (options) => axios(options),
-  login: (req) => axios({
-    method: 'post',
-    url: '/users/login',
-    data: req.body
-  })
+  login: (req) => {
+    const params = { ...req.query,
+      grant_type: "password",
+      scope: "write",
+      client_id: apiClientId
+    };
+    return axios({
+      method: 'post',
+      url: '/oauth/token',
+      headers: {
+        ...req.headers,
+        "authorization": `Basic ${encodeClientCredentials()}`,
+        "Content-Type": 'application/x-www-form-urlencoded'
+      },
+      params: params,
+      data: params
+    });
+  }
 };
 
 module.exports = service;

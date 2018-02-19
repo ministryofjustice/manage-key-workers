@@ -48,7 +48,7 @@ class App extends React.Component {
         });
       this.props.switchAgencyDispatch(newCaseload);
     } catch (error) {
-      this.props.setErrorDispatch(error);
+      this.props.setErrorDispatch(error.message);
     }
   }
 
