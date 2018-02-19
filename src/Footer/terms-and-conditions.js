@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ close }) => (<div className="add-gutter-margin-top">
+const termsAndConditions = ({ close }) => (<div className="add-gutter-margin-top">
 
   <h1 className="heading-large"> Terms and conditions </h1>
 
@@ -31,3 +32,9 @@ export default ({ close }) => (<div className="add-gutter-margin-top">
   </div>
   <button className="button" onClick={close}>OK, continue</button>
 </div>);
+
+termsAndConditions.propTypes = {
+  close: PropTypes.func.isRequired
+};
+
+export default termsAndConditions;

@@ -35,7 +35,7 @@
     "start": "concurrently --kill-others-on-fail -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgCyan.bold,bgGrey.bold\" \"yarn start-backend\" \"yarn start-frontend\"",
     "build": "node scripts/customized-config build",
     "test": "node scripts/customized-config test --env=jsdom",
-    "lint": "node_modules/eslint/bin/eslint.js src backend",
+    "lint": "node node_modules/eslint/bin/eslint.js src backend",
     "verify": "node scripts/customized-config test --coverage && yarn lint",
     "record-build-info": "node scripts/record-build-info"
   },

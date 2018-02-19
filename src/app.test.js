@@ -44,8 +44,6 @@ describe('AllocateParent component', () => {
     expect(mockAxios.mock.calls[1][AXIOS_CONFIG].params.agencyId).toBe('LEI');
   });
 
-  // page 3 TODO
-
   it('should render a middle tier error on page 1 correctly', (done) => {
     const mockAxios = jest.fn(); // v22+ .mockName('mockAxios');
     axiosWrapper.get = mockAxios;
@@ -92,6 +90,4 @@ describe('AllocateParent component', () => {
       done();
     }, 5);
   });
-
-  // TODO page 3
 });

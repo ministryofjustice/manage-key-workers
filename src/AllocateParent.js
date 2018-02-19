@@ -143,7 +143,7 @@ class AllocateParent extends Component {
 
 AllocateParent.propTypes = {
   error: PropTypes.string,
-  page: PropTypes.number,
+  page: PropTypes.number.isRequired,
   unallocatedList: PropTypes.array,
   allocatedList: PropTypes.array,
   allocatedKeyworkers: PropTypes.array,
@@ -164,6 +164,7 @@ const mapStateToProps = state => {
   return {
     unallocatedList: state.unallocated.unallocatedList,
     page: state.app.page,
+    jwt: state.app.jwt,
     allocatedList: state.allocated.allocatedList,
     keyworkerList: state.allocated.keyworkerList,
     allocatedKeyworkers: state.allocated.allocatedKeyworkers,

@@ -1,5 +1,33 @@
 import * as ActionTypes from './actionTypes';
 
+export const setLoginDetails = (jwt, user) => {
+  return {
+    type: ActionTypes.SET_LOGIN_DETAILS,
+    jwt,
+    user
+  };
+};
+
+export const setLoginInputChange = (fieldName, value) => {
+  return {
+    type: ActionTypes.SET_LOGIN_INPUT_CHANGE,
+    fieldName,
+    value
+  };
+};
+
+export const switchAgency = (agencyId) => {
+  return {
+    type: ActionTypes.SWITCH_AGENCY,
+    activeCaseLoadId: agencyId
+  };
+};
+
+export const setTermsVisibility = (shouldShowTerms) => ({
+  type: ActionTypes.SET_TERMS_VISIBILITY,
+  shouldShowTerms
+});
+
 export const setUnallocatedList = (unallocatedList) => {
   return {
     type: ActionTypes.SET_UNALLOCATED_LIST,
