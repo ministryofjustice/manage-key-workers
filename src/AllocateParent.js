@@ -176,24 +176,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    unallocatedListDispatch: (list) => {
-      dispatch(setUnallocatedList(list));
-    },
-    allocatedDetailsDispatch: (allocatedList, keyworkerList) => {
-      dispatch(setAllocatedDetails(allocatedList, keyworkerList));
-    },
-    manualOverrideDispatch: (allocatedKeyworkers) => {
-      dispatch(manualOverride(allocatedKeyworkers));
-    },
-    manualOverrideDateFilterDispatch: (dateName, date) => {
-      dispatch(manualOverrideDateFilter(dateName, date));
-    },
-    setCurrentPageDispatch: (page) => {
-      dispatch(setCurrentPage(page));
-    },
-    setErrorDispatch: (error) => {
-      dispatch(setError(error));
-    }
+    unallocatedListDispatch: list => dispatch(setUnallocatedList(list)),
+    allocatedDetailsDispatch: (allocatedList, keyworkerList) => dispatch(setAllocatedDetails(allocatedList, keyworkerList)),
+    manualOverrideDispatch: allocatedKeyworkers => dispatch(manualOverride(allocatedKeyworkers)),
+    manualOverrideDateFilterDispatch: (dateName, date) => dispatch(manualOverrideDateFilter(dateName, date)),
+    setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
+    setErrorDispatch: error => dispatch(setError(error))
   };
 };
 

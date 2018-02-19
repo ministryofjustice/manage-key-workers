@@ -68,7 +68,7 @@ class App extends React.Component {
           {!this.props.shouldShowTerms && <div className="content">
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
-              <Route exact path="/home" render={() => <HomePage {...this.props} />}/>
+              <Route exact path="/home" render={() => <HomePage {...this.props} message="key workers successfully updated"/>}/>
               <Route exact path="/unallocated" render={(props) => <AllocateParentContainer agencyId={this.props.user.activeCaseLoadId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
