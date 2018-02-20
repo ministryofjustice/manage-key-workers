@@ -1,11 +1,12 @@
 const axios = require('axios');
 const session = require('./session');
 const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
+const jwt = require('jsonwebtoken');
 const log = require('./log');
 const logError = require('./logError').logError;
 const querystring = require('querystring');
 
-axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080/api';
+axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080';
 axios.interceptors.request.use((config) => {
   if (useApiAuth) {
     const backendToken = config.headers.authorization;
@@ -101,6 +102,18 @@ const refreshTokenRequest = ({ headers, reqHeaders, token }) => axios({
   }
 });
 
+function gatewayToken () {
+  const apiGatewayToken = process.env.API_GATEWAY_TOKEN;
+  const milliseconds = Math.round((new Date()).getTime() / 1000);
+  const payload = {
+    iat: milliseconds,
+    token: apiGatewayToken
+  };
+  const privateKey = process.env.API_GATEWAY_PRIVATE_KEY || '';
+  const cert = new Buffer(privateKey);
+  return jwt.sign(payload, cert, { algorithm: 'ES256' });
+}
+
 const apiClientId = process.env.API_CLIENT_ID || 'elite2apiclient';
 const apiClientSecret = process.env.API_CLIENT_SECRET || 'clientsecret';
 const encodeClientCredentials = () => new Buffer(`${querystring.escape(apiClientId)}:${querystring.escape(apiClientSecret)}`).toString('base64');
@@ -121,14 +134,12 @@ const service = {
   login: (req) => {
     const params = { ...req.query,
       grant_type: "password",
-      scope: "write",
       client_id: apiClientId
     };
     return axios({
       method: 'post',
       url: '/oauth/token',
       headers: {
-        ...req.headers,
         "authorization": `Basic ${encodeClientCredentials()}`,
         "Content-Type": 'application/x-www-form-urlencoded'
       },
