@@ -13,17 +13,18 @@ class Login extends Component {
 
   async handleSubmit (event) {
     event.preventDefault();
-
-    try {
-      const data = await axiosWrapper.post('/login', {}, {
-        params: {
-          username: this.props.username,
-          password: this.props.password
-        }
-      });
-      await this.props.onLogin(data.headers['jwt'], data, this.props.history);
-    } catch (error) {
-      this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error.message);
+    if (this.props.username) {
+      try {
+        const data = await axiosWrapper.post('/login', {}, {
+          params: {
+            username: this.props.username.toUpperCase(),
+            password: this.props.password
+          }
+        });
+        await this.props.onLogin(data.headers['jwt'], data, this.props.history);
+      } catch (error) {
+        this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error.message);
+      }
     }
   }
 
