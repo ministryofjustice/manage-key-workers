@@ -17,11 +17,16 @@
 
 .header-content {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 97%;
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .left-content {
@@ -39,7 +44,7 @@
 }
 
 .logo {
-  margin-left: 10px;
+  margin-left: 0px;
   margin-right: 5px;
   float: left;
 }
