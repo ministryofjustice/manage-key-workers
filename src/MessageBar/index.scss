@@ -3,15 +3,6 @@
   z-index: 1;
   top: 60px;
   width: 100%;
-  -moz-animation: cssAnimation 0s ease-in 2.5s forwards;
-  /* Firefox */
-  -webkit-animation: cssAnimation 0s ease-in 2.5s forwards;
-  /* Safari and Chrome */
-  -o-animation: cssAnimation 0s ease-in 2.5s forwards;
-  /* Opera */
-  animation: cssAnimation 0s ease-in 2.5s forwards;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
 }
 
 .messageBar {
@@ -20,14 +11,4 @@
   color: white;
   width: 100%;
   padding: 6px;
-}
-@keyframes cssAnimation {
-  to {
-    visibility:hidden;
-  }
-}
-@-webkit-keyframes cssAnimation {
-  to {
-    visibility:hidden;
-  }
 }

@@ -103,5 +103,13 @@ describe('actions', () => {
     };
     expect(actions.setError('Something went wrong')).toEqual(expectedAction);
   });
+
+  it('should create an action to store an info message', () => {
+    const expectedAction = {
+      type: types.SET_MESSAGE,
+      message: 'Your stuff was saved.'
+    };
+    expect(actions.setMessage('Your stuff was saved.')).toEqual(expectedAction);
+  });
 });
 

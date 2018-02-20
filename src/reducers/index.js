@@ -18,6 +18,7 @@ const appInitialState = {
   user: { activeCaseLoadId: null },
   shouldShowTerms: false,
   error: null,
+  message: null,
   username: '',
   password: '',
   page: 0
@@ -50,6 +51,11 @@ export function app (state = appInitialState, action) {
         page: 0,
         error: action.error
       });
+    case ActionTypes.SET_MESSAGE:
+      return {
+        ...state,
+        message: action.message
+      };
     default:
       return state;
   }

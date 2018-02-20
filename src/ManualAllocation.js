@@ -66,7 +66,7 @@ class ManualAllocation extends Component {
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button className="button top-gutter pure-u-md-2-12" onClick={() => this.props.postManualOverride(this.props.history)}>Save and continue</button>
+        <button className="button top-gutter pure-u-md-5-24" onClick={() => this.props.postManualOverride(this.props.history)}>Save and return to menu</button>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import ManualAllocation from './ManualAllocation.js';
 import PropTypes from 'prop-types';
 import axiosWrapper from './backendWrapper';
 import moment from 'moment';
-import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setError } from './actions';
+import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setError, setMessage } from './actions';
 import { connect } from 'react-redux';
 
 import './allocation.scss';
@@ -30,7 +30,6 @@ class AllocateParent extends Component {
     }
   }
 
-  //TODO do we need this after redux
   async componentWillReceiveProps (nextProps) {
     if (nextProps.agencyId !== this.props.agencyId) {
       try {
@@ -92,11 +91,14 @@ class AllocateParent extends Component {
 
   async postManualOverride (history) {
     try {
-      await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
+      if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
+        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+          headers: {
+            jwt: this.props.jwt
+          }
+        });
+        this.props.setMessageDispatch('Key workers successfully updated.');
+      }
       this.props.onFinishAllocation(history);
     } catch (error) {
       this.displayError(error);
@@ -133,7 +135,7 @@ class AllocateParent extends Component {
       case 1:
         return <Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />;
       case 2:
-        return (<ManualAllocation displayDateFilter handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
+        return (<ManualAllocation handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
           applyDateFilter={this.applyDateFilter} handleDateFilterChange={this.handleDateFilterChange} {...this.props} />);
       default:
         return "";
@@ -157,7 +159,8 @@ AllocateParent.propTypes = {
   manualOverrideDispatch: PropTypes.func.isRequired,
   manualOverrideDateFilterDispatch: PropTypes.func.isRequired,
   setCurrentPageDispatch: PropTypes.func.isRequired,
-  setErrorDispatch: PropTypes.func.isRequired
+  setErrorDispatch: PropTypes.func.isRequired,
+  setMessageDispatch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -170,7 +173,8 @@ const mapStateToProps = state => {
     allocatedKeyworkers: state.allocated.allocatedKeyworkers,
     fromDate: state.allocated.fromDate,
     toDate: state.allocated.toDate,
-    error: state.app.error
+    error: state.app.error,
+    message: state.app.message
   };
 };
 
@@ -181,7 +185,8 @@ const mapDispatchToProps = dispatch => {
     manualOverrideDispatch: allocatedKeyworkers => dispatch(manualOverride(allocatedKeyworkers)),
     manualOverrideDateFilterDispatch: (dateName, date) => dispatch(manualOverrideDateFilter(dateName, date)),
     setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
-    setErrorDispatch: error => dispatch(setError(error))
+    setErrorDispatch: error => dispatch(setError(error)),
+    setMessageDispatch: message => dispatch(setMessage(message))
   };
 };
 
