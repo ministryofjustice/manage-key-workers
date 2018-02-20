@@ -29,6 +29,10 @@ app.use('/unallocated', jsonParser, unallocated.router);
 app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 
+app.use('/info', (req, res) => {
+  res.json({ version: process.env.BUILD_NUMBER || 'n/a' });
+});
+
 app.use('/', express.static(path.join(__dirname, '../build')));
 
 const port = process.env.PORT || 3001;
