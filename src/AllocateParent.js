@@ -91,12 +91,14 @@ class AllocateParent extends Component {
 
   async postManualOverride (history) {
     try {
-      await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
-      this.props.setMessageDispatch('Key workers successfully updated.');
+      if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
+        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+          headers: {
+            jwt: this.props.jwt
+          }
+        });
+        this.props.setMessageDispatch('Key workers successfully updated.');
+      }
       this.props.onFinishAllocation(history);
     } catch (error) {
       this.displayError(error);
@@ -133,7 +135,7 @@ class AllocateParent extends Component {
       case 1:
         return <Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />;
       case 2:
-        return (<ManualAllocation displayDateFilter handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
+        return (<ManualAllocation handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
           applyDateFilter={this.applyDateFilter} handleDateFilterChange={this.handleDateFilterChange} {...this.props} />);
       default:
         return "";
