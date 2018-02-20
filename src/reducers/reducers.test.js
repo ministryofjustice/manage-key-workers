@@ -4,7 +4,8 @@ import moment from 'Moment';
 
 const appInitialState = {
   error: null,
-  page: 0
+  page: 0,
+  message: null
 };
 
 const allocatedInitialState = {
@@ -34,6 +35,7 @@ describe('app (global) reducer', () => {
         user: { activeCaseLoadId: null },
         shouldShowTerms: false,
         error: null,
+        message: null,
         username: '',
         password: '',
         page: 0
@@ -52,6 +54,7 @@ describe('app (global) reducer', () => {
       {
         page: 0,
         error: null,
+        message: null,
         jwt: 'hithere',
         user: { field: 'value' }
       }
@@ -69,6 +72,7 @@ describe('app (global) reducer', () => {
       {
         page: 0,
         error: null,
+        message: null,
         username: 'myuser'
       }
     );
@@ -84,6 +88,7 @@ describe('app (global) reducer', () => {
       {
         page: 0,
         error: null,
+        message: null,
         user: { activeCaseLoadId: 'BXI' }
       }
     );
@@ -99,6 +104,7 @@ describe('app (global) reducer', () => {
       {
         page: 0,
         error: null,
+        message: null,
         shouldShowTerms: true
       }
     );
@@ -113,7 +119,8 @@ describe('app (global) reducer', () => {
     ).toEqual(
       {
         page: 1,
-        error: null
+        error: null,
+        message: null
       }
     );
   });
@@ -127,7 +134,23 @@ describe('app (global) reducer', () => {
     ).toEqual(
       {
         page: 0,
-        error: 'HELP!'
+        error: 'HELP!',
+        message: null
+      }
+    );
+  });
+
+  it('should handle SET_MESSAGE', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SET_MESSAGE,
+        message: 'An important message!'
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        message: 'An important message!'
       }
     );
   });
