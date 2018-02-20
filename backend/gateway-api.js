@@ -132,19 +132,12 @@ const service = {
   refreshTokenRequest,
   retryRequest: (options) => axios(options),
   login: (req) => {
-    const params = { ...req.query,
-      grant_type: "password",
-      client_id: apiClientId
-    };
-    return axios({
-      method: 'post',
-      url: '/oauth/token',
+    const data = `username=${req.body.username}&password=${req.body.password}&grant_type=password&client_id=${apiClientId}`;
+    return axios.post('/oauth/token', data, {
       headers: {
         "authorization": `Basic ${encodeClientCredentials()}`,
         "Content-Type": 'application/x-www-form-urlencoded'
-      },
-      params: params,
-      data: params
+      }
     });
   }
 };
