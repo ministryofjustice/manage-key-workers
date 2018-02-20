@@ -68,9 +68,9 @@ class App extends React.Component {
   render () {
     return (
       <Router>
-        <div>
+        <div className="content">
           <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
-          {!this.props.shouldShowTerms && <div className="content">
+          {!this.props.shouldShowTerms && <div className="inner-content">
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
