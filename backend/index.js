@@ -16,6 +16,18 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bunyanMiddleware = require('bunyan-middleware');
 const log = require('./log');
+const fs = require('fs');
+
+function getAppInfo () {
+  const packageData = JSON.parse(fs.readFileSync('./package.json'));
+  const buildVersion = fs.existsSync('./build-info.json') ? JSON.parse(fs.readFileSync('./build-info.json')).buildNumber : packageData.version;
+
+  return {
+    name: packageData.name,
+    version: buildVersion,
+    description: packageData.description
+  };
+}
 
 app.use(bunyanMiddleware({
   logger: log,
@@ -30,7 +42,7 @@ app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 
 app.use('/info', (req, res) => {
-  res.json({ version: process.env.BUILD_NUMBER || 'n/a' });
+  res.json(getAppInfo());
 });
 
 app.use('/', express.static(path.join(__dirname, '../build')));
