@@ -1,3 +1,5 @@
+process.env.UV_THREADPOOL_SIZE = 100;
+
 require('dotenv').config();
 
 // Do appinsights first as it does some magic instrumentation work, i.e. it affects other 'require's
