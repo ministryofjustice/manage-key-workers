@@ -35,8 +35,7 @@ const allocated = async (req) => {
     }
     req.query.bookingId = row.bookingId;
 
-    await common.addCrsaClassification(req, row);
-    await common.addReleaseDate(req, row);
+    await Promise.all([common.addCrsaClassification(req, row), common.addReleaseDate(req, row)]);
   }
   return {
     keyworkerResponse: keyworkerResponse.data,
