@@ -15,12 +15,11 @@ class Login extends Component {
     event.preventDefault();
     if (this.props.username) {
       try {
-        const data = await axiosWrapper.post('/login', {}, {
-          params: {
+        const data = await axiosWrapper.post('/login',
+          {
             username: this.props.username.toUpperCase(),
             password: this.props.password
-          }
-        });
+          });
         await this.props.onLogin(data.headers['jwt'], data, this.props.history);
       } catch (error) {
         this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error.message);

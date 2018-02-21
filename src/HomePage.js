@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageBar from "./MessageBar/index";
+import PropTypes from 'prop-types';
 
 class homepage extends Component {
   render () {
@@ -13,5 +14,9 @@ class homepage extends Component {
     );
   }
 }
+
+homepage.propTypes = {
+  message: PropTypes.string
+};
 
 export default homepage;
