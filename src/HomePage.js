@@ -14,4 +14,8 @@ class homepage extends Component {
   }
 }
 
+homepage.propTypes = {
+  message: PropTypes.string
+};
+
 export default homepage;
