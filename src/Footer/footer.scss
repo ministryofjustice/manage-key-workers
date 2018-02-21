@@ -1,5 +1,5 @@
 .FooterContainer {
-  display: none;
+  //display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -11,13 +11,23 @@
 }
 
 .footer-content {
-  width: 97%;
+    max-width: 1200px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-@media (min-width: 1024px) {
-  .FooterContainer {
-    display: flex;
-  }
+.container {
+  max-width: 640px;
+  margin-top: 15px;
+  justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .FooterLinksContainer{
@@ -35,7 +45,7 @@
     border-right: 0;
   }
   &:first-child {
-    padding-left: 14px;
+    padding-left: 0px;
   }
   &:hover {
     text-decoration: underline;

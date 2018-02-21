@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import axiosWrapper from "./backendWrapper";
 import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, setLoginDetails } from './actions';
+import { switchAgency, setTermsVisibility, setError, setLoginDetails, setMessage } from './actions';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
@@ -22,6 +22,7 @@ class App extends React.Component {
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
     this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
+    this.clearMessage = this.clearMessage.bind(this);
   }
 
   async onLogin (jwt, currentUser, history) {
@@ -60,15 +61,19 @@ class App extends React.Component {
     this.props.setTermsVisibilityDispatch(false);
   }
 
+  clearMessage () {
+    this.props.setMessageDispatch(null);
+  }
+
   render () {
     return (
       <Router>
-        <div>
+        <div className="content">
           <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
-          {!this.props.shouldShowTerms && <div className="content">
+          {!this.props.shouldShowTerms && <div className="inner-content">
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
-              <Route exact path="/home" render={() => <HomePage {...this.props} message="key workers successfully updated"/>}/>
+              <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
               <Route exact path="/unallocated" render={(props) => <AllocateParentContainer agencyId={this.props.user.activeCaseLoadId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
@@ -88,12 +93,14 @@ App.propTypes = {
   loginDetailsDispatch: PropTypes.func.isRequired,
   switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
-  setErrorDispatch: PropTypes.func.isRequired
+  setErrorDispatch: PropTypes.func.isRequired,
+  setMessageDispatch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     error: state.app.error,
+    message: state.app.message,
     page: state.app.page,
     jwt: state.app.jwt,
     user: state.app.user,
@@ -106,7 +113,8 @@ const mapDispatchToProps = dispatch => {
     loginDetailsDispatch: (jwt, user) => dispatch(setLoginDetails(jwt, user)),
     switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
     setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
-    setErrorDispatch: (error) => dispatch(setError(error))
+    setErrorDispatch: (error) => dispatch(setError(error)),
+    setMessageDispatch: (message) => dispatch(setMessage(message))
   };
 };
 

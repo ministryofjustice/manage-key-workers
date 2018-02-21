@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const termsAndConditions = ({ close }) => (<div className="add-gutter-margin-top">
+const termsAndConditions = ({ close }) => (<div className="container">
 
   <h1 className="heading-large"> Terms and conditions </h1>
 
-  <div className="add-gutter-margin-top">
+  <div>
     <p>
     Access to, and use of, this system is restricted to authorized Prison-NOMIS account users only.
     </p>

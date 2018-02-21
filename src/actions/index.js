@@ -73,3 +73,10 @@ export const setError = (error) => {
   };
 };
 
+export const setMessage = (message) => {
+  return {
+    type: ActionTypes.SET_MESSAGE,
+    message
+  };
+};
+

@@ -6,7 +6,7 @@ class homepage extends Component {
   render () {
     return (
       <div>
-        <MessageBar message={this.props.message}/>
+        <MessageBar {...this.props}/>
         <div className="pure-u-md-7-12">
           <h1 className="heading-large">Home page placeholder</h1>
         </div>
