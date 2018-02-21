@@ -6,7 +6,7 @@ class MessageBar extends Component {
   clearMessage (props) {
     setTimeout(function () {
       props.clearMessage();
-    }, 2500);
+    }, props.displayTime || 2500);
   }
 
   renderMessage (message) {
@@ -28,7 +28,8 @@ class MessageBar extends Component {
 }
 
 MessageBar.propTypes = {
-  message: PropTypes.string
+  message: PropTypes.string,
+  displaytime: PropTypes.number
 };
 
 export default MessageBar;
