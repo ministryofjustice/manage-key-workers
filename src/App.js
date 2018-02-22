@@ -1,6 +1,9 @@
 import React from 'react';
 import { LoginContainer } from './Login';
 import HomePage from './HomePage';
+import KeyworkerProfile from './KeyworkerProfile/index';
+import KeyworkerReports from './KeyworkerReports/index';
+import AssignTransfer from './AssignTransfer/index';
 import { AllocateParentContainer } from './AllocateParent';
 import Header from './Header/index';
 import Footer from './Footer/index';
@@ -31,7 +34,7 @@ class App extends React.Component {
     });
     currentUser.data.caseLoadOptions = caseloads.data;
     this.props.loginDetailsDispatch(jwt, currentUser.data);
-    history.push('/unallocated');
+    history.push('/home');
   }
 
   onFinishAllocation (history) {
@@ -74,7 +77,10 @@ class App extends React.Component {
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
-              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer agencyId={this.props.user.activeCaseLoadId} onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+              <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfile {...this.props} />}/>
+              <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
+              <Route exact path="/assignTransfer" render={() => <AssignTransfer {...this.props} />}/>
+              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
