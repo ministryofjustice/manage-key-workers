@@ -1,3 +1,8 @@
+$govuk-blue: #005ea5;
+$light-blue: #2b8cc4;
+$link-colour: $govuk-blue;
+$link-active-colour: $light-blue;
+$link-hover-colour: $light-blue;
 
 .row-gutters {
     padding-top: 17px;
@@ -42,6 +47,10 @@ table tr:nth-child(even){
     padding-top: 15px;
 }
 
+.padding-bottom-large {
+    padding-bottom: 27px;
+}
+
 .padding-top-large {
     padding-top: 46px;
 }
@@ -54,5 +63,23 @@ table tr:nth-child(even){
     padding-right: 17px;
 }
 
+.padding-right-large {
+    padding-right: 27px;
+}
+
+a.link{
+
+    color: $link-colour !important;
+    font-size: 19px;
+
+    &:hover {
+        color: $link-hover-colour !important;
+    }
+
+    &:visited {
+        // color: $link-colour !important;
+        text-decoration: none !important;
+    }
+}
 
 

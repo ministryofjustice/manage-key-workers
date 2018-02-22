@@ -10,10 +10,17 @@ const logError = (url, error, msg) => {
       config: error.response.config,
       data: error.response.data
     }, msg);
+  } else if (error.request) {
+    // request is too big and best skipped
+    log.error({
+      url,
+      code: error.code,
+      message: error.message
+    }, msg);
   } else {
     log.error({
       url,
-      code: error.code
+      error
     }, msg);
   }
 };
