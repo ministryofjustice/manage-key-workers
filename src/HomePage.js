@@ -10,7 +10,7 @@ class HomePage extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g">
           <div className="pure-u-md-8-12 padding-bottom-large">
-            <h1 className="heading-large">Home page placeholder</h1>
+            <h1 className="heading-large">Key worker management</h1>
             <div className="pure-u-md-6-12">
               <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated" >Auto allocate key workers</Link>
               <div className="padding-right-large">Quickly auto-allocate prisoners to key workers and override selections if needed</div>

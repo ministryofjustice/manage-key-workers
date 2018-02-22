@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from '../Dropdown';
 import ProductGlobals from '../product-globals';
+import { Link } from "react-router-dom";
 
 import './header.theme.scss';
 import './index.scss';
@@ -12,13 +13,13 @@ class Header extends Component {
       <header className="page-header">
         <div className="header-content">
           <div className="left-content">
-            <a href="/">
+            <Link id="header_logo_keyworker_management_link" title="Key worker management link" className="link" to="/home" >
               <div className="logo header-image" />
-            </a>
-            <a className="unstyled-link" href="/">
+            </Link>
+            <Link id="header_logo_text_keyworker_management_link" title="Key worker management link" className="unstyled-link" to="/home" >
               <span className="logo-text">HMPPS</span>
               <span className="title">{ProductGlobals.serviceName}</span>
-            </a>
+            </Link>
           </div>
           <div className="right-content">
             <div className="right-menu">
