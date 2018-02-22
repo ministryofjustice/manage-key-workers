@@ -34,7 +34,7 @@
     "start-frontend": "node scripts/customized-config start | bunyan -o short",
     "start-backend": "node backend/index | bunyan -o short",
     "start-live": "concurrently --kill-others-on-fail -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgCyan.bold,bgGrey.bold\" \"yarn start-backend\" \"yarn start-frontend\"",
-    "start": "node --stack-size=1200 --v8-pool-size=30 server.js",
+    "start": "node server",
     "build": "node scripts/customized-config build",
     "test": "node scripts/customized-config test --env=jsdom",
     "lint": "node node_modules/eslint/bin/eslint.js src backend",
