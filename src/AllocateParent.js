@@ -174,7 +174,8 @@ const mapStateToProps = state => {
     fromDate: state.allocated.fromDate,
     toDate: state.allocated.toDate,
     error: state.app.error,
-    message: state.app.message
+    message: state.app.message,
+    agencyId: state.app.user.activeCaseLoadId
   };
 };
 
