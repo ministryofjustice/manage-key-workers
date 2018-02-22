@@ -41,6 +41,8 @@ app.use('/unallocated', jsonParser, unallocated.router);
 app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 
+app.use('/health', require('express-healthcheck')());
+
 app.use('/info', (req, res) => {
   res.json(getAppInfo());
 });
