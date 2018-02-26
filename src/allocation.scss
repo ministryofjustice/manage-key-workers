@@ -1,8 +1,4 @@
-$govuk-blue: #005ea5;
-$light-blue: #2b8cc4;
-$link-colour: $govuk-blue;
-$link-active-colour: $light-blue;
-$link-hover-colour: $light-blue;
+@import "colours/palette";
 
 .row-gutters {
     padding-top: 17px;

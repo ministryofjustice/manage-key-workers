@@ -8,9 +8,6 @@ class KeyworkerProfile extends Component {
         <div className="pure-g">
           <div className="pure-u-md-7-12">
             <h1 className="heading-large">Key worker reports placeholder</h1>
-            <div className="pure-u-md-6-12">
-              <Link className="link" to="/home" >Return to key worker management</Link>
-            </div>
           </div>
         </div>
       </div>

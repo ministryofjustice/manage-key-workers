@@ -3,7 +3,7 @@ import { LoginContainer } from './Login';
 import HomePage from './HomePage';
 import KeyworkerProfile from './KeyworkerProfile/index';
 import KeyworkerReports from './KeyworkerReports/index';
-import AssignTransfer from './AssignTransfer/index';
+import AssignTransferContainer from './AssignTransfer/container';
 import { AllocateParentContainer } from './AllocateParent';
 import Header from './Header/index';
 import Footer from './Footer/index';
@@ -79,7 +79,7 @@ class App extends React.Component {
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
               <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfile {...this.props} />}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-              <Route exact path="/assignTransfer" render={() => <AssignTransfer {...this.props} />}/>
+              <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AllocateParentContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
