@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import PrisonerSearch from '../PrisonerSearch';
 
 class AssignTransfer extends Component {
