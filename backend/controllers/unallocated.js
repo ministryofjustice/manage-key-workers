@@ -12,14 +12,22 @@ router.get('/', asyncMiddleware(async (req, res) => {
 
 const unallocated = async (req) => {
   const unallocatedResponse = await elite2Api.unallocated(req);
-  log.debug({ data: unallocatedResponse.data }, 'Response from unallocated offenders request');
-
   const unallocatedData = unallocatedResponse.data;
-  for (const row of unallocatedData) {
-    req.query.bookingId = row.bookingId;
+  log.debug({ data: unallocatedData }, 'Response from unallocated offenders request');
 
-    await common.addCrsaClassification(req, row);
-    await common.addReleaseDate(req, row);
+  const alloffenders = unallocatedData.map(row => row.offenderNo);
+  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, alloffenders, common.offenderNoParamsSerializer);
+  const allReleaseDates = sentenceDetailListResponse.data;
+  log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
+
+  const allBookings = unallocatedData.map(row => row.bookingId);
+  const csraListResponse = await elite2Api.csraList(req, allBookings, common.bookingIdParamsSerializer);
+  const allCsras = csraListResponse.data;
+  log.debug({ data: allCsras }, 'Response from csraList request');
+
+  for (const row of unallocatedData) {
+    common.addCrsaClassification(allCsras, row);
+    common.addReleaseDate(allReleaseDates, row);
   }
   return unallocatedResponse;
 };

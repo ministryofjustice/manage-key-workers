@@ -21,40 +21,46 @@ const addMissingKeyworkerDetails = async function (req, row) {
   }
 };
 
-const addCrsaClassification = async function (req, row) {
-  try {
-    const assessmentResponse = await elite2Api.assessment(req);
-    row.crsaClassification = assessmentResponse.data.classification ? assessmentResponse.data.classification : '--';
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      // log.debug(`No assessment found for booking Id ${row.bookingId}`);
-      row.crsaClassification = '--';
-    } else {
-      logError(req.originalUrl, error, 'Error in addCrsaClassification');
-      throw error;
-    }
+const addCrsaClassification = function (allCsras, row) {
+  const details = allCsras.filter(details => details.bookingId === row.bookingId);
+  if (details.length < 1) {
+    return;
   }
+  const detail = offenderDetails[0];
+  row.crsaClassification = detail && detail.classification;
 };
 
-const addReleaseDate = async function (req, row) {
-  try {
-    const sentenceResponse = await elite2Api.sentenceDetail(req);
-    row.confirmedReleaseDate = sentenceResponse.data.confirmedReleaseDate ? sentenceResponse.data.confirmedReleaseDate : '--';
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      // log.debug(`No sentence detail found for booking Id ${row.bookingId}`);
-      row.confirmedReleaseDate = '--';
-    } else {
-      logError(req.originalUrl, error, 'Error in addReleaseDate');
-      throw error;
-    }
+const addReleaseDate = function (allReleaseDates, row) {
+  const offenderDetails = allReleaseDates.filter(details => details.offenderNo === row.offenderNo);
+  if (offenderDetails.length < 1) {
+    return;
   }
+  const detail = offenderDetails[0];
+  row.confirmedReleaseDate = detail && detail.sentenceDetail && detail.sentenceDetail.releaseDate;
+};
+
+const offenderNoParamsSerializer = params => {
+  s = '';
+  for (const offenderNo of params) {
+    s += 'offenderNo=' + offenderNo + '&';
+  }
+  return s;
+};
+
+const bookingIdParamsSerializer = params => {
+  s = '';
+  for (const bookingId of params) {
+    s += 'bookingId=' + bookingId + '&';
+  }
+  return s;
 };
 
 module.exports = {
   addMissingKeyworkerDetails,
   addCrsaClassification,
-  addReleaseDate
+  addReleaseDate,
+  offenderNoParamsSerializer,
+  bookingIdParamsSerializer
 };
 
 

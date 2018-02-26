@@ -18,11 +18,13 @@ axios.interceptors.request.use((config) => {
   return config;
 }, (error) => Promise.reject(error));
 
-const getRequest = ({ req, url, headers }) => service.callApi({
+const getRequest = ({ req, url, headers, params, paramsSerializer }) => service.callApi({
   method: 'get',
   url,
   headers: headers || {},
   reqHeaders: req.headers,
+  params,
+  paramsSerializer,
   onTokenRefresh: (token) => {
     req.headers.jwt = token;
   }
@@ -57,7 +59,7 @@ const getHeaders = ({ headers, reqHeaders, token }) => {
   });
 };
 
-const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseType, data }) => {
+const callApi = ({ method, url, headers, reqHeaders, params, paramsSerializer, onTokenRefresh, responseType, data }) => {
   const sessionData = session.getSessionData(reqHeaders);
   if (sessionData == null) {
     const message = "Null session or missing jwt";
@@ -69,6 +71,8 @@ const callApi = ({ method, url, headers, reqHeaders, onTokenRefresh, responseTyp
     url,
     method,
     responseType,
+    params,
+    paramsSerializer,
     data,
     headers: getHeaders({ headers, reqHeaders, token: sessionData.access_token })
   }).catch(error => {
