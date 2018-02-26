@@ -1,10 +1,10 @@
 import React from 'react';
-import { LoginContainer } from './Login';
-import HomePage from './HomePage';
+import { LoginContainer } from './Login/index';
+import HomePage from './KeyworkerManagement/index';
 import KeyworkerProfile from './KeyworkerProfile/index';
 import KeyworkerReports from './KeyworkerReports/index';
 import AssignTransferContainer from './AssignTransfer/container';
-import { AllocateParentContainer } from './AllocateParent';
+import { AutoAllocateContainer } from './AutoAllocation/container';
 import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom';
 import axiosWrapper from "./backendWrapper";
 import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, setLoginDetails, setMessage } from './actions';
+import { switchAgency, setTermsVisibility, setError, setLoginDetails, setMessage } from './redux/actions';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
@@ -80,7 +80,7 @@ class App extends React.Component {
               <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfile {...this.props} />}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
-              <Route exact path="/unallocated" render={(props) => <AllocateParentContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+              <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}

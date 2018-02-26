@@ -14,7 +14,7 @@ class PrisonerSearch extends Component {
           <div className="padding-top padding-left padding-right">
             <label className="form-label" htmlFor="seachText">Prisoner name or number</label>
             <input type="text" className="form-control" id="search-text" name="searchText" value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
-            <button className="button" onClick={() => this.props.gotoNext()}>Search ></button>
+            <button className="button margin-left" onClick={() => this.props.gotoNext()}>Search ></button>
           </div>
           <div className="padding-top padding-left padding-right padding-bottom-large">
             <div className="pure-u-md-5-12 padding-right">

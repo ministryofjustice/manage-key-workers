@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { properCaseName } from './stringUtils';
+import { properCaseName } from '../stringUtils';
 import ReactTooltip from 'react-tooltip';
-import DateFilter from './DateFilter/index.js';
+import DateFilter from '../DateFilter/index.js';
 import PropTypes from 'prop-types';
 
 class ManualAllocation extends Component {

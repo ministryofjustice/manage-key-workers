@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Unallocated from './Unallocated.js';
-import ManualAllocation from './ManualAllocation.js';
+import Unallocated from '../Unallocated/index.js';
+import ManualAllocation from '../ManualAllocation/index.js';
 import PropTypes from 'prop-types';
-import axiosWrapper from './backendWrapper';
+import axiosWrapper from '../backendWrapper';
 import moment from 'moment';
-import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setError, setMessage } from './actions';
+import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setError, setMessage } from '../redux/actions/index';
 import { connect } from 'react-redux';
 
-import './allocation.scss';
+import '../allocation.scss';
 
-class AllocateParent extends Component {
+class AutoAllocate extends Component {
   constructor () {
     super();
     this.displayError = this.displayError.bind(this);
@@ -143,7 +143,7 @@ class AllocateParent extends Component {
   }
 }
 
-AllocateParent.propTypes = {
+AutoAllocate.propTypes = {
   error: PropTypes.string,
   page: PropTypes.number.isRequired,
   unallocatedList: PropTypes.array,
@@ -191,9 +191,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const AllocateParentContainer = connect(mapStateToProps, mapDispatchToProps)(AllocateParent);
+const AutoAllocateContainer = connect(mapStateToProps, mapDispatchToProps)(AutoAllocate);
 
 export {
-  AllocateParent,
-  AllocateParentContainer
+  AutoAllocate,
+  AutoAllocateContainer
 };
