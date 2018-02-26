@@ -1,5 +1,5 @@
-import * as actions from '../actions';
-import * as types from './ActionTypes';
+import * as actions from './index';
+import * as types from './actionTypes';
 
 describe('actions', () => {
   it('should create an action to setup login details', () => {

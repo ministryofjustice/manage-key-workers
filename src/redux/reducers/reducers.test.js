@@ -1,5 +1,5 @@
-import { unallocated, allocated, app } from '../reducers';
-import * as types from '../actions/ActionTypes';
+import { unallocated, allocated, app } from './index';
+import * as types from '../actions/actionTypes';
 import moment from 'Moment';
 import { prisonerSearch } from "./index";
 

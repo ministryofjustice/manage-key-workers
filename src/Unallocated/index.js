@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { properCaseName } from "./stringUtils";
+import { properCaseName } from "../stringUtils";
 import PropTypes from 'prop-types';
 
 class Unallocated extends Component {

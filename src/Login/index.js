@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axiosWrapper from './backendWrapper';
+import axiosWrapper from '../backendWrapper';
 import PropTypes from 'prop-types';
-import { setLoginDetails, setLoginInputChange, setError } from './actions';
+import { setLoginDetails, setLoginInputChange, setError } from '../redux/actions/index';
 import { connect } from 'react-redux';
 
 class Login extends Component {

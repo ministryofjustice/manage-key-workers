@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MessageBar from "./MessageBar/index";
+import MessageBar from "../MessageBar/index";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 

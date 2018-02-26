@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import axiosWrapper from '../backendWrapper';
-import { setCurrentPage, setPrisonerSearchText, setPrisonerSearchAllocationStatus, setPrisonerSearchHousingLocation, setError, setMessage } from '../actions';
+import { setCurrentPage, setPrisonerSearchText, setPrisonerSearchAllocationStatus, setPrisonerSearchHousingLocation, setError, setMessage } from '../redux/actions';
 import { connect } from 'react-redux';
 
 import AssignTransfer from "./index";
