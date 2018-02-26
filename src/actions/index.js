@@ -80,3 +80,24 @@ export const setMessage = (message) => {
   };
 };
 
+export const setPrisonerSearchText = (searchText) => {
+  return {
+    type: ActionTypes.SET_PRISONER_SEARCH_TEXT,
+    searchText
+  };
+};
+
+export const setPrisonerSearchAllocationStatus = (allocationStatus) => {
+  return {
+    type: ActionTypes.SET_PRISONER_SEARCH_ALLOCATION_STATUS,
+    allocationStatus
+  };
+};
+
+export const setPrisonerSearchHousingLocation = (housingLocation) => {
+  return {
+    type: ActionTypes.SET_PRISONER_SEARCH_HOUSING_LOCATION,
+    housingLocation
+  };
+};
+

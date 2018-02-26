@@ -24,6 +24,12 @@ const appInitialState = {
   page: 0
 };
 
+const prisonerSearchInitialState = {
+  searchText: null,
+  housingLocation: null,
+  allocationStatus: null
+};
+
 export function app (state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_LOGIN_DETAILS:
@@ -91,6 +97,25 @@ export function allocated (state = allocatedInitialState, action) {
   }
 }
 
+export function prisonerSearch (state = prisonerSearchInitialState, action) {
+  switch (action.type) {
+    case ActionTypes.SET_PRISONER_SEARCH_TEXT:
+      return { ...state,
+        searchText: action.searchText
+      };
+    case ActionTypes.SET_PRISONER_SEARCH_ALLOCATION_STATUS:
+      return { ...state,
+        allocationStatus: action.allocationStatus
+      };
+    case ActionTypes.SET_PRISONER_SEARCH_HOUSING_LOCATION:
+      return { ...state,
+        housingLocation: action.housingLocation
+      };
+    default:
+      return state;
+  }
+}
+
 function updateObject (oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
@@ -99,7 +124,8 @@ function updateObject (oldObject, newValues) {
 const allocationApp = combineReducers({
   allocated,
   unallocated,
-  app
+  app,
+  prisonerSearch
 });
 
 export default allocationApp;

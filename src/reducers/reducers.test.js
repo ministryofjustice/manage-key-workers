@@ -1,6 +1,7 @@
 import { unallocated, allocated, app } from '../reducers';
 import * as types from '../actions/ActionTypes';
 import moment from 'Moment';
+import { prisonerSearch } from "./index";
 
 const appInitialState = {
   error: null,
@@ -26,6 +27,12 @@ const allocatedPopulatedState = {
 
 const unallocatedInitialState = {
   unallocatedList: []
+};
+
+const prisonerSearchInitialState = {
+  searchText: null,
+  housingLocation: null,
+  allocationStatus: null
 };
 
 describe('app (global) reducer', () => {
@@ -265,6 +272,56 @@ describe('allocated reducer', () => {
         keyworkerList: ['keyworkerList'],
         fromDate: '01/01/1888',
         toDate: '01/01/2000'
+      }
+    );
+  });
+});
+
+describe('prisoner search reducer', () => {
+  it('should return the initial state', () => {
+    expect(prisonerSearch(undefined, {})).toEqual(
+      {
+        searchText: null,
+        allocationStatus: null,
+        housingLocation: null
+      }
+    );
+  });
+  it('should handle SET_PRISONER_SEARCH_TEXT', () => {
+    expect(prisonerSearch(prisonerSearchInitialState, {
+      type: types.SET_PRISONER_SEARCH_TEXT,
+      searchText: 'birdman of Alcatraz'
+    })).toEqual(
+      {
+        searchText: 'birdman of Alcatraz',
+        allocationStatus: null,
+        housingLocation: null
+      }
+    );
+  });
+
+  it('should handle SET_PRISONER_SEARCH_ALLOCATION_STATUS', () => {
+    expect(prisonerSearch(prisonerSearchInitialState, {
+      type: types.SET_PRISONER_SEARCH_ALLOCATION_STATUS,
+      allocationStatus: 'N'
+    })).toEqual(
+      {
+        searchText: null,
+        allocationStatus: 'N',
+        housingLocation: null
+      }
+    );
+  });
+
+  it('should handle SET_PRISONER_SEARCH_HOUSING_LOCATION', () => {
+    expect(prisonerSearch(prisonerSearchInitialState, {
+      type: types.SET_PRISONER_SEARCH_HOUSING_LOCATION,
+      housingLocation: 'Block C'
+    })).toEqual(
+      {
+        searchText: null,
+        allocationStatus: null,
+        housingLocation: 'Block C'
       }
     );
   });

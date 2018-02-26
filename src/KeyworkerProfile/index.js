@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 class KeyworkerProfile extends Component {
   render () {
@@ -8,9 +7,6 @@ class KeyworkerProfile extends Component {
         <div className="pure-g">
           <div className="pure-u-md-7-12">
             <h1 className="heading-large">Key worker profile placeholder</h1>
-            <div className="pure-u-md-6-12">
-              <Link className="link" to="/home" >Return to key worker management</Link>
-            </div>
           </div>
         </div>
       </div>
