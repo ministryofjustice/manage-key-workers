@@ -1,0 +1,1629 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unallocated component should render list correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Unallocated
+    gotoNext={[Function]}
+    unallocatedList={
+        Array [
+            Object {
+              "bookingId": 1,
+              "confirmedReleaseDate": "2020-01-02",
+              "crsaClassification": "High",
+              "firstName": "Steve",
+              "internalLocationDesc": "L-1-1",
+              "lastName": "Rendell",
+              "offenderNo": "ZZ124WX",
+            },
+            Object {
+              "bookingId": 2,
+              "confirmedReleaseDate": null,
+              "crsaClassification": null,
+              "firstName": "Steve2",
+              "internalLocationDesc": "L-1-2",
+              "lastName": "Rendell2",
+              "offenderNo": "ZZ125WX",
+            },
+          ]
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="pure-u-md-7-12"
+>
+          <h1
+                    className="heading-large"
+          >
+                    Prisoners without key workers
+          </h1>
+          <p>
+                    These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+          </p>
+          <table>
+                    <thead>
+                              <tr>
+                                        <th>
+                                                  Name
+                                        </th>
+                                        <th>
+                                                  NOMS ID
+                                        </th>
+                                        <th>
+                                                  Location
+                                        </th>
+                                        <th>
+                                                  RD
+                                        </th>
+                                        <th>
+                                                  CSRA
+                                        </th>
+                              </tr>
+                    </thead>
+                    <tbody>
+                              <tr>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  <a
+                                                            href={1}
+                                                  >
+                                                            Rendell, Steve
+                                                  </a>
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  ZZ124WX
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  L-1-1
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  2020-01-02
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  High
+                                        </td>
+                              </tr>
+                              <tr>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  <a
+                                                            href={2}
+                                                  >
+                                                            Rendell2, Steve2
+                                                  </a>
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  ZZ125WX
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  L-1-2
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  --
+                                        </td>
+                                        <td
+                                                  className="row-gutters"
+                                        >
+                                                  --
+                                        </td>
+                              </tr>
+                    </tbody>
+          </table>
+</div>,
+        <div>
+          <button
+                    className="button top-gutter"
+                    onClick={[Function]}
+          >
+                    Allocate
+          </button>
+</div>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <h1
+              className="heading-large"
+>
+              Prisoners without key workers
+</h1>,
+            <p>
+              These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+</p>,
+            <table>
+              <thead>
+                            <tr>
+                                          <th>
+                                                        Name
+                                          </th>
+                                          <th>
+                                                        NOMS ID
+                                          </th>
+                                          <th>
+                                                        Location
+                                          </th>
+                                          <th>
+                                                        RD
+                                          </th>
+                                          <th>
+                                                        CSRA
+                                          </th>
+                            </tr>
+              </thead>
+              <tbody>
+                            <tr>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        <a
+                                                                      href={1}
+                                                        >
+                                                                      Rendell, Steve
+                                                        </a>
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        ZZ124WX
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        L-1-1
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        2020-01-02
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        High
+                                          </td>
+                            </tr>
+                            <tr>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        <a
+                                                                      href={2}
+                                                        >
+                                                                      Rendell2, Steve2
+                                                        </a>
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        ZZ125WX
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        L-1-2
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        --
+                                          </td>
+                                          <td
+                                                        className="row-gutters"
+                                          >
+                                                        --
+                                          </td>
+                            </tr>
+              </tbody>
+</table>,
+          ],
+          "className": "pure-u-md-7-12",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Prisoners without key workers",
+              "className": "heading-large",
+            },
+            "ref": null,
+            "rendered": "Prisoners without key workers",
+            "type": "h1",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+            },
+            "ref": null,
+            "rendered": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+            "type": "p",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <thead>
+                  <tr>
+                                    <th>
+                                                      Name
+                                    </th>
+                                    <th>
+                                                      NOMS ID
+                                    </th>
+                                    <th>
+                                                      Location
+                                    </th>
+                                    <th>
+                                                      RD
+                                    </th>
+                                    <th>
+                                                      CSRA
+                                    </th>
+                  </tr>
+</thead>,
+                <tbody>
+                  <tr>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      <a
+                                                                        href={1}
+                                                      >
+                                                                        Rendell, Steve
+                                                      </a>
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      ZZ124WX
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      L-1-1
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      2020-01-02
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      High
+                                    </td>
+                  </tr>
+                  <tr>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      <a
+                                                                        href={2}
+                                                      >
+                                                                        Rendell2, Steve2
+                                                      </a>
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      ZZ125WX
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      L-1-2
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      --
+                                    </td>
+                                    <td
+                                                      className="row-gutters"
+                                    >
+                                                      --
+                                    </td>
+                  </tr>
+</tbody>,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <tr>
+                    <th>
+                                        Name
+                    </th>
+                    <th>
+                                        NOMS ID
+                    </th>
+                    <th>
+                                        Location
+                    </th>
+                    <th>
+                                        RD
+                    </th>
+                    <th>
+                                        CSRA
+                    </th>
+</tr>,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <th>
+                        Name
+</th>,
+                      <th>
+                        NOMS ID
+</th>,
+                      <th>
+                        Location
+</th>,
+                      <th>
+                        RD
+</th>,
+                      <th>
+                        CSRA
+</th>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Name",
+                      },
+                      "ref": null,
+                      "rendered": "Name",
+                      "type": "th",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "NOMS ID",
+                      },
+                      "ref": null,
+                      "rendered": "NOMS ID",
+                      "type": "th",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Location",
+                      },
+                      "ref": null,
+                      "rendered": "Location",
+                      "type": "th",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "RD",
+                      },
+                      "ref": null,
+                      "rendered": "RD",
+                      "type": "th",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "CSRA",
+                      },
+                      "ref": null,
+                      "rendered": "CSRA",
+                      "type": "th",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                "type": "thead",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <tr>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            <a
+                                                                  href={1}
+                                            >
+                                                                  Rendell, Steve
+                                            </a>
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            ZZ124WX
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            L-1-1
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            2020-01-02
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            High
+                      </td>
+</tr>,
+                    <tr>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            <a
+                                                                  href={2}
+                                            >
+                                                                  Rendell2, Steve2
+                                            </a>
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            ZZ125WX
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            L-1-2
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            --
+                      </td>
+                      <td
+                                            className="row-gutters"
+                      >
+                                            --
+                      </td>
+</tr>,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": "1",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <td
+                          className="row-gutters"
+>
+                          <a
+                                                    href={1}
+                          >
+                                                    Rendell, Steve
+                          </a>
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          ZZ124WX
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          L-1-1
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          2020-01-02
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          High
+</td>,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <a
+                            href={1}
+>
+                            Rendell, Steve
+</a>,
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Rendell, Steve",
+                            "href": 1,
+                          },
+                          "ref": null,
+                          "rendered": "Rendell, Steve",
+                          "type": "a",
+                        },
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "ZZ124WX",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "ZZ124WX",
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "L-1-1",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "L-1-1",
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "2020-01-02",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "2020-01-02",
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "High",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "High",
+                        "type": "td",
+                      },
+                    ],
+                    "type": "tr",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": "2",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <td
+                          className="row-gutters"
+>
+                          <a
+                                                    href={2}
+                          >
+                                                    Rendell2, Steve2
+                          </a>
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          ZZ125WX
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          L-1-2
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          --
+</td>,
+                        <td
+                          className="row-gutters"
+>
+                          --
+</td>,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <a
+                            href={2}
+>
+                            Rendell2, Steve2
+</a>,
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Rendell2, Steve2",
+                            "href": 2,
+                          },
+                          "ref": null,
+                          "rendered": "Rendell2, Steve2",
+                          "type": "a",
+                        },
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "ZZ125WX",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "ZZ125WX",
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "L-1-2",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "L-1-2",
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "--",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "--",
+                        "type": "td",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "--",
+                          "className": "row-gutters",
+                        },
+                        "ref": null,
+                        "rendered": "--",
+                        "type": "td",
+                      },
+                    ],
+                    "type": "tr",
+                  },
+                ],
+                "type": "tbody",
+              },
+            ],
+            "type": "table",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <button
+            className="button top-gutter"
+            onClick={[Function]}
+>
+            Allocate
+</button>,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Allocate",
+            "className": "button top-gutter",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Allocate",
+          "type": "button",
+        },
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="pure-u-md-7-12"
+>
+            <h1
+                        className="heading-large"
+            >
+                        Prisoners without key workers
+            </h1>
+            <p>
+                        These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+            </p>
+            <table>
+                        <thead>
+                                    <tr>
+                                                <th>
+                                                            Name
+                                                </th>
+                                                <th>
+                                                            NOMS ID
+                                                </th>
+                                                <th>
+                                                            Location
+                                                </th>
+                                                <th>
+                                                            RD
+                                                </th>
+                                                <th>
+                                                            CSRA
+                                                </th>
+                                    </tr>
+                        </thead>
+                        <tbody>
+                                    <tr>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            <a
+                                                                        href={1}
+                                                            >
+                                                                        Rendell, Steve
+                                                            </a>
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            ZZ124WX
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            L-1-1
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            2020-01-02
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            High
+                                                </td>
+                                    </tr>
+                                    <tr>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            <a
+                                                                        href={2}
+                                                            >
+                                                                        Rendell2, Steve2
+                                                            </a>
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            ZZ125WX
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            L-1-2
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            --
+                                                </td>
+                                                <td
+                                                            className="row-gutters"
+                                                >
+                                                            --
+                                                </td>
+                                    </tr>
+                        </tbody>
+            </table>
+</div>,
+          <div>
+            <button
+                        className="button top-gutter"
+                        onClick={[Function]}
+            >
+                        Allocate
+            </button>
+</div>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h1
+                className="heading-large"
+>
+                Prisoners without key workers
+</h1>,
+              <p>
+                These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+</p>,
+              <table>
+                <thead>
+                                <tr>
+                                                <th>
+                                                                Name
+                                                </th>
+                                                <th>
+                                                                NOMS ID
+                                                </th>
+                                                <th>
+                                                                Location
+                                                </th>
+                                                <th>
+                                                                RD
+                                                </th>
+                                                <th>
+                                                                CSRA
+                                                </th>
+                                </tr>
+                </thead>
+                <tbody>
+                                <tr>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                <a
+                                                                                href={1}
+                                                                >
+                                                                                Rendell, Steve
+                                                                </a>
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                ZZ124WX
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                L-1-1
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                2020-01-02
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                High
+                                                </td>
+                                </tr>
+                                <tr>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                <a
+                                                                                href={2}
+                                                                >
+                                                                                Rendell2, Steve2
+                                                                </a>
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                ZZ125WX
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                L-1-2
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                --
+                                                </td>
+                                                <td
+                                                                className="row-gutters"
+                                                >
+                                                                --
+                                                </td>
+                                </tr>
+                </tbody>
+</table>,
+            ],
+            "className": "pure-u-md-7-12",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Prisoners without key workers",
+                "className": "heading-large",
+              },
+              "ref": null,
+              "rendered": "Prisoners without key workers",
+              "type": "h1",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+              },
+              "ref": null,
+              "rendered": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <thead>
+                    <tr>
+                                        <th>
+                                                            Name
+                                        </th>
+                                        <th>
+                                                            NOMS ID
+                                        </th>
+                                        <th>
+                                                            Location
+                                        </th>
+                                        <th>
+                                                            RD
+                                        </th>
+                                        <th>
+                                                            CSRA
+                                        </th>
+                    </tr>
+</thead>,
+                  <tbody>
+                    <tr>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            <a
+                                                                                href={1}
+                                                            >
+                                                                                Rendell, Steve
+                                                            </a>
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            ZZ124WX
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            L-1-1
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            2020-01-02
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            High
+                                        </td>
+                    </tr>
+                    <tr>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            <a
+                                                                                href={2}
+                                                            >
+                                                                                Rendell2, Steve2
+                                                            </a>
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            ZZ125WX
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            L-1-2
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            --
+                                        </td>
+                                        <td
+                                                            className="row-gutters"
+                                        >
+                                                            --
+                                        </td>
+                    </tr>
+</tbody>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <tr>
+                      <th>
+                                            Name
+                      </th>
+                      <th>
+                                            NOMS ID
+                      </th>
+                      <th>
+                                            Location
+                      </th>
+                      <th>
+                                            RD
+                      </th>
+                      <th>
+                                            CSRA
+                      </th>
+</tr>,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <th>
+                          Name
+</th>,
+                        <th>
+                          NOMS ID
+</th>,
+                        <th>
+                          Location
+</th>,
+                        <th>
+                          RD
+</th>,
+                        <th>
+                          CSRA
+</th>,
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "Name",
+                        },
+                        "ref": null,
+                        "rendered": "Name",
+                        "type": "th",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "NOMS ID",
+                        },
+                        "ref": null,
+                        "rendered": "NOMS ID",
+                        "type": "th",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "Location",
+                        },
+                        "ref": null,
+                        "rendered": "Location",
+                        "type": "th",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "RD",
+                        },
+                        "ref": null,
+                        "rendered": "RD",
+                        "type": "th",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "CSRA",
+                        },
+                        "ref": null,
+                        "rendered": "CSRA",
+                        "type": "th",
+                      },
+                    ],
+                    "type": "tr",
+                  },
+                  "type": "thead",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <tr>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                <a
+                                                                        href={1}
+                                                >
+                                                                        Rendell, Steve
+                                                </a>
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                ZZ124WX
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                L-1-1
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                2020-01-02
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                High
+                        </td>
+</tr>,
+                      <tr>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                <a
+                                                                        href={2}
+                                                >
+                                                                        Rendell2, Steve2
+                                                </a>
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                ZZ125WX
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                L-1-2
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                --
+                        </td>
+                        <td
+                                                className="row-gutters"
+                        >
+                                                --
+                        </td>
+</tr>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": "1",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <td
+                            className="row-gutters"
+>
+                            <a
+                                                        href={1}
+                            >
+                                                        Rendell, Steve
+                            </a>
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            ZZ124WX
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            L-1-1
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            2020-01-02
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            High
+</td>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <a
+                              href={1}
+>
+                              Rendell, Steve
+</a>,
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Rendell, Steve",
+                              "href": 1,
+                            },
+                            "ref": null,
+                            "rendered": "Rendell, Steve",
+                            "type": "a",
+                          },
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "ZZ124WX",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "ZZ124WX",
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "L-1-1",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "L-1-1",
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "2020-01-02",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "2020-01-02",
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "High",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "High",
+                          "type": "td",
+                        },
+                      ],
+                      "type": "tr",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": "2",
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <td
+                            className="row-gutters"
+>
+                            <a
+                                                        href={2}
+                            >
+                                                        Rendell2, Steve2
+                            </a>
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            ZZ125WX
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            L-1-2
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            --
+</td>,
+                          <td
+                            className="row-gutters"
+>
+                            --
+</td>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <a
+                              href={2}
+>
+                              Rendell2, Steve2
+</a>,
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Rendell2, Steve2",
+                              "href": 2,
+                            },
+                            "ref": null,
+                            "rendered": "Rendell2, Steve2",
+                            "type": "a",
+                          },
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "ZZ125WX",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "ZZ125WX",
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "L-1-2",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "L-1-2",
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "--",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "--",
+                          "type": "td",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "--",
+                            "className": "row-gutters",
+                          },
+                          "ref": null,
+                          "rendered": "--",
+                          "type": "td",
+                        },
+                      ],
+                      "type": "tr",
+                    },
+                  ],
+                  "type": "tbody",
+                },
+              ],
+              "type": "table",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <button
+              className="button top-gutter"
+              onClick={[Function]}
+>
+              Allocate
+</button>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Allocate",
+              "className": "button top-gutter",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "Allocate",
+            "type": "button",
+          },
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
