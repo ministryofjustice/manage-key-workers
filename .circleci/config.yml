@@ -20,7 +20,7 @@ jobs:
             - ./node_modules
       - run:
           name: Run eslint
-          command: yarn lint:js:ci
+          command: yarn lint
       - run:
           name: Run Tests
           command: |
