@@ -77,6 +77,12 @@ const userCaseLoads = (req) => gateway.getRequest({
   url: 'api/users/me/caseLoads'
 });
 
+/* const keyworkerSearchresults = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `api/key-worker/${req.query.agencyId}/search`
+}); */
+
 const setActiveCaseLoad = (req) => gateway.putRequest({
   req: req,
   method: 'put',

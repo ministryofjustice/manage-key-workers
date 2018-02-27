@@ -1,7 +1,6 @@
-import { unallocated, allocated, app } from './index';
+import { unallocated, allocated, app, prisonerSearch, keyworkerSearch } from './index';
 import * as types from '../actions/actionTypes';
-import moment from 'Moment';
-import { prisonerSearch } from "./index";
+import moment from 'moment';
 
 const appInitialState = {
   error: null,
@@ -33,6 +32,11 @@ const prisonerSearchInitialState = {
   searchText: null,
   housingLocation: null,
   allocationStatus: null
+};
+
+const keyworkerSearchInitialState = {
+  searchText: null,
+  keyworkerSearchResults: []
 };
 
 describe('app (global) reducer', () => {
@@ -322,6 +326,31 @@ describe('prisoner search reducer', () => {
         searchText: null,
         allocationStatus: null,
         housingLocation: 'Block C'
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER_SEARCH_TEXT', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_SEARCH_TEXT,
+      searchText: 'Kelly Keyworker'
+    })).toEqual(
+      {
+        searchText: 'Kelly Keyworker',
+        keyworkerSearchResults: []
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER_SEARCH_RESULTS', () => {
+    const list = [{ firstName: 'Jack', surname: 'Brown' }];
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_SEARCH_RESULTS_LIST,
+      keyworkerSearchResults: list
+    })).toEqual(
+      {
+        searchText: null,
+        keyworkerSearchResults: list
       }
     );
   });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoginContainer } from './Login/index';
 import HomePage from './KeyworkerManagement/index';
-import KeyworkerProfile from './KeyworkerProfile/index';
+import KeyworkerProfileContainer from './KeyworkerProfile/container';
 import KeyworkerReports from './KeyworkerReports/index';
 import AssignTransferContainer from './AssignTransfer/container';
 import { AutoAllocateContainer } from './AutoAllocation/container';
@@ -77,7 +77,7 @@ class App extends React.Component {
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
-              <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfile {...this.props} />}/>
+              <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfileContainer {...this.props} />}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>

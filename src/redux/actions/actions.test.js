@@ -135,5 +135,22 @@ describe('actions', () => {
     };
     expect(actions.setPrisonerSearchAllocationStatus('A')).toEqual(expectedAction);
   });
+
+  it('should create an action to save key worker search criteria - text', () => {
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_SEARCH_TEXT,
+      searchText: 'James,Troy'
+    };
+    expect(actions.setKeyworkerSearchText('James,Troy')).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker search results', () => {
+    const list = [{ firstName: 'Jack', surname: 'Brown' }];
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_SEARCH_RESULTS_LIST,
+      keyworkerSearchResults: list
+    };
+    expect(actions.setKeyworkerSearchResults(list)).toEqual(expectedAction);
+  });
 });
 
