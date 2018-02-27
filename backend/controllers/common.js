@@ -26,16 +26,16 @@ const addCrsaClassification = function (allCsras, row) {
   if (details.length < 1) {
     return;
   }
-  const detail = offenderDetails[0];
+  const detail = details[0];
   row.crsaClassification = detail && detail.classification;
 };
 
 const addReleaseDate = function (allReleaseDates, row) {
-  const offenderDetails = allReleaseDates.filter(details => details.offenderNo === row.offenderNo);
-  if (offenderDetails.length < 1) {
+  const details = allReleaseDates.filter(details => details.offenderNo === row.offenderNo);
+  if (details.length < 1) {
     return;
   }
-  const detail = offenderDetails[0];
+  const detail = details[0];
   row.confirmedReleaseDate = detail && detail.sentenceDetail && detail.sentenceDetail.releaseDate;
 };
 
