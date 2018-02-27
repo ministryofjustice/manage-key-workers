@@ -59,7 +59,9 @@ AssignTransferContainer.propTypes = {
   housingLocation: PropTypes.string,
   setCurrentPageDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired
+  prisonerSearchTextDispatch: PropTypes.func,
+  prisonerSearchAllocationStatusDispatch: PropTypes.func,
+  prisonerSearchHousingLocationDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {

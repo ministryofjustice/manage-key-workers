@@ -101,3 +101,17 @@ export const setPrisonerSearchHousingLocation = (housingLocation) => {
   };
 };
 
+export const setKeyworkerSearchText = (searchText) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_SEARCH_TEXT,
+    searchText
+  };
+};
+
+export const setKeyworkerSearchResults = (keyworkerSearchResults) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_SEARCH_RESULTS_LIST,
+    keyworkerSearchResults
+  };
+};
+

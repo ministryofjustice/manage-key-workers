@@ -30,6 +30,12 @@ const prisonerSearchInitialState = {
   allocationStatus: null
 };
 
+const keyworkerSearchInitialState = {
+  searchText: null,
+  housingLocation: null,
+  allocationStatus: null
+};
+
 export function app (state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_LOGIN_DETAILS:
@@ -116,6 +122,21 @@ export function prisonerSearch (state = prisonerSearchInitialState, action) {
   }
 }
 
+export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
+  switch (action.type) {
+    case ActionTypes.SET_KEY_WORKER_SEARCH_TEXT:
+      return { ...state,
+        searchText: action.searchText
+      };
+    case ActionTypes.SET_KEY_WORKER_SEARCH_RESULTS_LIST:
+      return { ...state,
+        keyworkerSearchResults: action.keyworkerSearchResults
+      };
+    default:
+      return state;
+  }
+}
+
 function updateObject (oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
@@ -125,7 +146,8 @@ const allocationApp = combineReducers({
   allocated,
   unallocated,
   app,
-  prisonerSearch
+  prisonerSearch,
+  keyworkerSearch
 });
 
 export default allocationApp;
