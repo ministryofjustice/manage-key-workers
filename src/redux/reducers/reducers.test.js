@@ -1,6 +1,6 @@
 import { unallocated, allocated, app, prisonerSearch, keyworkerSearch } from './index';
 import * as types from '../actions/actionTypes';
-import moment from 'Moment';
+import moment from 'moment';
 
 const appInitialState = {
   error: null,
