@@ -17,21 +17,9 @@ describe('Allocated controller', async () => {
     elite2Api.autoAllocate = jest.fn();
     elite2Api.availableKeyworkers = jest.fn();
     elite2Api.autoallocated = jest.fn();
-    elite2Api.sentenceDetail = jest
-      .fn()
-      .mockImplementationOnce(() => createSentenceDetailResponse('2024-03-03'))
-      .mockImplementationOnce(() => createSentenceDetailResponse('2025-04-03'))
-      .mockImplementationOnce(() => createSentenceDetailResponse('2026-03-03'))
-      .mockImplementationOnce(() => createSentenceDetailResponse('2019-03-03'))
-      .mockImplementationOnce(() => createSentenceDetailResponse('2018-03-03'));
+    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse());
 
-    elite2Api.assessment = jest
-      .fn()
-      .mockImplementationOnce(() => createAssessmentResponse('High'))
-      .mockImplementationOnce(() => createAssessmentResponse('High'))
-      .mockImplementationOnce(() => createAssessmentResponse('Low'))
-      .mockImplementationOnce(() => createAssessmentResponse('Silly'))
-      .mockImplementationOnce(() => createAssessmentResponse('Low'));
+    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse());
 
     elite2Api.keyworker = jest
       .fn()
@@ -164,32 +152,22 @@ function createSingleKeyworkerResponse () {
   };
 }
 
-function createSentenceDetailResponse (date) {
-  return {
-    data: {
-      bookingId: -1,
-      sentenceStartDate: "2017-03-25",
-      additionalDaysAwarded: 12,
-      sentenceExpiryDate: "2020-03-24",
-      conditionalReleaseDate: "2019-03-24",
-      nonDtoReleaseDate: "2019-03-24",
-      nonDtoReleaseDateType: "CRD",
-      actualParoleDate: "2018-09-27",
-      confirmedReleaseDate: date,
-      releaseDate: "2018-04-23"
-    }
-  };
+function createSentenceDetailListResponse () {
+  return { data: [
+    { offenderNo: "A1234AA", sentenceDetail: { releaseDate: '2024-03-03' } },
+    { offenderNo: "A1234AB", sentenceDetail: { releaseDate: '2025-04-03' } },
+    { offenderNo: "A1234AF", sentenceDetail: { releaseDate: '2026-03-03' } },
+    { offenderNo: "A1234AC", sentenceDetail: { releaseDate: '2019-03-03' } },
+    { offenderNo: "A1234AD", sentenceDetail: { releaseDate: '2018-03-03' } }
+  ] };
 }
 
-function createAssessmentResponse (rating) {
-  return {
-    data: {
-      classification: rating,
-      assessmentCode: "CSR",
-      assessmentDescription: "CSR Rating",
-      cellSharingAlertFlag: true,
-      assessmentDate: "2017-02-05",
-      nextReviewDate: "2018-06-01"
-    }
-  };
+function createAssessmentListResponse () {
+  return { data: [
+    { bookingId: -1, classification: 'High' },
+    { bookingId: -2, classification: 'High' },
+    { bookingId: -6, classification: 'Low' },
+    { bookingId: -3, classification: 'Silly' },
+    { bookingId: -4, classification: 'Low' }
+  ] };
 }
