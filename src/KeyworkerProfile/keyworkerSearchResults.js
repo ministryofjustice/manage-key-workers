@@ -9,7 +9,7 @@ class KeyworkerSearchResults extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.staffId}>
-          <td className="row-gutters"><a href="#">{formattedName}</a></td>
+          <td className="row-gutters"><a href="">{formattedName}</a></td>
           {/*  <td className="row-gutters">{a.currentRole}</td>
           <td className="row-gutters">{a.status}</td> */}
           <td className="row-gutters">{a.numberAllocated}</td>
