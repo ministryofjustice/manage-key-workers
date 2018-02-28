@@ -152,5 +152,22 @@ describe('actions', () => {
     };
     expect(actions.setKeyworkerSearchResults(list)).toEqual(expectedAction);
   });
+
+  it('should create an action to save key worker allocations list', () => {
+    const list = [{ firstName: 'Jack', surname: 'Brown' }];
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_ALLOCATION_LIST,
+      keyworkerAllocations: list
+    };
+    expect(actions.setKeyworkerAllocationList(list)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save context key worker', () => {
+    const expectedAction = {
+      type: types.SET_KEY_WORKER,
+      keyworker: { key: 'value' }
+    };
+    expect(actions.setKeyworker({ key: 'value' })).toEqual(expectedAction);
+  });
 });
 

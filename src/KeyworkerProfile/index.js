@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import KeyworkerSearch from "../KeyworkerSearch/index";
 
-class KeyworkerProfile extends Component {
+class KeyworkerSearchPage extends Component {
   render () {
     return (
       <div>
@@ -16,4 +16,4 @@ class KeyworkerProfile extends Component {
   }
 }
 
-export default KeyworkerProfile;
+export default KeyworkerSearchPage;

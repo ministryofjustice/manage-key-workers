@@ -31,9 +31,10 @@ const prisonerSearchInitialState = {
 };
 
 const keyworkerSearchInitialState = {
-  searchText: null,
-  housingLocation: null,
-  allocationStatus: null
+  searchText: '',
+  keyworkerSearchResults: [],
+  keyworkerAllocations: [],
+  keyworker: { key: 'value' }
 };
 
 export function app (state = appInitialState, action) {
@@ -131,6 +132,14 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
     case ActionTypes.SET_KEY_WORKER_SEARCH_RESULTS_LIST:
       return { ...state,
         keyworkerSearchResults: action.keyworkerSearchResults
+      };
+    case ActionTypes.SET_KEY_WORKER_ALLOCATION_LIST:
+      return { ...state,
+        keyworkerAllocations: action.keyworkerAllocations
+      };
+    case ActionTypes.SET_KEY_WORKER:
+      return { ...state,
+        keyworker: action.keyworker
       };
     default:
       return state;

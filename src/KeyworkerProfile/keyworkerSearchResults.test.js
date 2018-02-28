@@ -35,7 +35,7 @@ const getTestData = function () {
   return list;
 };
 
-describe('KeyworkerProfile component', () => {
+describe('Keyworker search result component', () => {
   it('should render component correctly', async () => {
     const list = getTestData();
     const component = shallow(<KeyworkerSearchResult keyworkerList={list} handleSearchTextChange={jest.fn()} gotoNext={jest.fn()}/>);
@@ -46,6 +46,4 @@ describe('KeyworkerProfile component', () => {
   });
 });
 
-describe('KeyworkerProfileContainer component', () => {
-  // todo
-});
+

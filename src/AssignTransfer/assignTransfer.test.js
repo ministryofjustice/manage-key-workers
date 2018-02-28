@@ -6,7 +6,7 @@ import AssignTransfer from "./index";
 Enzyme.configure({ adapter: new Adapter() });
 
 
-describe('KeyworkerProfile component', () => {
+describe('Assign transfer component', () => {
   it('should render component correctly', async () => {
     const component = shallow(<AssignTransfer />);
     expect(component.find('PrisonerSearch').exists()).toEqual(true);

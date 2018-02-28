@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setCurrentPage, setKeyworkerSearchText, setKeyworkerSearchResults, setError } from '../redux/actions';
+import { setCurrentPage, setKeyworkerSearchText, setKeyworkerSearchResults, setKeyworkerAllocationList, setKeyworker, setError } from '../redux/actions';
 import { connect } from 'react-redux';
 import KeyworkerSearchResults from './keyworkerSearchResults';
+import KeyworkerProfile from './profile';
 
-import KeyworkerProfile from "./index";
+import KeyworkerSearchPage from "./index";
 import axiosWrapper from "../backendWrapper";
 
 class KeyworkerProfileContainer extends Component {
@@ -13,10 +14,15 @@ class KeyworkerProfileContainer extends Component {
     this.displayError = this.displayError.bind(this);
     this.getKeyworkerList = this.getKeyworkerList.bind(this);
     this.gotoKeyworkerResults = this.gotoKeyworkerResults.bind(this);
+    this.gotoKeyworkerProfile = this.gotoKeyworkerProfile.bind(this);
   }
 
   componentWillMount () {
-    this.props.setCurrentPageDispatch(1);
+    if (this.props.paramStaffId) {
+      this.gotoKeyworkerProfile(this.props.paramStaffId);
+    } else {
+      this.props.setCurrentPageDispatch(1);
+    }
   }
   handleSearchTextChange (event) {
     this.props.keyworkerSearchTextDispatch(event.target.value);
@@ -32,6 +38,18 @@ class KeyworkerProfileContainer extends Component {
     }
   }
 
+  async gotoKeyworkerProfile (staffId) {
+    try {
+      const keyworker = await this.getKeyworkerDetails(this.props.agencyId, staffId);
+      const allocations = await this.getKeyworkerAllocations(this.props.agencyId, staffId);
+      this.props.keyworkerDispatch(keyworker);
+      this.props.keyworkerAllocationsDispatch(allocations);
+      this.props.setCurrentPageDispatch(3);
+    } catch (error) {
+      this.displayError(error);
+    }
+  }
+
   async getKeyworkerList (agencyId) {
     const response = await axiosWrapper.get('/keyworkerSearch', {
       headers: {
@@ -40,6 +58,32 @@ class KeyworkerProfileContainer extends Component {
       params: {
         agencyId: agencyId,
         searchText: this.props.searchText
+      }
+    });
+    return response.data;
+  }
+
+  async getKeyworkerAllocations (agencyId, staffId) {
+    const response = await axiosWrapper.get('/keyworkerAllocations', {
+      headers: {
+        jwt: this.props.jwt
+      },
+      params: {
+        agencyId: agencyId,
+        keyworkerStaffId: staffId
+      }
+    });
+    return response.data;
+  }
+
+  async getKeyworkerDetails (agencyId, staffId) {
+    const response = await axiosWrapper.get('/keyworker', {
+      headers: {
+        jwt: this.props.jwt
+      },
+      params: {
+        agencyId: agencyId,
+        keyworkerStaffId: staffId
       }
     });
     return response.data;
@@ -59,10 +103,12 @@ class KeyworkerProfileContainer extends Component {
     }
     switch (this.props.page) {
       case 1:
-        return (<KeyworkerProfile gotoNext={this.gotoKeyworkerResults}
+        return (<KeyworkerSearchPage gotoNext={this.gotoKeyworkerResults}
           handleSearchTextChange={(event) => this.handleSearchTextChange(event)} {...this.props}/>);
       case 2:
         return <KeyworkerSearchResults {...this.props} gotoNext={this.gotoKeyworkerResults} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}/>;
+      case 3:
+        return <KeyworkerProfile {...this.props} />;
       default:
         return "";
     }
@@ -71,15 +117,17 @@ class KeyworkerProfileContainer extends Component {
 
 KeyworkerProfileContainer.propTypes = {
   error: PropTypes.string,
+  paramStaffId: PropTypes.string,
   page: PropTypes.number.isRequired,
   searchText: PropTypes.string,
   jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   setCurrentPageDispatch: PropTypes.func,
   setErrorDispatch: PropTypes.func,
-  setMessageDispatch: PropTypes.func,
   keyworkerSearchTextDispatch: PropTypes.func,
-  keyworkerSearchResultsDispatch: PropTypes.func
+  keyworkerAllocationsDispatch: PropTypes.func,
+  keyworkerSearchResultsDispatch: PropTypes.func,
+  keyworkerDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -88,7 +136,10 @@ const mapStateToProps = state => {
     page: state.app.page,
     error: state.app.error,
     agencyId: state.app.user.activeCaseLoadId,
-    keyworkerList: state.keyworkerSearch.keyworkerSearchResults
+    jwt: state.app.jwt,
+    keyworkerList: state.keyworkerSearch.keyworkerSearchResults,
+    keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
+    keyworker: state.keyworkerSearch.keyworker
   };
 };
 
@@ -96,6 +147,8 @@ const mapDispatchToProps = dispatch => {
   return {
     keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
     keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
+    keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
+    keyworkerDispatch: id => dispatch(setKeyworker(id)),
     setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
     setErrorDispatch: error => dispatch(setError(error))
   };

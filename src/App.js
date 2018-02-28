@@ -81,6 +81,7 @@ class App extends React.Component {
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
+              <Route exact path="/keyworker/:staffId" render={({ match }) => <KeyworkerProfileContainer paramStaffId={match.params.staffId} {...this.props} />}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
