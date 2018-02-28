@@ -77,11 +77,10 @@ class App extends React.Component {
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
-              <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfileContainer startPage="1" {...this.props} />}/>
+              <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfileContainer {...this.props} />}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
-              <Route exact path="/keyworker/:staffId" render={(props) => <KeyworkerProfileContainer startPage="3" {...this.props} />}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
