@@ -13,6 +13,8 @@ const unallocated = require('./controllers/unallocated');
 const allocated = require('./controllers/allocated');
 const manualoverride = require('./controllers/manualoverride');
 const keyworkerSearch = require('./controllers/keyworkerSearch');
+const keyworkerAllocations = require('./controllers/keyworkerAllocations');
+const keyworkerProfile = require('./controllers/keyworkerProfile');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bunyanMiddleware = require('bunyan-middleware');
@@ -42,6 +44,8 @@ app.use('/unallocated', jsonParser, unallocated.router);
 app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 app.use('/keyworkerSearch', jsonParser, keyworkerSearch);
+app.use('/keyworker', jsonParser, keyworkerProfile);
+app.use('/keyworkerAllocations', jsonParser, keyworkerAllocations);
 
 app.use('/health', require('express-healthcheck')());
 
