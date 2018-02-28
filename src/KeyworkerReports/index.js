@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class KeyworkerProfile extends Component {
+class KeyworkerReports extends Component {
   render () {
     return (
       <div>
@@ -15,4 +15,4 @@ class KeyworkerProfile extends Component {
 }
 
 
-export default KeyworkerProfile;
+export default KeyworkerReports;

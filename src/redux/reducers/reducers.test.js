@@ -35,8 +35,17 @@ const prisonerSearchInitialState = {
 };
 
 const keyworkerSearchInitialState = {
-  searchText: null,
-  keyworkerSearchResults: []
+  searchText: '',
+  keyworkerSearchResults: [],
+  keyworkerAllocations: [],
+  keyworker: null
+};
+
+const keyworkerSearchPopulatedState = {
+  searchText: 'yes',
+  keyworkerSearchResults: [{ value: 'search' }],
+  keyworkerAllocations: [{ value: 'allocations' }],
+  keyworker: 321
 };
 
 describe('app (global) reducer', () => {
@@ -329,7 +338,9 @@ describe('prisoner search reducer', () => {
       }
     );
   });
+});
 
+describe('key worker search reducer', () => {
   it('should handle SET_KEY_WORKER_SEARCH_TEXT', () => {
     expect(keyworkerSearch(keyworkerSearchInitialState, {
       type: types.SET_KEY_WORKER_SEARCH_TEXT,
@@ -337,7 +348,9 @@ describe('prisoner search reducer', () => {
     })).toEqual(
       {
         searchText: 'Kelly Keyworker',
-        keyworkerSearchResults: []
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworker: null
       }
     );
   });
@@ -349,8 +362,38 @@ describe('prisoner search reducer', () => {
       keyworkerSearchResults: list
     })).toEqual(
       {
-        searchText: null,
-        keyworkerSearchResults: list
+        searchText: '',
+        keyworkerSearchResults: list,
+        keyworkerAllocations: [],
+        keyworker: null
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER,
+      keyworker: { key: 'value' }
+    })).toEqual(
+      {
+        searchText: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworker: { key: 'value' }
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER maintaining existing state', () => {
+    expect(keyworkerSearch(keyworkerSearchPopulatedState, {
+      type: types.SET_KEY_WORKER,
+      keyworker: { key: 'value' }
+    })).toEqual(
+      {
+        searchText: 'yes',
+        keyworkerSearchResults: [{ value: 'search' }],
+        keyworkerAllocations: [{ value: 'allocations' }],
+        keyworker: { key: 'value' }
       }
     );
   });

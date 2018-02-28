@@ -115,3 +115,17 @@ export const setKeyworkerSearchResults = (keyworkerSearchResults) => {
   };
 };
 
+export const setKeyworkerAllocationList = (keyworkerAllocations) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_ALLOCATION_LIST,
+    keyworkerAllocations
+  };
+};
+
+export const setKeyworker = (keyworker) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER,
+    keyworker
+  };
+};
+

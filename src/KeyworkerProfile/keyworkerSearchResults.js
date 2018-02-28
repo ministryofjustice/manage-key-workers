@@ -7,9 +7,10 @@ class KeyworkerSearchResults extends Component {
   render () {
     const keyworkers = this.props.keyworkerList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
+      const keyworkerHref = '/keyworker/' + a.staffId;
       return (
         <tr key={a.staffId}>
-          <td className="row-gutters"><a href="">{formattedName}</a></td>
+          <td className="row-gutters"><a href={keyworkerHref}>{formattedName}</a></td>
           {/*  <td className="row-gutters">{a.currentRole}</td>
           <td className="row-gutters">{a.status}</td> */}
           <td className="row-gutters">{a.numberAllocated}</td>
