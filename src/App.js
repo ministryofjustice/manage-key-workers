@@ -1,7 +1,9 @@
 import React from 'react';
 import { LoginContainer } from './Login/index';
 import HomePage from './KeyworkerManagement/index';
-import KeyworkerProfileContainer from './KeyworkerProfile/container';
+import KeyworkerProfileContainer from './KeyworkerProfile/containers/KeyworkerProfileContainer';
+import KeyworkerSearchContainer from './KeyworkerProfile/containers/KeyworkerSearchContainer';
+import KeyworkerSearchResultsContainer from './KeyworkerProfile/containers/KeyworkerSearchResultsContainer';
 import KeyworkerReports from './KeyworkerReports/index';
 import AssignTransferContainer from './AssignTransfer/container';
 import { AutoAllocateContainer } from './AutoAllocation/container';
@@ -77,12 +79,12 @@ class App extends React.Component {
             <div className="pure-g">
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
-              <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfileContainer {...this.props} />}/>
-              <Route exact path="/keyworkerSearch" render={({ match }) => <KeyworkerProfileContainer path={match.path}{...this.props} />}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
-              <Route exact path="/keyworker/:staffId" render={({ match }) => <KeyworkerProfileContainer paramStaffId={match.params.staffId} {...this.props} />}/>
+              <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer {...this.props} />}/>
+              <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer {...this.props} />}/>
+              <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer {...this.props} />}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}

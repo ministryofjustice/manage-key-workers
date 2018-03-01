@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import KeyworkerSearch from "../KeyworkerSearch/index";
-import { properCaseName } from "../stringUtils";
+import KeyworkerSearch from "./KeyworkerSearch";
+import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ class KeyworkerSearchResults extends Component {
   render () {
     const keyworkers = this.props.keyworkerList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
-      const keyworkerHref = '/keyworker/' + a.staffId;
+      const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
       return (
         <tr key={a.staffId}>
           <td className="row-gutters">
@@ -50,7 +50,7 @@ class KeyworkerSearchResults extends Component {
         <div className="pure-g">
           <div className="pure-u-md-8-12">
             <h1 className="heading-large">Search for a key worker</h1>
-            <KeyworkerSearch {...this.props} />
+            <KeyworkerSearch gotoNext="/keyworker/results" {...this.props} />
           </div>
           {renderContent}
         </div>

@@ -16,7 +16,7 @@ class HomePage extends Component {
               <div className="padding-right-large">Quickly auto-allocate prisoners to key workers and override selections if needed</div>
             </div>
             <div className="pure-u-md-6-12">
-              <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworkerProfile" >Edit key worker profile</Link>
+              <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworker/search" >Edit key worker profile</Link>
               <div>Remove key workers from active duty and reassign prisoners</div>
             </div>
           </div>
