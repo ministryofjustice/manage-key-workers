@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { properCaseName } from "../stringUtils";
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 class KeyworkerProfile extends Component {
   render () {
@@ -56,6 +57,7 @@ class KeyworkerProfile extends Component {
       <div>
         <div className="pure-g">
           <div className="pure-u-md-8-12">
+            <Link id={`search_again_link`} title="Search again link" className="link" to="/keyworkerSearch" >&lt; Search again</Link>
             <h1 className="heading-large">Profile for {keyworkerDisplayName}</h1>
           </div>
           {renderContent}
