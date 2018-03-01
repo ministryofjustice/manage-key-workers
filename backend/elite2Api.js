@@ -37,24 +37,12 @@ const keyworker = (req) => gateway.getRequest({
   url: `api/key-worker/${req.query.staffId}`
 });
 
-const assessment = (req) => gateway.getRequest({
-  req: req,
-  method: 'get',
-  url: `api/bookings/${req.query.bookingId}/assessment/CSR`
-});
-
 const csraList = (req, params, paramsSerializer) => gateway.getRequest({
   req: req,
   method: 'get',
   url: 'api/offender-assessments/CSR',
   params,
   paramsSerializer
-});
-
-const sentenceDetail = (req) => gateway.getRequest({
-  req: req,
-  method: 'get',
-  url: `api/bookings/${req.query.bookingId}/sentenceDetail`
 });
 
 const sentenceDetailList = (req, params, paramsSerializer) => gateway.getRequest({
@@ -101,8 +89,16 @@ const autoAllocate = (req) => gateway.postRequest({
   url: `api/key-worker/${req.query.agencyId}/allocate/start`
 });
 
+const keyworkerAllocations = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `api/key-worker/${req.query.staffId}/offenders`
+});
+
 const service = {
-  login, unallocated, allocated, availableKeyworkers, currentUser, userCaseLoads, setActiveCaseLoad, sentenceDetail, sentenceDetailList, assessment, csraList, keyworker, allocate, autoallocated, autoAllocate
+  login, unallocated, allocated, availableKeyworkers, currentUser, userCaseLoads,
+  setActiveCaseLoad, sentenceDetailList, csraList, keyworker,
+  allocate, autoallocated, autoAllocate, keyworkerAllocations
 };
 
 function formatDate (inputDate) {
