@@ -20,6 +20,8 @@ class KeyworkerProfileContainer extends Component {
   componentWillMount () {
     if (this.props.paramStaffId) {
       this.gotoKeyworkerProfile(this.props.paramStaffId);
+    } else if (this.props.path === "/keyworkerSearch") {
+      this.props.setCurrentPageDispatch(2);
     } else {
       this.props.setCurrentPageDispatch(1);
     }
@@ -70,7 +72,7 @@ class KeyworkerProfileContainer extends Component {
       },
       params: {
         agencyId: agencyId,
-        keyworkerStaffId: staffId
+        staffId: staffId
       }
     });
     return response.data;
@@ -83,7 +85,7 @@ class KeyworkerProfileContainer extends Component {
       },
       params: {
         agencyId: agencyId,
-        keyworkerStaffId: staffId
+        staffId: staffId
       }
     });
     return response.data;
@@ -118,6 +120,7 @@ class KeyworkerProfileContainer extends Component {
 KeyworkerProfileContainer.propTypes = {
   error: PropTypes.string,
   paramStaffId: PropTypes.string,
+  path: PropTypes.string,
   page: PropTypes.number.isRequired,
   searchText: PropTypes.string,
   jwt: PropTypes.string.isRequired,

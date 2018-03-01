@@ -78,6 +78,7 @@ class App extends React.Component {
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
               <Route exact path="/keyworkerProfile" render={() => <KeyworkerProfileContainer {...this.props} />}/>
+              <Route exact path="/keyworkerSearch" render={({ match }) => <KeyworkerProfileContainer path={match.path}{...this.props} />}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>

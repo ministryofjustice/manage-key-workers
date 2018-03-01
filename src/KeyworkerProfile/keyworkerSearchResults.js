@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import KeyworkerSearch from "../KeyworkerSearch/index";
 import { properCaseName } from "../stringUtils";
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 class KeyworkerSearchResults extends Component {
   render () {
@@ -10,7 +11,9 @@ class KeyworkerSearchResults extends Component {
       const keyworkerHref = '/keyworker/' + a.staffId;
       return (
         <tr key={a.staffId}>
-          <td className="row-gutters"><a href={keyworkerHref}>{formattedName}</a></td>
+          <td className="row-gutters">
+            <Link id={`key_worker_${a.staffId}_link`} title="Key worker profile link" className="link" to={keyworkerHref} >{formattedName}</Link>
+          </td>
           {/*  <td className="row-gutters">{a.currentRole}</td>
           <td className="row-gutters">{a.status}</td> */}
           <td className="row-gutters">{a.numberAllocated}</td>

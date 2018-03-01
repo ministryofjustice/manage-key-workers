@@ -17,7 +17,7 @@ function createTestDataResponse (type) {
   return {
     data: [
       {
-        staffId: 2,
+        staffId: 15583,
         firstName: 'Brent',
         lastName: 'Daggart',
         numberAllocated: 3,
@@ -25,7 +25,7 @@ function createTestDataResponse (type) {
         currentRole: "Key worker2"
       },
       {
-        staffId: 1,
+        staffId: 15585,
         firstName: 'Amy',
         lastName: 'Hanson',
         numberAllocated: 4,
@@ -33,7 +33,7 @@ function createTestDataResponse (type) {
         currentRole: "Key worker"
       },
       {
-        staffId: 3,
+        staffId: 15584,
         firstName: 'Florence',
         lastName: 'Welch',
         numberAllocated: 1,
