@@ -23,4 +23,4 @@ ENV API_GATEWAY_PRIVATE_KEY=secretkey
 ENV API_GATEWAY_TOKEN=secrettoken
 
 EXPOSE 3000
-CMD [ "yarn", "start:prod" ]
+CMD [ "yarn", "start" ]

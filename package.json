@@ -40,7 +40,8 @@
     "test": "node scripts/customized-config test --env=jsdom",
     "lint": "node node_modules/eslint/bin/eslint.js src backend",
     "verify": "node scripts/customized-config test --coverage && yarn lint",
-    "record-build-info": "node scripts/record-build-info"
+    "record-build-info": "node scripts/record-build-info",
+    "plant-beanstalk": "node scripts/plant-beanstalk.js"
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {

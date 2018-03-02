@@ -94,6 +94,28 @@ jobs:
                docker tag mojdigitalstudio/keyworker-ui:$BUILD_VERSION mojdigitalstudio/keyworker-ui:latest
                docker push mojdigitalstudio/keyworker-ui:latest
              fi
+  deploy_release_eb:
+      <<: *defaults
+      steps:
+        - checkout
+        - attach_workspace:
+            at: /tmp/circleci-keyworker-ui/
+        - deploy:
+            name: Install elastic beanstalk CLI
+            command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                sudo apt-get install python-pip python-dev
+                pip install --user 'six>-1.9.0' awsebcli --ignore-installed
+              fi
+        - deploy:
+            name: Deploy to Elastic Beanstalk Dev
+            command: |
+              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+                VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+                yarn run plant-beanstalk KEYWORKER_UI_${VERSION}
+                ~/.local/bin/eb deploy --process --verbose
+              fi
+
 
 workflows:
   version: 2
@@ -110,6 +132,12 @@ workflows:
       - deploy_release:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      - deploy_release_eb:
+          requires:
+            - build_docker
           filters:
             branches:
               only: master
