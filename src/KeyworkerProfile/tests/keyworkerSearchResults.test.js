@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import KeyworkerSearchResult from "./keyworkerSearchResults";
+import KeyworkerSearchResult from "../components/KeyworkerSearchResults";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -39,7 +39,6 @@ describe('Keyworker search result component', () => {
   it('should render component correctly', async () => {
     const list = getTestData();
     const component = shallow(<KeyworkerSearchResult keyworkerList={list} handleSearchTextChange={jest.fn()} gotoNext={jest.fn()}/>);
-    expect(component.find('KeyworkerSearch').exists()).toEqual(true);
     expect(component.find('tr').length).toEqual(4); // includes header tr
     expect(component.find('tr').at(1).find('td').at(0).text()).toContain('Link');
     expect(component.find('tr').at(1).find('td').at(1).text()).toEqual('3');

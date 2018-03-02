@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import KeyworkerSearch from "../KeyworkerSearch/index";
+import KeyworkerSearch from "./KeyworkerSearch";
 
 class KeyworkerSearchPage extends Component {
   render () {

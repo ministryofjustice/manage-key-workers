@@ -1,14 +1,14 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import KeyworkerSearch from "./index";
+import { KeyworkerSearch } from "../components/KeyworkerSearch";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 
 describe('Keyworker search component', () => {
   it('should render key worker search form correctly', async () => {
-    const component = shallow(<KeyworkerSearch handleSearchTextChange={jest.fn()} gotoNext={jest.fn()}/>);
+    const component = shallow(<KeyworkerSearch handleSearchTextChange={jest.fn()} handleSearch={jest.fn()}/>);
     expect(component.find('#search-text').length).toBe(1);
     expect(component.find('button').length).toBe(1);
   });
@@ -16,7 +16,7 @@ describe('Keyworker search component', () => {
   it('should handle click correctly', async () => {
     let searchCallBack = jest.fn();
 
-    const component = shallow(<KeyworkerSearch handleSearchTextChange={jest.fn()} gotoNext={searchCallBack}/>);
+    const component = shallow(<KeyworkerSearch handleSearchTextChange={jest.fn()} handleSearch={searchCallBack}/>);
 
     component.find('button').simulate('click');
     expect(searchCallBack.mock.calls.length).toEqual(1);
@@ -25,7 +25,7 @@ describe('Keyworker search component', () => {
   it('should search text entry correctly', async () => {
     let searchTextCallBack = jest.fn();
 
-    const component = shallow(<KeyworkerSearch handleSearchTextChange={searchTextCallBack} gotoNext={jest.fn()}/>);
+    const component = shallow(<KeyworkerSearch handleSearchTextChange={searchTextCallBack} handleSearch={jest.fn()}/>);
 
     component.find('input').simulate('change', { target: { value: 'Hello' } });
     expect(searchTextCallBack.mock.calls.length).toEqual(1);
