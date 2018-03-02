@@ -91,7 +91,7 @@ class App extends React.Component {
               <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/offender/:offenderId" render={() => <OffenderContainer {...this.props} />}/>
+              <Route exact path="/offender/:offenderId" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}

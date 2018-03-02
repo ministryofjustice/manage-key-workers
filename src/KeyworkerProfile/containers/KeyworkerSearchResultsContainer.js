@@ -67,7 +67,6 @@ const mapStateToProps = state => {
   return {
     searchText: state.keyworkerSearch.searchText,
     agencyId: state.app.user.activeCaseLoadId,
-    jwt: state.app.jwt,
     keyworkerList: state.keyworkerSearch.keyworkerSearchResults
   };
 };

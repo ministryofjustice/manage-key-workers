@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setError } from '../redux/actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import Error from "../Error";
 
 import axiosWrapper from "../backendWrapper";
 
 class OffenderContainer extends Component {
-  constructor () {
-    super();
-    this.displayError = this.displayError.bind(this);
-  }
-
   componentWillMount () {
     this.getOffenderDetails();
   }
@@ -37,17 +32,9 @@ class OffenderContainer extends Component {
     return response.data;
   }
 
-  displayError (error) {
-    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
-  }
-
   render () {
     if (this.props.error) {
-      return (<div className="error-summary">
-        <div className="error-message">
-          <div> {this.props.error.message || this.props.error} </div>
-        </div>
-      </div>);
+      return <Error {...this.props} />;
     }
 
     // todo create offender components
@@ -63,23 +50,21 @@ class OffenderContainer extends Component {
 
 OffenderContainer.propTypes = {
   error: PropTypes.string,
-  jwt: PropTypes.string.isRequired,
-  setErrorDispatch: PropTypes.func,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  displayError: PropTypes.func.isRequired,
+  jwt: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    error: state.app.error,
-    jwt: state.app.jwt
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setErrorDispatch: error => dispatch(setError(error))
   };
 };
+
 
 export { OffenderContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderContainer));

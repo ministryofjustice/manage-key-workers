@@ -77,7 +77,6 @@ KeyworkerProfileContainer.propTypes = {
 const mapStateToProps = state => {
   return {
     agencyId: state.app.user.activeCaseLoadId,
-    jwt: state.app.jwt,
     keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
     keyworker: state.keyworkerSearch.keyworker
   };
