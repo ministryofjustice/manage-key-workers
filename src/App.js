@@ -10,6 +10,7 @@ import { AutoAllocateContainer } from './AutoAllocation/container';
 import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
+import OffenderContainer from './Offender/OffenderContainer';
 import {
   BrowserRouter as Router,
   Route
@@ -28,6 +29,7 @@ class App extends React.Component {
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
     this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
     this.clearMessage = this.clearMessage.bind(this);
+    this.displayError = this.displayError.bind(this);
   }
 
   async onLogin (jwt, currentUser, history) {
@@ -70,6 +72,10 @@ class App extends React.Component {
     this.props.setMessageDispatch(null);
   }
 
+  displayError (error) {
+    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
+  }
+
   render () {
     return (
       <Router>
@@ -82,9 +88,10 @@ class App extends React.Component {
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
               <Route exact path="/unallocated" render={(props) => <AutoAllocateContainer onFinishAllocation={this.onFinishAllocation} {...props}/>}/>
-              <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer {...this.props} />}/>
-              <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer {...this.props} />}/>
-              <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer {...this.props} />}/>
+              <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/offender/:offenderId" render={() => <OffenderContainer {...this.props} />}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}

@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText, setError } from '../../redux/actions/index';
+import { setKeyworkerSearchText } from '../../redux/actions/index';
 import { connect } from 'react-redux';
+import Error from '../../Error';
 
 import KeyworkerSearchPage from "../components/KeyworkerSearchPage";
 
 class KeyworkerSearchContainer extends Component {
-  constructor () {
-    super();
-    this.displayError = this.displayError.bind(this);
-  }
-
   handleSearchTextChange (event) {
     this.props.keyworkerSearchTextDispatch(event.target.value);
   }
@@ -19,17 +15,9 @@ class KeyworkerSearchContainer extends Component {
     history.push('/keyworker/results');
   }
 
-  displayError (error) {
-    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
-  }
-
   render () {
     if (this.props.error) {
-      return (<div className="error-summary">
-        <div className="error-message">
-          <div> {this.props.error.message || this.props.error} </div>
-        </div>
-      </div>);
+      return <Error {...this.props} />;
     }
     return (<KeyworkerSearchPage
       handleSearchTextChange={(event) => this.handleSearchTextChange(event)} handleSearch={(history) => this.handleSearch(history)} {...this.props}/>);
@@ -37,18 +25,16 @@ class KeyworkerSearchContainer extends Component {
 }
 
 KeyworkerSearchContainer.propTypes = {
-  error: PropTypes.string,
   searchText: PropTypes.string,
+  error: PropTypes.string,
   jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  setErrorDispatch: PropTypes.func,
   keyworkerSearchTextDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
   return {
     searchText: state.keyworkerSearch.searchText,
-    error: state.app.error,
     agencyId: state.app.user.activeCaseLoadId,
     jwt: state.app.jwt,
     keyworkerList: state.keyworkerSearch.keyworkerSearchResults
@@ -57,8 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
-    setErrorDispatch: error => dispatch(setError(error))
+    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text))
   };
 };
 

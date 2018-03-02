@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText, setKeyworkerSearchResults, setError } from '../../redux/actions/index';
+import { setKeyworkerSearchText, setKeyworkerSearchResults } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
 
 import axiosWrapper from "../../backendWrapper";
+import Error from "../../Error";
 
 class KeyworkerSearchResultsContainer extends Component {
   constructor () {
     super();
-    this.displayError = this.displayError.bind(this);
     this.getKeyworkerList = this.getKeyworkerList.bind(this);
   }
 
@@ -22,7 +22,7 @@ class KeyworkerSearchResultsContainer extends Component {
       const list = await this.getKeyworkerList(this.props.agencyId);
       this.props.keyworkerSearchResultsDispatch(list);
     } catch (error) {
-      this.displayError(error);
+      this.props.displayError(error);
     }
   }
 
@@ -43,17 +43,9 @@ class KeyworkerSearchResultsContainer extends Component {
     return response.data;
   }
 
-  displayError (error) {
-    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
-  }
-
   render () {
     if (this.props.error) {
-      return (<div className="error-summary">
-        <div className="error-message">
-          <div> {this.props.error.message || this.props.error} </div>
-        </div>
-      </div>);
+      return <Error {...this.props} />;
     }
     return (<KeyworkerSearchResults {...this.props} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
       handleSearch={() => this.performSearch()}/>);
@@ -66,15 +58,14 @@ KeyworkerSearchResultsContainer.propTypes = {
   searchText: PropTypes.string,
   jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  setErrorDispatch: PropTypes.func,
   keyworkerSearchResultsDispatch: PropTypes.func,
-  keyworkerSearchTextDispatch: PropTypes.func
+  keyworkerSearchTextDispatch: PropTypes.func,
+  displayError: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     searchText: state.keyworkerSearch.searchText,
-    error: state.app.error,
     agencyId: state.app.user.activeCaseLoadId,
     jwt: state.app.jwt,
     keyworkerList: state.keyworkerSearch.keyworkerSearchResults
@@ -84,8 +75,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
-    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
-    setErrorDispatch: error => dispatch(setError(error))
+    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text))
   };
 };
 
