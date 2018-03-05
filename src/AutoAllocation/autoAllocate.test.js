@@ -12,7 +12,7 @@ describe('AutoAllocate component', () => {
   it('should get page 1 correctly', async () => {
     const mockAxios = jest.fn();
     axiosWrapper.get = mockAxios;
-    mockAxios.mockReturnValueOnce([200, ["s1", "s2"], {}]);
+    mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
 
     await shallow(<AutoAllocate page={1} jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} setMessageDispatch={jest.fn()} displayError={jest.fn()} unallocatedListDispatch={jest.fn()}
       manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}/>);
@@ -26,9 +26,9 @@ describe('AutoAllocate component', () => {
     const mockAxios = jest.fn();
     axiosWrapper.get = mockAxios;
     // /unallocated
-    mockAxios.mockReturnValueOnce([200, ["s1", "s2"], {}]);
+    mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
     // /allocated
-    mockAxios.mockReturnValueOnce([200, ["s3", "s4"], {}]);
+    mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s3", "s4"], config: {} }));
 
     const component = await shallow(<AutoAllocate page={1} jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} setMessageDispatch={jest.fn()} displayError={jest.fn()} unallocatedListDispatch={jest.fn()}
       manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}/>);
@@ -48,12 +48,13 @@ describe('AutoAllocate component', () => {
 
   it('should render a middle tier error on page 1 correctly', (done) => {
     const mockAxios = jest.fn(); // v22+ .mockName('mockAxios');
+    const errorDispatch = jest.fn();
     axiosWrapper.get = mockAxios;
     // /unallocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
 
-    const component = shallow(<AutoAllocate page={1} jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={jest.fn()} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
+    const component = shallow(<AutoAllocate page={1} jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={errorDispatch} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
       manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
 
@@ -63,19 +64,22 @@ describe('AutoAllocate component', () => {
       expect(mockAxios.mock.calls[0][AXIOS_URL]).toBe('/unallocated');
       // const usefulDump = component.debug();
       expect(component.find('Error').exists()).toEqual(true);
+      expect(component.find('Error').exists()).toEqual(true);
+      expect(errorDispatch.mock.calls[0][0].message).toBe('Request failed with status code 500,test error');
       done();
     }, 5);
   });
 
   it('should render a middle tier error on page 2 correctly', (done) => {
     const mockAxios = jest.fn();
+    const errorDispatch = jest.fn();
     axiosWrapper.get = mockAxios;
     // /unallocated
-    mockAxios.mockReturnValueOnce({ status: 200, data: ["s1", "s2"], config: {} });
+    mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
     // /allocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
-    const component = shallow(<AutoAllocate page={1} jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={jest.fn()} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
+    const component = shallow(<AutoAllocate page={1} jwt={"dummy-jwt"} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={errorDispatch} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
       manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
     // Simulate clicking to 2nd page
@@ -85,10 +89,12 @@ describe('AutoAllocate component', () => {
 
     setTimeout(() => {
       component.update();
+      expect(errorDispatch.mock.calls.length).toBe(1);
       expect(mockAxios.mock.calls.length).toBe(2);
       expect(mockAxios.mock.calls[0][AXIOS_URL]).toBe('/unallocated');
       expect(mockAxios.mock.calls[1][AXIOS_URL]).toBe('/allocated');
       expect(component.find('Error').exists()).toEqual(true);
+      expect(errorDispatch.mock.calls[0][0].message).toBe('Request failed with status code 500,test error');
       done();
     }, 5);
   });
