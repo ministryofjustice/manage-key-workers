@@ -8,13 +8,16 @@ const logError = (url, error, msg) => {
       statusText: error.response.statusText,
       headers: error.response.headers,
       config: error.response.config,
-      data: error.response.data
+      stack: error.stack,
+      data: error.response.data,
+      message: error.message
     }, msg);
   } else if (error.request) {
     // request is too big and best skipped
     log.error({
       url,
       code: error.code,
+      stack: error.stack,
       message: error.message
     }, msg);
   } else {
