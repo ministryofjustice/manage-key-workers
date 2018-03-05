@@ -4,7 +4,8 @@ import ManualAllocation from '../ManualAllocation/index.js';
 import PropTypes from 'prop-types';
 import axiosWrapper from '../backendWrapper';
 import moment from 'moment';
-import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setError, setMessage } from '../redux/actions/index';
+import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setMessage } from '../redux/actions/index';
+import Error from '../Error';
 import { connect } from 'react-redux';
 
 import '../allocation.scss';
@@ -12,7 +13,6 @@ import '../allocation.scss';
 class AutoAllocate extends Component {
   constructor () {
     super();
-    this.displayError = this.displayError.bind(this);
     this.gotoManualAllocation = this.gotoManualAllocation.bind(this);
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
@@ -26,7 +26,7 @@ class AutoAllocate extends Component {
       this.props.unallocatedListDispatch(list);
       this.props.setCurrentPageDispatch(1);
     } catch (error) {
-      this.displayError(error);
+      this.props.displayError(error);
     }
   }
 
@@ -37,7 +37,7 @@ class AutoAllocate extends Component {
         this.props.unallocatedListDispatch(list);
         this.props.setCurrentPageDispatch(1);
       } catch (error) {
-        this.displayError(error);
+        this.props.displayError(error);
       }
     }
   }
@@ -101,12 +101,8 @@ class AutoAllocate extends Component {
       }
       this.props.onFinishAllocation(history);
     } catch (error) {
-      this.displayError(error);
+      this.props.displayError(error);
     }
-  }
-
-  displayError (error) {
-    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
   }
 
   async gotoManualAllocation () {
@@ -115,7 +111,7 @@ class AutoAllocate extends Component {
       this.props.setCurrentPageDispatch(2);
       this.props.allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
     } catch (error) {
-      this.displayError(error);
+      this.props.displayError(error);
     }
   }
 
@@ -125,11 +121,7 @@ class AutoAllocate extends Component {
 
   render () {
     if (this.props.error) {
-      return (<div className="error-summary">
-        <div className="error-message">
-          <div> {this.props.error.message || this.props.error} </div>
-        </div>
-      </div>);
+      return <Error {...this.props} />;
     }
     switch (this.props.page) {
       case 1:
@@ -145,6 +137,7 @@ class AutoAllocate extends Component {
 
 AutoAllocate.propTypes = {
   error: PropTypes.string,
+  displayError: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   unallocatedList: PropTypes.array,
   allocatedList: PropTypes.array,
@@ -159,7 +152,6 @@ AutoAllocate.propTypes = {
   manualOverrideDispatch: PropTypes.func.isRequired,
   manualOverrideDateFilterDispatch: PropTypes.func.isRequired,
   setCurrentPageDispatch: PropTypes.func.isRequired,
-  setErrorDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired
 };
 
@@ -167,13 +159,11 @@ const mapStateToProps = state => {
   return {
     unallocatedList: state.unallocated.unallocatedList,
     page: state.app.page,
-    jwt: state.app.jwt,
     allocatedList: state.allocated.allocatedList,
     keyworkerList: state.allocated.keyworkerList,
     allocatedKeyworkers: state.allocated.allocatedKeyworkers,
     fromDate: state.allocated.fromDate,
     toDate: state.allocated.toDate,
-    error: state.app.error,
     message: state.app.message,
     agencyId: state.app.user.activeCaseLoadId
   };
@@ -186,7 +176,6 @@ const mapDispatchToProps = dispatch => {
     manualOverrideDispatch: allocatedKeyworkers => dispatch(manualOverride(allocatedKeyworkers)),
     manualOverrideDateFilterDispatch: (dateName, date) => dispatch(manualOverrideDateFilter(dateName, date)),
     setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
-    setErrorDispatch: error => dispatch(setError(error)),
     setMessageDispatch: message => dispatch(setMessage(message))
   };
 };
