@@ -1,6 +1,6 @@
 const gateway = require('./gateway-api');
 
-const eliteApiUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080';
+const eliteApiUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080/';
 
 const login = (req) => gateway.login(req);
 
