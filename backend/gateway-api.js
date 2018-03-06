@@ -1,20 +1,24 @@
 const axios = require('axios');
 const session = require('./session');
-const useApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
+const useEliteApiAuth = (process.env.USE_API_GATEWAY_AUTH || 'no') === 'yes';
 const jwt = require('jsonwebtoken');
 const log = require('./log');
 const logError = require('./logError').logError;
 const querystring = require('querystring');
 
-axios.defaults.baseURL = process.env.API_ENDPOINT_URL || 'http://localhost:8080';
+const eliteApiUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080';
+
 axios.interceptors.request.use((config) => {
-  if (useApiAuth) {
+  console.log('\n\n\nconfig url :' + config.url);
+  if (!config.url.includes(process.env.KEYWORKER_API_URL) && useEliteApiAuth) {
+    console.log('\n\n\nadding elite api auth headers');
     const backendToken = config.headers.authorization;
     if (backendToken) {
       config.headers['elite-authorization'] = backendToken; // eslint-disable-line no-param-reassign
     }
     config.headers.authorization = `Bearer ${gatewayToken()}`; // eslint-disable-line no-param-reassign
   }
+  console.log(`\n\n\nauthorization Header for req with url ${config.url}: ${config.headers.authorization}\n\n`);
   return config;
 }, (error) => Promise.reject(error));
 
@@ -138,7 +142,7 @@ const service = {
   retryRequest: (options) => axios(options),
   login: (req) => {
     const data = `username=${req.body.username}&password=${req.body.password}&grant_type=password&client_id=${apiClientId}`;
-    return axios.post('/oauth/token', data, {
+    return axios.post(`${eliteApiUrl}/oauth/token`, data, {
       headers: {
         "authorization": `Basic ${encodeClientCredentials()}`,
         "Content-Type": 'application/x-www-form-urlencoded'

@@ -1,5 +1,6 @@
 const unallocated = require('../controllers/unallocated').unallocated;
 const elite2Api = require('../elite2Api');
+const keyworkerApi = require('../keyworkerApi');
 
 const req = {
   headers: {
@@ -12,12 +13,12 @@ const allocationResponse = createDataResponse();
 
 describe('Unallocated controller', async () => {
   it('Should add keyworker details to allocated data array', async () => {
-    elite2Api.unallocated = jest.fn();
+    keyworkerApi.unallocated = jest.fn();
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse());
 
     elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse());
 
-    elite2Api.unallocated.mockReturnValueOnce(allocationResponse);
+    keyworkerApi.unallocated.mockReturnValueOnce(allocationResponse);
 
     const response = await unallocated(req);
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
 const router = express.Router();
-const elite2Api = require('../elite2Api');
+const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
@@ -17,7 +17,7 @@ router.post('/', asyncMiddleware(async (req, res) => {
         type: 'M',
         reason: 'override'
       };
-      const response = await elite2Api.allocate(req);
+      const response = await keyworkerApi.allocate(req);
       log.debug({ response }, 'Response from allocate request');
     }
   }
