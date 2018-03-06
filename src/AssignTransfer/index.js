@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PrisonerSearch from '../PrisonerSearch';
+import OffenderSearch from './components/OffenderSearch';
 
 class AssignTransfer extends Component {
   render () {
@@ -7,8 +7,8 @@ class AssignTransfer extends Component {
       <div>
         <div className="pure-g">
           <div className="pure-u-md-8-12">
-            <h1 className="heading-large">Search for a prisoner</h1>
-            <PrisonerSearch {...this.props} />
+            <h1 className="heading-large">Search for an offender</h1>
+            <OffenderSearch {...this.props} />
           </div>
         </div>
       </div>

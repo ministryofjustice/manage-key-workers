@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './index.scss';
+import '../index.scss';
 
-class PrisonerSearch extends Component {
+class OffenderSearch extends Component {
   render () {
     const housingLocations = [{ id: 123, description: "block 1" }, { id: 223, description: "block 2" }].map((kw, optionIndex) => {
       return <option key={`housinglocation_option_${optionIndex}_${kw.id}`} value={kw.id}>{kw.description}</option>;
@@ -12,7 +12,7 @@ class PrisonerSearch extends Component {
 
         <div className="pure-u-md-12-12 searchForm">
           <div className="padding-top padding-left padding-right">
-            <label className="form-label" htmlFor="seachText">Prisoner name or number</label>
+            <label className="form-label" htmlFor="seachText">Offender name or number</label>
             <input type="text" className="form-control" id="search-text" name="searchText" value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
             <button className="button margin-left" onClick={() => this.props.gotoNext()}>Search ></button>
           </div>
@@ -42,4 +42,4 @@ class PrisonerSearch extends Component {
 }
 
 
-export default PrisonerSearch;
+export default OffenderSearch;

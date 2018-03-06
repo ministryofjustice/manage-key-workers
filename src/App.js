@@ -10,7 +10,7 @@ import { AutoAllocateContainer } from './AutoAllocation/container';
 import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
-import OffenderContainer from './Offender/OffenderContainer';
+import OffenderContainer from './AssignTransfer/containers/OffenderContainer';
 import {
   BrowserRouter as Router,
   Route

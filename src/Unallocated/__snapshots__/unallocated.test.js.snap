@@ -48,10 +48,10 @@ ShallowWrapper {
           <h1
                     className="heading-large"
           >
-                    Prisoners without key workers
+                    Offenders without key workers
           </h1>
           <p>
-                    These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+                    These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
           </p>
           <table>
                     <thead>
@@ -160,10 +160,10 @@ ShallowWrapper {
             <h1
               className="heading-large"
 >
-              Prisoners without key workers
+              Offenders without key workers
 </h1>,
             <p>
-              These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+              These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
 </p>,
             <table>
               <thead>
@@ -260,11 +260,11 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "Prisoners without key workers",
+              "children": "Offenders without key workers",
               "className": "heading-large",
             },
             "ref": null,
-            "rendered": "Prisoners without key workers",
+            "rendered": "Offenders without key workers",
             "type": "h1",
           },
           Object {
@@ -272,10 +272,10 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+              "children": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
             },
             "ref": null,
-            "rendered": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+            "rendered": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
             "type": "p",
           },
           Object {
@@ -839,10 +839,10 @@ ShallowWrapper {
             <h1
                         className="heading-large"
             >
-                        Prisoners without key workers
+                        Offenders without key workers
             </h1>
             <p>
-                        These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+                        These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
             </p>
             <table>
                         <thead>
@@ -951,10 +951,10 @@ ShallowWrapper {
               <h1
                 className="heading-large"
 >
-                Prisoners without key workers
+                Offenders without key workers
 </h1>,
               <p>
-                These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
+                These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
 </p>,
               <table>
                 <thead>
@@ -1051,11 +1051,11 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "Prisoners without key workers",
+                "children": "Offenders without key workers",
                 "className": "heading-large",
               },
               "ref": null,
-              "rendered": "Prisoners without key workers",
+              "rendered": "Offenders without key workers",
               "type": "h1",
             },
             Object {
@@ -1063,10 +1063,10 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+                "children": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
               },
               "ref": null,
-              "rendered": "These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+              "rendered": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
               "type": "p",
             },
             Object {

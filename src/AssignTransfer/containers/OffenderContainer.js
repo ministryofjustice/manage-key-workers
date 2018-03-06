@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Error from "../Error";
+import Error from "../../Error/index";
 
-import axiosWrapper from "../backendWrapper";
+import axiosWrapper from "../../backendWrapper";
 
 class OffenderContainer extends Component {
   componentWillMount () {

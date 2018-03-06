@@ -24,7 +24,7 @@ const appInitialState = {
   page: 0
 };
 
-const prisonerSearchInitialState = {
+const offenderSearchInitialState = {
   searchText: null,
   housingLocation: null,
   allocationStatus: null
@@ -104,17 +104,17 @@ export function allocated (state = allocatedInitialState, action) {
   }
 }
 
-export function prisonerSearch (state = prisonerSearchInitialState, action) {
+export function offenderSearch (state = offenderSearchInitialState, action) {
   switch (action.type) {
-    case ActionTypes.SET_PRISONER_SEARCH_TEXT:
+    case ActionTypes.SET_OFFENDER_SEARCH_TEXT:
       return { ...state,
         searchText: action.searchText
       };
-    case ActionTypes.SET_PRISONER_SEARCH_ALLOCATION_STATUS:
+    case ActionTypes.SET_OFFENDER_SEARCH_ALLOCATION_STATUS:
       return { ...state,
         allocationStatus: action.allocationStatus
       };
-    case ActionTypes.SET_PRISONER_SEARCH_HOUSING_LOCATION:
+    case ActionTypes.SET_OFFENDER_SEARCH_HOUSING_LOCATION:
       return { ...state,
         housingLocation: action.housingLocation
       };
@@ -155,7 +155,7 @@ const allocationApp = combineReducers({
   allocated,
   unallocated,
   app,
-  prisonerSearch,
+  offenderSearch,
   keyworkerSearch
 });
 

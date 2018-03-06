@@ -1,4 +1,4 @@
-import { unallocated, allocated, app, prisonerSearch, keyworkerSearch } from './index';
+import { unallocated, allocated, app, offenderSearch, keyworkerSearch } from './index';
 import * as types from '../actions/actionTypes';
 import moment from 'moment';
 
@@ -28,7 +28,7 @@ const unallocatedInitialState = {
   unallocatedList: []
 };
 
-const prisonerSearchInitialState = {
+const offenderSearchInitialState = {
   searchText: null,
   housingLocation: null,
   allocationStatus: null
@@ -290,9 +290,9 @@ describe('allocated reducer', () => {
   });
 });
 
-describe('prisoner search reducer', () => {
+describe('offender search reducer', () => {
   it('should return the initial state', () => {
-    expect(prisonerSearch(undefined, {})).toEqual(
+    expect(offenderSearch(undefined, {})).toEqual(
       {
         searchText: null,
         allocationStatus: null,
@@ -300,9 +300,9 @@ describe('prisoner search reducer', () => {
       }
     );
   });
-  it('should handle SET_PRISONER_SEARCH_TEXT', () => {
-    expect(prisonerSearch(prisonerSearchInitialState, {
-      type: types.SET_PRISONER_SEARCH_TEXT,
+  it('should handle SET_OFFENDER_SEARCH_TEXT', () => {
+    expect(offenderSearch(offenderSearchInitialState, {
+      type: types.SET_OFFENDER_SEARCH_TEXT,
       searchText: 'birdman of Alcatraz'
     })).toEqual(
       {
@@ -313,9 +313,9 @@ describe('prisoner search reducer', () => {
     );
   });
 
-  it('should handle SET_PRISONER_SEARCH_ALLOCATION_STATUS', () => {
-    expect(prisonerSearch(prisonerSearchInitialState, {
-      type: types.SET_PRISONER_SEARCH_ALLOCATION_STATUS,
+  it('should handle SET_OFFENDER_SEARCH_ALLOCATION_STATUS', () => {
+    expect(offenderSearch(offenderSearchInitialState, {
+      type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
       allocationStatus: 'N'
     })).toEqual(
       {
@@ -326,9 +326,9 @@ describe('prisoner search reducer', () => {
     );
   });
 
-  it('should handle SET_PRISONER_SEARCH_HOUSING_LOCATION', () => {
-    expect(prisonerSearch(prisonerSearchInitialState, {
-      type: types.SET_PRISONER_SEARCH_HOUSING_LOCATION,
+  it('should handle SET_OFFENDER_SEARCH_HOUSING_LOCATION', () => {
+    expect(offenderSearch(offenderSearchInitialState, {
+      type: types.SET_OFFENDER_SEARCH_HOUSING_LOCATION,
       housingLocation: 'Block C'
     })).toEqual(
       {
