@@ -1,14 +1,14 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import PrisonerSearch from "./index";
+import { OffenderSearch } from "../components/OffenderSearch";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 
-describe('Prisoner search component', () => {
-  it('should render prisoner search form correctly', async () => {
-    const component = shallow(<PrisonerSearch />);
+describe('Offender search component', () => {
+  it('should render offender search form correctly', async () => {
+    const component = shallow(<OffenderSearch gotoNext={() => {}}/>);
     console.log(component.debug());
     expect(component.find('#search-text').length).toBe(1);
     expect(component.find('#housing-location-select').length).toBe(1);
