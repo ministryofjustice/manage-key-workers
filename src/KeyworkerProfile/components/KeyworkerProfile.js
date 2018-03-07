@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 class KeyworkerProfile extends Component {
   render () {
     const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
-    const allocations = this.props.keyworkerAllocations.map(a => {
+    const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
+      return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+    });
+    const allocations = this.props.keyworkerAllocations.map((a, index) => {
+      const currentSelectValue = this.props.keyworkerChangeList[index] ? this.props.keyworkerChangeList[index].staffId : '';
       let confirmedReleaseDate = a.confirmedReleaseDate;
       if (confirmedReleaseDate == null) {
         confirmedReleaseDate = "--";
@@ -24,6 +28,14 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{confirmedReleaseDate}</td>
           <td className="row-gutters">{crsaClassification}</td>
+          <td className="row-gutters">
+
+            <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
+              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
+              <option key="choose" value="--">-- Select --</option>
+              {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
+            </select>
+          </td>
         </tr>
       );
     });
@@ -41,10 +53,12 @@ class KeyworkerProfile extends Component {
                 <th>Location</th>
                 <th>CRD</th>
                 <th>CSRA</th>
+                <th>Assign to new key worker</th>
               </tr>
             </thead>
             <tbody>{allocations}</tbody>
           </table>
+          <button className="button top-gutter pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>
         </div>
       </div>
       );
@@ -68,8 +82,13 @@ class KeyworkerProfile extends Component {
 }
 
 KeyworkerProfile.propTypes = {
+  history: PropTypes.object,
   keyworkerAllocations: PropTypes.array,
-  keyworker: PropTypes.object.isRequired
+  keyworker: PropTypes.object.isRequired,
+  keyworkerList: PropTypes.array,
+  keyworkerChangeList: PropTypes.array,
+  handleAllocationChange: PropTypes.func.isRequired,
+  handleKeyworkerChange: PropTypes.func.isRequired
 };
 
 

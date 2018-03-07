@@ -34,7 +34,9 @@ const keyworkerSearchInitialState = {
   searchText: '',
   keyworkerSearchResults: [],
   keyworkerAllocations: [],
-  keyworker: { key: 'value' }
+  keyworker: { key: 'value' },
+  keyworkerChangeList: [],
+  keyworkerList: []
 };
 
 export function app (state = appInitialState, action) {
@@ -140,6 +142,14 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
     case ActionTypes.SET_KEY_WORKER:
       return { ...state,
         keyworker: action.keyworker
+      };
+    case ActionTypes.SET_KEY_WORKER_CHANGE_LIST:
+      return { ...state,
+        keyworkerChangeList: action.keyworkerChangeList
+      };
+    case ActionTypes.SET_AVAILABLE_KEY_WORKER_LIST:
+      return { ...state,
+        keyworkerList: action.keyworkerList
       };
     default:
       return state;
