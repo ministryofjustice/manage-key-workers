@@ -129,3 +129,17 @@ export const setKeyworker = (keyworker) => {
   };
 };
 
+export const setKeyworkerChangeList = (keyworkerChangeList) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_CHANGE_LIST,
+    keyworkerChangeList
+  };
+};
+
+export const setAvailableKeyworkerList = (keyworkerList) => {
+  return {
+    type: ActionTypes.SET_AVAILABLE_KEY_WORKER_LIST,
+    keyworkerList
+  };
+};
+

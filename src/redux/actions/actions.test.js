@@ -169,5 +169,23 @@ describe('actions', () => {
     };
     expect(actions.setKeyworker({ key: 'value' })).toEqual(expectedAction);
   });
+
+  it('should create an action to save key worker allocation changes', () => {
+    const list = [{ firstName: 'Jack', surname: 'Brown' }];
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_CHANGE_LIST,
+      keyworkerChangeList: list
+    };
+    expect(actions.setKeyworkerChangeList(list)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save the available key worker list', () => {
+    const list = [{ firstName: 'Jack', surname: 'Brown' }];
+    const expectedAction = {
+      type: types.SET_AVAILABLE_KEY_WORKER_LIST,
+      keyworkerList: list
+    };
+    expect(actions.setAvailableKeyworkerList(list)).toEqual(expectedAction);
+  });
 });
 
