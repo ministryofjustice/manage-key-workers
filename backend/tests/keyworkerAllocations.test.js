@@ -17,24 +17,30 @@ describe('keyworkerAllocations controller', async () => {
 
     elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse());
 
+    elite2Api.availableKeyworkers = jest.fn().mockImplementationOnce(() => createAvailableKeyworkerResponse());
+
     elite2Api.keyworkerAllocations.mockReturnValueOnce(allocationResponse);
 
     const response = await keyworkerAllocations(req);
 
-    expect(response.data[0].bookingId).toBe(-1);
-    expect(response.data[0].offenderNo).toBe('A1234AA');
-    expect(response.data[0].firstName).toBe('ARTHUR');
-    expect(response.data[0].lastName).toBe('ANDERSON');
-    expect(response.data[0].agencyId).toBe("LEI");
-    expect(response.data[0].internalLocationDesc).toBe("A-1-1");
-    expect(response.data[0].crsaClassification).toBe('High');
-    expect(response.data[0].confirmedReleaseDate).toBe('2024-03-03');
-    expect(response.data[1].bookingId).toBe(-2);
-    expect(response.data[1].crsaClassification).toBe('High');
-    expect(response.data[1].confirmedReleaseDate).toBe('2025-04-03');
-    expect(response.data[2].bookingId).toBe(-6);
-    expect(response.data[2].crsaClassification).toBe('Low');
-    expect(response.data[2].confirmedReleaseDate).toBe('2026-03-03');
+    expect(response.allocatedResponse[0].bookingId).toBe(-1);
+    expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA');
+    expect(response.allocatedResponse[0].firstName).toBe('ARTHUR');
+    expect(response.allocatedResponse[0].lastName).toBe('ANDERSON');
+    expect(response.allocatedResponse[0].agencyId).toBe("LEI");
+    expect(response.allocatedResponse[0].internalLocationDesc).toBe("A-1-1");
+    expect(response.allocatedResponse[0].crsaClassification).toBe('High');
+    expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03');
+    expect(response.allocatedResponse[1].bookingId).toBe(-2);
+    expect(response.allocatedResponse[1].crsaClassification).toBe('High');
+    expect(response.allocatedResponse[1].confirmedReleaseDate).toBe('2025-04-03');
+    expect(response.allocatedResponse[2].bookingId).toBe(-6);
+    expect(response.allocatedResponse[2].crsaClassification).toBe('Low');
+    expect(response.allocatedResponse[2].confirmedReleaseDate).toBe('2026-03-03');
+
+    expect(response.keyworkerResponse[0].staffId).toBe(15583);
+    expect(response.keyworkerResponse[0].firstName).toBe('Brent');
+    expect(response.keyworkerResponse[0].lastName).toBe('Daggart');
   });
 });
 
@@ -104,4 +110,35 @@ function createAssessmentListResponse () {
     { bookingId: -3, classification: 'Silly' },
     { bookingId: -4, classification: 'Low' }
   ] };
+}
+
+function createAvailableKeyworkerResponse () {
+  return {
+    data: [
+      {
+        staffId: 15583,
+        firstName: 'Brent',
+        lastName: 'Daggart',
+        numberAllocated: 3,
+        status: "active",
+        currentRole: "Key worker2"
+      },
+      {
+        staffId: 15585,
+        firstName: 'Amy',
+        lastName: 'Hanson',
+        numberAllocated: 4,
+        status: "active",
+        currentRole: "Key worker"
+      },
+      {
+        staffId: 15584,
+        firstName: 'Florence',
+        lastName: 'Welch',
+        numberAllocated: 1,
+        status: "active",
+        currentRole: "Key worker3"
+      }
+    ]
+  };
 }

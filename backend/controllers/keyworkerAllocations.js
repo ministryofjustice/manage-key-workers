@@ -6,13 +6,15 @@ const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
 router.get('/', asyncMiddleware(async (req, res) => {
-  const response = await keyworkerAllocations(req);
-  res.json(response.data);
+  const viewModel = await keyworkerAllocations(req);
+  res.json(viewModel);
 }));
 
 const keyworkerAllocations = async (req) => {
-  const response = await elite2Api.keyworkerAllocations(req);
-  const tableData = response.data;
+  const keyworkerResponse = await elite2Api.availableKeyworkers(req);
+  log.debug({ data: keyworkerResponse.data }, 'Response from availableKeyworkers request');
+  const allocatedResponse = await elite2Api.keyworkerAllocations(req);
+  const tableData = allocatedResponse.data;
   log.debug({ data: tableData }, 'Response from keyworkerAllocations request');
 
   const alloffenders = tableData.map(row => row.offenderNo);
@@ -29,7 +31,11 @@ const keyworkerAllocations = async (req) => {
     common.addCrsaClassification(allCsras, row);
     common.addReleaseDate(allReleaseDates, row);
   }
-  return response;
+
+  return {
+    keyworkerResponse: keyworkerResponse.data,
+    allocatedResponse: allocatedResponse.data
+  };
 };
 
 module.exports = {

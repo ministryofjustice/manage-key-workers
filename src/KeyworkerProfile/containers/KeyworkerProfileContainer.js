@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerAllocationList, setKeyworker } from '../../redux/actions/index';
+import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
@@ -11,25 +11,36 @@ import axiosWrapper from "../../backendWrapper";
 class KeyworkerProfileContainer extends Component {
   constructor () {
     super();
-    this.getKeyworkerProfile = this.getKeyworkerProfile.bind(this);
+    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
+    this.postAllocationChange = this.postAllocationChange.bind(this);
   }
 
-  componentWillMount () {
-    this.getKeyworkerProfile();
+  async componentWillMount () {
+    await this.getKeyworkerProfile();
+    await this.getKeyworkerAllocations();
   }
 
   async getKeyworkerProfile () {
     try {
-      const keyworker = await this.getKeyworkerDetails(this.props.match.params.staffId);
-      const allocations = await this.getKeyworkerAllocations(this.props.agencyId, this.props.match.params.staffId);
+      const keyworker = await this.makeKeyworkerProfileCall(this.props.match.params.staffId);
       this.props.keyworkerDispatch(keyworker);
-      this.props.keyworkerAllocationsDispatch(allocations);
     } catch (error) {
       this.props.displayError(error);
     }
   }
 
-  async getKeyworkerAllocations (agencyId, staffId) {
+  async getKeyworkerAllocations () {
+    try {
+      const allocationsViewModel = await this.makeKeyworkerAllocationsCall(this.props.agencyId, this.props.match.params.staffId);
+      this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
+      this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
+    } catch (error) {
+      this.props.displayError(error);
+    }
+  }
+
+
+  async makeKeyworkerAllocationsCall (agencyId, staffId) {
     const response = await axiosWrapper.get('/keyworkerAllocations', {
       headers: {
         jwt: this.props.jwt
@@ -42,7 +53,21 @@ class KeyworkerProfileContainer extends Component {
     return response.data;
   }
 
-  async getKeyworkerDetails (staffId) {
+  handleKeyworkerChange (event, index, bookingId) {
+    const keyworkerChangeList = [...this.props.keyworkerChangeList];
+
+    if (event.target.value === '--') {
+      keyworkerChangeList[index] = null;
+    } else {
+      keyworkerChangeList[index] = {
+        staffId: event.target.value,
+        bookingId: bookingId
+      };
+    }
+    this.props.keyworkerChangeListDispatch(keyworkerChangeList);
+  }
+
+  async makeKeyworkerProfileCall (staffId) {
     const response = await axiosWrapper.get('/keyworker', {
       headers: {
         jwt: this.props.jwt
@@ -54,12 +79,28 @@ class KeyworkerProfileContainer extends Component {
     return response.data;
   }
 
+  async postAllocationChange (history) {
+    try {
+      if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
+        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, {
+          headers: {
+            jwt: this.props.jwt
+          }
+        });
+        this.props.setMessageDispatch('Offender allocation updated.');
+      }
+      history.push('/home');
+    } catch (error) {
+      this.props.displayError(error);
+    }
+  }
+
   render () {
     if (this.props.error) {
       return <Error {...this.props} />;
     }
 
-    return <KeyworkerProfile {...this.props} />;
+    return <KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange} handleAllocationChange={this.postAllocationChange}{...this.props} />;
   }
 }
 
@@ -70,22 +111,30 @@ KeyworkerProfileContainer.propTypes = {
   agencyId: PropTypes.string.isRequired,
   keyworkerAllocationsDispatch: PropTypes.func,
   keyworkerDispatch: PropTypes.func,
+  setMessageDispatch: PropTypes.func,
   displayError: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  keyworkerChangeList: PropTypes.array,
+  keyworkerChangeListDispatch: PropTypes.func,
+  availableKeyworkerListDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
   return {
     agencyId: state.app.user.activeCaseLoadId,
     keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
-    keyworker: state.keyworkerSearch.keyworker
+    keyworker: state.keyworkerSearch.keyworker,
+    keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
+    keyworkerList: state.keyworkerSearch.keyworkerList
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
-    keyworkerDispatch: id => dispatch(setKeyworker(id))
+    keyworkerDispatch: id => dispatch(setKeyworker(id)),
+    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+    availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list))
   };
 };
 
