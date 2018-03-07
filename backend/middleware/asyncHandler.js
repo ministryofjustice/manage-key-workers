@@ -6,10 +6,11 @@ const asyncMiddleware = fn =>
     res.setHeader('jwt', session.extendSession(req.headers));
     Promise.resolve(fn(req, res, next))
       .catch(error => {
+        // Note this is the final catch-all for backend errors
         logError(req.originalUrl, error, 'Error caught in asyncMiddleware');
         const data = error && error.response && error.response.data;
-        const errorStatusCode = (data && data.status || error.statusCode) || 500;
-        const message = (data && data.userMessage) || (error && error.response && error.response.statusText);
+        const errorStatusCode = (data && data.status || (error.response && error.response.status)) || 500;
+        const message = (data && (data.userMessage || data.error_description)) || (error && (error.message || (error.response && error.response.statusText)));
 
         res.status(errorStatusCode);
 
@@ -18,7 +19,6 @@ const asyncMiddleware = fn =>
         } else {
           res.end();
         }
-        throw error;
       });
   };
 

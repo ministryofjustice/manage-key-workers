@@ -9,7 +9,6 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('Assign transfer component', () => {
   it('should render component correctly', async () => {
     const component = shallow(<AssignTransfer />);
-    expect(component.find('OffenderSearch').exists()).toEqual(true);
     expect(component.find('div').at(1).text()).toContain('Search for an offender');
   });
 });

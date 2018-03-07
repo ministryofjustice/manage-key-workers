@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axiosWrapper from '../backendWrapper';
+//import axiosWrapper from '../backendWrapper';
 import { setCurrentPage, setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
 import { connect } from 'react-redux';
-
 import AssignTransfer from "./index";
 
 class AssignTransferContainer extends Component {
   constructor () {
     super();
     this.displayError = this.displayError.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleSearchTextChange (event) {
@@ -22,6 +22,10 @@ class AssignTransferContainer extends Component {
 
   handleSearchHousingLocationChange (event) {
     this.props.offenderSearchHousingLocationDispatch(event.target.value);
+  }
+
+  handleSearch (history) {
+    history.push('/offender/results');
   }
 
   displayError (error) {
@@ -39,6 +43,7 @@ class AssignTransferContainer extends Component {
     return (<AssignTransfer handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
       handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
       handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)}
+      gotoNext={(history) => this.handleSearch(history)}
       {...this.props}/>);
   }
 }

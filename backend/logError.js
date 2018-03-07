@@ -23,7 +23,8 @@ const logError = (url, error, msg) => {
   } else {
     log.error({
       url,
-      error
+      stack: error.stack,
+      message: error.message
     }, msg);
   }
 };

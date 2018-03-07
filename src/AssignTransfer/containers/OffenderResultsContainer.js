@@ -6,27 +6,30 @@ import Error from "../../Error/index";
 
 import axiosWrapper from "../../backendWrapper";
 
-class OffenderResults extends Component {
+class OffenderResultsContainer extends Component {
   componentWillMount () {
-    this.gotoNext();
+    this.doSearch();
   }
 
   async getOffenders () {
-    const response = await axiosWrapper.get('/tbc', {
+    const response = await axiosWrapper.get('/searchOffenders', {
       headers: {
         jwt: this.props.jwt
       },
       params: {
-      //  staffId: staffId
+        locationPrefix: this.props.housingLocation,
+        keywords: this.props.searchText,
+        allocationStatus: this.props.allocationStatus
       }
     });
     return response.data;
   }
 
-  async gotoNext () {
+  async doSearch () {
     try {
       const data = await this.getOffenders();
-      this.props.setCurrentPageDispatch(data);
+      // TODO this.props.set???Dispatch(data);
+      return data;
     } catch (error) {
       this.props.displayError(error);
     }
@@ -37,19 +40,22 @@ class OffenderResults extends Component {
       return <Error {...this.props} />;
     }
 
-    // todo create offender components
+    // TODO create offender table
     return (<div>
       <div className="pure-g">
         <div className="pure-u-md-8-12 padding-top">
-          <h1 className="heading-large">Offender Results Placeholder Page</h1>
+          <h1 className="heading-large">Offender Results Container Placeholder Page</h1>
         </div>
       </div>
     </div>);
   }
 }
 
-OffenderContainer.propTypes = {
+OffenderResultsContainer.propTypes = {
   error: PropTypes.string,
+  searchText: PropTypes.string,
+  allocationStatus: PropTypes.string,
+  housingLocation: PropTypes.string,
   match: PropTypes.object.isRequired,
   displayError: PropTypes.func.isRequired,
   jwt: PropTypes.string.isRequired
@@ -57,6 +63,9 @@ OffenderContainer.propTypes = {
 
 const mapStateToProps = state => {
   return {
+    searchText: state.offenderSearch.searchText,
+    allocationStatus: state.offenderSearch.allocationStatus,
+    housingLocation: state.offenderSearch.housingLocation
   };
 };
 
@@ -65,7 +74,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-
-export { OffenderContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderContainer));
-
+export { OffenderResultsContainer };
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderResultsContainer));
