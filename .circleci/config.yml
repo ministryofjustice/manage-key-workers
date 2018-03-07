@@ -40,24 +40,6 @@ jobs:
             - build
             - build-info.json
 
-  deploy_release:
-      <<: *defaults
-      steps:
-        - checkout
-        - attach_workspace:
-            at: /tmp/circleci-keyworker-ui/
-        - run: |
-            BUILD_NUMBER=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-            GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
-            git add --force --verbose build-info.json build
-            git config user.name "Circle CI"
-            git config user.email "circle@circleci.com"
-            CI_MESSAGE=$(git log --format=%B -n 1 $GIT_REF)
-            git commit -m "Deployment of build $BUILD_NUMBER" -m "$CI_MESSAGE" -m "From gitref $GIT_REF"
-            git push --force origin HEAD:deploy-to-dev
-            git tag release_${BUILD_NUMBER}
-            git push --tags
-
   build_docker:
     <<: *defaults
     steps:
@@ -114,6 +96,8 @@ jobs:
                 VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
                 yarn run plant-beanstalk KEYWORKER_UI_${VERSION}
                 ~/.local/bin/eb deploy --process --verbose
+                git tag release_${VERSION}
+                git push --tags
               fi
 
 
@@ -129,12 +113,6 @@ workflows:
       - build_docker:
           requires:
             - build
-      - deploy_release:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
       - deploy_release_eb:
           requires:
             - build_docker
