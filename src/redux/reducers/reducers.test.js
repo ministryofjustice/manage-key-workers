@@ -38,6 +38,8 @@ const keyworkerSearchInitialState = {
   searchText: '',
   keyworkerSearchResults: [],
   keyworkerAllocations: [],
+  keyworkerChangeList: [],
+  keyworkerList: [],
   keyworker: null
 };
 
@@ -45,6 +47,8 @@ const keyworkerSearchPopulatedState = {
   searchText: 'yes',
   keyworkerSearchResults: [{ value: 'search' }],
   keyworkerAllocations: [{ value: 'allocations' }],
+  keyworkerChangeList: [],
+  keyworkerList: [{ value: 'available keyworkers' }],
   keyworker: 321
 };
 
@@ -350,6 +354,8 @@ describe('key worker search reducer', () => {
         searchText: 'Kelly Keyworker',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
         keyworker: null
       }
     );
@@ -365,6 +371,8 @@ describe('key worker search reducer', () => {
         searchText: '',
         keyworkerSearchResults: list,
         keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
         keyworker: null
       }
     );
@@ -379,7 +387,41 @@ describe('key worker search reducer', () => {
         searchText: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
         keyworker: { key: 'value' }
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER_CHANGE_LIST', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_CHANGE_LIST,
+      keyworkerChangeList: [{ key: 'value' }]
+    })).toEqual(
+      {
+        searchText: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworkerChangeList: [{ key: 'value' }],
+        keyworkerList: [],
+        keyworker: null
+      }
+    );
+  });
+
+  it('should handle SET_AVAILABLE_KEY_WORKER_LIST', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_AVAILABLE_KEY_WORKER_LIST,
+      keyworkerList: [{ key: 'value' }]
+    })).toEqual(
+      {
+        searchText: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [{ key: 'value' }],
+        keyworker: null
       }
     );
   });
@@ -393,6 +435,8 @@ describe('key worker search reducer', () => {
         searchText: 'yes',
         keyworkerSearchResults: [{ value: 'search' }],
         keyworkerAllocations: [{ value: 'allocations' }],
+        keyworkerChangeList: [],
+        keyworkerList: [{ value: 'available keyworkers' }],
         keyworker: { key: 'value' }
       }
     );

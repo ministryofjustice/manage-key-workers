@@ -45,7 +45,7 @@ app.use('/allocated', jsonParser, allocated.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 app.use('/keyworkerSearch', jsonParser, keyworkerSearch);
 app.use('/keyworker', jsonParser, keyworkerProfile);
-app.use('/keyworkerAllocations', jsonParser, keyworkerAllocations);
+app.use('/keyworkerAllocations', jsonParser, keyworkerAllocations.router);
 
 app.use('/health', require('express-healthcheck')());
 
