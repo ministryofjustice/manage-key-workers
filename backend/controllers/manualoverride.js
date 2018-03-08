@@ -3,14 +3,28 @@ const express = require('express');
 const router = express.Router();
 const elite2Api = require('../elite2Api');
 const asyncMiddleware = require('../middleware/asyncHandler');
+// const moment = require('moment');
 const log = require('../log');
+// const isoDateTimeFormat = require('../constants').isoDateTimeFormat;
 
+/* function getToday () {
+  return moment().format(isoDateTimeFormat);
+} */
 
 router.post('/', asyncMiddleware(async (req, res) => {
   const allocateList = req.body.allocatedKeyworkers;
   log.debug({ allocateList }, 'Manual override contents');
   for (let element of allocateList) {
     if (element && element.staffId) {
+      /* req.data = {
+        active: true,
+        agencyId: req.query.agencyId,
+        allocationReason: "MANUAL",
+        allocationType: "M",
+        assigned: getToday(),
+        offenderNo: element.offenderNo,
+        staffId: element.staffId
+      }; */
       req.data = {
         bookingId: element.bookingId,
         staffId: element.staffId,

@@ -95,6 +95,9 @@ class AutoAllocate extends Component {
         await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
           headers: {
             jwt: this.props.jwt
+          },
+          params: {
+            agencyId: this.props.agencyId
           }
         });
         this.props.setMessageDispatch('Key workers successfully updated.');

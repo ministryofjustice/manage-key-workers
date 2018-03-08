@@ -10,6 +10,10 @@ router.post('/', asyncMiddleware(async (req, res) => {
   req.headers.jwt = jwtToken;
   const currentUserResponse = await elite2Api.currentUser(req);
   res.setHeader('jwt', jwtToken);
+  console.log('-----');
+  console.log('-----');
+  console.log(jwtToken);
+  console.log('-----');
   res.json(currentUserResponse.data);
 }));
 
