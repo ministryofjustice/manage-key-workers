@@ -52,10 +52,16 @@ const setActiveCaseLoad = (req) => gateway.putRequest({
   url: `${eliteApiUrl}api/users/me/activeCaseLoad`
 });
 
+const allocate = (req) => gateway.postRequest({
+  req: req,
+  method: 'post',
+  url: `${eliteApiUrl}api/key-worker/allocate`
+});
+
 
 const service = {
   // todo move keyworkerAllocation to keyworkerApi when endpoint moved in API service
-  login, currentUser, userCaseLoads, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList, keyworkerAllocations
+  login, currentUser, userCaseLoads, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList, keyworkerAllocations, allocate
 };
 
 
