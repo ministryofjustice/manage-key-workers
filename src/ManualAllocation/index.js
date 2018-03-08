@@ -22,9 +22,9 @@ class ManualAllocation extends Component {
         crsaClassification = "--";
       }
       return (
-        <tr key={a.bookingId} className="row-gutters">
+        <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters"><a
-            href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
+            href={a.offenderNo}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{confirmedReleaseDate}</td>
@@ -35,8 +35,8 @@ class ManualAllocation extends Component {
           </td>
           <td className="row-gutters">
 
-            <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
-              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
+            <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.off)}>
               <option key="choose" value="--">-- Select --</option>
               {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
             </select>
