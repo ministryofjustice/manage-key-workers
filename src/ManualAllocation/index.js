@@ -3,6 +3,7 @@ import { properCaseName } from '../stringUtils';
 import ReactTooltip from 'react-tooltip';
 import DateFilter from '../DateFilter/index.js';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
 class ManualAllocation extends Component {
   buildTableForRender (keyworkerOptions) {
@@ -92,4 +93,7 @@ ManualAllocation.propTypes = {
   toDate: PropTypes.string
 };
 
-export default ManualAllocation;
+const ManualAllocationWithRouter = withRouter(ManualAllocation);
+
+export { ManualAllocation };
+export default ManualAllocationWithRouter;
