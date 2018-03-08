@@ -4,6 +4,12 @@ const eliteApiUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080/';
 
 const login = (req) => gateway.login(req);
 
+const keyworkerAllocations = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `${eliteApiUrl}api/key-worker/${req.query.staffId}/offenders`
+});
+
 const csraList = (req, params, paramsSerializer) => gateway.getRequest({
   req: req,
   method: 'get',
@@ -40,7 +46,8 @@ const setActiveCaseLoad = (req) => gateway.putRequest({
 
 
 const service = {
-  login, currentUser, userCaseLoads, setActiveCaseLoad, sentenceDetailList, csraList
+  // todo move keyworkerAllocation to keyworkerApi when endpoint moved in API service
+  login, currentUser, userCaseLoads, setActiveCaseLoad, sentenceDetailList, csraList, keyworkerAllocations
 };
 
 

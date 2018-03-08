@@ -13,14 +13,13 @@ const allocationResponse = createDataResponse();
 
 describe('keyworkerAllocations controller', async () => {
   it('Should add keyworker details to data array', async () => {
-    keyworkerApi.keyworkerAllocations = jest.fn();
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse());
 
     elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse());
 
     keyworkerApi.availableKeyworkers = jest.fn().mockImplementationOnce(() => createAvailableKeyworkerResponse());
 
-    keyworkerApi.keyworkerAllocations.mockReturnValueOnce(allocationResponse);
+    elite2Api.keyworkerAllocations = jest.fn().mockReturnValueOnce(allocationResponse);
 
     const response = await keyworkerAllocations(req);
 
