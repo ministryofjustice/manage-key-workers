@@ -112,28 +112,28 @@ describe('actions', () => {
     expect(actions.setMessage('Your stuff was saved.')).toEqual(expectedAction);
   });
 
-  it('should create an action to save prisoner search criteria - text', () => {
+  it('should create an action to save offender search criteria - text', () => {
     const expectedAction = {
-      type: types.SET_PRISONER_SEARCH_TEXT,
+      type: types.SET_OFFENDER_SEARCH_TEXT,
       searchText: 'James,Troy'
     };
-    expect(actions.setPrisonerSearchText('James,Troy')).toEqual(expectedAction);
+    expect(actions.setOffenderSearchText('James,Troy')).toEqual(expectedAction);
   });
 
-  it('should create an action to save prisoner search criteria - housing location', () => {
+  it('should create an action to save offender search criteria - housing location', () => {
     const expectedAction = {
-      type: types.SET_PRISONER_SEARCH_HOUSING_LOCATION,
+      type: types.SET_OFFENDER_SEARCH_HOUSING_LOCATION,
       housingLocation: 'Block B'
     };
-    expect(actions.setPrisonerSearchHousingLocation('Block B')).toEqual(expectedAction);
+    expect(actions.setOffenderSearchHousingLocation('Block B')).toEqual(expectedAction);
   });
 
-  it('should create an action to save prisoner search criteria - allocation status', () => {
+  it('should create an action to save offender search criteria - allocation status', () => {
     const expectedAction = {
-      type: types.SET_PRISONER_SEARCH_ALLOCATION_STATUS,
+      type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
       allocationStatus: 'A'
     };
-    expect(actions.setPrisonerSearchAllocationStatus('A')).toEqual(expectedAction);
+    expect(actions.setOffenderSearchAllocationStatus('A')).toEqual(expectedAction);
   });
 
   it('should create an action to save key worker search criteria - text', () => {

@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import axiosWrapper from '../backendWrapper';
-import { setCurrentPage, setPrisonerSearchText, setPrisonerSearchAllocationStatus, setPrisonerSearchHousingLocation, setError, setMessage } from '../redux/actions';
+//import axiosWrapper from '../backendWrapper';
+import { setCurrentPage, setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
 import { connect } from 'react-redux';
-
 import AssignTransfer from "./index";
 
 class AssignTransferContainer extends Component {
   constructor () {
     super();
     this.displayError = this.displayError.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleSearchTextChange (event) {
-    this.props.prisonerSearchTextDispatch(event.target.value);
+    this.props.offenderSearchTextDispatch(event.target.value);
   }
 
   handleSearchAllocationStatusChange (event) {
-    this.props.prisonerSearchAllocationStatusDispatch(event.target.value);
+    this.props.offenderSearchAllocationStatusDispatch(event.target.value);
   }
 
   handleSearchHousingLocationChange (event) {
-    this.props.prisonerSearchHousingLocationDispatch(event.target.value);
+    this.props.offenderSearchHousingLocationDispatch(event.target.value);
+  }
+
+  handleSearch (history) {
+    history.push('/offender/results');
   }
 
   displayError (error) {
@@ -38,16 +42,9 @@ class AssignTransferContainer extends Component {
     }
     return (<AssignTransfer handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
       handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
-      handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props}/>);
-    /*switch (this.props.page) {
-      case 1:
-        return <Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />;
-      case 2:
-        return (<ManualAllocation handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
-          applyDateFilter={this.applyDateFilter} handleDateFilterChange={this.handleDateFilterChange} {...this.props} />);
-      default:
-        return "";
-    }*/
+      handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)}
+      gotoNext={(history) => this.handleSearch(history)}
+      {...this.props}/>);
   }
 }
 
@@ -59,9 +56,9 @@ AssignTransferContainer.propTypes = {
   housingLocation: PropTypes.string,
   setCurrentPageDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  prisonerSearchTextDispatch: PropTypes.func,
-  prisonerSearchAllocationStatusDispatch: PropTypes.func,
-  prisonerSearchHousingLocationDispatch: PropTypes.func
+  offenderSearchTextDispatch: PropTypes.func,
+  offenderSearchAllocationStatusDispatch: PropTypes.func,
+  offenderSearchHousingLocationDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -78,9 +75,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    prisonerSearchTextDispatch: text => dispatch(setPrisonerSearchText(text)),
-    prisonerSearchAllocationStatusDispatch: status => dispatch(setPrisonerSearchAllocationStatus(status)),
-    prisonerSearchHousingLocationDispatch: location => dispatch(setPrisonerSearchHousingLocation(location)),
+    offenderSearchTextDispatch: text => dispatch(setOffenderSearchText(text)),
+    offenderSearchAllocationStatusDispatch: status => dispatch(setOffenderSearchAllocationStatus(status)),
+    offenderSearchHousingLocationDispatch: location => dispatch(setOffenderSearchHousingLocation(location)),
     setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
     setErrorDispatch: error => dispatch(setError(error)),
     setMessageDispatch: message => dispatch(setMessage(message))

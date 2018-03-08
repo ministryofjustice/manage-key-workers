@@ -80,23 +80,23 @@ export const setMessage = (message) => {
   };
 };
 
-export const setPrisonerSearchText = (searchText) => {
+export const setOffenderSearchText = (searchText) => {
   return {
-    type: ActionTypes.SET_PRISONER_SEARCH_TEXT,
+    type: ActionTypes.SET_OFFENDER_SEARCH_TEXT,
     searchText
   };
 };
 
-export const setPrisonerSearchAllocationStatus = (allocationStatus) => {
+export const setOffenderSearchAllocationStatus = (allocationStatus) => {
   return {
-    type: ActionTypes.SET_PRISONER_SEARCH_ALLOCATION_STATUS,
+    type: ActionTypes.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
     allocationStatus
   };
 };
 
-export const setPrisonerSearchHousingLocation = (housingLocation) => {
+export const setOffenderSearchHousingLocation = (housingLocation) => {
   return {
-    type: ActionTypes.SET_PRISONER_SEARCH_HOUSING_LOCATION,
+    type: ActionTypes.SET_OFFENDER_SEARCH_HOUSING_LOCATION,
     housingLocation
   };
 };

@@ -56,8 +56,8 @@ class ManualAllocation extends Component {
       <div>
         <div className="pure-g">
 
-          <div className="pure-u-md-7-12"><h1 className="heading-large">Key worker allocation</h1><p>These prisoners below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it.
-          The number in the brackets indicates the current total of allocated prisoners to each Key worker.</p></div>
+          <div className="pure-u-md-7-12"><h1 className="heading-large">Key worker allocation</h1><p>These offenders below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it.
+          The number in the brackets indicates the current total of allocated offenders to each Key worker.</p></div>
           {this.props.displayDateFilter && <div className="pure-u-md-5-12"><DateFilter {...this.props} /></div>}
         </div>
         <table className="row-gutters">

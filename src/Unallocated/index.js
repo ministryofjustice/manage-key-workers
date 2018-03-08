@@ -27,8 +27,8 @@ class Unallocated extends Component {
     return (
       <div>
         <div className="pure-u-md-7-12">
-          <h1 className="heading-large">Prisoners without key workers</h1>
-          <p>These prisoners have not yet been allocated a Key worker. Use the button below to automatically allocate
+          <h1 className="heading-large">Offenders without key workers</h1>
+          <p>These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate
             them to one. You can override the selections on the next page if you wish.</p>
           <table>
             <thead>

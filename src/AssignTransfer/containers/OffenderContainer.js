@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Error from "../Error";
+import Error from "../../Error/index";
 
-import axiosWrapper from "../backendWrapper";
+import axiosWrapper from "../../backendWrapper";
 
 class OffenderContainer extends Component {
   componentWillMount () {
-    this.getOffenderDetails();
+    this.loadOffender();
   }
 
   async loadOffender () {
     try {
-      // todo await this.getOffenderDetails(this.props.match.params.offenderId);
+      await this.getOffenderDetails(this.props.match.params.offenderId);
       // todo call dispatch
     } catch (error) {
       this.displayError(error);
@@ -65,7 +65,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-
 export { OffenderContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderContainer));
-

@@ -7,10 +7,11 @@ import KeyworkerSearchResultsContainer from './KeyworkerProfile/containers/Keywo
 import KeyworkerReports from './KeyworkerReports/index';
 import AssignTransferContainer from './AssignTransfer/container';
 import { AutoAllocateContainer } from './AutoAllocation/container';
+import OffenderResultsContainer from './AssignTransfer/containers/OffenderResultsContainer';
 import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
-import OffenderContainer from './Offender/OffenderContainer';
+import OffenderContainer from './AssignTransfer/containers/OffenderContainer';
 import {
   BrowserRouter as Router,
   Route
@@ -86,12 +87,13 @@ class App extends React.Component {
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-              <Route exact path="/assignTransfer" render={() => <AssignTransferContainer {...this.props} />}/>
+              <Route exact path="/assignTransfer" render={() => <AssignTransferContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/unallocated" render={() => <AutoAllocateContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
               <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/offender/:offenderId" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/offender/results" render={() => <OffenderResultsContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/offender/:offenderId/profile" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
             </div>
           </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
