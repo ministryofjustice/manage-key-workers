@@ -1,6 +1,6 @@
 const gateway = require('./gateway-api');
-const isoDateFormat = require('./constants').isoDateFormat;
 const moment = require('moment');
+const isoDateFormat = require('./constants').isoDateFormat;
 
 const keyworkerApiUrl = process.env.KEYWORKER_API_URL || 'http://localhost:8081/';
 

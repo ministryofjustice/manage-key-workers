@@ -69,7 +69,7 @@ class AutoAllocate extends Component {
     return response.data;
   }
 
-  handleKeyworkerChange (event, index, offenderNo) {
+  handleKeyworkerChange (event, index, bookingId) {
     const allocatedKeyworkers = [...this.props.allocatedKeyworkers];
 
     if (event.target.value === '--') {
@@ -77,7 +77,7 @@ class AutoAllocate extends Component {
     } else {
       allocatedKeyworkers[index] = {
         staffId: event.target.value,
-        offenderNo: offenderNo
+        bookingId: bookingId
       };
     }
     this.props.manualOverrideDispatch(allocatedKeyworkers);
@@ -95,6 +95,9 @@ class AutoAllocate extends Component {
         await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
           headers: {
             jwt: this.props.jwt
+          },
+          params: {
+            agencyId: this.props.agencyId
           }
         });
         this.props.setMessageDispatch('Key workers successfully updated.');
