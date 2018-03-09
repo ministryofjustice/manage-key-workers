@@ -3,6 +3,7 @@ import { properCaseName } from '../stringUtils';
 import ReactTooltip from 'react-tooltip';
 import DateFilter from '../DateFilter/index.js';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
 class ManualAllocation extends Component {
   buildTableForRender (keyworkerOptions) {
@@ -22,9 +23,9 @@ class ManualAllocation extends Component {
         crsaClassification = "--";
       }
       return (
-        <tr key={a.bookingId} className="row-gutters">
+        <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters"><a
-            href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
+            href={a.offenderNo}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{confirmedReleaseDate}</td>
@@ -35,7 +36,7 @@ class ManualAllocation extends Component {
           </td>
           <td className="row-gutters">
 
-            <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
+            <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
               <option key="choose" value="--">-- Select --</option>
               {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
@@ -92,4 +93,7 @@ ManualAllocation.propTypes = {
   toDate: PropTypes.string
 };
 
-export default ManualAllocation;
+const ManualAllocationWithRouter = withRouter(ManualAllocation);
+
+export { ManualAllocation };
+export default ManualAllocationWithRouter;

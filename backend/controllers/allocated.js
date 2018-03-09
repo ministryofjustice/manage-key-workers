@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const elite2Api = require('../elite2Api');
+const keyworkerApi = require('../keyworkerApi');
 const common = require('./common');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
@@ -12,13 +13,13 @@ router.get('/', asyncMiddleware(async (req, res) => {
 }));
 
 const allocated = async (req) => {
-  await elite2Api.autoAllocate(req);
+  await keyworkerApi.autoAllocate(req);
 
-  const keyworkerResponse = await elite2Api.availableKeyworkers(req);
+  const keyworkerResponse = await keyworkerApi.availableKeyworkers(req);
   const keyworkerData = keyworkerResponse.data;
   log.debug({ availableKeyworkers: keyworkerData }, 'Response from available keyworker request');
 
-  const allocatedResponse = await elite2Api.autoallocated(req);
+  const allocatedResponse = await keyworkerApi.autoallocated(req);
   const allocatedData = allocatedResponse.data;
   log.debug({ availableKeyworkers: allocatedData }, 'Response from allocated offenders request');
   if (telemetry) {

@@ -1,6 +1,7 @@
 Reflect.deleteProperty(process.env, 'APPINSIGHTS_INSTRUMENTATIONKEY');
 const allocated = require('../controllers/allocated').allocated;
 const elite2Api = require('../elite2Api');
+const keyworkerApi = require('../keyworkerApi');
 
 const req = {
   headers: {
@@ -14,24 +15,24 @@ const allocationResponse = createAllocatedDataResponse();
 
 describe('Allocated controller', async () => {
   it('Should add keyworker details to allocated data array', async () => {
-    elite2Api.autoAllocate = jest.fn();
-    elite2Api.availableKeyworkers = jest.fn();
-    elite2Api.autoallocated = jest.fn();
+    keyworkerApi.autoAllocate = jest.fn();
+    keyworkerApi.availableKeyworkers = jest.fn();
+    keyworkerApi.autoallocated = jest.fn();
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse());
 
     elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse());
 
-    elite2Api.keyworker = jest
+    keyworkerApi.keyworker = jest
       .fn()
       .mockImplementation(() => createSingleKeyworkerResponse());
 
-    elite2Api.autoallocated.mockReturnValueOnce(allocationResponse);
+    keyworkerApi.autoallocated.mockReturnValueOnce(allocationResponse);
 
-    elite2Api.availableKeyworkers.mockReturnValueOnce(keyworkResponse);
+    keyworkerApi.availableKeyworkers.mockReturnValueOnce(keyworkResponse);
 
     const response = await allocated(req);
 
-    expect(elite2Api.autoAllocate.mock.calls.length).toBe(1);
+    expect(keyworkerApi.autoAllocate.mock.calls.length).toBe(1);
 
     expect(response.allocatedResponse[0].bookingId).toBe(-1);
     expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA');

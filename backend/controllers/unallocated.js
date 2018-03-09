@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const elite2Api = require('../elite2Api');
+const keyworkerApi = require('../keyworkerApi');
 const common = require('./common');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
@@ -11,7 +12,7 @@ router.get('/', asyncMiddleware(async (req, res) => {
 }));
 
 const unallocated = async (req) => {
-  const unallocatedResponse = await elite2Api.unallocated(req);
+  const unallocatedResponse = await keyworkerApi.unallocated(req);
   const unallocatedData = unallocatedResponse.data;
   log.debug({ data: unallocatedData }, 'Response from unallocated offenders request');
 

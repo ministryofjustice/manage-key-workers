@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const keyworkerApi = require('../keyworkerApi');
 const elite2Api = require('../elite2Api');
 const common = require('./common');
 const asyncMiddleware = require('../middleware/asyncHandler');
@@ -11,7 +12,7 @@ router.get('/', asyncMiddleware(async (req, res) => {
 }));
 
 const keyworkerAllocations = async (req) => {
-  const keyworkerResponse = await elite2Api.availableKeyworkers(req);
+  const keyworkerResponse = await keyworkerApi.availableKeyworkers(req);
   log.debug({ data: keyworkerResponse.data }, 'Response from availableKeyworkers request');
   const allocatedResponse = await elite2Api.keyworkerAllocations(req);
   const tableData = allocatedResponse.data;

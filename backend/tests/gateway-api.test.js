@@ -21,13 +21,13 @@ describe('Gateway api', () => {
       refreshToken: 'refreshToken'
     };
 
-    mock.onGet('/users/me').replyOnce(401);
-    mock.onPost('/oauth/token').reply(200, newTokenData);
-    mock.onGet('/users/me').replyOnce(200);
+    mock.onGet('http://localhost:8080/users/me').replyOnce(401);
+    mock.onPost('http://localhost:8080/oauth/token').reply(200, newTokenData);
+    mock.onGet('http://localhost:8080/users/me').replyOnce(200);
 
     gatewayApi.retryRequest = jest.fn();
 
-    await gatewayApi.getRequest({ req, url: 'users/me' });
+    await gatewayApi.getRequest({ req, url: 'http://localhost:8080/users/me' });
 
     expect(gatewayApi.retryRequest.mock.calls[0][0].headers.authorization)
       .toBe('Bearer ' + newTokenData.token);
