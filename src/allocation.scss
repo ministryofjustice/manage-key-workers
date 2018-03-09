@@ -87,6 +87,14 @@ table tr:nth-child(even){
     margin-bottom: 17px;
 }
 
+.bold {
+    font-weight: bold;
+}
+
+.blueButton {
+    background-color: $govuk-blue;
+}
+
 a.link{
 
     color: $link-colour !important;

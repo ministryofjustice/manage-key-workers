@@ -43,13 +43,13 @@ class KeyworkerProfile extends Component {
     let renderContent = null;
     if (this.props.keyworkerAllocations.length > 0) {
       renderContent = (<div>
-        <div className="lede padding-top-large padding-bottom">Current key worker allocations {this.props.keyworkerAllocations.length}</div>
+        <div className="lede padding-top padding-bottom-large">Current key worker allocations {this.props.keyworkerAllocations.length}</div>
         <div className="pure-u-md-8-12">
           <table>
             <thead>
               <tr>
                 <th>Name</th>
-                <th>NOMS ID</th>
+                <th>Prison no.</th>
                 <th>Location</th>
                 <th>CRD</th>
                 <th>CSRA</th>
@@ -58,7 +58,7 @@ class KeyworkerProfile extends Component {
             </thead>
             <tbody>{allocations}</tbody>
           </table>
-          <button className="button top-gutter pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>
+          <button id="updateAllocationButton" className="button top-gutter pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>
         </div>
       </div>
       );
@@ -69,11 +69,34 @@ class KeyworkerProfile extends Component {
 
     return (
       <div>
-        <div className="pure-g">
+        <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`search_again_link`} title="Search again link" className="link" to="/keyworker/search" >&lt; Search again</Link>
+            <Link id={`search_again_link`} title="Search again link" className="link" to="/home" >&lt; Back to menu</Link>
             <h1 className="heading-large">Profile for {keyworkerDisplayName}</h1>
           </div>
+          <div className="padding-top">
+            <div className="pure-u-md-2-12" >
+              <label className="form-label" htmlFor="name">Establishment</label>
+              <div className="bold">todo - API work</div>
+            </div>
+            <div className="pure-u-md-2-12" >
+              <label className="form-label" htmlFor="name">Schedule type</label>
+              <div className="bold">todo - API work</div>
+            </div>
+            <div className="pure-u-md-2-12" >
+              <label className="form-label" htmlFor="name">Capacity</label>
+              <div className="bold">todo - API work</div>
+            </div>
+            <div className="pure-u-md-4-12" >
+              <label className="form-label" htmlFor="name">Status</label>
+              <div className="unavailableStatus">Unavailable - no prisoner contact</div>
+            </div>
+
+            <div className="pure-u-md-2-12" >
+              <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
+            </div>
+          </div>
+          <hr/>
           {renderContent}
         </div>
       </div>
@@ -88,7 +111,8 @@ KeyworkerProfile.propTypes = {
   keyworkerList: PropTypes.array,
   keyworkerChangeList: PropTypes.array,
   handleAllocationChange: PropTypes.func.isRequired,
-  handleKeyworkerChange: PropTypes.func.isRequired
+  handleKeyworkerChange: PropTypes.func.isRequired,
+  handleEditProfileClick: PropTypes.func.isRequired
 };
 
 

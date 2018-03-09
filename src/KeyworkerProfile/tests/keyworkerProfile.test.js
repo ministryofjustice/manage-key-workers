@@ -70,7 +70,7 @@ const allocatedOffenders = [{
 
 describe('Keyworker Profile component', () => {
   it('should render component correctly', async () => {
-    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()}/>);
+    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
     expect(component.text()).toContain('Profile for Frank Butcher');
     expect(component.find('tr').length).toEqual(4); // includes header tr
     expect(component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Bennett, Lucinda');
@@ -81,17 +81,26 @@ describe('Keyworker Profile component', () => {
   });
 
   it('should remove keyworker from select if currently allocated', async () => {
-    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={() => {}} handleAllocationChange={() => {}} />);
+    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={() => {}} handleAllocationChange={() => {}} handleEditProfileClick={jest.fn()}/>);
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(1);
   });
 
   it('should handle click correctly', async () => {
     let postKeyworkerChange = jest.fn();
 
-    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={postKeyworkerChange}/>);
+    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={postKeyworkerChange} handleEditProfileClick={jest.fn()}/>);
 
-    component.find('button').simulate('click');
+    component.find('#updateAllocationButton').simulate('click');
     expect(postKeyworkerChange.mock.calls.length).toEqual(1);
+  });
+
+  it('should handle edit profile click correctly', async () => {
+    let handleButtonClick = jest.fn();
+
+    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={handleButtonClick}/>);
+
+    component.find('#editProfileButton').simulate('click');
+    expect(handleButtonClick.mock.calls.length).toEqual(1);
   });
 });
 
