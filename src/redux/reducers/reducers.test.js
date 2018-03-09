@@ -29,9 +29,9 @@ const unallocatedInitialState = {
 };
 
 const offenderSearchInitialState = {
-  searchText: null,
-  housingLocation: null,
-  allocationStatus: null
+  searchText: '',
+  housingLocation: '',
+  allocationStatus: ''
 };
 
 const keyworkerSearchInitialState = {
@@ -298,9 +298,9 @@ describe('offender search reducer', () => {
   it('should return the initial state', () => {
     expect(offenderSearch(undefined, {})).toEqual(
       {
-        searchText: null,
-        allocationStatus: null,
-        housingLocation: null
+        searchText: '',
+        allocationStatus: '',
+        housingLocation: ''
       }
     );
   });
@@ -311,8 +311,8 @@ describe('offender search reducer', () => {
     })).toEqual(
       {
         searchText: 'birdman of Alcatraz',
-        allocationStatus: null,
-        housingLocation: null
+        allocationStatus: '',
+        housingLocation: ''
       }
     );
   });
@@ -323,9 +323,9 @@ describe('offender search reducer', () => {
       allocationStatus: 'N'
     })).toEqual(
       {
-        searchText: null,
+        searchText: '',
         allocationStatus: 'N',
-        housingLocation: null
+        housingLocation: ''
       }
     );
   });
@@ -336,9 +336,37 @@ describe('offender search reducer', () => {
       housingLocation: 'Block C'
     })).toEqual(
       {
-        searchText: null,
-        allocationStatus: null,
+        searchText: '',
+        allocationStatus: '',
         housingLocation: 'Block C'
+      }
+    );
+  });
+
+  it('should handle SET_OFFENDER_SEARCH_LOCATIONS', () => {
+    expect(offenderSearch(offenderSearchInitialState, {
+      type: types.SET_OFFENDER_SEARCH_LOCATIONS,
+      locations: ['The Sistine Chapel']
+    })).toEqual(
+      {
+        searchText: '',
+        allocationStatus: '',
+        housingLocation: '',
+        locations: ['The Sistine Chapel']
+      }
+    );
+  });
+
+  it('should handle SET_OFFENDER_SEARCH_RESULTS', () => {
+    expect(offenderSearch(offenderSearchInitialState, {
+      type: types.SET_OFFENDER_SEARCH_RESULTS,
+      offenderResults: [{ lastName: "Bloggs" }]
+    })).toEqual(
+      {
+        searchText: '',
+        allocationStatus: '',
+        housingLocation: '',
+        offenderResults: [{ lastName: "Bloggs" }]
       }
     );
   });

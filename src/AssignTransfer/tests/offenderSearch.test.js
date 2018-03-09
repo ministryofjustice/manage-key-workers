@@ -8,10 +8,10 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Offender search component', () => {
   it('should render offender search form correctly', async () => {
-    const component = shallow(<OffenderSearch gotoNext={() => {}}/>);
-    console.log(component.debug());
+    const component = shallow(<OffenderSearch handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}}
+      history ={{}} />);
+    //console.log(component.debug());
     expect(component.find('#search-text').length).toBe(1);
     expect(component.find('#housing-location-select').length).toBe(1);
-    expect(component.find('#allocation-status-select').length).toBe(1);
   });
 });

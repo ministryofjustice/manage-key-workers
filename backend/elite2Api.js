@@ -10,10 +10,16 @@ const keyworkerAllocations = (req) => gateway.getRequest({
   url: `${eliteApiUrl}api/key-worker/${req.query.staffId}/offenders`
 });
 
+const userLocations = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `${eliteApiUrl}api/users/me/locations`
+});
+
 const searchOffenders = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: req.query.keywords ? `api/locations/description/${req.query.locationPrefix}/inmates?keywords=${req.query.keywords}` : `api/locations/description/${req.query.locationPrefix}/inmates`,
+  url: req.query.keywords ? `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates?keywords=${req.query.keywords}` : `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`,
   headers: { 'Page-Limit': 1000 }
   // NB response.headers['total-records']
 });
@@ -61,7 +67,7 @@ const allocate = (req) => gateway.postRequest({
 
 const service = {
   // todo move keyworkerAllocation to keyworkerApi when endpoint moved in API service
-  login, currentUser, userCaseLoads, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList, keyworkerAllocations, allocate
+  login, currentUser, userCaseLoads, userLocations, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList, keyworkerAllocations, allocate
 };
 
 
