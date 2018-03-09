@@ -93,7 +93,7 @@ class KeyworkerProfile extends Component {
             </div>
 
             <div className="pure-u-md-2-12" >
-              <button id="editProfileButton" className="button" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
+              <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
             </div>
           </div>
           <hr/>

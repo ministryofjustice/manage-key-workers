@@ -11,7 +11,7 @@ select {
 .inactiveStatus {
   border: 3px solid lightgrey;
   color: orange;
-  padding: .3em 1em .3em 1em;
+  padding: .3em 1em .2em 1em;
   text-align: center;
   display: inline-block;
 }
@@ -19,7 +19,7 @@ select {
 .unavailableStatus {
   border: 3px solid orange;
   color: orange;
-  padding: .3em 1em .3em 1em;
+  padding: .3em 1em .2em 1em;
   text-align: center;
   display: inline-block;
 }
@@ -27,7 +27,7 @@ select {
 .activeStatus {
   border: 3px solid green;
   color: green;
-  padding: .3em 1em .3em 1em;
+  padding: .3em 1em .2em 1em;
   text-align: center;
   display: inline-block;
 }

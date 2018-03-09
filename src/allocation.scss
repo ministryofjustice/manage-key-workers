@@ -91,6 +91,10 @@ table tr:nth-child(even){
     font-weight: bold;
 }
 
+.blueButton {
+    background-color: $govuk-blue;
+}
+
 a.link{
 
     color: $link-colour !important;
