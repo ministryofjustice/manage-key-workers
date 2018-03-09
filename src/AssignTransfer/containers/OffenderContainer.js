@@ -33,15 +33,12 @@ class OffenderContainer extends Component {
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-
     // todo create offender components
     return (<div>
+      <Error {...this.props} />
       <div className="pure-g">
         <div className="pure-u-md-8-12 padding-top">
-          <h1 className="heading-large">Offender Placeholder Page for offenderId {this.props.match.params.offenderId}</h1>
+          <h1 className="heading-large">Offender Placeholder Page for offenderId={this.props.match.params.offenderId}</h1>
         </div>
       </div>
     </div>);

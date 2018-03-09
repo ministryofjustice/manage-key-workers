@@ -101,6 +101,20 @@ export const setOffenderSearchHousingLocation = (housingLocation) => {
   };
 };
 
+export const setOffenderSearchLocations = (locations) => {
+  return {
+    type: ActionTypes.SET_OFFENDER_SEARCH_LOCATIONS,
+    locations
+  };
+};
+
+export const setOffenderSearchResults = (offenderResults) => {
+  return {
+    type: ActionTypes.SET_OFFENDER_SEARCH_RESULTS,
+    offenderResults
+  };
+};
+
 export const setKeyworkerSearchText = (searchText) => {
   return {
     type: ActionTypes.SET_KEY_WORKER_SEARCH_TEXT,

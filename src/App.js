@@ -6,9 +6,8 @@ import KeyworkerProfileEditContainer from './KeyworkerProfile/containers/Keywork
 import KeyworkerSearchContainer from './KeyworkerProfile/containers/KeyworkerSearchContainer';
 import KeyworkerSearchResultsContainer from './KeyworkerProfile/containers/KeyworkerSearchResultsContainer';
 import KeyworkerReports from './KeyworkerReports/index';
-import AssignTransferContainer from './AssignTransfer/container';
+import AssignTransferContainer from './AssignTransfer/AssignTransferContainer';
 import { AutoAllocateContainer } from './AutoAllocation/container';
-import OffenderResultsContainer from './AssignTransfer/containers/OffenderResultsContainer';
 import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
@@ -22,6 +21,8 @@ import PropTypes from 'prop-types';
 import { switchAgency, setTermsVisibility, setError, setLoginDetails, setMessage } from './redux/actions';
 import { connect } from 'react-redux';
 
+const axios = require('axios');
+
 class App extends React.Component {
   constructor () {
     super();
@@ -32,6 +33,12 @@ class App extends React.Component {
     this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
     this.clearMessage = this.clearMessage.bind(this);
     this.displayError = this.displayError.bind(this);
+  }
+  componentDidMount () {
+    axios.interceptors.request.use((config) => {
+      this.props.setErrorDispatch(null);
+      return config;
+    }, (error) => Promise.reject(error));
   }
 
   async onLogin (jwt, currentUser, history) {
@@ -88,13 +95,14 @@ class App extends React.Component {
               <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
               <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-              <Route exact path="/assignTransfer" render={() => <AssignTransferContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/assignTransfer" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/unallocated" render={() => <AutoAllocateContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
               <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/offender/results" render={() => <OffenderResultsContainer displayError={this.displayError} {...this.props} />}/>
+              <Route exact path="/offender/results" render={() => <AssignTransferContainer displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/offender/:offenderId/profile" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
             </div>
           </div>}

@@ -136,6 +136,22 @@ describe('actions', () => {
     expect(actions.setOffenderSearchAllocationStatus('A')).toEqual(expectedAction);
   });
 
+  it('should create an action to set offender search locations', () => {
+    const expectedAction = {
+      type: types.SET_OFFENDER_SEARCH_LOCATIONS,
+      locations: ['loc1', 'loc2']
+    };
+    expect(actions.setOffenderSearchLocations(['loc1', 'loc2'])).toEqual(expectedAction);
+  });
+
+  it('should create an action to save offender search results', () => {
+    const expectedAction = {
+      type: types.SET_OFFENDER_SEARCH_RESULTS,
+      offenderResults: [{ data: "data1" }, { data: "data2" }]
+    };
+    expect(actions.setOffenderSearchResults([{ data: "data1" }, { data: "data2" }])).toEqual(expectedAction);
+  });
+
   it('should create an action to save key worker search criteria - text', () => {
     const expectedAction = {
       type: types.SET_KEY_WORKER_SEARCH_TEXT,

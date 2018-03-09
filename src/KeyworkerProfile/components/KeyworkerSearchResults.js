@@ -50,7 +50,7 @@ class KeyworkerSearchResults extends Component {
         <div className="pure-g">
           <div className="pure-u-md-8-12">
             <h1 className="heading-large">Search for a key worker</h1>
-            <KeyworkerSearch gotoNext="/keyworker/results" {...this.props} />
+            <KeyworkerSearch {...this.props} />
           </div>
           {renderContent}
         </div>
