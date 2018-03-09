@@ -13,6 +13,7 @@ class KeyworkerProfileContainer extends Component {
     super();
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.postAllocationChange = this.postAllocationChange.bind(this);
+    this.handleEditProfileClick = this.handleEditProfileClick.bind(this);
   }
 
   async componentWillMount () {
@@ -79,6 +80,10 @@ class KeyworkerProfileContainer extends Component {
     return response.data;
   }
 
+  handleEditProfileClick (history) {
+    history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
+  }
+
   async postAllocationChange (history) {
     try {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
@@ -100,7 +105,7 @@ class KeyworkerProfileContainer extends Component {
       return <Error {...this.props} />;
     }
 
-    return <KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange} handleAllocationChange={this.postAllocationChange}{...this.props} />;
+    return <KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange} handleAllocationChange={this.postAllocationChange} handleEditProfileClick={this.handleEditProfileClick} {...this.props} />;
   }
 }
 
@@ -115,6 +120,7 @@ KeyworkerProfileContainer.propTypes = {
   displayError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   keyworkerChangeList: PropTypes.array,
+  keyworker: PropTypes.object,
   keyworkerChangeListDispatch: PropTypes.func,
   availableKeyworkerListDispatch: PropTypes.func
 };

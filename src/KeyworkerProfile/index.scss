@@ -7,3 +7,31 @@
 select {
   background-color: white;
 }
+
+.inactiveStatus {
+  border: 3px solid lightgrey;
+  color: orange;
+  padding: .3em 1em .3em 1em;
+  text-align: center;
+  display: inline-block;
+}
+
+.unavailableStatus {
+  border: 3px solid orange;
+  color: orange;
+  padding: .3em 1em .3em 1em;
+  text-align: center;
+  display: inline-block;
+}
+
+.activeStatus {
+  border: 3px solid green;
+  color: green;
+  padding: .3em 1em .3em 1em;
+  text-align: center;
+  display: inline-block;
+}
+
+#editProfileButton {
+  margin-top: 1.4em;
+}
