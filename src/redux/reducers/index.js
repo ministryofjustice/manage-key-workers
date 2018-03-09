@@ -25,9 +25,9 @@ const appInitialState = {
 };
 
 const offenderSearchInitialState = {
-  searchText: null,
-  housingLocation: null,
-  allocationStatus: null
+  searchText: '',
+  housingLocation: '',
+  allocationStatus: ''
 };
 
 const keyworkerSearchInitialState = {
@@ -119,6 +119,14 @@ export function offenderSearch (state = offenderSearchInitialState, action) {
     case ActionTypes.SET_OFFENDER_SEARCH_HOUSING_LOCATION:
       return { ...state,
         housingLocation: action.housingLocation
+      };
+    case ActionTypes.SET_OFFENDER_SEARCH_LOCATIONS:
+      return { ...state,
+        locations: action.locations
+      };
+    case ActionTypes.SET_OFFENDER_SEARCH_RESULTS:
+      return { ...state,
+        offenderResults: action.offenderResults
       };
     default:
       return state;

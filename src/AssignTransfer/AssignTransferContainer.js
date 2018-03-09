@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import axiosWrapper from '../backendWrapper';
 import { setCurrentPage, setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
 import { connect } from 'react-redux';
-import AssignTransfer from "./index";
+import OffenderSearchContainer from './containers/OffenderSearchContainer';
+import OffenderResultsContainer from './containers/OffenderResultsContainer';
+import Error from '../Error';
 
 class AssignTransferContainer extends Component {
-  constructor () {
-    super();
-    this.displayError = this.displayError.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-  }
-
   handleSearchTextChange (event) {
     this.props.offenderSearchTextDispatch(event.target.value);
   }
@@ -24,37 +19,38 @@ class AssignTransferContainer extends Component {
     this.props.offenderSearchHousingLocationDispatch(event.target.value);
   }
 
-  handleSearch (history) {
-    history.push('/offender/results');
-  }
-
-  displayError (error) {
-    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
-  }
-
   render () {
-    if (this.props.error) {
-      return (<div className="error-summary">
-        <div className="error-message">
-          <div> {this.props.error.message || this.props.error} </div>
+    if (this.props.initialSearch) {
+      return (<div>
+        <Error {...this.props} />
+        <div className="pure-g">
+          <div className="pure-u-md-8-12">
+            <h1 className="heading-large">Search for an offender</h1>
+            <OffenderSearchContainer
+              handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+              handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
+              handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props} />
+          </div>
         </div>
       </div>);
+    } else {
+      return (<div>
+        <Error {...this.props} />
+        <OffenderResultsContainer
+          handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+          handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
+          handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props}/>
+      </div>);
     }
-    return (<AssignTransfer handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
-      handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
-      handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)}
-      gotoNext={(history) => this.handleSearch(history)}
-      {...this.props}/>);
   }
 }
 
 AssignTransferContainer.propTypes = {
   error: PropTypes.string,
-  page: PropTypes.number.isRequired,
   searchText: PropTypes.string,
   allocationStatus: PropTypes.string,
   housingLocation: PropTypes.string,
-  setCurrentPageDispatch: PropTypes.func.isRequired,
+  initialSearch: PropTypes.bool,
   setErrorDispatch: PropTypes.func.isRequired,
   offenderSearchTextDispatch: PropTypes.func,
   offenderSearchAllocationStatusDispatch: PropTypes.func,
@@ -84,4 +80,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+export { AssignTransferContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(AssignTransferContainer);

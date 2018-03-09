@@ -25,6 +25,12 @@ const autoallocated = (req) => gateway.getRequest({
   headers: { 'Page-Limit': 200 }
 });
 
+const userLocations = (req) => gateway.getRequest({
+  req: req,
+  method: 'get',
+  url: `api/users/me/locations`
+});
+
 const searchOffenders = (req) => gateway.getRequest({
   req: req,
   method: 'get',
@@ -104,7 +110,7 @@ const keyworkerAllocations = (req) => gateway.getRequest({
 });
 
 const service = {
-  login, unallocated, allocated, searchOffenders, availableKeyworkers, currentUser, userCaseLoads,
+  login, unallocated, allocated, userLocations, searchOffenders, availableKeyworkers, currentUser, userCaseLoads,
   setActiveCaseLoad, sentenceDetailList, csraList, keyworker,
   allocate, autoallocated, autoAllocate, keyworkerAllocations
 };

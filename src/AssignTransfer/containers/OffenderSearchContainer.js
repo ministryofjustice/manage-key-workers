@@ -1,32 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Error from '../../Error';
 import OffenderSearch from "../components/OffenderSearch";
+import axiosWrapper from "../../backendWrapper";
+import { setOffenderSearchLocations } from "../../redux/actions";
 
 class OffenderSearchContainer extends Component {
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
+  componentWillMount () {
+    this.getLocations();
+  }
+
+  async getLocations () {
+    try {
+      const response = await axiosWrapper.get('/userLocations', {
+        headers: {
+          jwt: this.props.jwt
+        }
+      });
+      this.props.offenderSearchLocationsDispatch(response.data);
+    } catch (error) {
+      this.props.displayError(error);
     }
+  }
+
+  render () {
     return <OffenderSearch {...this.props} />;
   }
 }
 
 OffenderSearchContainer.propTypes = {
   error: PropTypes.string,
-  match: PropTypes.object,
-  //displayError: PropTypes.func.isRequired,
+  displayError: PropTypes.func,
+  locations: PropTypes.array,
+  offenderSearchLocationsDispatch: PropTypes.func,
   jwt: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    locations: state.offenderSearch.locations
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList))
   };
 };
 
