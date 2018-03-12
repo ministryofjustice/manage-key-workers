@@ -25,7 +25,7 @@ class KeyworkerSearchResults extends Component {
     if (this.props.keyworkerList.length > 0) {
       renderContent = (<div>
         <div className="lede padding-top-large padding-bottom">{this.props.keyworkerList.length} Results:</div>
-        <div className="pure-u-md-8-12">
+        <div className="pure-u-md-6-12">
           <table>
             <thead>
               <tr>

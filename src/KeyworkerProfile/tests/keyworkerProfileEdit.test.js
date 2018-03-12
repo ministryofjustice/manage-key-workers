@@ -14,15 +14,15 @@ const keyworker = {
 
 describe('Keyworker Profile Edit component', () => {
   it('should render component correctly', async () => {
-    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} />);
-    expect(component.text()).toContain('Profile for Frank Butcher');
+    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
+    expect(component.text()).toContain('Frank Butcher');
   });
 
 
   it('should handle save click correctly', async () => {
     let handleSave = jest.fn();
 
-    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={handleSave} handleCancel={jest.fn()} />);
+    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={handleSave} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
 
     component.find('#saveButton').simulate('click');
     expect(handleSave.mock.calls.length).toEqual(1);
@@ -31,7 +31,7 @@ describe('Keyworker Profile Edit component', () => {
   it('should handle cancel click correctly', async () => {
     let handleCancel = jest.fn();
 
-    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={handleCancel} />);
+    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={handleCancel} />);
 
     component.find('#cancelButton').simulate('click');
     expect(handleCancel.mock.calls.length).toEqual(1);
