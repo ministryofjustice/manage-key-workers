@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import MessageBar from "../../MessageBar/index";
 
 class KeyworkerProfile extends Component {
   render () {
@@ -44,7 +45,7 @@ class KeyworkerProfile extends Component {
     if (this.props.keyworkerAllocations.length > 0) {
       renderContent = (<div>
         <div className="lede padding-top padding-bottom-large">Current key worker allocations {this.props.keyworkerAllocations.length}</div>
-        <div className="pure-u-md-8-12">
+        <div className="pure-u-md-12-12">
           <table>
             <thead>
               <tr>
@@ -69,6 +70,7 @@ class KeyworkerProfile extends Component {
 
     return (
       <div>
+        <MessageBar {...this.props}/>
         <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
             <Link id={`search_again_link`} title="Search again link" className="link" to="/home" >&lt; Back to menu</Link>
@@ -77,15 +79,15 @@ class KeyworkerProfile extends Component {
           <div className="padding-top">
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Establishment</label>
-              <div className="bold">todo - API work</div>
+              <div className="bold padding-top-small">todo - API work</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Schedule type</label>
-              <div className="bold">todo - API work</div>
+              <div className="bold padding-top-small">todo - API work</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Capacity</label>
-              <div className="bold">todo - API work</div>
+              <div className="bold padding-top-small">todo - API work</div>
             </div>
             <div className="pure-u-md-4-12" >
               <label className="form-label" htmlFor="name">Status</label>
@@ -112,7 +114,8 @@ KeyworkerProfile.propTypes = {
   keyworkerChangeList: PropTypes.array,
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
-  handleEditProfileClick: PropTypes.func.isRequired
+  handleEditProfileClick: PropTypes.func.isRequired,
+  message: PropTypes.string
 };
 
 

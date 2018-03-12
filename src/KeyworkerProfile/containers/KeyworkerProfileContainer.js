@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList } from '../../redux/actions/index';
+import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setMessage } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
@@ -140,7 +140,8 @@ const mapDispatchToProps = dispatch => {
     keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
     keyworkerDispatch: id => dispatch(setKeyworker(id)),
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-    availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list))
+    availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
+    setMessageDispatch: (message) => dispatch(setMessage(message))
   };
 };
 
