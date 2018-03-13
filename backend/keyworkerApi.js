@@ -38,17 +38,16 @@ const keyworker = (req) => gateway.getRequest({
   url: `${keyworkerApiUrl}key-worker/${req.query.staffId}`
 });
 
-
-/* const keyworkerSearchresults = (req) => gateway.getRequest({
+const keyworkerSearch = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: `api/key-worker/${req.query.agencyId}/search`
-}); */
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members`
+});
 
 const allocate = (req) => gateway.postRequest({
   req: req,
   method: 'post',
-  url: `${keyworkerApiUrl}key-worker/allocate`
+  url: `${keyworkerApiUrl}key-worker/`
 });
 
 const autoAllocate = (req) => gateway.postRequest({
@@ -64,7 +63,7 @@ const keyworkerAllocations = (req) => gateway.getRequest({
 });
 
 const service = {
-  unallocated, allocated, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations
+  unallocated, allocated, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations, keyworkerSearch
 };
 
 function formatDate (inputDate) {

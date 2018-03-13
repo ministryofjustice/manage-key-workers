@@ -1,47 +1,13 @@
 const express = require('express');
 const router = express.Router();
-// const keyworkerApi = require('../keyworkerApi');
+const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
+const log = require('../log');
 
 router.get('/', asyncMiddleware(async (req, res) => {
-  // const response = await elite2Api.keyworkerSearch(req);
-  res.json(createTestDataResponse(req.query.searchText).data);
+  const response = await keyworkerApi.keyworkerSearch(req);
+  log.debug({ keyworkerSearch: response.data }, 'Response from available keyworker request');
+  res.json(response.data);
 }));
-
-function createTestDataResponse (type) {
-  if (type === 'noresults') {
-    return {
-      data: []
-    };
-  }
-  return {
-    data: [
-      {
-        staffId: 15583,
-        firstName: 'Brent',
-        lastName: 'Daggart',
-        numberAllocated: 3,
-        status: "active",
-        currentRole: "Key worker2"
-      },
-      {
-        staffId: 15585,
-        firstName: 'Amy',
-        lastName: 'Hanson',
-        numberAllocated: 4,
-        status: "active",
-        currentRole: "Key worker"
-      },
-      {
-        staffId: 15584,
-        firstName: 'Florence',
-        lastName: 'Welch',
-        numberAllocated: 1,
-        status: "active",
-        currentRole: "Key worker3"
-      }
-    ]
-  };
-}
 
 module.exports = router;
