@@ -21,7 +21,7 @@ class OffenderContainer extends Component {
   }
 
   async getOffenderDetails (offenderId) {
-    const response = await axiosWrapper.get('/keyworker', {
+    const response = await axiosWrapper.get('/api/keyworker', {
       headers: {
         jwt: this.props.jwt
       },

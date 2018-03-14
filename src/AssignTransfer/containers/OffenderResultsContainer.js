@@ -21,7 +21,7 @@ class OffenderResultsContainer extends Component {
 
   async doSearch () {
     try {
-      const response = await axiosWrapper.get('/searchOffenders', {
+      const response = await axiosWrapper.get('/api/searchOffenders', {
         headers: {
           jwt: this.props.jwt
         },
@@ -58,7 +58,7 @@ class OffenderResultsContainer extends Component {
     try {
       // TODO !
       if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
-        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
           headers: {
             jwt: this.props.jwt
           },

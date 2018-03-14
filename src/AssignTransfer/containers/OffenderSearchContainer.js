@@ -12,7 +12,7 @@ class OffenderSearchContainer extends Component {
 
   async getLocations () {
     try {
-      const response = await axiosWrapper.get('/userLocations', {
+      const response = await axiosWrapper.get('api/userLocations', {
         headers: {
           jwt: this.props.jwt
         }

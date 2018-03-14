@@ -65,7 +65,7 @@ class KeyworkerProfile extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`search_again_link`} title="Search again link" className="link" to="/home" >&lt; Back to menu</Link>
+            <Link id={`search_again_link`} title="Search again link" className="link" to="/" >&lt; Back to menu</Link>
             <h1 className="heading-large">Profile for {keyworkerDisplayName}</h1>
           </div>
           <div className="padding-top">

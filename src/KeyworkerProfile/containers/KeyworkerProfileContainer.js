@@ -39,7 +39,7 @@ class KeyworkerProfileContainer extends Component {
 
 
   async makeKeyworkerAllocationsCall (agencyId, staffId) {
-    const response = await axiosWrapper.get('/keyworkerAllocations', {
+    const response = await axiosWrapper.get('/api/keyworkerAllocations', {
       headers: {
         jwt: this.props.jwt
       },
@@ -66,7 +66,7 @@ class KeyworkerProfileContainer extends Component {
   }
 
   async makeKeyworkerProfileCall (staffId) {
-    const response = await axiosWrapper.get('/keyworker', {
+    const response = await axiosWrapper.get('/api/keyworker', {
       headers: {
         jwt: this.props.jwt
       },
@@ -85,7 +85,7 @@ class KeyworkerProfileContainer extends Component {
   async postAllocationChange (history) {
     try {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, {
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, {
           headers: {
             jwt: this.props.jwt
           },
@@ -95,7 +95,7 @@ class KeyworkerProfileContainer extends Component {
         });
         this.props.setMessageDispatch('Offender allocation updated.');
       }
-      history.push('/home');
+      history.push('/');
     } catch (error) {
       this.props.displayError(error);
     }

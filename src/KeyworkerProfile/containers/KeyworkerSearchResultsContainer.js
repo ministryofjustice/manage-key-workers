@@ -31,7 +31,7 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   async getKeyworkerList (agencyId) {
-    const response = await axiosWrapper.get('/keyworkerSearch', {
+    const response = await axiosWrapper.get('api/keyworkerSearch', {
       headers: {
         jwt: this.props.jwt
       },
