@@ -19,8 +19,6 @@ const appInitialState = {
   shouldShowTerms: false,
   error: null,
   message: null,
-  username: '',
-  password: '',
   page: 0
 };
 
@@ -41,14 +39,9 @@ const keyworkerSearchInitialState = {
 
 export function app (state = appInitialState, action) {
   switch (action.type) {
-    case ActionTypes.SET_LOGIN_DETAILS:
+    case ActionTypes.SET_USER_DETAILS:
       return updateObject(state, {
-        jwt: action.jwt,
         user: action.user
-      });
-    case ActionTypes.SET_LOGIN_INPUT_CHANGE:
-      return updateObject(state, {
-        [action.fieldName]: action.value
       });
     case ActionTypes.SWITCH_AGENCY:
       return { ...state, user: { ...state.user, activeCaseLoadId: action.activeCaseLoadId } };

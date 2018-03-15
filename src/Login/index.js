@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axiosWrapper from '../backendWrapper';
 import PropTypes from 'prop-types';
-import { setLoginDetails, setLoginInputChange, setError } from '../redux/actions/index';
+import { setUserDetails, setError } from '../redux/actions/index';
 import { connect } from 'react-redux';
 
 class Login extends Component {
@@ -87,10 +87,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loginDetailsDispatch: (jwt, user) => {
-      dispatch(setLoginDetails(jwt, user));
+      dispatch(setUserDetails(jwt, user));
     },
     loginInputChangeDispatch: (fieldName, value) => {
-      dispatch(setLoginInputChange(fieldName, value));
+      // dispatch(setLoginInputChange(fieldName, value));
     },
     setErrorDispatch: (error) => {
       dispatch(setError(error));

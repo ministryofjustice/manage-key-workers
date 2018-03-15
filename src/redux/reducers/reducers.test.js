@@ -67,11 +67,10 @@ describe('app (global) reducer', () => {
     );
   });
 
-  it('should handle SET_LOGIN_DETAILS', () => {
+  it('should handle SET_USER_DETAILS', () => {
     expect(
       app(appInitialState, {
-        type: types.SET_LOGIN_DETAILS,
-        jwt: 'hithere',
+        type: types.SET_USER_DETAILS,
         user: { field: 'value' }
       })
     ).toEqual(
@@ -79,25 +78,7 @@ describe('app (global) reducer', () => {
         page: 0,
         error: null,
         message: null,
-        jwt: 'hithere',
         user: { field: 'value' }
-      }
-    );
-  });
-
-  it('should handle SET_LOGIN_INPUT_CHANGE', () => {
-    expect(
-      app(appInitialState, {
-        type: types.SET_LOGIN_INPUT_CHANGE,
-        fieldName: 'username',
-        value: 'myuser'
-      })
-    ).toEqual(
-      {
-        page: 0,
-        error: null,
-        message: null,
-        username: 'myuser'
       }
     );
   });

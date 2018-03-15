@@ -1,18 +1,9 @@
 import * as ActionTypes from './actionTypes';
 
-export const setLoginDetails = (jwt, user) => {
+export const setUserDetails = (user) => {
   return {
-    type: ActionTypes.SET_LOGIN_DETAILS,
-    jwt,
+    type: ActionTypes.SET_USER_DETAILS,
     user
-  };
-};
-
-export const setLoginInputChange = (fieldName, value) => {
-  return {
-    type: ActionTypes.SET_LOGIN_INPUT_CHANGE,
-    fieldName,
-    value
   };
 };
 

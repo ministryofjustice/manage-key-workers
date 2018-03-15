@@ -44,9 +44,6 @@ class AutoAllocate extends Component {
 
   async getUnallocated (agencyId) {
     const response = await axiosWrapper.get('/api/unallocated', {
-      headers: {
-        jwt: this.props.jwt
-      },
       params: {
         agencyId: agencyId
       }
@@ -56,9 +53,6 @@ class AutoAllocate extends Component {
 
   async getAllocated () {
     const response = await axiosWrapper.get('/api/allocated', {
-      headers: {
-        jwt: this.props.jwt
-      },
       params: {
         agencyId: this.props.agencyId,
         allocationType: 'A',
@@ -93,9 +87,6 @@ class AutoAllocate extends Component {
     try {
       if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
         await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-          headers: {
-            jwt: this.props.jwt
-          },
           params: {
             agencyId: this.props.agencyId
           }
@@ -145,7 +136,6 @@ AutoAllocate.propTypes = {
   unallocatedList: PropTypes.array,
   allocatedList: PropTypes.array,
   allocatedKeyworkers: PropTypes.array,
-  jwt: PropTypes.string.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   agencyId: PropTypes.string.isRequired,
   fromDate: PropTypes.string,

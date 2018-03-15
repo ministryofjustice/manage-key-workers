@@ -22,9 +22,6 @@ class OffenderResultsContainer extends Component {
   async doSearch () {
     try {
       const response = await axiosWrapper.get('/api/searchOffenders', {
-        headers: {
-          jwt: this.props.jwt
-        },
         params: {
           locationPrefix: this.props.housingLocation,
           keywords: this.props.searchText,
@@ -58,14 +55,7 @@ class OffenderResultsContainer extends Component {
     try {
       // TODO !
       if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
-        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-          headers: {
-            jwt: this.props.jwt
-          },
-          params: {
-            agencyId: this.props.agencyId
-          }
-        });
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Key workers successfully updated.');
       }
       this.props.onFinishAllocation(history);
@@ -94,8 +84,7 @@ OffenderResultsContainer.propTypes = {
   allocatedKeyworkers: PropTypes.array,
   displayError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  onFinishAllocation: PropTypes.func,
-  jwt: PropTypes.string.isRequired
+  onFinishAllocation: PropTypes.func
 };
 
 const mapStateToProps = state => {

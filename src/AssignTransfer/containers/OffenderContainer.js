@@ -22,9 +22,6 @@ class OffenderContainer extends Component {
 
   async getOffenderDetails (offenderId) {
     const response = await axiosWrapper.get('/api/keyworker', {
-      headers: {
-        jwt: this.props.jwt
-      },
       params: {
         offenderId: offenderId
       }
@@ -48,8 +45,7 @@ class OffenderContainer extends Component {
 OffenderContainer.propTypes = {
   error: PropTypes.string,
   match: PropTypes.object.isRequired,
-  displayError: PropTypes.func.isRequired,
-  jwt: PropTypes.string.isRequired
+  displayError: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {

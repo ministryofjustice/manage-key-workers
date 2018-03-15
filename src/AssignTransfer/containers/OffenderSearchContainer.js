@@ -12,11 +12,7 @@ class OffenderSearchContainer extends Component {
 
   async getLocations () {
     try {
-      const response = await axiosWrapper.get('api/userLocations', {
-        headers: {
-          jwt: this.props.jwt
-        }
-      });
+      const response = await axiosWrapper.get('/api/userLocations');
       this.props.offenderSearchLocationsDispatch(response.data);
     } catch (error) {
       this.props.displayError(error);
@@ -32,8 +28,7 @@ OffenderSearchContainer.propTypes = {
   error: PropTypes.string,
   displayError: PropTypes.func,
   locations: PropTypes.array,
-  offenderSearchLocationsDispatch: PropTypes.func,
-  jwt: PropTypes.string.isRequired
+  offenderSearchLocationsDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {

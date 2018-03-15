@@ -1,5 +1,4 @@
 import React from 'react';
-import { LoginContainer } from './Login/index';
 import HomePage from './KeyworkerManagement/index';
 import KeyworkerProfileContainer from './KeyworkerProfile/containers/KeyworkerProfileContainer';
 import KeyworkerProfileEditContainer from './KeyworkerProfile/containers/KeyworkerProfileEditContainer';
@@ -18,7 +17,7 @@ import {
 } from 'react-router-dom';
 import axiosWrapper from "./backendWrapper";
 import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, setLoginDetails, setMessage } from './redux/actions';
+import { switchAgency, setTermsVisibility, setError, setUserDetails, setMessage } from './redux/actions';
 import { connect } from 'react-redux';
 
 const axios = require('axios');
@@ -26,7 +25,6 @@ const axios = require('axios');
 class App extends React.Component {
   constructor () {
     super();
-    this.onLogin = this.onLogin.bind(this);
     this.onFinishAllocation = this.onFinishAllocation.bind(this);
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
@@ -34,35 +32,25 @@ class App extends React.Component {
     this.clearMessage = this.clearMessage.bind(this);
     this.displayError = this.displayError.bind(this);
   }
-  componentDidMount () {
+  async componentDidMount () {
     axios.interceptors.request.use((config) => {
       this.props.setErrorDispatch(null);
       return config;
     }, (error) => Promise.reject(error));
-  }
 
-  async onLogin (jwt, currentUser, history) {
-    const caseloads = await axiosWrapper.get('/usercaseloads', {
-      headers: { jwt }
-    });
-    currentUser.data.caseLoadOptions = caseloads.data;
-    this.props.loginDetailsDispatch(jwt, currentUser.data);
-    history.push('/home');
+    const user = await axiosWrapper.get('/api/me');
+    const caseloads = await axiosWrapper.get('/api/usercaseloads');
+
+    this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
   }
 
   onFinishAllocation (history) {
-    history.push('/home');
+    history.push('/');
   }
 
   async switchCaseLoad (newCaseload) {
     try {
-      await axiosWrapper.put('/setactivecaseload',
-        { caseLoadId: newCaseload },
-        {
-          headers: {
-            jwt: this.props.jwt
-          }
-        });
+      await axiosWrapper.put('/api/setactivecaseload', { caseLoadId: newCaseload });
       this.props.switchAgencyDispatch(newCaseload);
     } catch (error) {
       this.props.setErrorDispatch(error.message);
@@ -92,8 +80,7 @@ class App extends React.Component {
           <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
           {!this.props.shouldShowTerms && <div className="inner-content">
             <div className="pure-g">
-              <Route exact path="/" render={(props) => <LoginContainer onLogin={this.onLogin} {...props} />}/>
-              <Route exact path="/home" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
+              <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
               <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
               <Route exact path="/assignTransfer" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
               <Route exact path="/unallocated" render={() => <AutoAllocateContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
@@ -115,10 +102,9 @@ class App extends React.Component {
 App.propTypes = {
   error: PropTypes.string,
   page: PropTypes.number,
-  jwt: PropTypes.string,
   user: PropTypes.object,
   shouldShowTerms: PropTypes.bool,
-  loginDetailsDispatch: PropTypes.func.isRequired,
+  userDetailsDispatch: PropTypes.func.isRequired,
   switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
@@ -130,7 +116,6 @@ const mapStateToProps = state => {
     error: state.app.error,
     message: state.app.message,
     page: state.app.page,
-    jwt: state.app.jwt,
     user: state.app.user,
     shouldShowTerms: state.app.shouldShowTerms
   };
@@ -138,7 +123,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginDetailsDispatch: (jwt, user) => dispatch(setLoginDetails(jwt, user)),
+    userDetailsDispatch: (user) => dispatch(setUserDetails(user)),
     switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
     setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
     setErrorDispatch: (error) => dispatch(setError(error)),
