@@ -97,6 +97,11 @@ const deleteHmppsCookie = (res) => {
 };
 
 const loginMiddleware = (req, res, next) => {
+  if (req.url.includes('logout')) {
+    next();
+    return;
+  }
+
   if (isAuthenticated(req)) {
     res.redirect('/');
     return;
