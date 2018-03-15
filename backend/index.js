@@ -41,7 +41,7 @@ const sessionConfig = {
   secret: config.session.secret,
   sameSite: true,
   expires: new Date(Date.now() + sessionExpiryMinutes),
-  maxAge: sessionExpiryMinutes // 1 hour
+  maxAge: sessionExpiryMinutes
 };
 
 function getAppInfo () {
@@ -73,8 +73,8 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
-app.use(cookieSession(sessionConfig));
 app.use(cookieParser());
+app.use(cookieSession(sessionConfig));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -92,8 +92,8 @@ app.use('/info', (req, res) => {
   res.json(getAppInfo());
 });
 
-app.use(express.static(path.join(__dirname, '../public'), { index: '_' }));
-app.use(express.static(path.join(__dirname, '../build'), { index: '_' }));
+app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
+app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
 
 app.use('/auth', session.loginMiddleware, authentication);
 
