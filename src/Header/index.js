@@ -13,10 +13,10 @@ class Header extends Component {
       <header className="page-header">
         <div className="header-content">
           <div className="left-content">
-            <Link id="header_logo_keyworker_management_link" title="Key worker management link" className="link" to="/home" >
+            <Link id="header_logo_keyworker_management_link" title="Key worker management link" className="link" to="/" >
               <div className="logo header-image" />
             </Link>
-            <Link id="header_logo_text_keyworker_management_link" title="Key worker management link" className="unstyled-link" to="/home" >
+            <Link id="header_logo_text_keyworker_management_link" title="Key worker management link" className="unstyled-link" to="/" >
               <span className="logo-text">HMPPS</span>
               <span className="title">{ProductGlobals.serviceName}</span>
             </Link>

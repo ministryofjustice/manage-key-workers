@@ -5,12 +5,12 @@ const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
 router.get('/', asyncMiddleware(async (req, res) => {
-  const viewModel = await searchOffenders(req);
+  const viewModel = await searchOffenders(req, res);
   res.json(viewModel);
 }));
 
-const searchOffenders = async (req) => {
-  const response = await elite2Api.searchOffenders(req);
+const searchOffenders = async (req, res) => {
+  const response = await elite2Api.searchOffenders(req, res);
 
   log.debug({ searchOffenders: response }, 'Response from searchOffenders request');
 

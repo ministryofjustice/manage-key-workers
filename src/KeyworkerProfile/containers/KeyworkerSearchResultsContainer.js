@@ -31,10 +31,7 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   async getKeyworkerList (agencyId) {
-    const response = await axiosWrapper.get('/keyworkerSearch', {
-      headers: {
-        jwt: this.props.jwt
-      },
+    const response = await axiosWrapper.get('/api/keyworkerSearch', {
       params: {
         agencyId: agencyId,
         searchText: this.props.searchText
@@ -56,7 +53,6 @@ KeyworkerSearchResultsContainer.propTypes = {
   error: PropTypes.string,
   paramStaffId: PropTypes.string,
   searchText: PropTypes.string,
-  jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerSearchResultsDispatch: PropTypes.func,
   keyworkerSearchTextDispatch: PropTypes.func,

@@ -3,23 +3,12 @@ import * as types from './actionTypes';
 
 describe('actions', () => {
   it('should create an action to setup login details', () => {
-    const jwt = 'myjwt';
     const user = { field: 'user' };
     const expectedAction = {
-      type: types.SET_LOGIN_DETAILS,
-      jwt, user
+      type: types.SET_USER_DETAILS,
+      user
     };
-    expect(actions.setLoginDetails(jwt, user)).toEqual(expectedAction);
-  });
-
-  it('should create an action to change login input', () => {
-    const fieldName = 'username';
-    const value = 'me';
-    const expectedAction = {
-      type: types.SET_LOGIN_INPUT_CHANGE,
-      fieldName, value
-    };
-    expect(actions.setLoginInputChange(fieldName, value)).toEqual(expectedAction);
+    expect(actions.setUserDetails(user)).toEqual(expectedAction);
   });
 
   it('should create an action to switch current Agency', () => {

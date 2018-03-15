@@ -17,7 +17,7 @@ router.post('/', asyncMiddleware(async (req, res) => {
         allocationReason: 'MANUAL',
         deallocationReason: 'OVERRIDE'
       };
-      const response = await keyworkerApi.allocate(req);
+      const response = await keyworkerApi.allocate(req, res);
       log.debug({ response }, 'Response from allocate request');
     }
   }

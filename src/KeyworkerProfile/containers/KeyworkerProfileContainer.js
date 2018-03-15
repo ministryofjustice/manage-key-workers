@@ -39,10 +39,7 @@ class KeyworkerProfileContainer extends Component {
 
 
   async makeKeyworkerAllocationsCall (agencyId, staffId) {
-    const response = await axiosWrapper.get('/keyworkerAllocations', {
-      headers: {
-        jwt: this.props.jwt
-      },
+    const response = await axiosWrapper.get('/api/keyworkerAllocations', {
       params: {
         agencyId: agencyId,
         staffId: staffId
@@ -66,10 +63,7 @@ class KeyworkerProfileContainer extends Component {
   }
 
   async makeKeyworkerProfileCall (staffId) {
-    const response = await axiosWrapper.get('/keyworker', {
-      headers: {
-        jwt: this.props.jwt
-      },
+    const response = await axiosWrapper.get('/api/keyworker', {
       params: {
         staffId: staffId,
         agencyId: this.props.agencyId
@@ -85,17 +79,10 @@ class KeyworkerProfileContainer extends Component {
   async postAllocationChange (history) {
     try {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, {
-          headers: {
-            jwt: this.props.jwt
-          },
-          params: {
-            agencyId: this.props.agencyId
-          }
-        });
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Offender allocation updated.');
       }
-      history.push('/home');
+      history.push('/');
     } catch (error) {
       this.props.displayError(error);
     }
@@ -113,7 +100,6 @@ class KeyworkerProfileContainer extends Component {
 KeyworkerProfileContainer.propTypes = {
   error: PropTypes.string,
   path: PropTypes.string,
-  jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerAllocationsDispatch: PropTypes.func,
   keyworkerDispatch: PropTypes.func,

@@ -38,7 +38,6 @@ class KeyworkerProfileEditContainer extends Component {
 
 KeyworkerProfileEditContainer.propTypes = {
   error: PropTypes.string,
-  jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerDispatch: PropTypes.func,
   keyworker: PropTypes.object,

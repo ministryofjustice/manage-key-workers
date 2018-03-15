@@ -2,10 +2,10 @@ const log = require('../log');
 const keyworkerApi = require('../keyworkerApi');
 const logError = require('../logError').logError;
 
-const addMissingKeyworkerDetails = async function (req, row) {
+const addMissingKeyworkerDetails = async function (req, res, row) {
   try {
     req.query.staffId = row.staffId;
-    const keyworkerResponse = await keyworkerApi.keyworker(req);
+    const keyworkerResponse = await keyworkerApi.keyworker(req, res);
     const keyworkerData = keyworkerResponse.data;
     row.keyworkerDisplay = `${keyworkerData.lastName}, ${keyworkerData.firstName}`;
     row.numberAllocated = keyworkerData.numberAllocated;

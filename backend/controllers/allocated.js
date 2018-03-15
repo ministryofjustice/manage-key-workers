@@ -8,18 +8,18 @@ const log = require('../log');
 const telemetry = require('../azure-appinsights');
 
 router.get('/', asyncMiddleware(async (req, res) => {
-  const viewModel = await allocated(req);
+  const viewModel = await allocated(req, res);
   res.json(viewModel);
 }));
 
-const allocated = async (req) => {
-  await keyworkerApi.autoAllocate(req);
+const allocated = async (req, res) => {
+  await keyworkerApi.autoAllocate(req, res);
 
-  const keyworkerResponse = await keyworkerApi.availableKeyworkers(req);
+  const keyworkerResponse = await keyworkerApi.availableKeyworkers(req, res);
   const keyworkerData = keyworkerResponse.data;
   log.debug({ availableKeyworkers: keyworkerData }, 'Response from available keyworker request');
 
-  const allocatedResponse = await keyworkerApi.autoallocated(req);
+  const allocatedResponse = await keyworkerApi.autoallocated(req, res);
   const allocatedData = allocatedResponse.data;
   log.debug({ availableKeyworkers: allocatedData }, 'Response from allocated offenders request');
   if (telemetry) {
@@ -27,12 +27,12 @@ const allocated = async (req) => {
   } // Example of app insight custom event
 
   const alloffenders = allocatedData.map(row => row.offenderNo);
-  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, alloffenders, common.offenderNoParamsSerializer);
+  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, alloffenders, common.offenderNoParamsSerializer);
   const allReleaseDates = sentenceDetailListResponse.data;
   log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
   const allBookings = allocatedData.map(row => row.bookingId);
-  const csraListResponse = await elite2Api.csraList(req, allBookings, common.bookingIdParamsSerializer);
+  const csraListResponse = await elite2Api.csraList(req, res, allBookings, common.bookingIdParamsSerializer);
   const allCsras = csraListResponse.data;
   log.debug({ data: allCsras }, 'Response from csraList request');
 
@@ -42,7 +42,7 @@ const allocated = async (req) => {
       row.keyworkerDisplay = `${kw.lastName}, ${kw.firstName}`;
       row.numberAllocated = kw.numberAllocated;
     } else {
-      await common.addMissingKeyworkerDetails(req, row);
+      await common.addMissingKeyworkerDetails(req, res, row);
     }
     common.addCrsaClassification(allCsras, row);
     common.addReleaseDate(allReleaseDates, row);
