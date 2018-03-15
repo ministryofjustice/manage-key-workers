@@ -39,7 +39,7 @@ class OffenderResultsContainer extends Component {
     }
   }
 
-  handleKeyworkerChange (event, index, bookingId) {
+  handleKeyworkerChange (event, index, offenderNo) {
     // TODO state and props
     const keyworkerChangeList = [...this.props.keyworkerChangeList];
 
@@ -48,7 +48,7 @@ class OffenderResultsContainer extends Component {
     } else {
       keyworkerChangeList[index] = {
         staffId: event.target.value,
-        bookingId: bookingId
+        offenderNo: offenderNo
       };
     }
     this.props.keyworkerChangeListDispatch(keyworkerChangeList);
@@ -61,6 +61,9 @@ class OffenderResultsContainer extends Component {
         await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
           headers: {
             jwt: this.props.jwt
+          },
+          params: {
+            agencyId: this.props.agencyId
           }
         });
         this.props.setMessageDispatch('Key workers successfully updated.');
@@ -84,7 +87,7 @@ OffenderResultsContainer.propTypes = {
   searchText: PropTypes.string,
   allocationStatus: PropTypes.string,
   housingLocation: PropTypes.string,
-  //match: PropTypes.object.isRequired,
+  agencyId: PropTypes.string.isRequired,
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   keyworkerChangeList: PropTypes.array,

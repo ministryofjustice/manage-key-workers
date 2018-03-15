@@ -47,7 +47,7 @@ const keyworkerSearch = (req) => gateway.getRequest({
 const allocate = (req) => gateway.postRequest({
   req: req,
   method: 'post',
-  url: `${keyworkerApiUrl}key-worker/`
+  url: `${keyworkerApiUrl}key-worker/allocate`
 });
 
 const autoAllocate = (req) => gateway.postRequest({

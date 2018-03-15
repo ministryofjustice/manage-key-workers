@@ -69,7 +69,7 @@ class AutoAllocate extends Component {
     return response.data;
   }
 
-  handleKeyworkerChange (event, index, bookingId) {
+  handleKeyworkerChange (event, index, offenderNo) {
     const allocatedKeyworkers = [...this.props.allocatedKeyworkers];
 
     if (event.target.value === '--') {
@@ -77,7 +77,7 @@ class AutoAllocate extends Component {
     } else {
       allocatedKeyworkers[index] = {
         staffId: event.target.value,
-        bookingId: bookingId
+        offenderNo: offenderNo
       };
     }
     this.props.manualOverrideDispatch(allocatedKeyworkers);
