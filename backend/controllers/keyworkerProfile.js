@@ -2,10 +2,43 @@ const express = require('express');
 const router = express.Router();
 const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
+const log = require('../log');
 
 router.get('/', asyncMiddleware(async (req, res) => {
-  const response = await keyworkerApi.keyworker(req);
+  const response = await profile(req);
   res.json(response.data);
 }));
 
-module.exports = router;
+const profile = async (req) => {
+  console.log('Here');
+  const response = await keyworkerApi.keyworker(req);
+  console.log('\n\n\nkeyworker response: ' + response.data);
+  log.debug({ data: response.data }, 'Response from keyworker request');
+  response.data.statusDescription = statusDescriptionLookup(response.data.status);
+  return response;
+};
+
+
+function statusDescriptionLookup (status) {
+  switch (status) {
+    case "ACTIVE":
+      return "Active";
+    case "INACTIVE":
+      return "Inactive";
+    case "UNAVAILABLE_ANNUAL_LEAVE":
+      return "Unavailable - annual leave";
+    case "UNAVAILABLE_LONG_TERM_ABSENCE":
+      return "Unavailable - long term absence";
+    case "UNAVAILABLE_NO_PRISONER_CONTACT":
+      return "Unavailable - no prisoner contact";
+    case "UNAVAILABLE_SUSPENDED":
+      return "Unavailable - suspended";
+    default:
+      return "";
+  }
+}
+
+module.exports = {
+  router,
+  profile
+};

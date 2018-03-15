@@ -12,14 +12,6 @@ class KeyworkerProfile extends Component {
     });
     const allocations = this.props.keyworkerAllocations.map((a, index) => {
       const currentSelectValue = this.props.keyworkerChangeList[index] ? this.props.keyworkerChangeList[index].staffId : '';
-      let confirmedReleaseDate = a.confirmedReleaseDate;
-      if (confirmedReleaseDate == null) {
-        confirmedReleaseDate = "--";
-      }
-      let crsaClassification = a.crsaClassification;
-      if (crsaClassification == null) {
-        crsaClassification = "--";
-      }
 
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
@@ -27,8 +19,8 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters"><a href="">{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">{confirmedReleaseDate}</td>
-          <td className="row-gutters">{crsaClassification}</td>
+          <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
+          <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">
 
             <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
@@ -79,19 +71,19 @@ class KeyworkerProfile extends Component {
           <div className="padding-top">
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Establishment</label>
-              <div className="bold padding-top-small">todo - API work</div>
+              <div className="bold padding-top-small">{this.props.keyworker.agencyDescription}</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Schedule type</label>
-              <div className="bold padding-top-small">todo - API work</div>
+              <div className="bold padding-top-small">{this.props.keyworker.scheduleType}</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Capacity</label>
-              <div className="bold padding-top-small">todo - API work</div>
+              <div className="bold padding-top-small">{this.props.keyworker.capacity}</div>
             </div>
             <div className="pure-u-md-4-12" >
               <label className="form-label" htmlFor="name">Status</label>
-              <div className="unavailableStatus">Unavailable - no prisoner contact</div>
+              <div className="unavailableStatus">{this.props.keyworker.statusDescription}</div>
             </div>
 
             <div className="pure-u-md-2-12" >

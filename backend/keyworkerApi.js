@@ -35,7 +35,7 @@ const availableKeyworkers = (req) => gateway.getRequest({
 const keyworker = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}`
 });
 
 const keyworkerSearch = (req) => gateway.getRequest({
@@ -59,7 +59,7 @@ const autoAllocate = (req) => gateway.postRequest({
 const keyworkerAllocations = (req) => gateway.getRequest({
   req: req,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/offenders`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}/offenders`
 });
 
 const service = {
