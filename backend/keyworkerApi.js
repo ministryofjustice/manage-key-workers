@@ -4,67 +4,75 @@ const isoDateFormat = require('./constants').isoDateFormat;
 
 const keyworkerApiUrl = process.env.KEYWORKER_API_URL || 'http://localhost:8081/';
 
-const unallocated = (req) => gateway.getRequest({
-  req: req,
+const unallocated = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/offenders/unallocated`,
   headers: { 'Page-Limit': 200 },
   service: 'keyworker'
 });
 
-const allocated = (req) => gateway.getRequest({
-  req: req,
+const allocated = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations`,
   headers: { 'Page-Limit': 200 }
 });
 
-const autoallocated = (req) => gateway.getRequest({
-  req: req,
+const autoallocated = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=A&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`,
   headers: { 'Page-Limit': 200 }
 });
 
-const availableKeyworkers = (req) => gateway.getRequest({
-  req: req,
+const availableKeyworkers = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/available`
 });
 
-const keyworker = (req) => gateway.getRequest({
-  req: req,
+const keyworker = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}`
 });
 
-
-/* const keyworkerSearchresults = (req) => gateway.getRequest({
-  req: req,
+const keyworkerSearch = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
-  url: `api/key-worker/${req.query.agencyId}/search`
-}); */
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members`
+});
 
-const allocate = (req) => gateway.postRequest({
-  req: req,
+const allocate = (req, res) => gateway.postRequest({
+  req,
+  res,
   method: 'post',
   url: `${keyworkerApiUrl}key-worker/allocate`
 });
 
-const autoAllocate = (req) => gateway.postRequest({
-  req: req,
+const autoAllocate = (req, res) => gateway.postRequest({
+  req,
+  res,
   method: 'post',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocate/start`
 });
 
-const keyworkerAllocations = (req) => gateway.getRequest({
-  req: req,
+const keyworkerAllocations = (req, res) => gateway.getRequest({
+  req,
+  res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/offenders`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}/offenders`
 });
 
 const service = {
-  unallocated, allocated, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations
+  unallocated, allocated, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations, keyworkerSearch
 };
 
 function formatDate (inputDate) {

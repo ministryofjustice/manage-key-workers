@@ -27,7 +27,6 @@ class KeyworkerSearchContainer extends Component {
 KeyworkerSearchContainer.propTypes = {
   searchText: PropTypes.string,
   error: PropTypes.string,
-  jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerSearchTextDispatch: PropTypes.func
 };

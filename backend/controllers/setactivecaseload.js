@@ -4,7 +4,7 @@ const elite2Api = require('../elite2Api');
 const asyncMiddleware = require('../middleware/asyncHandler');
 
 router.put('/', asyncMiddleware(async (req, res) => {
-  await elite2Api.setActiveCaseLoad(req);
+  await elite2Api.setActiveCaseLoad(req, res);
   res.json({});
 }));
 

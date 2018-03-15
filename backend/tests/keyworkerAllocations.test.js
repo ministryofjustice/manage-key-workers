@@ -19,7 +19,7 @@ describe('keyworkerAllocations controller', async () => {
 
     keyworkerApi.availableKeyworkers = jest.fn().mockImplementationOnce(() => createAvailableKeyworkerResponse());
 
-    elite2Api.keyworkerAllocations = jest.fn().mockReturnValueOnce(allocationResponse);
+    keyworkerApi.keyworkerAllocations = jest.fn().mockReturnValueOnce(allocationResponse);
 
     const response = await keyworkerAllocations(req);
 

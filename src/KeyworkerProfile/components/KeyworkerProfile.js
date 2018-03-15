@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import MessageBar from "../../MessageBar/index";
 
 class KeyworkerProfile extends Component {
   render () {
@@ -11,14 +12,6 @@ class KeyworkerProfile extends Component {
     });
     const allocations = this.props.keyworkerAllocations.map((a, index) => {
       const currentSelectValue = this.props.keyworkerChangeList[index] ? this.props.keyworkerChangeList[index].staffId : '';
-      let confirmedReleaseDate = a.confirmedReleaseDate;
-      if (confirmedReleaseDate == null) {
-        confirmedReleaseDate = "--";
-      }
-      let crsaClassification = a.crsaClassification;
-      if (crsaClassification == null) {
-        crsaClassification = "--";
-      }
 
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
@@ -26,12 +19,12 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters"><a href="">{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">{confirmedReleaseDate}</td>
-          <td className="row-gutters">{crsaClassification}</td>
+          <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
+          <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">
 
             <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
-              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
+              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">-- Select --</option>
               {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
             </select>
@@ -44,7 +37,7 @@ class KeyworkerProfile extends Component {
     if (this.props.keyworkerAllocations.length > 0) {
       renderContent = (<div>
         <div className="lede padding-top padding-bottom-large">Current key worker allocations {this.props.keyworkerAllocations.length}</div>
-        <div className="pure-u-md-8-12">
+        <div className="pure-u-md-12-12">
           <table>
             <thead>
               <tr>
@@ -69,27 +62,28 @@ class KeyworkerProfile extends Component {
 
     return (
       <div>
+        <MessageBar {...this.props}/>
         <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`search_again_link`} title="Search again link" className="link" to="/home" >&lt; Back to menu</Link>
+            <Link id={`search_again_link`} title="Search again link" className="link" to="/" >&lt; Back to menu</Link>
             <h1 className="heading-large">Profile for {keyworkerDisplayName}</h1>
           </div>
           <div className="padding-top">
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Establishment</label>
-              <div className="bold">todo - API work</div>
+              <div className="bold padding-top-small">{this.props.keyworker.agencyDescription}</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Schedule type</label>
-              <div className="bold">todo - API work</div>
+              <div className="bold padding-top-small">{this.props.keyworker.scheduleType}</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Capacity</label>
-              <div className="bold">todo - API work</div>
+              <div className="bold padding-top-small">{this.props.keyworker.capacity}</div>
             </div>
             <div className="pure-u-md-4-12" >
               <label className="form-label" htmlFor="name">Status</label>
-              <div className="unavailableStatus">Unavailable - no prisoner contact</div>
+              <div className="unavailableStatus">{this.props.keyworker.statusDescription}</div>
             </div>
 
             <div className="pure-u-md-2-12" >
@@ -112,7 +106,8 @@ KeyworkerProfile.propTypes = {
   keyworkerChangeList: PropTypes.array,
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
-  handleEditProfileClick: PropTypes.func.isRequired
+  handleEditProfileClick: PropTypes.func.isRequired,
+  message: PropTypes.string
 };
 
 

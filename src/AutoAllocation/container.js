@@ -43,10 +43,7 @@ class AutoAllocate extends Component {
   }
 
   async getUnallocated (agencyId) {
-    const response = await axiosWrapper.get('/unallocated', {
-      headers: {
-        jwt: this.props.jwt
-      },
+    const response = await axiosWrapper.get('/api/unallocated', {
       params: {
         agencyId: agencyId
       }
@@ -55,10 +52,7 @@ class AutoAllocate extends Component {
   }
 
   async getAllocated () {
-    const response = await axiosWrapper.get('/allocated', {
-      headers: {
-        jwt: this.props.jwt
-      },
+    const response = await axiosWrapper.get('/api/allocated', {
       params: {
         agencyId: this.props.agencyId,
         allocationType: 'A',
@@ -69,7 +63,7 @@ class AutoAllocate extends Component {
     return response.data;
   }
 
-  handleKeyworkerChange (event, index, bookingId) {
+  handleKeyworkerChange (event, index, offenderNo) {
     const allocatedKeyworkers = [...this.props.allocatedKeyworkers];
 
     if (event.target.value === '--') {
@@ -77,7 +71,7 @@ class AutoAllocate extends Component {
     } else {
       allocatedKeyworkers[index] = {
         staffId: event.target.value,
-        bookingId: bookingId
+        offenderNo: offenderNo
       };
     }
     this.props.manualOverrideDispatch(allocatedKeyworkers);
@@ -92,10 +86,7 @@ class AutoAllocate extends Component {
   async postManualOverride (history) {
     try {
       if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
-        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-          headers: {
-            jwt: this.props.jwt
-          },
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
           params: {
             agencyId: this.props.agencyId
           }
@@ -145,7 +136,6 @@ AutoAllocate.propTypes = {
   unallocatedList: PropTypes.array,
   allocatedList: PropTypes.array,
   allocatedKeyworkers: PropTypes.array,
-  jwt: PropTypes.string.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   agencyId: PropTypes.string.isRequired,
   fromDate: PropTypes.string,

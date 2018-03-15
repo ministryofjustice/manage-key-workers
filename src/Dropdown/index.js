@@ -45,7 +45,7 @@ class Dropdown extends Component {
                 {option.description}
               </a>))
             }
-            <a className="dropdown-menu-link" key={'logout'} onClick={() => this.closeMenu()} href={'/'}>
+            <a className="dropdown-menu-link" key={'logout'} href={'/auth/logout'}>
               Log out
             </a>
           </div> }

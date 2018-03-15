@@ -21,10 +21,7 @@ class OffenderResultsContainer extends Component {
 
   async doSearch () {
     try {
-      const response = await axiosWrapper.get('/searchOffenders', {
-        headers: {
-          jwt: this.props.jwt
-        },
+      const response = await axiosWrapper.get('/api/searchOffenders', {
         params: {
           locationPrefix: this.props.housingLocation,
           keywords: this.props.searchText,
@@ -39,7 +36,7 @@ class OffenderResultsContainer extends Component {
     }
   }
 
-  handleKeyworkerChange (event, index, bookingId) {
+  handleKeyworkerChange (event, index, offenderNo) {
     // TODO state and props
     const keyworkerChangeList = [...this.props.keyworkerChangeList];
 
@@ -48,7 +45,7 @@ class OffenderResultsContainer extends Component {
     } else {
       keyworkerChangeList[index] = {
         staffId: event.target.value,
-        bookingId: bookingId
+        offenderNo: offenderNo
       };
     }
     this.props.keyworkerChangeListDispatch(keyworkerChangeList);
@@ -58,11 +55,7 @@ class OffenderResultsContainer extends Component {
     try {
       // TODO !
       if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
-        await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-          headers: {
-            jwt: this.props.jwt
-          }
-        });
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Key workers successfully updated.');
       }
       this.props.onFinishAllocation(history);
@@ -84,15 +77,14 @@ OffenderResultsContainer.propTypes = {
   searchText: PropTypes.string,
   allocationStatus: PropTypes.string,
   housingLocation: PropTypes.string,
-  //match: PropTypes.object.isRequired,
+  agencyId: PropTypes.string.isRequired,
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   keyworkerChangeList: PropTypes.array,
   allocatedKeyworkers: PropTypes.array,
   displayError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  onFinishAllocation: PropTypes.func,
-  jwt: PropTypes.string.isRequired
+  onFinishAllocation: PropTypes.func
 };
 
 const mapStateToProps = state => {

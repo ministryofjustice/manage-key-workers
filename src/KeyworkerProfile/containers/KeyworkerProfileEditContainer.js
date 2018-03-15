@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit';
 import Error from '../../Error';
 import { withRouter } from 'react-router';
+import { setMessage } from "../../redux/actions";
 
 class KeyworkerProfileEditContainer extends Component {
   constructor () {
@@ -18,6 +19,8 @@ class KeyworkerProfileEditContainer extends Component {
   handleSaveChanges (history) {
     console.log("todo: save keyworker changes");
     // save to redux until confirmation on next page?...
+    this.props.setMessageDispatch("Status updated");
+    history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
   }
 
   handleCancel (history) {
@@ -35,7 +38,6 @@ class KeyworkerProfileEditContainer extends Component {
 
 KeyworkerProfileEditContainer.propTypes = {
   error: PropTypes.string,
-  jwt: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerDispatch: PropTypes.func,
   keyworker: PropTypes.object,
@@ -52,7 +54,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    keyworkerDispatch: id => dispatch(setKeyworker(id))
+    keyworkerDispatch: id => dispatch(setKeyworker(id)),
+    setMessageDispatch: (message) => dispatch(setMessage(message))
   };
 };
 
