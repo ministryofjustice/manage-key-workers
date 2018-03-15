@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const bunyanMiddleware = require('bunyan-middleware');
+const hsts = require('hsts');
+const helmet = require('helmet');
 
 const authentication = require('./controllers/authentication');
 const userCaseLoads = require('./controllers/usercaseloads');
@@ -57,6 +59,14 @@ app.set('trust proxy', 1); // trust first proxy
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
+app.use(helmet());
+
+app.use(hsts({
+  maxAge: sixtyDaysInSeconds,
+  includeSubDomains: true,
+  preload: true
+}));
+
 app.use(bunyanMiddleware({
   logger: log,
   obscureHeaders: ['Authorization']
@@ -68,15 +78,28 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../public')));
 // Update a value in the cookie so that the set-cookie will be sent.
 // Only changes every minute so that it's not sent with every request.
 app.use((req, res, next) => {
-  req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
+  req.session.nowInMinutes = session.getNowInMinutes();
   next();
 });
 
-app.use('/auth', authentication);
+app.use('/health', require('express-healthcheck')());
+
+app.use('/info', (req, res) => {
+  res.json(getAppInfo());
+});
+
+app.use(express.static(path.join(__dirname, '../public'), { index: '_' }));
+app.use(express.static(path.join(__dirname, '../build'), { index: '_' }));
+
+app.use('/auth', session.loginMiddleware, authentication);
+
+app.use(session.hmppsSessionMiddleWare);
+app.use(session.extendHmppsCookieMiddleWare);
+
+app.use('/api/me', userMe);
 app.use('/api/usercaseloads', userCaseLoads);
 app.use('/api/setactivecaseload', setActiveCaseLoad);
 app.use('/api/unallocated', unallocated.router);
@@ -85,17 +108,11 @@ app.use('/api/userLocations', userLocations);
 app.use('/api/searchOffenders', searchOffenders.router);
 app.use('/api/manualoverride', manualoverride);
 app.use('/api/keyworkerSearch', keyworkerSearch);
-app.use('/api/keyworker', keyworkerProfile.router);
+app.use('/api/keyworker', keyworkerProfile);
 app.use('/api/keyworkerAllocations', keyworkerAllocations.router);
-app.use('/api/me', session.hmppsSessionMiddleWare, userMe);
 
-app.use('/health', require('express-healthcheck')());
 
-app.use('/info', (req, res) => {
-  res.json(getAppInfo());
-});
-
-app.get('*', [session.hmppsSessionMiddleWare, express.static(path.join(__dirname, '../build'))], (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
