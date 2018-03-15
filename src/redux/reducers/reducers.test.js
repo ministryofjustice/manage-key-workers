@@ -60,8 +60,6 @@ describe('app (global) reducer', () => {
         shouldShowTerms: false,
         error: null,
         message: null,
-        username: '',
-        password: '',
         page: 0
       }
     );

@@ -3,6 +3,7 @@ require('dotenv').config();
 // Do appinsights first as it does some magic instrumentation work, i.e. it affects other 'require's
 // In particular, applicationinsights automatically collects bunyan logs
 require('./azure-appinsights');
+
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
@@ -108,9 +109,8 @@ app.use('/api/userLocations', userLocations);
 app.use('/api/searchOffenders', searchOffenders.router);
 app.use('/api/manualoverride', manualoverride);
 app.use('/api/keyworkerSearch', keyworkerSearch);
-app.use('/api/keyworker', keyworkerProfile);
+app.use('/api/keyworker', keyworkerProfile.router);
 app.use('/api/keyworkerAllocations', keyworkerAllocations.router);
-
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));
