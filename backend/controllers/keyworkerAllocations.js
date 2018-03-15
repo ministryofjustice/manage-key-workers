@@ -14,7 +14,7 @@ router.get('/', asyncMiddleware(async (req, res) => {
 const keyworkerAllocations = async (req) => {
   const keyworkerResponse = await keyworkerApi.availableKeyworkers(req);
   log.debug({ data: keyworkerResponse.data }, 'Response from availableKeyworkers request');
-  const allocatedResponse = await elite2Api.keyworkerAllocations(req);
+  const allocatedResponse = await keyworkerApi.keyworkerAllocations(req);
   const tableData = allocatedResponse.data;
   log.debug({ data: tableData }, 'Response from keyworkerAllocations request');
 
