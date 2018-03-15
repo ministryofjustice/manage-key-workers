@@ -48,7 +48,7 @@ app.use('/userLocations', jsonParser, userLocations);
 app.use('/searchOffenders', jsonParser, searchOffenders.router);
 app.use('/manualoverride', jsonParser, manualoverride);
 app.use('/keyworkerSearch', jsonParser, keyworkerSearch);
-app.use('/keyworker', jsonParser, keyworkerProfile);
+app.use('/keyworker', jsonParser, keyworkerProfile.router);
 app.use('/keyworkerAllocations', jsonParser, keyworkerAllocations.router);
 
 app.use('/health', require('express-healthcheck')());

@@ -17,27 +17,24 @@ class KeyworkerProfileContainer extends Component {
   }
 
   async componentWillMount () {
-    await this.getKeyworkerProfile();
-    await this.getKeyworkerAllocations();
+    try {
+      await this.getKeyworkerProfile();
+      await this.getKeyworkerAllocations();
+    } catch (error) {
+      this.props.displayError(error);
+    }
   }
 
   async getKeyworkerProfile () {
-    try {
-      const keyworker = await this.makeKeyworkerProfileCall(this.props.match.params.staffId);
-      this.props.keyworkerDispatch(keyworker);
-    } catch (error) {
-      this.props.displayError(error);
-    }
+    const keyworker = await this.makeKeyworkerProfileCall(this.props.match.params.staffId);
+    this.props.keyworkerDispatch(keyworker);
   }
 
+
   async getKeyworkerAllocations () {
-    try {
-      const allocationsViewModel = await this.makeKeyworkerAllocationsCall(this.props.agencyId, this.props.match.params.staffId);
-      this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
-      this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
-    } catch (error) {
-      this.props.displayError(error);
-    }
+    const allocationsViewModel = await this.makeKeyworkerAllocationsCall(this.props.agencyId, this.props.match.params.staffId);
+    this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
+    this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
   }
 
 
@@ -74,7 +71,8 @@ class KeyworkerProfileContainer extends Component {
         jwt: this.props.jwt
       },
       params: {
-        staffId: staffId
+        staffId: staffId,
+        agencyId: this.props.agencyId
       }
     });
     return response.data;
