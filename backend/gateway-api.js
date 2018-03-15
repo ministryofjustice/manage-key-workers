@@ -20,38 +20,37 @@ axios.interceptors.request.use((config) => {
   return config;
 }, (error) => Promise.reject(error));
 
-const getRequest = ({ req, url, headers, params, paramsSerializer }) => service.callApi({
+
+const generateRequestHeaders = (req) => {
+  return { jwt: { access_token: req.access_token, refresh_token: req.refresh_token }, host: req.headers.host };
+};
+
+const getRequest = ({ req, res, url, headers, params, paramsSerializer }) => service.callApi({
   method: 'get',
   url,
   headers: headers || {},
-  reqHeaders: req.headers,
+  reqHeaders: generateRequestHeaders(req),
   params,
   paramsSerializer,
-  onTokenRefresh: (token) => {
-    req.headers.jwt = token;
-  }
+  onTokenRefresh: session.updateHmppsCookie(res)
 });
 
-const postRequest = ({ req, url, headers }) => service.callApi({
+const postRequest = ({ req, res, url, headers }) => service.callApi({
   method: 'post',
   url,
   headers: headers || { 'content-type': 'application/json' },
-  reqHeaders: req.headers,
+  reqHeaders: generateRequestHeaders(req),
   data: req.data,
-  onTokenRefresh: (token) => {
-    req.headers.jwt = token;
-  }
+  onTokenRefresh: session.updateHmppsCookie(res)
 });
 
-const putRequest = ({ req, url, headers }) => service.callApi({
+const putRequest = ({ req, res, url, headers }) => service.callApi({
   method: 'put',
   url,
   headers: headers || { 'content-type': 'application/json' },
-  reqHeaders: req.headers,
+  reqHeaders: generateRequestHeaders(req),
   data: req.body,
-  onTokenRefresh: (token) => {
-    req.headers.jwt = token;
-  }
+  onTokenRefresh: session.updateHmppsCookie(res)
 });
 
 const getHeaders = ({ headers, reqHeaders, token }) => {
@@ -62,8 +61,9 @@ const getHeaders = ({ headers, reqHeaders, token }) => {
 };
 
 const callApi = ({ method, url, headers, reqHeaders, params, paramsSerializer, onTokenRefresh, responseType, data }) => {
-  const sessionData = session.getSessionData(reqHeaders);
-  if (sessionData == null) {
+  const { access_token, refresh_token } = reqHeaders.jwt;
+
+  if (!access_token || !refresh_token) { // eslint-disable-line camelcase
     const message = "Null session or missing jwt";
     log.error(message);
     throw new Error(message);
@@ -76,12 +76,12 @@ const callApi = ({ method, url, headers, reqHeaders, params, paramsSerializer, o
     params,
     paramsSerializer,
     data,
-    headers: getHeaders({ headers, reqHeaders, token: sessionData.access_token })
+    headers: getHeaders({ headers, reqHeaders, token: access_token })
   }).catch(error => {
     if (error.response) {
       if (error.response.status === 401) {
-        return service.refreshTokenRequest({ token: sessionData.refreshToken, headers, reqHeaders }).then(response => {
-          onTokenRefresh(session.newJWT(response.data));
+        return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
+          onTokenRefresh(response.data);
           return service.retryRequest({
             url,
             method,

@@ -22,6 +22,7 @@ const manualoverride = require('./controllers/manualoverride');
 const keyworkerSearch = require('./controllers/keyworkerSearch');
 const keyworkerAllocations = require('./controllers/keyworkerAllocations');
 const keyworkerProfile = require('./controllers/keyworkerProfile');
+const userMe = require('./controllers/userMe');
 
 const log = require('./log');
 const config = require('./config');
@@ -67,8 +68,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(session.hmppsSessionMiddleWare);
-
+app.use(express.static(path.join(__dirname, '../public')));
 // Update a value in the cookie so that the set-cookie will be sent.
 // Only changes every minute so that it's not sent with every request.
 app.use((req, res, next) => {
@@ -87,6 +87,7 @@ app.use('/api/manualoverride', manualoverride);
 app.use('/api/keyworkerSearch', keyworkerSearch);
 app.use('/api/keyworker', keyworkerProfile.router);
 app.use('/api/keyworkerAllocations', keyworkerAllocations.router);
+app.use('/api/me', session.hmppsSessionMiddleWare, userMe);
 
 app.use('/health', require('express-healthcheck')());
 
@@ -94,7 +95,9 @@ app.use('/info', (req, res) => {
   res.json(getAppInfo());
 });
 
-app.use('/', express.static(path.join(__dirname, '../build')));
+app.get('*', [session.hmppsSessionMiddleWare, express.static(path.join(__dirname, '../build'))], (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 const port = process.env.PORT || 3001;
 

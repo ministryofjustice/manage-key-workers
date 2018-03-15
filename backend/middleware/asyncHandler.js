@@ -1,9 +1,7 @@
-const session = require('../session');
 const logError = require('../logError').logError;
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
-    res.setHeader('jwt', session.extendSession(req.headers));
     Promise.resolve(fn(req, res, next))
       .catch(error => {
         // Note this is the final catch-all for backend errors

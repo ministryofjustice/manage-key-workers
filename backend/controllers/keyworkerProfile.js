@@ -5,14 +5,12 @@ const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
 router.get('/', asyncMiddleware(async (req, res) => {
-  const response = await profile(req);
+  const response = await profile(req, res);
   res.json(response.data);
 }));
 
-const profile = async (req) => {
-  console.log('Here');
-  const response = await keyworkerApi.keyworker(req);
-  console.log('\n\n\nkeyworker response: ' + response.data);
+const profile = async (req, res) => {
+  const response = await keyworkerApi.keyworker(req, res);
   log.debug({ data: response.data }, 'Response from keyworker request');
   response.data.statusDescription = statusDescriptionLookup(response.data.status);
   return response;
