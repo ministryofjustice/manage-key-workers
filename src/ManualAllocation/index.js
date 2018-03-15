@@ -37,7 +37,7 @@ class ManualAllocation extends Component {
           <td className="row-gutters">
 
             <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
-              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.bookingId)}>
+              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">-- Select --</option>
               {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
             </select>

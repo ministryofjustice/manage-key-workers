@@ -51,7 +51,7 @@ class KeyworkerProfileContainer extends Component {
     return response.data;
   }
 
-  handleKeyworkerChange (event, index, bookingId) {
+  handleKeyworkerChange (event, index, offenderNo) {
     const keyworkerChangeList = [...this.props.keyworkerChangeList];
 
     if (event.target.value === '--') {
@@ -59,7 +59,7 @@ class KeyworkerProfileContainer extends Component {
     } else {
       keyworkerChangeList[index] = {
         staffId: event.target.value,
-        bookingId: bookingId
+        offenderNo: offenderNo
       };
     }
     this.props.keyworkerChangeListDispatch(keyworkerChangeList);
@@ -88,6 +88,9 @@ class KeyworkerProfileContainer extends Component {
         await axiosWrapper.post('/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, {
           headers: {
             jwt: this.props.jwt
+          },
+          params: {
+            agencyId: this.props.agencyId
           }
         });
         this.props.setMessageDispatch('Offender allocation updated.');
