@@ -29,7 +29,10 @@ const keyworkerList = [
 const keyworker = {
   firstName: "Frank",
   lastName: "Butcher",
-  staffId: 123
+  staffId: 123,
+  status: "INACTIVE",
+  statusDescription: "Inactive",
+  capacity: 8
 };
 
 const allocatedOffenders = [{
@@ -71,7 +74,9 @@ const allocatedOffenders = [{
 describe('Keyworker Profile component', () => {
   it('should render component correctly', async () => {
     const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
+    console.log(component.debug());
     expect(component.text()).toContain('Profile for Frank Butcher');
+    expect(component.find('#keyworker-status').at(0).prop('className')).toContain('inactiveStatus');
     expect(component.find('tr').length).toEqual(4); // includes header tr
     expect(component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Bennett, Lucinda');
     expect(component.find('tr').at(3).find('td').at(NOMS_ID_COLUMN).text()).toEqual('ZB125WX');

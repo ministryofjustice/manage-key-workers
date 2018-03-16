@@ -34,7 +34,9 @@ const keyworkerSearchInitialState = {
   keyworkerAllocations: [],
   keyworker: { key: 'value' },
   keyworkerChangeList: [],
-  keyworkerList: []
+  keyworkerList: [],
+  status: '',
+  capacity: 0
 };
 
 export function app (state = appInitialState, action) {
@@ -151,6 +153,14 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
     case ActionTypes.SET_AVAILABLE_KEY_WORKER_LIST:
       return { ...state,
         keyworkerList: action.keyworkerList
+      };
+    case ActionTypes.SET_KEY_WORKER_CAPACITY:
+      return { ...state,
+        capacity: action.capacity
+      };
+    case ActionTypes.SET_KEY_WORKER_STATUS:
+      return { ...state,
+        status: action.status
       };
     default:
       return state;

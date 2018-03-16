@@ -5,14 +5,24 @@ import { Link } from "react-router-dom";
 import MessageBar from "../../MessageBar/index";
 
 class KeyworkerProfile extends Component {
+  getStatusStyle () {
+    const status = this.props.keyworker.statusDescription;
+    const styles = ['inactive', 'active', 'unavailable'];
+    let styleClass = "";
+    styles.forEach(function (style, index) {
+      if (status && status.toLowerCase().startsWith(style)) styleClass = style;
+    });
+    return styleClass;
+  }
+
   render () {
     const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
+    const statusStyle = this.getStatusStyle();
     const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
       return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
     });
     const allocations = this.props.keyworkerAllocations.map((a, index) => {
       const currentSelectValue = this.props.keyworkerChangeList[index] ? this.props.keyworkerChangeList[index].staffId : '';
-
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.bookingId}>
@@ -83,7 +93,7 @@ class KeyworkerProfile extends Component {
             </div>
             <div className="pure-u-md-4-12" >
               <label className="form-label" htmlFor="name">Status</label>
-              <div className="unavailableStatus">{this.props.keyworker.statusDescription}</div>
+              <div id="keyworker-status" className={`${statusStyle}Status`}>{this.props.keyworker.statusDescription}</div>
             </div>
 
             <div className="pure-u-md-2-12" >
