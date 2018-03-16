@@ -148,3 +148,17 @@ export const setAvailableKeyworkerList = (keyworkerList) => {
   };
 };
 
+export const setKeyworkerCapacity = (capacity) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_CAPACITY,
+    capacity
+  };
+};
+
+export const setKeyworkerStatus = (status) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_STATUS,
+    status
+  };
+};
+
