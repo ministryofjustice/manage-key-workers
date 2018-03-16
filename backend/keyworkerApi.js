@@ -47,7 +47,7 @@ const keyworkerSearch = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members`
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members?nameFilter=${req.query.searchText}`
 });
 
 const allocate = (req, res) => gateway.postRequest({

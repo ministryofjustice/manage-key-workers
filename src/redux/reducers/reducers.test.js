@@ -40,7 +40,9 @@ const keyworkerSearchInitialState = {
   keyworkerAllocations: [],
   keyworkerChangeList: [],
   keyworkerList: [],
-  keyworker: null
+  keyworker: null,
+  status: '',
+  capacity: 0
 };
 
 const keyworkerSearchPopulatedState = {
@@ -49,7 +51,9 @@ const keyworkerSearchPopulatedState = {
   keyworkerAllocations: [{ value: 'allocations' }],
   keyworkerChangeList: [],
   keyworkerList: [{ value: 'available keyworkers' }],
-  keyworker: 321
+  keyworker: 321,
+  status: 'ACTIVE',
+  capacity: 7
 };
 
 describe('app (global) reducer', () => {
@@ -363,7 +367,9 @@ describe('key worker search reducer', () => {
         keyworkerAllocations: [],
         keyworkerChangeList: [],
         keyworkerList: [],
-        keyworker: null
+        keyworker: null,
+        status: '',
+        capacity: 0
       }
     );
   });
@@ -380,7 +386,9 @@ describe('key worker search reducer', () => {
         keyworkerAllocations: [],
         keyworkerChangeList: [],
         keyworkerList: [],
-        keyworker: null
+        keyworker: null,
+        status: '',
+        capacity: 0
       }
     );
   });
@@ -396,7 +404,9 @@ describe('key worker search reducer', () => {
         keyworkerAllocations: [],
         keyworkerChangeList: [],
         keyworkerList: [],
-        keyworker: { key: 'value' }
+        keyworker: { key: 'value' },
+        status: '',
+        capacity: 0
       }
     );
   });
@@ -412,7 +422,9 @@ describe('key worker search reducer', () => {
         keyworkerAllocations: [],
         keyworkerChangeList: [{ key: 'value' }],
         keyworkerList: [],
-        keyworker: null
+        keyworker: null,
+        status: '',
+        capacity: 0
       }
     );
   });
@@ -428,7 +440,45 @@ describe('key worker search reducer', () => {
         keyworkerAllocations: [],
         keyworkerChangeList: [],
         keyworkerList: [{ key: 'value' }],
-        keyworker: null
+        keyworker: null,
+        status: '',
+        capacity: 0
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER_CAPACITY', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_CAPACITY,
+      capacity: 9
+    })).toEqual(
+      {
+        searchText: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
+        keyworker: null,
+        status: '',
+        capacity: 9
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER_STATUS', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_STATUS,
+      status: 'Unavailable'
+    })).toEqual(
+      {
+        searchText: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
+        keyworker: null,
+        status: 'Unavailable',
+        capacity: 0
       }
     );
   });
@@ -444,7 +494,9 @@ describe('key worker search reducer', () => {
         keyworkerAllocations: [{ value: 'allocations' }],
         keyworkerChangeList: [],
         keyworkerList: [{ value: 'available keyworkers' }],
-        keyworker: { key: 'value' }
+        keyworker: { key: 'value' },
+        status: 'ACTIVE',
+        capacity: 7
       }
     );
   });

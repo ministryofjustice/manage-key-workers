@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setMessage } from '../../redux/actions/index';
+import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setKeyworkerCapacity, setMessage } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
@@ -73,6 +73,8 @@ class KeyworkerProfileContainer extends Component {
   }
 
   handleEditProfileClick (history) {
+    // initialise capacity input with current capacity value
+    this.props.keyworkerCapacityDispatch(this.props.keyworker.capacity);
     history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
   }
 
@@ -109,7 +111,8 @@ KeyworkerProfileContainer.propTypes = {
   keyworkerChangeList: PropTypes.array,
   keyworker: PropTypes.object,
   keyworkerChangeListDispatch: PropTypes.func,
-  availableKeyworkerListDispatch: PropTypes.func
+  availableKeyworkerListDispatch: PropTypes.func,
+  keyworkerCapacityDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -128,6 +131,7 @@ const mapDispatchToProps = dispatch => {
     keyworkerDispatch: id => dispatch(setKeyworker(id)),
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
     availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
+    keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
     setMessageDispatch: (message) => dispatch(setMessage(message))
   };
 };

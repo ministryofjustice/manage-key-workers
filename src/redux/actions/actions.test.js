@@ -192,5 +192,21 @@ describe('actions', () => {
     };
     expect(actions.setAvailableKeyworkerList(list)).toEqual(expectedAction);
   });
+
+  it('should create an action to save key worker status', () => {
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_STATUS,
+      status: 'Inactive'
+    };
+    expect(actions.setKeyworkerStatus('Inactive')).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker capacity', () => {
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_CAPACITY,
+      capacity: 8
+    };
+    expect(actions.setKeyworkerCapacity(8)).toEqual(expectedAction);
+  });
 });
 

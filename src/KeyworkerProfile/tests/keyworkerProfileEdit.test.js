@@ -8,7 +8,10 @@ Enzyme.configure({ adapter: new Adapter() });
 const keyworker = {
   firstName: "Frank",
   lastName: "Butcher",
-  staffId: 123
+  staffId: 123,
+  status: "INACTIVE",
+  statusDescription: "Inactive",
+  capacity: 8
 };
 
 
@@ -35,6 +38,11 @@ describe('Keyworker Profile Edit component', () => {
 
     component.find('#cancelButton').simulate('click');
     expect(handleCancel.mock.calls.length).toEqual(1);
+  });
+
+  it('should render select with correct value', async () => {
+    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
+    expect(component.find('#status-select').get(0).props.value).toEqual("INACTIVE");
   });
 });
 
