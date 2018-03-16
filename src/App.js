@@ -40,8 +40,6 @@ class App extends React.Component {
 
     const user = await axiosWrapper.get('/api/me');
     const caseloads = await axiosWrapper.get('/api/usercaseloads');
-    console.log(`user: ${user}`);
-    console.log(`caseloads: ${caseloads}`);
     this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
   }
 
