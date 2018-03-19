@@ -11,13 +11,14 @@ import Header from './Header/index';
 import Footer from './Footer/index';
 import Terms from './Footer/terms-and-conditions';
 import OffenderContainer from './AssignTransfer/containers/OffenderContainer';
+import Error from "./Error/index";
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
 import axiosWrapper from "./backendWrapper";
 import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, setUserDetails, setMessage } from './redux/actions';
+import { switchAgency, setTermsVisibility, setError, resetError, setUserDetails, setMessage } from './redux/actions';
 import { connect } from 'react-redux';
 
 const axios = require('axios');
@@ -34,13 +35,16 @@ class App extends React.Component {
   }
   async componentDidMount () {
     axios.interceptors.request.use((config) => {
-      this.props.setErrorDispatch(null);
+      this.props.resetErrorDispatch();
       return config;
     }, (error) => Promise.reject(error));
-
-    const user = await axiosWrapper.get('/api/me');
-    const caseloads = await axiosWrapper.get('/api/usercaseloads');
-    this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
+    try {
+      const user = await axiosWrapper.get('/api/me');
+      const caseloads = await axiosWrapper.get('/api/usercaseloads');
+      this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
+    } catch (error) {
+      this.props.setErrorDispatch(error.message);
+    }
   }
 
   onFinishAllocation (history) {
@@ -72,26 +76,38 @@ class App extends React.Component {
     this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
   }
 
+  shouldDisplayInnerContent () {
+    return !this.props.shouldShowTerms && (this.props.user && this.props.user.activeCaseLoadId);
+  }
+
   render () {
+    let innerContent;
+    const routes = (<div className="inner-content"><div className="pure-g">
+      <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
+      <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
+      <Route exact path="/assignTransfer" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/unallocated" render={() => <AutoAllocateContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
+      <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
+      <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/offender/results" render={() => <AssignTransferContainer displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/offender/:offenderId/profile" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
+    </div></div>);
+
+    if (this.shouldDisplayInnerContent()) {
+      innerContent = routes;
+    } else {
+      innerContent = (<div className="inner-content"><div className="pure-g"><Error {...this.props} /></div></div>);
+    }
+
+
     return (
       <Router>
         <div className="content">
           <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
-          {!this.props.shouldShowTerms && <div className="inner-content">
-            <div className="pure-g">
-              <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
-              <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-              <Route exact path="/assignTransfer" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/unallocated" render={() => <AutoAllocateContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
-              <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
-              <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/offender/results" render={() => <AssignTransferContainer displayError={this.displayError} {...this.props} />}/>
-              <Route exact path="/offender/:offenderId/profile" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
-            </div>
-          </div>}
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
+          {innerContent}
           <Footer showTermsAndConditions={this.showTermsAndConditions}/>
         </div>
       </Router>);
@@ -107,6 +123,7 @@ App.propTypes = {
   switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
+  resetErrorDispatch: PropTypes.func,
   setMessageDispatch: PropTypes.func.isRequired
 };
 
@@ -126,6 +143,7 @@ const mapDispatchToProps = dispatch => {
     switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
     setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
     setErrorDispatch: (error) => dispatch(setError(error)),
+    resetErrorDispatch: () => dispatch(resetError()),
     setMessageDispatch: (message) => dispatch(setMessage(message))
   };
 };

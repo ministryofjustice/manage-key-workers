@@ -64,10 +64,23 @@ export const setError = (error) => {
   };
 };
 
+export const resetError = (error) => {
+  return {
+    type: ActionTypes.RESET_ERROR
+  };
+};
+
 export const setMessage = (message) => {
   return {
     type: ActionTypes.SET_MESSAGE,
     message
+  };
+};
+
+export const setLoaded = (loaded) => {
+  return {
+    type: ActionTypes.SET_LOADED,
+    loaded
   };
 };
 

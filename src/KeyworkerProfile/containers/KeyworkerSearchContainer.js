@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText } from '../../redux/actions/index';
+import { setKeyworkerSearchText, resetError } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import Error from '../../Error';
 
 import KeyworkerSearchPage from "../components/KeyworkerSearchPage";
 
 class KeyworkerSearchContainer extends Component {
+  constructor (props) {
+    super();
+    props.resetErrorDispatch();
+  }
+
   handleSearchTextChange (event) {
     this.props.keyworkerSearchTextDispatch(event.target.value);
   }
@@ -28,7 +33,8 @@ KeyworkerSearchContainer.propTypes = {
   searchText: PropTypes.string,
   error: PropTypes.string,
   agencyId: PropTypes.string.isRequired,
-  keyworkerSearchTextDispatch: PropTypes.func
+  keyworkerSearchTextDispatch: PropTypes.func,
+  resetErrorDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -41,7 +47,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text))
+    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
+    resetErrorDispatch: () => dispatch(resetError())
   };
 };
 

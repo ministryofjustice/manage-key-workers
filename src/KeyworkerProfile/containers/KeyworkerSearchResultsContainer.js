@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText, setKeyworkerSearchResults } from '../../redux/actions/index';
+import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
 
@@ -8,13 +8,15 @@ import axiosWrapper from "../../backendWrapper";
 import Error from "../../Error";
 
 class KeyworkerSearchResultsContainer extends Component {
-  constructor () {
+  constructor (props) {
     super();
     this.getKeyworkerList = this.getKeyworkerList.bind(this);
+    props.setLoadedDispatch(false);
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     await this.performSearch();
+    this.props.setLoadedDispatch(true);
   }
 
   async performSearch () {
@@ -44,8 +46,11 @@ class KeyworkerSearchResultsContainer extends Component {
     if (this.props.error) {
       return <Error {...this.props} />;
     }
-    return (<KeyworkerSearchResults {...this.props} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
-      handleSearch={() => this.performSearch()}/>);
+    if (this.props.loaded) {
+      return (<KeyworkerSearchResults {...this.props} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+        handleSearch={() => this.performSearch()}/>);
+    }
+    return null;
   }
 }
 
@@ -56,21 +61,25 @@ KeyworkerSearchResultsContainer.propTypes = {
   agencyId: PropTypes.string.isRequired,
   keyworkerSearchResultsDispatch: PropTypes.func,
   keyworkerSearchTextDispatch: PropTypes.func,
-  displayError: PropTypes.func.isRequired
+  setLoadedDispatch: PropTypes.func,
+  displayError: PropTypes.func.isRequired,
+  loaded: PropTypes.boolean
 };
 
 const mapStateToProps = state => {
   return {
     searchText: state.keyworkerSearch.searchText,
     agencyId: state.app.user.activeCaseLoadId,
-    keyworkerList: state.keyworkerSearch.keyworkerSearchResults
+    keyworkerList: state.keyworkerSearch.keyworkerSearchResults,
+    loaded: state.app.loaded
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
-    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text))
+    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 

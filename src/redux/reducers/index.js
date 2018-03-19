@@ -19,7 +19,8 @@ const appInitialState = {
   shouldShowTerms: false,
   error: null,
   message: null,
-  page: 0
+  page: 0,
+  loaded: false
 };
 
 const offenderSearchInitialState = {
@@ -61,10 +62,19 @@ export function app (state = appInitialState, action) {
         page: 0,
         error: action.error
       });
+    case ActionTypes.RESET_ERROR:
+      return updateObject(state, {
+        error: null
+      });
     case ActionTypes.SET_MESSAGE:
       return {
         ...state,
         message: action.message
+      };
+    case ActionTypes.SET_LOADED:
+      return {
+        ...state,
+        loaded: action.loaded
       };
     default:
       return state;
