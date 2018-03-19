@@ -80,7 +80,7 @@ const callApi = ({ method, url, headers, reqHeaders, params, paramsSerializer, o
   }).catch(error => {
     if (error.response) {
       if (error.response.status === 401) {
-        return service.refreshTokenRequest({ token: refreshToken, headers, reqHeaders }).then(response => {
+        return service.refreshTokenRequest({ token: refresh_token, headers, reqHeaders }).then(response => {
           onTokenRefresh(response.data);
           return service.retryRequest({
             url,

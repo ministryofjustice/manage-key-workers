@@ -85,6 +85,7 @@ class KeyworkerProfileContainer extends Component {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
         await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Offender allocation updated.');
+        this.props.keyworkerChangeListDispatch([]);
       }
       history.push('/');
     } catch (error) {
