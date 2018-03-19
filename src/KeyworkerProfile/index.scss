@@ -37,6 +37,33 @@ select {
   width:3em;
 }
 
+
+%numberCircle {
+  width: 2em;
+  line-height: 2em;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.1em;
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+
+.numberCircleGreen {
+  @extend %numberCircle;
+  background-color: #00a84c;
+}
+
+.numberCircleAmber {
+  @extend %numberCircle;
+  background-color: #FFBF47;
+}
+
+.numberCircleAmber {
+  @extend %numberCircle;
+  background-color: tomato;
+}
+
 #editProfileButton {
   margin-top: 1.4em;
 }

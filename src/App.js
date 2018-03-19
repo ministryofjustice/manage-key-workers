@@ -35,13 +35,27 @@ class App extends React.Component {
   }
   async componentDidMount () {
     axios.interceptors.request.use((config) => {
-      this.props.resetErrorDispatch();
+      if (this.props.error) this.props.resetErrorDispatch();
       return config;
     }, (error) => Promise.reject(error));
+
+    axios.interceptors.response.use((config) => {
+      return config;
+    }, (error) => {
+      console.log("error in interceptor: " + error);
+      if (error.response && error.response.status === 401) {
+        window.location = '/auth/login';
+        return;
+      } else {
+        return Promise.reject(error);
+      }
+    }
+    );
+
     try {
       const user = await axiosWrapper.get('/api/me');
       const caseloads = await axiosWrapper.get('/api/usercaseloads');
-      this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
+      if (user && caseloads) {this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });}
     } catch (error) {
       this.props.setErrorDispatch(error.message);
     }
