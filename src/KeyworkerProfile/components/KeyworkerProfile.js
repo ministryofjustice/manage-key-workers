@@ -117,7 +117,8 @@ KeyworkerProfile.propTypes = {
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   handleEditProfileClick: PropTypes.func.isRequired,
-  message: PropTypes.string
+  message: PropTypes.string,
+  loaded: PropTypes.boolean
 };
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setKeyworkerCapacity, setMessage } from '../../redux/actions/index';
+import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setKeyworkerCapacity, setMessage, setLoaded } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
@@ -9,20 +9,22 @@ import { withRouter } from 'react-router';
 import axiosWrapper from "../../backendWrapper";
 
 class KeyworkerProfileContainer extends Component {
-  constructor () {
+  constructor (props) {
     super();
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.postAllocationChange = this.postAllocationChange.bind(this);
     this.handleEditProfileClick = this.handleEditProfileClick.bind(this);
+    props.setLoadedDispatch(false);
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     try {
       await this.getKeyworkerProfile();
       await this.getKeyworkerAllocations();
     } catch (error) {
       this.props.displayError(error);
     }
+    this.props.setLoadedDispatch(true);
   }
 
   async getKeyworkerProfile () {
@@ -94,8 +96,8 @@ class KeyworkerProfileContainer extends Component {
     if (this.props.error) {
       return <Error {...this.props} />;
     }
-
-    return <KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange} handleAllocationChange={this.postAllocationChange} handleEditProfileClick={this.handleEditProfileClick} {...this.props} />;
+    if (this.props.loaded) return <KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange} handleAllocationChange={this.postAllocationChange} handleEditProfileClick={this.handleEditProfileClick} {...this.props} />;
+    return null;
   }
 }
 
@@ -106,13 +108,15 @@ KeyworkerProfileContainer.propTypes = {
   keyworkerAllocationsDispatch: PropTypes.func,
   keyworkerDispatch: PropTypes.func,
   setMessageDispatch: PropTypes.func,
+  setLoadedDispatch: PropTypes.func,
   displayError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   keyworkerChangeList: PropTypes.array,
   keyworker: PropTypes.object,
   keyworkerChangeListDispatch: PropTypes.func,
   availableKeyworkerListDispatch: PropTypes.func,
-  keyworkerCapacityDispatch: PropTypes.func
+  keyworkerCapacityDispatch: PropTypes.func,
+  loaded: PropTypes.boolean
 };
 
 const mapStateToProps = state => {
@@ -121,7 +125,8 @@ const mapStateToProps = state => {
     keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
     keyworker: state.keyworkerSearch.keyworker,
     keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
-    keyworkerList: state.keyworkerSearch.keyworkerList
+    keyworkerList: state.keyworkerSearch.keyworkerList,
+    loaded: state.app.loaded
   };
 };
 
@@ -132,7 +137,8 @@ const mapDispatchToProps = dispatch => {
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
     availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
     keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
-    setMessageDispatch: (message) => dispatch(setMessage(message))
+    setMessageDispatch: (message) => dispatch(setMessage(message)),
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 
