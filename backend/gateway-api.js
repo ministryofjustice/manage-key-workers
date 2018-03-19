@@ -121,7 +121,7 @@ function gatewayToken () {
   return jwt.sign(payload, cert, { algorithm: 'ES256' });
 }
 
-const apiClientId = process.env.API_CLIENT_ID || 'elite2apiclient';
+const apiClientId = process.env.API_CLIENT_ID || 'omic';
 const apiClientSecret = process.env.API_CLIENT_SECRET || 'clientsecret';
 const encodeClientCredentials = () => new Buffer(`${querystring.escape(apiClientId)}:${querystring.escape(apiClientSecret)}`).toString('base64');
 
