@@ -15,6 +15,16 @@ class KeyworkerProfile extends Component {
     return styleClass;
   }
 
+  getAllocationStyle () {
+    let allocationStyleClass = 'numberCircleGreen';
+    if (this.props.keyworkerAllocations.length === this.props.keyworker.capacity) {
+      allocationStyleClass = 'numberCircleAmber';
+    } else if (this.props.keyworkerAllocations.length > this.props.keyworker.capacity) {
+      allocationStyleClass = 'numberCircleRed';
+    }
+    return allocationStyleClass;
+  }
+
   render () {
     const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
     const statusStyle = this.getStatusStyle();
@@ -35,7 +45,7 @@ class KeyworkerProfile extends Component {
 
             <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
-              <option key="choose" value="--">-- Select --</option>
+              <option key="choose" value="--">Choose key worker</option>
               {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
             </select>
           </td>
@@ -44,9 +54,11 @@ class KeyworkerProfile extends Component {
     });
 
     let renderContent = null;
+    const allocationCountStyle = this.getAllocationStyle();
+
     if (this.props.keyworkerAllocations.length > 0) {
       renderContent = (<div>
-        <div className="lede padding-top padding-bottom-large">Current key worker allocations {this.props.keyworkerAllocations.length}</div>
+        <div className="lede padding-top padding-bottom-large">Current key worker allocations <div className={allocationCountStyle}>{this.props.keyworkerAllocations.length}</div></div>
         <div className="pure-u-md-12-12">
           <table>
             <thead>
@@ -117,7 +129,8 @@ KeyworkerProfile.propTypes = {
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   handleEditProfileClick: PropTypes.func.isRequired,
-  message: PropTypes.string
+  message: PropTypes.string,
+  loaded: PropTypes.boolean
 };
 
 

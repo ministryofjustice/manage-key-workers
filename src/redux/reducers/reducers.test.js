@@ -5,7 +5,15 @@ import moment from 'moment';
 const appInitialState = {
   error: null,
   page: 0,
-  message: null
+  message: null,
+  loaded: false
+};
+
+const appWithErrorState = {
+  error: 'There was a problem',
+  page: 0,
+  message: null,
+  loaded: false
 };
 
 const allocatedInitialState = {
@@ -64,7 +72,8 @@ describe('app (global) reducer', () => {
         shouldShowTerms: false,
         error: null,
         message: null,
-        page: 0
+        page: 0,
+        loaded: false
       }
     );
   });
@@ -80,7 +89,8 @@ describe('app (global) reducer', () => {
         page: 0,
         error: null,
         message: null,
-        user: { field: 'value' }
+        user: { field: 'value' },
+        loaded: false
       }
     );
   });
@@ -96,7 +106,8 @@ describe('app (global) reducer', () => {
         page: 0,
         error: null,
         message: null,
-        user: { activeCaseLoadId: 'BXI' }
+        user: { activeCaseLoadId: 'BXI' },
+        loaded: false
       }
     );
   });
@@ -112,7 +123,8 @@ describe('app (global) reducer', () => {
         page: 0,
         error: null,
         message: null,
-        shouldShowTerms: true
+        shouldShowTerms: true,
+        loaded: false
       }
     );
   });
@@ -127,7 +139,8 @@ describe('app (global) reducer', () => {
       {
         page: 1,
         error: null,
-        message: null
+        message: null,
+        loaded: false
       }
     );
   });
@@ -142,7 +155,23 @@ describe('app (global) reducer', () => {
       {
         page: 0,
         error: 'HELP!',
-        message: null
+        message: null,
+        loaded: false
+      }
+    );
+  });
+
+  it('should handle RESET_ERROR', () => {
+    expect(
+      app(appWithErrorState, {
+        type: types.RESET_ERROR
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        message: null,
+        loaded: false
       }
     );
   });
@@ -157,7 +186,24 @@ describe('app (global) reducer', () => {
       {
         page: 0,
         error: null,
-        message: 'An important message!'
+        message: 'An important message!',
+        loaded: false
+      }
+    );
+  });
+
+  it('should handle SET_LOADED', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SET_LOADED,
+        loaded: true
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        message: null,
+        loaded: true
       }
     );
   });

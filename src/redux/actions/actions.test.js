@@ -93,12 +93,27 @@ describe('actions', () => {
     expect(actions.setError('Something went wrong')).toEqual(expectedAction);
   });
 
+  it('should create an action to reset the global error state', () => {
+    const expectedAction = {
+      type: types.RESET_ERROR
+    };
+    expect(actions.resetError()).toEqual(expectedAction);
+  });
+
   it('should create an action to store an info message', () => {
     const expectedAction = {
       type: types.SET_MESSAGE,
       message: 'Your stuff was saved.'
     };
     expect(actions.setMessage('Your stuff was saved.')).toEqual(expectedAction);
+  });
+
+  it('should create an action to update a loaded flag for rendering', () => {
+    const expectedAction = {
+      type: types.SET_LOADED,
+      loaded: true
+    };
+    expect(actions.setLoaded(true)).toEqual(expectedAction);
   });
 
   it('should create an action to save offender search criteria - text', () => {
