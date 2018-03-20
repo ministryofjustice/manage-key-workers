@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
   req.session = null;
   session.deleteHmppsCookie(res);
-  res.redirect('/login');
+  res.redirect('/auth/login');
 });
 
 module.exports = router;

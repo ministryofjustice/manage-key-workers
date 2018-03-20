@@ -39,24 +39,10 @@ class App extends React.Component {
       return config;
     }, (error) => Promise.reject(error));
 
-    axios.interceptors.response.use((config) => {
-      return config;
-    }, (error) => {
-      console.log("error in interceptor: " + error);
-      if (error.response && error.response.status === 401) {
-        window.location = '/auth/logout';
-        window.location = '/auth/login';
-        return;
-      } else {
-        return Promise.reject(error);
-      }
-    }
-    );
-
     try {
       const user = await axiosWrapper.get('/api/me');
       const caseloads = await axiosWrapper.get('/api/usercaseloads');
-      if (user && caseloads) {this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });}
+      this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
     } catch (error) {
       this.props.setErrorDispatch(error.message);
     }
