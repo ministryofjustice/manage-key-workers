@@ -44,6 +44,7 @@ class App extends React.Component {
     }, (error) => {
       console.log("error in interceptor: " + error);
       if (error.response && error.response.status === 401) {
+        window.location = '/auth/logout';
         window.location = '/auth/login';
         return;
       } else {
