@@ -8,4 +8,16 @@ const service = {
   get, post, put
 };
 
+axios.interceptors.response.use((config) => {
+  return config;
+}, (error) => {
+  if (error.response && error.response.status === 401) {
+    window.location = '/auth/logout';
+    return Promise.resolve(error);
+  } else {
+    return Promise.reject(error);
+  }
+}
+);
+
 module.exports = service;
