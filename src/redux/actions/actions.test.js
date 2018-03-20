@@ -223,5 +223,21 @@ describe('actions', () => {
     };
     expect(actions.setKeyworkerCapacity(8)).toEqual(expectedAction);
   });
+
+  it('should create a validation error', () => {
+    const expectedAction = {
+      type: types.SET_VALIDATION_ERROR,
+      fieldName: 'aField',
+      message: 'a message'
+    };
+    expect(actions.setValidationError('aField', 'a message')).toEqual(expectedAction);
+  });
+
+  it('should clear all validation errors', () => {
+    const expectedAction = {
+      type: types.RESET_VALIDATION_ERRORS
+    };
+    expect(actions.resetValidationErrors()).toEqual(expectedAction);
+  });
 });
 
