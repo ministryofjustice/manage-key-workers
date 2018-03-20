@@ -7,8 +7,10 @@ const addMissingKeyworkerDetails = async function (req, res, row) {
     req.query.staffId = row.staffId;
     const keyworkerResponse = await keyworkerApi.keyworker(req, res);
     const keyworkerData = keyworkerResponse.data;
-    row.keyworkerDisplay = `${keyworkerData.lastName}, ${keyworkerData.firstName}`;
-    row.numberAllocated = keyworkerData.numberAllocated;
+    if (keyworkerData) {
+      row.keyworkerDisplay = `${keyworkerData.lastName}, ${keyworkerData.firstName}`;
+      row.numberAllocated = keyworkerData.numberAllocated;
+    }
   } catch (error) {
     if (error.response && error.response.status === 404) {
       log.info(`No keyworker found for staffId Id ${row.staffId} on booking ${row.bookingId}`);

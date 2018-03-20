@@ -76,6 +76,19 @@ export function app (state = appInitialState, action) {
         ...state,
         loaded: action.loaded
       };
+    case ActionTypes.SET_VALIDATION_ERROR:
+      const newError = { [action.fieldName]: action.message };
+      return {
+        ...state,
+        validationErrors: state.validationErrors ?
+          { ...state.validationErrors, ...newError } :
+          newError
+      };
+    case ActionTypes.RESET_VALIDATION_ERRORS:
+      return {
+        ...state,
+        validationErrors: null
+      };
     default:
       return state;
   }
@@ -132,6 +145,10 @@ export function offenderSearch (state = offenderSearchInitialState, action) {
     case ActionTypes.SET_OFFENDER_SEARCH_RESULTS:
       return { ...state,
         offenderResults: action.offenderResults
+      };
+    case ActionTypes.SET_KEY_WORKER_CHANGE_LIST:
+      return { ...state,
+        keyworkerChangeList: action.keyworkerChangeList
       };
     default:
       return state;

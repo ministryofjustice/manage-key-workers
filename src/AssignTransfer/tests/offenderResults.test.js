@@ -13,9 +13,7 @@ const CSRA_COLUMN = 4;
 const KEYWORKER_NAME_COLUMN = 5;
 const KEYWORKER_SELECT_COLUMN = 6;
 
-const housingLocations = [{ id: 123, description: "block 1" }, { id: 223, description: "block 2" }];
-
-const offenderResults = [{
+const offenderResponse = [{
   bookingId: 1,
   lastName: "Rendell",
   firstName: "Steve",
@@ -51,7 +49,7 @@ const offenderResults = [{
   staffId: 123
 }];
 
-const keyworkerList = [{
+const keyworkerResponse = [{
   staffId: 123,
   firstName: 'Amy',
   lastName: 'Hanson',
@@ -64,12 +62,13 @@ const keyworkerList = [{
   numberAllocated: 6
 }];
 
+const results = { offenderResponse, keyworkerResponse };
+
 describe('Offender results component', () => {
   it('should render initial offender results form correctly', async () => {
     const component = shallow(<OffenderResults
-      keyworkerList={keyworkerList}
-      offenderResults={offenderResults}
-      allocatedKeyworkers={[]}
+      keyworkerList={keyworkerResponse}
+      offenderResults={results}
       history={{}}
       postManualOverride={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>
@@ -81,8 +80,11 @@ describe('Offender results component', () => {
     expect(component.find('tr').at(1).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019');
     expect(component.find('tr').at(1).find('td').at(CSRA_COLUMN).text()).toEqual('Standard');
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_NAME_COLUMN).text()).toContain("Hanson, Sam");
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).text()).toContain("Hanson, Sam (6)");
+
     expect(component.find('tr').at(2).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Rendell2, Steve2');
     expect(component.find('tr').at(2).find('td').at(CSRA_COLUMN).text()).toEqual('--');
+
     expect(component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Bennett, Lucinda');
     expect(component.find('tr').at(3).find('td').at(CRD_COLUMN).text()).toEqual('--');
     expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual('--');
@@ -91,6 +93,7 @@ describe('Offender results component', () => {
   it('should handle submit form correctly', async () => {
     const postManualOverride = jest.fn();
     const component = shallow(<OffenderResults
+      offenderResults={{}}
       postManualOverride={postManualOverride}
       history ={{ push: jest.fn() }}
       handleKeyworkerChange={jest.fn()}/>);

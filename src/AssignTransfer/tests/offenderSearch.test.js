@@ -27,23 +27,15 @@ describe('Offender search component', () => {
     expect(component.find('#housing-location-select').length).toBe(1);
   });
 
-  it('should handle initial submit form correctly', async () => {
-    const historyMock = { push: jest.fn() };
-    const component = shallow(<OffenderSearch initialSearch locations={housingLocations}
-      handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}}
-      history ={historyMock} />);
-
-    component.find('button').simulate('click');
-    expect(historyMock.push.mock.calls[0][0]).toBe('/offender/results');
-  });
-
   it('should handle results submit form correctly', async () => {
-    const doSearchMock = jest.fn();
+    const handleSubmitMock = jest.fn();
     const component = shallow(<OffenderSearch locations={housingLocations}
-      handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}}
-      doSearch ={doSearchMock} history ={{}}/>);
+      handleSearchTextChange ={() => {}}
+      handleSearchHousingLocationChange={() => {}}
+      setValidationErrorDispatch={() => {}}
+      handleSubmit ={handleSubmitMock} history ={{}}/>);
 
     component.find('button').simulate('click');
-    expect(doSearchMock).toHaveBeenCalled();
+    expect(handleSubmitMock).toHaveBeenCalled();
   });
 });
