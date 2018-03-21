@@ -8,7 +8,6 @@ import { getStatusStyle } from "../keyworkerStatus";
 class KeyworkerProfile extends Component {
   getAllocationStyle () {
     let allocationStyleClass = 'numberCircleGreen';
-    console.log(`allocations : ${this.props.keyworkerAllocations.length} capacity = ${this.props.keyworker.capacity}`);
     if (this.props.keyworkerAllocations.length === 0) {
       allocationStyleClass = 'numberCircleGrey';
     } else if (this.props.keyworkerAllocations.length === this.props.keyworker.capacity) {

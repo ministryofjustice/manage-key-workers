@@ -4,8 +4,7 @@ import { getStatusStyle } from "../keyworkerStatus";
 
 class KeyworkerProfileEditConfirm extends Component {
   render () {
-    let innerContents = (<div><div className="pure-u-md-1-12"><img className=""
-      alt="warning image" src="/images/icon-important.png"/></div><div className="pure-u-md-6-12">
+    let innerContents = (<div><div className="pure-u-md-1-12"><img alt="" className="" src="/images/icon-important.png"/></div><div className="pure-u-md-6-12">
       This will remove the key worker from the auto-allocation pool and release all of their allocated offenders</div></div>);
 
     if (this.props.status !== 'INACTIVE') {
