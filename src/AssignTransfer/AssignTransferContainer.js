@@ -20,28 +20,21 @@ class AssignTransferContainer extends Component {
   }
 
   render () {
-    if (this.props.initialSearch) {
-      return (<div>
-        <Error {...this.props} />
-        <div className="pure-g">
-          <div className="pure-u-md-8-12">
-            <h1 className="heading-large">Search for an offender</h1>
-            <OffenderSearchContainer
-              handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
-              handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
-              handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props} />
-          </div>
+    return (<div>
+      <Error {...this.props} />
+      {this.props.initialSearch ? (<div className="pure-g">
+        <div className="pure-u-md-8-12">
+          <h1 className="heading-large">Search for an offender</h1>
+          <OffenderSearchContainer
+            handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+            handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
+            handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props} />
         </div>
-      </div>);
-    } else {
-      return (<div>
-        <Error {...this.props} />
-        <OffenderResultsContainer
-          handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
-          handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
-          handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props}/>
-      </div>);
-    }
+      </div>) : <OffenderResultsContainer
+        handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+        handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
+        handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)} {...this.props}/>}
+    </div>);
   }
 }
 

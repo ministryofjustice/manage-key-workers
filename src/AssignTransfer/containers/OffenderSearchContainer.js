@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OffenderSearch from "../components/OffenderSearch";
 import axiosWrapper from "../../backendWrapper";
-import { setOffenderSearchLocations } from "../../redux/actions";
+import {
+  resetValidationErrors, setKeyworkerChangeList,
+  setOffenderSearchLocations, setValidationError
+} from "../../redux/actions";
 
 class OffenderSearchContainer extends Component {
+  constructor () {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentWillMount () {
     this.getLocations();
   }
@@ -14,13 +22,41 @@ class OffenderSearchContainer extends Component {
     try {
       const response = await axiosWrapper.get('/api/userLocations');
       this.props.offenderSearchLocationsDispatch(response.data);
+      // Use the first location by default
+      if (response.data && response.data[0]) {
+        this.props.offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
+      }
     } catch (error) {
       this.props.displayError(error);
     }
   }
 
+  validate () {
+    if (/\W/.test(this.props.searchText)) {
+      this.props.setValidationErrorDispatch("searchText", "Please enter letters or numbers");
+      return false;
+    }
+    if (!this.props.searchText || this.props.searchText.length < 3) {
+      this.props.setValidationErrorDispatch("searchText", "Please provide 3 or more characters");
+      return false;
+    }
+    this.props.resetValidationErrorsDispatch();
+    return true;
+  }
+
+  handleSubmit (history) {
+    if (!this.validate()) {
+      return;
+    }
+    if (this.props.initialSearch) {
+      history.push('/offender/results');
+    } else {
+      this.props.doSearch();
+    }
+  }
+
   render () {
-    return <OffenderSearch {...this.props} />;
+    return <OffenderSearch {...this.props} handleSubmit={this.handleSubmit}/>;
   }
 }
 
@@ -28,18 +64,30 @@ OffenderSearchContainer.propTypes = {
   error: PropTypes.string,
   displayError: PropTypes.func,
   locations: PropTypes.array,
-  offenderSearchLocationsDispatch: PropTypes.func
+  offenderSearchLocationsDispatch: PropTypes.func,
+  offenderSearchHousingLocationDispatch: PropTypes.func,
+  searchText: PropTypes.string,
+  setValidationErrorDispatch: PropTypes.func,
+  resetValidationErrorsDispatch: PropTypes.func,
+  initialSearch: PropTypes.bool,
+  doSearch: PropTypes.func,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    locations: state.offenderSearch.locations
+    locations: state.offenderSearch.locations,
+    searchText: state.offenderSearch.searchText,
+    validationErrors: state.app.validationErrors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList))
+    offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList)),
+    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+    setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
+    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
   };
 };
 

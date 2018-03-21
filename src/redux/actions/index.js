@@ -175,3 +175,17 @@ export const setKeyworkerStatus = (status) => {
   };
 };
 
+export const setValidationError = (fieldName, message) => {
+  return {
+    type: ActionTypes.SET_VALIDATION_ERROR,
+    fieldName,
+    message
+  };
+};
+
+export const resetValidationErrors = (fieldName, message) => {
+  return {
+    type: ActionTypes.RESET_VALIDATION_ERRORS
+  };
+};
+

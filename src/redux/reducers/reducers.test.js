@@ -16,6 +16,10 @@ const appWithErrorState = {
   loaded: false
 };
 
+const appWithValidationErrorState = {
+  validationErrors: { myField: 'An error!' }
+};
+
 const allocatedInitialState = {
   allocatedKeyworkers: [],
   allocatedList: [],
@@ -204,6 +208,53 @@ describe('app (global) reducer', () => {
         error: null,
         message: null,
         loaded: true
+      }
+    );
+  });
+
+  it('should handle SET_VALIDATION_ERROR (first error)', () => {
+    expect(
+      app(appInitialState, {
+        type: types.SET_VALIDATION_ERROR,
+        fieldName: 'myField',
+        message: 'An error!'
+      })
+    ).toEqual(
+      {
+        page: 0,
+        error: null,
+        message: null,
+        loaded: false,
+        validationErrors: { myField: 'An error!' }
+      }
+    );
+  });
+
+  it('should handle SET_VALIDATION_ERROR (second error)', () => {
+    expect(
+      app(appWithValidationErrorState, {
+        type: types.SET_VALIDATION_ERROR,
+        fieldName: 'myField2',
+        message: 'Another error!'
+      })
+    ).toEqual(
+      {
+        validationErrors: {
+          myField: 'An error!',
+          myField2: 'Another error!'
+        }
+      }
+    );
+  });
+
+  it('should handle RESET_VALIDATION_ERRORS', () => {
+    expect(
+      app(appWithValidationErrorState, {
+        type: types.RESET_VALIDATION_ERRORS
+      })
+    ).toEqual(
+      {
+        validationErrors: null
       }
     );
   });

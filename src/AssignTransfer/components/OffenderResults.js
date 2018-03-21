@@ -1,49 +1,49 @@
 import React, { Component } from 'react';
 import { properCaseName } from '../../stringUtils';
-import ReactTooltip from 'react-tooltip';
+//import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";
 
 class OffenderResults extends Component {
+  getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
+    if (staffId) {
+      if (keyworkerDisplay) {
+        if (numberAllocated || numberAllocated === 0) {
+          return keyworkerDisplay + '(' + numberAllocated + ')';
+        } else {
+          return keyworkerDisplay;
+        }
+      } else {
+        return staffId + ' (no details available)';
+      }
+    } else {
+      return <strong className="bold-xsmall">Not allocated</strong>;
+    }
+  }
+
   buildTableForRender (keyworkerOptions, offenderList) {
-    if (!offenderList) {
-      return "";
+    if (!offenderList || offenderList.length === 0) {
+      return <h1 className="error-message padding-top padding-bottom">No results found</h1>;
     }
     const offenders = offenderList.map((a, index) => {
-      // const currentSelectValue = this.props.allocatedKeyworkers && this.props.allocatedKeyworkers[index] ?
-      //   this.props.allocatedKeyworkers[index].staffId : '';
-      let tooltip = '';
-      if (a.keyworkerDisplay !== '--') {
-        tooltip = (<span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img
-          alt="current Key worker allocation" className="tooltipImage" src="../images/icon-information.png"/></span>);
-      }
-      let confirmedReleaseDate = a.confirmedReleaseDate;
-      if (confirmedReleaseDate == null) {
-        confirmedReleaseDate = "--";
-      }
-      let crsaClassification = a.crsaClassification;
-      if (crsaClassification == null) {
-        crsaClassification = "--";
-      }
+      const currentSelectValue = this.props.keyworkerChangeList && this.props.keyworkerChangeList[index] ?
+        this.props.keyworkerChangeList[index].staffId : '';
       return (<tr key={a.bookingId} className="row-gutters">
         <td className="row-gutters"><a
           href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
         <td className="row-gutters">{a.offenderNo}</td>
         <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
-        <td className="row-gutters">{confirmedReleaseDate}</td>
-        <td className="row-gutters">{crsaClassification}</td>
-        <td className="row-gutters">{a.keyworkerDisplay}
-          {tooltip}
-          <ReactTooltip place="top" effect="solid" theme="info"/>
+        <td className="row-gutters">{a.confirmedReleaseDate || "--"}</td>
+        <td className="row-gutters">{a.crsaClassification || "--"}</td>
+        <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
         </td>
         <td className="row-gutters">
-
-          {/*<select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
-              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
-              <option key="choose" value="--">-- Select --</option>
-              {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
-            </select>*/}
+          <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+            onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
+            <option key="choose" value="--">-- No change --</option>
+            {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
+          </select>
         </td>
       </tr>);
     });
@@ -51,18 +51,19 @@ class OffenderResults extends Component {
   }
 
   render () {
-    // const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
-    //   return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
-    // });
-    const offenders = this.buildTableForRender(
-      null, //keyworkerOptions,
-      this.props.offenderResults);
-
+    if (!this.props.offenderResults) {
+      return "";
+    }
+    const keyworkerOptions = this.props.offenderResults.keyworkerResponse ?
+      this.props.offenderResults.keyworkerResponse.map((kw, optionIndex) => {
+        return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+      }) : [];
+    const offenders = this.buildTableForRender(keyworkerOptions, this.props.offenderResults.offenderResponse);
     return (
       <div>
         <div className="pure-g">
           <div className="pure-u-md-7-12"><h1 className="heading-large">Manually assign and transfer</h1></div>
-          <div className="pure-u-md-11-12-12"><OffenderSearchContainer singleLineLayout {...this.props} /></div>
+          <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
         </div>
         <table className="row-gutters">
           <thead>
@@ -85,10 +86,10 @@ class OffenderResults extends Component {
 }
 
 OffenderResults.propTypes = {
-  offenderResults: PropTypes.array,
+  offenderResults: PropTypes.object,
   keyworkerList: PropTypes.array,
+  keyworkerChangeList: PropTypes.array,
   history: PropTypes.object,
-  allocatedKeyworkers: PropTypes.array,
   handleKeyworkerChange: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired
 };

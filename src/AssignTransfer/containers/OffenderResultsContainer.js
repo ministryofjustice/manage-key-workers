@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
 
 import axiosWrapper from "../../backendWrapper";
-import { setOffenderSearchResults } from "../../redux/actions";
+import { setKeyworkerChangeList, setOffenderSearchResults } from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
   constructor () {
@@ -25,21 +25,22 @@ class OffenderResultsContainer extends Component {
         params: {
           locationPrefix: this.props.housingLocation,
           keywords: this.props.searchText,
-          allocationStatus: this.props.allocationStatus
+          allocationStatus: this.props.allocationStatus,
+          agencyId: this.props.agencyId
         }
       });
       const data = await response.data;
       this.props.offenderSearchResultsDispatch(data);
     } catch (error) {
-      this.props.offenderSearchResultsDispatch([]);
+      this.props.offenderSearchResultsDispatch({
+        keyworkerResponse: [],
+        offenderResponse: [] });
       this.props.displayError(error);
     }
   }
 
   handleKeyworkerChange (event, index, offenderNo) {
-    // TODO state and props
-    const keyworkerChangeList = [...this.props.keyworkerChangeList];
-
+    const keyworkerChangeList = this.props.keyworkerChangeList ? [...this.props.keyworkerChangeList] : [];
     if (event.target.value === '--') {
       keyworkerChangeList[index] = null;
     } else {
@@ -53,12 +54,11 @@ class OffenderResultsContainer extends Component {
 
   async postManualOverride (history) {
     try {
-      // TODO !
-      if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
-        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, { params: { agencyId: this.props.agencyId } });
+      if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
+        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Key workers successfully updated.');
       }
-      this.props.onFinishAllocation(history);
+      history.push('/');
     } catch (error) {
       this.props.displayError(error);
     }
@@ -81,16 +81,15 @@ OffenderResultsContainer.propTypes = {
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   keyworkerChangeList: PropTypes.array,
-  allocatedKeyworkers: PropTypes.array,
   displayError: PropTypes.func.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired,
-  onFinishAllocation: PropTypes.func
+  setMessageDispatch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     searchText: state.offenderSearch.searchText,
     allocationStatus: state.offenderSearch.allocationStatus,
+    keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
     housingLocation: state.offenderSearch.housingLocation,
     offenderResults: state.offenderSearch.offenderResults
   };
@@ -98,7 +97,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList))
+    offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
+    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list))
   };
 };
 
