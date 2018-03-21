@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
+import uk.gov.justice.digital.hmpps.keyworker.modules.ErrorsModule
 
 class LoginPage extends Page {
 
@@ -12,11 +13,12 @@ class LoginPage extends Page {
     }
 
     static content = {
+        errors { module(ErrorsModule) }
     }
 
     void loginAs(user) {
         $('form').username = user
-        $('form').password = 'password123456'
+        $('form').password = 'password'
 
         def signInButton = $("button", type: 'submit')
         assert signInButton.text() == 'Sign in'
