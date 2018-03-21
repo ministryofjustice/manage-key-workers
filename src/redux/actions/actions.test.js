@@ -224,6 +224,14 @@ describe('actions', () => {
     expect(actions.setKeyworkerCapacity(8)).toEqual(expectedAction);
   });
 
+  it('should create an action to save key worker status change behaviour', () => {
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
+      statusChangeBehaviour: 'keepAllocated'
+    };
+    expect(actions.setKeyworkerStatusChangeBehaviour('keepAllocated')).toEqual(expectedAction);
+  });
+
   it('should create a validation error', () => {
     const expectedAction = {
       type: types.SET_VALIDATION_ERROR,

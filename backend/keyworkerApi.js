@@ -66,6 +66,13 @@ const allocate = (req, res) => gateway.postRequest({
   url: `${keyworkerApiUrl}key-worker/allocate`
 });
 
+const keyworkerUpdate = (req, res) => gateway.postRequest({
+  req,
+  res,
+  method: 'post',
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}`
+});
+
 const autoAllocate = (req, res) => gateway.postRequest({
   req,
   res,
@@ -81,7 +88,7 @@ const keyworkerAllocations = (req, res) => gateway.getRequest({
 });
 
 const service = {
-  unallocated, allocated, getOffenders, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations, keyworkerSearch
+  unallocated, allocated, getOffenders, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations, keyworkerSearch, keyworkerUpdate
 };
 
 function formatDate (inputDate) {

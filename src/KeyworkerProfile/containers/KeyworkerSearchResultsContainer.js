@@ -63,7 +63,7 @@ KeyworkerSearchResultsContainer.propTypes = {
   keyworkerSearchTextDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
   displayError: PropTypes.func.isRequired,
-  loaded: PropTypes.boolean
+  loaded: PropTypes.bool
 };
 
 const mapStateToProps = state => {

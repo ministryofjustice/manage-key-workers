@@ -175,6 +175,13 @@ export const setKeyworkerStatus = (status) => {
   };
 };
 
+export const setKeyworkerStatusChangeBehaviour = (statusChangeBehaviour) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
+    statusChangeBehaviour
+  };
+};
+
 export const setValidationError = (fieldName, message) => {
   return {
     type: ActionTypes.SET_VALIDATION_ERROR,

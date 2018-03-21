@@ -86,6 +86,9 @@ const callApi = ({ method, url, headers, reqHeaders, params, paramsSerializer, o
             url,
             method,
             responseType,
+            params,
+            paramsSerializer,
+            data,
             headers: getHeaders({ headers, reqHeaders, token: response.data.access_token })
           });
         });

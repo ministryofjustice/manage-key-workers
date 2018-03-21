@@ -6,6 +6,7 @@ import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit';
 import Error from '../../Error';
 import { withRouter } from 'react-router';
 import { setMessage } from "../../redux/actions";
+import axiosWrapper from "../../backendWrapper";
 
 class KeyworkerProfileEditContainer extends Component {
   constructor () {
@@ -16,13 +17,45 @@ class KeyworkerProfileEditContainer extends Component {
     this.handleCapacityChange = this.handleCapacityChange.bind(this);
   }
 
-  // to redirect to prfile if keyworker not in context?
+  componentDidMount () {
+    //someone has deeplinked  - send back to profile page
+    if (!this.props.keyworker.staffId) {
+      this.props.history.push(`/keyworker/${this.props.match.params.staffId}/profile`);
+    }
+  }
 
-  handleSaveChanges (history) {
-    console.log("todo: save keyworker changes");
-    // save to redux until confirmation on next page?...
-    this.props.setMessageDispatch("Status updated");
-    history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+  async handleSaveChanges (history) {
+    if ((this.props.status === '')) {
+      history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+    } else if (this.props.status === 'ACTIVE') {
+      await this.postKeyworkerUpdate();
+      this.props.setMessageDispatch("Status updated");
+      history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+    } else {
+      history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
+    }
+  }
+
+  async postKeyworkerUpdate () {
+    try {
+      await axiosWrapper.post('/api/keyworkerUpdate',
+        {
+          keyworker:
+            {
+              status: this.props.status,
+              capacity: this.props.capacity
+            }
+        },
+        {
+          params:
+            {
+              agencyId: this.props.agencyId,
+              staffId: this.props.keyworker.staffId
+            }
+        });
+    } catch (error) {
+      this.props.displayError(error);
+    }
   }
 
   handleCancel (history) {
@@ -42,7 +75,9 @@ class KeyworkerProfileEditContainer extends Component {
       return <Error {...this.props} />;
     }
 
-    return <KeyworkerProfileEdit handleSaveChanges={this.handleSaveChanges} handleCancel={this.handleCancel} handleStatusChange={this.handleStatusChange} handleCapacityChange={this.handleCapacityChange} {...this.props} />;
+    return (<KeyworkerProfileEdit handleSaveChanges={this.handleSaveChanges} handleCancel={this.handleCancel}
+      handleStatusChange={this.handleStatusChange}
+      handleCapacityChange={this.handleCapacityChange} {...this.props} />);
   }
 }
 
@@ -54,7 +89,11 @@ KeyworkerProfileEditContainer.propTypes = {
   setMessageDispatch: PropTypes.func,
   displayError: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func,
-  keyworkerCapacityDispatch: PropTypes.func
+  keyworkerCapacityDispatch: PropTypes.func,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  status: PropTypes.string,
+  capacity: PropTypes.string
 };
 
 const mapStateToProps = state => {
