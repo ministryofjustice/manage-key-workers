@@ -16,9 +16,9 @@ class LoginPage extends Page {
         errors { module(ErrorsModule) }
     }
 
-    void loginAs(user) {
+    void loginAs(user, String password) {
         $('form').username = user
-        $('form').password = 'password'
+        $('form').password = password
 
         def signInButton = $("button", type: 'submit')
         assert signInButton.text() == 'Sign in'
