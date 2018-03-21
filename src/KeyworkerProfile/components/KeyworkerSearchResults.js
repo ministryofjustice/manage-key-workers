@@ -23,36 +23,35 @@ class KeyworkerSearchResults extends Component {
 
     let renderContent = null;
     if (this.props.keyworkerList.length > 0) {
-      renderContent = (<div>
-        <div className="lede padding-top-large padding-bottom">{this.props.keyworkerList.length} Results:</div>
-        <div className="pure-u-md-6-12">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                {/*  <th>Current role</th>
-                <th>Status</th> */}
-                <th>No. allocated Offenders</th>
-              </tr>
-            </thead>
-            <tbody>{keyworkers}</tbody>
-          </table>
-        </div>
-      </div>
-      );
+      renderContent = keyworkers;
     } else {
-      renderContent = (<div className="lede padding-top-large padding-bottom">No Key workers found</div>);
+      renderContent = (<div className="lede padding-top-large padding-bottom padding-left">No Key workers found</div>);
     }
 
 
     return (
       <div>
-        <div className="pure-g">
-          <div className="pure-u-md-8-12">
+        <div className="pure-g padding-bottom-large">
+          <div className="pure-u-md-8-12 ">
             <h1 className="heading-large">Search for a key worker</h1>
             <KeyworkerSearch {...this.props} />
           </div>
-          {renderContent}
+          <div>
+            <div className="lede padding-top-large padding-bottom">{this.props.keyworkerList.length} Results:</div>
+            <div className="pure-u-md-6-12">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    {/*  <th>Current role</th>
+                <th>Status</th> */}
+                    <th>No. allocated Offenders</th>
+                  </tr>
+                </thead>
+                <tbody>{renderContent}</tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     );

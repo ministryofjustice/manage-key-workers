@@ -9,28 +9,29 @@ select {
   background-color: white;
 }
 
-.inactiveStatus {
-  border: 3px solid lightgrey;
-  color: orange;
+%statusStyle {
+  border: 3px solid green;
   padding: .3em 1em .2em 1em;
   text-align: center;
   display: inline-block;
+}
+
+.inactiveStatus {
+  @extend %statusStyle;
+  color: orange;
+  border-color: orange;
 }
 
 .unavailableStatus {
-  border: 3px solid orange;
-  color: orange;
-  padding: .3em 1em .2em 1em;
-  text-align: center;
-  display: inline-block;
+  @extend %statusStyle;
+  color: darkgrey;
+  border-color: darkgrey;
 }
 
 .activeStatus {
-  border: 3px solid green;
+  @extend %statusStyle;
   color: green;
-  padding: .3em 1em .2em 1em;
-  text-align: center;
-  display: inline-block;
+  border-color: green;
 }
 
 .capacityInput {
@@ -54,12 +55,17 @@ select {
   background-color: #00a84c;
 }
 
+.numberCircleGrey {
+  @extend %numberCircle;
+  background-color: #bec1c3;
+}
+
 .numberCircleAmber {
   @extend %numberCircle;
   background-color: #FFBF47;
 }
 
-.numberCircleAmber {
+.numberCircleRed {
   @extend %numberCircle;
   background-color: tomato;
 }

@@ -25,6 +25,7 @@ const manualoverride = require('./controllers/manualoverride');
 const keyworkerSearch = require('./controllers/keyworkerSearch');
 const keyworkerAllocations = require('./controllers/keyworkerAllocations');
 const keyworkerProfile = require('./controllers/keyworkerProfile');
+const keyworkerUpdate = require('./controllers/keyworkerUpdate');
 const userMe = require('./controllers/userMe');
 
 const log = require('./log');
@@ -110,6 +111,7 @@ app.use('/api/searchOffenders', searchOffenders.router);
 app.use('/api/manualoverride', manualoverride);
 app.use('/api/keyworkerSearch', keyworkerSearch);
 app.use('/api/keyworker', keyworkerProfile.router);
+app.use('/api/keyworkerUpdate', keyworkerUpdate);
 app.use('/api/keyworkerAllocations', keyworkerAllocations.router);
 
 app.get('*', (req, res) => {

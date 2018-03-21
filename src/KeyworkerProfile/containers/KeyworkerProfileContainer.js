@@ -83,7 +83,16 @@ class KeyworkerProfileContainer extends Component {
   async postAllocationChange (history) {
     try {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
+        await axiosWrapper.post('/api/manualoverride',
+          {
+            allocatedKeyworkers: this.props.keyworkerChangeList
+          },
+          {
+            params:
+              {
+                agencyId: this.props.agencyId
+              }
+          });
         this.props.setMessageDispatch('Offender allocation updated.');
         this.props.keyworkerChangeListDispatch([]);
       }
@@ -117,7 +126,7 @@ KeyworkerProfileContainer.propTypes = {
   keyworkerChangeListDispatch: PropTypes.func,
   availableKeyworkerListDispatch: PropTypes.func,
   keyworkerCapacityDispatch: PropTypes.func,
-  loaded: PropTypes.boolean
+  loaded: PropTypes.bool
 };
 
 const mapStateToProps = state => {
