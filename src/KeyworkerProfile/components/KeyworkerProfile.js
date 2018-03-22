@@ -3,7 +3,7 @@ import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import MessageBar from "../../MessageBar/index";
-import { getStatusStyle } from "../keyworkerStatus";
+import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
 
 class KeyworkerProfile extends Component {
   getAllocationStyle () {
@@ -94,7 +94,7 @@ class KeyworkerProfile extends Component {
             </div>
             <div className="pure-u-md-4-12" >
               <label className="form-label" htmlFor="name">Status</label>
-              <div id="keyworker-status" className={`${statusStyle}Status`}>{this.props.keyworker.statusDescription}</div>
+              <div id="keyworker-status" className={`${statusStyle}Status`}>{getStatusDescription(this.props.keyworker.status)}</div>
             </div>
 
             <div className="pure-u-md-2-12" >

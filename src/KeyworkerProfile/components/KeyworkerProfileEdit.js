@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
+import { getStatusDescription } from "../keyworkerStatus";
 
 class KeyworkerProfileEdit extends Component {
   render () {
@@ -13,12 +14,12 @@ class KeyworkerProfileEdit extends Component {
           value={statusValue}
           onChange={this.props.handleStatusChange}>
           <option key="choose" value="">-- Select --</option>
-          <option key="ACTIVE" value="ACTIVE">Active</option>
-          <option key="INACTIVE" value="INACTIVE">Inactive</option>
-          <option key="UNAVAILABLE_ANNUAL_LEAVE" value="UNAVAILABLE_ANNUAL_LEAVE">Unavailable - annual leave</option>
-          <option key="UNAVAILABLE_LONG_TERM_ABSENCE" value="UNAVAILABLE_LONG_TERM_ABSENCE">Unavailable - long term absence</option>
-          <option key="UNAVAILABLE_NO_PRISONER_CONTACT" value="UNAVAILABLE_NO_PRISONER_CONTACT">Unavailable - no prisoner contact</option>
-          <option key="UNAVAILABLE_SUSPENDED" value="UNAVAILABLE_SUSPENDED">Unavailable - suspended</option>
+          <option key="ACTIVE" value="ACTIVE">{getStatusDescription('ACTIVE')}</option>
+          <option key="INACTIVE" value="INACTIVE">{getStatusDescription('INACTIVE')}</option>
+          <option key="UNAVAILABLE_ANNUAL_LEAVE" value="UNAVAILABLE_ANNUAL_LEAVE">{getStatusDescription('UNAVAILABLE_ANNUAL_LEAVE')}</option>
+          <option key="UNAVAILABLE_LONG_TERM_ABSENCE" value="UNAVAILABLE_LONG_TERM_ABSENCE">{getStatusDescription('UNAVAILABLE_LONG_TERM_ABSENCE')}</option>
+          <option key="UNAVAILABLE_NO_PRISONER_CONTACT" value="UNAVAILABLE_NO_PRISONER_CONTACT">{getStatusDescription('UNAVAILABLE_NO_PRISONER_CONTACT')}</option>
+          <option key="UNAVAILABLE_SUSPENDED" value="UNAVAILABLE_SUSPENDED">{getStatusDescription('UNAVAILABLE_SUSPENDED')}</option>
         </select></div>);
 
     return (
@@ -55,7 +56,7 @@ class KeyworkerProfileEdit extends Component {
             <div className="pure-u-md-3-12" >
               <button id="saveButton" className="button" onClick={() => this.props.handleSaveChanges(this.props.history)}>Save changes</button>
             </div>
-            <div className="pure-u-md-2-12">
+            <div className="pure-u-md-3-12">
               <button id="cancelButton" className="button button-cancel" onClick={() => this.props.handleCancel(this.props.history)}>Cancel</button>
             </div>
           </div>

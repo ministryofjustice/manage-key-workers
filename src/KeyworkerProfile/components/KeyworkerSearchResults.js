@@ -3,6 +3,8 @@ import KeyworkerSearch from "./KeyworkerSearch";
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import { getStatusDescription } from "../keyworkerStatus";
+
 
 class KeyworkerSearchResults extends Component {
   render () {
@@ -14,8 +16,7 @@ class KeyworkerSearchResults extends Component {
           <td className="row-gutters">
             <Link id={`key_worker_${a.staffId}_link`} title="Key worker profile link" className="link" to={keyworkerHref} >{formattedName}</Link>
           </td>
-          {/*  <td className="row-gutters">{a.currentRole}</td>
-          <td className="row-gutters">{a.status}</td> */}
+          <td className="row-gutters">{getStatusDescription(a.status)}</td>
           <td className="row-gutters">{a.numberAllocated}</td>
         </tr>
       );
@@ -43,8 +44,7 @@ class KeyworkerSearchResults extends Component {
                 <thead>
                   <tr>
                     <th>Name</th>
-                    {/*  <th>Current role</th>
-                <th>Status</th> */}
+                    <th>Status</th>
                     <th>No. allocated Offenders</th>
                   </tr>
                 </thead>

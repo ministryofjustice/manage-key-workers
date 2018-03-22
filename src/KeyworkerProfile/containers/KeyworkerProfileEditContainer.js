@@ -42,8 +42,8 @@ class KeyworkerProfileEditContainer extends Component {
         {
           keyworker:
             {
-              status: this.props.status,
-              capacity: this.props.capacity
+              status: this.props.status || this.props.keyworker.status,
+              capacity: this.props.capacity || this.props.keyworker.capacity
             }
         },
         {

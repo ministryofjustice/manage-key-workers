@@ -12,7 +12,7 @@ const getTestData = function () {
       firstName: 'Brent',
       lastName: 'Daggart',
       numberAllocated: 3,
-      status: "active",
+      status: "ACTIVE",
       currentRole: "Key worker2"
     },
     {
@@ -20,7 +20,7 @@ const getTestData = function () {
       firstName: 'Amy',
       lastName: 'Hanson',
       numberAllocated: 4,
-      status: "active",
+      status: "ACTIVE",
       currentRole: "Key worker"
     },
     {
@@ -28,7 +28,7 @@ const getTestData = function () {
       firstName: 'Florence',
       lastName: 'Welch',
       numberAllocated: 1,
-      status: "active",
+      status: "ACTIVE",
       currentRole: "Key worker3"
     }
   ];
@@ -41,7 +41,8 @@ describe('Keyworker search result component', () => {
     const component = shallow(<KeyworkerSearchResult keyworkerList={list} handleSearchTextChange={jest.fn()} />);
     expect(component.find('tr').length).toEqual(4); // includes header tr
     expect(component.find('tr').at(1).find('td').at(0).text()).toContain('Link');
-    expect(component.find('tr').at(1).find('td').at(1).text()).toEqual('3');
+    expect(component.find('tr').at(1).find('td').at(2).text()).toEqual('3');
+    expect(component.find('tr').at(1).find('td').at(1).text()).toEqual('Active');
   });
 });
 
