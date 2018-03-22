@@ -6,7 +6,7 @@ const log = require('../log');
 
 router.get('/', asyncMiddleware(async (req, res) => {
   const response = await keyworkerApi.keyworkerSearch(req, res);
-  log.debug({ keyworkerSearch: response.data }, 'Response from available keyworker request');
+  log.debug({ keyworkerSearch: response.data }, 'Response from keyworker search request');
   res.json(response.data);
 }));
 

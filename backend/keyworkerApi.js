@@ -70,7 +70,7 @@ const keyworkerUpdate = (req, res) => gateway.postRequest({
   req,
   res,
   method: 'post',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}`
 });
 
 const autoAllocate = (req, res) => gateway.postRequest({

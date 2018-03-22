@@ -6,6 +6,7 @@ import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfi
 import Error from '../../Error';
 import { withRouter } from 'react-router';
 import { setMessage } from "../../redux/actions";
+import axiosWrapper from "../../backendWrapper";
 
 class KeyworkerProfileEditContainer extends Component {
   constructor () {
@@ -24,11 +25,33 @@ class KeyworkerProfileEditContainer extends Component {
 
   // to redirect to prfile if keyworker not in context?
 
-  handleSaveChanges (history) {
+  async handleSaveChanges (history) {
     console.log("todo: save keyworker changes");
-    // save to redux until confirmation on next page?...
+    await this.postKeyworkerUpdate();
     this.props.setMessageDispatch("Status updated");
     history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+  }
+
+  async postKeyworkerUpdate () {
+    try {
+      await axiosWrapper.post('/api/keyworkerUpdate',
+        {
+          keyworker:
+            {
+              status: this.props.status || this.props.keyworker.status,
+              capacity: this.props.capacity || this.props.keyworker.capacity
+            }
+        },
+        {
+          params:
+            {
+              agencyId: this.props.agencyId,
+              staffId: this.props.keyworker.staffId
+            }
+        });
+    } catch (error) {
+      this.props.displayError(error);
+    }
   }
 
   handleCancel (history) {
@@ -51,6 +74,7 @@ class KeyworkerProfileEditContainer extends Component {
 KeyworkerProfileEditContainer.propTypes = {
   error: PropTypes.string,
   status: PropTypes.string,
+  capacity: PropTypes.string,
   agencyId: PropTypes.string.isRequired,
   keyworkerDispatch: PropTypes.func,
   keyworker: PropTypes.object,
