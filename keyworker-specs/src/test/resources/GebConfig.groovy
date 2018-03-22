@@ -1,3 +1,4 @@
+import org.openqa.selenium.Dimension
 import org.openqa.selenium.chrome.ChromeDriver
 
 waiting {
@@ -6,16 +7,11 @@ waiting {
 
 driver = {
 
-    def driverInstance = chromeDriver()
-
-    driverInstance.manage().window().maximize()
-    driverInstance
-}
-
-private ChromeDriver chromeDriver() {
     System.setProperty('webdriver.chrome.driver', '/Users/syscon/dev/work/licences/chromedriver')
 
-    new ChromeDriver()
+    def driverInstance = new ChromeDriver()
+    driverInstance.manage().window().size = new Dimension(640, 1134)
+    driverInstance
 }
 
 

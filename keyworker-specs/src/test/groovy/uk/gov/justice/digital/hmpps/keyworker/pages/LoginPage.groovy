@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
+import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.modules.ErrorsModule
 
 class LoginPage extends Page {
@@ -16,8 +17,8 @@ class LoginPage extends Page {
         errors { module(ErrorsModule) }
     }
 
-    void loginAs(user, String password) {
-        $('form').username = user
+    void loginAs(UserAccount userAccount, String password) {
+        $('form').username = userAccount.username
         $('form').password = password
 
         def signInButton = $("button", type: 'submit')
