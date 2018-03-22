@@ -11,7 +11,7 @@ const req = {
 
 
 describe('keyworker profile controller', async () => {
-  it('Should add status description to response', async () => {
+  it('Should add keyworker details to response', async () => {
     keyworkerApi.keyworker = jest
       .fn()
       .mockImplementation(() => createKeyworkerResponse());
@@ -20,7 +20,6 @@ describe('keyworker profile controller', async () => {
 
     expect(keyworkerApi.keyworker.mock.calls.length).toBe(1);
 
-    expect(response.data.statusDescription).toBe('Active');
     expect(response.data.firstName).toBe('Another');
     expect(response.data.lastName).toBe('User');
     expect(response.data.staffId).toBe(-5);
