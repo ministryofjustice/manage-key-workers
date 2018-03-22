@@ -37,7 +37,7 @@ class KeyworkerProfileEditConfirm extends Component {
             <h1 className="heading-large">Status change</h1>
           </div>
           <div className="pure-g">
-            <div className="pure-u-md-3-12">
+            <div className="pure-u-md-4-12">
               <label className="form-label" htmlFor="keyworker-status">Proposed new status</label>
               <div id="keyworker-status" name="keyworker-status"
                 className={`${statusStyle}Status margin-top`}>{getStatusDescription(this.props.status)}</div>

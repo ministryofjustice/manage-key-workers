@@ -83,6 +83,14 @@ describe('Keyworker Profile component', () => {
     expect(component.find('tr').at(3).find('td').at(LOCATION_COLUMN).text()).toEqual('L-2-2');
     expect(component.find('tr').at(3).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019');
     expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual(NO_DATA);
+    expect(component.find('#updateAllocationButton').length).toEqual(1);
+  });
+
+  it('should hide save button if no allocations', async () => {
+    const component = shallow(<KeyworkerProfile keyworkerAllocations={[]} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
+    console.log(component.debug());
+    expect(component.text()).toContain('Profile for Frank Butcher');
+    expect(component.find('#updateAllocationButton').length).toEqual(0);
   });
 
   it('should remove keyworker from select if currently allocated', async () => {
