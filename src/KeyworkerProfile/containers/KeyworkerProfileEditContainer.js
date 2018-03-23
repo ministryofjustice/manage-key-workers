@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit';
 import Error from '../../Error';
 import { withRouter } from 'react-router';
-import { setMessage } from "../../redux/actions";
+import { resetValidationErrors, setMessage, setValidationError } from "../../redux/actions";
 import axiosWrapper from "../../backendWrapper";
 
 class KeyworkerProfileEditContainer extends Component {
@@ -18,44 +18,57 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   componentDidMount () {
-    //someone has deeplinked  - send back to profile page
+    //invalid deeplink
     if (!this.props.keyworker.staffId) {
       this.props.history.push(`/keyworker/${this.props.match.params.staffId}/profile`);
     }
   }
 
   async handleSaveChanges (history) {
-    if ((this.props.status === '')) {
-      history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
-    } else if (this.props.status === 'ACTIVE') {
-      await this.postKeyworkerUpdate();
-      this.props.setMessageDispatch("Status updated");
-      history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
-    } else {
-      history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
+    if (!this.validate()) {
+      return;
+    }
+    let statusChange = (this.props.status !== this.props.keyworker.status);
+
+    try {
+      if (this.formChange()) {
+        if (statusChange && this.props.status !== 'ACTIVE') {
+          history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
+        } else {
+          await this.postKeyworkerUpdate();
+          this.props.setMessageDispatch("Status updated");
+          history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+        }
+      } else {
+        history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+      }
+    } catch (error) {
+      this.props.displayError(error);
     }
   }
 
+  formChange () {
+    let capacityChange = (this.props.capacity !== this.props.keyworker.capacity);
+    let statusChange = (this.props.status !== this.props.keyworker.status);
+    return capacityChange || statusChange;
+  }
+
   async postKeyworkerUpdate () {
-    try {
-      await axiosWrapper.post('/api/keyworkerUpdate',
-        {
-          keyworker:
+    await axiosWrapper.post('/api/keyworkerUpdate',
+      {
+        keyworker:
             {
-              status: this.props.status || this.props.keyworker.status,
-              capacity: this.props.capacity || this.props.keyworker.capacity
+              status: this.props.status,
+              capacity: this.props.capacity
             }
-        },
-        {
-          params:
+      },
+      {
+        params:
             {
               agencyId: this.props.agencyId,
               staffId: this.props.keyworker.staffId
             }
-        });
-    } catch (error) {
-      this.props.displayError(error);
-    }
+      });
   }
 
   handleCancel (history) {
@@ -68,6 +81,20 @@ class KeyworkerProfileEditContainer extends Component {
 
   handleCapacityChange (event) {
     this.props.keyworkerCapacityDispatch(event.target.value);
+  }
+
+  stringIsInteger (input) {
+    var parsed = Number.parseInt(input, 10);
+    return !Number.isNaN(parsed);
+  }
+
+  validate () {
+    if (!this.stringIsInteger(this.props.capacity)) {
+      this.props.setValidationErrorDispatch("capacity", "Please enter a number");
+      return false;
+    }
+    this.props.resetValidationErrorsDispatch();
+    return true;
   }
 
   render () {
@@ -93,7 +120,10 @@ KeyworkerProfileEditContainer.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   status: PropTypes.string,
-  capacity: PropTypes.string
+  capacity: PropTypes.string,
+  validationErrors: PropTypes.object,
+  setValidationErrorDispatch: PropTypes.func,
+  resetValidationErrorsDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -101,7 +131,10 @@ const mapStateToProps = state => {
     agencyId: state.app.user.activeCaseLoadId,
     keyworker: state.keyworkerSearch.keyworker,
     capacity: state.keyworkerSearch.capacity,
-    status: state.keyworkerSearch.status
+    status: state.keyworkerSearch.status,
+    validationErrors: state.app.validationErrors,
+    setValidationErrorDispatch: PropTypes.func,
+    resetValidationErrorsDispatch: PropTypes.func
   };
 };
 
@@ -110,7 +143,9 @@ const mapDispatchToProps = dispatch => {
     keyworkerDispatch: object => dispatch(setKeyworker(object)),
     keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status)),
     keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
-    setMessageDispatch: (message) => dispatch(setMessage(message))
+    setMessageDispatch: (message) => dispatch(setMessage(message)),
+    setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
+    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
   };
 };
 

@@ -65,7 +65,7 @@ class KeyworkerProfile extends Component {
           </thead>
           <tbody>{allocations}</tbody>
         </table>
-        <button id="updateAllocationButton" className="button top-gutter pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>
+        {this.props.keyworkerAllocations.length > 0 && <button id="updateAllocationButton" className="button top-gutter pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>}
       </div>
     </div>
     );

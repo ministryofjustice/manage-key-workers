@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { getStatusDescription } from "../keyworkerStatus";
+import ValidationErrors from "../../ValidationError";
 
 class KeyworkerProfileEdit extends Component {
   render () {
@@ -44,6 +45,7 @@ class KeyworkerProfileEdit extends Component {
             <div className="pure-u-md-1-12" >
               <label className="form-label" htmlFor="name">Capacity</label>
               <div>
+                <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'capacity'} />
                 <input type="text" className="form-control capacityInput" id="capacity" name="capacity" value={this.props.capacity} onChange={this.props.handleCapacityChange}/>
               </div>
             </div>
@@ -76,7 +78,8 @@ KeyworkerProfileEdit.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   status: PropTypes.string,
   capacity: PropTypes.string,
-  keyworkerStatus: PropTypes.string
+  keyworkerStatus: PropTypes.string,
+  validationErrors: PropTypes.object
 };
 
 
