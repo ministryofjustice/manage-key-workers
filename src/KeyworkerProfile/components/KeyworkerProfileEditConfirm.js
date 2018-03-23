@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
+import ValidationErrors from "../../ValidationError";
 
 class KeyworkerProfileEditConfirm extends Component {
   render () {
@@ -10,7 +11,8 @@ class KeyworkerProfileEditConfirm extends Component {
     if (this.props.status !== 'INACTIVE') {
       innerContents = (<div className="pure-u-md-6-12">
         <div className="padding-bottom">Choose an option:</div>
-        <div className="multiple-choice">
+        <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'behaviourRadios'} />
+        <div name="behaviourRadios" id="behaviourRadios" className="multiple-choice">
           <input type="radio" name="allocationOption" value="KEEP_ALLOCATIONS" onClick={this.props.handleOptionChange}/>
           <label>Continue to auto-allocate
           prisoners to this key worker and keep those already
@@ -73,7 +75,9 @@ KeyworkerProfileEditConfirm.propTypes = {
   handleSaveChanges: PropTypes.func.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  status: PropTypes.string
+  status: PropTypes.string,
+  capacity: PropTypes.string,
+  validationErrors: PropTypes.object
 };
 
 

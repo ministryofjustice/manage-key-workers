@@ -38,7 +38,7 @@ const keyworkerSearchInitialState = {
   keyworkerList: [],
   status: '',
   capacity: 0,
-  statusChangeBehaviour: 'keepAllocations'
+  statusChangeBehaviour: ''
 };
 
 export function app (state = appInitialState, action) {

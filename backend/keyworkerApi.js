@@ -56,7 +56,7 @@ const keyworkerSearch = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members?nameFilter=${req.query.searchText}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members?nameFilter=${encodeQueryString(req.query.searchText)}`
 });
 
 const allocate = (req, res) => gateway.postRequest({
@@ -93,6 +93,10 @@ const service = {
 
 function formatDate (inputDate) {
   return moment(inputDate, 'DD/MM/YYYY').format(isoDateFormat);
+}
+
+function encodeQueryString (input) {
+  return encodeURIComponent(input);
 }
 
 module.exports = service;

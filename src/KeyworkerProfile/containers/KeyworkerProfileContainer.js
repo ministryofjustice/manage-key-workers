@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setKeyworkerCapacity, setMessage, setLoaded } from '../../redux/actions/index';
+import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setKeyworkerStatus, setKeyworkerCapacity, setMessage, setLoaded } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
@@ -25,6 +25,7 @@ class KeyworkerProfileContainer extends Component {
       this.props.displayError(error);
     }
     this.props.setLoadedDispatch(true);
+    // this.props.clearKeyworkerTransientDataDispatch();
   }
 
   async getKeyworkerProfile () {
@@ -75,8 +76,9 @@ class KeyworkerProfileContainer extends Component {
   }
 
   handleEditProfileClick (history) {
-    // initialise capacity input with current capacity value
-    this.props.keyworkerCapacityDispatch(this.props.keyworker.capacity);
+    // initialise inputs with current capacity value
+    this.props.keyworkerCapacityDispatch(this.props.keyworker.capacity.toString());
+    this.props.keyworkerStatusDispatch(this.props.keyworker.status);
     history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
   }
 
@@ -126,6 +128,7 @@ KeyworkerProfileContainer.propTypes = {
   keyworkerChangeListDispatch: PropTypes.func,
   availableKeyworkerListDispatch: PropTypes.func,
   keyworkerCapacityDispatch: PropTypes.func,
+  keyworkerStatusDispatch: PropTypes.func,
   loaded: PropTypes.bool
 };
 
@@ -148,7 +151,8 @@ const mapDispatchToProps = dispatch => {
     availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
     keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
     setMessageDispatch: (message) => dispatch(setMessage(message)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
+    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+    keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status))
   };
 };
 
