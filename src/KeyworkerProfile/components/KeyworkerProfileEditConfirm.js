@@ -56,7 +56,7 @@ class KeyworkerProfileEditConfirm extends Component {
                 </button>
               </div>
               <div className="pure-u-md-3-12">
-                <button id="cancelButton" className="button button-cancel"
+                <button id="cancelButton" className="greyButton button-cancel"
                   onClick={() => this.props.handleCancel(this.props.history)}>Cancel and go back
                 </button>
               </div>
