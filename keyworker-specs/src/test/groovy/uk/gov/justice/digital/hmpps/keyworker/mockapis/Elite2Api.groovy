@@ -13,8 +13,7 @@ class Elite2Api extends WireMockRule {
         super(8080)
     }
 
-    void stubOAuthTokenRequest(Boolean delayOAuthResponse = false) {
-
+    void stubValidOAuthTokenRequest(UserAccount user, Boolean delayOAuthResponse = false) {
         final response = aResponse()
                 .withStatus(200)
                 .withHeader('Content-Type', 'application/json;charset=UTF-8')
@@ -31,47 +30,36 @@ class Elite2Api extends WireMockRule {
             response.withFixedDelay(5000)
         }
 
-        for (user in UserAccount.values()) {
-            // Match usernames
-            if (user != UserAccount.NOT_KNOWN) {
-                // with matching password
-                stubFor(
-                        post('/oauth/token')
-                                .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
-                                .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                                .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password&client_id=omic"))
-                                .willReturn(response)
-                )
+        stubFor(
+                post('/oauth/token')
+                        .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
+                        .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
+                        .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password&client_id=omic"))
+                        .willReturn(response))
 
-                // password doesn't match
-                stubFor(
-                        post('/oauth/token')
-                                .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
-                                .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                                .withRequestBody(matching("username=${user.username}&password=[^p].*&grant_type=password&client_id=omic"))
-                                .willReturn(
-                                aResponse()
-                                        .withStatus(400)
-                                        .withBody('{"error":"invalid_grant","error_description":"invalid authorization specification"}')))
-
-            }
-
-            // username NOT_KNOWN
-            stubFor(
-                    post('/oauth/token')
-                            .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
-                            .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                            .withRequestBody(matching("username=NOT_KNOWN&password=.*&grant_type=password&client_id=omic"))
-                            .willReturn(
-                                aResponse()
-                                    .withStatus(400)
-                                    .withBody('{"error":"invalid_grant","error_description":"invalid authorization specification - not found: NOT_KNOWN"}')))
-
-
-        }
     }
 
-    void stubMe() {
+    void stubInvalidOAuthTokenRequest(UserAccount user, boolean badPassword = false) {
+        stubFor(
+                post('/oauth/token')
+                        .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
+                        .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
+                        .withRequestBody(matching("username=${user.username}&password=.*&grant_type=password&client_id=omic"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(400)
+                                .withBody(JsonOutput.toJson([
+                                error            : 'invalid_grant',
+                                error_description:
+                                        badPassword ?
+                                                "invalid authorization specification - not found: ${user.username}"
+                                                :
+                                                "invalid authorization specification"
+                        ]))))
+    }
+
+
+    void stubGetUsersMe(UserAccount user) {
         stubFor(
                 get('/api/users/me')
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
@@ -79,26 +67,25 @@ class Elite2Api extends WireMockRule {
                         aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
-                                .withBody('{"staffId":-2,"username":"ITAG_USER","firstName":"API","lastName":"User","email":"itaguser@syscon.net","activeCaseLoadId":"LEI"}')
-                )
-        )
+                                .withBody(JsonOutput.toJson([
+                                staffId         : user.staffMember.id,
+                                username        : user.username,
+                                firstName       : user.staffMember.firstName,
+                                lastName        : user.staffMember.lastName,
+                                email           : 'itaguser@syscon.net',
+                                activeCaseLoadId: 'LEI'
+// The following line breaks everything, but I can't work out why.  It seems to output exactly the same data...
+//                                activeCaseloadId: user.workingCaseload.id
+                        ]))))
     }
 
-    void stubCaseloads() {
-
-        def agencies = [
-                "BXI": "BRIXTON (HMP)",
-                "LEI": "LEEDS (HMP)",
-                "MDI": "MOORLAND CLOSED (HMP & YOI)",
-                "SYI": "SHREWSBURY (HMP)",
-                "WAI": "THE WEARE (HMP)"]
-
+    void stubGetUsersMeCaseloads(UserAccount user) {
         def json = new JsonBuilder()
-        json agencies.entrySet(), { entry ->
-            caseLoadId entry.key
-            description entry.value
-            type "INST"
-            caseloadFunction "DUMMY"
+        json user.caseloads, { caseload ->
+            caseLoadId caseload.id
+            description caseload.description
+            type caseload.type
+            caseloadFunction 'DUMMY'
         }
 
         stubFor(
@@ -109,7 +96,6 @@ class Elite2Api extends WireMockRule {
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
                                 .withBody(json.toString())
-                )
-        )
+                ))
     }
 }
