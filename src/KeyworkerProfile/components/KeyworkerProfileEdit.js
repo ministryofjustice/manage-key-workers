@@ -54,12 +54,12 @@ class KeyworkerProfileEdit extends Component {
             </div>
 
           </div>
-          <div className="pure-u-md-8-12 padding-top-large margin-top" >
-            <div className="pure-u-md-3-12" >
+          <div className="pure-u-md-5-12 padding-top-large margin-top" >
+            <div className="pure-u-md-4-12" >
               <button id="saveButton" className="button" onClick={() => this.props.handleSaveChanges(this.props.history)}>Save changes</button>
             </div>
             <div className="pure-u-md-3-12">
-              <button id="cancelButton" className="button button-cancel" onClick={() => this.props.handleCancel(this.props.history)}>Cancel</button>
+              <button id="cancelButton" className="greyButton button-cancel" onClick={() => this.props.handleCancel(this.props.history)}>Cancel</button>
             </div>
           </div>
         </div>

@@ -98,7 +98,13 @@ table tr:nth-child(even){
 }
 
 .blueButton {
-    background-color: $govuk-blue;
+    @include button($govuk-blue);
+    min-width: 7em;
+}
+
+.greyButton{
+    @include button($grey-3);
+    min-width: 7em;
 }
 
 a.link{
