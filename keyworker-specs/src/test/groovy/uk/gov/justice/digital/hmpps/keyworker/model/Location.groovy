@@ -1,29 +1,39 @@
 package uk.gov.justice.digital.hmpps.keyworker.model
 
-enum Location {
-    BXI('BXI', 'BRIXTON', 'INST', 'Y'),
-    BMI('BMI', 'BIRMINGHAM', 'INST', 'Y'),
-    LEI('LEI', 'LEEDS', 'INST', 'Y'),
-    WAI('WAI', 'THE WEARE', 'INST', 'Y'),
-    OUT('OUT', 'OUTSIDE', 'INST', 'Y'),
-    TRN('TRN', 'TRANSFER', 'INST', 'Y'),
-    MUL('MUL', 'MUL', 'INST', 'Y'),
-    ZZGHI('ZZGHI', 'GHOST', 'INST', 'N'),
-    COURT1('COURT1', 'Court 1', 'CRT', 'Y'),
-    ABDRCT('ABDRCT', 'Court 2', 'CRT', 'Y'),
-    TRO('TRO', 'TROOM', 'INST', 'Y'),
-    MDI('MDI', 'MOORLAND', 'INST', 'Y'),
-    SYI('SYI', 'SHREWSBURY', 'INST', 'Y')
+import groovy.transform.Canonical
+import groovy.transform.Immutable
 
-    String id
-    String description
-    String type
-    Boolean active
+@Immutable
+class Location {
 
-    Location(String id, String description, String type, String active) {
-        this.id = id
-        this.description = description
-        this.type = type
-        this.active = active == 'Y'
+    private Integer locationId;
+    private String locationType;
+    private String description;
+    private String agencyId;
+    private Integer currentOccupancy;
+    private String locationPrefix;
+    private String userDescription;
+//    private String locationUsage;
+//    private Long parentLocationId;
+//    private Integer operationalCapacity;
+
+    static Location toLocation(AgencyLocation agencyLocation) {
+        new Location(
+                locationId: -1,
+                locationType: agencyLocation.type,
+                description: agencyLocation.description,
+                agencyId: agencyLocation.id,
+                locationPrefix: agencyLocation.id)
+    }
+
+    static Location toLocation(AgencyInternalLocation internalLocation) {
+        return new Location(
+                locationId: internalLocation.id,
+                locationType: internalLocation.type,
+                description: internalLocation.userDescription,
+                agencyId: internalLocation.agencyLocation.id,
+                currentOccupancy: 0,
+                locationPrefix: internalLocation.description
+        )
     }
 }

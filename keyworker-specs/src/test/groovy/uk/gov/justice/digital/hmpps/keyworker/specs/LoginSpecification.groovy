@@ -38,8 +38,8 @@ class LoginSpecification extends GebReportingSpec {
         to LoginPage
 
         elite2api.stubValidOAuthTokenRequest(ITAG_USER)
-        elite2api.stubGetUsersMe(ITAG_USER)
-        elite2api.stubGetUsersMeCaseloads(ITAG_USER)
+        elite2api.stubGetMyDetails(ITAG_USER)
+        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
         when: "I login using valid credentials"
         loginAs ITAG_USER, 'password'
@@ -55,8 +55,8 @@ class LoginSpecification extends GebReportingSpec {
 
         and: 'The OAuth server responds with a long delay'
         elite2api.stubValidOAuthTokenRequest(ITAG_USER, true)
-        elite2api.stubGetUsersMe(ITAG_USER)
-        elite2api.stubGetUsersMeCaseloads(ITAG_USER)
+        elite2api.stubGetMyDetails(ITAG_USER)
+        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
         when: "I attempt to log in using valid credentials"
         loginAs ITAG_USER, 'password'

@@ -1,9 +1,12 @@
 package uk.gov.justice.digital.hmpps.keyworker.model
 
+import groovy.transform.TupleConstructor
+
 import static StaffMember.*
 import static UserType.*
 import static Caseload.*
 
+@TupleConstructor
 enum UserAccount {
 
     ELITE2_API_USER('ELITE2_API_USER', SM_1, GENERAL, NWEB, []),
@@ -17,13 +20,5 @@ enum UserAccount {
     StaffMember staffMember
     UserType type
     Caseload workingCaseload
-    Set<Caseload> caseloads
-
-    UserAccount(String username, StaffMember staffMember, UserType type, Caseload workingCaseload, List<Caseload> caseloads) {
-        this.username = username
-        this.staffMember = staffMember
-        this.type = type
-        this.workingCaseload = workingCaseload
-        this.caseloads = caseloads as Set<Caseload>
-    }
+    List<Caseload> caseloads
 }
