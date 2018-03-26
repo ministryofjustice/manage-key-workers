@@ -1,7 +1,6 @@
 plugins {
     id "groovy"
     id "com.energizedwork.webdriver-binaries" version "1.4"
-//    id "com.energizedwork.webdriver-binaries"
 }
 
 ext {

@@ -19,17 +19,16 @@ environments {
         }
     }
 }
-//
-//driver = {
-//
-//    System.setProperty('webdriver.chrome.driver', '/Users/syscon/dev/work/licences/chromedriver')
-//
-//    def driverInstance = new ChromeDriver()
-//    driverInstance.manage().window().size = new Dimension(640, 1134)
-//    driverInstance
-//}
+
+// Default if geb.env is not set to one of 'chrome', or 'chromeHeadless'
+driver = {
+
+    System.setProperty('webdriver.chrome.driver', "./drivers/chromedriver_mac64")
+
+    new ChromeDriver()
+}
 
 
 baseUrl = "http://localhost:3001/"
 
-//reportsDir = "build/geb-reports"
+reportsDir = "build/geb-reports"
