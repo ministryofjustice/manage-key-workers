@@ -10,18 +10,21 @@ class LoginPage extends Page {
 
     static at = {
         title == 'Key worker'
-        $("h1").text() == 'Login'
+        headingText == 'Login'
     }
 
     static content = {
         errors { module(ErrorsModule) }
+        headingText { $('h1').text() }
+        signInButton{ $("button", type: 'submit') }
     }
 
     void loginAs(UserAccount userAccount, String password) {
+
         $('form').username = userAccount.username
         $('form').password = password
 
-        def signInButton = $("button", type: 'submit')
+//        def signInButton = $("button", type: 'submit')
         assert signInButton.text() == 'Sign in'
 
         signInButton.click()

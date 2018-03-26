@@ -7,8 +7,8 @@ ext {
 
     ext {
         drivers = [
-                'chrome',
-                'chromeHeadless'
+                'chrome'
+//                ,'chromeHeadless'
         ]
 
         groovyVersion = '2.4.14'

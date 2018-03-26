@@ -12,8 +12,8 @@ class KeyworkerManagementPage extends Page {
     }
 
     static content = {
-        headingText(wait: true) { $('h1').text() }
+        headingText { $('h1').text() }
         header(required: false) { module(HeaderModule) }
-        manualAssignLink(to: SearchForOffenderPage, toWait: true) { $('#assign_transfer_link') }
+        manualAssignLink(to: SearchForOffenderPage) { $('#assign_transfer_link') }
     }
 }

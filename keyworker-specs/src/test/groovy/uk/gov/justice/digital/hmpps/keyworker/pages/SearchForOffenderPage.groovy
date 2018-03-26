@@ -14,7 +14,7 @@ class SearchForOffenderPage extends Page {
     static content = {
         headingText { $('h1').text() }
         searchField { $('#search-text') }
-        searchButton(to: OffenderResultsPage, toWait: true) { $('button') }
+        searchButton(to: OffenderResultsPage) { $('button') }
         housingLocationSelect { $('#housing-location-select') }
         housingLocationOptions { $('#housing-location-select > option') }
     }
