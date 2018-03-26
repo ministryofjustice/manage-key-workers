@@ -6,7 +6,7 @@ class MessageBar extends Component {
   clearMessage (props) {
     setTimeout(function () {
       props.clearMessage();
-    }, props.displayTime || 2500);
+    }, props.displayTime || 5000);
   }
 
   renderMessage (message) {
