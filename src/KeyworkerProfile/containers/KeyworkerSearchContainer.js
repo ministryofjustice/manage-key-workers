@@ -10,6 +10,7 @@ class KeyworkerSearchContainer extends Component {
   constructor (props) {
     super();
     props.resetErrorDispatch();
+    props.keyworkerSearchTextDispatch('');
   }
 
   handleSearchTextChange (event) {
