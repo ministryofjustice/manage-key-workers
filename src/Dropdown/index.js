@@ -40,7 +40,7 @@ class Dropdown extends Component {
               (<a className="dropdown-menu-option" key={option.caseLoadId} onClick={() => {
                 this.closeMenu();
                 switchCaseLoad(option.caseLoadId);
-                history.push("/unallocated");
+                history.push("/");
               }}>
                 {option.description}
               </a>))
