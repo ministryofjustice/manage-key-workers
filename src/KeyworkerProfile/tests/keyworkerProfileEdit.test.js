@@ -19,6 +19,7 @@ describe('Keyworker Profile Edit component', () => {
   it('should render component correctly', async () => {
     const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
     expect(component.text()).toContain('Frank Butcher');
+    expect(component.find('option').length).toEqual(6);
   });
 
 
