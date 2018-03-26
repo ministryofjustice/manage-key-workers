@@ -26,13 +26,12 @@ const allocated = async (req, res) => {
     telemetry.trackEvent({ name: "Auto allocation" });
   } // Example of app insight custom event
 
-  const alloffenders = allocatedData.map(row => row.offenderNo);
-  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, alloffenders, common.offenderNoParamsSerializer);
+  const allOffenders = allocatedData.map(row => row.offenderNo);
+  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, allOffenders, common.offenderNoParamsSerializer);
   const allReleaseDates = sentenceDetailListResponse.data;
   log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  const allBookings = allocatedData.map(row => row.bookingId);
-  const csraListResponse = await elite2Api.csraList(req, res, allBookings, common.bookingIdParamsSerializer);
+  const csraListResponse = await elite2Api.csraList(req, res, allOffenders, common.offenderNoParamsSerializer);
   const allCsras = csraListResponse.data;
   log.debug({ data: allCsras }, 'Response from csraList request');
 

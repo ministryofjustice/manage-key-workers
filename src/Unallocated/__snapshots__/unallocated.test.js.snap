@@ -9,20 +9,20 @@ ShallowWrapper {
     unallocatedList={
         Array [
             Object {
+              "assignedLivingUnitDesc": "L-1-1",
               "bookingId": 1,
               "confirmedReleaseDate": "2020-01-02",
               "crsaClassification": "High",
               "firstName": "Steve",
-              "internalLocationDesc": "L-1-1",
               "lastName": "Rendell",
               "offenderNo": "ZZ124WX",
             },
             Object {
+              "assignedLivingUnitDesc": "L-1-2",
               "bookingId": 2,
               "confirmedReleaseDate": null,
               "crsaClassification": null,
               "firstName": "Steve2",
-              "internalLocationDesc": "L-1-2",
               "lastName": "Rendell2",
               "offenderNo": "ZZ125WX",
             },
