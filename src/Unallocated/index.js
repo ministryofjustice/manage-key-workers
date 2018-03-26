@@ -6,21 +6,13 @@ class Unallocated extends Component {
   render () {
     const offenders = this.props.unallocatedList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
-      let confirmedReleaseDate = a.confirmedReleaseDate;
-      if (confirmedReleaseDate == null) {
-        confirmedReleaseDate = "--";
-      }
-      let crsaClassification = a.crsaClassification;
-      if (crsaClassification == null) {
-        crsaClassification = "--";
-      }
       return (
         <tr key={a.bookingId}>
           <td className="row-gutters"><a href={a.bookingId}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
-          <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">{confirmedReleaseDate}</td>
-          <td className="row-gutters">{crsaClassification}</td>
+          <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
+          <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
+          <td className="row-gutters">{a.crsaClassification || '--'}</td>
         </tr>
       );
     });

@@ -12,7 +12,7 @@ describe('Unallocated component', () => {
       lastName: "Rendell",
       firstName: "Steve",
       offenderNo: "ZZ124WX",
-      internalLocationDesc: "L-1-1",
+      assignedLivingUnitDesc: "L-1-1",
       confirmedReleaseDate: "2020-01-02",
       crsaClassification: "High"
     },
@@ -21,7 +21,7 @@ describe('Unallocated component', () => {
       lastName: "Rendell2",
       firstName: "Steve2",
       offenderNo: "ZZ125WX",
-      internalLocationDesc: "L-1-2",
+      assignedLivingUnitDesc: "L-1-2",
       confirmedReleaseDate: null,
       crsaClassification: null
     }];

@@ -14,22 +14,14 @@ class ManualAllocation extends Component {
         tooltip = (<span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img
           alt="current Key worker allocation" className="tooltipImage" src="images/icon-information.png"/></span>);
       }
-      let confirmedReleaseDate = a.confirmedReleaseDate;
-      if (confirmedReleaseDate == null) {
-        confirmedReleaseDate = "--";
-      }
-      let crsaClassification = a.crsaClassification;
-      if (crsaClassification == null) {
-        crsaClassification = "--";
-      }
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters"><a
             href={a.offenderNo}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">{confirmedReleaseDate}</td>
-          <td className="row-gutters">{crsaClassification}</td>
+          <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
+          <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">{a.keyworkerDisplay}
             {tooltip}
             <ReactTooltip place="top" effect="solid" theme="info"/>

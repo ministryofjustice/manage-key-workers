@@ -25,7 +25,7 @@ const autoallocated = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=A&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`,
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=P&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`,
   headers: { 'Page-Limit': 200 }
 });
 
@@ -80,6 +80,13 @@ const autoAllocate = (req, res) => gateway.postRequest({
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocate/start`
 });
 
+const autoAllocateConfirm = (req, res) => gateway.postRequest({
+  req,
+  res,
+  method: 'post',
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocate/confirm`
+});
+
 const keyworkerAllocations = (req, res) => gateway.getRequest({
   req,
   res,
@@ -88,7 +95,8 @@ const keyworkerAllocations = (req, res) => gateway.getRequest({
 });
 
 const service = {
-  unallocated, allocated, getOffenders, availableKeyworkers, keyworker, allocate, autoallocated, autoAllocate, keyworkerAllocations, keyworkerSearch, keyworkerUpdate
+  unallocated, allocated, getOffenders, availableKeyworkers, keyworker, allocate, autoallocated,
+  autoAllocate, autoAllocateConfirm, keyworkerAllocations, keyworkerSearch, keyworkerUpdate
 };
 
 function formatDate (inputDate) {
