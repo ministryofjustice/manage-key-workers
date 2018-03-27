@@ -23,10 +23,6 @@ class OffenderResults extends Component {
     }
   }
 
-  getOffenderLink (offenderNo) {
-    return `${(process.env.NN_ENDPOINT_URL || 'http://notm-dev.hmpps.dsd.test:3000/')}bookings/${offenderNo}/personal`;
-  }
-
   buildTableForRender (keyworkerOptions, offenderList) {
     if (!offenderList || offenderList.length === 0) {
       return <h1 className="error-message padding-top padding-bottom">No results found</h1>;
