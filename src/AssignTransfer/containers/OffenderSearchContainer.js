@@ -32,14 +32,15 @@ class OffenderSearchContainer extends Component {
   }
 
   validate () {
-    if (/\W/.test(this.props.searchText)) {
-      this.props.setValidationErrorDispatch("searchText", "Please enter letters or numbers");
+    /* TBC - validation story coming later.
+    if (!/^[A-Za-z ]*$/.test(this.props.searchText)) {
+      this.props.setValidationErrorDispatch("searchText", "Please enter letters or spaces");
       return false;
     }
     if (!this.props.searchText || this.props.searchText.length < 3) {
       this.props.setValidationErrorDispatch("searchText", "Please provide 3 or more characters");
       return false;
-    }
+    }*/
     this.props.resetValidationErrorsDispatch();
     return true;
   }
@@ -70,8 +71,7 @@ OffenderSearchContainer.propTypes = {
   setValidationErrorDispatch: PropTypes.func,
   resetValidationErrorsDispatch: PropTypes.func,
   initialSearch: PropTypes.bool,
-  doSearch: PropTypes.func,
-  history: PropTypes.object.isRequired
+  doSearch: PropTypes.func
 };
 
 const mapStateToProps = state => {

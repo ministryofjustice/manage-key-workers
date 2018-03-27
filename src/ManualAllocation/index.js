@@ -67,7 +67,12 @@ class ManualAllocation extends Component {
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button className="button top-gutter pure-u-md-5-24" onClick={() => this.props.postManualOverride(this.props.history)}>Save and return to menu</button>
+        <div className="pure-u-md-2-12" >
+          <button id="saveButton" className="button top-gutter margin-bottom" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
+        </div>
+        <div className="pure-u-md-3-12">
+          <button id="cancelButton" className="greyButton button-cancel top-gutter margin-bottom" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
+        </div>
       </div>
     );
   }
@@ -81,6 +86,7 @@ ManualAllocation.propTypes = {
   allocatedKeyworkers: PropTypes.array,
   handleKeyworkerChange: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
+  //handleCancel: PropTypes.func.isRequired,
   fromDate: PropTypes.string,
   toDate: PropTypes.string
 };

@@ -64,40 +64,54 @@ class AutoAllocate extends Component {
   }
 
   handleKeyworkerChange (event, index, offenderNo) {
-    const allocatedKeyworkers = [...this.props.allocatedKeyworkers];
+    try {
+      const allocatedKeyworkers = [...this.props.allocatedKeyworkers];
 
-    if (event.target.value === '--') {
-      allocatedKeyworkers[index] = null;
-    } else {
-      allocatedKeyworkers[index] = {
-        staffId: event.target.value,
-        offenderNo: offenderNo
-      };
+      if (event.target.value === '--') {
+        allocatedKeyworkers[index] = null;
+      } else {
+        allocatedKeyworkers[index] = {
+          staffId: event.target.value,
+          offenderNo: offenderNo
+        };
+      }
+      this.props.manualOverrideDispatch(allocatedKeyworkers);
+    } catch (error) {
+      this.props.displayError(error);
     }
-    this.props.manualOverrideDispatch(allocatedKeyworkers);
   }
 
   handleDateFilterChange (date, name) {
-    if (date) {
-      this.props.manualOverrideDateFilterDispatch(name, moment(date).format('DD/MM/YYYY'));
+    try {
+      if (date) {
+        this.props.manualOverrideDateFilterDispatch(name, moment(date).format('DD/MM/YYYY'));
+      }
+    } catch (error) {
+      this.props.displayError(error);
     }
   }
 
   async postManualOverride (history) {
     try {
-      if (this.props.allocatedKeyworkers && this.props.allocatedKeyworkers.length > 0) {
-        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
-          params: {
-            agencyId: this.props.agencyId
-          }
-        });
-        this.props.setMessageDispatch('Key workers successfully updated.');
-      }
+      await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+        params: {
+          agencyId: this.props.agencyId
+        }
+      });
+      this.props.setMessageDispatch('Key workers successfully updated.');
       this.props.onFinishAllocation(history);
     } catch (error) {
       this.props.displayError(error);
     }
   }
+
+  /*handleCancel (history) {
+    try {
+      history.push('/');
+    } catch (error) {
+      this.props.displayError(error);
+    }
+  }*/
 
   async gotoManualAllocation () {
     try {

@@ -7,28 +7,27 @@ import { getStatusDescription } from "../keyworkerStatus";
 
 
 class KeyworkerSearchResults extends Component {
-  render () {
-    const keyworkers = this.props.keyworkerList.map(a => {
+  buildTableForRender () {
+    if (!(this.props.keyworkerList && this.props.keyworkerList.map)) {
+      return [];
+    }
+    return this.props.keyworkerList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
       return (
         <tr key={a.staffId}>
           <td className="row-gutters">
-            <Link id={`key_worker_${a.staffId}_link`} title="Key worker profile link" className="link" to={keyworkerHref} >{formattedName}</Link>
+            <Link id={`key_worker_${a.staffId}_link`} title="Key worker profile link" className="link" to={keyworkerHref}>{formattedName}</Link>
           </td>
           <td className="row-gutters">{getStatusDescription(a.status)}</td>
           <td className="row-gutters">{a.numberAllocated}</td>
         </tr>
       );
     });
+  }
 
-    let renderContent = null;
-    if (this.props.keyworkerList.length > 0) {
-      renderContent = keyworkers;
-    } else {
-      renderContent = (<div className="lede padding-top-large padding-bottom padding-left">No Key workers found</div>);
-    }
-
+  render () {
+    const keyworkers = this.buildTableForRender();
 
     return (
       <div>
@@ -38,7 +37,7 @@ class KeyworkerSearchResults extends Component {
             <KeyworkerSearch {...this.props} />
           </div>
           <div>
-            <div className="lede padding-top-large padding-bottom">{this.props.keyworkerList.length} Results:</div>
+            <div className="lede padding-top-large padding-bottom">{keyworkers.length} Results:</div>
             <div className="pure-u-md-6-12">
               <table>
                 <thead>
@@ -48,8 +47,9 @@ class KeyworkerSearchResults extends Component {
                     <th>No. allocated Offenders</th>
                   </tr>
                 </thead>
-                <tbody>{renderContent}</tbody>
+                <tbody>{keyworkers.length > 0 && keyworkers}</tbody>
               </table>
+              {keyworkers.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No Key workers found</div>}
             </div>
           </div>
         </div>

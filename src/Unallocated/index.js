@@ -3,8 +3,11 @@ import { properCaseName } from "../stringUtils";
 import PropTypes from 'prop-types';
 
 class Unallocated extends Component {
-  render () {
-    const offenders = this.props.unallocatedList.map(a => {
+  buildTableForRender () {
+    if (!(this.props.unallocatedList && this.props.unallocatedList.map)) {
+      return [];
+    }
+    return this.props.unallocatedList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.bookingId}>
@@ -16,6 +19,10 @@ class Unallocated extends Component {
         </tr>
       );
     });
+  }
+
+  render () {
+    const offenders = this.buildTableForRender();
     return (
       <div>
         <div className="pure-u-md-7-12">
@@ -32,11 +39,12 @@ class Unallocated extends Component {
                 <th>CSRA</th>
               </tr>
             </thead>
-            <tbody>{offenders}</tbody>
+            <tbody>{offenders.length > 0 && offenders}</tbody>
           </table>
+          {offenders.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
         </div>
         <div>
-          <button className="button top-gutter" onClick={() => this.props.gotoNext()}>Allocate</button>
+          {offenders.length > 0 && <button className="button top-gutter margin-bottom" onClick={() => this.props.gotoNext()}>Allocate</button>}
         </div>
       </div>
     );

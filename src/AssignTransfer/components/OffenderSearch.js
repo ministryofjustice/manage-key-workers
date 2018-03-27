@@ -26,7 +26,7 @@ class OffenderSearch extends Component {
           <div className="padding-top padding-left padding-right">
             <label className="form-label" htmlFor="search-text">Offender name or number</label>
             <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'searchText'} />
-            <input type="text" className="form-control width70 margin-bottom" id="search-text" name="searchText"
+            <input type="text" className="form-control width70 margin-bottom" id="search-text" name="searchText" maxLength="30"
               value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
             <button className="button margin-left" onClick={() => this.props.handleSubmit(this.props.history)}>Search ></button>
           </div>
@@ -41,7 +41,7 @@ class OffenderSearch extends Component {
         <div className="pure-u-md-4-12 padding-top padding-left">
           <label className="form-label" htmlFor="seachText">Offender name or number</label>
           <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'searchText'} />
-          <input type="text" className="form-control width100" id="search-text" name="searchText"
+          <input type="text" className="form-control width100" id="search-text" name="searchText" maxLength="30"
             value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
         </div>
         <div className="pure-u-md-5-12 padding-top padding-left">

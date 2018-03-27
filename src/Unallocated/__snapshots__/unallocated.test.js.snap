@@ -141,7 +141,7 @@ ShallowWrapper {
 </div>,
         <div>
           <button
-                    className="button top-gutter"
+                    className="button top-gutter margin-bottom"
                     onClick={[Function]}
           >
                     Allocate
@@ -250,6 +250,7 @@ ShallowWrapper {
                             </tr>
               </tbody>
 </table>,
+            false,
           ],
           "className": "pure-u-md-7-12",
         },
@@ -792,6 +793,7 @@ ShallowWrapper {
             ],
             "type": "table",
           },
+          false,
         ],
         "type": "div",
       },
@@ -801,7 +803,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": <button
-            className="button top-gutter"
+            className="button top-gutter margin-bottom"
             onClick={[Function]}
 >
             Allocate
@@ -814,7 +816,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Allocate",
-            "className": "button top-gutter",
+            "className": "button top-gutter margin-bottom",
             "onClick": [Function],
           },
           "ref": null,
@@ -932,7 +934,7 @@ ShallowWrapper {
 </div>,
           <div>
             <button
-                        className="button top-gutter"
+                        className="button top-gutter margin-bottom"
                         onClick={[Function]}
             >
                         Allocate
@@ -1041,6 +1043,7 @@ ShallowWrapper {
                                 </tr>
                 </tbody>
 </table>,
+              false,
             ],
             "className": "pure-u-md-7-12",
           },
@@ -1583,6 +1586,7 @@ ShallowWrapper {
               ],
               "type": "table",
             },
+            false,
           ],
           "type": "div",
         },
@@ -1592,7 +1596,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <button
-              className="button top-gutter"
+              className="button top-gutter margin-bottom"
               onClick={[Function]}
 >
               Allocate
@@ -1605,7 +1609,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Allocate",
-              "className": "button top-gutter",
+              "className": "button top-gutter margin-bottom",
               "onClick": [Function],
             },
             "ref": null,

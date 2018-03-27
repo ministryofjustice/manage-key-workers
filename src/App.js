@@ -94,7 +94,7 @@ class App extends React.Component {
       <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/offender/results" render={() => <AssignTransferContainer displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/offender/:offenderId/profile" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
     </div></div>);
 
