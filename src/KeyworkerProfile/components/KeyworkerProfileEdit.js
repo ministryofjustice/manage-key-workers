@@ -14,7 +14,6 @@ class KeyworkerProfileEdit extends Component {
         <select id="status-select" name="status-select" className="form-control"
           value={statusValue}
           onChange={this.props.handleStatusChange}>
-          <option key="choose" value="">-- Select --</option>
           <option key="ACTIVE" value="ACTIVE">{getStatusDescription('ACTIVE')}</option>
           <option key="INACTIVE" value="INACTIVE">{getStatusDescription('INACTIVE')}</option>
           <option key="UNAVAILABLE_ANNUAL_LEAVE" value="UNAVAILABLE_ANNUAL_LEAVE">{getStatusDescription('UNAVAILABLE_ANNUAL_LEAVE')}</option>
