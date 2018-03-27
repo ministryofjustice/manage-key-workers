@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import MessageBar from "../../MessageBar/index";
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
+import { getOffenderLink } from "../../links";
 
 class KeyworkerProfile extends Component {
   getAllocationStyle () {
@@ -29,7 +30,7 @@ class KeyworkerProfile extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.bookingId}>
-          <td className="row-gutters"><a href="">{formattedName}</a></td>
+          <td className="row-gutters"><a href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
