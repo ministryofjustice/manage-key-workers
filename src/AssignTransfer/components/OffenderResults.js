@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { properCaseName } from '../../stringUtils';
+import { getOffenderLink } from "../../links";
 //import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
@@ -31,7 +32,7 @@ class OffenderResults extends Component {
         this.props.keyworkerChangeList[index].staffId : '';
       return (<tr key={a.bookingId} className="row-gutters">
         <td className="row-gutters"><a
-          href={a.bookingId}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
+          href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
         <td className="row-gutters">{a.offenderNo}</td>
         <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
         <td className="row-gutters">{a.confirmedReleaseDate || "--"}</td>

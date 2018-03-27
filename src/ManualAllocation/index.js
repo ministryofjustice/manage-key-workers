@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import DateFilter from '../DateFilter/index.js';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { getOffenderLink } from "../links";
 
 class ManualAllocation extends Component {
   buildTableForRender (keyworkerOptions) {
@@ -17,7 +18,7 @@ class ManualAllocation extends Component {
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters"><a
-            href={a.offenderNo}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
+            href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>

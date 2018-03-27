@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { properCaseName } from "../stringUtils";
 import PropTypes from 'prop-types';
+import { getOffenderLink } from "../links";
 
 class Unallocated extends Component {
   render () {
@@ -8,7 +9,7 @@ class Unallocated extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.bookingId}>
-          <td className="row-gutters"><a href={a.bookingId}>{formattedName}</a></td>
+          <td className="row-gutters"><a href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
