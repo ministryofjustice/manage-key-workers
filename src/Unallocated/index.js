@@ -39,7 +39,7 @@ class Unallocated extends Component {
                 <th>CSRA</th>
               </tr>
             </thead>
-            <tbody>{offenders.length > 0 && offenders}</tbody>
+            <tbody>{offenders}</tbody>
           </table>
           {offenders.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
         </div>

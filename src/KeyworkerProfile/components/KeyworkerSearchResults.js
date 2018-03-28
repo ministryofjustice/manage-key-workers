@@ -47,7 +47,7 @@ class KeyworkerSearchResults extends Component {
                     <th>No. allocated Offenders</th>
                   </tr>
                 </thead>
-                <tbody>{keyworkers.length > 0 && keyworkers}</tbody>
+                <tbody>{keyworkers}</tbody>
               </table>
               {keyworkers.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No Key workers found</div>}
             </div>

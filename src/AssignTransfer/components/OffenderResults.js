@@ -76,7 +76,7 @@ class OffenderResults extends Component {
               <th>Assign to new key worker</th>
             </tr>
           </thead>
-          <tbody>{offenders.length > 0 && offenders}</tbody>
+          <tbody>{offenders}</tbody>
         </table>
         {offenders.length > 0 ?
           <div className="pure-u-md-2-12" >
