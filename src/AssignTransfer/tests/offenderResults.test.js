@@ -71,6 +71,7 @@ describe('Offender results component', () => {
       offenderResults={results}
       history={{}}
       postManualOverride={jest.fn()}
+      onFinishAllocation={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>
     );
     expect(component.find('tr').length).toEqual(4); // 3 plus table header tr
@@ -92,13 +93,31 @@ describe('Offender results component', () => {
 
   it('should handle submit form correctly', async () => {
     const postManualOverride = jest.fn();
+    const cancel = jest.fn();
     const component = shallow(<OffenderResults
-      offenderResults={{}}
+      offenderResults={results}
       postManualOverride={postManualOverride}
+      onFinishAllocation={cancel}
       history ={{ push: jest.fn() }}
       handleKeyworkerChange={jest.fn()}/>);
 
-    component.find('button').simulate('click');
+    component.find('#saveButton').simulate('click');
     expect(postManualOverride).toHaveBeenCalled();
+    expect(cancel).not.toHaveBeenCalled();
+  });
+
+  it('should handle cancel form correctly', async () => {
+    const postManualOverride = jest.fn();
+    const cancel = jest.fn();
+    const component = shallow(<OffenderResults
+      offenderResults={results}
+      postManualOverride={postManualOverride}
+      onFinishAllocation={cancel}
+      history ={{ push: jest.fn() }}
+      handleKeyworkerChange={jest.fn()}/>);
+
+    component.find('#cancelButton').simulate('click');
+    expect(postManualOverride).not.toHaveBeenCalled();
+    expect(cancel).toHaveBeenCalled();
   });
 });

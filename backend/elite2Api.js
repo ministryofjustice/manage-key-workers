@@ -15,7 +15,9 @@ const searchOffenders = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: req.query.keywords ? `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates?keywords=${req.query.keywords}` : `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`,
+  url: req.query.keywords ?
+    `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates?keywords=${encodeQueryString(req.query.keywords)}` :
+    `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`,
   headers: { 'Page-Limit': 1000 }
   // NB response.headers['total-records']
 });
@@ -64,5 +66,8 @@ const service = {
   login, currentUser, userCaseLoads, userLocations, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList
 };
 
+function encodeQueryString (input) {
+  return encodeURIComponent(input);
+}
 
 module.exports = service;

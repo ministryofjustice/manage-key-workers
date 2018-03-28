@@ -24,10 +24,10 @@ class OffenderResults extends Component {
   }
 
   buildTableForRender (keyworkerOptions, offenderList) {
-    if (!offenderList || offenderList.length === 0) {
-      return <h1 className="error-message padding-top padding-bottom">No results found</h1>;
+    if (!(offenderList && offenderList.map)) {
+      return [];
     }
-    const offenders = offenderList.map((a, index) => {
+    return offenderList.map((a, index) => {
       const currentSelectValue = this.props.keyworkerChangeList && this.props.keyworkerChangeList[index] ?
         this.props.keyworkerChangeList[index].staffId : '';
       return (<tr key={a.bookingId} className="row-gutters">
@@ -48,7 +48,6 @@ class OffenderResults extends Component {
         </td>
       </tr>);
     });
-    return offenders;
   }
 
   render () {
@@ -80,7 +79,14 @@ class OffenderResults extends Component {
           </thead>
           <tbody>{offenders}</tbody>
         </table>
-        <button className="button top-gutter pure-u-md-5-24" onClick={() => this.props.postManualOverride(this.props.history)}>Save and return to menu</button>
+        {offenders.length > 0 ?
+          <div className="pure-u-md-2-12" >
+            <button id="saveButton" className="button top-gutter margin-bottom" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
+          </div> :
+          <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
+        <div className="pure-u-md-3-12">
+          <button id="cancelButton" className="greyButton button-cancel top-gutter margin-bottom" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
+        </div>
       </div>
     );
   }
@@ -92,6 +98,7 @@ OffenderResults.propTypes = {
   keyworkerChangeList: PropTypes.array,
   history: PropTypes.object,
   handleKeyworkerChange: PropTypes.func.isRequired,
+  onFinishAllocation: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired
 };
 

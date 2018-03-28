@@ -82,14 +82,30 @@ describe('ManualAllocation component', () => {
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2);
   });
 
-  it('should handle click correctly', async () => {
+  it('should handle submit click correctly', async () => {
     let postOverrideCallBack = jest.fn();
+    let cancelCallBack = jest.fn();
     let keyworkerChangeCallback = jest.fn();
 
-    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={[]} keyworkerList={[]} handleKeyworkerChange={keyworkerChangeCallback} postManualOverride={postOverrideCallBack} applyDateFilter={() => {}} />);
+    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={[]} keyworkerList={[]}
+      onFinishAllocation={cancelCallBack}
+      handleKeyworkerChange={keyworkerChangeCallback} postManualOverride={postOverrideCallBack} applyDateFilter={() => {}} />);
 
-    component.find('button').simulate('click');
+    component.find('#saveButton').simulate('click');
     expect(postOverrideCallBack.mock.calls.length).toEqual(1);
+    expect(cancelCallBack).not.toHaveBeenCalled();
+  });
+
+  it('should handle cancel click correctly', async () => {
+    let postOverrideCallBack = jest.fn();
+    let cancelCallBack = jest.fn();
+    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={[]} keyworkerList={[]}
+      handleKeyworkerChange={jest.fn()}
+      onFinishAllocation={cancelCallBack} postManualOverride={postOverrideCallBack} applyDateFilter={() => {}} />);
+
+    component.find('#cancelButton').simulate('click');
+    expect(cancelCallBack.mock.calls.length).toEqual(1);
+    expect(postOverrideCallBack).not.toHaveBeenCalled();
   });
 
   it('should display tooltip if keyworker details available', async () => {
