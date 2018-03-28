@@ -156,10 +156,11 @@ workflows:
 
       - build_docker:
           requires:
-            - integration_tests
+            - build
 
       - deploy_release_eb:
           requires:
+            - integration_tests
             - build_docker
           filters:
             branches:
