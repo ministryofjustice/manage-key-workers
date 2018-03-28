@@ -56,18 +56,18 @@ jobs:
 #          name: Wait for node app to start
 #          command: sleep 5
       - restore_cache:
-          key: gradle-wrapper-{{ checksum gradle/wrapper/gradle-wrapper.properties }}
+          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
-          key: gradle-cache-{{ checksum keyworker-specs/build.gradle }}
+          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
       - run:
           name: Run Integration Tests
           command: ./gradlew build
       - save_cache:
-          key: gradle-wrapper-{{ checksum gradle/wrapper/gradle-wrapper.properties }}
+          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           paths:
               - /home/circleci/.gradle/wrapper
       - save_cache:
-          key: gradle-cache-{{ checksum keyworker-specs/build.gradle }}
+          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
           paths:
               - /home/circleci/.gradle/caches
 
