@@ -23,12 +23,8 @@ environments {
 
 // Default if geb.env is not set to one of 'chrome', or 'chromeHeadless'
 driver = {
-
-    System.setProperty('webdriver.chrome.driver', "./drivers/chromedriver_mac64")
-
     new ChromeDriver()
 }
-
 
 baseUrl = "http://localhost:3001/"
 

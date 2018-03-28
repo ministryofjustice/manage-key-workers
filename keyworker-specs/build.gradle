@@ -1,14 +1,14 @@
 plugins {
     id "groovy"
-    id "com.energizedwork.webdriver-binaries" version "1.4"
 }
 
 ext {
 
     ext {
         drivers = [
-                'chrome'
-//                ,'chromeHeadless'
+//                'chrome'
+//                ,
+                'chromeHeadless'
         ]
 
         groovyVersion = '2.4.14'
@@ -36,10 +36,6 @@ dependencies {
 
     testCompile 'com.github.tomakehurst:wiremock-standalone:2.15.0'
     testCompile 'com.github.tomjankes:wiremock-groovy:0.2.0'
-}
-
-webdriverBinaries {
-    chromedriver "$chromeDriverVersion"
 }
 
 drivers.each { driver ->
