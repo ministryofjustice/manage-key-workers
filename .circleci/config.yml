@@ -70,7 +70,14 @@ jobs:
           key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
           paths:
               - /home/circleci/.gradle/caches
-
+      - store_artifacts:
+          path: keyworker-specs/build/reports
+          destination: integration/spock
+      - store_artifacts:
+          path: keywoker-specs/build/geb-reports
+          destination: integration/geb
+      - store_test_results:
+          path: keyworker-specs/build/test-results
   build_docker:
     <<: *defaults
     steps:
