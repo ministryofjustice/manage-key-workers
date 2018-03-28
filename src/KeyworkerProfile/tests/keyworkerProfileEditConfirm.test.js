@@ -17,14 +17,14 @@ const keyworker = {
 
 describe('Keyworker Profile Edit component', () => {
   it('should render component correctly w with INACTIVE status', async () => {
-    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleOptionChange={jest.fn()} status="INACTIVE"/>);
+    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} handleOptionChange={jest.fn()} status="INACTIVE"/>);
     expect(component.text()).toContain('This will remove the key worker from the auto-allocation pool and release all of their allocated offenders');
     expect(component.find('input').length).toEqual(0); //no options shown
     expect(component.find('#keyworker-status').hasClass('inactiveStatus')).toBe(true);
   });
 
   it('should render component correctly w with UNAVAILABLE status', async () => {
-    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleOptionChange={jest.fn()} status="UNAVAILABLE_ANNUAL_LEAVE"/>);
+    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} handleOptionChange={jest.fn()} status="UNAVAILABLE_ANNUAL_LEAVE"/>);
     console.log("debug output " + component.debug());
     expect(component.text()).toContain('Choose an option');
     expect(component.find('input').length).toEqual(3);
@@ -35,7 +35,7 @@ describe('Keyworker Profile Edit component', () => {
   it('should handle save click correctly', async () => {
     let handleSave = jest.fn();
 
-    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={handleSave} handleOptionChange={jest.fn()} />);
+    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={handleSave} handleCancel={jest.fn()} handleOptionChange={jest.fn()} />);
 
     component.find('#saveButton').simulate('click');
     expect(handleSave.mock.calls.length).toEqual(1);
