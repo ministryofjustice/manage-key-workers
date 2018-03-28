@@ -7,7 +7,7 @@ import spock.lang.Specification
  * A Specification that always fails. (Unless @Ignore is used)
  * Used to fail the build when testing the CircleCi configuration.
  */
-@Ignore
+//@Ignore
 class FailSpecification extends Specification {
 
     def "Always fail"() {
