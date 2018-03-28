@@ -16,6 +16,7 @@ class OffenderSearchContainer extends Component {
 
   componentWillMount () {
     this.getLocations();
+    this.props.offenderSearchTextDispatch('');
   }
 
   async getLocations () {

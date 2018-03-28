@@ -26,7 +26,7 @@ const list = [{
 
 describe('Unallocated component', () => {
   it('should render list correctly', () => {
-    const component = shallow(<Unallocated unallocatedList={list} gotoNext={() => {}} />);
+    const component = shallow(<Unallocated loaded unallocatedList={list} gotoNext={() => {}} />);
 
     expect(component).toMatchSnapshot();
   });
@@ -34,21 +34,21 @@ describe('Unallocated component', () => {
   it('should handle click correctly', async () => {
     let callBack = jest.fn();
 
-    const component = shallow(<Unallocated unallocatedList={[list]} gotoNext={callBack}/>);
+    const component = shallow(<Unallocated loaded unallocatedList={[list]} gotoNext={callBack}/>);
 
     component.find('button').simulate('click');
     expect(callBack.mock.calls.length).toEqual(1);
   });
 
   it('should omit button and show message when no list 1', async () => {
-    const component = shallow(<Unallocated gotoNext={jest.fn()}/>);
+    const component = shallow(<Unallocated loaded gotoNext={jest.fn()}/>);
 
     expect(component.find('button')).toHaveLength(0);
     expect(component.find('.font-small').debug()).toMatch('No prisoners found');
   });
 
   it('should omit button and show message when no list 2', async () => {
-    const component = shallow(<Unallocated unallocatedList={[]} gotoNext={jest.fn()}/>);
+    const component = shallow(<Unallocated loaded unallocatedList={[]} gotoNext={jest.fn()}/>);
 
     expect(component.find('button')).toHaveLength(0);
     expect(component.find('.font-small').debug()).toMatch('No prisoners found');

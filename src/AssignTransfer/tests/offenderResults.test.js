@@ -67,6 +67,7 @@ const results = { offenderResponse, keyworkerResponse };
 describe('Offender results component', () => {
   it('should render initial offender results form correctly', async () => {
     const component = shallow(<OffenderResults
+      loaded
       keyworkerList={keyworkerResponse}
       offenderResults={results}
       history={{}}
@@ -95,6 +96,7 @@ describe('Offender results component', () => {
     const postManualOverride = jest.fn();
     const cancel = jest.fn();
     const component = shallow(<OffenderResults
+      loaded
       offenderResults={results}
       postManualOverride={postManualOverride}
       onFinishAllocation={cancel}
@@ -110,6 +112,7 @@ describe('Offender results component', () => {
     const postManualOverride = jest.fn();
     const cancel = jest.fn();
     const component = shallow(<OffenderResults
+      loaded
       offenderResults={results}
       postManualOverride={postManualOverride}
       onFinishAllocation={cancel}

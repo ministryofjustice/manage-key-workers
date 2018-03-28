@@ -15,7 +15,7 @@ describe('AutoAllocate component', () => {
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
 
     await shallow(<AutoAllocate page={1} agencyId={'LEI'} onFinishAllocation={jest.fn()} setMessageDispatch={jest.fn()} displayError={jest.fn()} unallocatedListDispatch={jest.fn()}
-      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}/>);
+      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
 
     expect(mockAxios.mock.calls.length).toBe(1);
     expect(mockAxios.mock.calls[0][0]).toBe('/api/unallocated');
@@ -30,7 +30,7 @@ describe('AutoAllocate component', () => {
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s3", "s4"], config: {} }));
 
     const component = await shallow(<AutoAllocate page={1} agencyId={'LEI'} onFinishAllocation={jest.fn()} setMessageDispatch={jest.fn()} displayError={jest.fn()} unallocatedListDispatch={jest.fn()}
-      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}/>);
+      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
 
     // Simulate clicking to 2nd page
     component.instance().gotoManualAllocation();
@@ -52,7 +52,8 @@ describe('AutoAllocate component', () => {
 
 
     const component = shallow(<AutoAllocate page={1} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={errorDispatch} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
-      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} error="Something went wrong: Error: Request failed with status code 500,test error"/>);
+      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}  setLoadedDispatch={jest.fn()}
+                                            error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
 
     setTimeout(() => {
@@ -77,7 +78,8 @@ describe('AutoAllocate component', () => {
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
     const component = shallow(<AutoAllocate page={1} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={errorDispatch} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
-      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} error="Something went wrong: Error: Request failed with status code 500,test error"/>);
+      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}  setLoadedDispatch={jest.fn()}
+                                            error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
     // Simulate clicking to 2nd page
     component.instance().gotoManualAllocation();

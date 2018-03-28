@@ -382,6 +382,7 @@ describe('offender search reducer', () => {
       {
         searchText: '',
         allocationStatus: '',
+        locations: [],
         housingLocation: ''
       }
     );

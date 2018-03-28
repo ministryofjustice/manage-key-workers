@@ -51,7 +51,7 @@ class OffenderResults extends Component {
   }
 
   render () {
-    if (!this.props.offenderResults) {
+    if (!this.props.offenderResults || !this.props.loaded) {
       return "";
     }
     const keyworkerOptions = this.props.offenderResults.keyworkerResponse ?

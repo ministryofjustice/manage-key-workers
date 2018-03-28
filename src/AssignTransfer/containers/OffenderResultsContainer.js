@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
 
 import axiosWrapper from "../../backendWrapper";
-import { setKeyworkerChangeList, setOffenderSearchResults } from "../../redux/actions";
+import {setKeyworkerChangeList, setLoaded, setOffenderSearchResults} from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
   constructor () {
@@ -15,8 +15,10 @@ class OffenderResultsContainer extends Component {
     this.postManualOverride = this.postManualOverride.bind(this);
   }
 
-  componentWillMount () {
-    this.doSearch();
+  async componentWillMount () {
+    this.props.setLoadedDispatch(false);
+    await this.doSearch();
+    this.props.setLoadedDispatch(true);
   }
 
   async doSearch () {
@@ -82,7 +84,8 @@ OffenderResultsContainer.propTypes = {
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   keyworkerChangeList: PropTypes.array,
   displayError: PropTypes.func.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired
+  setMessageDispatch: PropTypes.func.isRequired,
+  loaded: PropTypes.bool
 };
 
 const mapStateToProps = state => {
@@ -91,14 +94,16 @@ const mapStateToProps = state => {
     allocationStatus: state.offenderSearch.allocationStatus,
     keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
     housingLocation: state.offenderSearch.housingLocation,
-    offenderResults: state.offenderSearch.offenderResults
+    offenderResults: state.offenderSearch.offenderResults,
+    loaded: state.app.loaded
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
-    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list))
+    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 
