@@ -40,6 +40,44 @@ jobs:
             - build
             - build-info.json
 
+  integration_tests:
+    working_directory: /tmp/circleci-keyworker-ui
+    docker:
+      - image: circleci/openjdk:8u162-jdk-node-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/circleci-keyworker-ui/
+      - run:
+          name: Run the node app.
+          command: yarn start
+          background: true
+#      - run:
+#          name: Wait for node app to start
+#          command: sleep 5
+      - restore_cache:
+          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - restore_cache:
+          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
+      - run:
+          name: Run Integration Tests
+          command: ./gradlew build
+      - save_cache:
+          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          paths:
+              - /home/circleci/.gradle/wrapper
+      - save_cache:
+          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
+          paths:
+              - /home/circleci/.gradle/caches
+      - store_artifacts:
+          path: keyworker-specs/build/reports
+          destination: integration/spock
+      - store_artifacts:
+          path: keywoker-specs/build/geb-reports
+          destination: integration/geb
+      - store_test_results:
+          path: keyworker-specs/build/test-results
   build_docker:
     <<: *defaults
     steps:
@@ -76,6 +114,7 @@ jobs:
                docker tag mojdigitalstudio/keyworker-ui:$BUILD_VERSION mojdigitalstudio/keyworker-ui:latest
                docker push mojdigitalstudio/keyworker-ui:latest
              fi
+
   deploy_release_eb:
       <<: *defaults
       steps:
@@ -110,9 +149,15 @@ workflows:
             branches:
               ignore:
                   - deploy-to-dev
-      - build_docker:
+
+      - integration_tests:
           requires:
             - build
+
+      - build_docker:
+          requires:
+            - integration_tests
+
       - deploy_release_eb:
           requires:
             - build_docker
