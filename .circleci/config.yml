@@ -143,17 +143,17 @@ workflows:
               ignore:
                   - deploy-to-dev
 
-      - build_docker:
+      - integration_tests:
           requires:
             - build
 
-      - integration_tests:
+      - build_docker:
           requires:
-            - build_docker
+            - integration_tests
 
       - deploy_release_eb:
           requires:
-            - integration_tests
+            - build_docker
           filters:
             branches:
               only: master
