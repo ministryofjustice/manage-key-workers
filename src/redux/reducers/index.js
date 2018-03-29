@@ -26,6 +26,7 @@ const appInitialState = {
 const offenderSearchInitialState = {
   searchText: '',
   housingLocation: '',
+  locations: [],
   allocationStatus: ''
 };
 
@@ -143,6 +144,8 @@ export function offenderSearch (state = offenderSearchInitialState, action) {
       return { ...state,
         locations: action.locations
       };
+    case ActionTypes.SWITCH_AGENCY:
+      return Object.assign({}, offenderSearchInitialState);
     case ActionTypes.SET_OFFENDER_SEARCH_RESULTS:
       return { ...state,
         offenderResults: action.offenderResults

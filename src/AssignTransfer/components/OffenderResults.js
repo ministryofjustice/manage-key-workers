@@ -51,7 +51,7 @@ class OffenderResults extends Component {
   }
 
   render () {
-    if (!this.props.offenderResults) {
+    if (!this.props.offenderResults || !this.props.loaded) {
       return "";
     }
     const keyworkerOptions = this.props.offenderResults.keyworkerResponse ?
@@ -99,7 +99,8 @@ OffenderResults.propTypes = {
   history: PropTypes.object,
   handleKeyworkerChange: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
-  postManualOverride: PropTypes.func.isRequired
+  postManualOverride: PropTypes.func.isRequired,
+  loaded: PropTypes.bool
 };
 
 const OffenderResultsWithRouter = withRouter(OffenderResults);

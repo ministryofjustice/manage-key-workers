@@ -4,20 +4,21 @@ import ManualAllocation from '../ManualAllocation/index.js';
 import PropTypes from 'prop-types';
 import axiosWrapper from '../backendWrapper';
 import moment from 'moment';
-import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setMessage } from '../redux/actions/index';
+import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setMessage, setLoaded } from '../redux/actions/index';
 import Error from '../Error';
 import { connect } from 'react-redux';
 
 import '../allocation.scss';
 
 class AutoAllocate extends Component {
-  constructor () {
+  constructor (props) {
     super();
     this.gotoManualAllocation = this.gotoManualAllocation.bind(this);
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.handleDateFilterChange = this.handleDateFilterChange.bind(this);
     this.postManualOverride = this.postManualOverride.bind(this);
     this.applyDateFilter = this.applyDateFilter.bind(this);
+    props.setLoadedDispatch(false);
   }
 
   async componentWillMount () {
@@ -28,6 +29,7 @@ class AutoAllocate extends Component {
     } catch (error) {
       this.props.displayError(error);
     }
+    this.props.setLoadedDispatch(true);
   }
 
   async componentWillReceiveProps (nextProps) {
@@ -99,19 +101,12 @@ class AutoAllocate extends Component {
         }
       });
       this.props.setMessageDispatch('Key workers successfully updated.');
+      this.props.unallocatedListDispatch([]);
       this.props.onFinishAllocation(history);
     } catch (error) {
       this.props.displayError(error);
     }
   }
-
-  /*handleCancel (history) {
-    try {
-      history.push('/');
-    } catch (error) {
-      this.props.displayError(error);
-    }
-  }*/
 
   async gotoManualAllocation () {
     try {
@@ -159,7 +154,9 @@ AutoAllocate.propTypes = {
   manualOverrideDispatch: PropTypes.func.isRequired,
   manualOverrideDateFilterDispatch: PropTypes.func.isRequired,
   setCurrentPageDispatch: PropTypes.func.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired
+  setMessageDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  loaded: PropTypes.bool
 };
 
 const mapStateToProps = state => {
@@ -172,7 +169,8 @@ const mapStateToProps = state => {
     fromDate: state.allocated.fromDate,
     toDate: state.allocated.toDate,
     message: state.app.message,
-    agencyId: state.app.user.activeCaseLoadId
+    agencyId: state.app.user.activeCaseLoadId,
+    loaded: state.app.loaded
   };
 };
 
@@ -183,7 +181,8 @@ const mapDispatchToProps = dispatch => {
     manualOverrideDispatch: allocatedKeyworkers => dispatch(manualOverride(allocatedKeyworkers)),
     manualOverrideDateFilterDispatch: (dateName, date) => dispatch(manualOverrideDateFilter(dateName, date)),
     setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
-    setMessageDispatch: message => dispatch(setMessage(message))
+    setMessageDispatch: message => dispatch(setMessage(message)),
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 

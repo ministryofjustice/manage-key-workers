@@ -23,6 +23,9 @@ class Unallocated extends Component {
   }
 
   render () {
+    if (!this.props.loaded) {
+      return '';
+    }
     const offenders = this.buildTableForRender();
     return (
       <div>
@@ -54,7 +57,8 @@ class Unallocated extends Component {
 
 Unallocated.propTypes = {
   unallocatedList: PropTypes.array,
-  gotoNext: PropTypes.func.isRequired
+  gotoNext: PropTypes.func.isRequired,
+  loaded: PropTypes.bool
 };
 
 export default Unallocated;
