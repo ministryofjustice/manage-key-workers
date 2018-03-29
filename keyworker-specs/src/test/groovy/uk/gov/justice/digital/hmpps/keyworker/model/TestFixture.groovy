@@ -5,6 +5,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -41,6 +42,13 @@ class TestFixture {
         elite2Api.stubGetMyLocations(locations)
         browser.page.manualAssignLink.click()
         assert browser.page instanceof SearchForOffenderPage
+    }
+
+    def toKeyworkerSearchPage() {
+        locations = locationsForCaseload(currentUser.workingCaseload)
+        elite2Api.stubGetMyLocations(locations)
+        browser.page.keyworkerProfileLink.click()
+        assert browser.page instanceof SearchForKeyworkerPage
     }
 
     static List<Location> locationsForCaseload(Caseload caseload) {

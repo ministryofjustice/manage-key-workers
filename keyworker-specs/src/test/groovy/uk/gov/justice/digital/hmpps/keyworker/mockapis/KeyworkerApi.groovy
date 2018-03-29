@@ -1,10 +1,13 @@
 package uk.gov.justice.digital.hmpps.keyworker.mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
+import groovy.json.JsonBuilder
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
+import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import static com.github.tomakehurst.wiremock.client.WireMock.get
 
 class KeyworkerApi extends WireMockRule {
     KeyworkerApi() {
@@ -19,6 +22,18 @@ class KeyworkerApi extends WireMockRule {
                 .willReturn(aResponse()
                         .withStatus(400))
         )
+    }
+
+    void stubEmptyListResponse(url) {
+        stubFor(
+                get(url)
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('[]')
+                ))
     }
 
     /*

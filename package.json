@@ -50,16 +50,16 @@
   },
   "proxy": {
     "/auth/*": {
-      "target": "http://omic-dev.hmpps.dsd.test:3001"
+      "target": "http://localhost:3001"
     },
     "/api/*": {
-      "target": "http://omic-dev.hmpps.dsd.test:3001"
+      "target": "http://localhost:3001"
     },
     "/health": {
-      "target": "http://omic-dev.hmpps.dsd.test:3001"
+      "target": "http://localhost:3001"
     },
     "/info": {
-      "target": "http://omic-dev.hmpps.dsd.test:3001"
+      "target": "http://localhost:3001"
     }
   },
   "devDependencies": {

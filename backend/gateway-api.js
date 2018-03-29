@@ -142,7 +142,7 @@ const service = {
   refreshTokenRequest,
   retryRequest: (options) => axios(options),
   login: (req) => {
-    const data = `username=${req.body.username}&password=${req.body.password}&grant_type=password&client_id=${apiClientId}`;
+    const data = `username=${req.body.username.toUpperCase()}&password=${req.body.password}&grant_type=password&client_id=${apiClientId}`;
     return axios.post(`${eliteApiUrl}oauth/token`, data, {
       headers: {
         "authorization": `Basic ${encodeClientCredentials()}`,
