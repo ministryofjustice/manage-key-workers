@@ -1,8 +1,8 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { AutoAllocate } from "./AutoAllocation/container";
-import axiosWrapper from './backendWrapper';
+import { AutoAllocate } from "../AutoAllocation/containers/AutoAllocate";
+import axiosWrapper from '../backendWrapper';
 const AXIOS_URL = 0;
 const AXIOS_CONFIG = 1;
 

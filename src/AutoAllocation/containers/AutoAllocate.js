@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Unallocated from '../Unallocated/index.js';
-import ManualAllocation from '../ManualAllocation/index.js';
+import Unallocated from '../components/Unallocated.js';
+import ManualAllocation from '../components/ManualAllocation.js';
 import PropTypes from 'prop-types';
-import axiosWrapper from '../backendWrapper';
+import axiosWrapper from '../../backendWrapper';
 import moment from 'moment';
-import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setMessage, setLoaded } from '../redux/actions/index';
-import Error from '../Error';
+import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setMessage, setLoaded } from '../../redux/actions/index';
+import Error from '../../Error/index';
 import { connect } from 'react-redux';
 
-import '../allocation.scss';
+import '../../allocation.scss';
 
 class AutoAllocate extends Component {
   constructor (props) {
