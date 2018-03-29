@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { properCaseName } from '../../stringUtils';
 import { getOffenderLink } from "../../links";
-//import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";

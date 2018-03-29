@@ -21,6 +21,7 @@ import axiosWrapper from "../backendWrapper";
 import PropTypes from 'prop-types';
 import { switchAgency, setTermsVisibility, setError, resetError, setUserDetails, setMessage } from '../redux/actions/index';
 import { connect } from 'react-redux';
+import links from "../links";
 
 const axios = require('axios');
 
@@ -42,6 +43,8 @@ class App extends React.Component {
 
     try {
       const user = await axiosWrapper.get('/api/me');
+      links.notmEndpointUrl = user.data.notmEndpointUrl;
+
       const caseloads = await axiosWrapper.get('/api/usercaseloads');
       this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
     } catch (error) {

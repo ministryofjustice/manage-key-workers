@@ -1,8 +1,9 @@
 const getOffenderLink = (offenderNo) => {
-  return `https://notm-dev.hmpps.dsd.io/offenders/${offenderNo}/personal`;
+  return `${links.notmEndpointUrl}/offenders/${offenderNo}/personal`;
 };
 
 const links = {
+  notmEndpointUrl: '', // set from env by /user/me call
   getOffenderLink
 };
 

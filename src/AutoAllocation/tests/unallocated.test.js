@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Unallocated from '../components/Unallocated';
+import links from "../../links";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -26,6 +27,7 @@ const list = [{
 
 describe('Unallocated component', () => {
   it('should render list correctly', () => {
+    links.notmEndpointUrl = "http://my.testUrl";
     const component = shallow(<Unallocated loaded unallocatedList={list} gotoNext={() => {}} />);
 
     expect(component).toMatchSnapshot();
