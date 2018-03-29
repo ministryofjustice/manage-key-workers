@@ -99,7 +99,8 @@ OffenderResults.propTypes = {
   history: PropTypes.object,
   handleKeyworkerChange: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
-  postManualOverride: PropTypes.func.isRequired
+  postManualOverride: PropTypes.func.isRequired,
+  loaded: PropTypes.bool
 };
 
 const OffenderResultsWithRouter = withRouter(OffenderResults);

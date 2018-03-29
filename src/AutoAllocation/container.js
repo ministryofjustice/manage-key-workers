@@ -108,14 +108,6 @@ class AutoAllocate extends Component {
     }
   }
 
-  /*handleCancel (history) {
-    try {
-      history.push('/');
-    } catch (error) {
-      this.props.displayError(error);
-    }
-  }*/
-
   async gotoManualAllocation () {
     try {
       const viewModel = await this.getAllocated();
@@ -163,6 +155,7 @@ AutoAllocate.propTypes = {
   manualOverrideDateFilterDispatch: PropTypes.func.isRequired,
   setCurrentPageDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool
 };
 

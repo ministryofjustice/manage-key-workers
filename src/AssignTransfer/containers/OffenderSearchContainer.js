@@ -71,6 +71,7 @@ OffenderSearchContainer.propTypes = {
   searchText: PropTypes.string,
   setValidationErrorDispatch: PropTypes.func,
   resetValidationErrorsDispatch: PropTypes.func,
+  offenderSearchTextDispatch: PropTypes.func,
   initialSearch: PropTypes.bool,
   doSearch: PropTypes.func
 };

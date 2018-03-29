@@ -50,8 +50,8 @@ describe('AutoAllocate component', () => {
 
 
     const component = shallow(<AutoAllocate page={1} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={displayErrorCallback} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
-      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()}  setLoadedDispatch={jest.fn()}
-                                            error="Something went wrong: Error: Request failed with status code 500,test error"/>);
+      manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} setLoadedDispatch={jest.fn()}
+      error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
 
     setTimeout(() => {
@@ -77,7 +77,7 @@ describe('AutoAllocate component', () => {
 
     const component = shallow(<AutoAllocate page={1} agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={displayErrorCallback} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()}
       manualOverrideDispatch={jest.fn()} manualOverrideDateFilterDispatch={jest.fn()} setCurrentPageDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} setLoadedDispatch={jest.fn()}
-                                            error="Something went wrong: Error: Request failed with status code 500,test error"/>);
+      error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
     // Simulate clicking to 2nd page
     component.instance().gotoManualAllocation();

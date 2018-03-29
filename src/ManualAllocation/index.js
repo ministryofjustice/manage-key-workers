@@ -87,7 +87,7 @@ ManualAllocation.propTypes = {
   allocatedKeyworkers: PropTypes.array,
   handleKeyworkerChange: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
-  //handleCancel: PropTypes.func.isRequired,
+  onFinishAllocation: PropTypes.func.isRequired,
   fromDate: PropTypes.string,
   toDate: PropTypes.string
 };

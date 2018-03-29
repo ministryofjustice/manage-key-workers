@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
 
 import axiosWrapper from "../../backendWrapper";
-import {setKeyworkerChangeList, setLoaded, setOffenderSearchResults} from "../../redux/actions";
+import { setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
   constructor () {
@@ -85,6 +85,7 @@ OffenderResultsContainer.propTypes = {
   keyworkerChangeList: PropTypes.array,
   displayError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool
 };
 
