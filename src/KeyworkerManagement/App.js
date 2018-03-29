@@ -1,25 +1,25 @@
 import React from 'react';
-import HomePage from './KeyworkerManagement/index';
-import KeyworkerProfileContainer from './KeyworkerProfile/containers/KeyworkerProfileContainer';
-import KeyworkerProfileEditContainer from './KeyworkerProfile/containers/KeyworkerProfileEditContainer';
-import KeyworkerProfileEditConfirmContainer from './KeyworkerProfile/containers/KeyworkerProfileEditConfirmContainer';
-import KeyworkerSearchContainer from './KeyworkerProfile/containers/KeyworkerSearchContainer';
-import KeyworkerSearchResultsContainer from './KeyworkerProfile/containers/KeyworkerSearchResultsContainer';
-import KeyworkerReports from './KeyworkerReports/index';
-import AssignTransferContainer from './AssignTransfer/AssignTransferContainer';
-import { AutoAllocateContainer } from './AutoAllocation/container';
-import Header from './Header/index';
-import Footer from './Footer/index';
-import Terms from './Footer/terms-and-conditions';
-import OffenderContainer from './AssignTransfer/containers/OffenderContainer';
-import Error from "./Error/index";
+import HomePage from './index';
+import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer';
+import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer';
+import KeyworkerProfileEditConfirmContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditConfirmContainer';
+import KeyworkerSearchContainer from '../KeyworkerProfile/containers/KeyworkerSearchContainer';
+import KeyworkerSearchResultsContainer from '../KeyworkerProfile/containers/KeyworkerSearchResultsContainer';
+import KeyworkerReports from '../KeyworkerReports/index';
+import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer';
+import { AutoAllocateContainer } from '../AutoAllocation/containers/AutoAllocate';
+import Header from '../Header/index';
+import Footer from '../Footer/index';
+import Terms from '../Footer/terms-and-conditions';
+import OffenderContainer from '../AssignTransfer/containers/OffenderContainer';
+import Error from "../Error/index";
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import axiosWrapper from "./backendWrapper";
+import axiosWrapper from "../backendWrapper";
 import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, resetError, setUserDetails, setMessage } from './redux/actions';
+import { switchAgency, setTermsVisibility, setError, resetError, setUserDetails, setMessage } from '../redux/actions/index';
 import { connect } from 'react-redux';
 
 const axios = require('axios');

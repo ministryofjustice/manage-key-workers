@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { properCaseName } from "../stringUtils";
+import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
-import { getOffenderLink } from "../links";
+import { getOffenderLink } from "../../links";
 
 class Unallocated extends Component {
   buildTableForRender () {

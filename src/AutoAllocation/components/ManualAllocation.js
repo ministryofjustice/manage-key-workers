@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { properCaseName } from '../stringUtils';
+import { properCaseName } from '../../stringUtils';
 import ReactTooltip from 'react-tooltip';
-import DateFilter from '../DateFilter/index.js';
+import DateFilter from '../../DateFilter/index.js';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { getOffenderLink } from "../links";
+import { getOffenderLink } from "../../links";
 
 class ManualAllocation extends Component {
   buildTableForRender (keyworkerOptions) {
