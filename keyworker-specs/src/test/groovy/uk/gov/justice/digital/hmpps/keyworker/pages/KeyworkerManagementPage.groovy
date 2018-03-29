@@ -15,5 +15,6 @@ class KeyworkerManagementPage extends Page {
         headingText { $('h1').text() }
         header(required: false) { module(HeaderModule) }
         manualAssignLink(to: SearchForOffenderPage) { $('#assign_transfer_link') }
+        keyworkerProfileLink(to: SearchForKeyworkerPage) { $('#keyworker_profile_link') }
     }
 }
