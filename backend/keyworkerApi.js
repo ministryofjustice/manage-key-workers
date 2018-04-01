@@ -49,7 +49,7 @@ const keyworker = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/prison/${req.query.agencyId}`
 });
 
 const keyworkerSearch = (req, res) => gateway.getRequest({
@@ -70,7 +70,7 @@ const keyworkerUpdate = (req, res) => gateway.postRequest({
   req,
   res,
   method: 'post',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/prison/${req.query.agencyId}`
 });
 
 const autoAllocate = (req, res) => gateway.postRequest({
@@ -91,7 +91,7 @@ const keyworkerAllocations = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/agencyId/${req.query.agencyId}/offenders`
+  url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/prison/${req.query.agencyId}/offenders`
 });
 
 const service = {
