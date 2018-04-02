@@ -27,7 +27,7 @@ const list = [{
 
 describe('Unallocated component', () => {
   it('should render list correctly', () => {
-    links.notmEndpointUrl = "http://my.testUrl";
+    links.notmEndpointUrl = "http://my.testUrl/";
     const component = shallow(<Unallocated loaded unallocatedList={list} gotoNext={() => {}} />);
 
     expect(component).toMatchSnapshot();
