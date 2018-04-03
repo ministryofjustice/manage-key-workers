@@ -15,7 +15,7 @@ router.post('/', asyncMiddleware(async (req, res) => {
       req.data = {
         offenderNo: element.offenderNo,
         staffId: element.staffId,
-        agencyId: req.query.agencyId,
+        prisonId: req.query.agencyId,
         allocationType: 'M',
         allocationReason: 'MANUAL',
         deallocationReason: 'OVERRIDE'
