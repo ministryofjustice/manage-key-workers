@@ -27,6 +27,7 @@ const keyworkerAllocations = require('./controllers/keyworkerAllocations');
 const keyworkerProfile = require('./controllers/keyworkerProfile');
 const keyworkerUpdate = require('./controllers/keyworkerUpdate');
 const userMe = require('./controllers/userMe');
+const getConfig = require('./controllers/getConfig');
 
 const log = require('./log');
 const config = require('./config');
@@ -113,6 +114,7 @@ app.use('/api/keyworkerSearch', keyworkerSearch);
 app.use('/api/keyworker', keyworkerProfile.router);
 app.use('/api/keyworkerUpdate', keyworkerUpdate);
 app.use('/api/keyworkerAllocations', keyworkerAllocations.router);
+app.use('/api/config', getConfig);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

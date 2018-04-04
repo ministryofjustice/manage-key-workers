@@ -43,10 +43,11 @@ class App extends React.Component {
 
     try {
       const user = await axiosWrapper.get('/api/me');
-      links.notmEndpointUrl = user.data.notmEndpointUrl;
-
       const caseloads = await axiosWrapper.get('/api/usercaseloads');
       this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
+
+      const config = await axiosWrapper.get('/api/config');
+      links.notmEndpointUrl = config.data.notmEndpointUrl;
     } catch (error) {
       this.props.setErrorDispatch(error.message);
     }
