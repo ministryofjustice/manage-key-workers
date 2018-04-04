@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import { properCaseName } from '../../stringUtils';
-import ReactTooltip from 'react-tooltip';
 import DateFilter from '../../DateFilter/index.js';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { getOffenderLink } from "../../links";
 
 class ManualAllocation extends Component {
+  getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
+    if (staffId) {
+      if (keyworkerDisplay !== '--') {
+        if (numberAllocated || numberAllocated === 0) {
+          return keyworkerDisplay + ' (' + numberAllocated + ')';
+        } else {
+          return keyworkerDisplay;
+        }
+      } else {
+        return staffId + ' (no details available)';
+      }
+    } else {
+      return <strong className="bold-xsmall">Not allocated</strong>;
+    }
+  }
+
   buildTableForRender (keyworkerOptions) {
     const offenders = this.props.allocatedList.map((a, index) => {
       const currentSelectValue = this.props.allocatedKeyworkers[index] ? this.props.allocatedKeyworkers[index].staffId : '';
-      let tooltip = '';
-      if (a.keyworkerDisplay !== '--') {
-        tooltip = (<span data-tip={`${a.numberAllocated} allocated`} className="tooltipSpan"><img
-          alt="current Key worker allocation" className="tooltipImage" src="images/icon-information.png"/></span>);
-      }
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters"><a
@@ -23,12 +33,8 @@ class ManualAllocation extends Component {
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
-          <td className="row-gutters">{a.keyworkerDisplay}
-            {tooltip}
-            <ReactTooltip place="top" effect="solid" theme="info"/>
-          </td>
+          <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}</td>
           <td className="row-gutters">
-
             <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">-- Select --</option>

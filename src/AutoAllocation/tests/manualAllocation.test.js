@@ -108,23 +108,32 @@ describe('ManualAllocation component', () => {
     expect(postOverrideCallBack).not.toHaveBeenCalled();
   });
 
-  it('should display tooltip if keyworker details available', async () => {
-    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
-    expect(component.find('tr').at(1).find('td').at(5).find('span[data-tip=\'4 allocated\']').exists()).toEqual(true);
+  it('should display allocations if keyworker details available', async () => {
+    const component = shallow(<ManualAllocation
+      allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList}
+      onFinishAllocation={() => {}}
+      handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+    expect(component.find('tr').at(1).find('td').at(5).text()).toMatch(/Hanson, Sam \(4\)/);
   });
 
-  it('should not display tooltip if keyworker details unavailable', async () => {
-    const component = shallow(<ManualAllocation allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
-    expect(component.find('tr').at(2).find('td').at(5).find('span[data-tip]').exists()).toEqual(false);
+  it('should not display allocations if keyworker details unavailable', async () => {
+    const component = shallow(<ManualAllocation
+      allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList}
+      handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+    expect(component.find('tr').at(2).find('td').at(5).text()).toMatch(/999 \(no details available\)/);
   });
 
   it('should display date filter if toggled on', async () => {
-    const component = shallow(<ManualAllocation displayDateFilter allocatedList={[]} keyworkerList={[]} handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+    const component = shallow(<ManualAllocation
+      displayDateFilter allocatedList={[]} keyworkerList={[]} onFinishAllocation={() => {}}
+      handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
     expect(component.find('DateFilter').exists()).toEqual(true);
   });
 
   it('should not display date filter if toggled off', async () => {
-    const component = shallow(<ManualAllocation allocatedList={[]} keyworkerList={[]} handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+    const component = shallow(<ManualAllocation
+      allocatedList={[]} keyworkerList={[]} handleKeyworkerChange={() => {}} onFinishAllocation={() => {}}
+      postManualOverride={() => {}} applyDateFilter={() => {}} />);
     expect(component.find('DateFilter').exists()).toEqual(false);
   });
 });

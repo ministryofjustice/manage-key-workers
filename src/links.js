@@ -3,7 +3,7 @@ const getOffenderLink = (offenderNo) => {
 };
 
 const links = {
-  notmEndpointUrl: '', // set from env by /user/me call
+  notmEndpointUrl: '', // set from env by /api/config call
   getOffenderLink
 };
 
