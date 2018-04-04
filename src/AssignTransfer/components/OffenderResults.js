@@ -10,7 +10,7 @@ class OffenderResults extends Component {
     if (staffId) {
       if (keyworkerDisplay) {
         if (numberAllocated || numberAllocated === 0) {
-          return keyworkerDisplay + '(' + numberAllocated + ')';
+          return keyworkerDisplay + ' (' + numberAllocated + ')';
         } else {
           return keyworkerDisplay;
         }
