@@ -1,9 +1,7 @@
 package uk.gov.justice.digital.hmpps.keyworker.mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
-import groovy.json.JsonBuilder
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
-import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
@@ -36,6 +34,42 @@ class KeyworkerApi extends WireMockRule {
                 ))
     }
 
+    void stub500Error(url) {
+        stubFor(
+                get(url)
+                        .willReturn(
+                        aResponse()
+                                .withStatus(500)))
+    }
+
+    void stubHealth(url) {
+        stubFor(
+                get(url)
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''
+{
+    "status": "UP",
+    "healthInfo": {
+        "status": "UP",
+        "version": "version not available"
+    },
+    "diskSpace": {
+        "status": "UP",
+        "total": 510923390976,
+        "free": 143828922368,
+        "threshold": 10485760
+    },
+    "db": {
+        "status": "UP",
+        "database": "HSQL Database Engine",
+        "hello": 1
+    }
+}''')
+                ))
+    }
     /*
 
   SELECT SM.LAST_NAME,
