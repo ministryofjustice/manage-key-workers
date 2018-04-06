@@ -5,7 +5,6 @@ require('dotenv').config();
 require('./azure-appinsights');
 
 const path = require('path');
-const fs = require('fs');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
@@ -110,5 +109,5 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 3001;
 
 app.listen(port, function () {
-  console.log('Backend running on port %s', port);
+  console.log('Backend running on port', port);
 });
