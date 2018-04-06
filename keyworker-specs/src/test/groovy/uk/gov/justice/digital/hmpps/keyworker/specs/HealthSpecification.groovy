@@ -26,7 +26,7 @@ class HealthSpecification extends Specification {
         then:
         response.uptime > 0.0
         response.name == "keyworker-ui"
-        response.version == "0.1.0"
+        !response.version.isEmpty()
         response.api.status == "UP"
         response.api.db.status == "UP"
     }
@@ -49,8 +49,6 @@ class HealthSpecification extends Specification {
 
         then:
         response.uptime > 0.0
-        response.name == "keyworker-ui"
-        response.version == "0.1.0"
         response.api == "Request failed with status code 500"
     }
 }
