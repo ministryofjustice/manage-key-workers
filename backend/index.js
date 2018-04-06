@@ -28,6 +28,7 @@ const keyworkerProfile = require('./controllers/keyworkerProfile');
 const keyworkerUpdate = require('./controllers/keyworkerUpdate');
 const userMe = require('./controllers/userMe');
 const getConfig = require('./controllers/getConfig');
+const health = require('./controllers/health');
 
 const log = require('./log');
 const config = require('./config');
@@ -45,17 +46,6 @@ const sessionConfig = {
   expires: new Date(Date.now() + sessionExpiryMinutes),
   maxAge: sessionExpiryMinutes
 };
-
-function getAppInfo () {
-  const packageData = JSON.parse(fs.readFileSync('./package.json'));
-  const buildVersion = fs.existsSync('./build-info.json') ? JSON.parse(fs.readFileSync('./build-info.json')).buildNumber : packageData.version;
-
-  return {
-    name: packageData.name,
-    version: buildVersion,
-    description: packageData.description
-  };
-}
 
 app.set('trust proxy', 1); // trust first proxy
 
@@ -88,11 +78,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/health', require('express-healthcheck')());
-
-app.use('/info', (req, res) => {
-  res.json(getAppInfo());
-});
+app.use('/health', health);
+app.use('/info', health);
 
 app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
 app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));

@@ -96,7 +96,8 @@ const keyworkerAllocations = (req, res) => gateway.getRequest({
 
 const service = {
   unallocated, allocated, getOffenders, availableKeyworkers, keyworker, allocate, autoallocated,
-  autoAllocate, autoAllocateConfirm, keyworkerAllocations, keyworkerSearch, keyworkerUpdate
+  autoAllocate, autoAllocateConfirm, keyworkerAllocations, keyworkerSearch, keyworkerUpdate,
+  keyworkerApiUrl
 };
 
 function formatDate (inputDate) {
