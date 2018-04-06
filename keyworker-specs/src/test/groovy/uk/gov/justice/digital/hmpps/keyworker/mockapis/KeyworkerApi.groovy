@@ -42,6 +42,15 @@ class KeyworkerApi extends WireMockRule {
                                 .withStatus(500)))
     }
 
+    void stubDelayed500Error(url) {
+        stubFor(
+                get(url)
+                        .willReturn(
+                        aResponse()
+                                .withStatus(500)
+                                .withFixedDelay(3000)))
+    }
+
     void stubHealth(url) {
         stubFor(
                 get(url)

@@ -18,7 +18,7 @@ router.get('/', asyncMiddleware(async (req, res, next) => {
       uptime: process.uptime()
     };
     try {
-      const apiHealth = await axios.get(`${keyworkerApi.keyworkerApiUrl}health`);
+      const apiHealth = await axios.get(`${keyworkerApi.keyworkerApiUrl}health`, { timeout: 2000 });
       appInfo.api = apiHealth.data;
     } catch (error) {
       appInfo.api = error.message;
