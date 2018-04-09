@@ -51,4 +51,24 @@ class HealthSpecification extends Specification {
         response.uptime > 0.0
         response.api == "Request failed with status code 500"
     }
+
+    def "Health page reports API down"() {
+
+        keyworkerApi.stubDelayed500Error('/health')
+
+        def http = configure {
+            request.uri = 'http://localhost:3001/health'
+        }
+
+        when:
+        def response
+        try {
+            http.get() {}
+        } catch (HttpException e) {
+            response = e.body
+        }
+
+        then:
+        response.api == "timeout of 2000ms exceeded"
+    }
 }
