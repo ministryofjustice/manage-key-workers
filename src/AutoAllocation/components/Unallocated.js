@@ -12,7 +12,7 @@ class Unallocated extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.bookingId}>
-          <td className="row-gutters"><a href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
+          <td className="row-gutters"><a target="_blank" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>

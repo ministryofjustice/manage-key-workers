@@ -27,7 +27,7 @@ class ManualAllocation extends Component {
       const currentSelectValue = this.props.allocatedKeyworkers[index] ? this.props.allocatedKeyworkers[index].staffId : '';
       return (
         <tr key={a.offenderNo} className="row-gutters">
-          <td className="row-gutters"><a
+          <td className="row-gutters"><a target="_blank"
             href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>

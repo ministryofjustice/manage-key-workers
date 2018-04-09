@@ -1,7 +1,7 @@
 module.exports = {
   app: {
     production: process.env.NODE_ENV === 'production',
-    notmEndpointUrl: process.env.NN_ENDPOINT_URL || 'localhost:3000'
+    notmEndpointUrl: process.env.NN_ENDPOINT_URL || 'http://localhost:3000/'
   },
   hmppsCookie: {
     name: process.env.HMPPS_COOKIE_NAME || 'hmpps-session-dev',
