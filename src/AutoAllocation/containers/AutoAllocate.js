@@ -95,7 +95,7 @@ class AutoAllocate extends Component {
 
   async postManualOverride (history) {
     try {
-      await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+      await axiosWrapper.post('/api/autoAllocateConfirmWithOverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
         params: {
           agencyId: this.props.agencyId
         }
