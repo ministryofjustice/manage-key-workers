@@ -113,6 +113,7 @@ class AutoAllocate extends Component {
       const viewModel = await this.getAllocated();
       this.props.setCurrentPageDispatch(2);
       this.props.allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
+      this.props.manualOverrideDispatch([]);
     } catch (error) {
       this.props.displayError(error);
     }

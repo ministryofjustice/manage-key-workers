@@ -11,7 +11,6 @@ import { AutoAllocateContainer } from '../AutoAllocation/containers/AutoAllocate
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
-import OffenderContainer from '../AssignTransfer/containers/OffenderContainer';
 import Error from "../Error/index";
 import {
   BrowserRouter as Router,
@@ -99,7 +98,6 @@ class App extends React.Component {
       <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/offender/:offenderId/profile" render={() => <OffenderContainer displayError={this.displayError} {...this.props} />}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {

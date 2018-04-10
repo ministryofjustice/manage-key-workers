@@ -38,6 +38,7 @@ class KeyworkerProfileContainer extends Component {
     const allocationsViewModel = await this.makeKeyworkerAllocationsCall(this.props.agencyId, this.props.match.params.staffId);
     this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
     this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
+    this.props.keyworkerChangeListDispatch([]);
   }
 
 
