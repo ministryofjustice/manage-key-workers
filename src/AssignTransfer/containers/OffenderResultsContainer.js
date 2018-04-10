@@ -32,6 +32,7 @@ class OffenderResultsContainer extends Component {
         }
       });
       const data = await response.data;
+      this.props.keyworkerChangeListDispatch([]);
       this.props.offenderSearchResultsDispatch(data);
     } catch (error) {
       this.props.offenderSearchResultsDispatch({
