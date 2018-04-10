@@ -5,14 +5,19 @@ import geb.Page
 public class KeyworkerResultsPage extends Page {
 
 
-    static url ="/keyworker/results"
+    static url = "/keyworker/results"
+
+    static test_keyworker_staffId = '-3'
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText == 'Key worker results'
+        headingText == 'Search for a key worker'
     }
 
-    static content =  {
+    static content = {
         headingText { $('h1').text() }
+        rows { $('table tbody tr') }
+        testKeyworkerLink(to: KeyworkerProfilePage) { $('#key_worker_'+test_keyworker_staffId+'_link')}
     }
+
 }

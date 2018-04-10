@@ -1,10 +1,13 @@
-const express = require('express');
+`const express = require('express');
 const router = express.Router();
 const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
 router.post('/', asyncMiddleware(async (req, res) => {
+  const confirmResponse = await keyworkerApi.autoAllocateConfirm(req, res);
+  log.debug({ status: confirmResponse.status }, 'Response from autoAllocateConfirm request');
+
   const allocateList = req.body.allocatedKeyworkers;
   log.debug({ allocateList }, 'Manual override contents');
   for (const element of allocateList) {

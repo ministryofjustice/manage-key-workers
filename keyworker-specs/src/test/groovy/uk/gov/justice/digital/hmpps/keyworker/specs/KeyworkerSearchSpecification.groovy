@@ -5,10 +5,12 @@ import org.junit.Rule
 import spock.lang.Ignore
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
+import static uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation.*
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
@@ -37,7 +39,6 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         at SearchForKeyworkerPage
     }
 
-    @Ignore
     def "Search for key worker returns no results"() {
         given: "I am at the Search for key worker page"
         fixture.loginAs(ITAG_USER)
@@ -49,10 +50,32 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         keyworkerApi.stubEmptyListResponse('/key-worker/LEI/members?nameFilter=Smydd')
 
         when: "I perform the search"
-        searchButton.click()
+        keyworkerSearchButton.click()
+
+        then: "There will be no key workers displayed on the 'Key worker search results' page"
+        at KeyworkerResultsPage
+    }
+
+    def "Search for all key workers returns results"() {
+        given: "I am at the Search for key worker page"
+        fixture.loginAs(ITAG_USER)
+        fixture.toKeyworkerSearchPage()
+
+        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
+
+        when: "I perform the search"
+        keyworkerSearchButton.click()
 
         then: "There will be key workers displayed on the 'Key worker search results' page"
         at KeyworkerResultsPage
+        rows.size() == 5
+    }
+
+    def "key worker profile is displayed correctly"() {
+        given: "I am at the key worker profile page"
+        fixture.loginAs(ITAG_USER)
+        fixture.toKeyworkerProfilePage()
+
     }
 
 }
