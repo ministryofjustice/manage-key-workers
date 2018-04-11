@@ -12,7 +12,7 @@ class MessageBar extends Component {
   renderMessage (message) {
     let renderContent = null;
     if (message && message !== '') {
-      renderContent = (<div className="messageBarContainer pure-g"><div className="messageBar">
+      renderContent = (<div id="messageBar" className="messageBarContainer pure-g"><div className="messageBar">
         {this.props.message}
       </div></div>);
       this.clearMessage(this.props);

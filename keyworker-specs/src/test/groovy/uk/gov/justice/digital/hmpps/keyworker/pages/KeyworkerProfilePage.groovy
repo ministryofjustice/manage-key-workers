@@ -19,10 +19,11 @@ public class KeyworkerProfilePage extends Page {
         rows { $('table tbody tr') }
         status { $('#keyworker-status')}
         allocationCount { $('#allocationCount')}
-        allocationStyleGreen { $("div[class='numberCircleGreen']")}
+        allocationStyleGreen (required: false) { $("div[class='numberCircleGreen']")}
         keyworkerOptionsForTestOffender { $('#keyworker-select-' + test_offender_Z0024ZZ + ' option')}
         keyworkerEditButton(to: KeyworkerEditPage) { $('#editProfileButton') }
         updateKeyworkerAllocationButton(to: KeyworkerManagementPage) { $('#updateAllocationButton') }
+        messageBar(required: false) { $('div #messageBar')}
     }
 
 }

@@ -17,7 +17,7 @@ public class KeyworkerEditConfirmPage extends Page {
         status { $('#keyworker-status')}
         inactiveWarning (required: false) {$('#inactiveWarning')}
         allocationOptions { $('input', name: 'allocationOption') }
-        saveButton(to: KeyworkerManagementPage) { $('#saveButton') }
+        saveButton(to: KeyworkerProfilePage) { $('#saveButton') }
         cancelButton(to: KeyworkerEditPage) { $('#cancelButton') }
     }
 
