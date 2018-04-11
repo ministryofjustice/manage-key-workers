@@ -35,9 +35,13 @@ class KeyworkerProfileEditContainer extends Component {
     try {
       await this.postKeyworkerUpdate();
       if (this.props.behaviour === behaviours.REMOVE_ALLOCATIONS_NO_AUTO) {
-        this.props.setMessageDispatch("Prisoners removed from key worker");
+        if (this.props.keyworker.numberAllocated > 0) {
+          this.props.setMessageDispatch("Prisoners removed from key worker");
+        } else {
+          this.props.setMessageDispatch("Profile changed");
+        }
       } else {
-        this.props.setMessageDispatch("Status updated");
+        this.props.setMessageDispatch("Profile changed");
       }
       history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
     } catch (error) {

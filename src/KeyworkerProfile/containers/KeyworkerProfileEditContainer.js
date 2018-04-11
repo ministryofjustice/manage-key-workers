@@ -36,7 +36,7 @@ class KeyworkerProfileEditContainer extends Component {
           history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
         } else {
           await this.postKeyworkerUpdate();
-          this.props.setMessageDispatch("Status updated");
+          this.props.setMessageDispatch("Profile changed");
           history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
         }
       } else {
@@ -48,7 +48,7 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   formChange () {
-    let capacityChange = (this.props.capacity !== this.props.keyworker.capacity);
+    let capacityChange = (this.props.capacity !== this.props.keyworker.capacity.toString());
     let statusChange = (this.props.status !== this.props.keyworker.status);
     return capacityChange || statusChange;
   }

@@ -53,19 +53,6 @@ class TestFixture {
         assert browser.page instanceof SearchForKeyworkerPage
     }
 
-    def toKeyworkerProfilePage() {
-        toKeyworkerSearchPage()
-        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
-        browser.page.keyworkerSearchButton.click()
-        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI)
-        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI)
-        keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
-        elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
-        elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
-        browser.page.testKeyworkerLink.click()
-        assert browser.page instanceof KeyworkerProfilePage
-    }
-
     static List<Location> locationsForCaseload(Caseload caseload) {
         def agencyLocations = caseload.locations
 
