@@ -37,7 +37,7 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">
 
-            <select id={`keyworker-select-${a.bookingId}`} className="form-control" value={currentSelectValue}
+            <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">Choose key worker</option>
               {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
@@ -51,7 +51,7 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
-      <div className="lede padding-top padding-bottom-large">Current key worker allocations <div className={allocationCountStyle}>{this.props.keyworkerAllocations.length}</div></div>
+      <div className="lede padding-top padding-bottom-large">Current key worker allocations <div id="allocationCount" className={allocationCountStyle}>{this.props.keyworkerAllocations.length}</div></div>
       <div className="pure-u-md-12-12">
         <table>
           <thead>

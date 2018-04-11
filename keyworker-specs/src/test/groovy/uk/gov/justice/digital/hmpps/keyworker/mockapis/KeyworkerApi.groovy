@@ -5,13 +5,13 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.Allocations
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AvailableKeyworkerResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerDetailResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerSearchResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSentencesResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static com.github.tomakehurst.wiremock.client.WireMock.post
 
 class KeyworkerApi extends WireMockRule {
     KeyworkerApi() {
@@ -101,7 +101,17 @@ class KeyworkerApi extends WireMockRule {
                 get("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${agencyLocation.id}")
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
-                        .withBody(KeyworkerDetailResponse.response_keyworker_minus3)
+                        .withBody(KeyworkerDetailResponse.response_keyworker)
+                        .withStatus(200))
+        )
+    }
+
+    void stubInactiveKeyworkerDetailResponse(AgencyLocation agencyLocation) {
+        stubFor(
+                get("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${agencyLocation.id}")
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withBody(KeyworkerDetailResponse.response_keyworker_inactive)
                         .withStatus(200))
         )
     }
@@ -122,6 +132,15 @@ class KeyworkerApi extends WireMockRule {
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(AvailableKeyworkerResponse.response)
+                        .withStatus(200))
+        )
+    }
+
+    void stubKeyworkerUpdate(AgencyLocation agencyLocation) {
+        stubFor(
+                post("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${agencyLocation.id}")
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
                         .withStatus(200))
         )
     }

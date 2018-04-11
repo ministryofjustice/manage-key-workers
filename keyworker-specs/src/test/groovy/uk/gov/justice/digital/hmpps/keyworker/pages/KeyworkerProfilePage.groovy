@@ -7,6 +7,8 @@ public class KeyworkerProfilePage extends Page {
 
     static url = "/profile"
 
+    static test_offender_Z0024ZZ = "Z0024ZZ"
+
     static at = {
         browser.currentUrl.contains(url)
         headingText.contains('Profile for')
@@ -15,6 +17,12 @@ public class KeyworkerProfilePage extends Page {
     static content = {
         headingText { $('h1').text() }
         rows { $('table tbody tr') }
+        status { $('#keyworker-status')}
+        allocationCount { $('#allocationCount')}
+        allocationStyleGreen { $("div[class='numberCircleGreen']")}
+        keyworkerOptionsForTestOffender { $('#keyworker-select-' + test_offender_Z0024ZZ + ' option')}
+        keyworkerEditButton(to: KeyworkerEditPage) { $('#editProfileButton') }
+        updateKeyworkerAllocationButton(to: KeyworkerManagementPage) { $('#updateAllocationButton') }
     }
 
 }
