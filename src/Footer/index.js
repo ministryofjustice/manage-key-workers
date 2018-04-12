@@ -13,7 +13,6 @@ const Footer = ({ showTermsAndConditions }) =>
       <div className="FooterLinksContainer">
         <div className="FooterLink" onClick={() => showTermsAndConditions()}>Terms and conditions</div>
       </div>
-      <div className="FooterSignature">Powered by TBC</div>
     </div>
   </footer>);
 
