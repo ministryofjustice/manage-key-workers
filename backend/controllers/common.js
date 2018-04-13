@@ -13,7 +13,7 @@ const addMissingKeyworkerDetails = async function (req, res, row) {
     }
   } catch (error) {
     if (error.response && error.response.status === 404) {
-      log.info(`No keyworker found for staffId Id ${row.staffId} on booking ${row.bookingId}`);
+      log.info(`No keyworker found for staffId Id ${row.staffId} on offenderNo ${row.offenderNo}`);
       row.keyworkerDisplay = '--';
       row.numberAllocated = 'n/a';
     } else {
@@ -24,7 +24,7 @@ const addMissingKeyworkerDetails = async function (req, res, row) {
 };
 
 const addCrsaClassification = function (allCsras, row) {
-  const details = allCsras.filter(details => details.bookingId === row.bookingId);
+  const details = allCsras.filter(details => details.offenderNo === row.offenderNo);
   if (details.length < 1) {
     return;
   }
@@ -49,20 +49,11 @@ const offenderNoParamsSerializer = params => {
   return s;
 };
 
-const bookingIdParamsSerializer = params => {
-  s = '';
-  for (const bookingId of params) {
-    s += 'bookingId=' + bookingId + '&';
-  }
-  return s;
-};
-
 module.exports = {
   addMissingKeyworkerDetails,
   addCrsaClassification,
   addReleaseDate,
-  offenderNoParamsSerializer,
-  bookingIdParamsSerializer
+  offenderNoParamsSerializer
 };
 
 

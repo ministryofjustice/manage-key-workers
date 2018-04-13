@@ -3,10 +3,10 @@ package uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses
 
 class KeyworkerDetailResponse {
 
-    static response_keyworker = '''
-{
-    "staffId": -3,
-    "firstName": "HPA",
+    static getResponse(int staffId) {
+        return """
+{   "staffId": ${staffId},
+    "firstName": "HPA${staffId}",
     "lastName": "AUser",
     "capacity": 6,
     "numberAllocated": 4,
@@ -14,11 +14,11 @@ class KeyworkerDetailResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
-}
-'''
+    "autoAllocationAllowed": true}
+"""
+    }
 
-static response_keyworker_inactive = '''
+    static response_keyworker_inactive = '''
 {
     "staffId": -3,
     "firstName": "HPA",

@@ -165,10 +165,10 @@ function createSentenceDetailListResponse () {
 
 function createAssessmentListResponse () {
   return { data: [
-    { bookingId: -1, classification: 'High' },
-    { bookingId: -2, classification: 'High' },
-    { bookingId: -6, classification: 'Low' },
-    { bookingId: -3, classification: 'Silly' },
-    { bookingId: -4, classification: 'Low' }
+    { offenderNo: "A1234AA", classification: 'High' },
+    { offenderNo: "A1234AB", classification: 'High' },
+    { offenderNo: "A1234AF", classification: 'Low' },
+    { offenderNo: "A1234AC", classification: 'Silly' },
+    { offenderNo: "A1234AD", classification: 'Low' }
   ] };
 }

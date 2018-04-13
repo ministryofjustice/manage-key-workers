@@ -131,7 +131,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
 
     def stubKeyworkerProfilePage() {
         keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI)
-        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI)
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
         elite2api.stubOffenderSentenceResponse(AgencyLocation.LEI)
@@ -150,7 +150,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
         browser.page.keyworkerSearchButton.click()
         keyworkerApi.stubInactiveKeyworkerDetailResponse(AgencyLocation.LEI)
-        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI)
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         // no allocations associated with key worker
         keyworkerApi.stubEmptyListResponse("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${AgencyLocation.LEI}/offenders")
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)

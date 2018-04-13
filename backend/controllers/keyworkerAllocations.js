@@ -23,8 +23,7 @@ const keyworkerAllocations = async (req, res) => {
   const allReleaseDates = sentenceDetailListResponse.data;
   log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  const allBookings = tableData.map(row => row.bookingId);
-  const csraListResponse = await elite2Api.csraList(req, res, allBookings, common.bookingIdParamsSerializer);
+  const csraListResponse = await elite2Api.csraList(req, res, alloffenders, common.offenderNoParamsSerializer);
   const allCsras = csraListResponse.data;
   log.debug({ data: allCsras }, 'Response from csraList request');
 
