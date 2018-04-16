@@ -9,7 +9,7 @@ describe('actions', () => {
         mailTo: 'a@b.com'
       }
     };
-    expect(actions.setConfig({ mailTo: 'a@b.com'})).toEqual(expectedAction);
+    expect(actions.setConfig({ mailTo: 'a@b.com' })).toEqual(expectedAction);
   });
 
   it('should create an action to setup login details', () => {

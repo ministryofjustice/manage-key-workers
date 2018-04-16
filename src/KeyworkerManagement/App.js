@@ -114,7 +114,7 @@ class App extends React.Component {
           <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <Footer showTermsAndConditions={this.showTermsAndConditions} mailTo={ this.props.config.mailTo }/>
+          <Footer showTermsAndConditions={this.showTermsAndConditions} mailTo={this.props.config.mailTo}/>
         </div>
       </Router>);
   }

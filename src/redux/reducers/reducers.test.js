@@ -88,14 +88,14 @@ describe('app (global) reducer', () => {
     expect(
       app(appInitialState, {
         type: types.SET_CONFIG,
-        config: {mailTo: 'a@b.com'}
+        config: { mailTo: 'a@b.com' }
       })
     ).toEqual(
       {
         page: 0,
         error: null,
         message: null,
-        config: {mailTo: 'a@b.com'},
+        config: { mailTo: 'a@b.com' },
         loaded: false
       });
   });
