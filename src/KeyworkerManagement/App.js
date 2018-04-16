@@ -123,9 +123,10 @@ class App extends React.Component {
 App.propTypes = {
   error: PropTypes.string,
   page: PropTypes.number,
-  emailTo: PropTypes.string,
+  mailTo: PropTypes.string,
   user: PropTypes.object,
   shouldShowTerms: PropTypes.bool,
+  mailToDispatch: PropTypes.func.isRequired,
   userDetailsDispatch: PropTypes.func.isRequired,
   switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,

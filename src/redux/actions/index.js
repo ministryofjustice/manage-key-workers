@@ -4,7 +4,7 @@ export const setMailTo = (mailTo) => {
   return {
     type: ActionTypes.SET_MAIL_TO,
     mailTo: mailTo
-  }
+  };
 };
 
 export const setUserDetails = (user) => {
