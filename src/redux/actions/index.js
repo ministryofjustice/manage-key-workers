@@ -1,5 +1,12 @@
 import * as ActionTypes from './actionTypes';
 
+export const setMailTo = (mailTo) => {
+  return {
+    type: ActionTypes.SET_MAIL_TO,
+    mailTo: mailTo
+  }
+};
+
 export const setUserDetails = (user) => {
   return {
     type: ActionTypes.SET_USER_DETAILS,

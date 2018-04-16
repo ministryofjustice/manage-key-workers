@@ -2,6 +2,14 @@ import * as actions from './index';
 import * as types from './actionTypes';
 
 describe('actions', () => {
+  it('should create an action to update the mailTo URL', () => {
+    const expectedAction = {
+      type: types.SET_MAIL_TO,
+      mailTo: 'a@b.com'
+    };
+    expect(actions.setMailTo('a@b.com')).toEqual(expectedAction);
+  });
+
   it('should create an action to setup login details', () => {
     const user = { field: 'user' };
     const expectedAction = {

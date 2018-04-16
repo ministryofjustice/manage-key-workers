@@ -1,3 +1,5 @@
+export const SET_MAIL_TO = 'SET_MAIL_TO';
+
 export const SET_USER_DETAILS = 'SET_USER_DETAILS';
 export const SWITCH_AGENCY = 'SWITCH_AGENCY';
 export const SET_TERMS_VISIBILITY = 'SET_TERMS_VISIBILITY';

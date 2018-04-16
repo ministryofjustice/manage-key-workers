@@ -44,6 +44,10 @@ const keyworkerSearchInitialState = {
 
 export function app (state = appInitialState, action) {
   switch (action.type) {
+    case ActionTypes.SET_MAIL_TO:
+      return updateObject(state, {
+        mailTo: action.mailTo
+      });
     case ActionTypes.SET_USER_DETAILS:
       return updateObject(state, {
         user: action.user
