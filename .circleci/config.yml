@@ -1,7 +1,7 @@
 defaults: &defaults
-  working_directory: /tmp/circleci-keyworker-ui
+  working_directory: ~/app
   docker:
-    - image: circleci/node:8.4.0-browsers
+    - image: circleci/node:8.10.0-browsers
 
 version: 2
 jobs:
@@ -47,7 +47,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/circleci-keyworker-ui/
+          at: ~/app
       - run:
           name: Run the node app.
           command: yarn start
@@ -78,15 +78,17 @@ jobs:
           destination: integration/geb
       - store_test_results:
           path: keyworker-specs/build/test-results
+
   build_docker:
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/circleci-keyworker-ui/
+          at: ~/app
       - setup_remote_docker:
           exclusive: true
       - run:
+          name: Build container and publish to docker hub (master only)
           command: |
              VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
              GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
@@ -107,11 +109,11 @@ jobs:
                  --label "build.number=$CIRCLE_BUILD_NUM" \
                  --label "build.url=$CIRCLE_BUILD_URL" \
                  --label "build.gitref=$GIT_REF"
-             docker login -u $DOCKER_USER -p $DOCKER_PASS
-             docker push mojdigitalstudio/keyworker-ui:$BUILD_VERSION
 
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+               docker login -u $DOCKER_USER -p $DOCKER_PASS
                docker tag mojdigitalstudio/keyworker-ui:$BUILD_VERSION mojdigitalstudio/keyworker-ui:latest
+               docker push mojdigitalstudio/keyworker-ui:$BUILD_VERSION
                docker push mojdigitalstudio/keyworker-ui:latest
              fi
 
@@ -120,7 +122,7 @@ jobs:
       steps:
         - checkout
         - attach_workspace:
-            at: /tmp/circleci-keyworker-ui/
+            at: ~/app
         - deploy:
             name: Install elastic beanstalk CLI
             command: |
