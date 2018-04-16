@@ -25,10 +25,6 @@ class HomePage extends Component {
               <Link id="assign_transfer_link" title="Manually assign and transfer link" className="link" to="/assignTransfer" >Manually assign and transfer</Link>
               <div className="padding-right-large">View current offender to key worker assignment and reallocate if desired</div>
             </div>
-            <div className="pure-u-md-6-12">
-              <Link id="keyworker_reports_link" title="Key worker reports link" className="link" to="/keyworkerReports" >Key worker reports</Link>
-              <div>View the latest key worker reports and filter by date</div>
-            </div>
           </div>
         </div>
       </div>

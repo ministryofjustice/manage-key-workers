@@ -1,5 +1,12 @@
 import * as ActionTypes from './actionTypes';
 
+export const setConfig = (config) => {
+  return {
+    type: ActionTypes.SET_CONFIG,
+    config: config
+  };
+};
+
 export const setUserDetails = (user) => {
   return {
     type: ActionTypes.SET_USER_DETAILS,

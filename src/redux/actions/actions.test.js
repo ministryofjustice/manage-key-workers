@@ -2,6 +2,16 @@ import * as actions from './index';
 import * as types from './actionTypes';
 
 describe('actions', () => {
+  it('should create an action to update the config', () => {
+    const expectedAction = {
+      type: types.SET_CONFIG,
+      config: {
+        mailTo: 'a@b.com'
+      }
+    };
+    expect(actions.setConfig({ mailTo: 'a@b.com' })).toEqual(expectedAction);
+  });
+
   it('should create an action to setup login details', () => {
     const user = { field: 'user' };
     const expectedAction = {
