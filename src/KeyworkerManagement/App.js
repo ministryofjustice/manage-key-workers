@@ -18,7 +18,7 @@ import {
 } from 'react-router-dom';
 import axiosWrapper from "../backendWrapper";
 import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, resetError, setMailTo, setUserDetails, setMessage } from '../redux/actions/index';
+import { switchAgency, setTermsVisibility, setError, resetError, setConfig, setUserDetails, setMessage } from '../redux/actions/index';
 import { connect } from 'react-redux';
 import links from "../links";
 
@@ -47,7 +47,7 @@ class App extends React.Component {
 
       const config = await axiosWrapper.get('/api/config');
       links.notmEndpointUrl = config.data.notmEndpointUrl;
-      this.props.mailToDispatch(config.data.mailTo);
+      this.props.configDispatch(config.data);
     } catch (error) {
       this.props.setErrorDispatch(error.message);
     }
@@ -114,7 +114,7 @@ class App extends React.Component {
           <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <Footer showTermsAndConditions={this.showTermsAndConditions} mailTo={this.props.mailTo}/>
+          <Footer showTermsAndConditions={this.showTermsAndConditions} mailTo={ this.props.config.mailTo }/>
         </div>
       </Router>);
   }
@@ -123,10 +123,10 @@ class App extends React.Component {
 App.propTypes = {
   error: PropTypes.string,
   page: PropTypes.number,
-  mailTo: PropTypes.string,
+  config: PropTypes.object,
   user: PropTypes.object,
   shouldShowTerms: PropTypes.bool,
-  mailToDispatch: PropTypes.func.isRequired,
+  configDispatch: PropTypes.func.isRequired,
   userDetailsDispatch: PropTypes.func.isRequired,
   switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
@@ -140,7 +140,7 @@ const mapStateToProps = state => {
     error: state.app.error,
     message: state.app.message,
     page: state.app.page,
-    mailTo: state.app.mailTo,
+    config: state.app.config,
     user: state.app.user,
     shouldShowTerms: state.app.shouldShowTerms
   };
@@ -148,7 +148,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    mailToDispatch: (mailTo) => dispatch(setMailTo(mailTo)),
+    configDispatch: (config) => dispatch(setConfig(config)),
     userDetailsDispatch: (user) => dispatch(setUserDetails(user)),
     switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
     setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),

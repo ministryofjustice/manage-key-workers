@@ -1,4 +1,4 @@
-export const SET_MAIL_TO = 'SET_MAIL_TO';
+export const SET_CONFIG = 'SET_CONFIG';
 
 export const SET_USER_DETAILS = 'SET_USER_DETAILS';
 export const SWITCH_AGENCY = 'SWITCH_AGENCY';

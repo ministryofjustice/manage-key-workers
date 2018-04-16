@@ -15,6 +15,7 @@ const allocatedInitialState = {
 };
 
 const appInitialState = {
+  config: { mailTo: '' },
   user: { activeCaseLoadId: null },
   shouldShowTerms: false,
   error: null,
@@ -44,9 +45,9 @@ const keyworkerSearchInitialState = {
 
 export function app (state = appInitialState, action) {
   switch (action.type) {
-    case ActionTypes.SET_MAIL_TO:
+    case ActionTypes.SET_CONFIG:
       return updateObject(state, {
-        mailTo: action.mailTo
+        config: action.config
       });
     case ActionTypes.SET_USER_DETAILS:
       return updateObject(state, {

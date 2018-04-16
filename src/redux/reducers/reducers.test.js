@@ -84,18 +84,18 @@ describe('app (global) reducer', () => {
     );
   });
 
-  it('should handle SET_MAIL_TO', () => {
+  it('should handle SET_CONFIG', () => {
     expect(
       app(appInitialState, {
-        type: types.SET_MAIL_TO,
-        mailTo: 'a@b.com'
+        type: types.SET_CONFIG,
+        config: {mailTo: 'a@b.com'}
       })
     ).toEqual(
       {
         page: 0,
         error: null,
         message: null,
-        mailTo: 'a@b.com',
+        config: {mailTo: 'a@b.com'},
         loaded: false
       });
   });

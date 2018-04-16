@@ -1,9 +1,9 @@
 import * as ActionTypes from './actionTypes';
 
-export const setMailTo = (mailTo) => {
+export const setConfig = (config) => {
   return {
-    type: ActionTypes.SET_MAIL_TO,
-    mailTo: mailTo
+    type: ActionTypes.SET_CONFIG,
+    config: config
   };
 };
 
