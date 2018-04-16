@@ -74,6 +74,7 @@ describe('app (global) reducer', () => {
   it('should return the initial state', () => {
     expect(app(undefined, {})).toEqual(
       {
+        config: { mailTo: ''},
         user: { activeCaseLoadId: null },
         shouldShowTerms: false,
         error: null,
