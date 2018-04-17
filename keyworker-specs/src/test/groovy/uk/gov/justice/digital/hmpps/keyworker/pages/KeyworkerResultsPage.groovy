@@ -7,7 +7,7 @@ public class KeyworkerResultsPage extends Page {
 
     static url = "/keyworker/results"
 
-    static test_keyworker_staffId = '-3'
+    static int test_keyworker_staffId = -3
 
     static at = {
         browser.currentUrl.contains(url)

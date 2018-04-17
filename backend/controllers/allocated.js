@@ -12,16 +12,37 @@ router.get('/', asyncMiddleware(async (req, res) => {
   res.json(viewModel);
 }));
 
-const allocated = async (req, res) => {
-  await keyworkerApi.autoAllocate(req, res);
+function warning (error) {
+  if (error.response && error.response.data) {
+    const msg = error.response.data.userMessage;
+    if (msg === 'No Key workers available for allocation.' ||
+      msg === 'All available Key workers are at full capacity.') {
+      return msg;
+    }
+  }
+  return null;
+}
 
+const allocated = async (req, res) => {
+  let insufficientKeyworkers = '';
+  try {
+    await keyworkerApi.autoAllocate(req, res);
+  } catch (error) {
+    const msg = warning(error);
+    if (msg) {
+      log.warn({ data: error.response }, 'Caught warning');
+      insufficientKeyworkers = msg;
+    } else {
+      throw error;
+    }
+  }
   const keyworkerResponse = await keyworkerApi.availableKeyworkers(req, res);
   const keyworkerData = keyworkerResponse.data;
   log.debug({ availableKeyworkers: keyworkerData }, 'Response from available keyworker request');
 
   const allocatedResponse = await keyworkerApi.autoallocated(req, res);
   const allocatedData = allocatedResponse.data;
-  log.debug({ availableKeyworkers: allocatedData }, 'Response from allocated offenders request');
+  log.debug({ offenders: allocatedData }, 'Response from allocated offenders request');
   if (telemetry) {
     telemetry.trackEvent({ name: "Auto allocation" });
   } // Example of app insight custom event
@@ -48,7 +69,8 @@ const allocated = async (req, res) => {
   }
   return {
     keyworkerResponse: keyworkerResponse.data,
-    allocatedResponse: allocatedResponse.data
+    allocatedResponse: allocatedResponse.data,
+    warning: insufficientKeyworkers
   };
 };
 

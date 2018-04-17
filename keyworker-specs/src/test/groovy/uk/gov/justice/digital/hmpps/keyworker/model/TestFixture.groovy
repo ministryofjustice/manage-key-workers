@@ -4,11 +4,10 @@ import geb.Browser
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.UnallocatedPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
@@ -39,6 +38,43 @@ class TestFixture {
         browser.at KeyworkerManagementPage
     }
 
+    def toUnallocatedPage() {
+        elite2Api.stubGetMyLocations(locationsForCaseload(currentUser.workingCaseload))
+        keyworkerApi.stubUnallocatedResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
+
+        browser.page.autoAllocateLink.click()
+        assert browser.page instanceof UnallocatedPage
+    }
+
+    def toUnallocatedPageNoData() {
+        elite2Api.stubGetMyLocations(locationsForCaseload(currentUser.workingCaseload))
+        keyworkerApi.stubEmptyListResponse("/key-worker/${AgencyLocation.LEI.id}/offenders/unallocated")
+        elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
+
+        browser.page.autoAllocateLink.click()
+        assert browser.page instanceof UnallocatedPage
+    }
+
+    def toAllocatedPage(boolean insufficientKeyworkers) {
+        elite2Api.stubGetMyLocations(locationsForCaseload(currentUser.workingCaseload))
+        insufficientKeyworkers ? keyworkerApi.stubStartAllocateFailureResponse(AgencyLocation.LEI)
+                : keyworkerApi.stubStartAllocateResponse(AgencyLocation.LEI)
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, insufficientKeyworkers)
+        keyworkerApi.stubAutoAllocationsResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
+        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI, -2)
+        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI, -3)
+        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI, -4)
+        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI, -5)
+        keyworkerApi.stubError("/key-worker/-1/prison/LEI", 404) // staff id -1 doesnt exist
+
+        browser.page.allocateButton.click()
+    }
+
     def toManuallyAssignAndTransferPage() {
         locations = locationsForCaseload(currentUser.workingCaseload)
         elite2Api.stubGetMyLocations(locations)
@@ -65,5 +101,4 @@ class TestFixture {
         })
         locations
     }
-
 }

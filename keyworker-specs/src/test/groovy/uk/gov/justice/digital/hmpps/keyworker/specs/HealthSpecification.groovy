@@ -33,7 +33,7 @@ class HealthSpecification extends Specification {
 
     def "Health page reports API unhealthy"() {
 
-        keyworkerApi.stub500Error('/health')
+        keyworkerApi.stubError('/health', 500)
 
         def http = configure {
             request.uri = 'http://localhost:3001/health'
@@ -54,7 +54,7 @@ class HealthSpecification extends Specification {
 
     def "Health page reports API down"() {
 
-        keyworkerApi.stubDelayed500Error('/health')
+        keyworkerApi.stubDelayedError('/health', 500)
 
         def http = configure {
             request.uri = 'http://localhost:3001/health'

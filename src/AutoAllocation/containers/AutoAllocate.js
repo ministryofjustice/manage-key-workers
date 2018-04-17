@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import axiosWrapper from '../../backendWrapper';
 import moment from 'moment';
 import { setUnallocatedList, setAllocatedDetails, setCurrentPage, manualOverride, manualOverrideDateFilter, setMessage, setLoaded } from '../../redux/actions/index';
-import Error from '../../Error/index';
+import ErrorComponent from '../../Error/index';
 import { connect } from 'react-redux';
 
 import '../../allocation.scss';
@@ -114,6 +114,14 @@ class AutoAllocate extends Component {
       this.props.setCurrentPageDispatch(2);
       this.props.allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
       this.props.manualOverrideDispatch([]);
+      if (viewModel.warning) {
+        this.props.displayError({
+          response: {
+            data: viewModel.warning +
+            ' Please try allocating manually, adding more Key workers or raising their capacities.'
+          }
+        });
+      }
     } catch (error) {
       this.props.displayError(error);
     }
@@ -124,18 +132,14 @@ class AutoAllocate extends Component {
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    switch (this.props.page) {
-      case 1:
-        return <Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />;
-      case 2:
-        return (<ManualAllocation handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
-          applyDateFilter={this.applyDateFilter} handleDateFilterChange={this.handleDateFilterChange} {...this.props} />);
-      default:
-        return "";
-    }
+    return (<div>
+      <ErrorComponent {...this.props} />
+      {this.props.page === 1 ? <Unallocated gotoNext={this.gotoManualAllocation} {...this.props} /> :
+        (<ManualAllocation handleKeyworkerChange={this.handleKeyworkerChange} postManualOverride={this.postManualOverride}
+          applyDateFilter={this.applyDateFilter} handleDateFilterChange={this.handleDateFilterChange} {...this.props} />)
+      }
+    </div>
+    );
   }
 }
 

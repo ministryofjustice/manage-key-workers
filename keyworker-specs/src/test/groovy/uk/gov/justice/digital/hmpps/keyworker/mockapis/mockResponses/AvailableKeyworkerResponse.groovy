@@ -47,4 +47,18 @@ class AvailableKeyworkerResponse {
     }
   ]
 '''
+
+    static insufficientResponse = '''
+[
+    {
+      "staffId": -3,
+      "firstName": "Sole",
+      "lastName": "Keyworker",
+      "capacity": 2,
+      "numberAllocated": 1,
+      "agencyId": "LEI",
+      "status": "ACTIVE",
+      "autoAllocationAllowed": true
+    }
+]'''
 }
