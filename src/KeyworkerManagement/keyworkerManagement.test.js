@@ -10,7 +10,6 @@ describe('HomePage component', () => {
   it('should render links correctly', async () => {
     const component = shallow(<HomePage message="Hello!" clearMessage={jest.fn()}/>);
     expect(component.find('#auto_allocate_link').length).toBe(1);
-    expect(component.find('#keyworker_reports_link').length).toBe(1);
     expect(component.find('#keyworker_profile_link').length).toBe(1);
     expect(component.find('#assign_transfer_link').length).toBe(1);
   });

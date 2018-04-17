@@ -1,36 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { connect } from 'react-redux';
-//import { createStructuredSelector } from 'reselect';
-
-//import { showTerms } from 'globalReducers/app';
 
 import './footer.scss';
 
-const Footer = ({ showTermsAndConditions }) =>
+const Footer = (props) =>
   (<footer className="FooterContainer">
     <div className="footer-content">
       <div className="FooterLinksContainer">
-        <div className="FooterLink" onClick={() => showTermsAndConditions()}>Terms and conditions</div>
+        <div className="FooterLink" onClick={() => props.showTermsAndConditions()}>Terms and conditions</div>
+        <div className="FooterLink">Email <a className="link" href={"mailto:" + props.mailTo}>{props.mailTo}</a></div>
       </div>
-      <div className="FooterSignature">Powered by TBC</div>
     </div>
   </footer>);
 
 Footer.propTypes = {
-  showTermsAndConditions: PropTypes.func.isRequired
+  showTermsAndConditions: PropTypes.func.isRequired,
+  mailTo: PropTypes.string
 };
 
-Footer.defaultProps = {
-};
+Footer.defaultProps = {};
 
-/*const mapStateToProps = createStructuredSelector({
-
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  showTermsAndConditions: () => dispatch(showTerms())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);*/
 export default Footer;
