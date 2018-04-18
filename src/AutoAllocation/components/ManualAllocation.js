@@ -49,7 +49,8 @@ class ManualAllocation extends Component {
 
   render () {
     const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
-      return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+      const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
+      return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{formattedDetails}</option>;
     });
     const offenders = this.buildTableForRender(keyworkerOptions);
     return (

@@ -1,6 +1,7 @@
 const log = require('../log');
 const keyworkerApi = require('../keyworkerApi');
 const logError = require('../logError').logError;
+const properCaseName = require('../../src/stringUtils').properCaseName;
 
 const addMissingKeyworkerDetails = async function (req, res, row) {
   try {
@@ -8,7 +9,7 @@ const addMissingKeyworkerDetails = async function (req, res, row) {
     const keyworkerResponse = await keyworkerApi.keyworker(req, res);
     const keyworkerData = keyworkerResponse.data;
     if (keyworkerData) {
-      row.keyworkerDisplay = `${keyworkerData.lastName}, ${keyworkerData.firstName}`;
+      row.keyworkerDisplay = `${properCaseName(keyworkerData.lastName)}, ${properCaseName(keyworkerData.firstName)}`;
       row.numberAllocated = keyworkerData.numberAllocated;
     }
   } catch (error) {

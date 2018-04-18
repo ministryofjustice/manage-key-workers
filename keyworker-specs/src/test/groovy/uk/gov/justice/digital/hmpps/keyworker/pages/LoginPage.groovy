@@ -9,7 +9,7 @@ class LoginPage extends Page {
     static url = 'auth/login'
 
     static at = {
-        title == 'Key worker'
+        title == 'Key worker mgt'
         headingText == 'Login'
     }
 

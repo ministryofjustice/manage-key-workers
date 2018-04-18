@@ -4,6 +4,7 @@ import { getOffenderLink } from "../../links";
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";
+import { Link } from "react-router-dom";
 
 class OffenderResults extends Component {
   getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
@@ -36,7 +37,7 @@ class OffenderResults extends Component {
         <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
         <td className="row-gutters">{a.confirmedReleaseDate || "--"}</td>
         <td className="row-gutters">{a.crsaClassification || "--"}</td>
-        <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
+        <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay)}
         </td>
         <td className="row-gutters">
           <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
@@ -55,12 +56,14 @@ class OffenderResults extends Component {
     }
     const keyworkerOptions = this.props.offenderResults.keyworkerResponse ?
       this.props.offenderResults.keyworkerResponse.map((kw, optionIndex) => {
-        return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+        const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
+        return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{formattedDetails}</option>;
       }) : [];
     const offenders = this.buildTableForRender(keyworkerOptions, this.props.offenderResults.offenderResponse);
     return (
       <div>
-        <div className="pure-g">
+        <div className="pure-g padding-top-large">
+          <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back to admin menu</Link></div>
           <div className="pure-u-md-7-12"><h1 className="heading-large">Manually assign and transfer</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
         </div>

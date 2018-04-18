@@ -23,7 +23,8 @@ class KeyworkerProfile extends Component {
     const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
     const statusStyle = getStatusStyle(this.props.keyworker.status);
     const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
-      return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{kw.lastName}, {kw.firstName} ({kw.numberAllocated})</option>;
+      const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
+      return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{formattedDetails}</option>;
     });
     const allocations = this.props.keyworkerAllocations.map((a, index) => {
       const currentSelectValue = this.props.keyworkerChangeList[index] ? this.props.keyworkerChangeList[index].staffId : '';
@@ -77,7 +78,7 @@ class KeyworkerProfile extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-top padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`search_again_link`} title="Search again link" className="link" to="/" >&lt; Back to menu</Link>
+            <Link id={`search_again_link`} title="Search again link" className="link" to="/" >&lt; Back to admin menu</Link>
             <h1 className="heading-large">Profile for {keyworkerDisplayName}</h1>
           </div>
           <div className="padding-top">
