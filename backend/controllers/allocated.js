@@ -1,3 +1,4 @@
+const properCaseName = require('../../src/stringUtils').properCaseName;
 const express = require('express');
 const router = express.Router();
 const elite2Api = require('../elite2Api');
@@ -59,7 +60,7 @@ const allocated = async (req, res) => {
   for (const row of allocatedData) {
     const kw = keyworkerData.find(i => i.staffId === row.staffId);
     if (kw) {
-      row.keyworkerDisplay = `${kw.lastName}, ${kw.firstName}`;
+      row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
       row.numberAllocated = kw.numberAllocated;
     } else {
       await common.addMissingKeyworkerDetails(req, res, row);

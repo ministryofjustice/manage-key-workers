@@ -5,6 +5,7 @@ const keyworkerApi = require('../keyworkerApi');
 const common = require('./common');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
+const properCaseName = require('../../src/stringUtils').properCaseName;
 
 router.get('/', asyncMiddleware(async (req, res) => {
   const viewModel = await searchOffenders(req, res);
@@ -43,7 +44,7 @@ const searchOffenders = async (req, res) => {
     if (row.staffId) {
       const kw = keyworkerData.find(i => i.staffId === row.staffId);
       if (kw) {
-        row.keyworkerDisplay = `${kw.lastName}, ${kw.firstName}`;
+        row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
         row.numberAllocated = kw.numberAllocated;
       } else {
         await common.addMissingKeyworkerDetails(req, res, row);
