@@ -19,11 +19,11 @@ const unallocated = async (req, res) => {
   const allOffenders = unallocatedData.map(row => row.offenderNo);
   req.data = allOffenders;
   if (allOffenders.length > 0) {
-    const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, allOffenders, common.offenderNoParamsSerializer);
+    const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res);
     const allReleaseDates = sentenceDetailListResponse.data;
     log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-    const csraListResponse = await elite2Api.csraList(req, res, allOffenders, common.offenderNoParamsSerializer);
+    const csraListResponse = await elite2Api.csraList(req, res);
     const allCsras = csraListResponse.data;
     log.debug({ data: allCsras }, 'Response from csraList request');
 
