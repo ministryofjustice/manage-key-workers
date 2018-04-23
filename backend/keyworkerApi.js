@@ -36,7 +36,7 @@ const availableKeyworkers = (req, res) => gateway.getRequest({
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/available`
 });
 
-const offenderKeyworkerList = (req, res) => gateway.getRequest({
+const offenderKeyworkerList = (req, res) => gateway.postRequest({
   req,
   res,
   method: 'post',
