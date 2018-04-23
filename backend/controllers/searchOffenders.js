@@ -47,7 +47,7 @@ const searchOffenders = async (req, res) => {
 
       if (row.staffId) {
         const kw = keyworkerData.find(i => i.staffId === row.staffId);
-        if (kw) {
+        if (kw) { // eslint-disable-line max-depth
           row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
           row.numberAllocated = kw.numberAllocated;
         } else {
