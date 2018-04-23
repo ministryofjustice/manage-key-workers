@@ -7,7 +7,8 @@ router.get('/', asyncMiddleware(async (req, res) => {
   // be careful not to return All config values
   res.json({
     notmEndpointUrl: config.app.notmEndpointUrl,
-    mailTo: config.app.mailTo
+    mailTo: config.app.mailTo,
+    googleAnalyticsId: config.analytics.googleAnalyticsId
   });
 }));
 
