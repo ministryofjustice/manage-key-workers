@@ -36,13 +36,11 @@ const availableKeyworkers = (req, res) => gateway.getRequest({
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/available`
 });
 
-const getOffenders = (req, res, params, paramsSerializer) => gateway.getRequest({
+const offenderKeyworkerList = (req, res) => gateway.postRequest({
   req,
   res,
-  method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/offenders`,
-  params,
-  paramsSerializer
+  method: 'post',
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/offenders`
 });
 
 const keyworker = (req, res) => gateway.getRequest({
@@ -95,7 +93,7 @@ const keyworkerAllocations = (req, res) => gateway.getRequest({
 });
 
 const service = {
-  unallocated, allocated, getOffenders, availableKeyworkers, keyworker, allocate, autoallocated,
+  unallocated, allocated, offenderKeyworkerList, availableKeyworkers, keyworker, allocate, autoallocated,
   autoAllocate, autoAllocateConfirm, keyworkerAllocations, keyworkerSearch, keyworkerUpdate,
   keyworkerApiUrl
 };

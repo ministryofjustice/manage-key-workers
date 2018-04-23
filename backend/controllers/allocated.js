@@ -49,24 +49,27 @@ const allocated = async (req, res) => {
   } // Example of app insight custom event
 
   const allOffenders = allocatedData.map(row => row.offenderNo);
-  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const allReleaseDates = sentenceDetailListResponse.data;
-  log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
+  if (allOffenders.length > 0) {
+    req.data = allOffenders;
+    const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res);
+    const allReleaseDates = sentenceDetailListResponse.data;
+    log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  const csraListResponse = await elite2Api.csraList(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const allCsras = csraListResponse.data;
-  log.debug({ data: allCsras }, 'Response from csraList request');
+    const csraListResponse = await elite2Api.csraList(req, res);
+    const allCsras = csraListResponse.data;
+    log.debug({ data: allCsras }, 'Response from csraList request');
 
-  for (const row of allocatedData) {
-    const kw = keyworkerData.find(i => i.staffId === row.staffId);
-    if (kw) {
-      row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
-      row.numberAllocated = kw.numberAllocated;
-    } else {
-      await common.addMissingKeyworkerDetails(req, res, row);
+    for (const row of allocatedData) {
+      const kw = keyworkerData.find(i => i.staffId === row.staffId);
+      if (kw) {
+        row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
+        row.numberAllocated = kw.numberAllocated;
+      } else {
+        await common.addMissingKeyworkerDetails(req, res, row);
+      }
+      common.addCrsaClassification(allCsras, row);
+      common.addReleaseDate(allReleaseDates, row);
     }
-    common.addCrsaClassification(allCsras, row);
-    common.addReleaseDate(allReleaseDates, row);
   }
   return {
     keyworkerResponse: keyworkerResponse.data,

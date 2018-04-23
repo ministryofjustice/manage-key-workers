@@ -22,37 +22,42 @@ const searchOffenders = async (req, res) => {
   log.debug({ searchOffenders: data }, 'Response from searchOffenders request');
 
   const allOffenders = data && data.length && data.map(row => row.offenderNo);
-  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const allReleaseDates = sentenceDetailListResponse.data;
-  log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  const csraListResponse = await elite2Api.csraList(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const allCsras = csraListResponse.data;
-  log.debug({ data: allCsras }, 'Response from csraList request');
+  if (allOffenders.length > 0) {
+    req.data = allOffenders; //used by following 3 api calls
 
-  const offenderKeyworkerResponse = await keyworkerApi.getOffenders(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const offenderKeyworkers = offenderKeyworkerResponse.data;
-  log.debug({ data: offenderKeyworkers }, 'Response from getOffenders request');
+    const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res);
+    const allReleaseDates = sentenceDetailListResponse.data;
+    log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  for (const row of data) {
-    const details = offenderKeyworkers.filter(d => d.offenderNo === row.offenderNo);
-    if (details.length >= 1) {
-      const detail = details[0];
-      row.staffId = detail && detail.staffId;
-    }
+    const csraListResponse = await elite2Api.csraList(req, res);
+    const allCsras = csraListResponse.data;
+    log.debug({ data: allCsras }, 'Response from csraList request');
 
-    if (row.staffId) {
-      const kw = keyworkerData.find(i => i.staffId === row.staffId);
-      if (kw) {
-        row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
-        row.numberAllocated = kw.numberAllocated;
-      } else {
-        await common.addMissingKeyworkerDetails(req, res, row);
+    const offenderKeyworkerResponse = await keyworkerApi.offenderKeyworkerList(req, res);
+    const offenderKeyworkers = offenderKeyworkerResponse.data;
+    log.debug({ data: offenderKeyworkers }, 'Response from getOffenders request');
+
+    for (const row of data) {
+      const details = offenderKeyworkers.filter(d => d.offenderNo === row.offenderNo);
+      if (details.length >= 1) {
+        const detail = details[0];
+        row.staffId = detail && detail.staffId;
       }
-    }
 
-    common.addCrsaClassification(allCsras, row);
-    common.addReleaseDate(allReleaseDates, row);
+      if (row.staffId) {
+        const kw = keyworkerData.find(i => i.staffId === row.staffId);
+        if (kw) { // eslint-disable-line max-depth
+          row.keyworkerDisplay = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)}`;
+          row.numberAllocated = kw.numberAllocated;
+        } else {
+          await common.addMissingKeyworkerDetails(req, res, row);
+        }
+      }
+
+      common.addCrsaClassification(allCsras, row);
+      common.addReleaseDate(allReleaseDates, row);
+    }
   }
   return {
     keyworkerResponse: keyworkerData,

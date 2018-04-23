@@ -22,22 +22,18 @@ const searchOffenders = (req, res) => gateway.getRequest({
   // NB response.headers['total-records']
 });
 
-const csraList = (req, res, params, paramsSerializer) => gateway.getRequest({
+const csraList = (req, res) => gateway.postRequest({
   req,
   res,
-  method: 'get',
-  url: `${eliteApiUrl}api/offender-assessments/CSR`,
-  params,
-  paramsSerializer
+  method: 'post',
+  url: `${eliteApiUrl}api/offender-assessments/CSR`
 });
 
-const sentenceDetailList = (req, res, params, paramsSerializer) => gateway.getRequest({
+const sentenceDetailList = (req, res) => gateway.postRequest({
   req,
   res,
-  method: 'get',
-  url: `${eliteApiUrl}api/offender-sentences`,
-  params,
-  paramsSerializer
+  method: 'post',
+  url: `${eliteApiUrl}api/offender-sentences`
 });
 
 const currentUser = (req, res) => gateway.getRequest({

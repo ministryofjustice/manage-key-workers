@@ -18,18 +18,21 @@ const keyworkerAllocations = async (req, res) => {
   const tableData = allocatedResponse.data;
   log.debug({ data: tableData }, 'Response from keyworkerAllocations request');
 
-  const alloffenders = tableData.map(row => row.offenderNo);
-  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, alloffenders, common.offenderNoParamsSerializer);
-  const allReleaseDates = sentenceDetailListResponse.data;
-  log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
+  const allOffenders = tableData.map(row => row.offenderNo);
+  if (allOffenders.length > 0) {
+    req.data = allOffenders; //used by following 2 api calls
+    const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res);
+    const allReleaseDates = sentenceDetailListResponse.data;
+    log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  const csraListResponse = await elite2Api.csraList(req, res, alloffenders, common.offenderNoParamsSerializer);
-  const allCsras = csraListResponse.data;
-  log.debug({ data: allCsras }, 'Response from csraList request');
+    const csraListResponse = await elite2Api.csraList(req, res);
+    const allCsras = csraListResponse.data;
+    log.debug({ data: allCsras }, 'Response from csraList request');
 
-  for (const row of tableData) {
-    common.addCrsaClassification(allCsras, row);
-    common.addReleaseDate(allReleaseDates, row);
+    for (const row of tableData) {
+      common.addCrsaClassification(allCsras, row);
+      common.addReleaseDate(allReleaseDates, row);
+    }
   }
 
   return {
