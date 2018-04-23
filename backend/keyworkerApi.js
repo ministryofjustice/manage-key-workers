@@ -9,7 +9,6 @@ const unallocated = (req, res) => gateway.getRequest({
   res,
   method: 'get',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/offenders/unallocated`,
-  headers: { 'Page-Limit': 200 },
   service: 'keyworker'
 });
 
@@ -17,8 +16,7 @@ const allocated = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations`,
-  headers: { 'Page-Limit': 200 }
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations`
 });
 
 const autoallocated = (req, res) => gateway.getRequest({
@@ -26,7 +24,6 @@ const autoallocated = (req, res) => gateway.getRequest({
   res,
   method: 'get',
   url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=P&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`,
-  headers: { 'Page-Limit': 200 }
 });
 
 const availableKeyworkers = (req, res) => gateway.getRequest({
