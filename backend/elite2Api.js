@@ -18,7 +18,7 @@ const searchOffenders = (req, res) => gateway.getRequest({
   url: req.query.keywords ?
     `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates?keywords=${encodeQueryString(req.query.keywords)}` :
     `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`,
-    headers: { 'Page-Limit': 4000 }
+  headers: { 'Page-Limit': 4000 }
   // NB response.headers['total-records']
 });
 
