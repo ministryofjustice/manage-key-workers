@@ -17,17 +17,20 @@ const unallocated = async (req, res) => {
   log.debug({ data: unallocatedData }, 'Response from unallocated offenders request');
 
   const allOffenders = unallocatedData.map(row => row.offenderNo);
-  const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const allReleaseDates = sentenceDetailListResponse.data;
-  log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
+  req.data = allOffenders;
+  if (allOffenders.length > 0) {
+    const sentenceDetailListResponse = await elite2Api.sentenceDetailList(req, res, allOffenders, common.offenderNoParamsSerializer);
+    const allReleaseDates = sentenceDetailListResponse.data;
+    log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
-  const csraListResponse = await elite2Api.csraList(req, res, allOffenders, common.offenderNoParamsSerializer);
-  const allCsras = csraListResponse.data;
-  log.debug({ data: allCsras }, 'Response from csraList request');
+    const csraListResponse = await elite2Api.csraList(req, res, allOffenders, common.offenderNoParamsSerializer);
+    const allCsras = csraListResponse.data;
+    log.debug({ data: allCsras }, 'Response from csraList request');
 
-  for (const row of unallocatedData) {
-    common.addCrsaClassification(allCsras, row);
-    common.addReleaseDate(allReleaseDates, row);
+    for (const row of unallocatedData) {
+      common.addCrsaClassification(allCsras, row);
+      common.addReleaseDate(allReleaseDates, row);
+    }
   }
   return unallocatedResponse;
 };

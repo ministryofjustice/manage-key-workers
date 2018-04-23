@@ -132,7 +132,7 @@ class Elite2Api extends WireMockRule {
 
     void stubOffenderSentenceResponse(AgencyLocation agencyLocation) {
         stubFor(
-                get(urlPathEqualTo("/api/offender-sentences"))
+                post(urlPathEqualTo("/api/offender-sentences"))
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderSentencesResponse.response)
@@ -142,7 +142,7 @@ class Elite2Api extends WireMockRule {
 
     void stubOffenderAssessmentResponse(AgencyLocation agencyLocation) {
         stubFor(
-                get(urlPathEqualTo("/api/offender-assessments/CSR"))
+                post(urlPathEqualTo("/api/offender-assessments/CSR"))
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderAssessmentsResponse.response)
