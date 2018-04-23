@@ -23,7 +23,7 @@ const autoallocated = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=P&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`,
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=P&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`
 });
 
 const availableKeyworkers = (req, res) => gateway.getRequest({
