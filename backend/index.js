@@ -66,6 +66,8 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
+app.use('/health', health);
+app.use('/info', health);
 
 if (config.app.production) {
   app.use(ensureHttps);
@@ -84,8 +86,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/health', health);
-app.use('/info', health);
 
 app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
 app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
