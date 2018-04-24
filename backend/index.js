@@ -66,7 +66,7 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
-if (process.env.NODE_ENV === 'production') {
+if (config.app.production) {
   app.use(ensureHttps);
 }
 
