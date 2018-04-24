@@ -7,5 +7,5 @@ module.exports = function ensureSec (req, res, next) {
   const redirectUrl = "https://" + req.headers.host + req.url;
   log.info(`Redirecting to ${redirectUrl}`);
 
-  res.redirect("https://" + req.headers.host + req.url);
+  res.redirect(redirectUrl);
 };

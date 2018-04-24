@@ -21,6 +21,12 @@ const searchOffenders = async (req, res) => {
   const data = response.data;
   log.debug({ searchOffenders: data }, 'Response from searchOffenders request');
 
+  // we retrieve max + 1 results to indicate a partial result and remove one
+  const partialResults = (data && data.length) > elite2Api.offenderSearchResultMax;
+  if (partialResults) {
+    data.pop();
+  }
+
   const allOffenders = data && data.length && data.map(row => row.offenderNo);
 
   if (allOffenders.length > 0) {
@@ -61,7 +67,8 @@ const searchOffenders = async (req, res) => {
   }
   return {
     keyworkerResponse: keyworkerData,
-    offenderResponse: data
+    offenderResponse: data,
+    partialResults: partialResults
   };
 };
 
