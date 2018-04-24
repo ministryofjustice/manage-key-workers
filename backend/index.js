@@ -12,7 +12,6 @@ const bodyParser = require('body-parser');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const helmet = require('helmet');
-const ensureHttps = require('./middleware/ensureHttps');
 
 const authentication = require('./controllers/authentication');
 const userCaseLoads = require('./controllers/usercaseloads');
