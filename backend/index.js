@@ -66,6 +66,11 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
+
+if (config.app.production) {
+  app.use(ensureHttps);
+}
+
 app.use(cookieParser());
 app.use(cookieSession(sessionConfig));
 
