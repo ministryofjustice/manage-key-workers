@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import { switchAgency, setTermsVisibility, setError, resetError, setConfig, setUserDetails, setMessage } from '../redux/actions/index';
 import { connect } from 'react-redux';
 import links from "../links";
+import ReactGA from 'react-ga';
 
 const axios = require('axios');
 
@@ -47,6 +48,11 @@ class App extends React.Component {
 
       const config = await axiosWrapper.get('/api/config');
       links.notmEndpointUrl = config.data.notmEndpointUrl;
+
+      if (config.data.googleAnalyticsId) {
+        ReactGA.initialize(config.data.googleAnalyticsId);
+      }
+
       this.props.configDispatch(config.data);
     } catch (error) {
       this.props.setErrorDispatch(error.message);
@@ -111,7 +117,17 @@ class App extends React.Component {
     return (
       <Router>
         <div className="content">
-          <Route render={(props) => <Header switchCaseLoad={this.switchCaseLoad} history={props.history} {...this.props} />}/>
+          <Route render={(props) => {
+            if (this.props.config.googleAnalyticsId) {
+              ReactGA.pageview(props.location.pathname);
+            }
+            return (<Header
+              switchCaseLoad={this.switchCaseLoad}
+              history={props.history}
+              {...this.props}
+            />);
+          }}
+          />
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
           <Footer showTermsAndConditions={this.showTermsAndConditions} mailTo={this.props.config.mailTo}/>
