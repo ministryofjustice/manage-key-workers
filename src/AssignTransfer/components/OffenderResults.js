@@ -67,7 +67,7 @@ class OffenderResults extends Component {
           <div className="pure-u-md-7-12"><h1 className="heading-large">Manually assign and transfer</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
         </div>
-        {this.props.offenderResults.partialResults  &&
+        {this.props.offenderResults.partialResults &&
         <div id="partialResultsWarning" className="font-small padding-top padding-bottom-large"><span><img alt="" className="padding-top padding-right" src="/images/icon-important.png"/></span>The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div>}
         <table className="row-gutters">
           <thead>

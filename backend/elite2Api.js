@@ -1,7 +1,7 @@
 const gateway = require('./gateway-api');
 
 const eliteApiUrl = process.env.API_ENDPOINT_URL || 'http://localhost:8080/';
-const offenderSearchResultMax = process.env.OFFENDER_SEARCH_RESULT_MAX || 50
+const offenderSearchResultMax = process.env.OFFENDER_SEARCH_RESULT_MAX || 50;
 
 const login = (req) => gateway.login(req);
 
