@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const helmet = require('helmet');
+const ensureHttps = require('./middleware/ensureHttps');
 
 const authentication = require('./controllers/authentication');
 const userCaseLoads = require('./controllers/usercaseloads');
@@ -64,6 +65,11 @@ app.use(bunyanMiddleware({
   logger: log,
   obscureHeaders: ['Authorization']
 }));
+
+
+if (config.app.production) {
+  app.use(ensureHttps);
+}
 
 app.use(cookieParser());
 app.use(cookieSession(sessionConfig));
