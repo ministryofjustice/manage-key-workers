@@ -37,7 +37,7 @@ class OffenderResults extends Component {
         <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
         <td className="row-gutters">{a.confirmedReleaseDate || "--"}</td>
         <td className="row-gutters">{a.crsaClassification || "--"}</td>
-        <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay)}
+        <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
         </td>
         <td className="row-gutters">
           <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}

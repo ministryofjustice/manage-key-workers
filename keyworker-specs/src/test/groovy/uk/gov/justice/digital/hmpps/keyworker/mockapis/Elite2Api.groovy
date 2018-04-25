@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSentencesResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
@@ -149,6 +150,28 @@ class Elite2Api extends WireMockRule {
                         .withStatus(200))
         )
     }
+
+    void stubOffenderSearchResponse(AgencyLocation agencyLocation) {
+        stubFor(
+                get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withBody(OffenderSearchResponse.response_5_results)
+                        .withStatus(200))
+        )
+    }
+
+    void stubEmptyOffenderSearchResponse(AgencyLocation agencyLocation) {
+        stubFor(
+                get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withBody("[]")
+                        .withStatus(200))
+        )
+    }
+
+
 
 //........GET /api/locations/description/LEI-H/inmates?keywords=Smith HTTP/1.1
 //Accept: application/json, text/plain, */*

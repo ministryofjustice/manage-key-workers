@@ -6,6 +6,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.Allocations
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AvailableKeyworkerResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerDetailResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerSearchResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.UnallocatedResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
@@ -211,6 +212,16 @@ class KeyworkerApi extends WireMockRule {
 )
                         .willReturn(aResponse()
                         .withStatus(201))
+        )
+    }
+
+    void stubOffenderKeyworkerListResponse(AgencyLocation agencyLocation) {
+        stubFor(
+                post(urlPathEqualTo("/key-worker/${agencyLocation.id}/offenders"))
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withBody(OffenderAssessmentsResponse.response)
+                        .withStatus(200))
         )
     }
 
