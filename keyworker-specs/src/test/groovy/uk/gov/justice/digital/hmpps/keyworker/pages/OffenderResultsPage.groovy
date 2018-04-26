@@ -14,5 +14,7 @@ public class OffenderResultsPage extends Page {
 
     static content =  {
         headingText { $('h1.heading-large').text() }
+        table { $('table') }
+        rows (required: false) { $('table tbody tr') }
     }
 }
