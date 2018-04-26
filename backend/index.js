@@ -76,6 +76,9 @@ if (config.app.production) {
 app.use(cookieParser());
 app.use(cookieSession(sessionConfig));
 
+// Don't cache dynamic resources
+app.use(helmet.noCache());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
