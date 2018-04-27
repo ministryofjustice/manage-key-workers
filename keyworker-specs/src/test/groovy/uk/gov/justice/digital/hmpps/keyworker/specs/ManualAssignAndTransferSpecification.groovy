@@ -69,7 +69,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         then: "I am shown the Offender Search results page"
         at OffenderResultsPage
 
-        and: "The one allocated result is displayed"
+        and: "The 4 unallocated results are displayed"
         rows.size() == 4
     }
 
@@ -86,7 +86,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         then: "I am shown the Offender Search results page"
         at OffenderResultsPage
 
-        and: "The 4 allocated results are displayed"
+        and: "The 1 allocated results is displayed"
         rows.size() == 1
     }
 
