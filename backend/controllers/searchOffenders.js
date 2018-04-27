@@ -20,13 +20,13 @@ const searchOffenders = async (req, res) => {
   const keyworkerData = keyworkerResponse.data;
   log.debug({ availableKeyworkers: keyworkerData }, 'Response from available keyworker request');
 
-  const response = allocationStatus === 'all' ? await elite2Api.searchOffenders(req, res) : await elite2Api.searchOffendersWithoutResultLimit(req, res);
+  const response = allocationStatus === 'all' ? await elite2Api.searchOffendersWithResultLimit(req, res) : await elite2Api.searchOffenders(req, res);
   let offenderResults = response.data;
-  log.debug('Response from searchOffenders request', { searchOffenders: offenderResults });
+  log.debug({ searchOffenders: offenderResults }, 'Response from searchOffenders request');
 
   if (allocationStatus === 'all') {
     // we retrieve max + 1 results to indicate a partial result and remove one
-    partialResults = (offenderResults && offenderResults.length) > elite2Api.offenderSearchResultMax;
+    partialResults = offenderResults && offenderResults.length > elite2Api.offenderSearchResultMax;
     if (partialResults) {
       offenderResults.pop();
     }
@@ -82,10 +82,14 @@ const searchOffenders = async (req, res) => {
 
 const applyAllocationStatusFilter = function (allocationStatus, currentOffenderResults, offenderKeyworkers) {
   let offenderResults = currentOffenderResults;
-  if (allocationStatus === "unallocated") {
-    offenderResults = offenderResults.filter(offender => !offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo));
-  } else if (allocationStatus === "allocated") {
-    offenderResults = offenderResults.filter(offender => offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo));
+
+  switch (allocationStatus) {
+    case "unallocated":
+      offenderResults = offenderResults.filter(offender => !offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo));
+      break;
+    case "allocated":
+      offenderResults = offenderResults.filter(offender => offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo));
+      break;
   }
   log.debug(`After allocation status filter of ${allocationStatus} - new offender list is:`, { searchOffenders: offenderResults });
   return offenderResults;

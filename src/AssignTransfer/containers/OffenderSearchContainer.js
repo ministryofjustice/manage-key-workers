@@ -27,7 +27,7 @@ class OffenderSearchContainer extends Component {
       const response = await axiosWrapper.get('/api/userLocations');
       this.props.offenderSearchLocationsDispatch(response.data);
       // Use the first location by default
-      if (response.data && response.data[0]) {
+      if (this.props.initialSearch && response.data && response.data[0]) {
         this.props.offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
       }
     } catch (error) {
