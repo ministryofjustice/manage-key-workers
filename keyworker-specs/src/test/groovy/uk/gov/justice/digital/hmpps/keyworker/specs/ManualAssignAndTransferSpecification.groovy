@@ -2,14 +2,12 @@ package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import geb.spock.GebReportingSpec
 import org.junit.Rule
-import spock.lang.Ignore
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.OffenderResultsPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -56,6 +54,40 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         and: "A full result is displayed"
         rows.size() == 5
+    }
+
+    def "Assign and Transfer filtered by unallocated"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderSearchPage()
+
+        when: "I click the search button"
+        stubOffenderResultsPage()
+        allocationStatusSelect="Unallocated"
+        searchButton.click()
+
+        then: "I am shown the Offender Search results page"
+        at OffenderResultsPage
+
+        and: "The one allocated result is displayed"
+        rows.size() == 4
+    }
+
+    def "Assign and Transfer filtered by allocated"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderSearchPage()
+
+        when: "I click the search button"
+        stubOffenderResultsPage()
+        allocationStatusSelect="Allocated"
+        searchButton.click()
+
+        then: "I am shown the Offender Search results page"
+        at OffenderResultsPage
+
+        and: "The 4 allocated results are displayed"
+        rows.size() == 1
     }
 
     def "Search for offender returns no results"() {

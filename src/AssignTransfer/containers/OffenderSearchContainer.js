@@ -16,7 +16,10 @@ class OffenderSearchContainer extends Component {
 
   componentWillMount () {
     this.getLocations();
-    this.props.offenderSearchTextDispatch('');
+    if (this.props.initialSearch) {
+      this.props.offenderSearchTextDispatch('');
+      this.props.offenderSearchAllocationStatusDispatch('all');
+    }
   }
 
   async getLocations () {
@@ -72,6 +75,7 @@ OffenderSearchContainer.propTypes = {
   setValidationErrorDispatch: PropTypes.func,
   resetValidationErrorsDispatch: PropTypes.func,
   offenderSearchTextDispatch: PropTypes.func,
+  offenderSearchAllocationStatusDispatch: PropTypes.func,
   initialSearch: PropTypes.bool,
   doSearch: PropTypes.func
 };
@@ -80,6 +84,7 @@ const mapStateToProps = state => {
   return {
     locations: state.offenderSearch.locations,
     searchText: state.offenderSearch.searchText,
+    allocationStatus: state.offenderSearch.allocationStatus,
     validationErrors: state.app.validationErrors
   };
 };

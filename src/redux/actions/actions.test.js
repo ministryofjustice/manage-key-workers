@@ -145,9 +145,9 @@ describe('actions', () => {
   it('should create an action to save offender search criteria - allocation status', () => {
     const expectedAction = {
       type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
-      allocationStatus: 'A'
+      allocationStatus: 'unallocated'
     };
-    expect(actions.setOffenderSearchAllocationStatus('A')).toEqual(expectedAction);
+    expect(actions.setOffenderSearchAllocationStatus('unallocated')).toEqual(expectedAction);
   });
 
   it('should create an action to set offender search locations', () => {

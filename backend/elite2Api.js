@@ -23,6 +23,15 @@ const searchOffenders = (req, res) => gateway.getRequest({
   // NB response.headers['total-records']
 });
 
+const searchOffendersWithoutResultLimit = (req, res) => gateway.getRequest({
+  req,
+  res,
+  method: 'get',
+  url: req.query.keywords ?
+    `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates?keywords=${encodeQueryString(req.query.keywords)}` :
+    `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`
+});
+
 const csraList = (req, res) => gateway.postRequest({
   req,
   res,
@@ -59,8 +68,7 @@ const setActiveCaseLoad = (req, res) => gateway.putRequest({
 });
 
 const service = {
-  // todo move keyworkerAllocation to keyworkerApi when endpoint moved in API service
-  login, currentUser, userCaseLoads, userLocations, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList, offenderSearchResultMax
+  login, currentUser, userCaseLoads, userLocations, searchOffenders, searchOffendersWithoutResultLimit, setActiveCaseLoad, sentenceDetailList, csraList, offenderSearchResultMax
 };
 
 function encodeQueryString (input) {
