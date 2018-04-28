@@ -20,6 +20,18 @@ class OffenderSearch extends Component {
           {housingLocations}
         </select></div>);
 
+    const allocationStatusSelect = (
+      <div>
+        <label className="form-label" htmlFor="housing-location-select">Allocation status</label>
+        <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'housing-location-select'} />
+        <select id="allocation-status-select" name="allocation-status-select" className="form-control"
+          value={this.props.allocationStatus}
+          onChange={this.props.handleSearchAllocationStatusChange}>
+          <option key="allocationStatus_option_all" value="all">All</option>
+          <option key="allocationStatus_option_allocated" value="allocated">Allocated</option>
+          <option key="allocationStatus_option_unallocated" value="unallocated">Unallocated</option>
+        </select></div>);
+
     if (this.props.initialSearch) {
       return (<div>
         <div className="pure-u-md-12-12 searchForm">
@@ -30,8 +42,11 @@ class OffenderSearch extends Component {
               value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
             <button className="button margin-left" onClick={() => this.props.handleSubmit(this.props.history)}>Search ></button>
           </div>
-          <div className="pure-u-md-7-12 padding-top padding-left padding-right padding-bottom-large">
-            {locationSelect}
+          <div className="padding-top padding-left padding-right padding-bottom-large">
+            <div className="pure-u-md-7-12">{locationSelect}</div>
+          </div>
+          <div className="padding-top padding-left padding-right padding-bottom-large">
+            <div className="pure-u-md-5-12">{allocationStatusSelect}</div>
           </div>
         </div>
       </div>);
@@ -44,8 +59,11 @@ class OffenderSearch extends Component {
           <input type="text" className="form-control width100" id="search-text" name="searchText" maxLength="30"
             value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
         </div>
-        <div className="pure-u-md-5-12 padding-top padding-left">
+        <div className="pure-u-md-3-12 padding-top padding-left">
           {locationSelect}
+        </div>
+        <div className="pure-u-md-2-12 padding-top padding-left">
+          {allocationStatusSelect}
         </div>
         <div className="pure-u-md-2-12 padding-top padding-left">
           <label className="form-label">&nbsp;</label>
@@ -65,6 +83,7 @@ OffenderSearch.propTypes = {
   initialSearch: PropTypes.bool,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleSearchHousingLocationChange: PropTypes.func.isRequired,
+  handleSearchAllocationStatusChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
   history: PropTypes.object.isRequired
 };

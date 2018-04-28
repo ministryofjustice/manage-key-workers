@@ -12,7 +12,7 @@ const userLocations = (req, res) => gateway.getRequest({
   url: `${eliteApiUrl}api/users/me/locations`
 });
 
-const searchOffenders = (req, res) => gateway.getRequest({
+const searchOffendersWithResultLimit = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
@@ -21,6 +21,16 @@ const searchOffenders = (req, res) => gateway.getRequest({
     `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`,
   headers: { 'Page-Limit': (parseInt(offenderSearchResultMax, 10) + 1) }
   // NB response.headers['total-records']
+});
+
+const searchOffenders = (req, res) => gateway.getRequest({
+  req,
+  res,
+  method: 'get',
+  url: req.query.keywords ?
+    `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates?keywords=${encodeQueryString(req.query.keywords)}` :
+    `${eliteApiUrl}api/locations/description/${req.query.locationPrefix}/inmates`,
+  headers: { 'Page-Limit': 4000 }
 });
 
 const csraList = (req, res) => gateway.postRequest({
@@ -59,8 +69,7 @@ const setActiveCaseLoad = (req, res) => gateway.putRequest({
 });
 
 const service = {
-  // todo move keyworkerAllocation to keyworkerApi when endpoint moved in API service
-  login, currentUser, userCaseLoads, userLocations, searchOffenders, setActiveCaseLoad, sentenceDetailList, csraList, offenderSearchResultMax
+  login, currentUser, userCaseLoads, userLocations, searchOffenders, searchOffendersWithResultLimit, setActiveCaseLoad, sentenceDetailList, csraList, offenderSearchResultMax
 };
 
 function encodeQueryString (input) {

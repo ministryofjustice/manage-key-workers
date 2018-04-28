@@ -28,7 +28,7 @@ const offenderSearchInitialState = {
   searchText: '',
   housingLocation: '',
   locations: [],
-  allocationStatus: ''
+  allocationStatus: 'all'
 };
 
 const keyworkerSearchInitialState = {

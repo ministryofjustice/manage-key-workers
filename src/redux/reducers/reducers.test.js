@@ -42,8 +42,8 @@ const unallocatedInitialState = {
 
 const offenderSearchInitialState = {
   searchText: '',
-  housingLocation: '',
-  allocationStatus: ''
+  allocationStatus: 'all',
+  housingLocation: ''
 };
 
 const keyworkerSearchInitialState = {
@@ -398,7 +398,7 @@ describe('offender search reducer', () => {
     expect(offenderSearch(undefined, {})).toEqual(
       {
         searchText: '',
-        allocationStatus: '',
+        allocationStatus: 'all',
         locations: [],
         housingLocation: ''
       }
@@ -411,20 +411,21 @@ describe('offender search reducer', () => {
     })).toEqual(
       {
         searchText: 'birdman of Alcatraz',
-        allocationStatus: '',
+        allocationStatus: 'all',
         housingLocation: ''
       }
     );
   });
 
+
   it('should handle SET_OFFENDER_SEARCH_ALLOCATION_STATUS', () => {
     expect(offenderSearch(offenderSearchInitialState, {
       type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
-      allocationStatus: 'N'
+      allocationStatus: 'unallocated'
     })).toEqual(
       {
         searchText: '',
-        allocationStatus: 'N',
+        allocationStatus: 'unallocated',
         housingLocation: ''
       }
     );
@@ -437,7 +438,7 @@ describe('offender search reducer', () => {
     })).toEqual(
       {
         searchText: '',
-        allocationStatus: '',
+        allocationStatus: 'all',
         housingLocation: 'Block C'
       }
     );
@@ -450,7 +451,7 @@ describe('offender search reducer', () => {
     })).toEqual(
       {
         searchText: '',
-        allocationStatus: '',
+        allocationStatus: 'all',
         housingLocation: '',
         locations: ['The Sistine Chapel']
       }
@@ -464,7 +465,7 @@ describe('offender search reducer', () => {
     })).toEqual(
       {
         searchText: '',
-        allocationStatus: '',
+        allocationStatus: 'all',
         housingLocation: '',
         offenderResults: [{ lastName: "Bloggs" }]
       }
