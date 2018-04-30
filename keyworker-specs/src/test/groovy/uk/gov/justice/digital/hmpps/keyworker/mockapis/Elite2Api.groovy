@@ -161,6 +161,16 @@ class Elite2Api extends WireMockRule {
         )
     }
 
+    void stubOffenderSearchLargeResponse(AgencyLocation agencyLocation) {
+        stubFor(
+                get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withBody(OffenderSearchResponse.response_55_results)
+                        .withStatus(200))
+        )
+    }
+
     void stubEmptyOffenderSearchResponse(AgencyLocation agencyLocation) {
         stubFor(
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))

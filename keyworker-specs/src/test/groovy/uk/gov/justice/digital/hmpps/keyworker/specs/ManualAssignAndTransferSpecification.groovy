@@ -62,7 +62,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         toOffenderSearchPage()
 
         when: "I click the search button"
-        stubOffenderResultsPage()
+        stubOffenderResultsPage(false)
         allocationStatusSelect="Unallocated"
         searchButton.click()
 
@@ -71,6 +71,23 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         and: "The 4 unallocated results are displayed"
         rows.size() == 4
+    }
+
+    def "Assign and Transfer filtered by unallocated - partial result"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderSearchPage()
+
+        when: "I click the search button"
+        stubOffenderResultsPage(true)
+        allocationStatusSelect="Unallocated"
+        searchButton.click()
+
+        then: "I am shown the Offender Search results page"
+        at OffenderResultsPage
+
+        and: "The 4 unallocated results are displayed"
+        rows.size() == 50
     }
 
     def "Assign and Transfer filtered by allocated"() {
@@ -106,9 +123,9 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         !rows.isDisplayed()
     }
 
-    def stubOffenderResultsPage() {
+    def stubOffenderResultsPage(largeResult) {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
-        elite2api.stubOffenderSearchResponse(AgencyLocation.LEI)
+        largeResult == true ? elite2api.stubOffenderSearchLargeResponse(AgencyLocation.LEI) : elite2api.stubOffenderSearchResponse(AgencyLocation.LEI)
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
         elite2api.stubOffenderSentenceResponse(AgencyLocation.LEI)
         keyworkerApi.stubOffenderKeyworkerListResponse(AgencyLocation.LEI)
