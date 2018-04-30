@@ -24,14 +24,6 @@ const searchOffenders = async (req, res) => {
   let offenderResults = response.data;
   log.debug({ searchOffenders: offenderResults }, 'Response from searchOffenders request');
 
-  if (allocationStatus === 'all') {
-    // we retrieve max + 1 results to indicate a partial result and remove one
-    partialResults = offenderResults && offenderResults.length > elite2Api.offenderSearchResultMax;
-    if (partialResults) {
-      offenderResults.pop();
-    }
-  }
-
   if (offenderResults && offenderResults.length > 0) {
     req.data = getOffenderNoArray(offenderResults);
     const offenderKeyworkerResponse = await keyworkerApi.offenderKeyworkerList(req, res);
@@ -39,6 +31,12 @@ const searchOffenders = async (req, res) => {
     log.debug({ data: offenderKeyworkers }, 'Response from getOffenders request');
 
     offenderResults = applyAllocationStatusFilter(allocationStatus, offenderResults, offenderKeyworkers); //adjust results if filtering by unallocated
+
+    partialResults = offenderResults.length > elite2Api.offenderSearchResultMax;
+    if (partialResults) {
+      /* truncate array to max length */
+      offenderResults.length = elite2Api.offenderSearchResultMax;
+    }
 
     if (offenderResults.length > 0) {
       req.data = getOffenderNoArray(offenderResults);
