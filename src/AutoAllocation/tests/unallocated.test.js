@@ -36,7 +36,7 @@ describe('Unallocated component', () => {
   it('should handle click correctly', async () => {
     let callBack = jest.fn();
 
-    const component = shallow(<Unallocated loaded unallocatedList={[list]} gotoNext={callBack}/>);
+    const component = shallow(<Unallocated loaded unallocatedList={list} gotoNext={callBack}/>);
 
     component.find('button').simulate('click');
     expect(callBack.mock.calls.length).toEqual(1);
