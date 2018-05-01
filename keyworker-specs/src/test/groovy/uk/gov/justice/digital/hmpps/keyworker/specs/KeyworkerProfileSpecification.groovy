@@ -44,7 +44,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         then: "data should display as expected"
         at KeyworkerEditPage
         capacity.value() == '6'
-        keyworkerStatusOptions.size() == 6
+        keyworkerStatusOptions.size() == 5
     }
 
     def "key worker edit confirm - INACTIVE - is displayed correctly"() {
