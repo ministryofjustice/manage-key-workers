@@ -19,7 +19,6 @@ class KeyworkerProfileEdit extends Component {
           <option key="UNAVAILABLE_ANNUAL_LEAVE" value="UNAVAILABLE_ANNUAL_LEAVE">{getStatusDescription('UNAVAILABLE_ANNUAL_LEAVE')}</option>
           <option key="UNAVAILABLE_LONG_TERM_ABSENCE" value="UNAVAILABLE_LONG_TERM_ABSENCE">{getStatusDescription('UNAVAILABLE_LONG_TERM_ABSENCE')}</option>
           <option key="UNAVAILABLE_NO_PRISONER_CONTACT" value="UNAVAILABLE_NO_PRISONER_CONTACT">{getStatusDescription('UNAVAILABLE_NO_PRISONER_CONTACT')}</option>
-          <option key="UNAVAILABLE_SUSPENDED" value="UNAVAILABLE_SUSPENDED">{getStatusDescription('UNAVAILABLE_SUSPENDED')}</option>
         </select></div>);
 
     return (

@@ -119,7 +119,7 @@ describe('ManualAllocation component', () => {
   it('should not display allocations if keyworker details unavailable', async () => {
     const component = shallow(<Provisional
       allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList}
-      handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+      handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} onFinishAllocation={() => {}}/>);
     expect(component.find('tr').at(2).find('td').at(5).text()).toMatch(/999 \(no details available\)/);
   });
 
