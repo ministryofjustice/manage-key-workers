@@ -1,6 +1,4 @@
 const gateway = require('./gateway-api');
-const moment = require('moment');
-const isoDateFormat = require('./constants').isoDateFormat;
 
 const keyworkerApiUrl = process.env.KEYWORKER_API_URL || 'http://localhost:8081/';
 
@@ -23,7 +21,7 @@ const autoallocated = (req, res) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=P&fromDate=${formatDate(req.query.fromDate)}&toDate=${formatDate(req.query.toDate)}`
+  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/allocations?allocationType=P`
 });
 
 const availableKeyworkers = (req, res) => gateway.getRequest({
@@ -94,10 +92,6 @@ const service = {
   autoAllocate, autoAllocateConfirm, keyworkerAllocations, keyworkerSearch, keyworkerUpdate,
   keyworkerApiUrl
 };
-
-function formatDate (inputDate) {
-  return moment(inputDate, 'DD/MM/YYYY').format(isoDateFormat);
-}
 
 function encodeQueryString (input) {
   return encodeURIComponent(input);

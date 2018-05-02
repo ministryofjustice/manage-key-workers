@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { getOffenderLink } from "../../links";
 
-class ManualAllocation extends Component {
+class Provisional extends Component {
   getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
     if (staffId) {
       if (keyworkerDisplay !== '--') {
@@ -86,7 +86,7 @@ class ManualAllocation extends Component {
   }
 }
 
-ManualAllocation.propTypes = {
+Provisional.propTypes = {
   displayDateFilter: PropTypes.bool,
   allocatedList: PropTypes.array,
   keyworkerList: PropTypes.array,
@@ -99,7 +99,5 @@ ManualAllocation.propTypes = {
   toDate: PropTypes.string
 };
 
-const ManualAllocationWithRouter = withRouter(ManualAllocation);
-
-export { ManualAllocation };
-export default ManualAllocationWithRouter;
+export { Provisional };
+export default withRouter(Provisional);

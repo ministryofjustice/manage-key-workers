@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setCurrentPage, setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
+import { setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
 import { connect } from 'react-redux';
 import OffenderSearchContainer from './containers/OffenderSearchContainer';
 import OffenderResultsContainer from './containers/OffenderResultsContainer';
@@ -67,7 +67,6 @@ const mapDispatchToProps = dispatch => {
     offenderSearchTextDispatch: text => dispatch(setOffenderSearchText(text)),
     offenderSearchAllocationStatusDispatch: status => dispatch(setOffenderSearchAllocationStatus(status)),
     offenderSearchHousingLocationDispatch: location => dispatch(setOffenderSearchHousingLocation(location)),
-    setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
     setErrorDispatch: error => dispatch(setError(error)),
     setMessageDispatch: message => dispatch(setMessage(message))
   };

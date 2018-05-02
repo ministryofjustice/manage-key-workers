@@ -48,7 +48,7 @@ class Unallocated extends Component {
           {offenders.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
         </div>
         <div>
-          {offenders.length > 0 && <button className="button top-gutter margin-bottom" onClick={() => this.props.gotoNext()}>Allocate</button>}
+          {offenders.length > 0 && <button className="button top-gutter margin-bottom" onClick={() => this.props.gotoNext(this.props.history)}>Allocate</button>}
         </div>
       </div>
     );
@@ -58,7 +58,8 @@ class Unallocated extends Component {
 Unallocated.propTypes = {
   unallocatedList: PropTypes.array,
   gotoNext: PropTypes.func.isRequired,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  history: PropTypes.object
 };
 
 export default Unallocated;

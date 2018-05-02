@@ -30,7 +30,7 @@ class OffenderResults extends Component {
     return offenderList.map((a, index) => {
       const currentSelectValue = this.props.keyworkerChangeList && this.props.keyworkerChangeList[index] ?
         this.props.keyworkerChangeList[index].staffId : '';
-      return (<tr key={a.bookingId} className="row-gutters">
+      return (<tr key={a.offenderNo} className="row-gutters">
         <td className="row-gutters"><a target="_blank"
           href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
         <td className="row-gutters">{a.offenderNo}</td>

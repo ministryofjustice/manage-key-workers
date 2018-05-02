@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
+import Spinner from '../../Spinner';
 
 import axiosWrapper from "../../backendWrapper";
 import { setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
-  constructor () {
+  constructor (props) {
     super();
     this.doSearch = this.doSearch.bind(this);
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
@@ -16,12 +17,11 @@ class OffenderResultsContainer extends Component {
   }
 
   async componentWillMount () {
-    this.props.setLoadedDispatch(false);
     await this.doSearch();
-    this.props.setLoadedDispatch(true);
   }
 
   async doSearch () {
+    this.props.setLoadedDispatch(false);
     try {
       const response = await axiosWrapper.get('/api/searchOffenders', {
         params: {
@@ -40,6 +40,7 @@ class OffenderResultsContainer extends Component {
         offenderResponse: [] });
       this.props.displayError(error);
     }
+    this.props.setLoadedDispatch(true);
   }
 
   handleKeyworkerChange (event, index, offenderNo) {
@@ -68,10 +69,13 @@ class OffenderResultsContainer extends Component {
   }
 
   render () {
-    return (<OffenderResults
-      handleKeyworkerChange={this.handleKeyworkerChange}
-      postManualOverride={this.postManualOverride}
-      doSearch = {this.doSearch} {...this.props} />);
+    if (this.props.loaded) {
+      return (<OffenderResults
+        handleKeyworkerChange={this.handleKeyworkerChange}
+        postManualOverride={this.postManualOverride}
+        doSearch={this.doSearch} {...this.props} />);
+    }
+    return <Spinner />;
   }
 }
 
