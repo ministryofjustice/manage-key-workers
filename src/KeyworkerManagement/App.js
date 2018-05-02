@@ -7,7 +7,7 @@ import KeyworkerSearchContainer from '../KeyworkerProfile/containers/KeyworkerSe
 import KeyworkerSearchResultsContainer from '../KeyworkerProfile/containers/KeyworkerSearchResultsContainer';
 import KeyworkerReports from '../KeyworkerReports/index';
 import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer';
-import AutoAllocationContainer from '../AutoAllocation/containers/Unallocated';
+import UnallocatedContainer from '../AutoAllocation/containers/Unallocated';
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
@@ -99,7 +99,7 @@ class App extends React.Component {
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
       <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
       <Route exact path="/assignTransfer" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/unallocated" render={() => <AutoAllocationContainer displayError={this.displayError} {...this.props}/>}/>
+      <Route exact path="/unallocated" render={() => <UnallocatedContainer displayError={this.displayError} {...this.props}/>}/>
       <Route exact path="/provisionalAllocation" render={() => <ProvisionalAllocationContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
       <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
