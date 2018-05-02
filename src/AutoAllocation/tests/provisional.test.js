@@ -66,7 +66,7 @@ const keyworkList = [{
 
 describe('ManualAllocation component', () => {
   it('should render list correctly', async () => {
-    const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+    const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} onFinishAllocation={() => {}}/>);
 
     expect(component.find('tr').length).toEqual(4); // includes table header tr
     expect(component.find('tr').at(1).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Rendell, Steve');
@@ -78,7 +78,7 @@ describe('ManualAllocation component', () => {
   });
 
   it('should remove keyworker from select if currently allocated', async () => {
-    const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} applyDateFilter={() => {}} />);
+    const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={allocatedList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} onFinishAllocation={() => {}} />);
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2);
   });
 

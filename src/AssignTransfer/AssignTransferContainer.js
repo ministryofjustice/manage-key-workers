@@ -67,7 +67,6 @@ const mapDispatchToProps = dispatch => {
     offenderSearchTextDispatch: text => dispatch(setOffenderSearchText(text)),
     offenderSearchAllocationStatusDispatch: status => dispatch(setOffenderSearchAllocationStatus(status)),
     offenderSearchHousingLocationDispatch: location => dispatch(setOffenderSearchHousingLocation(location)),
-    setCurrentPageDispatch: page => dispatch(setCurrentPage(page)),
     setErrorDispatch: error => dispatch(setError(error)),
     setMessageDispatch: message => dispatch(setMessage(message))
   };
