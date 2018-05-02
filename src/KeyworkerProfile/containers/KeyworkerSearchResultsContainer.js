@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
+import Spinner from '../../Spinner';
 
 import axiosWrapper from "../../backendWrapper";
 import Error from "../../Error";
@@ -11,21 +12,21 @@ class KeyworkerSearchResultsContainer extends Component {
   constructor (props) {
     super();
     this.getKeyworkerList = this.getKeyworkerList.bind(this);
-    props.setLoadedDispatch(false);
   }
 
   async componentDidMount () {
     await this.performSearch();
-    this.props.setLoadedDispatch(true);
   }
 
   async performSearch () {
+    this.props.setLoadedDispatch(false);
     try {
       const list = await this.getKeyworkerList(this.props.agencyId);
       this.props.keyworkerSearchResultsDispatch(list);
     } catch (error) {
       this.props.displayError(error);
     }
+    this.props.setLoadedDispatch(true);
   }
 
   handleSearchTextChange (event) {
@@ -46,11 +47,12 @@ class KeyworkerSearchResultsContainer extends Component {
     if (this.props.error) {
       return <Error {...this.props} />;
     }
+
     if (this.props.loaded) {
       return (<KeyworkerSearchResults {...this.props} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
         handleSearch={() => this.performSearch()}/>);
     }
-    return null;
+    return <Spinner />;
   }
 }
 

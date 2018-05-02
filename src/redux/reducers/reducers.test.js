@@ -4,14 +4,12 @@ import moment from 'moment';
 
 const appInitialState = {
   error: null,
-  page: 0,
   message: null,
   loaded: false
 };
 
 const appWithErrorState = {
   error: 'There was a problem',
-  page: 0,
   message: null,
   loaded: false
 };
@@ -79,7 +77,6 @@ describe('app (global) reducer', () => {
         shouldShowTerms: false,
         error: null,
         message: null,
-        page: 0,
         loaded: false
       }
     );
@@ -93,7 +90,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         config: { mailTo: 'a@b.com' },
@@ -109,7 +105,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         user: { field: 'value' },
@@ -126,7 +121,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         user: { activeCaseLoadId: 'BXI' },
@@ -143,7 +137,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         shouldShowTerms: true,
@@ -152,21 +145,6 @@ describe('app (global) reducer', () => {
     );
   });
 
-  it('should handle SET_CURRENT_PAGE', () => {
-    expect(
-      app(appInitialState, {
-        type: types.SET_CURRENT_PAGE,
-        page: 1
-      })
-    ).toEqual(
-      {
-        page: 1,
-        error: null,
-        message: null,
-        loaded: false
-      }
-    );
-  });
 
   it('should handle SET_ERROR', () => {
     expect(
@@ -176,7 +154,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: 'HELP!',
         message: null,
         loaded: false
@@ -191,7 +168,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         loaded: false
@@ -207,7 +183,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: 'An important message!',
         loaded: false
@@ -223,7 +198,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         loaded: true
@@ -240,7 +214,6 @@ describe('app (global) reducer', () => {
       })
     ).toEqual(
       {
-        page: 0,
         error: null,
         message: null,
         loaded: false,

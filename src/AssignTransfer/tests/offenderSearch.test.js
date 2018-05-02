@@ -11,7 +11,7 @@ const housingLocations = [{ id: 123, description: "block 1" }, { id: 223, descri
 describe('Offender search component', () => {
   it('should render initial offender search form correctly', async () => {
     const component = shallow(<OffenderSearch initialSearch locations={housingLocations}
-      handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}}
+      handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}} handleSearchAllocationStatusChange={() => {}}
       history ={{}} />);
 
     expect(component.find('#search-text').length).toBe(1);
@@ -20,7 +20,7 @@ describe('Offender search component', () => {
 
   it('should render results offender search form correctly', async () => {
     const component = shallow(<OffenderSearch locations={housingLocations}
-      handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}}
+      handleSearchTextChange ={() => {}} handleSearchHousingLocationChange={() => {}} handleSearchAllocationStatusChange={() => {}}
       history ={{}} />);
     //console.log(component.debug());
     expect(component.find('#search-text').length).toBe(1);
@@ -32,6 +32,7 @@ describe('Offender search component', () => {
     const component = shallow(<OffenderSearch locations={housingLocations}
       handleSearchTextChange ={() => {}}
       handleSearchHousingLocationChange={() => {}}
+      handleSearchAllocationStatusChange={() => {}}
       setValidationErrorDispatch={() => {}}
       handleSubmit ={handleSubmitMock} history ={{}}/>);
 

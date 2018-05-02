@@ -87,14 +87,6 @@ describe('actions', () => {
     expect(actions.manualOverrideDateFilter('fromDate', '24/01/2018')).toEqual(expectedAction);
   });
 
-  it('should create an action to set the current page', () => {
-    const expectedAction = {
-      type: types.SET_CURRENT_PAGE,
-      page: 1
-    };
-    expect(actions.setCurrentPage(1)).toEqual(expectedAction);
-  });
-
   it('should create an action to store an error', () => {
     const expectedAction = {
       type: types.SET_ERROR,

@@ -564,7 +564,7 @@ ShallowWrapper {
                 "rendered": Array [
                   Object {
                     "instance": null,
-                    "key": "1",
+                    "key": "ZZ124WX",
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
@@ -684,7 +684,7 @@ ShallowWrapper {
                   },
                   Object {
                     "instance": null,
-                    "key": "2",
+                    "key": "ZZ125WX",
                     "nodeType": "host",
                     "props": Object {
                       "children": Array [
@@ -1371,7 +1371,7 @@ ShallowWrapper {
                   "rendered": Array [
                     Object {
                       "instance": null,
-                      "key": "1",
+                      "key": "ZZ124WX",
                       "nodeType": "host",
                       "props": Object {
                         "children": Array [
@@ -1491,7 +1491,7 @@ ShallowWrapper {
                     },
                     Object {
                       "instance": null,
-                      "key": "2",
+                      "key": "ZZ125WX",
                       "nodeType": "host",
                       "props": Object {
                         "children": Array [

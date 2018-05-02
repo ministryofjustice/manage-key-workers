@@ -20,7 +20,6 @@ const appInitialState = {
   shouldShowTerms: false,
   error: null,
   message: null,
-  page: 0,
   loaded: false
 };
 
@@ -59,14 +58,8 @@ export function app (state = appInitialState, action) {
     case ActionTypes.SET_TERMS_VISIBILITY:
       return { ...state, shouldShowTerms: action.shouldShowTerms };
 
-    case ActionTypes.SET_CURRENT_PAGE:
-      return updateObject(state, {
-        page: action.page,
-        error: null
-      });
     case ActionTypes.SET_ERROR:
       return updateObject(state, {
-        page: 0,
         error: action.error
       });
     case ActionTypes.RESET_ERROR:

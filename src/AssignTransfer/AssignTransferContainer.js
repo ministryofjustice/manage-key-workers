@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setCurrentPage, setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
+import { setOffenderSearchText, setOffenderSearchAllocationStatus, setOffenderSearchHousingLocation, setError, setMessage } from '../redux/actions';
 import { connect } from 'react-redux';
 import OffenderSearchContainer from './containers/OffenderSearchContainer';
 import OffenderResultsContainer from './containers/OffenderResultsContainer';

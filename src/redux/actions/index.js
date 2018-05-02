@@ -57,13 +57,6 @@ export const manualOverrideDateFilter = (dateName, date) => {
   };
 };
 
-export const setCurrentPage = (page) => {
-  return {
-    type: ActionTypes.SET_CURRENT_PAGE,
-    page
-  };
-};
-
 export const setError = (error) => {
   return {
     type: ActionTypes.SET_ERROR,
