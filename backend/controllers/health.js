@@ -3,11 +3,11 @@ const router = express.Router();
 const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const logError = require('../logError').logError;
-const fs = require('fs');
 const axios = require('axios');
+const applicationVersion = require('../application-version');
 
-const packageData = JSON.parse(fs.readFileSync('./package.json'));
-const buildVersion = fs.existsSync('./build-info.json') ? JSON.parse(fs.readFileSync('./build-info.json')).buildNumber : packageData.version;
+const packageData = applicationVersion.packageData;
+const buildVersion = applicationVersion.buildNumber;
 
 router.get('/', asyncMiddleware(async (req, res, next) => {
   try {

@@ -42,6 +42,14 @@ class App extends React.Component {
       return config;
     }, (error) => Promise.reject(error));
 
+    axios.interceptors.response.use((config) => {
+      if (config.status === 205) {
+        alert("There is a newer version of this website available, click ok to ensure you're using the latest version."); // eslint-disable-line no-alert
+        window.location = '/auth/logout';
+      }
+      return config;
+    }, (error) => Promise.reject(error));
+
     try {
       const user = await axiosWrapper.get('/api/me');
       const caseloads = await axiosWrapper.get('/api/usercaseloads');
