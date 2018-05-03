@@ -30,6 +30,8 @@ const keyworkerUpdate = require('./controllers/keyworkerUpdate');
 const userMe = require('./controllers/userMe');
 const getConfig = require('./controllers/getConfig');
 const health = require('./controllers/health');
+const clientVersionValidator = require('./validate-client-version');
+const applicationVersion = require('./application-version');
 
 const log = require('./log');
 const config = require('./config');
@@ -89,11 +91,18 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
 app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
 
 app.use('/auth', session.loginMiddleware, authentication);
+
+app.use(clientVersionValidator);
+
+app.use((req, res, next) => {
+  // Keep track of when a server update occurs. Changes rarely.
+  req.session.applicationVersion = applicationVersion.buildNumber;
+  next();
+});
 
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
