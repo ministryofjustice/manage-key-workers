@@ -24,12 +24,16 @@
 }
 
 table th, table td, table .form-control {
-    font-size: 17px;
+    font-size: 16px;
 }
 
 select.form-control{
     width: 100%;
     height: 2em;
+}
+
+select[id^='keyworker-select']{
+    width:80%;
 }
 
 /*  Define the background color for all the ODD background rows  */
@@ -61,6 +65,10 @@ table tr:nth-child(even){
     padding-bottom: 27px;
 }
 
+.padding-bottom-40 {
+    padding-bottom: 40px;
+}
+
 .padding-top-large {
     padding-top: 46px;
 }
@@ -75,6 +83,10 @@ table tr:nth-child(even){
 
 .padding-bottom {
     padding-bottom: 17px;
+}
+
+.padding-bottom-small {
+    padding-bottom: 7px;
 }
 
 .padding-right-large {
@@ -107,19 +119,24 @@ table tr:nth-child(even){
     min-width: 7em;
 }
 
-a.link{
-
+a .link{
     color: $link-colour !important;
     font-size: 19px;
+    font-weight: bold;
+}
 
-    &:hover {
-        color: $link-hover-colour !important;
-    }
+a .link:visited {
+    color: #4C2C92;
+    text-decoration: none !important;
+}
 
-    &:visited {
-        // color: $link-colour !important;
-        text-decoration: none !important;
-    }
+a .link:hover {
+    color: $link-hover-colour !important;
+}
+
+tr a .link{
+    font-weight: normal;
+    font-size: 16px;
 }
 
 

@@ -27,8 +27,9 @@ class Provisional extends Component {
       const currentSelectValue = this.props.allocatedKeyworkers[index] ? this.props.allocatedKeyworkers[index].staffId : '';
       return (
         <tr key={a.offenderNo} className="row-gutters">
-          <td className="row-gutters"><a target="_blank"
-            href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
+          <td className="row-gutters"><a target="_blank" className="link"
+            href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a>
+          </td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
@@ -57,29 +58,36 @@ class Provisional extends Component {
       <div>
         <div className="pure-g">
 
-          <div className="pure-u-md-7-12"><h1 className="heading-large">Key worker allocation</h1><p>These offenders below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it.
-          The number in the brackets indicates the current total of allocated offenders to each Key worker.</p></div>
+          <div className="pure-u-md-7-12"><h1 className="heading-large">Key worker allocation</h1><p>These offenders
+            below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it.
+            The number in the brackets indicates the current total of allocated offenders to each Key worker.</p></div>
           {this.props.displayDateFilter && <div className="pure-u-md-5-12"><DateFilter {...this.props} /></div>}
         </div>
-        <table className="row-gutters">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>NOMS ID</th>
-              <th>Location</th>
-              <th>CRD</th>
-              <th>CSRA</th>
-              <th>Allocated Key worker</th>
-              <th>Assign to new key worker</th>
-            </tr>
-          </thead>
-          <tbody>{offenders}</tbody>
-        </table>
-        <div className="pure-u-md-2-12" >
-          <button id="saveButton" className="button top-gutter margin-bottom" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
+        <div className="padding-bottom-40">
+          <table className="row-gutters">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>NOMS ID</th>
+                <th>Location</th>
+                <th>CRD</th>
+                <th>CSRA</th>
+                <th>Allocated Key worker</th>
+                <th>Assign to new key worker</th>
+              </tr>
+            </thead>
+            <tbody>{offenders}</tbody>
+          </table>
+        </div>
+        <div className="pure-u-md-2-12">
+          <button id="saveButton" className="button"
+            onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation
+          </button>
         </div>
         <div className="pure-u-md-3-12">
-          <button id="cancelButton" className="greyButton button-cancel top-gutter margin-bottom" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
+          <button id="cancelButton" className="greyButton button-cancel"
+            onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu
+          </button>
         </div>
       </div>
     );

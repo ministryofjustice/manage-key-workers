@@ -21,6 +21,8 @@ class KeyworkerSearchResults extends Component {
           </td>
           <td className="row-gutters">{getStatusDescription(a.status)}</td>
           <td className="row-gutters">{a.numberAllocated}</td>
+          <td className="row-gutters">{a.capacity}</td>
+          <td className="row-gutters">{a.autoAllocationAllowed ? "yes" : "no"}</td>
         </tr>
       );
     });
@@ -37,14 +39,16 @@ class KeyworkerSearchResults extends Component {
             <KeyworkerSearch {...this.props} />
           </div>
           <div>
-            <div className="lede padding-top-large padding-bottom">{keyworkers.length} Results:</div>
-            <div className="pure-u-md-6-12">
+            <div className="lede padding-top-large padding-bottom-small bold">{keyworkers.length} Results:</div>
+            <div className="pure-u-md-9-12">
               <table>
                 <thead>
                   <tr>
                     <th>Name</th>
                     <th>Status</th>
                     <th>No. allocated Offenders</th>
+                    <th>Capacity</th>
+                    <th>Auto allocation</th>
                   </tr>
                 </thead>
                 <tbody>{keyworkers}</tbody>
