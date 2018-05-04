@@ -44,7 +44,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="pure-u-md-7-12 padding-bottom-40"
+          className="pure-u-md-7-12 padding-bottom-40 padding-top-large"
 >
           <div>
                     <Link
@@ -58,7 +58,7 @@ ShallowWrapper {
                     </Link>
           </div>
           <h1
-                    className="heading-large"
+                    className="heading-large margin-top"
           >
                     Auto-allocate key workers
           </h1>
@@ -182,7 +182,7 @@ ShallowWrapper {
               </Link>
 </div>,
             <h1
-              className="heading-large"
+              className="heading-large margin-top"
 >
               Auto-allocate key workers
 </h1>,
@@ -277,7 +277,7 @@ ShallowWrapper {
 </table>,
             false,
           ],
-          "className": "pure-u-md-7-12 padding-bottom-40",
+          "className": "pure-u-md-7-12 padding-bottom-40 padding-top-large",
         },
         "ref": null,
         "rendered": Array [
@@ -321,7 +321,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Auto-allocate key workers",
-              "className": "heading-large",
+              "className": "heading-large margin-top",
             },
             "ref": null,
             "rendered": "Auto-allocate key workers",
@@ -904,7 +904,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="pure-u-md-7-12 padding-bottom-40"
+            className="pure-u-md-7-12 padding-bottom-40 padding-top-large"
 >
             <div>
                         <Link
@@ -918,7 +918,7 @@ ShallowWrapper {
                         </Link>
             </div>
             <h1
-                        className="heading-large"
+                        className="heading-large margin-top"
             >
                         Auto-allocate key workers
             </h1>
@@ -1042,7 +1042,7 @@ ShallowWrapper {
                 </Link>
 </div>,
               <h1
-                className="heading-large"
+                className="heading-large margin-top"
 >
                 Auto-allocate key workers
 </h1>,
@@ -1137,7 +1137,7 @@ ShallowWrapper {
 </table>,
               false,
             ],
-            "className": "pure-u-md-7-12 padding-bottom-40",
+            "className": "pure-u-md-7-12 padding-bottom-40 padding-top-large",
           },
           "ref": null,
           "rendered": Array [
@@ -1181,7 +1181,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": "Auto-allocate key workers",
-                "className": "heading-large",
+                "className": "heading-large margin-top",
               },
               "ref": null,
               "rendered": "Auto-allocate key workers",

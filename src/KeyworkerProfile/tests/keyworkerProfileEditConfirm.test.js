@@ -18,7 +18,7 @@ const keyworker = {
 describe('Keyworker Profile Edit component', () => {
   it('should render component correctly w with INACTIVE status', async () => {
     const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} handleOptionChange={jest.fn()} status="INACTIVE"/>);
-    expect(component.text()).toContain('This will remove the key worker from the auto-allocation pool and release all of their allocated offenders');
+    expect(component.text()).toContain('This will remove the key worker from the auto-allocation pool and release all of their allocated prisoners');
     expect(component.find('input').length).toEqual(0); //no options shown
     expect(component.find('#keyworker-status').hasClass('inactiveStatus')).toBe(true);
   });
