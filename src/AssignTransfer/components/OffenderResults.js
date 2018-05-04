@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import { properCaseName } from '../../stringUtils';
 import { getOffenderLink } from "../../links";
+import { getStaffLink } from "../../links";
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";
 import { Link } from "react-router-dom";
 
 class OffenderResults extends Component {
+  buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
+    if (keyworkerDisplay) {
+      if (numberAllocated || numberAllocated === 0) {
+        return keyworkerDisplay + ' (' + numberAllocated + ')';
+      } else {
+        return keyworkerDisplay;
+      }
+    } else {
+      return staffId + ' (no details available)';
+    }
+  }
+
   getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
     if (staffId) {
-      if (keyworkerDisplay) {
-        if (numberAllocated || numberAllocated === 0) {
-          return keyworkerDisplay + ' (' + numberAllocated + ')';
-        } else {
-          return keyworkerDisplay;
-        }
-      } else {
-        return staffId + ' (no details available)';
-      }
+      return <a className="link" href={getStaffLink(staffId)}>{this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}</a>;
     } else {
       return <strong className="bold-xsmall">Not allocated</strong>;
     }

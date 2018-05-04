@@ -111,6 +111,7 @@
 
 .FooterLinksContainer {
   padding-top: 10px;
+  font-size: 16px;
 }
 
 .FooterLink {
@@ -137,4 +138,8 @@
   font-size: 14px;
   text-align: center;
   opacity: 0.6;
+}
+
+.padding-bottom-90 {
+  padding-bottom: 90px;
 }
