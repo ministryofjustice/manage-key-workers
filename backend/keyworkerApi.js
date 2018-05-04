@@ -103,7 +103,7 @@ const service = {
   keyworkerApiUrl
 };
 
-function encodeQueryString(input) {
+function encodeQueryString (input) {
   return encodeURIComponent(input);
 }
 

@@ -11,7 +11,7 @@ const buildVersion = applicationVersion.buildNumber;
 
 const serviceUris = [keyworkerApi.keyworkerApiUrl, elite2Api.eliteApiUrl];
 
-const getHealth = (uri) => axios.get(`${uri}health`, {timeout: 2000});
+const getHealth = (uri) => axios.get(`${uri}health`, { timeout: 2000 });
 
 const reflect = (promise) => promise.then(
   response => ({ data: response.data, status: response.status }),
@@ -24,7 +24,6 @@ const reflect = (promise) => promise.then(
 );
 
 router.get('/', asyncMiddleware(async (req, res, next) => {
-
   const appInfo = {
     name: packageData.name,
     version: buildVersion,
@@ -42,7 +41,6 @@ router.get('/', asyncMiddleware(async (req, res, next) => {
 
     const status = results.reduce((status, health) => Math.max(status, health.status), 200);
     res.status(status);
-
   } catch (error) {
     appInfo.api = error.message;
     res.status((error.response && error.response.status) || 500);
