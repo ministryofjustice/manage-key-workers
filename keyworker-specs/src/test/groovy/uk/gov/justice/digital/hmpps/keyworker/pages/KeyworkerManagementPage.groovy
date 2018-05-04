@@ -8,7 +8,7 @@ class KeyworkerManagementPage extends Page {
     static url = "/"
 
     static at = {
-        headingText == 'Key worker management'
+        headingText == 'Manage key workers'
     }
 
     static content = {

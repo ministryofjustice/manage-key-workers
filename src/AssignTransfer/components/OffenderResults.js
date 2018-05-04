@@ -68,8 +68,8 @@ class OffenderResults extends Component {
     return (
       <div>
         <div className="pure-g padding-top-large">
-          <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back to admin menu</Link></div>
-          <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually assign and transfer</h1></div>
+          <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back</Link></div>
+          <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually allocate key workers</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
         </div>
         {this.props.offenderResults.partialResults &&
@@ -78,13 +78,13 @@ class OffenderResults extends Component {
           <table className="row-gutters">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>NOMS ID</th>
+                <th>Prisoner</th>
+                <th>Prison no.</th>
                 <th>Location</th>
                 <th>Release date</th>
                 <th>CSRA</th>
-                <th>Allocated Key worker</th>
-                <th>Assign to new key worker</th>
+                <th>Key worker</th>
+                <th>Assign new key worker</th>
               </tr>
             </thead>
             <tbody>{offenders}</tbody>

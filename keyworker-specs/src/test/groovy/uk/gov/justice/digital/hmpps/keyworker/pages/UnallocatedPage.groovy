@@ -8,7 +8,7 @@ public class UnallocatedPage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText == 'Offenders without key workers'
+        headingText == 'Auto-allocate key workers'
     }
 
     static content =  {

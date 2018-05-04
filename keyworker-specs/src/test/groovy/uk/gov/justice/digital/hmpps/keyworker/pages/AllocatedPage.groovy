@@ -5,7 +5,7 @@ import geb.Page
 public class AllocatedPage extends Page {
 
     static at = {
-        headingText == 'Key worker allocation'
+        headingText == 'Suggested key worker allocation'
     }
 
     static content =  {
