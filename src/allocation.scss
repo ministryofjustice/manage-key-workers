@@ -119,23 +119,22 @@ table tr:nth-child(even){
     min-width: 7em;
 }
 
-a .link{
-    color: $link-colour !important;
+a.link{
+    color: $link-colour;
     font-size: 19px;
     font-weight: bold;
 }
 
-a .link:visited {
+a.link:visited {
     color: #4C2C92;
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
-a .link:hover {
-    color: $link-hover-colour !important;
+a.link:hover {
+    color: $link-hover-colour;
 }
 
-tr a .link{
-    font-weight: normal;
+tr a.link{
     font-size: 16px;
 }
 
