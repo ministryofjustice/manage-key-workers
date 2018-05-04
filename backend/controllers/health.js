@@ -9,7 +9,10 @@ const applicationVersion = require('../application-version');
 const packageData = applicationVersion.packageData;
 const buildVersion = applicationVersion.buildNumber;
 
-const serviceUris = [keyworkerApi.keyworkerApiUrl, elite2Api.eliteApiUrl];
+const serviceUris = [
+  keyworkerApi.keyworkerApiUrl,
+  elite2Api.eliteApiUrl
+];
 
 const getHealth = (uri) => axios.get(`${uri}health`, { timeout: 2000 });
 

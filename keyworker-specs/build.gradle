@@ -51,6 +51,5 @@ drivers.each { driver ->
 
 test {
     dependsOn drivers.collect { tasks["${it}Test"] }
-    enabled = false
 }
 
