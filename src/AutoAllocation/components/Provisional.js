@@ -3,20 +3,24 @@ import { properCaseName } from '../../stringUtils';
 import DateFilter from '../../DateFilter/index.js';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { getOffenderLink } from "../../links";
+import { getOffenderLink, getStaffLink } from "../../links";
 
 class Provisional extends Component {
+  buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
+    if (keyworkerDisplay !== '--') {
+      if (numberAllocated || numberAllocated === 0) {
+        return keyworkerDisplay + ' (' + numberAllocated + ')';
+      } else {
+        return keyworkerDisplay;
+      }
+    } else {
+      return staffId + ' (no details available)';
+    }
+  }
+
   getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
     if (staffId) {
-      if (keyworkerDisplay !== '--') {
-        if (numberAllocated || numberAllocated === 0) {
-          return keyworkerDisplay + ' (' + numberAllocated + ')';
-        } else {
-          return keyworkerDisplay;
-        }
-      } else {
-        return staffId + ' (no details available)';
-      }
+      return <a className="link" target="_blank" href={getStaffLink(staffId)}>{this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}</a>;
     } else {
       return <strong className="bold-xsmall">Not allocated</strong>;
     }
