@@ -120,18 +120,18 @@ table tr:nth-child(even){
 }
 
 a.link{
-    color: $link-colour !important;
+    color: $link-colour;
     font-size: 19px;
     font-weight: bold;
 }
 
 a.link:visited {
     color: #4C2C92;
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 a.link:hover {
-    color: $link-hover-colour !important;
+    color: $link-hover-colour;
 }
 
 tr a.link{
