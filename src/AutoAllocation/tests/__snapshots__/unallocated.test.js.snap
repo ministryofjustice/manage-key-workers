@@ -44,7 +44,7 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="pure-u-md-7-12"
+          className="pure-u-md-7-12 padding-bottom-40"
 >
           <h1
                     className="heading-large"
@@ -80,6 +80,7 @@ ShallowWrapper {
                                                   className="row-gutters"
                                         >
                                                   <a
+                                                            className="link"
                                                             href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                             target="_blank"
                                                   >
@@ -112,6 +113,7 @@ ShallowWrapper {
                                                   className="row-gutters"
                                         >
                                                   <a
+                                                            className="link"
                                                             href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                             target="_blank"
                                                   >
@@ -144,7 +146,7 @@ ShallowWrapper {
 </div>,
         <div>
           <button
-                    className="button top-gutter margin-bottom"
+                    className="button"
                     onClick={[Function]}
           >
                     Allocate
@@ -194,6 +196,7 @@ ShallowWrapper {
                                                         className="row-gutters"
                                           >
                                                         <a
+                                                                      className="link"
                                                                       href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                       target="_blank"
                                                         >
@@ -226,6 +229,7 @@ ShallowWrapper {
                                                         className="row-gutters"
                                           >
                                                         <a
+                                                                      className="link"
                                                                       href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                       target="_blank"
                                                         >
@@ -257,7 +261,7 @@ ShallowWrapper {
 </table>,
             false,
           ],
-          "className": "pure-u-md-7-12",
+          "className": "pure-u-md-7-12 padding-bottom-40",
         },
         "ref": null,
         "rendered": Array [
@@ -315,6 +319,7 @@ ShallowWrapper {
                                                       className="row-gutters"
                                     >
                                                       <a
+                                                                        className="link"
                                                                         href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                         target="_blank"
                                                       >
@@ -347,6 +352,7 @@ ShallowWrapper {
                                                       className="row-gutters"
                                     >
                                                       <a
+                                                                        className="link"
                                                                         href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                         target="_blank"
                                                       >
@@ -499,6 +505,7 @@ ShallowWrapper {
                                             className="row-gutters"
                       >
                                             <a
+                                                                  className="link"
                                                                   href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                   target="_blank"
                                             >
@@ -531,6 +538,7 @@ ShallowWrapper {
                                             className="row-gutters"
                       >
                                             <a
+                                                                  className="link"
                                                                   href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                   target="_blank"
                                             >
@@ -572,6 +580,7 @@ ShallowWrapper {
                           className="row-gutters"
 >
                           <a
+                                                    className="link"
                                                     href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                     target="_blank"
                           >
@@ -608,6 +617,7 @@ ShallowWrapper {
                         "nodeType": "host",
                         "props": Object {
                           "children": <a
+                            className="link"
                             href="http://my.testUrl/offenders/ZZ124WX/personal"
                             target="_blank"
 >
@@ -622,6 +632,7 @@ ShallowWrapper {
                           "nodeType": "host",
                           "props": Object {
                             "children": "Rendell, Steve",
+                            "className": "link",
                             "href": "http://my.testUrl/offenders/ZZ124WX/personal",
                             "target": "_blank",
                           },
@@ -692,6 +703,7 @@ ShallowWrapper {
                           className="row-gutters"
 >
                           <a
+                                                    className="link"
                                                     href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                     target="_blank"
                           >
@@ -728,6 +740,7 @@ ShallowWrapper {
                         "nodeType": "host",
                         "props": Object {
                           "children": <a
+                            className="link"
                             href="http://my.testUrl/offenders/ZZ125WX/personal"
                             target="_blank"
 >
@@ -742,6 +755,7 @@ ShallowWrapper {
                           "nodeType": "host",
                           "props": Object {
                             "children": "Rendell2, Steve2",
+                            "className": "link",
                             "href": "http://my.testUrl/offenders/ZZ125WX/personal",
                             "target": "_blank",
                           },
@@ -818,7 +832,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": <button
-            className="button top-gutter margin-bottom"
+            className="button"
             onClick={[Function]}
 >
             Allocate
@@ -831,7 +845,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": "Allocate",
-            "className": "button top-gutter margin-bottom",
+            "className": "button",
             "onClick": [Function],
           },
           "ref": null,
@@ -851,7 +865,7 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="pure-u-md-7-12"
+            className="pure-u-md-7-12 padding-bottom-40"
 >
             <h1
                         className="heading-large"
@@ -887,6 +901,7 @@ ShallowWrapper {
                                                             className="row-gutters"
                                                 >
                                                             <a
+                                                                        className="link"
                                                                         href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                         target="_blank"
                                                             >
@@ -919,6 +934,7 @@ ShallowWrapper {
                                                             className="row-gutters"
                                                 >
                                                             <a
+                                                                        className="link"
                                                                         href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                         target="_blank"
                                                             >
@@ -951,7 +967,7 @@ ShallowWrapper {
 </div>,
           <div>
             <button
-                        className="button top-gutter margin-bottom"
+                        className="button"
                         onClick={[Function]}
             >
                         Allocate
@@ -1001,6 +1017,7 @@ ShallowWrapper {
                                                                 className="row-gutters"
                                                 >
                                                                 <a
+                                                                                className="link"
                                                                                 href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                                 target="_blank"
                                                                 >
@@ -1033,6 +1050,7 @@ ShallowWrapper {
                                                                 className="row-gutters"
                                                 >
                                                                 <a
+                                                                                className="link"
                                                                                 href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                                 target="_blank"
                                                                 >
@@ -1064,7 +1082,7 @@ ShallowWrapper {
 </table>,
               false,
             ],
-            "className": "pure-u-md-7-12",
+            "className": "pure-u-md-7-12 padding-bottom-40",
           },
           "ref": null,
           "rendered": Array [
@@ -1122,6 +1140,7 @@ ShallowWrapper {
                                                             className="row-gutters"
                                         >
                                                             <a
+                                                                                className="link"
                                                                                 href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                                 target="_blank"
                                                             >
@@ -1154,6 +1173,7 @@ ShallowWrapper {
                                                             className="row-gutters"
                                         >
                                                             <a
+                                                                                className="link"
                                                                                 href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                                 target="_blank"
                                                             >
@@ -1306,6 +1326,7 @@ ShallowWrapper {
                                                 className="row-gutters"
                         >
                                                 <a
+                                                                        className="link"
                                                                         href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                                         target="_blank"
                                                 >
@@ -1338,6 +1359,7 @@ ShallowWrapper {
                                                 className="row-gutters"
                         >
                                                 <a
+                                                                        className="link"
                                                                         href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                                         target="_blank"
                                                 >
@@ -1379,6 +1401,7 @@ ShallowWrapper {
                             className="row-gutters"
 >
                             <a
+                                                        className="link"
                                                         href="http://my.testUrl/offenders/ZZ124WX/personal"
                                                         target="_blank"
                             >
@@ -1415,6 +1438,7 @@ ShallowWrapper {
                           "nodeType": "host",
                           "props": Object {
                             "children": <a
+                              className="link"
                               href="http://my.testUrl/offenders/ZZ124WX/personal"
                               target="_blank"
 >
@@ -1429,6 +1453,7 @@ ShallowWrapper {
                             "nodeType": "host",
                             "props": Object {
                               "children": "Rendell, Steve",
+                              "className": "link",
                               "href": "http://my.testUrl/offenders/ZZ124WX/personal",
                               "target": "_blank",
                             },
@@ -1499,6 +1524,7 @@ ShallowWrapper {
                             className="row-gutters"
 >
                             <a
+                                                        className="link"
                                                         href="http://my.testUrl/offenders/ZZ125WX/personal"
                                                         target="_blank"
                             >
@@ -1535,6 +1561,7 @@ ShallowWrapper {
                           "nodeType": "host",
                           "props": Object {
                             "children": <a
+                              className="link"
                               href="http://my.testUrl/offenders/ZZ125WX/personal"
                               target="_blank"
 >
@@ -1549,6 +1576,7 @@ ShallowWrapper {
                             "nodeType": "host",
                             "props": Object {
                               "children": "Rendell2, Steve2",
+                              "className": "link",
                               "href": "http://my.testUrl/offenders/ZZ125WX/personal",
                               "target": "_blank",
                             },
@@ -1625,7 +1653,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <button
-              className="button top-gutter margin-bottom"
+              className="button"
               onClick={[Function]}
 >
               Allocate
@@ -1638,7 +1666,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": "Allocate",
-              "className": "button top-gutter margin-bottom",
+              "className": "button",
               "onClick": [Function],
             },
             "ref": null,

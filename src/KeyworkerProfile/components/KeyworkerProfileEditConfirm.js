@@ -5,7 +5,7 @@ import ValidationErrors from "../../ValidationError";
 
 class KeyworkerProfileEditConfirm extends Component {
   render () {
-    let innerContents = (<div id="inactiveWarning" className="padding-top"><span><img alt="" className="" src="/images/icon-important.png"/></span><div className="padding-left pure-u-md-7-12">
+    let innerContents = (<div id="inactiveWarning" className="padding-top"><span><img alt="" className="" src="/images/icon-important-2x.png" height="30" width="30"/></span><div className="padding-left pure-u-md-7-12">
       This will remove the key worker from the auto-allocation pool and release all of their allocated offenders</div></div>);
 
     if (this.props.status !== 'INACTIVE') {
@@ -56,7 +56,7 @@ class KeyworkerProfileEditConfirm extends Component {
                 </button>
               </div>
               <div className="pure-u-md-3-12">
-                <button id="cancelButton" className="greyButton button-cancel"
+                <button id="cancelButton" className="button greyButton button-cancel"
                   onClick={() => this.props.handleCancel(this.props.history)}>Cancel and go back
                 </button>
               </div>

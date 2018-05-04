@@ -31,7 +31,7 @@ class OffenderResults extends Component {
       const currentSelectValue = this.props.keyworkerChangeList && this.props.keyworkerChangeList[index] ?
         this.props.keyworkerChangeList[index].staffId : '';
       return (<tr key={a.offenderNo} className="row-gutters">
-        <td className="row-gutters"><a target="_blank"
+        <td className="row-gutters"><a target="_blank" className="link"
           href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
         <td className="row-gutters">{a.offenderNo}</td>
         <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
@@ -64,32 +64,34 @@ class OffenderResults extends Component {
       <div>
         <div className="pure-g padding-top-large">
           <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back to admin menu</Link></div>
-          <div className="pure-u-md-7-12"><h1 className="heading-large">Manually assign and transfer</h1></div>
+          <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually assign and transfer</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
         </div>
         {this.props.offenderResults.partialResults &&
-        <div id="partialResultsWarning" className="font-small padding-top padding-bottom-large"><span><img alt="" className="padding-top padding-right" src="/images/icon-important.png"/></span>The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div>}
-        <table className="row-gutters">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>NOMS ID</th>
-              <th>Location</th>
-              <th>Release date</th>
-              <th>CSRA</th>
-              <th>Allocated Key worker</th>
-              <th>Assign to new key worker</th>
-            </tr>
-          </thead>
-          <tbody>{offenders}</tbody>
-        </table>
+        <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><img alt="" className="padding-left" src="/images/icon-important-2x.png" height="30" width="30"/></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
+        <div className="padding-bottom-40">
+          <table className="row-gutters">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>NOMS ID</th>
+                <th>Location</th>
+                <th>Release date</th>
+                <th>CSRA</th>
+                <th>Allocated Key worker</th>
+                <th>Assign to new key worker</th>
+              </tr>
+            </thead>
+            <tbody>{offenders}</tbody>
+          </table>
+        </div>
         {offenders.length > 0 ?
           <div className="pure-u-md-2-12" >
-            <button id="saveButton" className="button top-gutter margin-bottom" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
+            <button id="saveButton" className="button" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
           </div> :
-          <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
+          <div className="font-small padding-bottom padding-left">No prisoners found</div>}
         <div className="pure-u-md-3-12">
-          <button id="cancelButton" className="greyButton button-cancel top-gutter margin-bottom" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
+          <button id="cancelButton" className="button greyButton button-cancel" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
         </div>
       </div>
     );

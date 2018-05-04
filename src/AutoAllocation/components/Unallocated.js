@@ -12,7 +12,7 @@ class Unallocated extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.offenderNo}>
-          <td className="row-gutters"><a target="_blank" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
+          <td className="row-gutters"><a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
@@ -29,7 +29,7 @@ class Unallocated extends Component {
     const offenders = this.buildTableForRender();
     return (
       <div>
-        <div className="pure-u-md-7-12">
+        <div className="pure-u-md-7-12 padding-bottom-40">
           <h1 className="heading-large">Offenders without key workers</h1>
           <p>These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate
             them to one. You can override the selections on the next page if you wish.</p>
@@ -48,7 +48,7 @@ class Unallocated extends Component {
           {offenders.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
         </div>
         <div>
-          {offenders.length > 0 && <button className="button top-gutter margin-bottom" onClick={() => this.props.gotoNext(this.props.history)}>Allocate</button>}
+          {offenders.length > 0 && <button className="button" onClick={() => this.props.gotoNext(this.props.history)}>Allocate</button>}
         </div>
       </div>
     );

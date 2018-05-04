@@ -31,7 +31,7 @@ class KeyworkerProfile extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.offenderNo}>
-          <td className="row-gutters"><a target="_blank" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
+          <td className="row-gutters"><a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
@@ -52,22 +52,24 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
-      <div className="lede padding-top padding-bottom-large">Current key worker allocations <div id="allocationCount" className={allocationCountStyle}>{this.props.keyworkerAllocations.length}</div></div>
+      <div className="lede padding-top padding-bottom-large bold">Current key worker allocations <div id="allocationCount" className={allocationCountStyle}>{this.props.keyworkerAllocations.length}</div></div>
       <div className="pure-u-md-12-12">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Prison no.</th>
-              <th>Location</th>
-              <th>CRD</th>
-              <th>CSRA</th>
-              <th>Assign to new key worker</th>
-            </tr>
-          </thead>
-          <tbody>{allocations}</tbody>
-        </table>
-        {this.props.keyworkerAllocations.length > 0 && <button id="updateAllocationButton" className="button top-gutter pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>}
+        <div className="padding-bottom-40">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Prison no.</th>
+                <th>Location</th>
+                <th>CRD</th>
+                <th>CSRA</th>
+                <th>Assign to new key worker</th>
+              </tr>
+            </thead>
+            <tbody>{allocations}</tbody>
+          </table>
+        </div>
+        {this.props.keyworkerAllocations.length > 0 && <button id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>}
       </div>
     </div>
     );
@@ -79,28 +81,32 @@ class KeyworkerProfile extends Component {
         <div className="pure-g padding-top padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
             <Link id={`search_again_link`} title="Search again link" className="link" to="/" >&lt; Back to admin menu</Link>
-            <h1 className="heading-large">Profile for {keyworkerDisplayName}</h1>
+            <h1 className="heading-large margin-top">Profile for {keyworkerDisplayName}</h1>
           </div>
           <div className="padding-top">
-            <div className="pure-u-md-2-12" >
-              <label className="form-label" htmlFor="name">Establishment</label>
-              <div className="bold padding-top-small">{this.props.keyworker.agencyDescription}</div>
+            <div className="pure-u-md-5-12">
+              <div className="pure-u-md-5-12" >
+                <label className="form-label" htmlFor="name">Establishment</label>
+                <div className="bold padding-top-small">{this.props.keyworker.agencyDescription}</div>
+              </div>
+              <div className="pure-u-md-4-12" >
+                <label className="form-label" htmlFor="name">Schedule type</label>
+                <div className="bold padding-top-small">{this.props.keyworker.scheduleType}</div>
+              </div>
+              <div className="pure-u-md-1-12" >
+                <label className="form-label" htmlFor="name">Capacity</label>
+                <div className="bold padding-top-small">{this.props.keyworker.capacity}</div>
+              </div>
             </div>
-            <div className="pure-u-md-2-12" >
-              <label className="form-label" htmlFor="name">Schedule type</label>
-              <div className="bold padding-top-small">{this.props.keyworker.scheduleType}</div>
-            </div>
-            <div className="pure-u-md-2-12" >
-              <label className="form-label" htmlFor="name">Capacity</label>
-              <div className="bold padding-top-small">{this.props.keyworker.capacity}</div>
-            </div>
-            <div className="pure-u-md-4-12" >
-              <label className="form-label" htmlFor="name">Status</label>
-              <div id="keyworker-status" className={`${statusStyle}Status`}>{getStatusDescription(this.props.keyworker.status)}</div>
-            </div>
+            <div className="pure-u-md-7-12">
+              <div className="pure-u-md-9-12" >
+                <label className="form-label" htmlFor="name">Status</label>
+                <div id="keyworker-status" className={`${statusStyle}Status`}>{getStatusDescription(this.props.keyworker.status)}</div>
+              </div>
 
-            <div className="pure-u-md-2-12" >
-              <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
+              <div className="pure-u-md-3-12" >
+                <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
+              </div>
             </div>
           </div>
           <hr/>

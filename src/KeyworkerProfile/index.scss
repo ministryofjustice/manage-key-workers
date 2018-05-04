@@ -13,6 +13,7 @@ select {
   padding: .3em 1em .2em 1em;
   text-align: center;
   display: inline-block;
+  min-width: 7em;
 }
 
 .inactiveStatus {
@@ -39,8 +40,8 @@ select {
 
 
 %numberCircle {
-  width: 2em;
-  line-height: 2em;
+  width: 1.7em;
+  line-height: 1.7em;
   border-radius: 50%;
   text-align: center;
   font-size: 1.1em;
@@ -51,7 +52,7 @@ select {
 
 .numberCircleGreen {
   @extend %numberCircle;
-  background-color: #00a84c;
+  background-color: #7FC09D;
 }
 
 .numberCircleGrey {
@@ -61,14 +62,18 @@ select {
 
 .numberCircleAmber {
   @extend %numberCircle;
-  background-color: #FFBF47;
+  background-color: #F9BB9B;
 }
 
 .numberCircleRed {
   @extend %numberCircle;
-  background-color: tomato;
+  background-color: #EF9799;
 }
 
 #editProfileButton {
   margin-top: 1.4em;
+  float: right;
+  margin-right: 1em;
 }
+
+
