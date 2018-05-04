@@ -88,12 +88,22 @@ const keyworkerAllocations = (req, res) => gateway.getRequest({
 });
 
 const service = {
-  unallocated, allocated, offenderKeyworkerList, availableKeyworkers, keyworker, allocate, autoallocated,
-  autoAllocate, autoAllocateConfirm, keyworkerAllocations, keyworkerSearch, keyworkerUpdate,
+  unallocated,
+  allocated,
+  offenderKeyworkerList,
+  availableKeyworkers,
+  keyworker,
+  allocate,
+  autoallocated,
+  autoAllocate,
+  autoAllocateConfirm,
+  keyworkerAllocations,
+  keyworkerSearch,
+  keyworkerUpdate,
   keyworkerApiUrl
 };
 
-function encodeQueryString (input) {
+function encodeQueryString(input) {
   return encodeURIComponent(input);
 }
 
