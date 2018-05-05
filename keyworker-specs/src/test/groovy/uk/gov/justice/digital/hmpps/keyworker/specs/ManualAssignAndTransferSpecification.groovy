@@ -2,6 +2,7 @@ package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import geb.spock.GebReportingSpec
 import org.junit.Rule
+import spock.lang.Ignore
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
@@ -56,6 +57,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         rows.size() == 5
     }
 
+    @Ignore
     def "Assign and Transfer filtered by unallocated"() {
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)
@@ -73,6 +75,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         rows.size() == 4
     }
 
+    @Ignore
     def "Assign and Transfer filtered by unallocated - partial result"() {
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)
@@ -90,6 +93,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         rows.size() == 50
     }
 
+    @Ignore
     def "Assign and Transfer filtered by allocated"() {
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)

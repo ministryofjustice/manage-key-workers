@@ -1,9 +1,11 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
+import groovyx.net.http.HttpBuilder
 import groovyx.net.http.HttpException
 import org.junit.Rule
 import spock.lang.Specification
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 
 import static groovyx.net.http.HttpBuilder.configure
 
@@ -12,63 +14,69 @@ class HealthSpecification extends Specification {
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    def "Health page reports ok"() {
+    @Rule
+    Elite2Api elite2Api = new Elite2Api()
 
-        keyworkerApi.stubHealth('/health')
+    HttpBuilder http
 
-        def http = configure {
+    def setup() {
+        http = configure {
             request.uri = 'http://localhost:3001/health'
         }
+    }
+
+    def "Health page reports ok"() {
+
+        given:
+        keyworkerApi.stubHealth()
+        elite2Api.stubHealth()
 
         when:
-        def response = http.get() {}
-
+        def response = this.http.get()
         then:
         response.uptime > 0.0
         response.name == "keyworker-ui"
         !response.version.isEmpty()
-        response.api.status == "UP"
-        response.api.db.status == "UP"
+        response.api.keyworkerApi.status == 'UP'
+        response.api.keyworkerApi.db.status == 'UP'
+        response.api.elite2Api.status == 'UP'
+        response.api.elite2Api.db.status == 'UP'
     }
 
     def "Health page reports API unhealthy"() {
 
+        given:
         keyworkerApi.stubError('/health', 500)
-
-        def http = configure {
-            request.uri = 'http://localhost:3001/health'
-        }
+        elite2Api.stubHealth()
 
         when:
         def response
         try {
-            http.get() {}
+            response = http.get()
         } catch (HttpException e) {
             response = e.body
         }
 
         then:
         response.uptime > 0.0
-        response.api == "Request failed with status code 500"
+        response.api.keyworkerApi.status == "DOWN"
     }
 
     def "Health page reports API down"() {
 
+        given:
         keyworkerApi.stubDelayedError('/health', 500)
-
-        def http = configure {
-            request.uri = 'http://localhost:3001/health'
-        }
+        elite2Api.stubHealth()
 
         when:
         def response
         try {
-            http.get() {}
+            response = http.get()
         } catch (HttpException e) {
             response = e.body
         }
 
         then:
-        response.api == "timeout of 2000ms exceeded"
+        response.api.keyworkerApi == "timeout of 2000ms exceeded"
     }
 }

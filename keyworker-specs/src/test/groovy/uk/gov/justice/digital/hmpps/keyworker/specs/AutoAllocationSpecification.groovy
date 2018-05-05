@@ -1,7 +1,7 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
+import spock.lang.Ignore;
 import geb.spock.GebReportingSpec
-import org.junit.Ignore
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
@@ -68,6 +68,7 @@ class AutoAllocationSpecification extends GebReportingSpec {
         $("div.font-small").text() == 'No prisoners found'
     }
 
+    @Ignore
     def "Allocated page is displayed correctly"() {
         given: "I am at the Unallocated page"
         fixture.loginAs(ITAG_USER)
@@ -106,6 +107,7 @@ class AutoAllocationSpecification extends GebReportingSpec {
         table.find("tr", 9).find("td", 3).text() == '2019-09-19'
     }
 
+    @Ignore
     def "Allocated page with no keyworkers warning is displayed correctly"() {
         given: "I am at the Unallocated page"
         fixture.loginAs(ITAG_USER)

@@ -69,7 +69,17 @@ const setActiveCaseLoad = (req, res) => gateway.putRequest({
 });
 
 const service = {
-  login, currentUser, userCaseLoads, userLocations, searchOffenders, searchOffendersWithResultLimit, setActiveCaseLoad, sentenceDetailList, csraList, offenderSearchResultMax
+  login,
+  currentUser,
+  userCaseLoads,
+  userLocations,
+  searchOffenders,
+  searchOffendersWithResultLimit,
+  setActiveCaseLoad,
+  sentenceDetailList,
+  csraList,
+  offenderSearchResultMax,
+  eliteApiUrl
 };
 
 function encodeQueryString (input) {

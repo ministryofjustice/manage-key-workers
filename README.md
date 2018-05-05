@@ -35,15 +35,15 @@ docker run -p 3000:3000 -d \
 ```
 ## Integration tests
 The `keyworker-specs` directory contains a set of integration tests for the `keyworker-ui` application.
-These tests are written in teh Groovy programming language using a test framework called Spock.  The tests drive 
-the UI using 'Geb', a Groovy wrapper for Selenium Webdriver and use WireMock to stub the application's dependencies
-on the elite2 (NOMIS?) and keyworker-service RESTful APIs.
+These tests are written in the Groovy programming language using a test framework called Spock.  The tests drive 
+the UI using 'Geb', a Groovy wrapper for Selenium Webdriver, and use WireMock to stub the application's dependencies
+on the elite2 and keyworker-service RESTful APIs.
 
 ### Running the tests
-The tests may be run from an IDE such as IntelliJ IDEA or as a Gradle build.  
-The tests are able to use different web-browsers browsers including headless browsers such as Chrome
-headless and PhantomJS.  Currently they are configured to use Chrome and / or Chrome headless. However,
-running the tests using Chrome means you must install Chrome (obviously) and ChromeDriver.
+The tests may be run from an IDE such as IntelliJ IDEA or from the Gradle build.  
+The tests may be configured to drive a range of web-browsers including Chrome headless and PhantomJS.  
+Currently the tests use Chrome and / or Chrome headless.
+To drive the tests through Chrome you must install Chrome (obviously) and a Selenium Webdriver adapter called ChromeDriver.
 ChromeDriver is a standalone server which implements WebDriver's wire protocol for 
 Chromium.  Download the latest version of ChromeDriver from here: 
 https://sites.google.com/a/chromium.org/chromedriver/downloads and follow the installation instructions here:
