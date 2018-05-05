@@ -58,7 +58,7 @@ class KeyworkerProfile extends Component {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Prisoner</th>
                 <th>Prison no.</th>
                 <th>Location</th>
                 <th>CRD</th>

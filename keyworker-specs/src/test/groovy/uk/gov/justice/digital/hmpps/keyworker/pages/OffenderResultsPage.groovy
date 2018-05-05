@@ -9,7 +9,7 @@ public class OffenderResultsPage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText == 'Manually assign and transfer'
+        headingText == 'Manually allocate key workers'
     }
 
     static content =  {

@@ -44,24 +44,32 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <div
-          className="pure-u-md-7-12 padding-bottom-40"
+          className="pure-u-md-7-12 padding-bottom-40 padding-top-large"
 >
+          <div>
+                    <Link
+                              className="link"
+                              id="back_to_menu_link"
+                              replace={false}
+                              title="Back to menu link"
+                              to="/"
+                    >
+                              &lt; Back
+                    </Link>
+          </div>
           <h1
-                    className="heading-large"
+                    className="heading-large margin-top"
           >
-                    Offenders without key workers
+                    Auto-allocate key workers
           </h1>
-          <p>
-                    These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
-          </p>
           <table>
                     <thead>
                               <tr>
                                         <th>
-                                                  Name
+                                                  Prisoner
                                         </th>
                                         <th>
-                                                  NOMS ID
+                                                  Prison no.
                                         </th>
                                         <th>
                                                   Location
@@ -162,22 +170,30 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
+            <div>
+              <Link
+                            className="link"
+                            id="back_to_menu_link"
+                            replace={false}
+                            title="Back to menu link"
+                            to="/"
+              >
+                            &lt; Back
+              </Link>
+</div>,
             <h1
-              className="heading-large"
+              className="heading-large margin-top"
 >
-              Offenders without key workers
+              Auto-allocate key workers
 </h1>,
-            <p>
-              These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
-</p>,
             <table>
               <thead>
                             <tr>
                                           <th>
-                                                        Name
+                                                        Prisoner
                                           </th>
                                           <th>
-                                                        NOMS ID
+                                                        Prison no.
                                           </th>
                                           <th>
                                                         Location
@@ -261,7 +277,7 @@ ShallowWrapper {
 </table>,
             false,
           ],
-          "className": "pure-u-md-7-12 padding-bottom-40",
+          "className": "pure-u-md-7-12 padding-bottom-40 padding-top-large",
         },
         "ref": null,
         "rendered": Array [
@@ -270,23 +286,46 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "Offenders without key workers",
-              "className": "heading-large",
+              "children": <Link
+                className="link"
+                id="back_to_menu_link"
+                replace={false}
+                title="Back to menu link"
+                to="/"
+>
+                &lt; Back
+</Link>,
             },
             "ref": null,
-            "rendered": "Offenders without key workers",
-            "type": "h1",
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "< Back",
+                "className": "link",
+                "id": "back_to_menu_link",
+                "replace": false,
+                "title": "Back to menu link",
+                "to": "/",
+              },
+              "ref": null,
+              "rendered": "< Back",
+              "type": [Function],
+            },
+            "type": "div",
           },
           Object {
             "instance": null,
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+              "children": "Auto-allocate key workers",
+              "className": "heading-large margin-top",
             },
             "ref": null,
-            "rendered": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
-            "type": "p",
+            "rendered": "Auto-allocate key workers",
+            "type": "h1",
           },
           Object {
             "instance": null,
@@ -297,10 +336,10 @@ ShallowWrapper {
                 <thead>
                   <tr>
                                     <th>
-                                                      Name
+                                                      Prisoner
                                     </th>
                                     <th>
-                                                      NOMS ID
+                                                      Prison no.
                                     </th>
                                     <th>
                                                       Location
@@ -392,10 +431,10 @@ ShallowWrapper {
                 "props": Object {
                   "children": <tr>
                     <th>
-                                        Name
+                                        Prisoner
                     </th>
                     <th>
-                                        NOMS ID
+                                        Prison no.
                     </th>
                     <th>
                                         Location
@@ -416,10 +455,10 @@ ShallowWrapper {
                   "props": Object {
                     "children": Array [
                       <th>
-                        Name
+                        Prisoner
 </th>,
                       <th>
-                        NOMS ID
+                        Prison no.
 </th>,
                       <th>
                         Location
@@ -439,10 +478,10 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "Name",
+                        "children": "Prisoner",
                       },
                       "ref": null,
-                      "rendered": "Name",
+                      "rendered": "Prisoner",
                       "type": "th",
                     },
                     Object {
@@ -450,10 +489,10 @@ ShallowWrapper {
                       "key": undefined,
                       "nodeType": "host",
                       "props": Object {
-                        "children": "NOMS ID",
+                        "children": "Prison no.",
                       },
                       "ref": null,
-                      "rendered": "NOMS ID",
+                      "rendered": "Prison no.",
                       "type": "th",
                     },
                     Object {
@@ -865,24 +904,32 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <div
-            className="pure-u-md-7-12 padding-bottom-40"
+            className="pure-u-md-7-12 padding-bottom-40 padding-top-large"
 >
+            <div>
+                        <Link
+                                    className="link"
+                                    id="back_to_menu_link"
+                                    replace={false}
+                                    title="Back to menu link"
+                                    to="/"
+                        >
+                                    &lt; Back
+                        </Link>
+            </div>
             <h1
-                        className="heading-large"
+                        className="heading-large margin-top"
             >
-                        Offenders without key workers
+                        Auto-allocate key workers
             </h1>
-            <p>
-                        These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
-            </p>
             <table>
                         <thead>
                                     <tr>
                                                 <th>
-                                                            Name
+                                                            Prisoner
                                                 </th>
                                                 <th>
-                                                            NOMS ID
+                                                            Prison no.
                                                 </th>
                                                 <th>
                                                             Location
@@ -983,22 +1030,30 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
+              <div>
+                <Link
+                                className="link"
+                                id="back_to_menu_link"
+                                replace={false}
+                                title="Back to menu link"
+                                to="/"
+                >
+                                &lt; Back
+                </Link>
+</div>,
               <h1
-                className="heading-large"
+                className="heading-large margin-top"
 >
-                Offenders without key workers
+                Auto-allocate key workers
 </h1>,
-              <p>
-                These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.
-</p>,
               <table>
                 <thead>
                                 <tr>
                                                 <th>
-                                                                Name
+                                                                Prisoner
                                                 </th>
                                                 <th>
-                                                                NOMS ID
+                                                                Prison no.
                                                 </th>
                                                 <th>
                                                                 Location
@@ -1082,7 +1137,7 @@ ShallowWrapper {
 </table>,
               false,
             ],
-            "className": "pure-u-md-7-12 padding-bottom-40",
+            "className": "pure-u-md-7-12 padding-bottom-40 padding-top-large",
           },
           "ref": null,
           "rendered": Array [
@@ -1091,23 +1146,46 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "Offenders without key workers",
-                "className": "heading-large",
+                "children": <Link
+                  className="link"
+                  id="back_to_menu_link"
+                  replace={false}
+                  title="Back to menu link"
+                  to="/"
+>
+                  &lt; Back
+</Link>,
               },
               "ref": null,
-              "rendered": "Offenders without key workers",
-              "type": "h1",
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "< Back",
+                  "className": "link",
+                  "id": "back_to_menu_link",
+                  "replace": false,
+                  "title": "Back to menu link",
+                  "to": "/",
+                },
+                "ref": null,
+                "rendered": "< Back",
+                "type": [Function],
+              },
+              "type": "div",
             },
             Object {
               "instance": null,
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
+                "children": "Auto-allocate key workers",
+                "className": "heading-large margin-top",
               },
               "ref": null,
-              "rendered": "These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate them to one. You can override the selections on the next page if you wish.",
-              "type": "p",
+              "rendered": "Auto-allocate key workers",
+              "type": "h1",
             },
             Object {
               "instance": null,
@@ -1118,10 +1196,10 @@ ShallowWrapper {
                   <thead>
                     <tr>
                                         <th>
-                                                            Name
+                                                            Prisoner
                                         </th>
                                         <th>
-                                                            NOMS ID
+                                                            Prison no.
                                         </th>
                                         <th>
                                                             Location
@@ -1213,10 +1291,10 @@ ShallowWrapper {
                   "props": Object {
                     "children": <tr>
                       <th>
-                                            Name
+                                            Prisoner
                       </th>
                       <th>
-                                            NOMS ID
+                                            Prison no.
                       </th>
                       <th>
                                             Location
@@ -1237,10 +1315,10 @@ ShallowWrapper {
                     "props": Object {
                       "children": Array [
                         <th>
-                          Name
+                          Prisoner
 </th>,
                         <th>
-                          NOMS ID
+                          Prison no.
 </th>,
                         <th>
                           Location
@@ -1260,10 +1338,10 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "Name",
+                          "children": "Prisoner",
                         },
                         "ref": null,
-                        "rendered": "Name",
+                        "rendered": "Prisoner",
                         "type": "th",
                       },
                       Object {
@@ -1271,10 +1349,10 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "NOMS ID",
+                          "children": "Prison no.",
                         },
                         "ref": null,
-                        "rendered": "NOMS ID",
+                        "rendered": "Prison no.",
                         "type": "th",
                       },
                       Object {

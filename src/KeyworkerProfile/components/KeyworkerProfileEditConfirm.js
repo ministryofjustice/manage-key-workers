@@ -6,7 +6,7 @@ import ValidationErrors from "../../ValidationError";
 class KeyworkerProfileEditConfirm extends Component {
   render () {
     let innerContents = (<div id="inactiveWarning" className="padding-top"><span><img alt="" className="" src="/images/icon-important-2x.png" height="30" width="30"/></span><div className="padding-left pure-u-md-7-12">
-      This will remove the key worker from the auto-allocation pool and release all of their allocated offenders</div></div>);
+      This will remove the key worker from the auto-allocation pool and release all of their allocated prisoners</div></div>);
 
     if (this.props.status !== 'INACTIVE') {
       innerContents = (<div className="pure-u-md-6-12">

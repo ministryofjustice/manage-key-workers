@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { getOffenderLink } from "../../links";
+import { Link } from "react-router-dom";
 
 class Unallocated extends Component {
   buildTableForRender () {
@@ -29,15 +30,14 @@ class Unallocated extends Component {
     const offenders = this.buildTableForRender();
     return (
       <div>
-        <div className="pure-u-md-7-12 padding-bottom-40">
-          <h1 className="heading-large">Offenders without key workers</h1>
-          <p>These offenders have not yet been allocated a Key worker. Use the button below to automatically allocate
-            them to one. You can override the selections on the next page if you wish.</p>
+        <div className="pure-u-md-7-12 padding-bottom-40 padding-top-large">
+          <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back</Link></div>
+          <h1 className="heading-large margin-top">Auto-allocate key workers</h1>
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>NOMS ID</th>
+                <th>Prisoner</th>
+                <th>Prison no.</th>
                 <th>Location</th>
                 <th>RD</th>
                 <th>CSRA</th>

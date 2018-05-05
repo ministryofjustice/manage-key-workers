@@ -62,17 +62,15 @@ class Provisional extends Component {
       <div>
         <div className="pure-g">
 
-          <div className="pure-u-md-7-12"><h1 className="heading-large">Key worker allocation</h1><p>These offenders
-            below have been automatically allocated to a Key worker. Use the drop down menu on the right to override it.
-            The number in the brackets indicates the current total of allocated offenders to each Key worker.</p></div>
+          <div className="pure-u-md-7-12"><h1 className="heading-large">Suggested key worker allocation</h1></div>
           {this.props.displayDateFilter && <div className="pure-u-md-5-12"><DateFilter {...this.props} /></div>}
         </div>
         <div className="padding-bottom-40">
           <table className="row-gutters">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>NOMS ID</th>
+                <th>Prisoner</th>
+                <th>Prison no.</th>
                 <th>Location</th>
                 <th>CRD</th>
                 <th>CSRA</th>

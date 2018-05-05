@@ -10,20 +10,20 @@ class HomePage extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g">
           <div className="pure-u-md-8-12 padding-bottom-large">
-            <h1 className="heading-large">Key worker management</h1>
+            <h1 className="heading-large">Manage key workers</h1>
             <div className="pure-u-md-6-12">
-              <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated" >Auto allocate key workers</Link>
-              <div className="padding-right-large">Quickly auto-allocate offenders to key workers and override selections if needed</div>
+              <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated" >Auto-allocate key workers</Link>
+              <div className="padding-right-large">Quickly auto-allocate prisoners to key workers and override selections if needed</div>
             </div>
             <div className="pure-u-md-6-12">
               <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworker/search" >Edit key worker profile</Link>
-              <div>Remove key workers from active duty and reassign offenders</div>
+              <div>Remove key worker from active duty and reallocate prisoners</div>
             </div>
           </div>
           <div className="pure-u-md-8-12">
             <div className="pure-u-md-6-12">
-              <Link id="assign_transfer_link" title="Manually assign and transfer link" className="link" to="/assignTransfer" >Manually assign and transfer</Link>
-              <div className="padding-right-large">View current offender to key worker assignment and reallocate if desired</div>
+              <Link id="assign_transfer_link" title="Manually allocate key workers" className="link" to="/assignTransfer" >Manually allocate key workers</Link>
+              <div className="padding-right-large">View current prisoner to key worker allocations and override if required</div>
             </div>
           </div>
         </div>

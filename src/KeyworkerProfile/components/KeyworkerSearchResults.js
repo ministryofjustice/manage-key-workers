@@ -46,7 +46,7 @@ class KeyworkerSearchResults extends Component {
                   <tr>
                     <th>Name</th>
                     <th>Status</th>
-                    <th>No. allocated Offenders</th>
+                    <th>No. allocated prisoners</th>
                     <th>Capacity</th>
                     <th>Auto allocation</th>
                   </tr>
