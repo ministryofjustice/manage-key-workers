@@ -49,26 +49,7 @@ class KeyworkerApi extends WireMockRule {
                 get(url)
                         .willReturn(
                         aResponse()
-                                .withStatus(500)
-                                .withHeader('Content-Type', 'application/json')
-                                .withBody('''
-                        {
-                              "status": "DOWN",
-                              "healthInfo": {
-                                "status": "UP",
-                                "version": "2018-05-04"
-                              },
-                              "diskSpace": {
-                                "status": "UP",
-                                "total": 121123069952,
-                                "free": 30912241664,
-                                "threshold": 10485760
-                              },
-                              "db": {
-                                "status": "DOWN",
-                                "error": "org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: Elite2-CP - Connection is not available, request timed out after 1010ms."
-                              }
-                            }'''.stripIndent())))
+                                .withStatus(status)))
     }
 
     void stubDelayedError(url, status) {
@@ -107,6 +88,33 @@ class KeyworkerApi extends WireMockRule {
                             }
                         }'''.stripIndent())
         ))
+    }
+
+    void stubHealthError() {
+        this.stubFor(
+                get('/health')
+                        .willReturn(
+                        aResponse()
+                                .withStatus(500)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''
+                        {
+                              "status": "DOWN",
+                              "healthInfo": {
+                                "status": "UP",
+                                "version": "2018-05-04"
+                              },
+                              "diskSpace": {
+                                "status": "UP",
+                                "total": 121123069952,
+                                "free": 30912241664,
+                                "threshold": 10485760
+                              },
+                              "db": {
+                                "status": "DOWN",
+                                "error": "org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: Elite2-CP - Connection is not available, request timed out after 1010ms."
+                              }
+                            }'''.stripIndent())))
     }
 
     void stubKeyworkerSearchResponse(AgencyLocation agencyLocation) {
