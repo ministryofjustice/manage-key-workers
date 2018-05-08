@@ -44,7 +44,7 @@ class KeyworkerSearchResults extends Component {
               <table>
                 <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>Prisoner</th>
                     <th>Status</th>
                     <th>No. allocated prisoners</th>
                     <th>Capacity</th>
