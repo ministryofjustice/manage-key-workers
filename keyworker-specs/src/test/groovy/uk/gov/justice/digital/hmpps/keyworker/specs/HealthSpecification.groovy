@@ -46,7 +46,7 @@ class HealthSpecification extends Specification {
     def "Health page reports API unhealthy"() {
 
         given:
-        keyworkerApi.stubError('/health', 500)
+        keyworkerApi.stubHealthError()
         elite2Api.stubHealth()
 
         when:
