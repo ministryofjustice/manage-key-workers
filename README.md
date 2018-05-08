@@ -3,9 +3,12 @@
 Application can be built with for dev mode
 
 ```bash
+yarn build
 yarn 
 yarn start
 ```
+
+You must run all three steps above each time you make a change to front end code to ensure that those changes are visible in the react application.
 
 For production 
 ```bash
