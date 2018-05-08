@@ -10,7 +10,7 @@ promote_to_env() {
 
   # Build a deployment file
   yarn run plant-beanstalk KEYWORKER_UI_${VERSION}
-  eb deploy omic-${ENV}
+  eb deploy omic-${ENV} --verbose --label ${VERSION}
 }
 
 # if less than two arguments supplied, display usage
