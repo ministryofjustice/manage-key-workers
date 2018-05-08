@@ -1,25 +1,19 @@
 #!/usr/bin/env bash
 
 display_usage() {
-  echo -e "\nUsage: $0 [tag] [dev|stage|preprod|prod]\n"
+  echo -e "\nUsage: $0 [version] [dev|stage|preprod|prod]\n"
 }
 
 promote_to_env() {
-  TAG=$1
+  VERSION=$1
   ENV=$2
 
-  # Grab the tagged build
-  git fetch
-  git checkout ${TAG}
-
-  # Push the TAG build to ENV
-  git push --force origin origin/deploy-to-${ENV} HEAD:deploy-to-${ENV}
-
-  # Switch back to master branch
-  git checkout master
+  # Build a deployment file
+  yarn run plant-beanstalk KEYWORKER_UI_${VERSION}
+  eb deploy omic-${ENV}
 }
 
-# if less than two arguments supplied, display usage 
+# if less than two arguments supplied, display usage
 if [  $# -le 1 ]
 then
   display_usage
@@ -33,7 +27,7 @@ then
   exit 0
 fi
 
-TAG=$1
+VERSION=$1
 ENV=$2
 
 if [[ "$ENV" =~ ^(dev|stage|preprod|prod)$ ]]; then
@@ -42,7 +36,7 @@ else
     echo "$ENV is not a valid environment"
 fi
 
-promote_to_env ${TAG} ${ENV}
+promote_to_env ${VERSION} ${ENV}
 
 
 

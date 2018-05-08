@@ -84,3 +84,4 @@ yarn-error.log*
 
 # Gradle
 .gradle
+Dockerrun.aws.json
