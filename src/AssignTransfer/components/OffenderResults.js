@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";
 import { Link } from "react-router-dom";
+import { renderDate } from '../../stringUtils';
 
 class OffenderResults extends Component {
   buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
@@ -40,7 +41,7 @@ class OffenderResults extends Component {
           href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
         <td className="row-gutters">{a.offenderNo}</td>
         <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
-        <td className="row-gutters">{a.confirmedReleaseDate || "--"}</td>
+        <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
         <td className="row-gutters">{a.crsaClassification || "--"}</td>
         <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
         </td>

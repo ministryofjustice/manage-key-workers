@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { properCaseName } from "../../stringUtils";
+import { properCaseName, renderDate } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import MessageBar from "../../MessageBar/index";
@@ -34,7 +34,7 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters"><a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
+          <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">
 
