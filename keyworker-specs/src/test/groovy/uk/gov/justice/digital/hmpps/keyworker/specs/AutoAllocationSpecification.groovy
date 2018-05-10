@@ -41,11 +41,11 @@ class AutoAllocationSpecification extends GebReportingSpec {
         table.find("tr", 1).find("td", 4).text() == '--'
 
         table.find("tr", 3).find("td", 2).text() == 'H-3'
-        table.find("tr", 3).find("td", 3).text() == '2022-02-02'
+        table.find("tr", 3).find("td", 3).text() == '02/02/2022'
         table.find("tr", 3).find("td", 4).text() == 'ABC'
 
         table.find("tr", 9).find("td", 1).text() == 'Z0018ZZ'
-        table.find("tr", 9).find("td", 3).text() == '2019-09-19'
+        table.find("tr", 9).find("td", 3).text() == '19/09/2019'
     }
 
     def "Unallocated page with no data is displayed correctly"() {
@@ -92,12 +92,12 @@ class AutoAllocationSpecification extends GebReportingSpec {
         table.find("tr", 1).find("option", 3).@value == '-2'
 
         table.find("tr", 3).find("td", 2).text() == 'H-3'
-        table.find("tr", 3).find("td", 3).text() == '2022-02-02'
+        table.find("tr", 3).find("td", 3).text() == '02/02/2022'
         table.find("tr", 3).find("td", 4).text() == 'ABC'
         table.find("tr", 3).find("td", 5).text() == '-1 (no details available)'
 
         table.find("tr", 9).find("td", 1).text() == 'Z0018ZZ'
-        table.find("tr", 9).find("td", 3).text() == '2019-09-19'
+        table.find("tr", 9).find("td", 3).text() == '19/09/2019'
     }
 
     def "Allocated page with no keyworkers warning is displayed correctly"() {
