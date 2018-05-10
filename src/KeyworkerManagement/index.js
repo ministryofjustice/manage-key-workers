@@ -22,7 +22,7 @@ class HomePage extends Component {
           </div>
           <div className="pure-u-md-8-12">
             <div className="pure-u-md-6-12">
-              <Link id="assign_transfer_link" title="Manually allocate key workers" className="link" to="/assignTransfer" >Manually allocate key workers</Link>
+              <Link id="assign_transfer_link" title="Manually allocate key workers" className="link" to="/offender/search" >Manually allocate key workers</Link>
               <div className="padding-right-large">View current prisoner to key worker allocations and override if required</div>
             </div>
           </div>

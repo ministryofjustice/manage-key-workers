@@ -89,6 +89,10 @@ class TestFixture {
         assert browser.page instanceof SearchForKeyworkerPage
     }
 
+    def toOffenderSearchResultsPageWithoutInitialSearch() {
+        browser.go '/offender/results'
+    }
+
     static List<Location> locationsForCaseload(Caseload caseload) {
         def agencyLocations = caseload.locations
 
