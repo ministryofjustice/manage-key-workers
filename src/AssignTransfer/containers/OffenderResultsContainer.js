@@ -17,7 +17,16 @@ class OffenderResultsContainer extends Component {
   }
 
   async componentWillMount () {
-    await this.doSearch();
+    /* if arriving from a page refresh - redirect to initial search */
+    if (!this.props.locations || this.props.locations.length === 0) {
+      console.log("\nredirecting after refresh");
+      this.props.history.push({
+        pathname: '/offender/search',
+        state: { initialSearch: true }
+      });
+    } else {
+      await this.doSearch();
+    }
   }
 
   async doSearch () {
@@ -88,10 +97,12 @@ OffenderResultsContainer.propTypes = {
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   keyworkerChangeList: PropTypes.array,
+  locations: PropTypes.array,
   displayError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  history: PropTypes.object
 };
 
 const mapStateToProps = state => {
@@ -101,6 +112,8 @@ const mapStateToProps = state => {
     keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
     housingLocation: state.offenderSearch.housingLocation,
     offenderResults: state.offenderSearch.offenderResults,
+    agencyId: state.app.user.activeCaseLoadId,
+    locations: state.offenderSearch.locations,
     loaded: state.app.loaded
   };
 };

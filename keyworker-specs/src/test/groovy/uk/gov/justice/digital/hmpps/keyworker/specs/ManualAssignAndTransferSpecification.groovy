@@ -7,8 +7,10 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.OffenderResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
+import geb.Browser
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
@@ -121,6 +123,20 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         and: "An empty result is displayed"
         !rows.isDisplayed()
+    }
+
+    def "refreshing on offender result (or typing /offender/results in url) - should redirect to offender search"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+
+        when: "I go direct to results page"
+        List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
+        elite2api.stubGetMyLocations(locations)
+        fixture.toOffenderSearchResultsPageWithoutInitialSearch()
+
+        then: "I am redirected to the Offender Search page"
+        at SearchForOffenderPage
+
     }
 
     def stubOffenderResultsPage(largeResult) {
