@@ -94,7 +94,7 @@ jobs:
              GIT_REF=$(egrep gitRef build-info.json  | awk -F"\"" '{print $4}')
              GIT_DATE=$(egrep gitDate build-info.json  | awk -F"\"" '{print $4}')
              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-               BUILD_VERSION=OMIC_UI_${VERSION}
+               BUILD_VERSION=${VERSION}
              else
                BUILD_VERSION=${VERSION}.${CIRCLE_BRANCH}
              fi
@@ -135,7 +135,7 @@ jobs:
             command: |
               if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
                 VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-                yarn run plant-beanstalk OMIC_UI_${VERSION}
+                yarn run plant-beanstalk ${VERSION}
                 ~/.local/bin/eb deploy --process --verbose --label ${VERSION}
                 git tag release_${VERSION}
                 git push --tags

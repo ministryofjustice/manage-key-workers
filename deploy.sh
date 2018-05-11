@@ -9,7 +9,7 @@ promote_to_env() {
   ENV=$2
 
   # Build a deployment file
-  yarn run plant-beanstalk OMIC_UI_${VERSION}
+  yarn run plant-beanstalk ${VERSION}
   eb deploy omic-${ENV} --verbose --label ${VERSION}
 }
 
