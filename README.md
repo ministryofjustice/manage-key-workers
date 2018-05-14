@@ -3,9 +3,12 @@
 Application can be built with for dev mode
 
 ```bash
+yarn build
 yarn 
 yarn start
 ```
+
+You must run all three steps above each time you make a change to front end code to ensure that those changes are visible in the react application.
 
 For production 
 ```bash
@@ -17,24 +20,24 @@ node-env mode=PRODUCTION yarn start
 Run locally as docker
 ```bash
 docker run -p 3000:3000 -d \ 
-     --name keyworker-ui \
+     --name omic-ui \
      -e USE_API_GATEWAY_AUTH=no \
-     mojdigitalstudio/keyworker-ui:latest
+     mojdigitalstudio/omic-ui:latest
 ```
 
 Run remotely as docker
 ```bash
 docker run -p 3000:3000 -d \ 
-     --name keyworker-ui \
+     --name omic-ui \
      -e USE_API_GATEWAY_AUTH=yes \
      -e API_ENDPOINT_URL=https://noms-api-dev.dsd.io/elite2api/ \
      -e API_GATEWAY_TOKEN=<add here> \
      -e API_CLIENT_SECRET=<add here> \
      -e API_GATEWAY_PRIVATE_KEY=<add here> \
-     mojdigitalstudio/keyworker-ui:latest
+     mojdigitalstudio/omic-ui:latest
 ```
 ## Integration tests
-The `keyworker-specs` directory contains a set of integration tests for the `keyworker-ui` application.
+The `keyworker-specs` directory contains a set of integration tests for the `omic-ui` application.
 These tests are written in the Groovy programming language using a test framework called Spock.  The tests drive 
 the UI using 'Geb', a Groovy wrapper for Selenium Webdriver, and use WireMock to stub the application's dependencies
 on the elite2 and keyworker-service RESTful APIs.

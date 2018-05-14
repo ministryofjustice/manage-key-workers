@@ -1,2 +1,2 @@
-rootProject.name = 'keyworker-ui'
+rootProject.name = 'omic-ui'
 include 'keyworker-specs'

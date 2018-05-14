@@ -5,7 +5,6 @@ import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
-import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.*
 

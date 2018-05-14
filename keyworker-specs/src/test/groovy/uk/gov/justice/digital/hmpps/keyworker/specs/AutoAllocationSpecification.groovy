@@ -1,17 +1,11 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
-import spock.lang.Ignore;
 import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
-import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.AllocatedPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerEditConfirmPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerEditPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.UnallocatedPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -47,11 +41,11 @@ class AutoAllocationSpecification extends GebReportingSpec {
         table.find("tr", 1).find("td", 4).text() == '--'
 
         table.find("tr", 3).find("td", 2).text() == 'H-3'
-        table.find("tr", 3).find("td", 3).text() == '2022-02-02'
+        table.find("tr", 3).find("td", 3).text() == '02/02/2022'
         table.find("tr", 3).find("td", 4).text() == 'ABC'
 
         table.find("tr", 9).find("td", 1).text() == 'Z0018ZZ'
-        table.find("tr", 9).find("td", 3).text() == '2019-09-19'
+        table.find("tr", 9).find("td", 3).text() == '19/09/2019'
     }
 
     def "Unallocated page with no data is displayed correctly"() {
@@ -68,7 +62,6 @@ class AutoAllocationSpecification extends GebReportingSpec {
         $("div.font-small").text() == 'No prisoners found'
     }
 
-    @Ignore
     def "Allocated page is displayed correctly"() {
         given: "I am at the Unallocated page"
         fixture.loginAs(ITAG_USER)
@@ -99,15 +92,14 @@ class AutoAllocationSpecification extends GebReportingSpec {
         table.find("tr", 1).find("option", 3).@value == '-2'
 
         table.find("tr", 3).find("td", 2).text() == 'H-3'
-        table.find("tr", 3).find("td", 3).text() == '2022-02-02'
+        table.find("tr", 3).find("td", 3).text() == '02/02/2022'
         table.find("tr", 3).find("td", 4).text() == 'ABC'
         table.find("tr", 3).find("td", 5).text() == '-1 (no details available)'
 
         table.find("tr", 9).find("td", 1).text() == 'Z0018ZZ'
-        table.find("tr", 9).find("td", 3).text() == '2019-09-19'
+        table.find("tr", 9).find("td", 3).text() == '19/09/2019'
     }
 
-    @Ignore
     def "Allocated page with no keyworkers warning is displayed correctly"() {
         given: "I am at the Unallocated page"
         fixture.loginAs(ITAG_USER)

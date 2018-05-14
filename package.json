@@ -1,5 +1,5 @@
 {
-  "name": "keyworker-ui",
+  "name": "omic-ui",
   "description": "Nodejs application to support Key worker related tasks.",
   "version": "0.1.0",
   "private": true,

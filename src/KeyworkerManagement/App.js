@@ -106,7 +106,7 @@ class App extends React.Component {
     const routes = (<div className="inner-content"><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
       <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-      <Route exact path="/assignTransfer" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/unallocated" render={() => <UnallocatedContainer displayError={this.displayError} {...this.props}/>}/>
       <Route exact path="/provisionalAllocation" render={() => <ProvisionalAllocationContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
       <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>

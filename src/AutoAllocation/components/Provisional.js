@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { properCaseName } from '../../stringUtils';
+import { properCaseName, renderDate } from '../../stringUtils';
 import DateFilter from '../../DateFilter/index.js';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
@@ -36,7 +36,7 @@ class Provisional extends Component {
           </td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
-          <td className="row-gutters">{a.confirmedReleaseDate || '--'}</td>
+          <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}</td>
           <td className="row-gutters">

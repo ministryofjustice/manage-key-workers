@@ -22,16 +22,6 @@ class KeyworkerApi extends WireMockRule {
         super(8081)
     }
 
-    void stubGetAvailableKeyworkers(AgencyLocation agencyLocation) {
-        this.stubFor(
-                get("/key-worker/${agencyLocation.id}/available")
-                        .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
-                        .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                .willReturn(aResponse()
-                        .withStatus(400))
-        )
-    }
-
     void stubEmptyListResponse(url) {
         this.stubFor(
                 get(url)
@@ -49,26 +39,7 @@ class KeyworkerApi extends WireMockRule {
                 get(url)
                         .willReturn(
                         aResponse()
-                                .withStatus(500)
-                                .withHeader('Content-Type', 'application/json')
-                                .withBody('''
-                        {
-                              "status": "DOWN",
-                              "healthInfo": {
-                                "status": "UP",
-                                "version": "2018-05-04"
-                              },
-                              "diskSpace": {
-                                "status": "UP",
-                                "total": 121123069952,
-                                "free": 30912241664,
-                                "threshold": 10485760
-                              },
-                              "db": {
-                                "status": "DOWN",
-                                "error": "org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: Elite2-CP - Connection is not available, request timed out after 1010ms."
-                              }
-                            }'''.stripIndent())))
+                                .withStatus(status)))
     }
 
     void stubDelayedError(url, status) {
@@ -107,6 +78,33 @@ class KeyworkerApi extends WireMockRule {
                             }
                         }'''.stripIndent())
         ))
+    }
+
+    void stubHealthError() {
+        this.stubFor(
+                get('/health')
+                        .willReturn(
+                        aResponse()
+                                .withStatus(500)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''
+                        {
+                              "status": "DOWN",
+                              "healthInfo": {
+                                "status": "UP",
+                                "version": "2018-05-04"
+                              },
+                              "diskSpace": {
+                                "status": "UP",
+                                "total": 121123069952,
+                                "free": 30912241664,
+                                "threshold": 10485760
+                              },
+                              "db": {
+                                "status": "DOWN",
+                                "error": "org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: Elite2-CP - Connection is not available, request timed out after 1010ms."
+                              }
+                            }'''.stripIndent())))
     }
 
     void stubKeyworkerSearchResponse(AgencyLocation agencyLocation) {
@@ -207,25 +205,6 @@ class KeyworkerApi extends WireMockRule {
                         .willReturn(aResponse()
                         .withBody(AllocatedResponse.response)
                         .withStatus(200))
-        )
-    }
-
-    void stubAutoAllocationsConfirmResponse(AgencyLocation agencyLocation) {
-        this.stubFor(
-                post("/key-worker/${agencyLocation.id}/allocate/confirm")
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
-                        .willReturn(aResponse()
-                        .withStatus(200))
-        )
-    }
-
-    void stubManualOverrideResponse(AgencyLocation agencyLocation, offenderNo, staffId) {
-        this.stubFor(
-                post("/key-worker/${agencyLocation.id}/allocate")
-                    .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
-                    .withRequestBody('{"offenderNo":${offenderNo},"staffId":"${staffId}","prisonId":"LEI","allocationType":"M","allocationReason":"MANUAL","deallocationReason":"OVERRIDE"}')
-                .willReturn(aResponse()
-                    .withStatus(201))
         )
     }
 

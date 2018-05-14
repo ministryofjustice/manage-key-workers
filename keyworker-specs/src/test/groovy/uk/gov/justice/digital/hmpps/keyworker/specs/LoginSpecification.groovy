@@ -2,7 +2,6 @@ package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import geb.spock.GebReportingSpec
 import org.junit.Rule
-import spock.lang.Ignore
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
@@ -49,7 +48,6 @@ class LoginSpecification extends GebReportingSpec {
         at KeyworkerManagementPage
     }
 
-    @Ignore
     def "Log in attempt with long delay on oauth server"() {
 
         given: 'I am on the Login page'
