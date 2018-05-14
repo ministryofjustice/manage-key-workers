@@ -126,40 +126,26 @@ jobs:
         - deploy:
             name: Install elastic beanstalk CLI
             command: |
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                sudo apt-get install python-pip python-dev
-                pip install --user 'six>-1.9.0' awsebcli --ignore-installed
-              fi
+              sudo apt-get install python-pip python-dev
+              pip install --user 'six>-1.9.0' awsebcli --ignore-installed
         - deploy:
             name: Deploy to Elastic Beanstalk Dev
             command: |
-              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-                VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-                yarn run plant-beanstalk ${VERSION}
-                ~/.local/bin/eb deploy --process --verbose --label ${VERSION}
-                git tag release_${VERSION}
-                git push --tags
-              fi
-
+              VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
+              yarn run plant-beanstalk ${VERSION}
+              ~/.local/bin/eb deploy --process --verbose --label ${VERSION}
 
 workflows:
   version: 2
   build-test-and-deploy:
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                  - deploy-to-dev
-
+      - build
       - integration_tests:
           requires:
             - build
-
       - build_docker:
           requires:
             - build
-
       - deploy_release_eb:
           requires:
             - integration_tests
