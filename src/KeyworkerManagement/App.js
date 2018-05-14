@@ -37,10 +37,10 @@ class App extends React.Component {
     this.displayError = this.displayError.bind(this);
   }
   async componentDidMount () {
-    axios.interceptors.request.use((config) => {
+    /*axios.interceptors.request.use((config) => {
       if (this.props.error) this.props.resetErrorDispatch();
       return config;
-    }, (error) => Promise.reject(error));
+    }, (error) => Promise.reject(error));*/
 
     axios.interceptors.response.use((config) => {
       if (config.status === 205) {
@@ -102,6 +102,7 @@ class App extends React.Component {
   }
 
   render () {
+    if (this.props.error) this.props.resetErrorDispatch();
     let innerContent;
     const routes = (<div className="inner-content"><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>

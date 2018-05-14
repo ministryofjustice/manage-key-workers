@@ -139,6 +139,23 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
     }
 
+    def "error returned from api call is rendered"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderSearchPage()
+
+        when: "I click the search button"
+        stubErrorResponseFromSearch(403)
+        searchButton.click()
+
+        then: "I am shown the Offender Search results page"
+        at OffenderResultsPage
+
+        and: "An empty result is displayed"
+        !rows.isDisplayed()
+
+    }
+
     def stubOffenderResultsPage(largeResult) {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         largeResult == true ? elite2api.stubOffenderSearchLargeResponse(AgencyLocation.LEI) : elite2api.stubOffenderSearchResponse(AgencyLocation.LEI)
@@ -150,6 +167,11 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
     def stubEmptyOffenderResultsPage() {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         elite2api.stubEmptyOffenderSearchResponse(AgencyLocation.LEI)
+    }
+
+    def stubErrorResponseFromSearch(status) {
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
+        elite2api.stubError("/api/locations/description/${AgencyLocation.LEI.id}/inmates", status )
     }
 
     def toOffenderSearchPage() {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
 import Spinner from '../../Spinner';
+import Error from '../../Error';
 
 import axiosWrapper from "../../backendWrapper";
 import { setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
