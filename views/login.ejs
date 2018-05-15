@@ -43,10 +43,13 @@
                 <div>
                     <h1 class="heading-large">Login</h1>
                     <div class="pure-u-md-8-12">
-                        <% if (authError) { %>
+                <% if (!apiUp || authError) { %>
                         <div class="row">
-                            <div class="error-summary col-sm-6">The username or password you have entered is invalid.
-                            </div>
+                    <% if (apiUp) { %>
+                      <div class="error-summary col-sm-6">The username or password you have entered is invalid.</div>
+                    <% } else { %>
+                      <div class="error-summary col-sm-6">Service unavailable. Please try again later.</div>
+                    <% } %>
                         </div>
                         <% } %>
                         <form method="POST" action="/auth/login">
