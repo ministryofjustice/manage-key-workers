@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
 import { withRouter } from 'react-router';
+import Spinner from '../../Spinner';
 
 import axiosWrapper from "../../backendWrapper";
 
@@ -25,7 +26,6 @@ class KeyworkerProfileContainer extends Component {
       this.props.displayError(error);
     }
     this.props.setLoadedDispatch(true);
-    // this.props.clearKeyworkerTransientDataDispatch();
   }
 
   async getKeyworkerProfile () {
@@ -109,8 +109,13 @@ class KeyworkerProfileContainer extends Component {
     if (this.props.error) {
       return <Error {...this.props} />;
     }
-    if (this.props.loaded) return <KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange} handleAllocationChange={this.postAllocationChange} handleEditProfileClick={this.handleEditProfileClick} {...this.props} />;
-    return null;
+    if (this.props.loaded) {
+      return (<KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange}
+        handleAllocationChange={this.postAllocationChange}
+        handleEditProfileClick={this.handleEditProfileClick} {...this.props} />);
+    }
+
+    return <Spinner />;
   }
 }
 
