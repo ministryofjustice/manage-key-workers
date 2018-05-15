@@ -39,10 +39,6 @@ class TestFixture {
         browser.at KeyworkerManagementPage
     }
 
-    def loginAsWithoutStubbing(UserAccount user) {
-        browser.page.loginAs user, 'password'
-    }
-
     def toUnallocatedPage() {
         elite2Api.stubGetMyLocations(locationsForCaseload(currentUser.workingCaseload))
         keyworkerApi.stubUnallocatedResponse(AgencyLocation.LEI)
