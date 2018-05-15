@@ -53,7 +53,7 @@ const healthResult = async () => {
 };
 
 router.get('/', asyncMiddleware(async (req, res, next) => {
-  const response = healthResult();
+  const response = await healthResult();
   res.status(response.status);
   res.json(response.appInfo);
 }));

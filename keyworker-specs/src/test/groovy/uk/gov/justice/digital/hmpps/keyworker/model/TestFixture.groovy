@@ -28,7 +28,8 @@ class TestFixture {
 
     def loginAs(UserAccount user) {
         currentUser = user
-
+        keyworkerApi.stubHealth()
+        elite2Api.stubHealth()
         browser.to LoginPage
         elite2Api.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
@@ -36,6 +37,10 @@ class TestFixture {
         browser.page.loginAs currentUser, 'password'
 
         browser.at KeyworkerManagementPage
+    }
+
+    def loginAsWithoutStubbing(UserAccount user) {
+        browser.page.loginAs user, 'password'
     }
 
     def toUnallocatedPage() {
