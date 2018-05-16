@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
 import Spinner from '../../Spinner';
-import Error from '../../Error';
 
 import axiosWrapper from "../../backendWrapper";
-import { setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
+import { resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
   constructor (props) {
@@ -31,6 +30,7 @@ class OffenderResultsContainer extends Component {
   }
 
   async doSearch () {
+    this.props.resetErrorDispatch();
     this.props.setLoadedDispatch(false);
     try {
       const response = await axiosWrapper.get('/api/searchOffenders', {
@@ -123,7 +123,8 @@ const mapDispatchToProps = dispatch => {
   return {
     offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
+    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+    resetErrorDispatch: () => dispatch(resetError())
   };
 };
 

@@ -27,21 +27,17 @@ import ReactGA from 'react-ga';
 const axios = require('axios');
 
 class App extends React.Component {
-  constructor () {
+  constructor (props) {
     super();
     this.onFinishAllocation = this.onFinishAllocation.bind(this);
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);
     this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this);
     this.clearMessage = this.clearMessage.bind(this);
+    this.resetError = this.resetError.bind(this);
     this.displayError = this.displayError.bind(this);
   }
   async componentDidMount () {
-    /*axios.interceptors.request.use((config) => {
-      if (this.props.error) this.props.resetErrorDispatch();
-      return config;
-    }, (error) => Promise.reject(error));*/
-
     axios.interceptors.response.use((config) => {
       if (config.status === 205) {
         alert("There is a newer version of this website available, click ok to ensure you're using the latest version."); // eslint-disable-line no-alert
@@ -93,6 +89,10 @@ class App extends React.Component {
     this.props.setMessageDispatch(null);
   }
 
+  resetError () {
+    this.props.resetErrorDispatch();
+  }
+
   displayError (error) {
     this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
   }
@@ -102,7 +102,6 @@ class App extends React.Component {
   }
 
   render () {
-    if (this.props.error) this.props.resetErrorDispatch();
     let innerContent;
     const routes = (<div className="inner-content"><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
@@ -135,6 +134,7 @@ class App extends React.Component {
             return (<Header
               switchCaseLoad={this.switchCaseLoad}
               history={props.history}
+              resetError={this.resetError}
               {...this.props}
             />);
           }}

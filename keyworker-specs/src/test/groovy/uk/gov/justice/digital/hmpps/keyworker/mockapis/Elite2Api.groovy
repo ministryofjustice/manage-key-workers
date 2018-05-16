@@ -242,11 +242,15 @@ class Elite2Api extends WireMockRule {
                             }'''.stripIndent())))
     }
 
-    void stubError(url, status) {
+    void stubErrorWithMessage(url, status, message) {
         this.stubFor(
                 get(urlPathEqualTo(url))
                         .willReturn(
                         aResponse()
-                                .withStatus(status)))
+                                .withStatus(status)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(JsonOutput.toJson([
+                                    status         : status,
+                                    userMessage        : message]))))
     }
 }

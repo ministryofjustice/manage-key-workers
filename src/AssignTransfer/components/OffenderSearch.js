@@ -40,7 +40,7 @@ class OffenderSearch extends Component {
             <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'searchText'} />
             <input type="text" className="form-control width70 margin-bottom" id="search-text" name="searchText" maxLength="30"
               value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
-            <button className="button margin-left" onClick={() => this.props.handleSubmit(this.props.history)}>Search ></button>
+            <button id="searchButton" className="button margin-left" onClick={() => this.props.handleSubmit(this.props.history)}>Search ></button>
           </div>
           <div className="padding-top padding-left padding-right padding-bottom-large">
             <div className="pure-u-md-7-12">{locationSelect}</div>
@@ -67,7 +67,7 @@ class OffenderSearch extends Component {
         </div>
         <div className="pure-u-md-2-12 padding-top padding-left">
           <label className="form-label">&nbsp;</label>
-          <button className="button" onClick={() => this.props.handleSubmit(this.props.history)}>Search again</button>
+          <button id="searchButton" className="button" onClick={() => this.props.handleSubmit(this.props.history)}>Search again</button>
         </div>
       </div>
     </div>);

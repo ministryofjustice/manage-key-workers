@@ -16,5 +16,8 @@ public class OffenderResultsPage extends Page {
         headingText { $('h1.heading-large').text() }
         table { $('table') }
         rows (required: false) { $('table tbody tr') }
+        message (required: false) { $('.error-summary').text() }
+        messageDiv (required: false) { $('.error-summary')}
+        searchButton(to: OffenderResultsPage) { $('#searchButton') }
     }
 }

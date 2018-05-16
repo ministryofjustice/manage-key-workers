@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.keyworker.mockapis
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
+import groovy.json.JsonOutput
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AllocatedResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AllocationsForKeyworkerResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AvailableKeyworkerResponse
@@ -50,6 +51,19 @@ class KeyworkerApi extends WireMockRule {
                                 .withStatus(status)
                                 .withFixedDelay(3000)))
     }
+
+    void stubErrorWithMessage(url, status, message) {
+        this.stubFor(
+                get(urlPathEqualTo(url))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(status)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(JsonOutput.toJson([
+                                status         : status,
+                                userMessage        : message]))))
+    }
+
 
     void stubHealth() {
         this.stubFor(
