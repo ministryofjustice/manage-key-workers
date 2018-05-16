@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded } from '../../redux/actions/index';
+import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded, resetError } from '../../redux/actions/index';
 import { connect } from 'react-redux';
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
 import Spinner from '../../Spinner';
@@ -19,6 +19,7 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   async performSearch () {
+    this.props.resetErrorDispatch();
     this.props.setLoadedDispatch(false);
     try {
       const list = await this.getKeyworkerList(this.props.agencyId);
@@ -44,15 +45,15 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
+    let inner;
+    if (this.props.loaded) {
+      inner = (<KeyworkerSearchResults {...this.props} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+        handleSearch={() => this.performSearch()}/>);
+    } else {
+      inner = <Spinner/>;
     }
 
-    if (this.props.loaded) {
-      return (<KeyworkerSearchResults {...this.props} handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
-        handleSearch={() => this.performSearch()}/>);
-    }
-    return <Spinner />;
+    return <div><Error {...this.props} /> {inner} </div>;
   }
 }
 
@@ -64,6 +65,7 @@ KeyworkerSearchResultsContainer.propTypes = {
   keyworkerSearchResultsDispatch: PropTypes.func,
   keyworkerSearchTextDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
+  resetErrorDispatch: PropTypes.func,
   displayError: PropTypes.func.isRequired,
   loaded: PropTypes.bool
 };
@@ -81,7 +83,8 @@ const mapDispatchToProps = dispatch => {
   return {
     keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
     keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
+    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+    resetErrorDispatch: () => dispatch(resetError())
   };
 };
 

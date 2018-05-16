@@ -8,6 +8,12 @@ import './header.theme.scss';
 import './index.scss';
 
 class Header extends Component {
+  componentDidMount () {
+    this.props.history.listen((location, action) => {
+      this.props.resetError();
+    });
+  }
+
   render () {
     return (
       <header className="page-header">
@@ -35,7 +41,8 @@ class Header extends Component {
 Header.propTypes = {
   user: PropTypes.object,
   history: PropTypes.object.isRequired,
-  switchCaseLoad: PropTypes.func.isRequired
+  switchCaseLoad: PropTypes.func.isRequired,
+  resetError: PropTypes.func.isRequired
 };
 
 export default Header;

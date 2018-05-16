@@ -71,4 +71,18 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         at KeyworkerResultsPage
         rows.size() == 5
     }
+
+    def "Search for key worker renders error"() {
+        given: "I am at the Search for key worker page"
+        fixture.loginAs(ITAG_USER)
+        fixture.toKeyworkerSearchPage()
+
+        keyworkerApi.stubErrorWithMessage("/key-worker/LEI/members", 500, "Keyworker search failed")
+
+        when: "I perform the search"
+        keyworkerSearchButton.click()
+
+        then: "The error will be rendered"
+        at KeyworkerResultsPage
+    }
 }

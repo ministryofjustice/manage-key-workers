@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
+import com.github.tomakehurst.wiremock.client.WireMock
 import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
@@ -7,10 +8,8 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
-import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.OffenderResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
-import geb.Browser
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
@@ -139,7 +138,49 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
     }
 
+    def "error returned from api call is rendered"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderSearchPage()
+
+        when: "I click the search button"
+        stubErrorResponseFromSearch(403)
+        searchButton.click()
+
+        then: "I am shown the Offender Search results page"
+        at OffenderResultsPage
+
+        and: "An error message is displayed"
+        !rows.isDisplayed()
+        message == 'Something went wrong with the search'
+    }
+
+    def "error is not left on screen if hitting search again with successful result"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderSearchPage()
+        stubErrorResponseFromSearch(403)
+        searchButton.click()
+        at OffenderResultsPage
+        messageDiv.isDisplayed()
+
+        WireMock.reset();
+
+        when:
+        stubOffenderResultsPage(false)
+        searchButton.click()
+
+        then: "I am shown the Offender Search results page"
+        at OffenderResultsPage
+
+        and: "The results are displayed without error"
+        rows.size() == 5
+        !messageDiv.isDisplayed()
+    }
+
     def stubOffenderResultsPage(largeResult) {
+        List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
+        elite2api.stubGetMyLocations(locations)
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         largeResult == true ? elite2api.stubOffenderSearchLargeResponse(AgencyLocation.LEI) : elite2api.stubOffenderSearchResponse(AgencyLocation.LEI)
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
@@ -150,6 +191,11 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
     def stubEmptyOffenderResultsPage() {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         elite2api.stubEmptyOffenderSearchResponse(AgencyLocation.LEI)
+    }
+
+    def stubErrorResponseFromSearch(status) {
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
+        elite2api.stubErrorWithMessage("/api/locations/description/${AgencyLocation.LEI.id}/inmates", status, "Something went wrong with the search" )
     }
 
     def toOffenderSearchPage() {
