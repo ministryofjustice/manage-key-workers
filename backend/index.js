@@ -68,8 +68,8 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
-app.use('/health', health);
-app.use('/info', health);
+app.use('/health', health.router);
+app.use('/info', health.router);
 
 if (config.app.production) {
   app.use(ensureHttps);

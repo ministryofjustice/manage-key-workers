@@ -35,7 +35,7 @@ class HealthSpecification extends Specification {
         def response = this.http.get()
         then:
         response.uptime > 0.0
-        response.name == "keyworker-ui"
+        response.name == "omic-ui"
         !response.version.isEmpty()
         response.api.keyworkerApi.status == 'UP'
         response.api.keyworkerApi.db.status == 'UP'
