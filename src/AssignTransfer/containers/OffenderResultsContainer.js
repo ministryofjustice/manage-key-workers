@@ -101,6 +101,7 @@ OffenderResultsContainer.propTypes = {
   locations: PropTypes.array,
   displayError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
+  resetErrorDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool,
   history: PropTypes.object

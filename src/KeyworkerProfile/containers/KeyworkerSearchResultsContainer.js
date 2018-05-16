@@ -65,6 +65,7 @@ KeyworkerSearchResultsContainer.propTypes = {
   keyworkerSearchResultsDispatch: PropTypes.func,
   keyworkerSearchTextDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
+  resetErrorDispatch: PropTypes.func,
   displayError: PropTypes.func.isRequired,
   loaded: PropTypes.bool
 };

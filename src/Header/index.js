@@ -10,7 +10,6 @@ import './index.scss';
 class Header extends Component {
   componentDidMount () {
     this.props.history.listen((location, action) => {
-      console.log("on route change");
       this.props.resetError();
     });
   }
