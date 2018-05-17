@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OffenderSearch from "../components/OffenderSearch";
-import axiosWrapper from "../../backendWrapper";
+import axios from 'axios';
 import {
   resetValidationErrors, setKeyworkerChangeList,
   setOffenderSearchLocations, setValidationError
@@ -24,7 +24,7 @@ class OffenderSearchContainer extends Component {
 
   async getLocations () {
     try {
-      const response = await axiosWrapper.get('/api/userLocations');
+      const response = await axios.get('/api/userLocations');
       this.props.offenderSearchLocationsDispatch(response.data);
       // Use the first location by default
       if (this.props.initialSearch && response.data && response.data[0]) {

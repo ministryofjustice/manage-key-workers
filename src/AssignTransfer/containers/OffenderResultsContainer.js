@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import OffenderResults from "../components/OffenderResults";
 import Spinner from '../../Spinner';
 
-import axiosWrapper from "../../backendWrapper";
+import axios from 'axios';
 import { resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
@@ -33,7 +33,7 @@ class OffenderResultsContainer extends Component {
     this.props.resetErrorDispatch();
     this.props.setLoadedDispatch(false);
     try {
-      const response = await axiosWrapper.get('/api/searchOffenders', {
+      const response = await axios.get('/api/searchOffenders', {
         params: {
           locationPrefix: this.props.housingLocation,
           keywords: this.props.searchText,
@@ -69,7 +69,7 @@ class OffenderResultsContainer extends Component {
   async postManualOverride (history) {
     try {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axiosWrapper.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
+        await axios.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Key workers successfully updated.');
       }
       history.push('/');

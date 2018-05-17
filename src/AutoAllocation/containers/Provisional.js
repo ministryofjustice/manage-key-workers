@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Provisional from '../components/Provisional.js';
 import PropTypes from 'prop-types';
-import axiosWrapper from '../../backendWrapper';
+import axios from 'axios';
 import { setAllocatedDetails, manualOverride, setMessage, setLoaded } from '../../redux/actions/index';
 import ErrorComponent from '../../Error/index';
 import { connect } from 'react-redux';
@@ -38,7 +38,7 @@ class ProvisionalContainer extends Component {
   }
 
   async getAllocated () {
-    const response = await axiosWrapper.get('/api/allocated', {
+    const response = await axios.get('/api/allocated', {
       params: {
         agencyId: this.props.agencyId,
         allocationType: 'A',
@@ -69,7 +69,7 @@ class ProvisionalContainer extends Component {
 
   async postManualOverride (history) {
     try {
-      await axiosWrapper.post('/api/autoAllocateConfirmWithOverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+      await axios.post('/api/autoAllocateConfirmWithOverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
         params: {
           agencyId: this.props.agencyId
         }

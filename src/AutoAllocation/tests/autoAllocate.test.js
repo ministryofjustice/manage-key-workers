@@ -3,8 +3,7 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { UnallocatedContainer } from "../containers/Unallocated";
 import { ProvisionalContainer } from "../containers/Provisional";
-import axiosWrapper from '../../backendWrapper';
-
+import axios from 'axios';
 
 const AXIOS_URL = 0;
 const AXIOS_CONFIG = 1;
@@ -17,7 +16,7 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('Unallocated component', () => {
   it('should get unallocated page correctly', async () => {
     const mockAxios = jest.fn();
-    axiosWrapper.get = mockAxios;
+    axios.get = mockAxios;
 
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
 
@@ -29,7 +28,7 @@ describe('Unallocated component', () => {
 
   it('should get spinner when page is loading - page loads unless loaded flag is provided', async () => {
     const mockAxios = jest.fn();
-    axiosWrapper.get = mockAxios;
+    axios.get = mockAxios;
 
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
 
@@ -39,7 +38,7 @@ describe('Unallocated component', () => {
 
   it('should get provisional allocation page correctly', async () => {
     const mockAxios = jest.fn();
-    axiosWrapper.get = mockAxios;
+    axios.get = mockAxios;
     // /unallocated
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
     // /allocated
@@ -56,7 +55,7 @@ describe('Unallocated component', () => {
   it('should render a middle tier error on unallocated page correctly', (done) => {
     const mockAxios = jest.fn(); // v22+ .mockName('mockAxios');
     const errorDispatch = jest.fn();
-    axiosWrapper.get = mockAxios;
+    axios.get = mockAxios;
     // /unallocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
@@ -80,7 +79,7 @@ describe('Unallocated component', () => {
   it('should render a middle tier error on provisional allocation page correctly', (done) => {
     const mockAxios = jest.fn();
     const errorDispatch = jest.fn();
-    axiosWrapper.get = mockAxios;
+    axios.get = mockAxios;
     // /allocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 

@@ -17,7 +17,6 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import axiosWrapper from "../backendWrapper";
 import PropTypes from 'prop-types';
 import { switchAgency, setTermsVisibility, setError, resetError, setConfig, setUserDetails, setMessage } from '../redux/actions/index';
 import { connect } from 'react-redux';
@@ -47,11 +46,11 @@ class App extends React.Component {
     }, (error) => Promise.reject(error));
 
     try {
-      const user = await axiosWrapper.get('/api/me');
-      const caseloads = await axiosWrapper.get('/api/usercaseloads');
+      const user = await axios.get('/api/me');
+      const caseloads = await axios.get('/api/usercaseloads');
       this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
 
-      const config = await axiosWrapper.get('/api/config');
+      const config = await axios.get('/api/config');
       links.notmEndpointUrl = config.data.notmEndpointUrl;
 
       if (config.data.googleAnalyticsId) {
@@ -70,7 +69,7 @@ class App extends React.Component {
 
   async switchCaseLoad (newCaseload) {
     try {
-      await axiosWrapper.put('/api/setactivecaseload', { caseLoadId: newCaseload });
+      await axios.put('/api/setactivecaseload', { caseLoadId: newCaseload });
       this.props.switchAgencyDispatch(newCaseload);
     } catch (error) {
       this.props.setErrorDispatch(error.message);

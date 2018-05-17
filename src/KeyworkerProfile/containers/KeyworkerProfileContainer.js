@@ -7,7 +7,7 @@ import Error from '../../Error';
 import { withRouter } from 'react-router';
 import Spinner from '../../Spinner';
 
-import axiosWrapper from "../../backendWrapper";
+import axios from 'axios';
 
 class KeyworkerProfileContainer extends Component {
   constructor (props) {
@@ -43,7 +43,7 @@ class KeyworkerProfileContainer extends Component {
 
 
   async makeKeyworkerAllocationsCall (agencyId, staffId) {
-    const response = await axiosWrapper.get('/api/keyworkerAllocations', {
+    const response = await axios.get('/api/keyworkerAllocations', {
       params: {
         agencyId: agencyId,
         staffId: staffId
@@ -67,7 +67,7 @@ class KeyworkerProfileContainer extends Component {
   }
 
   async makeKeyworkerProfileCall (staffId) {
-    const response = await axiosWrapper.get('/api/keyworker', {
+    const response = await axios.get('/api/keyworker', {
       params: {
         staffId: staffId,
         agencyId: this.props.agencyId
@@ -86,7 +86,7 @@ class KeyworkerProfileContainer extends Component {
   async postAllocationChange (history) {
     try {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axiosWrapper.post('/api/manualoverride',
+        await axios.post('/api/manualoverride',
           {
             allocatedKeyworkers: this.props.keyworkerChangeList
           },
