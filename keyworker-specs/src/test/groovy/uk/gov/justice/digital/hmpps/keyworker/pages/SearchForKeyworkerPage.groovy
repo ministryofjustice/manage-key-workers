@@ -9,6 +9,7 @@ class SearchForKeyworkerPage extends Page {
     static at = {
         browser.currentUrl.contains(url)
         headingText == 'Search for a key worker'
+        keyworkerSearchButton.displayed
     }
 
     static content = {

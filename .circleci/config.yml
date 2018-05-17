@@ -74,7 +74,7 @@ jobs:
           path: keyworker-specs/build/reports
           destination: integration/spock
       - store_artifacts:
-          path: keywoker-specs/build/geb-reports
+          path: keyworker-specs/build/geb-reports
           destination: integration/geb
       - store_test_results:
           path: keyworker-specs/build/test-results

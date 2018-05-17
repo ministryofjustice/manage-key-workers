@@ -9,6 +9,9 @@ class KeyworkerManagementPage extends Page {
 
     static at = {
         headingText == 'Key worker management'
+        autoAllocateLink.displayed
+        manualAssignLink.displayed
+        keyworkerProfileLink.displayed
     }
 
     static content = {
