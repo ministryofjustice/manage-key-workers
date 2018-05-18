@@ -46,7 +46,7 @@ class TestFixture {
         elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
 
         browser.page.autoAllocateLink.click()
-        assert browser.page instanceof UnallocatedPage
+        browser.at UnallocatedPage
     }
 
     def toUnallocatedPageNoData() {
@@ -56,7 +56,7 @@ class TestFixture {
         elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
 
         browser.page.autoAllocateLink.click()
-        assert browser.page instanceof UnallocatedPage
+        browser.at UnallocatedPage
     }
 
     def toAllocatedPage(boolean insufficientKeyworkers) {
@@ -80,14 +80,14 @@ class TestFixture {
         locations = locationsForCaseload(currentUser.workingCaseload)
         elite2Api.stubGetMyLocations(locations)
         browser.page.manualAssignLink.click()
-        assert browser.page instanceof SearchForOffenderPage
+        browser.at SearchForOffenderPage
     }
 
     def toKeyworkerSearchPage() {
         locations = locationsForCaseload(currentUser.workingCaseload)
         elite2Api.stubGetMyLocations(locations)
         browser.page.keyworkerProfileLink.click()
-        assert browser.page instanceof SearchForKeyworkerPage
+        browser.at SearchForKeyworkerPage
     }
 
     def toOffenderSearchResultsPageWithoutInitialSearch() {

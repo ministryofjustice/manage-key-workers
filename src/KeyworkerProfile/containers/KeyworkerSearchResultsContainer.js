@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
 import Spinner from '../../Spinner';
 
-import axiosWrapper from "../../backendWrapper";
+import axios from 'axios';
 import Error from "../../Error";
 
 class KeyworkerSearchResultsContainer extends Component {
@@ -35,7 +35,7 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   async getKeyworkerList (agencyId) {
-    const response = await axiosWrapper.get('/api/keyworkerSearch', {
+    const response = await axios.get('/api/keyworkerSearch', {
       params: {
         agencyId: agencyId,
         searchText: this.props.searchText

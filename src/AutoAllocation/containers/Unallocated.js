@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Unallocated from '../components/Unallocated.js';
 import PropTypes from 'prop-types';
-import axiosWrapper from '../../backendWrapper';
+import axios from 'axios';
 import { setUnallocatedList, setMessage, setLoaded } from '../../redux/actions/index';
 import ErrorComponent from '../../Error/index';
 import { connect } from 'react-redux';
@@ -29,7 +29,7 @@ class UnallocatedContainer extends Component {
   }
 
   async getUnallocated (agencyId) {
-    const response = await axiosWrapper.get('/api/unallocated', {
+    const response = await axios.get('/api/unallocated', {
       params: {
         agencyId: agencyId
       }

@@ -6,7 +6,7 @@ import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfi
 import Error from '../../Error';
 import { withRouter } from 'react-router';
 import { resetValidationErrors, setMessage, setValidationError } from "../../redux/actions";
-import axiosWrapper from "../../backendWrapper";
+import axios from "axios";
 import * as behaviours from '../keyworkerStatusBehavour';
 
 class KeyworkerProfileEditContainer extends Component {
@@ -59,7 +59,7 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   async postKeyworkerUpdate () {
-    await axiosWrapper.post('/api/keyworkerUpdate',
+    await axios.post('/api/keyworkerUpdate',
       {
         keyworker:
             {
