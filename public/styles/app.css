@@ -131,6 +131,11 @@
   text-decoration: underline;
 }
 
+.FooterLink a {
+  text-decoration: none;
+  color: black;
+}
+
 .FooterSignature {
   clear: left;
   margin-top: 37px;

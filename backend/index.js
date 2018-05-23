@@ -94,6 +94,8 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
 app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
 
+app.get('/terms', async (req, res) => { res.render('terms', { mailTo: config.app.mailTo }); });
+
 app.use('/auth', session.loginMiddleware, authentication);
 
 app.use(clientVersionValidator);
