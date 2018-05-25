@@ -1,5 +1,4 @@
 .FooterContainer {
-  //display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -31,7 +30,7 @@
 }
 
 .FooterLinksContainer {
-  padding-top: 15px;
+  padding-top: 10px;
   font-size: 16px;
 }
 
@@ -51,10 +50,21 @@
   &:hover {
     text-decoration: underline;
   }
-}
+  a {
+    color: #005EA5;
 
-.FooterLink a {
-  color: black;
+    &:-webkit-any-link {
+      text-decoration: none;
+    }
+    &:visited {
+      color: #4c2c92;
+      text-decoration: none;
+    }
+    &:hover {
+      color: #2B8CC4;
+      text-decoration: underline;
+    }
+  }
 }
 
 .FooterSignature {
