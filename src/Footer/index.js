@@ -8,7 +8,7 @@ const Footer = ({ showTermsAndConditions, mailTo }) =>
     <div className="footer-content">
       <div className="FooterLinksContainer">
         <div className="FooterLink"><a onClick={showTermsAndConditions}>Terms and conditions</a></div>
-        <div className="FooterLink">Email&nbsp;&nbsp;<a href={"mailto:" + mailTo}>{mailTo}</a></div>
+        <div className="FooterLink"><a  href={"mailto:" + mailTo}>Email&nbsp;&nbsp;{mailTo}</a></div>
       </div>
     </div>
   </footer>);

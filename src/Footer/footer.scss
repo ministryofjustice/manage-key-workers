@@ -30,7 +30,7 @@
 }
 
 .FooterLinksContainer {
-  padding-top: 15px;
+  padding-top: 10px;
   font-size: 16px;
 }
 
@@ -47,22 +47,15 @@
   &:first-child {
     padding-left: 0px;
   }
-  &:hover {
-    text-decoration: underline;
-  }
   a {
     color: #005EA5;
+    text-decoration: underline;
 
-    &:-webkit-any-link {
-      text-decoration: none;
-    }
     &:visited {
-      color: #4c2c92;
-      text-decoration: none;
+      color: #4C2C92;
     }
     &:hover {
       color: #2B8CC4;
-      text-decoration: underline;
     }
   }
 }
