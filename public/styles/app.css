@@ -120,6 +120,8 @@
   border-right: 1px solid #0B0C0C;
   height: 19px;
   cursor: pointer;
+  text-decoration: underline;
+
 }
 .FooterLink:last-child {
   border-right: 0;
@@ -127,13 +129,18 @@
 .FooterLink:first-child {
   padding-left: 0;
 }
-.FooterLink:hover {
+
+.FooterLink a {
+  color: #005EA5;
   text-decoration: underline;
 }
 
-.FooterLink a {
-  text-decoration: none;
-  color: black;
+.FooterLink a:visited {
+  color: #4C2C92;
+}
+
+.FooterLink a:hover {
+  color: #2B8CC4;
 }
 
 .FooterSignature {
