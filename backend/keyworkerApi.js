@@ -59,6 +59,13 @@ const allocate = (req, res) => gateway.postRequest({
   url: `${keyworkerApiUrl}key-worker/allocate`
 });
 
+const deallocate = (req, res) => gateway.putRequest({
+  req,
+  res,
+  method: 'put',
+  url: `${keyworkerApiUrl}key-worker/deallocate/${req.data.offenderNo}`
+});
+
 const keyworkerUpdate = (req, res) => gateway.postRequest({
   req,
   res,
@@ -94,6 +101,7 @@ const service = {
   availableKeyworkers,
   keyworker,
   allocate,
+  deallocate,
   autoallocated,
   autoAllocate,
   autoAllocateConfirm,

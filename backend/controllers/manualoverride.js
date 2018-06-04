@@ -9,16 +9,27 @@ router.post('/', asyncMiddleware(async (req, res) => {
   log.debug({ allocateList }, 'Manual override contents');
   for (const element of allocateList) {
     if (element && element.staffId) {
-      req.data = {
-        offenderNo: element.offenderNo,
-        staffId: element.staffId,
-        prisonId: req.query.agencyId,
-        allocationType: 'M',
-        allocationReason: 'MANUAL',
-        deallocationReason: 'OVERRIDE'
-      };
-      const response = await keyworkerApi.allocate(req, res);
-      log.debug({ response }, 'Response from allocate request');
+      if (element.deallocate) {
+        req.data = {
+          offenderNo: element.offenderNo,
+          staffId: element.staffId,
+          prisonId: req.query.agencyId,
+          deallocationReason: 'MANUAL'
+        };
+        const response = await keyworkerApi.deallocate(req, res);
+        log.debug({ response }, 'Response from deallocate request');
+      } else {
+        req.data = {
+          offenderNo: element.offenderNo,
+          staffId: element.staffId,
+          prisonId: req.query.agencyId,
+          allocationType: 'M',
+          allocationReason: 'MANUAL',
+          deallocationReason: 'OVERRIDE'
+        };
+        const response = await keyworkerApi.allocate(req, res);
+        log.debug({response}, 'Response from allocate request');
+      }
     }
   }
   res.json({});
