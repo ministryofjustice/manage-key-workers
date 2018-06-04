@@ -42,6 +42,7 @@
     "start-backend": "node backend/index | bunyan -o short",
     "start-live": "concurrently --kill-others-on-fail -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgCyan.bold,bgGrey.bold\" \"yarn start-backend\" \"yarn start-frontend\"",
     "start": "node server",
+    "debug": "node $NODE_DEBUG_OPTION server",
     "build": "node scripts/customized-config build",
     "test": "node scripts/customized-config test --env=jsdom",
     "lint": "node node_modules/eslint/bin/eslint.js src backend",
