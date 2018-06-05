@@ -201,6 +201,15 @@ class KeyworkerApi extends WireMockRule {
         )
     }
 
+    void stubManualOverrideResponse() {
+        this.stubFor(
+                post("/key-worker/allocate")
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withStatus(200))
+        )
+    }
+
     void stubStartAllocateFailureResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 post("/key-worker/${agencyLocation.id}/allocate/start")
