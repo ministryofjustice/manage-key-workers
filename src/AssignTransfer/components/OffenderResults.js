@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";
 import { Link } from "react-router-dom";
 import { renderDate } from '../../stringUtils';
+import MessageBar from "../../MessageBar/index";
 
 class OffenderResults extends Component {
   buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
@@ -46,7 +47,7 @@ class OffenderResults extends Component {
         <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
         </td>
         <td className="row-gutters">
-          <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+          <select id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`}className="form-control" value={currentSelectValue}
             onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
             <option key="choose" value="--">-- No change --</option>
             {a.staffId ? <option key="choose" value="_DEALLOCATE">-- Deallocate --</option> : ''}
@@ -69,6 +70,8 @@ class OffenderResults extends Component {
     const offenders = this.buildTableForRender(keyworkerOptions, this.props.offenderResults.offenderResponse);
     return (
       <div>
+        <MessageBar {...this.props}/>
+
         <div className="pure-g padding-top-large">
           <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back</Link></div>
           <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually allocate key workers</h1></div>

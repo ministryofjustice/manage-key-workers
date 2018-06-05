@@ -19,5 +19,7 @@ public class OffenderResultsPage extends Page {
         message (required: false) { $('.error-summary').text() }
         messageDiv (required: false) { $('.error-summary')}
         searchButton(to: OffenderResultsPage) { $('#searchButton') }
+        saveButton { $('#saveButton') }
+        messageBar(required: false) { $('div #messageBar')}
     }
 }
