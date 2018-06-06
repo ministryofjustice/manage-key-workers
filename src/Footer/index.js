@@ -19,7 +19,7 @@ Footer.propTypes = {
 };
 
 Footer.defaultProps = {
-  mailTo: '',
+  mailTo: ''
 };
 
 export default Footer;

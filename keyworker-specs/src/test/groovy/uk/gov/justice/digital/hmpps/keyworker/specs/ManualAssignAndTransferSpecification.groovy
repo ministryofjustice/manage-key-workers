@@ -178,6 +178,21 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         !messageDiv.isDisplayed()
     }
 
+    def "manual override - should stay on results page and display message bar"() {
+        given: "I have logged in"
+        fixture.loginAs(ITAG_USER)
+        toOffenderResultsPage()
+
+        when: "I click the save button"
+        keyworkerApi.stubManualOverrideResponse()
+        table['keyworker-select-A1178RS'] = '-3'
+        saveButton.click()
+
+        then: "I remain on the Offender results page and a success message bar is displayed"
+        at OffenderResultsPage
+        messageBar.text() == 'Key workers successfully updated.'
+    }
+
     def stubOffenderResultsPage(largeResult) {
         List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
         elite2api.stubGetMyLocations(locations)
@@ -203,6 +218,13 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         elite2api.stubGetMyLocations(locations)
         browser.page.manualAssignLink.click()
         assert browser.page instanceof SearchForOffenderPage
+    }
+
+    def toOffenderResultsPage() {
+        toOffenderSearchPage()
+        stubOffenderResultsPage()
+        searchButton.click()
+        at OffenderResultsPage
     }
 
 }

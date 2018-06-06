@@ -78,7 +78,7 @@ class OffenderResultsContainer extends Component {
         await axios.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Key workers successfully updated.');
       }
-      history.push('/');
+      this.doSearch();
     } catch (error) {
       this.props.displayError(error);
     }
