@@ -42,6 +42,10 @@ const keyworkerSearchInitialState = {
   statusChangeBehaviour: ''
 };
 
+const allocationHistoryInitialState = {
+  allocationHistory: {}
+};
+
 export function app (state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_CONFIG:
@@ -204,13 +208,25 @@ function updateObject (oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
 
+export function allocationHistory (state = allocationHistoryInitialState, action) {
+  switch (action.type) {
+    case ActionTypes.SET_ALLOCATION_HISTORY:
+      return { ...state,
+        allocationHistory: action.allocationHistory
+      };
+
+    default:
+      return state;
+  }
+}
 
 const allocationApp = combineReducers({
   allocated,
   unallocated,
   app,
   offenderSearch,
-  keyworkerSearch
+  keyworkerSearch,
+  allocationHistory
 });
 
 export default allocationApp;

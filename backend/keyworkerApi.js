@@ -66,6 +66,13 @@ const deallocate = (req, res) => gateway.putRequest({
   url: `${keyworkerApiUrl}key-worker/deallocate/${req.data.offenderNo}`
 });
 
+const allocationHistory = (req, res) => gateway.getRequest({
+  req,
+  res,
+  method: 'get',
+  url: `${keyworkerApiUrl}key-worker/allocation-history/${req.query.offenderNo}`
+});
+
 const keyworkerUpdate = (req, res) => gateway.postRequest({
   req,
   res,
@@ -102,6 +109,7 @@ const service = {
   keyworker,
   allocate,
   deallocate,
+  allocationHistory,
   autoallocated,
   autoAllocate,
   autoAllocateConfirm,

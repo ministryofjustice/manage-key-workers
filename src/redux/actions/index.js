@@ -140,6 +140,13 @@ export const setKeyworkerAllocationList = (keyworkerAllocations) => {
   };
 };
 
+export const setAllocationHistory = (allocationHistory) => {
+  return {
+    type: ActionTypes.SET_ALLOCATION_HISTORY,
+    allocationHistory
+  };
+};
+
 export const setKeyworker = (keyworker) => {
   return {
     type: ActionTypes.SET_KEY_WORKER,
