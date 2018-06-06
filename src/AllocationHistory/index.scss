@@ -1,0 +1,79 @@
+@import "colours/palette";
+
+.searchForm {
+  background-color: $grey-4;
+}
+
+select {
+  background-color: white;
+}
+
+%statusStyle {
+  border: 3px solid green;
+  padding: .3em 1em .2em 1em;
+  text-align: center;
+  display: inline-block;
+  min-width: 7em;
+}
+
+.inactiveStatus {
+  @extend %statusStyle;
+  color: orange;
+  border-color: orange;
+}
+
+.unavailableStatus {
+  @extend %statusStyle;
+  color: darkgrey;
+  border-color: darkgrey;
+}
+
+.activeStatus {
+  @extend %statusStyle;
+  color: green;
+  border-color: green;
+}
+
+.capacityInput {
+  width:3em;
+}
+
+
+%numberCircle {
+  width: 1.7em;
+  line-height: 1.7em;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.1em;
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+
+.numberCircleGreen {
+  @extend %numberCircle;
+  background-color: #7FC09D;
+}
+
+.numberCircleGrey {
+  @extend %numberCircle;
+  background-color: #bec1c3;
+}
+
+.numberCircleAmber {
+  @extend %numberCircle;
+  background-color: #F9BB9B;
+}
+
+.numberCircleRed {
+  @extend %numberCircle;
+  background-color: #EF9799;
+}
+
+#editProfileButton {
+  margin-top: 1.4em;
+  float: right;
+  margin-right: 1em;
+}
+
+
