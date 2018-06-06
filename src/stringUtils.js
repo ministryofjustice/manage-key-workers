@@ -43,9 +43,26 @@ const renderDate = (date) => {
   return notPresentString;
 };
 
+const renderDateTime = (date) => {
+  const screenFormat = 'DD/MM/YYYY HH:mm';
+  const iso8601DateTimeFormat = 'YYYY-MM-DDTHH:mm:ss.SSS.';
+  const notPresentString = '--';
+
+  const theMoment = (typeof date === 'string') ? moment(date, iso8601DateTimeFormat) : date;
+
+  if (theMoment instanceof moment) {
+    if (theMoment.isValid()) {
+      return theMoment.format(screenFormat);
+    }
+  }
+
+  return notPresentString;
+};
+
 module.exports = {
   properCase,
   properCaseName,
   toFullName,
-  renderDate
+  renderDate,
+  renderDateTime
 };

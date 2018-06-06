@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { properCaseName, renderDate } from "../../stringUtils";
+import { properCaseName, renderDateTime } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import MessageBar from "../../MessageBar/index";
 
@@ -25,11 +25,11 @@ class AllocationHistory extends Component {
           <td className="row-gutters">{a.prisonId}</td>
           <td className="row-gutters">{a.active}</td>
           <td className="row-gutters">{a.allocationType}</td>
-          <td className="row-gutters">{renderDate(a.assigned)}</td>
-          <td className="row-gutters">{renderDate(a.expired)}</td>
+          <td className="row-gutters">{renderDateTime(a.assigned)}</td>
+          <td className="row-gutters">{renderDateTime(a.expired)}</td>
           <td className="row-gutters">{a.deallocationReason}</td>
           <td className="row-gutters">{createdStaff}</td>
-          <td className="row-gutters">{renderDate(a.modifyDateTime)}</td>
+          <td className="row-gutters">{renderDateTime(a.modifyDateTime)}</td>
           <td className="row-gutters">{lastModStaff}</td>
         </tr>
       );
