@@ -21,14 +21,14 @@ class AllocationHistory extends Component {
       const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
       return (
         <tr key={a.offenderKeyworkerId}>
+          <td className="row-gutters">{renderDateTime(a.assigned)}</td>
           <td className="row-gutters"><a className="link" href={keyworkerHref}>{kwName}</a></td>
           <td className="row-gutters">{a.prisonId}</td>
           <td className="row-gutters">{a.active}</td>
           <td className="row-gutters">{a.allocationType}</td>
-          <td className="row-gutters">{renderDateTime(a.assigned)}</td>
+          <td className="row-gutters">{createdStaff}</td>
           <td className="row-gutters">{renderDateTime(a.expired)}</td>
           <td className="row-gutters">{a.deallocationReason}</td>
-          <td className="row-gutters">{createdStaff}</td>
           <td className="row-gutters">{renderDateTime(a.modifyDateTime)}</td>
           <td className="row-gutters">{lastModStaff}</td>
         </tr>
@@ -44,16 +44,16 @@ class AllocationHistory extends Component {
           <table>
             <thead>
               <tr>
+                <th>Assigned</th>
                 <th>Key Worker Name</th>
                 <th>Prison</th>
-                <th>Active</th>
+                <th>Current</th>
                 <th>Allocation Type</th>
-                <th>Assigned</th>
+                <th>Assigned By</th>
                 <th>Expired</th>
                 <th>Reason</th>
-                <th>Created By</th>
-                <th>Modified On</th>
-                <th>Modified By</th>
+                <th>Changed</th>
+                <th>Changed By</th>
               </tr>
             </thead>
             <tbody>{allocations}</tbody>
