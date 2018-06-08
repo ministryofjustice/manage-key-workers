@@ -29,7 +29,6 @@ class OffenderSearchContainer extends Component {
         this.props.offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
       }
     } catch (error) {
-      console.log("get locations");
       this.props.handleError(error);
     }
   }

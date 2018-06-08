@@ -22,7 +22,6 @@ class OffenderResultsContainer extends Component {
   async componentWillMount () {
     /* if arriving from a page refresh - redirect to initial search */
     if (!this.props.locations || this.props.locations.length === 0) {
-      console.log("\nredirecting after refresh");
       this.props.history.push({
         pathname: '/offender/search',
         state: { initialSearch: true }
