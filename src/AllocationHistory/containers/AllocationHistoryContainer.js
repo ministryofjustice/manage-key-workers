@@ -27,7 +27,7 @@ class AllocationHistoryContainer extends Component {
   async getAllocationHistory () {
     const response = await axios.get('/api/allocationHistory', {
       params: {
-        offenderNo: this.props.match.params.offenderNo,
+        offenderNo: this.props.match.params.offenderNo
       }
     });
 
@@ -70,7 +70,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     allocationHistoryDispatch: allocHistory => dispatch(setAllocationHistory(allocHistory)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 

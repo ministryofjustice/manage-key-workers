@@ -15,7 +15,7 @@ import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
 import Error from "../Error/index";
 import {
-  BrowserRouter as Router,
+  BrowserRouter as Router, Link,
   Route
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -101,21 +101,26 @@ class App extends React.Component {
     return !this.props.shouldShowTerms && (this.props.user && this.props.user.activeCaseLoadId);
   }
 
+  displayBack () {
+    return (<div className="padding-top"><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >
+      <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</Link></div>);
+  }
+
   render () {
     let innerContent;
     const routes = (<div className="inner-content"><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
       <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-      <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayBack={this.displayBack} displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/offender/:offenderNo/history" render={() => <AllocationHistoryContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
-      <Route exact path="/unallocated" render={() => <UnallocatedContainer displayError={this.displayError} {...this.props}/>}/>
+      <Route exact path="/unallocated" render={() => <UnallocatedContainer displayBack={this.displayBack} displayError={this.displayError} {...this.props}/>}/>
       <Route exact path="/provisionalAllocation" render={() => <ProvisionalAllocationContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
-      <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayBack={this.displayBack} displayError={this.displayError} {...this.props} />}/>
+      <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayBack={this.displayBack} displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
+      <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayBack={this.displayBack} displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {

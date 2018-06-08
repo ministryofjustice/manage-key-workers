@@ -8,7 +8,7 @@ const health = require('./health');
 const log = require('../log');
 
 const mailTo = config.app.mailTo;
-
+const homeLink = config.app.notmEndpointUrl;
 
 router.get('/login', async (req, res) => {
   const healthRes = await health.healthResult();
@@ -19,7 +19,8 @@ router.get('/login', async (req, res) => {
     {
       authError: false,
       apiUp: isApiUp,
-      mailTo: mailTo
+      mailTo: mailTo,
+      homeLink: homeLink
     });
 });
 
@@ -42,7 +43,8 @@ router.post('/login', async (req, res) => {
       {
         authError: true,
         apiUp: isApiUp,
-        mailTo: mailTo
+        mailTo: mailTo,
+        homeLink: homeLink
       });
   }
 });

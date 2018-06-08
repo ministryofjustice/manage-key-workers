@@ -5,7 +5,6 @@ import { getStaffLink } from "../../links";
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearchContainer from "../containers/OffenderSearchContainer";
-import { Link } from "react-router-dom";
 import { renderDate } from '../../stringUtils';
 import MessageBar from "../../MessageBar/index";
 
@@ -72,8 +71,8 @@ class OffenderResults extends Component {
       <div>
         <MessageBar {...this.props}/>
 
-        <div className="pure-g padding-top-large">
-          <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back</Link></div>
+        <div className="pure-g">
+          {this.props.displayBack()}
           <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually allocate key workers</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
         </div>
@@ -116,7 +115,8 @@ OffenderResults.propTypes = {
   handleKeyworkerChange: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  displayBack: PropTypes.func.isRequired
 };
 
 const OffenderResultsWithRouter = withRouter(OffenderResults);

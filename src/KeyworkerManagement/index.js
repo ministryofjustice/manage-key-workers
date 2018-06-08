@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MessageBar from "../MessageBar/index";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import { getHomeLink } from "../links";
 
 class HomePage extends Component {
   render () {
@@ -9,6 +10,7 @@ class HomePage extends Component {
       <div>
         <MessageBar {...this.props}/>
         <div className="pure-g">
+          <div className="pure-u-md-12-12 padding-top"><a href={getHomeLink()}><img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Home</a></div>
           <div className="pure-u-md-8-12 padding-bottom-large">
             <h1 className="heading-large">Key worker management</h1>
             <div className="pure-u-md-6-12">
@@ -27,8 +29,7 @@ class HomePage extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+      </div>);
   }
 }
 
