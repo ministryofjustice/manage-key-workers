@@ -73,7 +73,7 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         rows.size() == 5
     }
 
-    def "Attempt to search ofter cookie expiry"() {
+    /* def "Attempt to search ofter cookie expiry"() {
         given: "I am at the Search for key worker page"
         fixture.loginAs(ITAG_USER)
         fixture.toKeyworkerSearchPage()
@@ -85,7 +85,7 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
 
         then: "I will be redirected to the login page"
         at LoginPage
-    }
+    }*/
 
     def "Search for key worker renders error"() {
         given: "I am at the Search for key worker page"
