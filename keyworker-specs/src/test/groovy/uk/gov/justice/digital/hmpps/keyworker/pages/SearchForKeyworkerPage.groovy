@@ -16,6 +16,7 @@ class SearchForKeyworkerPage extends Page {
         headingText { $('h1').text() }
         searchField { $('#search-text') }
         keyworkerSearchButton(to: KeyworkerResultsPage) { $('button') }
+        keyworkerSearchButtonAfterCookieExpiry { $('button') }
         firstKeyworkerLink(to: KeyworkerProfilePage) { $('#keyworker_profile_link') }
     }
 }

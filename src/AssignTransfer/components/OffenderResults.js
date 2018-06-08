@@ -4,7 +4,7 @@ import { getOffenderLink } from "../../links";
 import { getStaffLink } from "../../links";
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import OffenderSearchContainer from "../containers/OffenderSearchContainer";
+import OffenderSearch from "../components/OffenderSearch";
 import { renderDate } from '../../stringUtils';
 import MessageBar from "../../MessageBar/index";
 
@@ -74,7 +74,7 @@ class OffenderResults extends Component {
         <div className="pure-g">
           {this.props.displayBack()}
           <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually allocate key workers</h1></div>
-          <div className="pure-u-md-11-12-12"><OffenderSearchContainer {...this.props} /></div>
+          <div className="pure-u-md-11-12-12"><OffenderSearch {...this.props} /></div>
         </div>
         {this.props.offenderResults.partialResults &&
         <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><img alt="" className="padding-left" src="/images/icon-important-2x.png" height="30" width="30"/></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}

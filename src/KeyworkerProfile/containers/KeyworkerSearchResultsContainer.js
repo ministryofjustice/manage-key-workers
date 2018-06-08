@@ -25,7 +25,7 @@ class KeyworkerSearchResultsContainer extends Component {
       const list = await this.getKeyworkerList(this.props.agencyId);
       this.props.keyworkerSearchResultsDispatch(list);
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
     this.props.setLoadedDispatch(true);
   }
@@ -66,7 +66,7 @@ KeyworkerSearchResultsContainer.propTypes = {
   keyworkerSearchTextDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
   resetErrorDispatch: PropTypes.func,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   loaded: PropTypes.bool
 };
 

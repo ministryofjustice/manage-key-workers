@@ -24,7 +24,7 @@ class ProvisionalContainer extends Component {
       this.props.allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
       this.props.manualOverrideDispatch([]);
       if (viewModel.warning) {
-        this.props.displayError({
+        this.props.handleError({
           response: {
             data: viewModel.warning +
           ' Please try allocating manually, adding more Key workers or raising their capacities.'
@@ -32,7 +32,7 @@ class ProvisionalContainer extends Component {
         });
       }
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
     this.props.setLoadedDispatch(true);
   }
@@ -63,7 +63,7 @@ class ProvisionalContainer extends Component {
       }
       this.props.manualOverrideDispatch(allocatedKeyworkers);
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
   }
 
@@ -77,7 +77,7 @@ class ProvisionalContainer extends Component {
       this.props.setMessageDispatch('Key workers successfully updated.');
       this.props.onFinishAllocation(history);
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
   }
 
@@ -98,7 +98,7 @@ class ProvisionalContainer extends Component {
 
 ProvisionalContainer.propTypes = {
   error: PropTypes.string,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   allocatedList: PropTypes.array,
   allocatedKeyworkers: PropTypes.array,
   onFinishAllocation: PropTypes.func.isRequired,

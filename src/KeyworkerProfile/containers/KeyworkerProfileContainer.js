@@ -23,7 +23,7 @@ class KeyworkerProfileContainer extends Component {
       await this.getKeyworkerProfile();
       await this.getKeyworkerAllocations();
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
     this.props.setLoadedDispatch(true);
   }
@@ -101,7 +101,7 @@ class KeyworkerProfileContainer extends Component {
       }
       history.push('/');
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
   }
 
@@ -127,7 +127,7 @@ KeyworkerProfileContainer.propTypes = {
   keyworkerDispatch: PropTypes.func,
   setMessageDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   keyworkerChangeList: PropTypes.array,
   keyworker: PropTypes.object,

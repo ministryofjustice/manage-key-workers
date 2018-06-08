@@ -30,7 +30,7 @@ const hmppsSessionMiddleWare = (req, res, next) => {
 
     if (isXHRRequest) {
       res.status(401);
-      res.end();
+      res.json({ message: 'Session expired' });
       return;
     }
 

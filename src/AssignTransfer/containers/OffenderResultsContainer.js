@@ -6,7 +6,9 @@ import OffenderResults from "../components/OffenderResults";
 import Spinner from '../../Spinner';
 
 import axios from 'axios';
-import { resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from "../../redux/actions";
+import {
+  resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults
+} from "../../redux/actions";
 
 class OffenderResultsContainer extends Component {
   constructor (props) {
@@ -14,12 +16,12 @@ class OffenderResultsContainer extends Component {
     this.doSearch = this.doSearch.bind(this);
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.postManualOverride = this.postManualOverride.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentWillMount () {
     /* if arriving from a page refresh - redirect to initial search */
     if (!this.props.locations || this.props.locations.length === 0) {
-      console.log("\nredirecting after refresh");
       this.props.history.push({
         pathname: '/offender/search',
         state: { initialSearch: true }
@@ -27,6 +29,10 @@ class OffenderResultsContainer extends Component {
     } else {
       await this.doSearch();
     }
+  }
+
+  handleSubmit (history) {
+    this.doSearch();
   }
 
   async doSearch () {
@@ -41,14 +47,14 @@ class OffenderResultsContainer extends Component {
           agencyId: this.props.agencyId
         }
       });
-      const data = await response.data;
+      const data = response.data;
       this.props.keyworkerChangeListDispatch([]);
       this.props.offenderSearchResultsDispatch(data);
     } catch (error) {
       this.props.offenderSearchResultsDispatch({
         keyworkerResponse: [],
         offenderResponse: [] });
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
     this.props.setLoadedDispatch(true);
   }
@@ -77,10 +83,10 @@ class OffenderResultsContainer extends Component {
       if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
         await axios.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
         this.props.setMessageDispatch('Key workers successfully updated.');
+        await this.doSearch();
       }
-      this.doSearch();
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
   }
 
@@ -89,7 +95,9 @@ class OffenderResultsContainer extends Component {
       return (<OffenderResults
         handleKeyworkerChange={this.handleKeyworkerChange}
         postManualOverride={this.postManualOverride}
-        doSearch={this.doSearch} {...this.props} />);
+        doSearch={this.doSearch}
+        handleSubmit={this.handleSubmit}
+        {...this.props} />);
     }
     return <Spinner />;
   }
@@ -105,7 +113,7 @@ OffenderResultsContainer.propTypes = {
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   keyworkerChangeList: PropTypes.array,
   locations: PropTypes.array,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func.isRequired,

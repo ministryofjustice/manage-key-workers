@@ -36,6 +36,7 @@ class App extends React.Component {
     this.clearMessage = this.clearMessage.bind(this);
     this.resetError = this.resetError.bind(this);
     this.displayError = this.displayError.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
   async componentDidMount () {
     axios.interceptors.response.use((config) => {
@@ -97,6 +98,19 @@ class App extends React.Component {
     this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
   }
 
+  handleError (error) {
+    if ((error.response && error.response.status === 401) && (error.response.data && error.response.data.message === 'Session expired')) {
+      this.displayAlertAndLogout("Your session has expired, please click OK to be redirected back to the login page");
+    } else {
+      this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
+    }
+  }
+
+  displayAlertAndLogout (message) {
+    alert(message); // eslint-disable-line no-alert
+    window.location = '/auth/logout';
+  }
+
   shouldDisplayInnerContent () {
     return !this.props.shouldShowTerms && (this.props.user && this.props.user.activeCaseLoadId);
   }
@@ -111,16 +125,16 @@ class App extends React.Component {
     const routes = (<div className="inner-content"><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
       <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
-      <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayBack={this.displayBack} displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/offender/:offenderNo/history" render={() => <AllocationHistoryContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
-      <Route exact path="/unallocated" render={() => <UnallocatedContainer displayBack={this.displayBack} displayError={this.displayError} {...this.props}/>}/>
-      <Route exact path="/provisionalAllocation" render={() => <ProvisionalAllocationContainer displayError={this.displayError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
-      <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayBack={this.displayBack} displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayBack={this.displayBack} displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
-      <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer displayError={this.displayError} {...this.props} />}/>
-      <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayBack={this.displayBack} displayError={this.displayError} clearMessage={this.clearMessage} {...this.props} />}/>
+      <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} {...this.props} />}/>
+      <Route exact path="/offender/:offenderNo/history" render={() => <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} {...this.props} />}/>
+      <Route exact path="/unallocated" render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props}/>}/>
+      <Route exact path="/provisionalAllocation" render={() => <ProvisionalAllocationContainer handleError={this.handleError} onFinishAllocation={this.onFinishAllocation} {...this.props}/>}/>
+      <Route exact path="/keyworker/search" render={() => <KeyworkerSearchContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props} />}/>
+      <Route exact path="/keyworker/results" render={() => <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props} />}/>
+      <Route exact path="/keyworker/:staffId/profile" render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} {...this.props} />}/>
+      <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer handleError={this.handleError} {...this.props} />}/>
+      <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} {...this.props} />}/>
+      <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props} />}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {
