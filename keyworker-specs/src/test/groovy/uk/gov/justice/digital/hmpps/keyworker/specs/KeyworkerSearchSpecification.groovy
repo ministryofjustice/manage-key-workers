@@ -83,7 +83,7 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         when: "I perform the search"
         assert withAlert { keyworkerSearchButtonAfterCookieExpiry.click() }
 
-        then: "There will be key workers displayed on the 'Key worker search results' page"
+        then: "I will be redirected to the login page"
         at LoginPage
     }
 
