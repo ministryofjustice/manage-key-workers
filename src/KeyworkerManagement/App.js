@@ -103,7 +103,7 @@ class App extends React.Component {
 
   displayBack () {
     return (<div className="padding-top"><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >
-      <img className="back-triangle" src="/images/BackTriangle.png" width="6" height="10"/> Back</Link></div>);
+      <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</Link></div>);
   }
 
   render () {

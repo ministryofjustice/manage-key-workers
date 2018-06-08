@@ -20,7 +20,7 @@ class Header extends Component {
         <div className="header-content">
           <div className="left-content">
             <a title="Home link" className="link" href={getHomeLink()}>
-              <div className="logo"><img src="/images/Crest@2x.png" width="42" height="35"/></div>
+              <div className="logo"><img src="/images/Crest@2x.png" alt="" width="42" height="35"/></div>
             </a>
             <a title="Home link" className="unstyled-link" href={getHomeLink()}>
               <span className="logo-text">HMPPS</span>
