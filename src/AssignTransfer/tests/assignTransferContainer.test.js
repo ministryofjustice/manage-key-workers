@@ -13,7 +13,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('AssignTransferContainer', () => {
   it('should render initial Search correctly', async () => {
-    const component = shallow(<AssignTransferContainer initialSearch setErrorDispatch={() => {}}/>);
+    const component = shallow(<AssignTransferContainer initialSearch displayBack={jest.fn()} setErrorDispatch={() => {}}/>);
     expect(component.find('div').at(1).text()).toContain('Search for an offender');
   });
 

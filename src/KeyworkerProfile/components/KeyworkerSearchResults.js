@@ -34,6 +34,7 @@ class KeyworkerSearchResults extends Component {
     return (
       <div>
         <div className="pure-g padding-bottom-large">
+          {this.props.displayBack()}
           <div className="pure-u-md-8-12 ">
             <h1 className="heading-large">Search for a key worker</h1>
             <KeyworkerSearch {...this.props} />
@@ -63,7 +64,8 @@ class KeyworkerSearchResults extends Component {
 }
 
 KeyworkerSearchResults.propTypes = {
-  keyworkerList: PropTypes.array
+  keyworkerList: PropTypes.array,
+  displayBack: PropTypes.func.isRequired
 };
 
 

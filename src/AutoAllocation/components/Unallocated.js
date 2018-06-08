@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { properCaseName, renderDate } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { getOffenderLink } from "../../links";
-import { Link } from "react-router-dom";
 
 class Unallocated extends Component {
   buildTableForRender () {
@@ -30,8 +29,8 @@ class Unallocated extends Component {
     const offenders = this.buildTableForRender();
     return (
       <div>
-        <div className="pure-u-md-7-12 padding-bottom-40 padding-top-large">
-          <div><Link id={`back_to_menu_link`} title="Back to menu link" className="link" to="/" >&lt; Back</Link></div>
+        <div className="pure-u-md-7-12 padding-bottom-40">
+          {this.props.displayBack()}
           <h1 className="heading-large margin-top">Auto-allocate key workers</h1>
           <table>
             <thead>
@@ -59,7 +58,8 @@ Unallocated.propTypes = {
   unallocatedList: PropTypes.array,
   gotoNext: PropTypes.func.isRequired,
   loaded: PropTypes.bool,
-  history: PropTypes.object
+  history: PropTypes.object,
+  displayBack: PropTypes.func.isRequired
 };
 
 export default Unallocated;

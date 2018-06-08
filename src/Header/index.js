@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from '../Dropdown';
 import ProductGlobals from '../product-globals';
-import { Link } from "react-router-dom";
 
 import './header.theme.scss';
 import './index.scss';
+import { getHomeLink } from "../links";
 
 class Header extends Component {
   componentDidMount () {
@@ -19,13 +19,13 @@ class Header extends Component {
       <header className="page-header">
         <div className="header-content">
           <div className="left-content">
-            <Link id="header_logo_keyworker_management_link" title="Key worker management link" className="link" to="/" >
-              <div className="logo header-image" />
-            </Link>
-            <Link id="header_logo_text_keyworker_management_link" title="Key worker management link" className="unstyled-link" to="/" >
+            <a title="Home link" className="link" href={getHomeLink()}>
+              <div className="logo"><img src="/images/Crest@2x.png" width="42" height="35"/></div>
+            </a>
+            <a title="Home link" className="unstyled-link" href={getHomeLink()}>
               <span className="logo-text">HMPPS</span>
               <span className="title">{ProductGlobals.serviceName}</span>
-            </Link>
+            </a>
           </div>
           <div className="right-content">
             <div className="right-menu">

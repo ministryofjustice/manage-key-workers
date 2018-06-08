@@ -52,8 +52,8 @@ const offenderResponse = [{
 const keyworkerResponse = [{
   staffId: 123,
   firstName: 'Amy',
-  lastName: 'Hanson',
-  numberAllocated: 4
+  lastName: 'Hanson'
+  // numberAllocated missing
 },
 {
   staffId: 124,
@@ -71,6 +71,7 @@ describe('Offender results component', () => {
       keyworkerList={keyworkerResponse}
       offenderResults={results}
       history={{}}
+      displayBack={jest.fn()}
       postManualOverride={jest.fn()}
       onFinishAllocation={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>
@@ -101,6 +102,7 @@ describe('Offender results component', () => {
       postManualOverride={postManualOverride}
       onFinishAllocation={cancel}
       history ={{ push: jest.fn() }}
+      displayBack={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>);
 
     component.find('#saveButton').simulate('click');
@@ -117,6 +119,7 @@ describe('Offender results component', () => {
       postManualOverride={postManualOverride}
       onFinishAllocation={cancel}
       history ={{ push: jest.fn() }}
+      displayBack={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>);
 
     component.find('#cancelButton').simulate('click');

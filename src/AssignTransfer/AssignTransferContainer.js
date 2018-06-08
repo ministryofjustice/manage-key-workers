@@ -21,6 +21,7 @@ class AssignTransferContainer extends Component {
 
   render () {
     return (<div>
+      {this.props.initialSearch && this.props.displayBack()}
       <Error {...this.props} />
       {this.props.initialSearch ? (<div className="pure-g">
         <div className="pure-u-md-8-12">
@@ -47,7 +48,8 @@ AssignTransferContainer.propTypes = {
   setErrorDispatch: PropTypes.func.isRequired,
   offenderSearchTextDispatch: PropTypes.func,
   offenderSearchAllocationStatusDispatch: PropTypes.func,
-  offenderSearchHousingLocationDispatch: PropTypes.func
+  offenderSearchHousingLocationDispatch: PropTypes.func,
+  displayBack: PropTypes.func
 };
 
 const mapStateToProps = state => {
