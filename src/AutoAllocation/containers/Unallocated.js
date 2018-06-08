@@ -23,7 +23,7 @@ class UnallocatedContainer extends Component {
       const list = await this.getUnallocated(this.props.agencyId);
       this.props.unallocatedListDispatch(list);
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
     this.props.setLoadedDispatch(true);
   }
@@ -55,7 +55,7 @@ class UnallocatedContainer extends Component {
 
 UnallocatedContainer.propTypes = {
   error: PropTypes.string,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   unallocatedList: PropTypes.array,
   agencyId: PropTypes.string.isRequired,
   unallocatedListDispatch: PropTypes.func.isRequired,

@@ -19,7 +19,7 @@ class AllocationHistoryContainer extends Component {
     try {
       await this.getAllocationHistory();
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
     this.props.setLoadedDispatch(true);
   }
@@ -54,7 +54,7 @@ AllocationHistoryContainer.propTypes = {
   allocationHistory: PropTypes.object,
   allocationHistoryDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   loaded: PropTypes.bool
 };

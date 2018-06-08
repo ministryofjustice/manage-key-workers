@@ -16,10 +16,8 @@ class OffenderSearchContainer extends Component {
 
   componentWillMount () {
     this.getLocations();
-    if (this.props.initialSearch) {
-      this.props.offenderSearchTextDispatch('');
-      this.props.offenderSearchAllocationStatusDispatch('all');
-    }
+    this.props.offenderSearchTextDispatch('');
+    this.props.offenderSearchAllocationStatusDispatch('all');
   }
 
   async getLocations () {
@@ -31,33 +29,14 @@ class OffenderSearchContainer extends Component {
         this.props.offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
       }
     } catch (error) {
-      this.props.displayError(error);
+      console.log("get locations");
+      this.props.handleError(error);
     }
   }
 
-  validate () {
-    /* TBC - validation story coming later.
-    if (!/^[A-Za-z ]*$/.test(this.props.searchText)) {
-      this.props.setValidationErrorDispatch("searchText", "Please enter letters or spaces");
-      return false;
-    }
-    if (!this.props.searchText || this.props.searchText.length < 3) {
-      this.props.setValidationErrorDispatch("searchText", "Please provide 3 or more characters");
-      return false;
-    }*/
-    this.props.resetValidationErrorsDispatch();
-    return true;
-  }
 
   handleSubmit (history) {
-    if (!this.validate()) {
-      return;
-    }
-    if (this.props.initialSearch) {
-      history.push('/offender/results');
-    } else {
-      this.props.doSearch();
-    }
+    history.push('/offender/results');
   }
 
   render () {
@@ -67,7 +46,7 @@ class OffenderSearchContainer extends Component {
 
 OffenderSearchContainer.propTypes = {
   error: PropTypes.string,
-  displayError: PropTypes.func,
+  handleError: PropTypes.func,
   locations: PropTypes.array,
   offenderSearchLocationsDispatch: PropTypes.func,
   offenderSearchHousingLocationDispatch: PropTypes.func,

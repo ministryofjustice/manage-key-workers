@@ -20,7 +20,7 @@ describe('Unallocated component', () => {
 
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
 
-    await shallow(<UnallocatedContainer loaded agencyId={'LEI'} setMessageDispatch={jest.fn()} displayError={jest.fn()} unallocatedListDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
+    await shallow(<UnallocatedContainer loaded agencyId={'LEI'} setMessageDispatch={jest.fn()} handleError={jest.fn()} unallocatedListDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
 
     expect(mockAxios.mock.calls.length).toBe(1);
     expect(mockAxios.mock.calls[0][0]).toBe('/api/unallocated');
@@ -32,7 +32,7 @@ describe('Unallocated component', () => {
 
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s1", "s2"], config: {} }));
 
-    const component = await shallow(<UnallocatedContainer agencyId={'LEI'} setMessageDispatch={jest.fn()} displayError={jest.fn()} unallocatedListDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
+    const component = await shallow(<UnallocatedContainer agencyId={'LEI'} setMessageDispatch={jest.fn()} handleError={jest.fn()} unallocatedListDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
     expect(component.find('#spinner').exists());
   });
 
@@ -44,7 +44,7 @@ describe('Unallocated component', () => {
     // /allocated
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ["s3", "s4"], config: {} }));
 
-    await shallow(<ProvisionalContainer loaded agencyId={'LEI'} onFinishAllocation={jest.fn()} setMessageDispatch={jest.fn()} displayError={jest.fn()}
+    await shallow(<ProvisionalContainer loaded agencyId={'LEI'} onFinishAllocation={jest.fn()} setMessageDispatch={jest.fn()} handleError={jest.fn()}
       manualOverrideDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} setLoadedDispatch={jest.fn()}/>);
 
     expect(mockAxios.mock.calls.length).toBe(1);
@@ -60,7 +60,7 @@ describe('Unallocated component', () => {
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
 
-    const component = shallow(<UnallocatedContainer loaded agencyId={'LEI'} displayError={errorDispatch} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()} setLoadedDispatch={jest.fn()}
+    const component = shallow(<UnallocatedContainer loaded agencyId={'LEI'} handleError={errorDispatch} setMessageDispatch={jest.fn()} unallocatedListDispatch={jest.fn()} setLoadedDispatch={jest.fn()}
       error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 
 
@@ -83,7 +83,7 @@ describe('Unallocated component', () => {
     // /allocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error("Request failed with status code 500,test error")));
 
-    const component = shallow(<ProvisionalContainer loaded agencyId={'LEI'} onFinishAllocation={jest.fn()} displayError={errorDispatch} setMessageDispatch={jest.fn()}
+    const component = shallow(<ProvisionalContainer loaded agencyId={'LEI'} onFinishAllocation={jest.fn()} handleError={errorDispatch} setMessageDispatch={jest.fn()}
       manualOverrideDispatch={jest.fn()} allocatedDetailsDispatch={jest.fn()} setLoadedDispatch={jest.fn()}
       error="Something went wrong: Error: Request failed with status code 500,test error"/>);
 

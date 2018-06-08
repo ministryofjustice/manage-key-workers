@@ -43,7 +43,7 @@ class KeyworkerProfileEditContainer extends Component {
         history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
       }
     } catch (error) {
-      this.props.displayError(error);
+      this.props.handleError(error);
     }
   }
 
@@ -114,7 +114,7 @@ KeyworkerProfileEditContainer.propTypes = {
   keyworkerDispatch: PropTypes.func,
   keyworker: PropTypes.object,
   setMessageDispatch: PropTypes.func,
-  displayError: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func,
   keyworkerCapacityDispatch: PropTypes.func,
   match: PropTypes.object.isRequired,

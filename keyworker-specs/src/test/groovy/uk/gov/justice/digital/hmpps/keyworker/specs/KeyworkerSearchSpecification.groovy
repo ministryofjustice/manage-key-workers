@@ -11,6 +11,7 @@ import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerEditConfirmPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerEditPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -70,6 +71,20 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         then: "There will be key workers displayed on the 'Key worker search results' page"
         at KeyworkerResultsPage
         rows.size() == 5
+    }
+
+    def "Attempt to search ofter cookie expiry"() {
+        given: "I am at the Search for key worker page"
+        fixture.loginAs(ITAG_USER)
+        fixture.toKeyworkerSearchPage()
+
+        browser.clearCookies();  //replicate cookie expiry
+
+        when: "I perform the search"
+        assert withAlert { keyworkerSearchButtonAfterCookieExpiry.click() }
+
+        then: "There will be key workers displayed on the 'Key worker search results' page"
+        at LoginPage
     }
 
     def "Search for key worker renders error"() {
