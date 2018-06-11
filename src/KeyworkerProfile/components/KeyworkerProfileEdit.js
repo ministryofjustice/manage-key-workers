@@ -25,7 +25,7 @@ class KeyworkerProfileEdit extends Component {
       <div>
         <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
-            <h1 className="heading-large">Edit profile</h1>
+            <h1 className="heading-large margin-top">Edit profile</h1>
           </div>
           <div className="padding-top">
             <div className="pure-u-md-2-12" >
@@ -53,10 +53,10 @@ class KeyworkerProfileEdit extends Component {
 
           </div>
           <div className="pure-u-md-5-12 padding-top-large margin-top" >
-            <div className="pure-u-md-5-12" >
+            <div className="buttonGroup" >
               <button id="saveButton" className="button" onClick={() => this.props.handleSaveChanges(this.props.history)}>Save and continue</button>
             </div>
-            <div className="pure-u-md-3-12">
+            <div className="buttonGroup">
               <button id="cancelButton" className="button greyButton button-cancel" onClick={() => this.props.handleCancel(this.props.history)}>Cancel</button>
             </div>
           </div>

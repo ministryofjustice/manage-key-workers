@@ -25,7 +25,7 @@ class AssignTransferContainer extends Component {
       <Error {...this.props} />
       {this.props.initialSearch ? (<div className="pure-g">
         <div className="pure-u-md-8-12">
-          <h1 className="heading-large">Search for an offender</h1>
+          <h1 className="heading-large margin-top">Search for an offender</h1>
           <OffenderSearchContainer
             handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
             handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}

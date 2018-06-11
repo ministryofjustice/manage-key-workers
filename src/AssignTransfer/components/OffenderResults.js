@@ -95,11 +95,11 @@ class OffenderResults extends Component {
           </table>
         </div>
         {offenders.length > 0 ?
-          <div className="pure-u-md-2-12" >
+          <div className="buttonGroup" >
             <button id="saveButton" className="button" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
           </div> :
           <div className="font-small padding-bottom padding-left">No prisoners found</div>}
-        <div className="pure-u-md-3-12">
+        <div className="buttonGroup">
           <button id="cancelButton" className="button greyButton button-cancel" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
         </div>
       </div>

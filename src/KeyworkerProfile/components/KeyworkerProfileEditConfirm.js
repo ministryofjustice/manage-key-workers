@@ -32,7 +32,7 @@ class KeyworkerProfileEditConfirm extends Component {
       <div>
         <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
-            <h1 className="heading-large">Status change</h1>
+            <h1 className="heading-large margin-top">Status change</h1>
           </div>
           <div className="pure-g">
             <div className="pure-u-md-4-12">
@@ -46,15 +46,17 @@ class KeyworkerProfileEditConfirm extends Component {
             {innerContents}
 
             <div className="pure-u-md-8-12 padding-top-large margin-top">
-              <div className="pure-u-md-3-12">
-                <button id="saveButton" className="button"
-                  onClick={() => this.props.handleSaveChanges(this.props.history)}>Save changes
-                </button>
-              </div>
-              <div className="pure-u-md-5-12">
-                <button id="cancelButton" className="button greyButton button-cancel"
-                  onClick={() => this.props.handleCancel(this.props.history)}>Cancel and go back
-                </button>
+              <div className="pure-u-md-10-12">
+                <div className="buttonGroup">
+                  <button id="saveButton" className="button"
+                    onClick={() => this.props.handleSaveChanges(this.props.history)}>Save changes
+                  </button>
+                </div>
+                <div className="buttonGroup">
+                  <button id="cancelButton" className="button greyButton button-cancel"
+                    onClick={() => this.props.handleCancel(this.props.history)}>Cancel and go back
+                  </button>
+                </div>
               </div>
             </div>
           </div>

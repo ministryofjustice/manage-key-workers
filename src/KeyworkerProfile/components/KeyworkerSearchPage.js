@@ -9,7 +9,7 @@ class KeyworkerSearchPage extends Component {
         {this.props.displayBack()}
         <div className="pure-g">
           <div className="pure-u-md-8-12">
-            <h1 className="heading-large">Search for a key worker</h1>
+            <h1 className="heading-large margin-top">Search for a key worker</h1>
             <KeyworkerSearch {...this.props} />
           </div>
         </div>
