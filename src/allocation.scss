@@ -125,6 +125,11 @@ a.link{
     font-weight: bold;
 }
 
+a.backlink{
+    font-weight: normal;
+    font-size: 16px;
+}
+
 a.link:visited {
     color: #4C2C92;
     text-decoration: none;
@@ -136,6 +141,11 @@ a.link:hover {
 
 tr a.link{
     font-size: 16px;
+}
+
+.buttonGroup {
+    float:left;
+    margin-right: 15px;
 }
 
 
