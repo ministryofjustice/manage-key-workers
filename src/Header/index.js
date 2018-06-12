@@ -4,7 +4,6 @@ import Dropdown from '../Dropdown';
 import ProductGlobals from '../product-globals';
 
 import './header.theme.scss';
-import './index.scss';
 import { getHomeLink } from "../links";
 
 class Header extends Component {
