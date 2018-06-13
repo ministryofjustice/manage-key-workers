@@ -40,7 +40,9 @@ select {
 
 
 %numberCircle {
+  position:relative;
   width: 1.7em;
+  height: 1.7em;
   line-height: 1.7em;
   border-radius: 50%;
   text-align: center;
@@ -48,6 +50,7 @@ select {
   display: inline-block;
   font-weight: bold;
   margin-left: 0.5em;
+  margin-bottom: -0.5em;
 }
 
 .numberCircleGreen {
@@ -76,9 +79,12 @@ select {
   margin-right: 1em;
 }
 
-.allocationCount {
-  margin-bottom: -0.1em;
+.adjustCount {
+  position: absolute;
   display: block;
+  text-align: center;
+  width: 100%;
+  top: .07em;
 }
 
 
