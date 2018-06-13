@@ -15,22 +15,21 @@ class AllocationHistory extends Component {
   render () {
     const offenderDisplayName = properCaseName(this.props.allocationHistory.offender.firstName) + ' ' + properCaseName(this.props.allocationHistory.offender.lastName);
     const allocations = this.props.allocationHistory.allocationHistory.map((a, index) => {
-      const kwName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
-      const createdStaff = properCaseName(a.createdByUser.lastName) + ', ' + properCaseName(a.createdByUser.firstName);
-      const lastModStaff = properCaseName(a.lastModifiedByUser.lastName) + ', ' + properCaseName(a.lastModifiedByUser.firstName);
+      const kwName = properCaseName(a.firstName) + ' ' + properCaseName(a.lastName);
+      const createdStaff = properCaseName(a.createdByUser.firstName) + ' ' + properCaseName(a.createdByUser.lastName);
+      const lastModStaff = properCaseName(a.lastModifiedByUser.firstName) + ' ' + properCaseName(a.lastModifiedByUser.lastName);
       const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
       return (
         <tr key={a.offenderKeyworkerId}>
-          <td className="row-gutters">{renderDateTime(a.assigned)}</td>
           <td className="row-gutters"><a className="link" href={keyworkerHref}>{kwName}</a></td>
           <td className="row-gutters">{a.prisonId}</td>
-          <td className="row-gutters">{a.active}</td>
-          <td className="row-gutters">{a.allocationType}</td>
+          <td className="row-gutters">{renderDateTime(a.assigned)}</td>
+          <td className="row-gutters">{a.allocationReason}</td>
           <td className="row-gutters">{createdStaff}</td>
-          <td className="row-gutters">{renderDateTime(a.expired)}</td>
-          <td className="row-gutters">{a.deallocationReason}</td>
-          <td className="row-gutters">{renderDateTime(a.modifyDateTime)}</td>
-          <td className="row-gutters">{lastModStaff}</td>
+          <td className="row-gutters">{a.active ? '--' : renderDateTime(a.expired)}</td>
+          <td className="row-gutters">{a.active ? '--' : lastModStaff}</td>
+          <td className="row-gutters">{a.active ? '--' : a.deallocationReason}</td>
+          <td className="row-gutters">{a.active ? 'Current' : 'Previous'}</td>
         </tr>
       );
     });
@@ -38,22 +37,20 @@ class AllocationHistory extends Component {
     let renderContent = null;
 
     renderContent = (<div>
-      <div className="lede padding-top padding-bottom-large bold">Key worker allocation history ({this.props.allocationHistory.allocationHistory.length})</div>
       <div className="pure-u-md-12-12">
         <div className="padding-bottom-40">
           <table>
             <thead>
               <tr>
-                <th>Assigned</th>
-                <th>Key Worker Name</th>
-                <th>Prison</th>
-                <th>Current</th>
-                <th>Allocation Type</th>
-                <th>Assigned By</th>
-                <th>Expired</th>
+                <th>Name of key worker</th>
+                <th>Establishment</th>
+                <th>Allocation date & time</th>
+                <th>Allocation type</th>
+                <th>Allocated By</th>
+                <th>Removal date & time</th>
+                <th>Removed by</th>
                 <th>Reason</th>
-                <th>Changed</th>
-                <th>Changed By</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>{allocations}</tbody>
@@ -68,22 +65,22 @@ class AllocationHistory extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-top padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <h1 className="heading-large margin-top">Prisoner {offenderDisplayName}</h1>
+            <h1 className="heading-large margin-top">Key worker allocation history</h1>
           </div>
           <div className="padding-top">
 
             <div className="pure-u-md-5-12">
               <div className="pure-u-md-5-12" >
-                <label className="form-label" htmlFor="name">Current key worker</label>
-                <div className="bold padding-top-small">{this.getCurrentKeyWorker()}</div>
+                <label className="form-label" htmlFor="name">Prisoner Name</label>
+                <div className="bold padding-top-small">{offenderDisplayName}</div>
+              </div>
+              <div className="pure-u-md-3-12" >
+                <label className="form-label" htmlFor="name">Prisoner no.</label>
+                <div className="bold padding-top-small">{this.props.allocationHistory.offender.offenderNo}</div>
               </div>
               <div className="pure-u-md-4-12" >
-                <label className="form-label" htmlFor="name">Current Location</label>
-                <div className="bold padding-top-small">{this.props.allocationHistory.offender.agencyId} {this.props.allocationHistory.offender.assignedLivingUnitDesc}</div>
-              </div>
-              <div className="pure-u-md-1-12" >
-                <label className="form-label" htmlFor="name">ID</label>
-                <div className="bold padding-top-small">{this.props.allocationHistory.offender.offenderNo}</div>
+                <label className="form-label" htmlFor="name">Total key workers</label>
+                <div className="bold padding-top-small">{this.props.allocationHistory.allocationHistory.length}</div>
               </div>
             </div>
           </div>
