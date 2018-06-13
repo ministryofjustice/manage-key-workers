@@ -52,7 +52,7 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
-      <div className="lede padding-top padding-bottom-large bold">Current key worker allocations <div id="allocationCount" className={allocationCountStyle}>{this.props.keyworkerAllocations.length}</div></div>
+      <div className="lede padding-top padding-bottom-large bold">Current key worker allocations <div id="allocationCount" className={allocationCountStyle}><div className="adjustCount">{this.props.keyworkerAllocations.length}</div></div></div>
       <div className="pure-u-md-12-12">
         <div className="padding-bottom-40">
           <table>
