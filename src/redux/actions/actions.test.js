@@ -234,6 +234,14 @@ describe('actions', () => {
     expect(actions.setKeyworkerStatusChangeBehaviour('keepAllocated')).toEqual(expectedAction);
   });
 
+  it('should create an action to save annual leave return date', () => {
+    const expectedAction = {
+      type: types.SET_ANNUAL_LEAVE_RETURN_DATE,
+      annualLeaveReturnDate: '23/4/2005'
+    };
+    expect(actions.setAnnualLeaveReturnDate('23/4/2005')).toEqual(expectedAction);
+  });
+
   it('should create a validation error', () => {
     const expectedAction = {
       type: types.SET_VALIDATION_ERROR,

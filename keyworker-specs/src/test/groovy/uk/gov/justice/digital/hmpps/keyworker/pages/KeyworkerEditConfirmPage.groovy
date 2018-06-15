@@ -16,6 +16,7 @@ public class KeyworkerEditConfirmPage extends Page {
         headingText { $('h1').text() }
         status { $('#keyworker-status')}
         inactiveWarning (required: false) {$('#inactiveWarning')}
+        annualLeaveDatePicker (required: false) {$('.datePickerInput')}
         allocationOptions { $('input', name: 'allocationOption') }
         saveButton(to: KeyworkerProfilePage) { $('#saveButton') }
         cancelButton(to: KeyworkerEditPage) { $('#cancelButton') }
