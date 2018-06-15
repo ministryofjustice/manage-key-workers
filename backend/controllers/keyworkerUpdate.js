@@ -6,10 +6,10 @@ const log = require('../log');
 
 router.post('/', asyncMiddleware(async (req, res) => {
   const keyworker = req.body.keyworker;
-  log.debug({ keyworker }, 'Key worker update contents');
+  log.info({ keyworker }, 'Key worker update contents');
   req.data = keyworker;
   const response = await keyworkerApi.keyworkerUpdate(req, res);
-  log.debug({ response }, 'Response from keyworker update request');
+  log.info({ response }, 'Response from keyworker update request');
   res.json({});
 }));
 

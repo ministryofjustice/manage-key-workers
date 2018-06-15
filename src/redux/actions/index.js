@@ -189,6 +189,13 @@ export const setKeyworkerStatusChangeBehaviour = (statusChangeBehaviour) => {
   };
 };
 
+export const setAnnualLeaveReturnDate = (annualLeaveReturnDate) => {
+  return {
+    type: ActionTypes.SET_ANNUAL_LEAVE_RETURN_DATE,
+    annualLeaveReturnDate
+  };
+};
+
 export const setValidationError = (fieldName, message) => {
   return {
     type: ActionTypes.SET_VALIDATION_ERROR,
