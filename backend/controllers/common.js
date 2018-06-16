@@ -42,6 +42,14 @@ const addReleaseDate = function (allReleaseDates, row) {
   row.confirmedReleaseDate = detail && detail.sentenceDetail && detail.sentenceDetail.releaseDate;
 };
 
+const addKWCaseNoteDate = function (kwDates, row) {
+  const details = kwDates.filter(details => details.offenderNo === row.offenderNo);
+  if (details.length < 1) {
+    return;
+  }
+  row.lastKeyWorkerSessionDate = details.reduce((m,v,i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
+};
+
 const offenderNoParamsSerializer = params => {
   s = '';
   for (const offenderNo of params) {
@@ -54,6 +62,7 @@ module.exports = {
   addMissingKeyworkerDetails,
   addCrsaClassification,
   addReleaseDate,
+  addKWCaseNoteDate,
   offenderNoParamsSerializer
 };
 
