@@ -47,7 +47,7 @@ const addKWCaseNoteDate = function (kwDates, row) {
   if (details.length < 1) {
     return;
   }
-  row.lastKeyWorkerSessionDate = details.reduce((m,v,i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
+  row.lastKeyWorkerSessionDate = details.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
 };
 
 const offenderNoParamsSerializer = params => {
