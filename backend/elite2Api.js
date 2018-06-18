@@ -37,7 +37,7 @@ const caseNoteUsageList = (req, res, offenderNos) => gateway.getRequest({
   req,
   res,
   method: 'get',
-  url: `${eliteApiUrl}api/case-notes/usage?${encodeOffenders(offenderNos)}&type=KA`
+  url: `${eliteApiUrl}api/case-notes/usage?${encodeOffenders(offenderNos)}&type=KA&numMonths=3`
 });
 
 const csraList = (req, res) => gateway.postRequest({
