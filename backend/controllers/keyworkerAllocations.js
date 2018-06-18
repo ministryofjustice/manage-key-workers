@@ -29,9 +29,14 @@ const keyworkerAllocations = async (req, res) => {
     const allCsras = csraListResponse.data;
     log.debug({ data: allCsras }, 'Response from csraList request');
 
+    const kwUsage = await elite2Api.caseNoteUsageList(req, res, req.data);
+    const kwDates = kwUsage.data;
+    log.debug({ data: kwDates }, 'Response from case note usage request');
+
     for (const row of tableData) {
       common.addCrsaClassification(allCsras, row);
       common.addReleaseDate(allReleaseDates, row);
+      common.addKWCaseNoteDate(kwDates, row);
     }
   }
 

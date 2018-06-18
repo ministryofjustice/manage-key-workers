@@ -36,6 +36,7 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
+          <td className="row-gutters">{renderDate(a.lastKeyWorkerSessionDate)}</td>
           <td className="row-gutters">
 
             <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
@@ -63,6 +64,7 @@ class KeyworkerProfile extends Component {
                 <th>Location</th>
                 <th>CRD</th>
                 <th>CSRA</th>
+                <th>Last key<br/>worker activity</th>
                 <th>Assign to new key worker</th>
               </tr>
             </thead>

@@ -3,6 +3,7 @@ package uk.gov.justice.digital.hmpps.keyworker.mockapis
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.CaseNoteUsageResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSentencesResponse
@@ -134,6 +135,16 @@ class Elite2Api extends WireMockRule {
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderSentencesResponse.response)
+                        .withStatus(200))
+        )
+    }
+
+    void stubCaseNoteUsageResponse() {
+        this.stubFor(
+                get(urlPathMatching("/api/case-notes/usage?.*"))
+                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
+                        .willReturn(aResponse()
+                        .withBody(CaseNoteUsageResponse.response)
                         .withStatus(200))
         )
     }

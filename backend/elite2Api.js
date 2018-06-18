@@ -33,6 +33,13 @@ const searchOffenders = (req, res) => gateway.getRequest({
   headers: { 'Page-Limit': 4000 }
 });
 
+const caseNoteUsageList = (req, res, offenderNos) => gateway.getRequest({
+  req,
+  res,
+  method: 'get',
+  url: `${eliteApiUrl}api/case-notes/usage?${encodeOffenders(offenderNos)}&type=KA&numMonths=3`
+});
+
 const csraList = (req, res) => gateway.postRequest({
   req,
   res,
@@ -78,12 +85,17 @@ const service = {
   setActiveCaseLoad,
   sentenceDetailList,
   csraList,
+  caseNoteUsageList,
   offenderSearchResultMax,
   eliteApiUrl
 };
 
 function encodeQueryString (input) {
   return encodeURIComponent(input);
+}
+
+function encodeOffenders (offenderNos) {
+  return 'offenderNo=' + offenderNos.join("&offenderNo=");
 }
 
 module.exports = service;

@@ -14,7 +14,7 @@ const allocationResponse = createDataResponse();
 describe('keyworkerAllocations controller', async () => {
   it('Should add keyworker details to data array', async () => {
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse());
-
+    elite2Api.caseNoteUsageList = jest.fn().mockImplementationOnce(() => createCaseNoteUsageResponse());
     elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse());
 
     keyworkerApi.availableKeyworkers = jest.fn().mockImplementationOnce(() => createAvailableKeyworkerResponse());
@@ -31,12 +31,17 @@ describe('keyworkerAllocations controller', async () => {
     expect(response.allocatedResponse[0].internalLocationDesc).toBe("A-1-1");
     expect(response.allocatedResponse[0].crsaClassification).toBe('High');
     expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03');
+    expect(response.allocatedResponse[0].lastKeyWorkerSessionDate).toBe('2018-03-01');
+
     expect(response.allocatedResponse[1].bookingId).toBe(-2);
     expect(response.allocatedResponse[1].crsaClassification).toBe('High');
     expect(response.allocatedResponse[1].confirmedReleaseDate).toBe('2025-04-03');
+    expect(response.allocatedResponse[1].lastKeyWorkerSessionDate).toBe('2018-03-03');
+
     expect(response.allocatedResponse[2].bookingId).toBe(-6);
     expect(response.allocatedResponse[2].crsaClassification).toBe('Low');
     expect(response.allocatedResponse[2].confirmedReleaseDate).toBe('2026-03-03');
+    expect(response.allocatedResponse[2].lastKeyWorkerSessionDate).toBe('2018-04-13');
 
     expect(response.keyworkerResponse[0].staffId).toBe(15583);
     expect(response.keyworkerResponse[0].firstName).toBe('Brent');
@@ -91,6 +96,19 @@ function createDataResponse () {
     ]
   };
 }
+
+function createCaseNoteUsageResponse () {
+  return { data: [
+    { offenderNo: "A1234AA", latestCaseNote: '2018-03-01' },
+    { offenderNo: "A1234AB", latestCaseNote: '2018-03-03' },
+    { offenderNo: "A1234AF", latestCaseNote: '2017-04-13' },
+    { offenderNo: "A1234AF", latestCaseNote: '2018-04-12' },
+    { offenderNo: "A1234AF", latestCaseNote: '2018-04-13' },
+    { offenderNo: "A1234AC", latestCaseNote: '2018-05-03' },
+    { offenderNo: "A1234AD", latestCaseNote: '2018-03-03' }
+  ] };
+}
+
 
 function createSentenceDetailListResponse () {
   return { data: [

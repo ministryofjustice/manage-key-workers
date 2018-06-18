@@ -11,7 +11,8 @@ const NOMS_ID_COLUMN = 1;
 const LOCATION_COLUMN = 2;
 const CRD_COLUMN = 3;
 const CSRA_COLUMN = 4;
-const KEYWORKER_SELECT_COLUMN = 5;
+const KW_ACTIVITY_COLUMN = 5;
+const KEYWORKER_SELECT_COLUMN = 6;
 
 const keyworkerList = [
   {
@@ -43,6 +44,7 @@ const allocatedOffenders = [{
   internalLocationDesc: "L-1-1",
   confirmedReleaseDate: "2019-10-20",
   crsaClassification: "Standard",
+  lastKeyWorkerSessionDate: '2018-05-01',
   keyworkerDisplay: "Hanson, Sam",
   numberAllocated: 4,
   staffId: 123
@@ -55,6 +57,7 @@ const allocatedOffenders = [{
   internalLocationDesc: "L-1-2",
   confirmedReleaseDate: "2019-10-20",
   crsaClassification: "High",
+  lastKeyWorkerSessionDate: '2018-06-15',
   keyworkerDisplay: NO_DATA,
   staffId: 999
 },
@@ -66,6 +69,7 @@ const allocatedOffenders = [{
   internalLocationDesc: "L-2-2",
   confirmedReleaseDate: "2019-10-20",
   crsaClassification: NO_DATA,
+  lastKeyWorkerSessionDate: '2018-06-01',
   keyworkerDisplay: "Hanson, Sam",
   numberAllocated: 5,
   staffId: 123
@@ -83,6 +87,7 @@ describe('Keyworker Profile component', () => {
     expect(component.find('tr').at(3).find('td').at(LOCATION_COLUMN).text()).toEqual('L-2-2');
     expect(component.find('tr').at(3).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019');
     expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual(NO_DATA);
+    expect(component.find('tr').at(3).find('td').at(KW_ACTIVITY_COLUMN).text()).toEqual('01/06/2018');
     expect(component.find('#updateAllocationButton').length).toEqual(1);
   });
 
