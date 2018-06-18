@@ -147,7 +147,8 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
-        elite2api.stubOffenderSentenceResponse(AgencyLocation.LEI)
+        elite2api.stubOffenderSentenceResponse()
+        elite2api.stubCaseNoteUsageResponse()
     }
 
     def toKeyworkerEditPage() {
