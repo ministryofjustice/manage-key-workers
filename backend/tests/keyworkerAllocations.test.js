@@ -99,14 +99,14 @@ function createDataResponse () {
 
 function createCaseNoteUsageResponse () {
   return { data: [
-      { offenderNo: "A1234AA", latestCaseNote: '2018-03-01' },
-      { offenderNo: "A1234AB", latestCaseNote: '2018-03-03' },
-      { offenderNo: "A1234AF", latestCaseNote: '2017-04-13' },
-      { offenderNo: "A1234AF", latestCaseNote: '2018-04-12' },
-      { offenderNo: "A1234AF", latestCaseNote: '2018-04-13' },
-      { offenderNo: "A1234AC", latestCaseNote: '2018-05-03' },
-      { offenderNo: "A1234AD", latestCaseNote: '2018-03-03' }
-    ] };
+    { offenderNo: "A1234AA", latestCaseNote: '2018-03-01' },
+    { offenderNo: "A1234AB", latestCaseNote: '2018-03-03' },
+    { offenderNo: "A1234AF", latestCaseNote: '2017-04-13' },
+    { offenderNo: "A1234AF", latestCaseNote: '2018-04-12' },
+    { offenderNo: "A1234AF", latestCaseNote: '2018-04-13' },
+    { offenderNo: "A1234AC", latestCaseNote: '2018-05-03' },
+    { offenderNo: "A1234AD", latestCaseNote: '2018-03-03' }
+  ] };
 }
 
 
