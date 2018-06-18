@@ -61,6 +61,20 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         inactiveWarning.isDisplayed()
     }
 
+    def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly"() {
+        given: "I am at the key worker profile page"
+        toKeyworkerEditPage()
+
+        when: "inactive is selected and saved"
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        saveChangesButton.click()
+
+        then: "should go to edit confirm - UNAVAILABLE_ANNUAL_LEAVE status should display as expected"
+        at KeyworkerEditConfirmPage
+        status.text() == 'Unavailable - annual leave'
+        annualLeaveDatePicker.isDisplayed()
+    }
+
     def "key worker edit - saving active status"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPageWithInactiveStatus()
