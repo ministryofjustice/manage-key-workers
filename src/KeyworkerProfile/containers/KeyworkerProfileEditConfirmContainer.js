@@ -29,9 +29,7 @@ class KeyworkerProfileEditContainer extends Component {
     } else {
       this.props.setStatusChangeBehaviourDispatch('');
     }
-    if (this.props.status !== 'UNAVAILABLE_ANNUAL_LEAVE') {
-      this.props.dateDispatch('');
-    }
+    this.props.dateDispatch('');
   }
 
   async handleSaveChanges (history) {

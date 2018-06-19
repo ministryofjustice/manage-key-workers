@@ -125,7 +125,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
     def "key worker edit confirm - no allocations - should not display Prisoners removed message"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPageWithInactiveStatus()
-        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_LONG_TERM_ABSENCE" }.click()
         saveChangesButton.click()
 
         when: "unavailable is selected and saved"
@@ -143,7 +143,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
     def "key worker edit confirm - allocations exist - should display Prisoners removed message"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPage()
-        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_LONG_TERM_ABSENCE" }.click()
         saveChangesButton.click()
 
         when: "unavailable is selected and saved"
