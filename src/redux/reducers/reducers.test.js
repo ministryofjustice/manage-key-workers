@@ -53,7 +53,8 @@ const keyworkerSearchInitialState = {
   keyworker: null,
   status: '',
   capacity: "",
-  statusChangeBehaviour: ''
+  statusChangeBehaviour: '',
+  annualLeaveReturnDate: ''
 };
 
 const keyworkerSearchPopulatedState = {
@@ -65,7 +66,8 @@ const keyworkerSearchPopulatedState = {
   keyworker: { say: "hello" },
   status: 'ACTIVE',
   capacity: "7",
-  statusChangeBehaviour: 'newBehaviour'
+  statusChangeBehaviour: 'newBehaviour',
+  annualLeaveReturnDate: '25/06/2018'
 };
 
 describe('app (global) reducer', () => {
@@ -461,7 +463,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: '',
         capacity: '',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -481,7 +484,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: '',
         capacity: '',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -500,7 +504,8 @@ describe('key worker search reducer', () => {
         keyworker: { key: 'value' },
         status: '',
         capacity: '',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -519,7 +524,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: '',
         capacity: '',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -538,7 +544,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: '',
         capacity: '',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -557,7 +564,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: '',
         capacity: '9',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -576,7 +584,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: 'Unavailable',
         capacity: '',
-        statusChangeBehaviour: ''
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -595,7 +604,8 @@ describe('key worker search reducer', () => {
         keyworker: null,
         status: '',
         capacity: '',
-        statusChangeBehaviour: 'runAround'
+        statusChangeBehaviour: 'runAround',
+        annualLeaveReturnDate: ''
       }
     );
   });
@@ -614,7 +624,28 @@ describe('key worker search reducer', () => {
         keyworker: { key: 'value' },
         status: 'ACTIVE',
         capacity: '7',
-        statusChangeBehaviour: 'newBehaviour'
+        statusChangeBehaviour: 'newBehaviour',
+        annualLeaveReturnDate: '25/06/2018'
+      }
+    );
+  });
+
+  it('should handle SET_ANNUAL_LEAVE_RETURN_DATE maintaining existing state', () => {
+    expect(keyworkerSearch(keyworkerSearchPopulatedState, {
+      type: types.SET_ANNUAL_LEAVE_RETURN_DATE,
+      annualLeaveReturnDate: '23/23/2017'
+    })).toEqual(
+      {
+        searchText: 'yes',
+        keyworkerSearchResults: [{ value: 'search' }],
+        keyworkerAllocations: [{ value: 'allocations' }],
+        keyworkerChangeList: [],
+        keyworkerList: [{ value: 'available keyworkers' }],
+        keyworker: { say: 'hello' },
+        status: 'ACTIVE',
+        capacity: '7',
+        statusChangeBehaviour: 'newBehaviour',
+        annualLeaveReturnDate: '23/23/2017'
       }
     );
   });
