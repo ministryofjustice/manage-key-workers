@@ -30,7 +30,8 @@ class KeyworkerProfileEditConfirm extends Component {
       {(this.props.status === 'UNAVAILABLE_ANNUAL_LEAVE') && (
         <div className="pure-u-md-8-12 padding-top bold">
           <div className="padding-bottom padding-top">What date will they return from annual leave?</div>
-          <div className="pure-u-md-5-12">
+          <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'active-date'} />
+          <div className="pure-u-md-5-12" id="active-date" >
             <DatePickerInput className="annualLeaveDate" handleDateChange={this.props.handleDateChange} additionalClassName="dateInput" inputId="search-date" />
           </div>
         </div>)}

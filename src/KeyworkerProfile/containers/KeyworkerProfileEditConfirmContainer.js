@@ -9,6 +9,7 @@ import { resetValidationErrors, setMessage, setValidationError, setAnnualLeaveRe
 import axios from "axios";
 import * as behaviours from '../keyworkerStatusBehavour';
 import moment from 'moment';
+import { switchToIsoDateFormat, isBlank } from '../../stringUtils';
 
 class KeyworkerProfileEditContainer extends Component {
   constructor () {
@@ -28,6 +29,7 @@ class KeyworkerProfileEditContainer extends Component {
     } else {
       this.props.setStatusChangeBehaviourDispatch('');
     }
+    this.props.dateDispatch('');
   }
 
   async handleSaveChanges (history) {
@@ -56,6 +58,10 @@ class KeyworkerProfileEditContainer extends Component {
       this.props.setValidationErrorDispatch("behaviourRadios", "Please choose an option");
       return false;
     }
+    if (this.props.status === 'UNAVAILABLE_ANNUAL_LEAVE' && isBlank(this.props.annualLeaveReturnDate)) {
+      this.props.setValidationErrorDispatch("active-date", "Please choose a return date");
+      return false;
+    }
     this.props.resetValidationErrorsDispatch();
     return true;
   }
@@ -68,7 +74,7 @@ class KeyworkerProfileEditContainer extends Component {
               status: this.props.status,
               capacity: this.props.capacity,
               behaviour: this.props.behaviour,
-              activeDate: this.props.annualLeaveReturnDate
+              activeDate: switchToIsoDateFormat(this.props.annualLeaveReturnDate)
             }
       },
       {

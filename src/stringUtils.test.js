@@ -1,4 +1,4 @@
-import { renderDate } from './stringUtils';
+import { renderDate, switchToIsoDateFormat } from './stringUtils';
 import moment from 'moment';
 
 describe('the renderDate function', () => {
@@ -46,5 +46,17 @@ describe('the renderDate function', () => {
 
   it('should render a boolean as "--"', () => {
     expect(renderDate(false)).toBe(notPresentString);
+  });
+
+  it('should switch date format', () => {
+    expect(switchToIsoDateFormat('25/11/1971')).toBe('1971-11-25');
+  });
+
+  it('should allow undefined when switching date format', () => {
+    expect(switchToIsoDateFormat(undefined)).toBeUndefined();
+  });
+
+  it('should allow empty strings when switching date format', () => {
+    expect(switchToIsoDateFormat('')).toBeUndefined();
   });
 });

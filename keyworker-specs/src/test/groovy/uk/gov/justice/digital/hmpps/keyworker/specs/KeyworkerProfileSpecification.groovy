@@ -65,7 +65,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         given: "I am at the key worker profile page"
         toKeyworkerEditPage()
 
-        when: "inactive is selected and saved"
+        when: "unavailable_annual_leave is selected and saved"
         keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
         saveChangesButton.click()
 
@@ -73,6 +73,22 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         at KeyworkerEditConfirmPage
         status.text() == 'Unavailable - annual leave'
         annualLeaveDatePicker.isDisplayed()
+    }
+
+    def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - return date is mandatory"() {
+        given: "I am at the key worker profile page"
+        toKeyworkerEditPage()
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        saveChangesButton.click()
+        at KeyworkerEditConfirmPage
+
+        when: "behaviour is selected but no date"
+        allocationOptions = 'REMOVE_ALLOCATIONS_NO_AUTO'
+        saveButtonValidationError.click()
+
+        then: "should remain on edit confirm - validation error displayed"
+        at KeyworkerEditConfirmPage
+        errorMessage.text() == 'Please choose a return date'
     }
 
     def "key worker edit - saving active status"() {
@@ -109,7 +125,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
     def "key worker edit confirm - no allocations - should not display Prisoners removed message"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPageWithInactiveStatus()
-        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_LONG_TERM_ABSENCE" }.click()
         saveChangesButton.click()
 
         when: "unavailable is selected and saved"
@@ -127,7 +143,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
     def "key worker edit confirm - allocations exist - should display Prisoners removed message"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPage()
-        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_LONG_TERM_ABSENCE" }.click()
         saveChangesButton.click()
 
         when: "unavailable is selected and saved"
