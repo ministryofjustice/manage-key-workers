@@ -21,14 +21,34 @@ describe('Keyworker Profile Edit component', () => {
     expect(component.text()).toContain('This will remove the key worker from the auto-allocation pool and release all of their allocated prisoners.');
     expect(component.find('input').length).toEqual(0); //no options shown
     expect(component.find('#keyworker-status').hasClass('inactiveStatus')).toBe(true);
+    expect(component.find('DatePickerInput').length).toEqual(0);
   });
 
-  it('should render component correctly w with UNAVAILABLE status', async () => {
+  it('should render component correctly with UNAVAILABLE_ANNUAL_LEAVE status', async () => {
     const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} handleOptionChange={jest.fn()} status="UNAVAILABLE_ANNUAL_LEAVE"/>);
     console.log("debug output " + component.debug());
     expect(component.text()).toContain('Choose an option');
     expect(component.find('input').length).toEqual(3);
     expect(component.find('#keyworker-status').hasClass('unavailableStatus')).toBe(true);
+    expect(component.find('DatePickerInput').length).toEqual(1);
+  });
+
+  it('should render component correctly with UNAVAILABLE_LONG_TERM_ABSENCE status', async () => {
+    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} handleOptionChange={jest.fn()} status="UNAVAILABLE_LONG_TERM_ABSENCE"/>);
+    console.log("debug output " + component.debug());
+    expect(component.text()).toContain('Choose an option');
+    expect(component.find('input').length).toEqual(3);
+    expect(component.find('#keyworker-status').hasClass('unavailableStatus')).toBe(true);
+    expect(component.find('DatePickerInput').length).toEqual(0);
+  });
+
+  it('should render component correctly with UNAVAILABLE_NO_PRISONER_CONTACT status', async () => {
+    const component = shallow(<KeyworkerProfileEditConfirm keyworker={keyworker} handleSaveChanges={jest.fn()} handleCancel={jest.fn()} handleOptionChange={jest.fn()} status="UNAVAILABLE_NO_PRISONER_CONTACT"/>);
+    console.log("debug output " + component.debug());
+    expect(component.text()).toContain('Choose an option');
+    expect(component.find('input').length).toEqual(3);
+    expect(component.find('#keyworker-status').hasClass('unavailableStatus')).toBe(true);
+    expect(component.find('DatePickerInput').length).toEqual(0);
   });
 
 

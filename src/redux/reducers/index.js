@@ -39,7 +39,8 @@ const keyworkerSearchInitialState = {
   keyworkerList: [],
   status: '',
   capacity: 0,
-  statusChangeBehaviour: ''
+  statusChangeBehaviour: '',
+  annualLeaveReturnDate: ''
 };
 
 const allocationHistoryInitialState = {
@@ -198,6 +199,10 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
     case ActionTypes.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR:
       return { ...state,
         statusChangeBehaviour: action.statusChangeBehaviour
+      };
+    case ActionTypes.SET_ANNUAL_LEAVE_RETURN_DATE:
+      return { ...state,
+        annualLeaveReturnDate: action.annualLeaveReturnDate
       };
     default:
       return state;
