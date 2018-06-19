@@ -1,4 +1,5 @@
 const moment = require('moment');
+const iso8601DateFormat = 'YYYY-MM-DD';
 
 const properCase = (word) => {
   return ((typeof word === 'string') && (word.length >= 1)) ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word;
@@ -14,9 +15,9 @@ const properCaseName = (name) => {
   return isBlank(name) ? '' : name.split('-').map(properCase).join('-');
 };
 
-function isBlank (str) {
+const isBlank = (str) => {
   return (!str || /^\s*$/.test(str));
-}
+};
 
 const toFullName = ({ firstName, lastName, name }) =>
   !isBlank(name) ? name.split(' ').map(properCaseName).join(', ') :
@@ -29,7 +30,6 @@ const toFullName = ({ firstName, lastName, name }) =>
  */
 const renderDate = (date) => {
   const screenFormat = 'DD/MM/YYYY';
-  const iso8601DateFormat = 'YYYY-MM-DD';
   const notPresentString = '--';
 
   const theMoment = (typeof date === 'string') ? moment(date, iso8601DateFormat) : date;
@@ -59,10 +59,16 @@ const renderDateTime = (date) => {
   return notPresentString;
 };
 
+const switchToIsoDateFormat = (displayDateString) => {
+  return isBlank(displayDateString) ? undefined : moment(displayDateString, 'DD/MM/YYYY').format(iso8601DateFormat);
+};
+
 module.exports = {
   properCase,
   properCaseName,
   toFullName,
   renderDate,
-  renderDateTime
+  renderDateTime,
+  switchToIsoDateFormat,
+  isBlank
 };

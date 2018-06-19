@@ -61,6 +61,36 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         inactiveWarning.isDisplayed()
     }
 
+    def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly"() {
+        given: "I am at the key worker profile page"
+        toKeyworkerEditPage()
+
+        when: "unavailable_annual_leave is selected and saved"
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        saveChangesButton.click()
+
+        then: "should go to edit confirm - UNAVAILABLE_ANNUAL_LEAVE status should display as expected"
+        at KeyworkerEditConfirmPage
+        status.text() == 'Unavailable - annual leave'
+        annualLeaveDatePicker.isDisplayed()
+    }
+
+    def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - return date is mandatory"() {
+        given: "I am at the key worker profile page"
+        toKeyworkerEditPage()
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        saveChangesButton.click()
+        at KeyworkerEditConfirmPage
+
+        when: "behaviour is selected but no date"
+        allocationOptions = 'REMOVE_ALLOCATIONS_NO_AUTO'
+        saveButtonValidationError.click()
+
+        then: "should remain on edit confirm - validation error displayed"
+        at KeyworkerEditConfirmPage
+        errorMessage.text() == 'Please choose a return date'
+    }
+
     def "key worker edit - saving active status"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPageWithInactiveStatus()
@@ -133,8 +163,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
-        elite2api.stubOffenderSentenceResponse()
-        elite2api.stubCaseNoteUsageResponse()
+        elite2api.stubOffenderSentenceResponse(AgencyLocation.LEI)
     }
 
     def toKeyworkerEditPage() {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
 import ValidationErrors from "../../ValidationError";
+import DatePickerInput from "../../DatePickerInput";
 
 class KeyworkerProfileEditConfirm extends Component {
   render () {
@@ -9,7 +10,7 @@ class KeyworkerProfileEditConfirm extends Component {
       This will remove the key worker from the auto-allocation pool and release all of their allocated prisoners.</div></div>);
 
     if (this.props.status !== 'INACTIVE') {
-      innerContents = (<div className="pure-u-md-6-12">
+      innerContents = (<div><div className="pure-u-md-6-12">
         <div className="padding-bottom">Choose an option:</div>
         <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'behaviourRadios'} />
         <div name="behaviourRadios" id="behaviourRadios" className="multiple-choice">
@@ -24,6 +25,17 @@ class KeyworkerProfileEditConfirm extends Component {
           <input type="radio" name="allocationOption" value="REMOVE_ALLOCATIONS_NO_AUTO" onClick={this.props.handleOptionChange}/>
           <label>Stop allocating and unallocate all their current prisoners</label>
         </div>
+      </div>
+
+      {(this.props.status === 'UNAVAILABLE_ANNUAL_LEAVE') && (
+        <div className="pure-u-md-8-12 padding-top bold">
+          <div className="padding-bottom padding-top">What date will they return from annual leave?</div>
+          <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'active-date'} />
+          <div className="pure-u-md-5-12" id="active-date" >
+            <DatePickerInput className="annualLeaveDate" handleDateChange={this.props.handleDateChange} additionalClassName="dateInput" inputId="search-date" />
+          </div>
+        </div>)}
+
       </div>);
     }
 
@@ -71,6 +83,7 @@ KeyworkerProfileEditConfirm.propTypes = {
   keyworker: PropTypes.object.isRequired,
   handleSaveChanges: PropTypes.func.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
+  handleDateChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   status: PropTypes.string,
   capacity: PropTypes.string,
