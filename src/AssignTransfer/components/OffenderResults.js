@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { properCaseName } from '../../stringUtils';
-import { getOffenderLink } from "../../links";
-import { getStaffLink } from "../../links";
+import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from "../../links";
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import OffenderSearch from "../components/OffenderSearch";
@@ -45,6 +44,7 @@ class OffenderResults extends Component {
         <td className="row-gutters">{a.crsaClassification || "--"}</td>
         <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
         </td>
+        <td><a className="link" target="_blank" href={getKeyWorkerHistoryLink(a.offenderNo)}>View</a></td>
         <td className="row-gutters">
           <select id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`}className="form-control" value={currentSelectValue}
             onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
@@ -78,7 +78,7 @@ class OffenderResults extends Component {
         </div>
         {this.props.offenderResults.partialResults &&
         <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><img alt="" className="padding-left" src="/images/icon-important-2x.png" height="30" width="30"/></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
-        <div className="padding-bottom-40">
+        <div className="padding-bottom-40 padding-top">
           <table className="row-gutters">
             <thead>
               <tr>
@@ -87,7 +87,8 @@ class OffenderResults extends Component {
                 <th>Location</th>
                 <th>Release date</th>
                 <th>CSRA</th>
-                <th>Key worker</th>
+                <th>Current <br/>Key worker</th>
+                <th>Key worker<br/>History</th>
                 <th>Assign new key worker</th>
               </tr>
             </thead>

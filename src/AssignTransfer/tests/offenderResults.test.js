@@ -11,7 +11,8 @@ const LOCATION_COLUMN = 2;
 const CRD_COLUMN = 3;
 const CSRA_COLUMN = 4;
 const KEYWORKER_NAME_COLUMN = 5;
-const KEYWORKER_SELECT_COLUMN = 6;
+const KEYWORKER_HISTORY_VIEW_COLUMN = 6;
+const KEYWORKER_SELECT_COLUMN = 7;
 
 const offenderResponse = [{
   bookingId: 1,
@@ -83,6 +84,7 @@ describe('Offender results component', () => {
     expect(component.find('tr').at(1).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019');
     expect(component.find('tr').at(1).find('td').at(CSRA_COLUMN).text()).toEqual('Standard');
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_NAME_COLUMN).text()).toContain("Hanson, Sam");
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_HISTORY_VIEW_COLUMN).text()).toContain("View");
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).text()).toContain("Hanson, Sam (6)");
 
     expect(component.find('tr').at(2).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Rendell2, Steve2');

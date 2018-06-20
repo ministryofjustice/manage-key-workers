@@ -24,6 +24,7 @@
     "hsts": "^2.1.0",
     "immutable": "^3.8.2",
     "jsonwebtoken": "^8.1.1",
+    "pre-commit": "^1.2.2",
     "react": "^16.2.0",
     "react-appinsights": "^1.0.4",
     "react-datetime": "^2.12.0",
@@ -50,6 +51,9 @@
     "record-build-info": "node scripts/record-build-info",
     "plant-beanstalk": "node scripts/plant-beanstalk.js"
   },
+  "pre-commit": [
+    "verify"
+  ],
   "proxy": {
     "/auth/*": {
       "target": "http://localhost:3001"
