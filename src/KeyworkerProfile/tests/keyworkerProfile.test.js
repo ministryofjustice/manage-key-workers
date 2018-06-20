@@ -36,6 +36,16 @@ const keyworker = {
   capacity: 8
 };
 
+const keyworkerWithActiveDate = {
+  firstName: "Frank",
+  lastName: "Butcher",
+  staffId: 123,
+  status: "UNAVAILABLE_ANNUAL_LEAVE",
+  statusDescription: "Inactive",
+  capacity: 8,
+  activeDate: "24/6/2018"
+};
+
 const allocatedOffenders = [{
   bookingId: 1,
   lastName: "Rendell",
@@ -89,6 +99,7 @@ describe('Keyworker Profile component', () => {
     expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual(NO_DATA);
     expect(component.find('tr').at(3).find('td').at(KW_ACTIVITY_COLUMN).text()).toEqual('01/06/2018');
     expect(component.find('#updateAllocationButton').length).toEqual(1);
+    expect(component.find('#active-date').length).toEqual(0);
   });
 
   it('should hide save button if no allocations', async () => {
@@ -119,6 +130,13 @@ describe('Keyworker Profile component', () => {
 
     component.find('#editProfileButton').simulate('click');
     expect(handleButtonClick.mock.calls.length).toEqual(1);
+  });
+
+  it('should render active date if status = annual leave', async () => {
+    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworkerWithActiveDate} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
+    console.log(component.debug());
+    expect(component.text()).toContain('Profile for Frank Butcher');
+    expect(component.find('#active-date').at(0).text()).toEqual('24/6/2018');
   });
 });
 
