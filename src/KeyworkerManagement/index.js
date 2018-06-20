@@ -12,7 +12,7 @@ class HomePage extends Component {
         <div className="pure-g">
           <div className="pure-u-md-12-12 padding-top"><a className="link backlink" href={getHomeLink()}><img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Home</a></div>
           <div className="pure-u-md-8-12 padding-bottom-large">
-            <h1 className="heading-large margin-top">Key worker management</h1>
+            <h1 className="heading-large margin-top padding-bottom-40">Key worker management</h1>
             <div className="pure-u-md-6-12">
               <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated" >Auto-allocate key workers</Link>
               <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
