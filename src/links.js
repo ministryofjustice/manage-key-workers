@@ -10,12 +10,16 @@ const getStaffLink = (staffId) => {
   return `/keyworker/${staffId}/profile`;
 };
 
+const getKeyWorkerHistoryLink = (offenderNo) => {
+  return `/offender/${offenderNo}/history`;
+};
 
 const links = {
   notmEndpointUrl: '', // set from env by /api/config call
   getOffenderLink,
   getHomeLink,
-  getStaffLink
+  getStaffLink,
+  getKeyWorkerHistoryLink
 };
 
 module.exports = links;

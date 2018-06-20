@@ -16,7 +16,7 @@ class AllocationHistory extends Component {
     const offenderDisplayName = properCaseName(this.props.allocationHistory.offender.firstName) + ' ' + properCaseName(this.props.allocationHistory.offender.lastName);
     const allocations = this.props.allocationHistory.allocationHistory.map((a, index) => {
       const kwName = properCaseName(a.firstName) + ' ' + properCaseName(a.lastName);
-      const createdStaff = properCaseName(a.createdByUser.firstName) + ' ' + properCaseName(a.createdByUser.lastName);
+      const createdStaff = properCaseName(a.userId.firstName) + ' ' + properCaseName(a.userId.lastName);
       const lastModStaff = properCaseName(a.lastModifiedByUser.firstName) + ' ' + properCaseName(a.lastModifiedByUser.lastName);
       const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
       return (
@@ -44,10 +44,10 @@ class AllocationHistory extends Component {
               <tr>
                 <th>Name of key worker</th>
                 <th>Establishment</th>
-                <th>Allocation date & time</th>
-                <th>Allocation type</th>
+                <th>Allocation <br/> date &amp; time</th>
+                <th>Allocation <br/> type</th>
                 <th>Allocated By</th>
-                <th>Removal date & time</th>
+                <th>Removal <br/> date &amp; time</th>
                 <th>Removed by</th>
                 <th>Reason</th>
                 <th>Status</th>
