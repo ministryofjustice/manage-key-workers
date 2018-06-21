@@ -43,7 +43,7 @@ const keyworkerWithActiveDate = {
   status: "UNAVAILABLE_ANNUAL_LEAVE",
   statusDescription: "Inactive",
   capacity: 8,
-  activeDate: "24/6/2018"
+  activeDate: "2018-06-28"
 };
 
 const allocatedOffenders = [{
@@ -136,7 +136,7 @@ describe('Keyworker Profile component', () => {
     const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworkerWithActiveDate} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
     console.log(component.debug());
     expect(component.text()).toContain('Profile for Frank Butcher');
-    expect(component.find('#active-date').at(0).text()).toEqual('24/6/2018');
+    expect(component.find('#active-date').at(0).text()).toEqual('28/06/2018');
   });
 });
 
