@@ -105,9 +105,9 @@ class KeyworkerProfile extends Component {
                 <label className="form-label" htmlFor="name">Status</label>
                 <div id="keyworker-status" className={`${statusStyle}Status`}>{getStatusDescription(this.props.keyworker.status)}</div>
               </div>
-              {(this.props.keyworker.status === 'UNAVAILABLE_ANNUAL_LEAVE') && (<div className="pure-u-md-3-12" >
+              {(this.props.keyworker.status === 'UNAVAILABLE_ANNUAL_LEAVE') && (<div className="pure-u-md-3-12 activeDate" >
                 <label className="form-label" htmlFor="name">Return date</label>
-                <div className="bold padding-top-small" id="active-date">{this.props.keyworker.activeDate}</div>
+                <div className="bold padding-top-small" id="active-date">{renderDate(this.props.keyworker.activeDate)}</div>
               </div>)}
               <div className="pure-u-md-3-12 right-content" >
                 <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
