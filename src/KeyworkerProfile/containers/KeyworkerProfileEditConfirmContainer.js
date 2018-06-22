@@ -11,7 +11,7 @@ import * as behaviours from '../keyworkerStatusBehavour';
 import moment from 'moment';
 import { switchToIsoDateFormat, isBlank } from '../../stringUtils';
 
-class KeyworkerProfileEditContainer extends Component {
+class KeyworkerProfileEditConfirmContainer extends Component {
   constructor () {
     super();
     this.handleSaveChanges = this.handleSaveChanges.bind(this);
@@ -54,16 +54,17 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   validate () {
+    this.props.resetValidationErrorsDispatch();
+    let result = true;
     if (!this.props.behaviour) {
       this.props.setValidationErrorDispatch("behaviourRadios", "Please choose an option");
-      return false;
+      result = false;
     }
     if (this.props.status === 'UNAVAILABLE_ANNUAL_LEAVE' && isBlank(this.props.annualLeaveReturnDate)) {
       this.props.setValidationErrorDispatch("active-date", "Please choose a return date");
-      return false;
+      result = false;
     }
-    this.props.resetValidationErrorsDispatch();
-    return true;
+    return result;
   }
 
   async postKeyworkerUpdate () {
@@ -109,7 +110,7 @@ class KeyworkerProfileEditContainer extends Component {
   }
 }
 
-KeyworkerProfileEditContainer.propTypes = {
+KeyworkerProfileEditConfirmContainer.propTypes = {
   error: PropTypes.string,
   status: PropTypes.string,
   capacity: PropTypes.string,
@@ -152,6 +153,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export { KeyworkerProfileEditContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditContainer));
+export { KeyworkerProfileEditConfirmContainer };
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditConfirmContainer));
 

@@ -18,14 +18,14 @@ select {
 
 .inactiveStatus {
   @extend %statusStyle;
-  color: orange;
-  border-color: orange;
+  color: darkgrey;
+  border-color: darkgrey;
 }
 
 .unavailableStatus {
   @extend %statusStyle;
-  color: darkgrey;
-  border-color: darkgrey;
+  color: orange;
+  border-color: orange;
 }
 
 .activeStatus {
@@ -93,6 +93,10 @@ select {
 
 .activeDate {
   margin-left: -3em;
+}
+
+.datePickerMargin {
+  margin-bottom: 5em;
 }
 
 
