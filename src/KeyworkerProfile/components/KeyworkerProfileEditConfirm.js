@@ -31,7 +31,7 @@ class KeyworkerProfileEditConfirm extends Component {
         <div className="pure-u-md-8-12 padding-top bold">
           <div className="padding-bottom padding-top">What date will they return from annual leave?</div>
           <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'active-date'} />
-          <div className="pure-u-md-5-12 " id="active-date" >
+          <div className="pure-u-md-5-12" id="active-date" >
             <DatePickerInput className="annualLeaveDate" handleDateChange={this.props.handleDateChange} additionalClassName="dateInput" inputId="search-date" />
           </div>
         </div>)}
@@ -42,7 +42,7 @@ class KeyworkerProfileEditConfirm extends Component {
     const statusStyle = getStatusStyle(this.props.status);
     return (
       <div>
-        <div className="pure-g padding-top padding-bottom-large">
+        <div className="pure-g padding-top">
           <div className="pure-u-md-8-12 padding-top">
             <h1 className="heading-large margin-top">Status change</h1>
           </div>
