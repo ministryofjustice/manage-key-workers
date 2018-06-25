@@ -50,6 +50,8 @@ const allocatedList = [{
   staffId: 123
 }];
 
+const allocatedLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i }));
+
 const keyworkList = [{
   staffId: 123,
   firstName: 'Amy',
@@ -75,6 +77,16 @@ describe('ManualAllocation component', () => {
     expect(component.find('tr').at(1).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019');
     expect(component.find('tr').at(1).find('td').at(CSRA_COLUMN).text()).toEqual('Standard');
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_NAME_COLUMN).text()).toContain("Hanson, Sam");
+    expect(component.find('.button-save').length).toEqual(1);
+    expect(component.find('.button-cancel').length).toEqual(1);
+  });
+
+  it('should duplicate buttons when list is long', async () => {
+    const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={allocatedLongList} keyworkerList={keyworkList} handleKeyworkerChange={() => {}} postManualOverride={() => {}} onFinishAllocation={() => {}}/>);
+
+    expect(component.find('tr').length).toEqual(21); // includes table header tr
+    expect(component.find('.button-save').length).toEqual(2);
+    expect(component.find('.button-cancel').length).toEqual(2);
   });
 
   it('should remove keyworker from select if currently allocated', async () => {
@@ -91,7 +103,7 @@ describe('ManualAllocation component', () => {
       onFinishAllocation={cancelCallBack}
       handleKeyworkerChange={keyworkerChangeCallback} postManualOverride={postOverrideCallBack} applyDateFilter={() => {}} />);
 
-    component.find('#saveButton').simulate('click');
+    component.find('.button-save').simulate('click');
     expect(postOverrideCallBack.mock.calls.length).toEqual(1);
     expect(cancelCallBack).not.toHaveBeenCalled();
   });
@@ -103,7 +115,7 @@ describe('ManualAllocation component', () => {
       handleKeyworkerChange={jest.fn()}
       onFinishAllocation={cancelCallBack} postManualOverride={postOverrideCallBack} applyDateFilter={() => {}} />);
 
-    component.find('#cancelButton').simulate('click');
+    component.find('.button-cancel').simulate('click');
     expect(cancelCallBack.mock.calls.length).toEqual(1);
     expect(postOverrideCallBack).not.toHaveBeenCalled();
   });

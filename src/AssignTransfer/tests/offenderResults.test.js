@@ -50,6 +50,8 @@ const offenderResponse = [{
   staffId: 123
 }];
 
+const offenderResponseLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i }));
+
 const keyworkerResponse = [{
   staffId: 123,
   firstName: 'Amy',
@@ -64,6 +66,8 @@ const keyworkerResponse = [{
 }];
 
 const results = { offenderResponse, keyworkerResponse };
+
+const resultsLongList = { offenderResponse: offenderResponseLongList, keyworkerResponse };
 
 describe('Offender results component', () => {
   it('should render initial offender results form correctly', async () => {
@@ -95,6 +99,21 @@ describe('Offender results component', () => {
     expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual('--');
   });
 
+  it('should duplicate buttons when list is long', async () => {
+    const component = shallow(<OffenderResults
+      loaded
+      keyworkerList={keyworkerResponse}
+      offenderResults={resultsLongList}
+      history={{}}
+      displayBack={jest.fn()}
+      postManualOverride={jest.fn()}
+      onFinishAllocation={jest.fn()}
+      handleKeyworkerChange={jest.fn()}/>);
+    expect(component.find('tr').length).toEqual(21); // includes table header tr
+    expect(component.find('.button-save').length).toEqual(2);
+    expect(component.find('.button-cancel').length).toEqual(2);
+  });
+
   it('should handle submit form correctly', async () => {
     const postManualOverride = jest.fn();
     const cancel = jest.fn();
@@ -107,7 +126,7 @@ describe('Offender results component', () => {
       displayBack={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>);
 
-    component.find('#saveButton').simulate('click');
+    component.find('.button-save').simulate('click');
     expect(postManualOverride).toHaveBeenCalled();
     expect(cancel).not.toHaveBeenCalled();
   });
@@ -124,7 +143,7 @@ describe('Offender results component', () => {
       displayBack={jest.fn()}
       handleKeyworkerChange={jest.fn()}/>);
 
-    component.find('#cancelButton').simulate('click');
+    component.find('.button-cancel').simulate('click');
     expect(postManualOverride).not.toHaveBeenCalled();
     expect(cancel).toHaveBeenCalled();
   });

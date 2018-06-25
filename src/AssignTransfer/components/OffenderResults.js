@@ -57,6 +57,13 @@ class OffenderResults extends Component {
     });
   }
 
+  buttons (rows) {
+    return (<div>
+      {rows > 0 && <button className="button button-save" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm</button>}
+      <button className="button greyButton button-cancel margin-left" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel</button>
+    </div>);
+  }
+
   render () {
     if (!this.props.offenderResults || !this.props.loaded) {
       return "";
@@ -73,11 +80,12 @@ class OffenderResults extends Component {
 
         <div className="pure-g">
           {this.props.displayBack()}
-          <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Manually allocate key workers</h1></div>
+          <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Change key workers</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearch {...this.props} /></div>
         </div>
         {this.props.offenderResults.partialResults &&
         <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><img alt="" className="padding-left" src="/images/icon-important-2x.png" height="30" width="30"/></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
+        {offenders.length >= 20 && <div className="padding-top">{this.buttons(offenders.length)}</div>}
         <div className="padding-bottom-40 padding-top">
           <table className="row-gutters">
             <thead>
@@ -92,17 +100,10 @@ class OffenderResults extends Component {
                 <th>Assign new key worker</th>
               </tr>
             </thead>
-            <tbody>{offenders}</tbody>
+            <tbody>{offenders.length > 0 ? offenders : <div className="font-small padding-top padding-left">No prisoners found</div>}</tbody>
           </table>
         </div>
-        {offenders.length > 0 ?
-          <div className="buttonGroup" >
-            <button id="saveButton" className="button" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation</button>
-          </div> :
-          <div className="font-small padding-bottom padding-left">No prisoners found</div>}
-        <div className="buttonGroup">
-          <button id="cancelButton" className="button greyButton button-cancel" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu</button>
-        </div>
+        {this.buttons(offenders.length)}
       </div>
     );
   }

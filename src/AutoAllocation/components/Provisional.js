@@ -57,14 +57,25 @@ class Provisional extends Component {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
       return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{formattedDetails}</option>;
     });
+
     const offenders = this.buildTableForRender(keyworkerOptions);
+
+    const buttons = (<div>
+      <button className="button button-save"
+        onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation
+      </button>
+      <button className="button greyButton button-cancel margin-left"
+        onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel allocation
+      </button>
+    </div>);
+
     return (
       <div>
         <div className="pure-g">
-
           <div className="pure-u-md-7-12"><h1 className="heading-large">Suggested key worker allocation</h1></div>
           {this.props.displayDateFilter && <div className="pure-u-md-5-12"><DateFilter {...this.props} /></div>}
         </div>
+        {offenders.length >= 20 && <div className="padding-top padding-bottom-large">{buttons}</div>}
         <div className="padding-bottom-40">
           <table className="row-gutters">
             <thead>
@@ -75,22 +86,13 @@ class Provisional extends Component {
                 <th>CRD</th>
                 <th>CSRA</th>
                 <th>Allocated Key worker</th>
-                <th>Assign to new key worker</th>
+                <th>Allocate to new key worker</th>
               </tr>
             </thead>
             <tbody>{offenders}</tbody>
           </table>
         </div>
-        <div className="pure-u-md-2-12">
-          <button id="saveButton" className="button"
-            onClick={() => this.props.postManualOverride(this.props.history)}>Confirm allocation
-          </button>
-        </div>
-        <div className="pure-u-md-3-12">
-          <button id="cancelButton" className="greyButton button-cancel"
-            onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel and return to menu
-          </button>
-        </div>
+        {buttons}
       </div>
     );
   }

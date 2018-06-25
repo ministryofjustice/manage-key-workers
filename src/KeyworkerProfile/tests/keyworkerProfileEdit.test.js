@@ -28,7 +28,7 @@ describe('Keyworker Profile Edit component', () => {
 
     const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={handleSave} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
 
-    component.find('#saveButton').simulate('click');
+    component.find('.button-save').simulate('click');
     expect(handleSave.mock.calls.length).toEqual(1);
   });
 
@@ -37,7 +37,7 @@ describe('Keyworker Profile Edit component', () => {
 
     const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={handleCancel} />);
 
-    component.find('#cancelButton').simulate('click');
+    component.find('.button-cancel').simulate('click');
     expect(handleCancel.mock.calls.length).toEqual(1);
   });
 
