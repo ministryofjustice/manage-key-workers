@@ -17,8 +17,8 @@ public class KeyworkerEditPage extends Page {
         capacity { $('#capacity')}
         keyworkerStatusOptions { $('#status-select option')}
         selectedOption { $('#status-select option:selected')}
-        cancelButton(to: KeyworkerProfilePage) { $('#cancelButton') }
-        saveChangesButton{ $('#saveButton') }
+        cancelButton(to: KeyworkerProfilePage) { $('.button-cancel') }
+        saveChangesButton{ $('.button-save') }
     }
 
 }

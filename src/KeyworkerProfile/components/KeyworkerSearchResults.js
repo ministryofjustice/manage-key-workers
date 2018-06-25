@@ -22,7 +22,7 @@ class KeyworkerSearchResults extends Component {
           <td className="row-gutters">{getStatusDescription(a.status)}</td>
           <td className="row-gutters">{a.numberAllocated}</td>
           <td className="row-gutters">{a.capacity}</td>
-          <td className="row-gutters">{a.autoAllocationAllowed ? "yes" : "no"}</td>
+          <td className="row-gutters">{a.autoAllocationAllowed ? "Yes" : "No"}</td>
         </tr>
       );
     });

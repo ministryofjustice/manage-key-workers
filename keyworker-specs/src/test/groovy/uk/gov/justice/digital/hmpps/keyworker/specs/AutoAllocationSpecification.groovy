@@ -76,7 +76,7 @@ class AutoAllocationSpecification extends GebReportingSpec {
         at AllocatedPage
         rows.size() == 9
         confirmButton.text() == 'Confirm allocation'
-        cancelButton.text() == 'Cancel and return to menu'
+        cancelButton.text() == 'Cancel allocation'
         table.find("tr", 1).find("td", 0).text() == 'Bradley, Neil'
         table.find("tr", 1).find("a", href: endsWith('/offenders/A6676RS/personal')).size() == 1
         table.find("tr", 1).find("td", 1).text() == 'A6676RS'

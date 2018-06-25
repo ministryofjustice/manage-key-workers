@@ -9,7 +9,7 @@ public class OffenderResultsPage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText == 'Manually allocate key workers'
+        headingText == 'Change key workers'
     }
 
     static content =  {
@@ -19,7 +19,7 @@ public class OffenderResultsPage extends Page {
         message (required: false) { $('.error-summary').text() }
         messageDiv (required: false) { $('.error-summary')}
         searchButton(to: OffenderResultsPage) { $('#searchButton') }
-        saveButton { $('#saveButton') }
+        saveButton { $('.button-save') }
         messageBar(required: false) { $('div #messageBar')}
     }
 }

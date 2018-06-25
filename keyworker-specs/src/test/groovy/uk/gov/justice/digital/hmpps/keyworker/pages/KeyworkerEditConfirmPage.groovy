@@ -9,7 +9,7 @@ public class KeyworkerEditConfirmPage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText.contains('Status change')
+        headingText.contains('Update status')
     }
 
     static content = {
@@ -19,9 +19,9 @@ public class KeyworkerEditConfirmPage extends Page {
         errorMessage (required: false) {$('.error-message')}
         annualLeaveDatePicker (required: false) {$('.datePickerInput')}
         allocationOptions { $('input', name: 'allocationOption') }
-        saveButton(to: KeyworkerProfilePage) { $('#saveButton') }
-        saveButtonValidationError{ $('#saveButton') }
-        cancelButton(to: KeyworkerEditPage) { $('#cancelButton') }
+        saveButton(to: KeyworkerProfilePage) { $('.button-save') }
+        saveButtonValidationError{ $('.button-save') }
+        cancelButton(to: KeyworkerEditPage) { $('.button-cancel') }
     }
 
 }

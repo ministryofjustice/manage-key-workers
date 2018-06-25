@@ -12,8 +12,8 @@ public class AllocatedPage extends Page {
         headingText { $('h1.heading-large').text() }
         table { $('table') }
         rows { $('table tbody tr') }
-        confirmButton { $('#saveButton') }
-        cancelButton { $('#cancelButton') }
+        confirmButton { $('.button-save') }
+        cancelButton { $('.button-cancel') }
         warning { $('div.error-message').text() }
     }
 }

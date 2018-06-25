@@ -53,7 +53,7 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
-      <div className="lede padding-top padding-bottom-large bold">Current key worker allocations <div id="allocationCount" className={allocationCountStyle}><div className="adjustCount">{this.props.keyworkerAllocations.length}</div></div></div>
+      <div className="lede padding-top padding-bottom-large bold">Current allocations <div id="allocationCount" className={allocationCountStyle}><div className="adjustCount">{this.props.keyworkerAllocations.length}</div></div></div>
       <div className="pure-u-md-12-12">
         <div className="padding-bottom-40">
           <table>
@@ -62,10 +62,10 @@ class KeyworkerProfile extends Component {
                 <th>Prisoner</th>
                 <th>Prison no.</th>
                 <th>Location</th>
-                <th>CRD</th>
+                <th>Release date</th>
                 <th>CSRA</th>
                 <th>Last key<br/>worker activity</th>
-                <th>Assign to new key worker</th>
+                <th>Allocate to new key worker</th>
               </tr>
             </thead>
             <tbody>{allocations}</tbody>
@@ -76,14 +76,14 @@ class KeyworkerProfile extends Component {
     </div>
     );
 
-
     return (
       <div>
         <MessageBar {...this.props}/>
         <div className="pure-g padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`search_again_link`} title="Search again link" className="link backlink" to="/keyworker/results" >&lt; Back</Link>
-            <h1 className="heading-large margin-top">Profile for {keyworkerDisplayName}</h1>
+            <Link id={`search_again_link`} title="Search again link" className="link backlink" to="/keyworker/results" >
+              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</Link>
+            <h1 className="heading-large margin-top">Key worker: {keyworkerDisplayName}</h1>
           </div>
           <div className="padding-top">
             <div className="pure-u-md-5-12">
