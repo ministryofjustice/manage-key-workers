@@ -46,6 +46,7 @@ const offenderSearchInitialState = {
 
 const keyworkerSearchInitialState = {
   searchText: '',
+  statusFilter: '',
   keyworkerSearchResults: [],
   keyworkerAllocations: [],
   keyworkerChangeList: [],
@@ -59,6 +60,7 @@ const keyworkerSearchInitialState = {
 
 const keyworkerSearchPopulatedState = {
   searchText: 'yes',
+  statusFilter: 'UNAVAILABLE',
   keyworkerSearchResults: [{ value: 'search' }],
   keyworkerAllocations: [{ value: 'allocations' }],
   keyworkerChangeList: [],
@@ -456,6 +458,28 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: 'Kelly Keyworker',
+        statusFilter: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
+        keyworker: null,
+        status: '',
+        capacity: '',
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
+      }
+    );
+  });
+
+  it('should handle SET_KEY_WORKER_STATUS_FILTER', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_STATUS_FILTER,
+      statusFilter: 'INACTIVE'
+    })).toEqual(
+      {
+        searchText: '',
+        statusFilter: 'INACTIVE',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -477,6 +501,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: list,
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -497,6 +522,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -517,6 +543,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [{ key: 'value' }],
@@ -537,6 +564,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -557,6 +585,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -577,6 +606,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -597,6 +627,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: '',
+        statusFilter: '',
         keyworkerSearchResults: [],
         keyworkerAllocations: [],
         keyworkerChangeList: [],
@@ -617,6 +648,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: 'yes',
+        statusFilter: 'UNAVAILABLE',
         keyworkerSearchResults: [{ value: 'search' }],
         keyworkerAllocations: [{ value: 'allocations' }],
         keyworkerChangeList: [],
@@ -637,6 +669,7 @@ describe('key worker search reducer', () => {
     })).toEqual(
       {
         searchText: 'yes',
+        statusFilter: 'UNAVAILABLE',
         keyworkerSearchResults: [{ value: 'search' }],
         keyworkerAllocations: [{ value: 'allocations' }],
         keyworkerChangeList: [],

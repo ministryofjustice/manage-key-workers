@@ -7,11 +7,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerEditConfirmPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerEditPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -49,7 +45,7 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         and: "I enter a name that does not match any keyworker"
         searchField.value('Smydd')
 
-        keyworkerApi.stubEmptyListResponse('/key-worker/LEI/members?nameFilter=Smydd')
+        keyworkerApi.stubEmptyListResponse('/key-worker/LEI/members?nameFilter=Smydd&statusFilter=')
 
         when: "I perform the search"
         keyworkerSearchButton.click()
@@ -86,6 +82,23 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         then: "I will be redirected to the login page"
         at LoginPage
     }*/
+
+    def "key worker filtered search"() {
+        given: "I am at the Search for key worker page"
+        fixture.loginAs(ITAG_USER)
+        fixture.toKeyworkerSearchPage()
+
+        when: "I search for unavailable keyworkers matching name text"
+        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI, "name", "UNAVAILABLE_ANNUAL_LEAVE")
+
+        searchField.value('name')
+        keyworkerStatusOptions.find{ it.value() == "UNAVAILABLE_ANNUAL_LEAVE" }.click()
+        keyworkerSearchButton.click()
+
+        then: "I get filtered results"
+        at KeyworkerResultsPage
+        rows.size() == 5
+    }
 
     def "Search for key worker renders error"() {
         given: "I am at the Search for key worker page"

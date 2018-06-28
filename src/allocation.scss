@@ -32,6 +32,10 @@ select.form-control{
     height: 2em;
 }
 
+input.full-width{
+    width: 100%;
+}
+
 select[id^='keyworker-select']{
     width:80%;
 }
@@ -77,6 +81,10 @@ table tr:nth-child(even){
     padding-left: 17px;
 }
 
+.padding-left-30 {
+    padding-left: 30px;
+}
+
 .padding-right {
     padding-right: 17px;
 }
@@ -99,6 +107,10 @@ table tr:nth-child(even){
 
 .margin-top {
     margin-top: 17px;
+}
+
+.margin-top-large{
+    margin-top: 27px;
 }
 
 .margin-bottom {

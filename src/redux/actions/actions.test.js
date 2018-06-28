@@ -166,6 +166,14 @@ describe('actions', () => {
     expect(actions.setKeyworkerSearchText('James,Troy')).toEqual(expectedAction);
   });
 
+  it('should create an action to save key worker search criteria - status', () => {
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_STATUS_FILTER,
+      statusFilter: 'ACTIVE'
+    };
+    expect(actions.setKeyworkerStatusFilter('ACTIVE')).toEqual(expectedAction);
+  });
+
   it('should create an action to save key worker search results', () => {
     const list = [{ firstName: 'Jack', surname: 'Brown' }];
     const expectedAction = {
