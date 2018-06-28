@@ -7,7 +7,8 @@ class Status extends Component {
     return (<select id="status-select" name="status-select" className="form-control"
       value={this.props.statusValue}
       onChange={this.props.handleStatusChange}>
-      {this.props.optional && <option key="" value="">All</option>}
+      // when this is used for a filter we need an 'all' option
+      {this.props.filter && <option key="" value="">All</option>}
       <option key="ACTIVE" value="ACTIVE">{getStatusDescription('ACTIVE')}</option>
       <option key="INACTIVE" value="INACTIVE">{getStatusDescription('INACTIVE')}</option>
       <option key="UNAVAILABLE_ANNUAL_LEAVE"
@@ -23,7 +24,7 @@ class Status extends Component {
 Status.propTypes = {
   handleStatusChange: PropTypes.func.isRequired,
   statusValue: PropTypes.string,
-  optional: PropTypes.bool
+  filter: PropTypes.bool
 };
 
 export default Status;

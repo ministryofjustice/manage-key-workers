@@ -17,7 +17,7 @@ class KeyworkerSearchPage extends Component {
               <button className="button margin-left" onClick={() => { this.props.handleSearch(this.props.history);}}>Search</button>
               <div className="pure-u-md-4-12 margin-top" style={{ display: 'block' }}>
                 <label className="form-label" htmlFor="status-select">Status</label>
-                <Status optional statusValue={this.props.statusFilter} handleStatusChange={this.props.handleStatusFilterChange} />
+                <Status filter statusValue={this.props.statusFilter} handleStatusChange={this.props.handleStatusFilterChange} />
               </div>
             </div>
           </div>
