@@ -11,7 +11,7 @@ public class KeyworkerResultsPage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText == 'Search for a key worker'
+        headingText == 'Search results'
     }
 
     static content = {
