@@ -121,9 +121,9 @@ class KeyworkerApi extends WireMockRule {
                             }'''.stripIndent())))
     }
 
-    void stubKeyworkerSearchResponse(AgencyLocation agencyLocation) {
+    void stubKeyworkerSearchResponse(AgencyLocation agencyLocation, nameFilter = '', statusFilter = '') {
         this.stubFor(
-                get("/key-worker/${agencyLocation.id}/members?nameFilter=")
+                get("/key-worker/${agencyLocation.id}/members?nameFilter=${nameFilter}&statusFilter=${statusFilter}")
                         .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                           .withBody(KeyworkerSearchResponse.response)

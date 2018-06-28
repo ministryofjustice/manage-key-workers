@@ -15,6 +15,7 @@ class SearchForKeyworkerPage extends Page {
     static content = {
         headingText { $('h1').text() }
         searchField { $('#search-text') }
+        keyworkerStatusOptions { $('#status-select option')}
         keyworkerSearchButton(to: KeyworkerResultsPage) { $('button') }
         keyworkerSearchButtonAfterCookieExpiry { $('button') }
         firstKeyworkerLink(to: KeyworkerProfilePage) { $('#keyworker_profile_link') }

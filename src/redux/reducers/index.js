@@ -168,6 +168,10 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
       return { ...state,
         searchText: action.searchText
       };
+    case ActionTypes.SET_KEY_WORKER_STATUS_FILTER:
+      return { ...state,
+        statusFilter: action.statusFilter
+      };
     case ActionTypes.SET_KEY_WORKER_SEARCH_RESULTS_LIST:
       return { ...state,
         keyworkerSearchResults: action.keyworkerSearchResults

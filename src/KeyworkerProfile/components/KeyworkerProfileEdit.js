@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
-import { getStatusDescription } from "../keyworkerStatus";
 import ValidationErrors from "../../ValidationError";
+import Status from "./Status";
+
 
 class KeyworkerProfileEdit extends Component {
   render () {
     const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
-    const statusValue = this.props.status || this.props.keyworker.status;
     const statusSelect = (
       <div>
         <label className="form-label" htmlFor="status-select">Status</label>
-        <select id="status-select" name="status-select" className="form-control"
-          value={statusValue}
-          onChange={this.props.handleStatusChange}>
-          <option key="ACTIVE" value="ACTIVE">{getStatusDescription('ACTIVE')}</option>
-          <option key="INACTIVE" value="INACTIVE">{getStatusDescription('INACTIVE')}</option>
-          <option key="UNAVAILABLE_ANNUAL_LEAVE" value="UNAVAILABLE_ANNUAL_LEAVE">{getStatusDescription('UNAVAILABLE_ANNUAL_LEAVE')}</option>
-          <option key="UNAVAILABLE_LONG_TERM_ABSENCE" value="UNAVAILABLE_LONG_TERM_ABSENCE">{getStatusDescription('UNAVAILABLE_LONG_TERM_ABSENCE')}</option>
-          <option key="UNAVAILABLE_NO_PRISONER_CONTACT" value="UNAVAILABLE_NO_PRISONER_CONTACT">{getStatusDescription('UNAVAILABLE_NO_PRISONER_CONTACT')}</option>
-        </select></div>);
+        <Status statusValue={this.props.status || this.props.keyworker.status} handleStatusChange={this.props.handleStatusChange} />
+      </div>);
 
     return (
       <div>
@@ -62,7 +55,6 @@ class KeyworkerProfileEdit extends Component {
           </div>
         </div>
       </div>
-
     );
   }
 }

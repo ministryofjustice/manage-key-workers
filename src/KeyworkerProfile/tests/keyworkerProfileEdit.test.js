@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import KeyworkerProfileEdit from "../components/KeyworkerProfileEdit";
+import Status from "../components/Status";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -19,7 +20,8 @@ describe('Keyworker Profile Edit component', () => {
   it('should render component correctly', async () => {
     const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
     expect(component.text()).toContain('Frank Butcher');
-    expect(component.find('option').length).toEqual(5);
+    const selectComponent = component.find('Status').shallow();
+    expect(selectComponent.find('option').length).toEqual(5);
   });
 
 
@@ -42,7 +44,7 @@ describe('Keyworker Profile Edit component', () => {
   });
 
   it('should render select with correct value', async () => {
-    const component = shallow(<KeyworkerProfileEdit keyworker={keyworker} handleSaveChanges={jest.fn()} handleStatusChange={jest.fn()} handleCapacityChange={jest.fn()} handleCancel={jest.fn()} />);
+    const component = shallow(<Status statusValue={'INACTIVE'} handleStatusChange={jest.fn()} />);
     expect(component.find('#status-select').get(0).props.value).toEqual("INACTIVE");
   });
 });

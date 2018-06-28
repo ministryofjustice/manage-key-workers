@@ -46,7 +46,7 @@ class OffenderResults extends Component {
         </td>
         <td><a className="link" target="_blank" href={getKeyWorkerHistoryLink(a.offenderNo)}>View</a></td>
         <td className="row-gutters">
-          <select id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`}className="form-control" value={currentSelectValue}
+          <select id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
             onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
             <option key="choose" value="--">-- No change --</option>
             {a.staffId ? <option key="choose" value="_DEALLOCATE">-- Deallocate --</option> : ''}

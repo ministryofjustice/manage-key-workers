@@ -45,11 +45,15 @@ const keyworker = (req, res) => gateway.getRequest({
   url: `${keyworkerApiUrl}key-worker/${req.query.staffId}/prison/${req.query.agencyId}`
 });
 
-const keyworkerSearch = (req, res) => gateway.getRequest({
+const keyworkerSearch = (req, { agencyId, searchText, statusFilter }, res) => gateway.getRequest({
   req,
   res,
+  params: {
+    nameFilter: encodeQueryString(searchText),
+    statusFilter
+  },
   method: 'get',
-  url: `${keyworkerApiUrl}key-worker/${req.query.agencyId}/members?nameFilter=${encodeQueryString(req.query.searchText)}`
+  url: `${keyworkerApiUrl}key-worker/${agencyId}/members`
 });
 
 const allocate = (req, res) => gateway.postRequest({

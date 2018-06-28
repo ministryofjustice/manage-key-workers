@@ -126,6 +126,13 @@ export const setKeyworkerSearchText = (searchText) => {
   };
 };
 
+export const setKeyworkerStatusFilter = (statusFilter) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_STATUS_FILTER,
+    statusFilter
+  };
+};
+
 export const setKeyworkerSearchResults = (keyworkerSearchResults) => {
   return {
     type: ActionTypes.SET_KEY_WORKER_SEARCH_RESULTS_LIST,

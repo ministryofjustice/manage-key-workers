@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import KeyworkerSearch from "./KeyworkerSearch";
 import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { getStatusDescription } from "../keyworkerStatus";
-
+import Status from "./Status";
 
 class KeyworkerSearchResults extends Component {
   buildTableForRender () {
@@ -35,13 +34,25 @@ class KeyworkerSearchResults extends Component {
       <div>
         <div className="pure-g padding-bottom-large">
           {this.props.displayBack()}
-          <div className="pure-u-md-8-12 ">
-            <h1 className="heading-large margin-top">Search for a key worker</h1>
-            <KeyworkerSearch {...this.props} />
+          <div className="pure-u-md-12-12 ">
+            <h1 className="heading-large margin-top">Search results</h1>
+            <div>
+              <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
+                <div className="pure-u-md-4-12">
+                  <label className="form-label" htmlFor="seachText">Key worker name</label>
+                  <input type="text" className="full-width form-control" id="search-text" name="searchText" value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
+                </div>
+                <div className="pure-u-md-3-12 margin-left">
+                  <label className="form-label" htmlFor="status-select">Status</label>
+                  <Status filter statusValue={this.props.statusFilter} handleStatusChange={this.props.handleStatusFilterChange} />
+                </div>
+                <button className="button margin-left margin-top-large" onClick={() => { this.props.handleSearch(this.props.history);}}>Search again</button>
+              </div>
+            </div>
           </div>
           <div>
             <div className="lede padding-top-large padding-bottom-small bold">{keyworkers.length} Results:</div>
-            <div className="pure-u-md-9-12">
+            <div className="pure-u-md-11-12">
               <table>
                 <thead>
                   <tr>
@@ -64,7 +75,13 @@ class KeyworkerSearchResults extends Component {
 }
 
 KeyworkerSearchResults.propTypes = {
+  history: PropTypes.object.isRequired,
   keyworkerList: PropTypes.array,
+  searchText: PropTypes.string,
+  statusFilter: PropTypes.string,
+  handleSearchTextChange: PropTypes.func.isRequired,
+  handleStatusFilterChange: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
   displayBack: PropTypes.func.isRequired
 };
 
