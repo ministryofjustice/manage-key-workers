@@ -79,6 +79,7 @@ describe('ManualAllocation component', () => {
     expect(component.find('tr').at(1).find('td').at(KEYWORKER_NAME_COLUMN).text()).toContain("Hanson, Sam");
     expect(component.find('.button-save').length).toEqual(1);
     expect(component.find('.button-cancel').length).toEqual(1);
+    expect(component.find('#back_link').length).toEqual(1);
   });
 
   it('should duplicate buttons when list is long', async () => {

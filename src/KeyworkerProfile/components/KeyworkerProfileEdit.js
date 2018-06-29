@@ -3,6 +3,7 @@ import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import ValidationErrors from "../../ValidationError";
 import Status from "./Status";
+import { Link } from "react-router-dom";
 
 
 class KeyworkerProfileEdit extends Component {
@@ -16,8 +17,10 @@ class KeyworkerProfileEdit extends Component {
 
     return (
       <div>
-        <div className="pure-g padding-top">
+        <div className="pure-g">
           <div className="pure-u-md-8-12 padding-top">
+            <Link id={`back_link`} title="Back link" className="link backlink" to={`/keyworker/${this.props.keyworker.staffId}/profile`} >
+              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</Link>
             <h1 className="heading-large margin-top">Edit profile</h1>
           </div>
           <div className="padding-top">
