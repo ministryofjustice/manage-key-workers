@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import Status from "./Status";
+import '../index.scss';
 
 class KeyworkerSearchPage extends Component {
   render () {
