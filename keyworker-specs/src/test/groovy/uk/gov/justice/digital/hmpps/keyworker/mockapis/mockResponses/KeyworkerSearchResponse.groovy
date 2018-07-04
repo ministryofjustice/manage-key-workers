@@ -30,7 +30,6 @@ class KeyworkerSearchResponse {
     "status": "ACTIVE",
     "autoAllocationAllowed": true,
     "numKeyWorkerSessions": 2
-
   },
   {
     "staffId": -5,
@@ -44,7 +43,6 @@ class KeyworkerSearchResponse {
     "status": "ACTIVE",
     "autoAllocationAllowed": true,
     "numKeyWorkerSessions": 3
-
   },
   {
     "staffId": -2,
@@ -69,7 +67,7 @@ class KeyworkerSearchResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
     "numKeyWorkerSessions": 2
   }
 ]
