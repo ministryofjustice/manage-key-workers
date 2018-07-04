@@ -14,7 +14,8 @@ class KeyworkerDetailResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true}
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 3}
 """
     }
 
@@ -29,7 +30,8 @@ class KeyworkerDetailResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "INACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 2
 }
 '''
 }

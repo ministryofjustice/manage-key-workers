@@ -22,6 +22,7 @@ class KeyworkerSearchResults extends Component {
           <td className="row-gutters">{a.numberAllocated}</td>
           <td className="row-gutters">{a.capacity}</td>
           <td className="row-gutters">{a.autoAllocationAllowed ? "Yes" : "No"}</td>
+          <td className="row-gutters">{a.numKeyWorkerSessions}</td>
         </tr>
       );
     });
@@ -61,6 +62,7 @@ class KeyworkerSearchResults extends Component {
                     <th>No. allocated prisoners</th>
                     <th>Capacity</th>
                     <th>Auto allocation</th>
+                    <th>No. KW sessions<br/>(Last week)</th>
                   </tr>
                 </thead>
                 <tbody>{keyworkers}</tbody>
