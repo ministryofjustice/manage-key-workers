@@ -15,7 +15,8 @@ class KeyworkerSearchResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 5
   },
   {
     "staffId": -1,
@@ -27,7 +28,8 @@ class KeyworkerSearchResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 2
   },
   {
     "staffId": -5,
@@ -39,7 +41,8 @@ class KeyworkerSearchResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 3
   },
   {
     "staffId": -2,
@@ -51,7 +54,8 @@ class KeyworkerSearchResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 4
   },
   {
     "staffId": -4,
@@ -63,7 +67,8 @@ class KeyworkerSearchResponse {
     "agencyId": "LEI",
     "agencyDescription": "LEEDS",
     "status": "ACTIVE",
-    "autoAllocationAllowed": true
+    "autoAllocationAllowed": true,
+    "numKeyWorkerSessions": 2
   }
 ]
 '''

@@ -13,7 +13,8 @@ class AvailableKeyworkerResponse {
       "numberAllocated": 4,
       "agencyId": "LEI",
       "status": "ACTIVE",
-      "autoAllocationAllowed": true
+      "autoAllocationAllowed": true,
+      "numKeyWorkerSessions": 3
     },
     {
       "staffId": -4,
@@ -23,7 +24,8 @@ class AvailableKeyworkerResponse {
       "numberAllocated": 5,
       "agencyId": "LEI",
       "status": "ACTIVE",
-      "autoAllocationAllowed": true
+      "autoAllocationAllowed": true,
+      "numKeyWorkerSessions": 6
     },
     {
       "staffId": -5,
@@ -33,7 +35,8 @@ class AvailableKeyworkerResponse {
       "numberAllocated": 6,
       "agencyId": "LEI",
       "status": "ACTIVE",
-      "autoAllocationAllowed": true
+      "autoAllocationAllowed": true,
+      "numKeyWorkerSessions": 2
     },
     {
       "staffId": -2,
@@ -43,7 +46,8 @@ class AvailableKeyworkerResponse {
       "numberAllocated": 9,
       "agencyId": "LEI",
       "status": "ACTIVE",
-      "autoAllocationAllowed": true
+      "autoAllocationAllowed": true,
+      "numKeyWorkerSessions": 2
     }
   ]
 '''
@@ -58,7 +62,8 @@ class AvailableKeyworkerResponse {
       "numberAllocated": 1,
       "agencyId": "LEI",
       "status": "ACTIVE",
-      "autoAllocationAllowed": true
+      "autoAllocationAllowed": true,
+      "numKeyWorkerSessions": 5
     }
 ]'''
 }
