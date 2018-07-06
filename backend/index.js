@@ -7,7 +7,6 @@ require('./azure-appinsights');
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
@@ -31,8 +30,6 @@ const keyworkerUpdate = require('./controllers/keyworkerUpdate');
 const userMe = require('./controllers/userMe');
 const getConfig = require('./controllers/getConfig');
 const health = require('./controllers/health');
-const clientVersionValidator = require('./validate-client-version');
-const applicationVersion = require('./application-version');
 
 const log = require('./log');
 const config = require('./config');
@@ -41,15 +38,6 @@ const session = require('./session');
 const app = express();
 
 const sixtyDaysInSeconds = 5184000;
-const sessionExpiryMinutes = config.session.expiryMinutes * 60 * 1000;
-
-const sessionConfig = {
-  name: config.session.name,
-  secret: config.session.secret,
-  sameSite: true,
-  expires: new Date(Date.now() + sessionExpiryMinutes),
-  maxAge: sessionExpiryMinutes
-};
 
 app.set('trust proxy', 1); // trust first proxy
 
@@ -77,7 +65,6 @@ if (config.app.production) {
 }
 
 app.use(cookieParser());
-app.use(cookieSession(sessionConfig));
 
 // Don't cache dynamic resources
 app.use(helmet.noCache());
@@ -85,27 +72,12 @@ app.use(helmet.noCache());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Update a value in the cookie so that the set-cookie will be sent.
-// Only changes every minute so that it's not sent with every request.
-app.use((req, res, next) => {
-  req.session.nowInMinutes = session.getNowInMinutes();
-  next();
-});
-
 app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
 app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
 
 app.get('/terms', async (req, res) => { res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl }); });
 
 app.use('/auth', session.loginMiddleware, authentication);
-
-app.use(clientVersionValidator);
-
-app.use((req, res, next) => {
-  // Keep track of when a server update occurs. Changes rarely.
-  req.session.applicationVersion = applicationVersion.buildNumber;
-  next();
-});
 
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
