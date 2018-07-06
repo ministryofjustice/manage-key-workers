@@ -69,4 +69,3 @@ now display 'run' icons for the class and each of its tests methods.
 * Gradle: https://gradle.org/
 * WireMock: http://wiremock.org/
 * Chromedriver: https://sites.google.com/a/chromium.org/chromedriver
-
