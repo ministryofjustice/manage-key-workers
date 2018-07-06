@@ -24,8 +24,8 @@ select {
 
 .unavailableStatus {
   @extend %statusStyle;
-  color: orange;
-  border-color: orange;
+  color: #F47738;
+  border-color: #F47738;
 }
 
 .activeStatus {
