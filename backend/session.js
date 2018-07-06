@@ -6,7 +6,7 @@ const encodeToBase64 = (string) => Buffer.from(string).toString('base64');
 const decodedFromBase64 = (string) => Buffer.from(string, 'base64').toString('ascii');
 const getNowInMinutes = () => Math.floor(Date.now() / 60e3);
 
-const isAuthenticated = (req) => req.session && req.session.isAuthenticated;
+
 const isHmppsCookieValid = (cookie) => {
   if (!cookie) {
     return false;
@@ -14,20 +14,20 @@ const isHmppsCookieValid = (cookie) => {
 
   const cookieData = getHmppsCookieData(cookie);
 
-  if (!cookieData.access_token || !cookieData.refresh_token) {
-    return false;
-  }
-
-  return true;
+  return !(!cookieData.access_token || !cookieData.refresh_token);
 };
+
+const isAuthenticated = (req) => {
+  const hmppsCookie = req.cookies[config.hmppsCookie.name];
+  return isHmppsCookieValid(hmppsCookie);
+};
+
 
 const hmppsSessionMiddleWare = (req, res, next) => {
   const hmppsCookie = req.cookies[config.hmppsCookie.name];
   const isXHRRequest = req.xhr || req.headers.accept.indexOf('json') > -1;
 
   if (!isHmppsCookieValid(hmppsCookie)) {
-    req.session = null;
-
     if (isXHRRequest) {
       res.status(401);
       res.json({ message: 'Session expired' });
@@ -42,11 +42,6 @@ const hmppsSessionMiddleWare = (req, res, next) => {
 
   req.access_token = cookie.access_token;
   req.refresh_token = cookie.refresh_token;
-
-
-  if (!isAuthenticated(req)) {
-    req.session.isAuthenticated = true;
-  }
 
   next();
 };
@@ -113,8 +108,6 @@ const service = {
   setHmppsCookie,
   updateHmppsCookie,
   deleteHmppsCookie,
-  isAuthenticated,
-  getNowInMinutes,
   hmppsSessionMiddleWare,
   extendHmppsCookieMiddleWare,
   loginMiddleware
