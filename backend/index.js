@@ -77,7 +77,7 @@ app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-wh
 
 app.get('/terms', async (req, res) => { res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl }); });
 
-app.use('/auth', session.loginMiddleware, authentication);
+app.use('/auth', session.loginMiddleware, authentication.router);
 
 app.use(session.hmppsSessionMiddleWare);
 app.use(session.extendHmppsCookieMiddleWare);
