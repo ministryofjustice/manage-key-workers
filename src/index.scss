@@ -45,6 +45,13 @@ body {
   overflow: hidden;
 }
 
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* This is seen by IE ONLY */
+  .content {
+    display: block; /* Disable flex */
+  }
+}
+
 .inner-content {
   /*//display: flex;*/
   flex: 1 1 0%;
