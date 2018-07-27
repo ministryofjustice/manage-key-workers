@@ -13,19 +13,14 @@ const hsts = require('hsts');
 const helmet = require('helmet');
 const ensureHttps = require('./middleware/ensureHttps');
 
-// const authentication = require('./controllers/authentication');
 const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory;
 const setActiveCaseLoadFactory = require('./controllers/setactivecaseload').activeCaseloadFactory;
 const allocationServiceFactory = require('./services/allocationService').serviceFactory;
-// const allocatedServiceFactory = require('./services/allocatedService').allocatedServiceFactory;
 const userLocationsFactory = require('./controllers/userLocations').userLocationsFactory;
-// const searchOffenders = require('./controllers/searchOffenders');
-// const allocated = require('./controllers/allocated');
 const allocationHistoryFactory = require('./controllers/allocationHistory').allocationHistoryFactory;
 const manualOverrideFactory = require('./controllers/manualoverride').manualOverrideFactory;
 const autoAllocateFactory = require('./controllers/autoAllocateConfirmWithOverride').factory;
 const keyworkerSearchFactory = require('./controllers/keyworkerSearch').keyworkerSearchFactory;
-// const keyworkerAllocations = require('./controllers/keyworkerAllocations');
 const keyworkerProfileFactory = require('./controllers/keyworkerProfile').keyworkerProfileFactory;
 const keyworkerUpdateFactory = require('./controllers/keyworkerUpdate').keyworkerUpdateFactory;
 const userMeFactory = require('./controllers/userMe').userMeFactory;
@@ -46,7 +41,6 @@ const oauthApiFactory = require('./api/oauthApi');
 
 const log = require('./log');
 const config = require('./config');
-// const session = require('./session');
 
 const app = express();
 
@@ -54,7 +48,6 @@ const sixtyDaysInSeconds = 5184000;
 
 app.set('trust proxy', 1); // trust first proxy
 
-// set the view engine to ejs
 app.set('view engine', 'ejs');
 
 app.use(helmet());
@@ -88,13 +81,20 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
 app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
 
-app.get('/terms', async (req, res) => { res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl }); });
+app.get('/terms', async (req, res) => {
+  res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl });
+});
 
 const healthApi = healthApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
+    timeout: 2000
+  }),
+  clientFactory({
+    baseUrl: config.apis.keyworker.url,
     timeout: 10000
-  }));
+  })
+);
 
 const elite2Api = eliteApiFactory(
   clientFactory({
