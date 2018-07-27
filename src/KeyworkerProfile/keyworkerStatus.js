@@ -11,10 +11,10 @@ const getStatusStyle = (status) => {
 const getStatusDescription = (status) => {
   const styles = {
     ACTIVE: "Active",
-    INACTIVE: "Inactive",
     UNAVAILABLE_ANNUAL_LEAVE: "Unavailable - annual leave",
     UNAVAILABLE_LONG_TERM_ABSENCE: "Unavailable - long term absence",
-    UNAVAILABLE_NO_PRISONER_CONTACT: "Unavailable - no prisoner contact"
+    UNAVAILABLE_NO_PRISONER_CONTACT: "Unavailable - no prisoner contact",
+    INACTIVE: "Inactive"
   };
   return styles[status];
 };

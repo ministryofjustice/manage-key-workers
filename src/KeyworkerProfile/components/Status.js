@@ -10,13 +10,13 @@ class Status extends Component {
       {/* When this is used for a filter we need an 'all' option*/}
       {this.props.filter && <option key="" value="">All</option>}
       <option key="ACTIVE" value="ACTIVE">{getStatusDescription('ACTIVE')}</option>
-      <option key="INACTIVE" value="INACTIVE">{getStatusDescription('INACTIVE')}</option>
       <option key="UNAVAILABLE_ANNUAL_LEAVE"
         value="UNAVAILABLE_ANNUAL_LEAVE">{getStatusDescription('UNAVAILABLE_ANNUAL_LEAVE')}</option>
       <option key="UNAVAILABLE_LONG_TERM_ABSENCE"
         value="UNAVAILABLE_LONG_TERM_ABSENCE">{getStatusDescription('UNAVAILABLE_LONG_TERM_ABSENCE')}</option>
       <option key="UNAVAILABLE_NO_PRISONER_CONTACT"
         value="UNAVAILABLE_NO_PRISONER_CONTACT">{getStatusDescription('UNAVAILABLE_NO_PRISONER_CONTACT')}</option>
+      <option key="INACTIVE" value="INACTIVE">{getStatusDescription('INACTIVE')}</option>
     </select>);
   }
 }
