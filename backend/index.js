@@ -134,7 +134,8 @@ sessionManagementRoutes.configureRoutes({
   oauthApi,
   hmppsCookieOperations,
   tokenRefresher,
-  mailTo: config.app.mailTo
+  mailTo: config.app.mailTo,
+  homeLink: config.app.notmEndpointUrl
 });
 
 app.use('/api/config', getConfiguration);
