@@ -1,38 +1,57 @@
-const express = require('express');
-const router = express.Router();
-const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
-router.post('/', asyncMiddleware(async (req, res) => {
-  const allocateList = req.body.allocatedKeyworkers;
-  log.debug({ allocateList }, 'Manual override contents');
-  for (const element of allocateList) {
-    if (element && element.staffId) {
+const manualOverrideFactory = (keyworkerApi) => {
+  const manualOverride = asyncMiddleware(async (req, res) => {
+    const allocateList = req.body.allocatedKeyworkers;
+
+    log.debug({ allocateList }, 'Manual override contents');
+
+    const prisonId = req.query.agencyId;
+
+    for (const element of allocateList) {
+      if (!element) continue;
+
+      const staffId = element.staffId;
+
+      if (!staffId) continue;
+
+      const offenderNo = element.offenderNo;
+
       if (element.deallocate) {
-        req.data = {
-          offenderNo: element.offenderNo,
-          staffId: element.staffId,
-          prisonId: req.query.agencyId,
-          deallocationReason: 'MANUAL'
-        };
-        const response = await keyworkerApi.deallocate(req, res);
+        const response = await keyworkerApi.deallocate(
+          res.locals,
+          offenderNo,
+          {
+            offenderNo,
+            staffId,
+            prisonId,
+            deallocationReason: 'MANUAL'
+          });
         log.debug({ response }, 'Response from deallocate request');
       } else {
-        req.data = {
-          offenderNo: element.offenderNo,
-          staffId: element.staffId,
-          prisonId: req.query.agencyId,
-          allocationType: 'M',
-          allocationReason: 'MANUAL',
-          deallocationReason: 'OVERRIDE'
-        };
-        const response = await keyworkerApi.allocate(req, res);
+        const response = await keyworkerApi.allocate(
+          res.locals,
+          {
+            offenderNo,
+            staffId,
+            prisonId,
+            allocationType: 'M',
+            allocationReason: 'MANUAL',
+            deallocationReason: 'OVERRIDE'
+          });
         log.debug({ response }, 'Response from allocate request');
       }
     }
-  }
-  res.json({});
-}));
+    res.json({});
+  });
 
-module.exports = router;
+  return {
+    manualOverride
+  };
+};
+
+module.exports = {
+  manualOverrideFactory
+};
+

@@ -1,16 +1,25 @@
-const express = require('express');
-const router = express.Router();
-const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
-router.post('/', asyncMiddleware(async (req, res) => {
-  const keyworker = req.body.keyworker;
-  log.debug({ keyworker }, 'Key worker update contents');
-  req.data = keyworker;
-  const response = await keyworkerApi.keyworkerUpdate(req, res);
-  log.debug({ response }, 'Response from keyworker update request');
-  res.json({});
-}));
+const keyworkerUpdateFactory = (keyworkerApi) => {
+  const keyworkerUpdate = asyncMiddleware(async (req, res) => {
+    const update = req.body.keyworker;
+    log.debug({ update }, 'Key worker update contents');
 
-module.exports = router;
+    const staffId = req.query.staffId;
+    const agencyId = req.query.agencyId;
+
+    const response = await keyworkerApi.keyworkerUpdate(res.locals, staffId, agencyId, update);
+    log.debug({ response} , 'Response from keyworker update request');
+    res.json({});
+  });
+
+  return {
+    keyworkerUpdate
+  };
+};
+
+module.exports = {
+  keyworkerUpdateFactory
+};
+

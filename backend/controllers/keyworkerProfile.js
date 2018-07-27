@@ -1,21 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
-router.get('/', asyncMiddleware(async (req, res) => {
-  const response = await profile(req, res);
-  res.json(response.data);
-}));
+const keyworkerProfileFactory = (keyworkerApi) => {
+  const keyworkerProfile = asyncMiddleware(async (req, res) => {
+    const staffId = req.query.staffId;
+    const agencyId = req.query.agencyId;
 
-const profile = async (req, res) => {
-  const response = await keyworkerApi.keyworker(req, res);
-  log.debug({ data: response.data }, 'Response from keyworker request');
-  return response;
+    const keyworker = await keyworkerApi.keyworker(res.locals, staffId, agencyId);
+    log.debug({ data: keyworker }, 'Response from keyworker request');
+    res.json(keyworker);
+  });
+
+  return {
+    keyworkerProfile
+  };
 };
 
 module.exports = {
-  router,
-  profile
+  keyworkerProfileFactory
 };

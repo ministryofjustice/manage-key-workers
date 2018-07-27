@@ -41,14 +41,5 @@ describe('Test clients built by oauthEnabledClient', () => {
       expect(response.config.headers.authorization).to.be.undefined;
     });
 
-
-    it('Should set the pagination headers on requests', async () => {
-      const context = {};
-      contextProperties.setRequestPagination(context, { 'page-offset': '0', 'page-limit': '10' });
-
-      const response = await client.get(context, '/api/users/me');
-
-      expect(response.config.headers).to.deep.include({ 'page-offset': '0', 'page-limit': '10' });
-    });
   });
 });

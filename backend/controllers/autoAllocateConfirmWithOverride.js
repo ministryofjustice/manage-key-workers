@@ -1,30 +1,40 @@
-const express = require('express');
-const router = express.Router();
-const keyworkerApi = require('../keyworkerApi');
 const asyncMiddleware = require('../middleware/asyncHandler');
 const log = require('../log');
 
-router.post('/', asyncMiddleware(async (req, res) => {
-  const confirmResponse = await keyworkerApi.autoAllocateConfirm(req, res);
-  log.debug({ status: confirmResponse.status }, 'Response from autoAllocateConfirm request');
+const factory = (keyworkerApi) => {
+  const autoAllocate = asyncMiddleware(async (req, res) => {
+    const agencyId = req.query.agencyId;
 
-  const allocateList = req.body.allocatedKeyworkers;
-  log.debug({ allocateList }, 'Manual override contents');
-  for (const element of allocateList) {
-    if (element && element.staffId) {
-      req.data = {
-        offenderNo: element.offenderNo,
-        staffId: element.staffId,
+    await keyworkerApi.autoAllocateConfirm(res.locals, agencyId);
+
+    const allocatedKeyworkers = req.body.allocatedKeyworkers;
+
+    log.debug({ allocateList: allocatedKeyworkers }, 'Manual override contents');
+
+    for (const allocatedKeyworker of allocatedKeyworkers) {
+      if (!(allocatedKeyworker && allocatedKeyworker.staffId)) {
+        continue;
+      }
+      const data = {
+        offenderNo: allocatedKeyworker.offenderNo,
+        staffId: allocatedKeyworker.staffId,
         prisonId: req.query.agencyId,
         allocationType: 'M',
         allocationReason: 'MANUAL',
         deallocationReason: 'OVERRIDE'
       };
-      const response = await keyworkerApi.allocate(req, res);
+      const response = await keyworkerApi.allocate(res.locals, data);
       log.debug({ response }, 'Response from allocate request');
     }
-  }
-  res.json({});
-}));
+    res.json({});
+  });
 
-module.exports = router;
+  return {
+    autoAllocate
+  };
+};
+
+module.exports = {
+  factory
+};
+

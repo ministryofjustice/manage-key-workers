@@ -1,13 +1,10 @@
-const keyworkerAllocations = require('../controllers/keyworkerAllocations').keyworkerAllocations;
-const elite2Api = require('../elite2Api');
-const keyworkerApi = require('../keyworkerApi');
+const serviceFactory = require('../services/allocationService').serviceFactory;
+const elite2ApiFactory = require('../api/elite2Api').elite2ApiFactory;
+const keyworkerApiFactory = require('../api/keyworkerApi').keyworkerApiFactory;
 
-const req = {
-  headers: {
-  },
-  query: {
-  }
-};
+const elite2Api = elite2ApiFactory(null);
+const keyworkerApi = keyworkerApiFactory(null);
+const keyworkerAllocations = serviceFactory(elite2Api, keyworkerApi).keyworkerAllocations;
 
 const allocationResponse = createDataResponse();
 
@@ -21,7 +18,7 @@ describe('keyworkerAllocations controller', async () => {
 
     keyworkerApi.keyworkerAllocations = jest.fn().mockReturnValueOnce(allocationResponse);
 
-    const response = await keyworkerAllocations(req);
+    const response = await keyworkerAllocations({}, 'Dont care', 'XYZ');
 
     expect(response.allocatedResponse[0].bookingId).toBe(-1);
     expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA');
@@ -49,114 +46,110 @@ describe('keyworkerAllocations controller', async () => {
   });
 });
 
-function createDataResponse () {
-  return {
-    data: [
-      {
-        bookingId: -1,
-        offenderNo: "A1234AA",
-        firstName: "ARTHUR",
-        lastName: "ANDERSON",
-        agencyId: "LEI",
-        internalLocationDesc: "A-1-1"
-      },
-      {
-        bookingId: -2,
-        offenderNo: "A1234AB",
-        firstName: "GILLIAN",
-        lastName: "ANDERSON",
-        agencyId: "LEI",
-        internalLocationDesc: "H-1-5"
-      },
-      {
-        bookingId: -6,
-        offenderNo: "A1234AF",
-        firstName: "ANTHONY",
-        lastName: "ANDREWS",
-        agencyId: "LEI",
-        internalLocationDesc: "A-1-2"
-      },
-      {
-        bookingId: -3,
-        offenderNo: "A1234AC",
-        firstName: "NORMAN",
-        lastName: "BATES",
-        staffId: -2,
-        agencyId: "LEI",
-        internalLocationDesc: "A-1-1"
-      },
-      {
-        bookingId: -4,
-        offenderNo: "A1234AD",
-        firstName: "CHARLES",
-        lastName: "CHAPLIN",
-        agencyId: "LEI",
-        internalLocationDesc: "A-1"
-      }
-    ]
-  };
+function createDataResponse() {
+  return [
+    {
+      bookingId: -1,
+      offenderNo: "A1234AA",
+      firstName: "ARTHUR",
+      lastName: "ANDERSON",
+      agencyId: "LEI",
+      internalLocationDesc: "A-1-1"
+    },
+    {
+      bookingId: -2,
+      offenderNo: "A1234AB",
+      firstName: "GILLIAN",
+      lastName: "ANDERSON",
+      agencyId: "LEI",
+      internalLocationDesc: "H-1-5"
+    },
+    {
+      bookingId: -6,
+      offenderNo: "A1234AF",
+      firstName: "ANTHONY",
+      lastName: "ANDREWS",
+      agencyId: "LEI",
+      internalLocationDesc: "A-1-2"
+    },
+    {
+      bookingId: -3,
+      offenderNo: "A1234AC",
+      firstName: "NORMAN",
+      lastName: "BATES",
+      staffId: -2,
+      agencyId: "LEI",
+      internalLocationDesc: "A-1-1"
+    },
+    {
+      bookingId: -4,
+      offenderNo: "A1234AD",
+      firstName: "CHARLES",
+      lastName: "CHAPLIN",
+      agencyId: "LEI",
+      internalLocationDesc: "A-1"
+    }
+  ];
 }
 
-function createCaseNoteUsageResponse () {
-  return { data: [
-    { offenderNo: "A1234AA", latestCaseNote: '2018-03-01' },
-    { offenderNo: "A1234AB", latestCaseNote: '2018-03-03' },
-    { offenderNo: "A1234AF", latestCaseNote: '2017-04-13' },
-    { offenderNo: "A1234AF", latestCaseNote: '2018-04-12' },
-    { offenderNo: "A1234AF", latestCaseNote: '2018-04-13' },
-    { offenderNo: "A1234AC", latestCaseNote: '2018-05-03' },
-    { offenderNo: "A1234AD", latestCaseNote: '2018-03-03' }
-  ] };
+function createCaseNoteUsageResponse() {
+  return [
+    {offenderNo: "A1234AA", latestCaseNote: '2018-03-01'},
+    {offenderNo: "A1234AB", latestCaseNote: '2018-03-03'},
+    {offenderNo: "A1234AF", latestCaseNote: '2017-04-13'},
+    {offenderNo: "A1234AF", latestCaseNote: '2018-04-12'},
+    {offenderNo: "A1234AF", latestCaseNote: '2018-04-13'},
+    {offenderNo: "A1234AC", latestCaseNote: '2018-05-03'},
+    {offenderNo: "A1234AD", latestCaseNote: '2018-03-03'}
+  ];
 }
 
 
-function createSentenceDetailListResponse () {
-  return { data: [
-    { offenderNo: "A1234AA", sentenceDetail: { releaseDate: '2024-03-03' } },
-    { offenderNo: "A1234AB", sentenceDetail: { releaseDate: '2025-04-03' } },
-    { offenderNo: "A1234AF", sentenceDetail: { releaseDate: '2026-03-03' } },
-    { offenderNo: "A1234AC", sentenceDetail: { releaseDate: '2019-03-03' } },
-    { offenderNo: "A1234AD", sentenceDetail: { releaseDate: '2018-03-03' } }
-  ] };
+function createSentenceDetailListResponse() {
+  return [
+    {offenderNo: "A1234AA", sentenceDetail: {releaseDate: '2024-03-03'}},
+    {offenderNo: "A1234AB", sentenceDetail: {releaseDate: '2025-04-03'}},
+    {offenderNo: "A1234AF", sentenceDetail: {releaseDate: '2026-03-03'}},
+    {offenderNo: "A1234AC", sentenceDetail: {releaseDate: '2019-03-03'}},
+    {offenderNo: "A1234AD", sentenceDetail: {releaseDate: '2018-03-03'}}
+  ];
 }
 
-function createAssessmentListResponse () {
-  return { data: [
-    { offenderNo: "A1234AA", classification: 'High' },
-    { offenderNo: "A1234AB", classification: 'High' },
-    { offenderNo: "A1234AF", classification: 'Low' },
-    { offenderNo: "A1234AC", classification: 'Silly' },
-    { offenderNo: "A1234AD", classification: 'Low' }
-  ] };
+function createAssessmentListResponse() {
+  return [
+    {offenderNo: "A1234AA", classification: 'High'},
+    {offenderNo: "A1234AB", classification: 'High'},
+    {offenderNo: "A1234AF", classification: 'Low'},
+    {offenderNo: "A1234AC", classification: 'Silly'},
+    {offenderNo: "A1234AD", classification: 'Low'}
+  ];
 }
 
-function createAvailableKeyworkerResponse () {
-  return {
-    data: [
-      {
-        staffId: 15583,
-        firstName: 'Brent',
-        lastName: 'Daggart',
-        numberAllocated: 3,
-        status: "active",
-        currentRole: "Key worker2"
-      },
-      {
-        staffId: 15585,
-        firstName: 'Amy',
-        lastName: 'Hanson',
-        numberAllocated: 4,
-        status: "active",
-        currentRole: "Key worker"
-      },
-      {
-        staffId: 15584,
-        firstName: 'Florence',
-        lastName: 'Welch',
-        numberAllocated: 1,
-        status: "active",
-        currentRole: "Key worker3"
-      }
-    ]
-  };
+function createAvailableKeyworkerResponse() {
+  return [
+    {
+      staffId: 15583,
+      firstName: 'Brent',
+      lastName: 'Daggart',
+      numberAllocated: 3,
+      status: "active",
+      currentRole: "Key worker2"
+    },
+    {
+      staffId: 15585,
+      firstName: 'Amy',
+      lastName: 'Hanson',
+      numberAllocated: 4,
+      status: "active",
+      currentRole: "Key worker"
+    },
+    {
+      staffId: 15584,
+      firstName: 'Florence',
+      lastName: 'Welch',
+      numberAllocated: 1,
+      status: "active",
+      currentRole: "Key worker3"
+    }
+  ];
 }

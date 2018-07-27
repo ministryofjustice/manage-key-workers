@@ -13,27 +13,40 @@ const hsts = require('hsts');
 const helmet = require('helmet');
 const ensureHttps = require('./middleware/ensureHttps');
 
-const authentication = require('./controllers/authentication');
-const userCaseLoads = require('./controllers/usercaseloads');
-const setActiveCaseLoad = require('./controllers/setactivecaseload');
-const unallocated = require('./controllers/unallocated');
-const userLocations = require('./controllers/userLocations');
-const searchOffenders = require('./controllers/searchOffenders');
-const allocated = require('./controllers/allocated');
-const allocationHistory = require('./controllers/allocationHistory');
-const manualoverride = require('./controllers/manualoverride');
-const autoAllocateConfirmWithOverride = require('./controllers/autoAllocateConfirmWithOverride');
-const keyworkerSearch = require('./controllers/keyworkerSearch');
-const keyworkerAllocations = require('./controllers/keyworkerAllocations');
-const keyworkerProfile = require('./controllers/keyworkerProfile');
-const keyworkerUpdate = require('./controllers/keyworkerUpdate');
-const userMe = require('./controllers/userMe');
-const getConfig = require('./controllers/getConfig');
+// const authentication = require('./controllers/authentication');
+const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory;
+const setActiveCaseLoadFactory = require('./controllers/setactivecaseload').activeCaseloadFactory;
+const allocationServiceFactory = require('./services/allocationService').serviceFactory;
+// const allocatedServiceFactory = require('./services/allocatedService').allocatedServiceFactory;
+const userLocationsFactory = require('./controllers/userLocations').userLocationsFactory;
+// const searchOffenders = require('./controllers/searchOffenders');
+// const allocated = require('./controllers/allocated');
+const allocationHistoryFactory = require('./controllers/allocationHistory').allocationHistoryFactory;
+const manualOverrideFactory = require('./controllers/manualoverride').manualOverrideFactory;
+const autoAllocateFactory = require('./controllers/autoAllocateConfirmWithOverride').factory;
+const keyworkerSearchFactory = require('./controllers/keyworkerSearch').keyworkerSearchFactory;
+// const keyworkerAllocations = require('./controllers/keyworkerAllocations');
+const keyworkerProfileFactory = require('./controllers/keyworkerProfile').keyworkerProfileFactory;
+const keyworkerUpdateFactory = require('./controllers/keyworkerUpdate').keyworkerUpdateFactory;
+const userMeFactory = require('./controllers/userMe').userMeFactory;
+const getConfiguration = require('./controllers/getConfig').getConfiguration;
 const health = require('./controllers/health');
+
+const sessionManagementRoutes = require('./sessionManagementRoutes');
+
+const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
+const tokenRefresherFactory = require('./tokenRefresher').factory;
+const controllerFactory = require('./controllers/controller').factory;
+
+const clientFactory = require('./api/oauthEnabledClient');
+const healthApiFactory = require('./api/healthApi').healthApiFactory;
+const eliteApiFactory = require('./api/elite2Api').elite2ApiFactory;
+const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
+const oauthApiFactory = require('./api/oauthApi');
 
 const log = require('./log');
 const config = require('./config');
-const session = require('./session');
+// const session = require('./session');
 
 const app = express();
 
@@ -77,26 +90,71 @@ app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-wh
 
 app.get('/terms', async (req, res) => { res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl }); });
 
-app.use('/auth', session.loginMiddleware, authentication.router);
+const healthApi = healthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.elite2.url,
+    timeout: 10000
+  }));
 
-app.use(session.hmppsSessionMiddleWare);
-app.use(session.extendHmppsCookieMiddleWare);
+const elite2Api = eliteApiFactory(
+  clientFactory({
+    baseUrl: config.apis.elite2.url,
+    timeout: 10000
+  }));
 
-app.use('/api/me', userMe);
-app.use('/api/usercaseloads', userCaseLoads);
-app.use('/api/setactivecaseload', setActiveCaseLoad);
-app.use('/api/unallocated', unallocated.router);
-app.use('/api/allocated', allocated.router);
-app.use('/api/allocationHistory', allocationHistory.router);
-app.use('/api/userLocations', userLocations);
-app.use('/api/searchOffenders', searchOffenders.router);
-app.use('/api/manualoverride', manualoverride);
-app.use('/api/autoAllocateConfirmWithOverride', autoAllocateConfirmWithOverride);
-app.use('/api/keyworkerSearch', keyworkerSearch);
-app.use('/api/keyworker', keyworkerProfile.router);
-app.use('/api/keyworkerUpdate', keyworkerUpdate);
-app.use('/api/keyworkerAllocations', keyworkerAllocations.router);
-app.use('/api/config', getConfig);
+const keyworkerApi = keyworkerApiFactory(
+  clientFactory({
+    baseUrl: config.apis.keyworker.url,
+    timeout: 10000
+  }));
+
+const controller = controllerFactory(
+  allocationServiceFactory(
+    elite2Api,
+    keyworkerApi,
+    config.app.offenderSearchResultMax)
+);
+
+const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
+const tokenRefresher = tokenRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
+
+const hmppsCookieOperations = cookieOperationsFactory(
+  {
+    name: config.hmppsCookie.name,
+    domain: config.hmppsCookie.domain,
+    cookieLifetimeInMinutes: config.hmppsCookie.expiryMinutes,
+    secure: config.app.production
+  },
+);
+
+/* login, logout, hmppsCookie management, token refresh etc */
+sessionManagementRoutes.configureRoutes({
+  app,
+  healthApi,
+  oauthApi,
+  hmppsCookieOperations,
+  tokenRefresher,
+  mailTo: config.app.mailTo
+});
+
+app.use('/api/config', getConfiguration);
+
+app.use('/api/me', userMeFactory(elite2Api).userMe);
+app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads);
+app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload);
+app.use('/api/unallocated', controller.unallocated);
+app.use('/api/allocated', controller.allocated);
+app.use('/api/keyworkerAllocations', controller.keyworkerAllocations);
+app.use('/api/searchOffenders', controller.searchOffenders);
+app.use('/api/userLocations', userLocationsFactory(elite2Api).userLocations);
+app.use('/api/allocationHistory', allocationHistoryFactory(keyworkerApi).allocationHistory);
+app.use('/api/keyworker', keyworkerProfileFactory(keyworkerApi).keyworkerProfile);
+app.use('/api/manualoverride', manualOverrideFactory(keyworkerApi).manualOverride);
+app.use('/api/keyworkerSearch', keyworkerSearchFactory(keyworkerApi).keyworkerSearch);
+app.use('/api/autoAllocateConfirmWithOverride', autoAllocateFactory(keyworkerApi).autoAllocate);
+app.use('/api/keyworkerUpdate', keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate);
+
+// app.use('/api/config', getConfiguration);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

@@ -3,6 +3,9 @@ const errorStatusCode = require('./error-status-code');
 
 const contextProperties = require('./contextProperties');
 
+
+const LOGIN_PATH = '/auth/login';
+const LOGOUT_PATH = '/auth/logout';
 /**
  * Add session management related routes to an express 'app'.
  * These handle login, logout, and middleware to handle the JWT token cookie. (hmppsCookie).
@@ -62,7 +65,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
 
   const logout = (req, res) => {
     hmppsCookieOperations.clearCookie(res);
-    res.redirect('/login');
+    res.redirect(LOGIN_PATH);
   };
 
   /**
@@ -115,13 +118,13 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
       return;
     }
 
-    res.redirect('/login');
+    res.redirect(LOGIN_PATH);
   };
 
 
-  app.get('/login', loginMiddleware, loginIndex);
-  app.post('/login', login);
-  app.get('/logout', logout);
+  app.get(LOGIN_PATH, loginMiddleware, loginIndex);
+  app.post(LOGIN_PATH, login);
+  app.get(LOGOUT_PATH, logout);
 
   app.use(hmppsCookieMiddleware);
   app.use(requireLoginMiddleware);

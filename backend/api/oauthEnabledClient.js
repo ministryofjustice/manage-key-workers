@@ -1,7 +1,7 @@
 const axios = require('axios');
 const logger = require('../log');
 
-const { addAuthorizationHeader, addGatewayHeader, addPaginationHeaders } = require('./axios-config-decorators');
+const { addAuthorizationHeader } = require('./axios-config-decorators');
 
 const resultLogger = (result) => {
   logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`);
@@ -21,34 +21,32 @@ const errorLogger = (error) => {
  *
  * @param baseUrl The base url to be used with the client's get and post
  * @param timeout The timeout to apply to get and post.
- * @param useGateway Add gateway header data to each request if true.
  * @returns {{get: (function(*=): *), post: (function(*=, *=): *)}}
  */
-const factory = ({ baseUrl, timeout, useGateway = false }) => {
+const factory = ({ baseUrl, timeout }) => {
   const axiosInstance = axios.create({
     baseURL: baseUrl,
     timeout
   });
 
 
-  const addHeaders = useGateway ?
-    (context, config) => addPaginationHeaders(context, addGatewayHeader(addAuthorizationHeader(context, config))) :
-    (context, config) => addPaginationHeaders(context, addAuthorizationHeader(context, config));
-
   /**
    * An Axios GET request with Oauth token
    *
    * @param context A request scoped context. Holds OAuth tokens and pagination information for the request
    * @param url if url is relative then baseURL will be prepended. If the url is absolute the baseURL is ignored.
+   * @param resultLimit - the maximum number of results that a Get request should return.  Becomes the value of the 'page-limit' request header.
+   *        The header isn't set if resultLimit is falsy.
    * @returns A Promise which settles to the Axios result object if the promise is resolved, otherwise to the 'error' object.
    */
-  const get = (context, url) =>
+  const get = (context, url, resultLimit) =>
     axiosInstance(
-      addHeaders(
+      addAuthorizationHeader(
         context,
         {
           method: 'get',
-          url
+          url,
+          headers: resultLimit ? { 'Page-Limit': resultLimit } : {}
         }
       )
     )
@@ -64,7 +62,7 @@ const factory = ({ baseUrl, timeout, useGateway = false }) => {
    */
   const post = (context, url, body) =>
     axiosInstance(
-      addHeaders(
+      addAuthorizationHeader(
         context,
         {
           method: 'post',
@@ -78,7 +76,7 @@ const factory = ({ baseUrl, timeout, useGateway = false }) => {
 
   const put = (context, url, body) =>
     axiosInstance(
-      addHeaders(
+      addAuthorizationHeader(
         context,
         {
           method: 'put',
@@ -92,7 +90,7 @@ const factory = ({ baseUrl, timeout, useGateway = false }) => {
 
   const getStream = (context, url) =>
     axiosInstance(
-      addHeaders(
+      addAuthorizationHeader(
         context,
         {
           method: 'get',
