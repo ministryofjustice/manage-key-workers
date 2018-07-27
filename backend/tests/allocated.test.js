@@ -43,7 +43,7 @@ describe('Allocated controller', async () => {
   });
 });
 
-function createAllocatedDataResponse() {
+function createAllocatedDataResponse () {
   return [
     {
       bookingId: -1,
@@ -107,13 +107,14 @@ function createAllocatedDataResponse() {
   ];
 }
 
-function createAvailableKeyworkerResponse() {
-  return [{
-    staffId: 123,
-    firstName: 'Amy',
-    lastName: 'Hanson',
-    numberAllocated: 4
-  },
+function createAvailableKeyworkerResponse () {
+  return [
+    {
+      staffId: 123,
+      firstName: 'Amy',
+      lastName: 'Hanson',
+      numberAllocated: 4
+    },
     {
       staffId: 124,
       firstName: 'James',
@@ -129,7 +130,7 @@ function createAvailableKeyworkerResponse() {
   ];
 }
 
-function createSingleKeyworkerResponse() {
+function createSingleKeyworkerResponse () {
   return {
     staffId: -2,
     firstName: 'Ben',
@@ -138,22 +139,22 @@ function createSingleKeyworkerResponse() {
   };
 }
 
-function createSentenceDetailListResponse() {
+function createSentenceDetailListResponse () {
   return [
-    {offenderNo: "A1234AA", sentenceDetail: {releaseDate: '2024-03-03'}},
-    {offenderNo: "A1234AB", sentenceDetail: {releaseDate: '2025-04-03'}},
-    {offenderNo: "A1234AF", sentenceDetail: {releaseDate: '2026-03-03'}},
-    {offenderNo: "A1234AC", sentenceDetail: {releaseDate: '2019-03-03'}},
-    {offenderNo: "A1234AD", sentenceDetail: {releaseDate: '2018-03-03'}}
+    { offenderNo: "A1234AA", sentenceDetail: { releaseDate: '2024-03-03' } },
+    { offenderNo: "A1234AB", sentenceDetail: { releaseDate: '2025-04-03' } },
+    { offenderNo: "A1234AF", sentenceDetail: { releaseDate: '2026-03-03' } },
+    { offenderNo: "A1234AC", sentenceDetail: { releaseDate: '2019-03-03' } },
+    { offenderNo: "A1234AD", sentenceDetail: { releaseDate: '2018-03-03' } }
   ];
 }
 
-function createAssessmentListResponse() {
+function createAssessmentListResponse () {
   return [
-    {offenderNo: "A1234AA", classification: 'High'},
-    {offenderNo: "A1234AB", classification: 'High'},
-    {offenderNo: "A1234AF", classification: 'Low'},
-    {offenderNo: "A1234AC", classification: 'Silly'},
-    {offenderNo: "A1234AD", classification: 'Low'}
+    { offenderNo: "A1234AA", classification: 'High' },
+    { offenderNo: "A1234AB", classification: 'High' },
+    { offenderNo: "A1234AF", classification: 'Low' },
+    { offenderNo: "A1234AC", classification: 'Silly' },
+    { offenderNo: "A1234AD", classification: 'Low' }
   ];
 }

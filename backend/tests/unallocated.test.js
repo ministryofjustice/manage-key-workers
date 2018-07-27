@@ -9,7 +9,6 @@ const unallocated = serviceFactory(elite2Api, keyworkerApi).unallocated;
 const allocationResponse = createDataResponse();
 
 describe('Unallocated controller', async () => {
-
   it('Should add keyworker details to allocated data array', async () => {
     keyworkerApi.unallocated = jest.fn();
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse());
@@ -31,7 +30,7 @@ describe('Unallocated controller', async () => {
   });
 });
 
-function createDataResponse() {
+function createDataResponse () {
   return [
     {
       bookingId: -1,
@@ -77,22 +76,22 @@ function createDataResponse() {
   ];
 }
 
-function createSentenceDetailListResponse() {
+function createSentenceDetailListResponse () {
   return [
-    {offenderNo: "A1234AA", sentenceDetail: {releaseDate: '2024-03-03'}},
-    {offenderNo: "A1234AB", sentenceDetail: {releaseDate: '2025-04-03'}},
-    {offenderNo: "A1234AF", sentenceDetail: {releaseDate: '2026-03-03'}},
-    {offenderNo: "A1234AC", sentenceDetail: {releaseDate: '2019-03-03'}},
-    {offenderNo: "A1234AD", sentenceDetail: {releaseDate: '2018-03-03'}}
+    { offenderNo: "A1234AA", sentenceDetail: { releaseDate: '2024-03-03' } },
+    { offenderNo: "A1234AB", sentenceDetail: { releaseDate: '2025-04-03' } },
+    { offenderNo: "A1234AF", sentenceDetail: { releaseDate: '2026-03-03' } },
+    { offenderNo: "A1234AC", sentenceDetail: { releaseDate: '2019-03-03' } },
+    { offenderNo: "A1234AD", sentenceDetail: { releaseDate: '2018-03-03' } }
   ];
 }
 
-function createAssessmentListResponse() {
+function createAssessmentListResponse () {
   return [
-    {offenderNo: "A1234AA", classification: 'High'},
-    {offenderNo: "A1234AB", classification: 'High'},
-    {offenderNo: "A1234AF", classification: 'Low'},
-    {offenderNo: "A1234AC", classification: 'Silly'},
-    {offenderNo: "A1234AD", classification: 'Low'}
+    { offenderNo: "A1234AA", classification: 'High' },
+    { offenderNo: "A1234AB", classification: 'High' },
+    { offenderNo: "A1234AF", classification: 'Low' },
+    { offenderNo: "A1234AC", classification: 'Silly' },
+    { offenderNo: "A1234AD", classification: 'Low' }
   ];
 }

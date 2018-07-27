@@ -8,15 +8,15 @@ const telemetry = require('../azure-appinsights');
 const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
   const unallocated = async (context, agencyId) => {
     const offenderWithLocationDtos = await keyworkerApi.unallocated(context, agencyId);
-    log.debug({data: offenderWithLocationDtos}, 'Response from unallocated offenders request');
+    log.debug({ data: offenderWithLocationDtos }, 'Response from unallocated offenders request');
 
     const offenderNumbers = offenderWithLocationDtos.map(offenderWithLocation => offenderWithLocation.offenderNo);
     if (offenderNumbers.length > 0) {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers);
-      log.debug({data: allReleaseDates}, 'Response from sentenceDetailList request');
+      log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
       const allCsras = await elite2Api.csraList(context, offenderNumbers);
-      log.debug({data: allCsras}, 'Response from csraList request');
+      log.debug({ data: allCsras }, 'Response from csraList request');
 
       for (const offenderWithLocation of offenderWithLocationDtos) {
         const offenderNo = offenderWithLocation.offenderNo;
@@ -41,7 +41,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     } catch (error) {
       const msg = warning(error);
       if (msg) {
-        log.warn({data: error.response}, 'Caught warning');
+        log.warn({ data: error.response }, 'Caught warning');
         insufficientKeyworkers = msg;
       } else {
         throw error;
@@ -49,22 +49,22 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
 
     const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId);
-    log.debug({availableKeyworkers: availableKeyworkers}, 'Response from available keyworker request');
+    log.debug({ availableKeyworkers }, 'Response from available keyworker request');
 
     const offenderWithAllocatedKeyworkerDtos = await keyworkerApi.autoallocated(context, agencyId);
-    log.debug({offenders: offenderWithAllocatedKeyworkerDtos}, 'Response from allocated offenders request');
+    log.debug({ offenders: offenderWithAllocatedKeyworkerDtos }, 'Response from allocated offenders request');
 
     if (telemetry) {
-      telemetry.trackEvent({name: "Auto allocation"});
+      telemetry.trackEvent({ name: "Auto allocation" });
     }
 
     const offenderNumbers = offenderWithAllocatedKeyworkerDtos.map(offender => offender.offenderNo);
     if (offenderNumbers.length > 0) {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers);
-      log.debug({data: allReleaseDates}, 'Response from sentenceDetailList request');
+      log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
       const allCsras = await elite2Api.csraList(context, offenderNumbers);
-      log.debug({data: allCsras}, 'Response from csraList request');
+      log.debug({ data: allCsras }, 'Response from csraList request');
 
       for (const offenderWithAllocatedKeyworker of offenderWithAllocatedKeyworkerDtos) {
         const keyworker = availableKeyworkers.find(keyworker => keyworker.staffId === offenderWithAllocatedKeyworker.staffId);
@@ -94,20 +94,20 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
   const keyworkerAllocations = async (context, staffId, agencyId) => {
     const keyworkers = await keyworkerApi.availableKeyworkers(context, agencyId);
-    log.debug({data: keyworkers}, 'Response from availableKeyworkers request');
+    log.debug({ data: keyworkers }, 'Response from availableKeyworkers request');
     const keyworkerAllocationDetailsDtos = await keyworkerApi.keyworkerAllocations(context, staffId, agencyId);
-    log.debug({data: keyworkerAllocationDetailsDtos}, 'Response from keyworkerAllocations request');
+    log.debug({ data: keyworkerAllocationDetailsDtos }, 'Response from keyworkerAllocations request');
 
     const offenderNumbers = keyworkerAllocationDetailsDtos.map(keyworkerAllocationDetails => keyworkerAllocationDetails.offenderNo);
     if (offenderNumbers.length > 0) {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers);
-      log.debug({data: allReleaseDates}, 'Response from sentenceDetailList request');
+      log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
       const allCsras = await elite2Api.csraList(context, offenderNumbers);
-      log.debug({data: allCsras}, 'Response from csraList request');
+      log.debug({ data: allCsras }, 'Response from csraList request');
 
       const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers);
-      log.debug({data: kwDates}, 'Response from case note usage request');
+      log.debug({ data: kwDates }, 'Response from case note usage request');
 
       for (const keyworkerAllocation of keyworkerAllocationDetailsDtos) {
         const offenderNo = keyworkerAllocation.offenderNo;
@@ -132,12 +132,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       allocationStatus
     }) => {
     const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId);
-    log.debug({availableKeyworkers: availableKeyworkers}, 'Response from available keyworker request');
+    log.debug({ availableKeyworkers }, 'Response from available keyworker request');
 
     const resultsLimit = allocationStatus === 'all' ? offenderSearchResultMax : 4000;
 
-    const offenders = await  elite2Api.searchOffenders(context, keywords, locationPrefix, resultsLimit);
-    log.debug({searchOffenders: offenders}, 'Response from searchOffenders request');
+    const offenders = await elite2Api.searchOffenders(context, keywords, locationPrefix, resultsLimit);
+    log.debug({ searchOffenders: offenders }, 'Response from searchOffenders request');
 
 
     if (!(offenders && offenders.length > 0)) {
@@ -150,7 +150,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
     const offenderNumbers = getOffenderNumbers(offenders);
     const offenderKeyworkers = await keyworkerApi.offenderKeyworkerList(context, agencyId, offenderNumbers);
-    log.debug({data: offenderKeyworkers}, 'Response from getOffenders request');
+    log.debug({ data: offenderKeyworkers }, 'Response from getOffenders request');
 
     const filteredOffenders = applyAllocationStatusFilter(allocationStatus, offenders, offenderKeyworkers); //adjust results if filtering by unallocated
 
@@ -163,10 +163,10 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     if (filteredOffenders.length > 0) {
       const filteredOffenderNumbers = getOffenderNumbers(filteredOffenders);
       const allReleaseDates = await elite2Api.sentenceDetailList(context, filteredOffenderNumbers);
-      log.debug({data: allReleaseDates}, 'Response from sentenceDetailList request');
+      log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request');
 
       const allCsras = await elite2Api.csraList(context, filteredOffenderNumbers);
-      log.debug({data: allCsras}, 'Response from csraList request');
+      log.debug({ data: allCsras }, 'Response from csraList request');
 
       for (const offender of filteredOffenders) {
         const offenderNo = offender.offenderNo;
@@ -204,7 +204,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
   };
 
-  function warning(error) {
+  function warning (error) {
     if (error.response && error.response.data) {
       const msg = error.response.data.userMessage;
       if (msg === 'No Key workers available for allocation.' ||
@@ -226,7 +226,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         offenderResults = offenderResults.filter(offender => offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo));
         break;
     }
-    log.debug(`After allocation status filter of ${allocationStatus} - new offender list is:`, {searchOffenders: offenderResults});
+    log.debug(`After allocation status filter of ${allocationStatus} - new offender list is:`, { searchOffenders: offenderResults });
     return offenderResults;
   };
 
@@ -270,24 +270,6 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
   };
 
-// const addCrsaClassification = function (csras, offenderWithLocation) {
-//   const details = csras.filter(details => details.offenderNo === offenderWithLocation.offenderNo);
-//   if (details.length < 1) {
-//     return;
-//   }
-//   const detail = details[0];
-//   offenderWithLocation.crsaClassification = detail && detail.classification;
-// };
-//
-// const addReleaseDate = function (allReleaseDates, offenderWithLocation) {
-//   const details = allReleaseDates.filter(details => details.offenderNo === offenderWithLocation.offenderNo);
-//   if (details.length < 1) {
-//     return;
-//   }
-//   const detail = details[0];
-//   offenderWithLocation.confirmedReleaseDate = detail && detail.sentenceDetail && detail.sentenceDetail.releaseDate;
-// };
-
   const findCrsaForOffender = (csras, offenderNo) => {
     const details = csras.filter(details => details.offenderNo === offenderNo);
     if (details.length < 1) {
@@ -315,20 +297,19 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     return details.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
   };
 
-  const offenderNoParamsSerializer = params => {
-    s = '';
-    for (const offenderNo of params) {
-      s += 'offenderNo=' + offenderNo + '&';
-    }
-    return s;
-  };
+  // const offenderNoParamsSerializer = params => {
+  //   s = '';
+  //   for (const offenderNo of params) {
+  //     s += 'offenderNo=' + offenderNo + '&';
+  //   }
+  //   return s;
+  // };
   return {
     unallocated,
     allocated,
     keyworkerAllocations,
     searchOffenders
   };
-
 };
 
 module.exports = {

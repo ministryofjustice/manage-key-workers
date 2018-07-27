@@ -11,7 +11,7 @@ const keyworkerSearchFactory = (keyworkerApi) => {
         searchText,
         statusFilter
       });
-    log.debug({keyworkerSearch: response}, 'Response from keyworker search request');
+    log.debug({ keyworkerSearch: response }, 'Response from keyworker search request');
     res.json(response);
   });
 

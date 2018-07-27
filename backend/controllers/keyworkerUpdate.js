@@ -10,7 +10,7 @@ const keyworkerUpdateFactory = (keyworkerApi) => {
     const agencyId = req.query.agencyId;
 
     const response = await keyworkerApi.keyworkerUpdate(res.locals, staffId, agencyId, update);
-    log.debug({ response} , 'Response from keyworker update request');
+    log.debug({ response }, 'Response from keyworker update request');
     res.json({});
   });
 

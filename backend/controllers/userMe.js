@@ -11,5 +11,7 @@ const userMeFactory = (elite2Api) => {
   };
 };
 
-module.exports = {userMeFactory};
+module.exports = {
+  userMeFactory
+};
 

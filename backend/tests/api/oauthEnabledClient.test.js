@@ -40,6 +40,5 @@ describe('Test clients built by oauthEnabledClient', () => {
       // eslint-disable-next-line
       expect(response.config.headers.authorization).to.be.undefined;
     });
-
   });
 });
