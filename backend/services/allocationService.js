@@ -77,6 +77,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
             offenderWithAllocatedKeyworker.staffId,
             offenderWithAllocatedKeyworker.agencyId,
             offenderWithAllocatedKeyworker.offenderNo);
+
           offenderWithAllocatedKeyworker.keyworkerDisplay = details.keyworkerDisplay;
           offenderWithAllocatedKeyworker.numberAllocated = details.numberAllocated;
         }
@@ -248,25 +249,16 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
   const getKeyworkerDetails = async function (context, staffId, agencyId, offenderNo) {
     try {
       const keyworkerData = await keyworkerApi.keyworker(context, staffId, agencyId);
-
-      const details = {};
-
-      if (keyworkerData) {
-        details.keyworkerDisplay = `${properCaseName(keyworkerData.lastName)}, ${properCaseName(keyworkerData.firstName)}`;
-        details.numberAllocated = keyworkerData.numberAllocated;
-      }
-      return details;
+      return keyworkerData ? {
+        keyworkerDisplay: `${properCaseName(keyworkerData.lastName)}, ${properCaseName(keyworkerData.firstName)}`,
+        numberAllocated: keyworkerData.numberAllocated
+      } : {
+        keyworkerDisplay: '--',
+        numberAllocated: 'n/a'
+      };
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        log.info(`No keyworker found for staffId Id ${staffId} on offenderNo ${offenderNo}`);
-        return {
-          keyworkerDisplay: '--',
-          numberAllocated: 'n/a'
-        };
-      } else {
-        logError('Not available', error, 'Error in addMissingKeyworkerDetails');
-        throw error;
-      }
+      logError('Not available', error, 'Error in addMissingKeyworkerDetails');
+      throw error;
     }
   };
 
@@ -293,17 +285,10 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     if (details.length < 1) {
       return;
     }
-    //  TODO: m,v,i - really?
+    //  TODO: m,v,i: find some better names.
     return details.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
   };
 
-  // const offenderNoParamsSerializer = params => {
-  //   s = '';
-  //   for (const offenderNo of params) {
-  //     s += 'offenderNo=' + offenderNo + '&';
-  //   }
-  //   return s;
-  // };
   return {
     unallocated,
     allocated,

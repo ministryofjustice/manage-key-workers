@@ -6,7 +6,7 @@ const processError = error => {
   if (!error.response) throw error;
   if (!error.response.status) throw error;
   if (error.response.status !== 404) throw error; // Not Found
-  return {};
+  return null;
 };
 
 const encodeQueryString = (input) => encodeURIComponent(input);

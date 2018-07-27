@@ -21,13 +21,16 @@ class Elite2Api extends WireMockRule {
     }
 
     void stubValidOAuthTokenRequest(UserAccount user, Boolean delayOAuthResponse = false) {
+
+        final accessToken = JwtFactory.token()
+
         final response = aResponse()
                 .withStatus(200)
                 .withHeader('Content-Type', 'application/json;charset=UTF-8')
                 .withBody(JsonOutput.toJson([
-                access_token : 'RW_TOKEN',
+                access_token : accessToken,
                 token_type   : 'bearer',
-                refresh_token: 'refreshToken',
+                refresh_token: JwtFactory.token(),
                 expires_in   : 599,
                 scope        : 'read write',
                 internalUser : true
@@ -39,9 +42,9 @@ class Elite2Api extends WireMockRule {
 
         this.stubFor(
                 post('/oauth/token')
-                        .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
+                        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
                         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                        .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password&client_id=omic"))
+                        .withRequestBody(equalTo("username=${user.username}&password=password&grant_type=password"))
                         .willReturn(response))
 
     }
@@ -49,9 +52,9 @@ class Elite2Api extends WireMockRule {
     void stubInvalidOAuthTokenRequest(UserAccount user, boolean badPassword = false) {
         this.stubFor(
                 post('/oauth/token')
-                        .withHeader('authorization', equalTo('Basic b21pYzpjbGllbnRzZWNyZXQ='))
+                        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
                         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                        .withRequestBody(matching("username=${user.username}&password=.*&grant_type=password&client_id=omic"))
+                        .withRequestBody(matching("username=${user.username}&password=.*&grant_type=password"))
                         .willReturn(
                         aResponse()
                                 .withStatus(400)
@@ -65,11 +68,9 @@ class Elite2Api extends WireMockRule {
                         ]))))
     }
 
-
     void stubGetMyDetails(UserAccount user) {
         this.stubFor(
                 get('/api/users/me')
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
@@ -95,7 +96,6 @@ class Elite2Api extends WireMockRule {
 
         this.stubFor(
                 get('/api/users/me/caseLoads')
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
@@ -119,7 +119,6 @@ class Elite2Api extends WireMockRule {
 
         this.stubFor(
                 get('/api/users/me/locations')
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
@@ -132,7 +131,6 @@ class Elite2Api extends WireMockRule {
     void stubOffenderSentenceResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 post(urlPathEqualTo("/api/offender-sentences"))
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderSentencesResponse.response)
                         .withStatus(200))
@@ -142,7 +140,6 @@ class Elite2Api extends WireMockRule {
     void stubCaseNoteUsageResponse() {
         this.stubFor(
                 get(urlPathMatching("/api/case-notes/usage?.*"))
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(CaseNoteUsageResponse.response)
                         .withStatus(200))
@@ -152,7 +149,6 @@ class Elite2Api extends WireMockRule {
     void stubOffenderAssessmentResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 post(urlPathEqualTo("/api/offender-assessments/CSR"))
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderAssessmentsResponse.response)
                         .withStatus(200))
@@ -162,7 +158,6 @@ class Elite2Api extends WireMockRule {
     void stubOffenderSearchResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderSearchResponse.response_5_results)
                         .withStatus(200))
@@ -172,7 +167,6 @@ class Elite2Api extends WireMockRule {
     void stubOffenderSearchLargeResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody(OffenderSearchResponse.response_55_results)
                         .withStatus(200))
@@ -182,7 +176,6 @@ class Elite2Api extends WireMockRule {
     void stubEmptyOffenderSearchResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
-                        .withHeader('authorization', equalTo('Bearer RW_TOKEN'))
                         .willReturn(aResponse()
                         .withBody("[]")
                         .withStatus(200))
