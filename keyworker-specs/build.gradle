@@ -6,11 +6,9 @@ ext {
 
     ext {
         drivers = [
-//                'chrome'
-//                ,
+//                'chrome',
                 'chromeHeadless'
         ]
-
         groovyVersion = '2.4.14'
         gebVersion = '2.1'
         seleniumVersion = '3.11.0'
@@ -38,6 +36,7 @@ dependencies {
     testCompile 'com.github.tomjankes:wiremock-groovy:0.2.0'
     testCompile 'org.slf4j:slf4j-api:1.7.25'
     testCompile 'ch.qos.logback:logback-classic:1.2.3'
+    testCompile 'com.auth0:java-jwt:3.3.0'
 }
 
 drivers.each { driver ->

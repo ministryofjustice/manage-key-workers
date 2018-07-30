@@ -45,7 +45,7 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         and: "I enter a name that does not match any keyworker"
         searchField.value('Smydd')
 
-        keyworkerApi.stubEmptyListResponse('/key-worker/LEI/members?nameFilter=Smydd&statusFilter=')
+        keyworkerApi.stubEmptyListResponse('/key-worker/LEI/members?statusFilter=&nameFilter=Smydd')
 
         when: "I perform the search"
         keyworkerSearchButton.click()
