@@ -72,11 +72,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
           offenderWithAllocatedKeyworker.keyworkerDisplay = `${properCaseName(keyworker.lastName)}, ${properCaseName(keyworker.firstName)}`;
           offenderWithAllocatedKeyworker.numberAllocated = keyworker.numberAllocated;
         } else {
-          const details = await getKeyworkerDetails(
-            context,
-            offenderWithAllocatedKeyworker.staffId,
-            offenderWithAllocatedKeyworker.agencyId,
-            offenderWithAllocatedKeyworker.offenderNo);
+          const details = await getKeyworkerDetails(context, offenderWithAllocatedKeyworker.staffId, offenderWithAllocatedKeyworker.agencyId);
 
           offenderWithAllocatedKeyworker.keyworkerDisplay = details.keyworkerDisplay;
           offenderWithAllocatedKeyworker.numberAllocated = details.numberAllocated;
@@ -181,7 +177,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
             offender.keyworkerDisplay = `${properCaseName(keyworker.lastName)}, ${properCaseName(keyworker.firstName)}`;
             offender.numberAllocated = keyworker.numberAllocated;
           } else {
-            const details = await getKeyworkerDetails(context, staffId, offender.agencyId, offenderNo);
+            const details = await getKeyworkerDetails(context, staffId, offender.agencyId);
             offender.keyworkerDisplay = details.keyworkerDisplay;
             offender.numberAllocated = details.numberAllocated;
           }
@@ -241,12 +237,9 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
    * @param context
    * @param staffId
    * @param agencyId
-   * @param offenderNo
    * @returns {Promise<{}>} of { keyworkerDisplay, numberAllocated }
-   *
-   * TODO: Too many arguments!
    */
-  const getKeyworkerDetails = async function (context, staffId, agencyId, offenderNo) {
+  const getKeyworkerDetails = async function (context, staffId, agencyId) {
     try {
       const keyworkerData = await keyworkerApi.keyworker(context, staffId, agencyId);
       return keyworkerData ? {
@@ -285,8 +278,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     if (details.length < 1) {
       return;
     }
-    //  TODO: m,v,i: find some better names.
-    return details.reduce((m, v, i) => (v.latestCaseNote > m.latestCaseNote) && i ? v : m).latestCaseNote;
+    return details.reduce((previous, current, index) => (current.latestCaseNote > previous.latestCaseNote) && index ? current : previous).latestCaseNote;
   };
 
   return {
