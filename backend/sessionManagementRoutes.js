@@ -15,7 +15,7 @@ const LOGOUT_PATH = '/auth/logout';
  * @param hmppsCookieOperations (setCookie, extractCookieValues, clearCookie)
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
- * @homeLink The URL for the home page.
+ * @param homeLink The URL for the home page.
  */
 const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, tokenRefresher, mailTo, homeLink }) => {
   const loginIndex = async (req, res) => {

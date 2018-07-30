@@ -16,12 +16,12 @@ module.exports = {
   },
   apis: {
     elite2: {
-      url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
+      url: process.env.API_ENDPOINT_URL || 'http://localhost:8080/',
       clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
       clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret'
     },
     keyworker: {
-      url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
+      url: process.env.KEYWORKER_API_URL || 'http://localhost:8081/',
       ui_url: process.env.OMIC_UI_URL
     }
   }

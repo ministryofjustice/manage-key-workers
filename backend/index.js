@@ -25,7 +25,7 @@ const keyworkerProfileFactory = require('./controllers/keyworkerProfile').keywor
 const keyworkerUpdateFactory = require('./controllers/keyworkerUpdate').keyworkerUpdateFactory;
 const userMeFactory = require('./controllers/userMe').userMeFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
-const health = require('./controllers/health');
+const healthFactory = require('./controllers/health').healthFactory;
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
 
@@ -63,8 +63,10 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
-app.use('/health', health.router);
-app.use('/info', health.router);
+const health = healthFactory(config.apis.keyworker.url, config.apis.elite2.url).health;
+
+app.use('/health', health);
+app.use('/info', health);
 
 if (config.app.production) {
   app.use(ensureHttps);
