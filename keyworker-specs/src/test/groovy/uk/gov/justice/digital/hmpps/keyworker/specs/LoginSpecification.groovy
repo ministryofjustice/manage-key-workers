@@ -96,7 +96,6 @@ class LoginSpecification extends GebReportingSpec {
         errors.message == 'Service unavailable. Please try again later.'
     }
 
-    @Ignore
     def "Log in attempt with long delay on oauth server"() {
 
         given: 'I am on the Login page'

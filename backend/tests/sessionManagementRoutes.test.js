@@ -73,41 +73,55 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   // because the outcome of each test depends upon the successful completion of the previous tests.
   const agent = request.agent(app);
 
+  const callback = done => function (err, res) {
+    if (err) {
+      if (done.fail) {
+        //jest
+        done.fail(err);
+      } else {
+        // mocha
+        done(err);
+      }
+    } else {
+      done();
+    }
+  };
+
   it('GET "/" with no cooke (not authenticated) redirects to /login', (done) => {
     tokenRefresher.resolves();
 
     agent
       .get('/')
       .expect(302)
-      .expect('location', '/login')
-      .end(done);
+      .expect('location', '/auth/login')
+      .end(callback(done));
   });
 
-  it('GET "/login" when not authenticated returns login page', (done) => {
+  it('GET "/auth/login" when not authenticated returns login page', (done) => {
     agent
-      .get('/login')
+      .get('/auth/login')
       .expect(200)
       .expect('content-type', /text\/html/)
       .expect(/Login/)
-      .end(done);
+      .end(callback(done));
   });
 
   it('successful login redirects to "/" setting hmpps cookie', (done) => {
     agent
-      .post('/login')
+      .post('/auth/login')
       .send('username=test&password=testPassowrd')
       .expect(302)
       .expect('location', '/')
       .expect(hasCookies(['testCookie']))
-      .end(done);
+      .end(callback(done));
   });
 
-  it('GET "/login" when  authenticated redirects to "/"', (done) => {
+  it('GET "/auth/login" when  authenticated redirects to "/"', (done) => {
     agent
-      .get('/login')
+      .get('/auth/login')
       .expect(302)
       .expect('location', '/')
-      .end(done);
+      .end(callback(done));
   });
 
   it('GET "/" with cookie serves content', (done) => {
@@ -116,7 +130,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       .expect(200)
       .expect('static')
       .expect(hasCookies(['testCookie']))
-      .end(done);
+      .end(callback(done));
   });
 
   it('GET "/heart-beat"', (done) => {
@@ -128,7 +142,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         // eslint-disable-next-line
         expect(tokenRefresher).to.be.called
       })
-      .end(done);
+      .end(callback(done));
   });
 
   it('GET "/heart-beat" when refresh fails', (done) => {
@@ -141,86 +155,86 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         // eslint-disable-next-line
         expect(tokenRefresher).to.be.called
       })
-      .end(done);
+      .end(callback(done));
   });
 
 
-  it('GET "/logout" clears the cookie', (done) => {
+  it('GET "/auth/logout" clears the cookie', (done) => {
     tokenRefresher.resolves();
 
     agent
-      .get('/logout')
+      .get('/auth/logout')
       .expect(302)
-      .expect('location', '/login')
+      .expect('location', '/auth/login')
       // The server sends a set cookie header to clear the cookie.
       // The next test shows that the cookie was cleared because of the redirect to '/'
       .expect(hasCookies(['testCookie']))
-      .end(done);
+      .end(callback(done));
   });
 
-  it('After logout get "/" should redirect to "/login"', (done) => {
+  it('After logout get "/" should redirect to "/auth/login"', (done) => {
     agent
       .get('/')
       .expect(302)
-      .expect('location', '/login')
+      .expect('location', '/auth/login')
       .expect(hasCookies([]))
-      .end(done);
+      .end(callback(done));
   });
 
   it('Unsuccessful signin - API up', (done) => {
     oauthApi.authenticate = rejectWithStatus(401);
 
     agent
-      .post('/login')
+      .post('/auth/login')
       .send('username=test&password=testPassowrd')
       .expect(401)
       .expect(res => {
-        expect(res.error.path).to.equal('/login');
+        expect(res.error.path).to.equal('/auth/login');
         expect(res.text).to.include('The username or password you have entered is invalid.');
       })
-      .end(done);
+      .end(callback(done));
   });
 
   it('Unsuccessful signin - API up, locked account', (done) => {
     oauthApi.authenticate = rejectWithAuthenticationError('ORA-28000');
 
     agent
-      .post('/login')
+      .post('/auth/login')
       .send('username=test&password=testPassowrd')
       .expect(401)
       .expect(res => {
-        expect(res.error.path).to.equal('/login');
+        expect(res.error.path).to.equal('/auth/login');
         expect(res.text).to.include('Your user account is locked.');
       })
-      .end(done);
+      .end(callback(done));
   });
 
   it('Unsuccessful signin - API up, expired account', (done) => {
     oauthApi.authenticate = rejectWithAuthenticationError('ORA-28001');
 
     agent
-      .post('/login')
+      .post('/auth/login')
       .send('username=test&password=testPassowrd')
       .expect(401)
       .expect(res => {
-        expect(res.error.path).to.equal('/login');
+        expect(res.error.path).to.equal('/auth/login');
         expect(res.text).to.include('Your password has expired.');
       })
-      .end(done);
+      .end(callback(done));
   });
 
   it('Unsuccessful signin - API down', (done) => {
     oauthApi.authenticate = rejectWithStatus(503);
 
     agent
-      .post('/login')
+      .post('/auth/login')
       .send('username=test&password=testPassowrd')
       .expect(503)
       .expect(res => {
-        expect(res.error.path).to.equal('/login');
+        expect(res.error.path).to.equal('/auth/login');
         expect(res.text).to.include('Service unavailable. Please try again later.');
       })
-      .end(done);
+      .end(callback(done));
   });
 });
 
