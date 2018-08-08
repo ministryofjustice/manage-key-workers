@@ -17,7 +17,7 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
     baseURL: url,
     url: 'oauth/token',
     method: 'post',
-    timeout: 2000,
+    timeout: 10000,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }

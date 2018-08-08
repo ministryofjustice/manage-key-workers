@@ -23,7 +23,7 @@ const elite2ApiFactory = (client) => {
       .then(processResponse(context));
 
   const caseNoteUsageList = (context, offenderNumbers) => get(context, `api/case-notes/usage?type=KA&numMonths=6&${encodeOffenderNumbers(offenderNumbers)}`);
-  const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/CSR', offenderNumbers);
+  const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers);
   const userCaseLoads = (context) => get(context, 'api/users/me/caseLoads');
   const currentUser = (context) => get(context, 'api/users/me');
   const userLocations = (context) => get(context, 'api/users/me/locations');
