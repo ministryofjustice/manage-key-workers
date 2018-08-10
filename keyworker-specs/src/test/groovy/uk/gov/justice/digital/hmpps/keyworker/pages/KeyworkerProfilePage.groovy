@@ -24,6 +24,7 @@ public class KeyworkerProfilePage extends Page {
         keyworkerEditButton(to: KeyworkerEditPage) { $('#editProfileButton') }
         updateKeyworkerAllocationButton(to: KeyworkerManagementPage) { $('#updateAllocationButton') }
         messageBar(required: false) { $('div #messageBar')}
+        backLink { $('a.backlink')}
     }
 
 }
