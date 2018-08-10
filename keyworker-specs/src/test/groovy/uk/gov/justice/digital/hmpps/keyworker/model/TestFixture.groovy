@@ -90,6 +90,15 @@ class TestFixture {
         browser.at SearchForKeyworkerPage
     }
 
+    def stubKeyworkerProfilePage() {
+        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI)
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
+        keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderSentenceResponse()
+        elite2Api.stubCaseNoteUsageResponse()
+    }
+
     def toOffenderSearchResultsPageWithoutInitialSearch() {
         browser.go '/offender/results'
     }

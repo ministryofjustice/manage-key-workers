@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { properCaseName, renderDate } from "../../stringUtils";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import MessageBar from "../../MessageBar/index";
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
 import { getOffenderLink } from "../../links";
 
 class KeyworkerProfile extends Component {
+  constructor (props) {
+    super();
+    this.goBack = this.goBack.bind(this);
+  }
+
+  goBack (e) {
+    e.preventDefault();
+    window.history.back();
+  }
+
   getAllocationStyle () {
     let allocationStyleClass = 'numberCircleGreen';
     if (this.props.keyworkerAllocations.length === 0) {
@@ -81,8 +90,8 @@ class KeyworkerProfile extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`search_again_link`} title="Search again link" className="link backlink" to="/keyworker/results" >
-              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</Link>
+            <a href="#back" title="Back link" className="link backlink" onClick={this.goBack} >
+              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
             <h1 className="heading-large margin-top">Key worker: {keyworkerDisplayName}</h1>
           </div>
           <div className="padding-top">
