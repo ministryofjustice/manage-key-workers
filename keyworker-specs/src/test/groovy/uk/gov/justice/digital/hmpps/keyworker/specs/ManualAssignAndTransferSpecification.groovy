@@ -8,6 +8,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.OffenderResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
 
@@ -55,6 +56,19 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         and: "A full result is displayed"
         rows.size() == 5
+
+        when: "I select a key worker"
+        fixture.stubKeyworkerProfilePage()
+        keyworkerLink.click()
+
+        then: "I am shown the key worker profile page"
+        at KeyworkerProfilePage
+
+        when: "I click the back link"
+        backLink.click()
+
+        then: "I am returned to the Offender Search page"
+        at SearchForOffenderPage
     }
 
     def "Assign and Transfer filtered by unallocated"() {
@@ -70,8 +84,8 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         then: "I am shown the Offender Search results page"
         at OffenderResultsPage
 
-        and: "The 4 unallocated results are displayed"
-        rows.size() == 4
+        and: "The 3 unallocated results are displayed"
+        rows.size() == 3
     }
 
     def "Assign and Transfer filtered by unallocated - partial result"() {
@@ -104,8 +118,8 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         then: "I am shown the Offender Search results page"
         at OffenderResultsPage
 
-        and: "The 1 allocated results is displayed"
-        rows.size() == 1
+        and: "The 2 allocated results are displayed"
+        rows.size() == 2
     }
 
     def "Search for offender returns no results"() {
@@ -185,7 +199,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         when: "I click the save button"
         keyworkerApi.stubManualOverrideResponse()
-        table['keyworker-select-A1178RS'] = '-3'
+        table['keyworker-select-A1178RS'] = '-2'
         saveButton.click()
 
         then: "I remain on the Offender results page and a success message bar is displayed"

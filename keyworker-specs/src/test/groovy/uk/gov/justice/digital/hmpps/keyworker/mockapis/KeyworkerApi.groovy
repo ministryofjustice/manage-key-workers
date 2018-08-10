@@ -7,13 +7,12 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.Allocations
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AvailableKeyworkerResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerDetailResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerSearchResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.UnallocatedResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import static com.github.tomakehurst.wiremock.client.WireMock.get
 import static com.github.tomakehurst.wiremock.client.WireMock.post
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
@@ -225,7 +224,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post(urlPathEqualTo("/key-worker/${agencyLocation.id}/offenders"))
                         .willReturn(aResponse()
-                        .withBody(OffenderAssessmentsResponse.response)
+                        .withBody(OffenderSearchResponse.keyworkersOfOffenders)
                         .withStatus(200))
         )
     }

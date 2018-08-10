@@ -98,7 +98,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
 
         when: "active is selected and saved"
         keyworkerStatusOptions.find{ it.value() == "ACTIVE" }.click()
-        stubKeyworkerProfilePage()
+        fixture.stubKeyworkerProfilePage()
         saveChangesButton.click()
 
         then: "should return to keyworker Profile page"
@@ -113,7 +113,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
 
         when: "save is selected without status change"
         keyworkerApi.stubKeyworkerUpdate(AgencyLocation.LEI)
-        stubKeyworkerProfilePage()
+        fixture.stubKeyworkerProfilePage()
         saveChangesButton.click()
 
         then: "should go to profile page - without an update message"
@@ -132,7 +132,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         at KeyworkerEditConfirmPage
         allocationOptions = 'REMOVE_ALLOCATIONS_NO_AUTO'
         keyworkerApi.stubKeyworkerUpdate(AgencyLocation.LEI)
-        stubKeyworkerProfilePage()
+        fixture.stubKeyworkerProfilePage()
         saveButton.click()
 
         then: "should return to keyworker Profile page"
@@ -150,21 +150,12 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         at KeyworkerEditConfirmPage
         allocationOptions = 'REMOVE_ALLOCATIONS_NO_AUTO'
         keyworkerApi.stubKeyworkerUpdate(AgencyLocation.LEI)
-        stubKeyworkerProfilePage()
+        fixture.stubKeyworkerProfilePage()
         saveButton.click()
 
         then: "should return to keyworker Profile page"
         at KeyworkerProfilePage
         messageBar.text() == 'Prisoners removed from key worker'
-    }
-
-    def stubKeyworkerProfilePage() {
-        keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI)
-        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
-        keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
-        elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
-        elite2api.stubOffenderSentenceResponse()
-        elite2api.stubCaseNoteUsageResponse()
     }
 
     def toKeyworkerEditPage() {
@@ -195,7 +186,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         fixture.toKeyworkerSearchPage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
         browser.page.keyworkerSearchButton.click()
-        stubKeyworkerProfilePage()
+        fixture.stubKeyworkerProfilePage()
         browser.page.testKeyworkerLink.click()
         assert browser.page instanceof KeyworkerProfilePage
     }
