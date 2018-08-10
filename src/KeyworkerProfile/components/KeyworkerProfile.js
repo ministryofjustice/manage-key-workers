@@ -90,7 +90,7 @@ class KeyworkerProfile extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <a href="#" title="Back link" className="link backlink" onClick={this.goBack} >
+            <a href="#back" title="Back link" className="link backlink" onClick={this.goBack} >
               <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
             <h1 className="heading-large margin-top">Key worker: {keyworkerDisplayName}</h1>
           </div>
