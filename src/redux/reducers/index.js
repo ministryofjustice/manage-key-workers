@@ -32,6 +32,7 @@ const offenderSearchInitialState = {
 
 const keyworkerSearchInitialState = {
   searchText: '',
+  statusFilter: '',
   keyworkerSearchResults: [],
   keyworkerAllocations: [],
   keyworker: { key: 'value' },
