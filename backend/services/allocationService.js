@@ -131,9 +131,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId);
     log.debug({ availableKeyworkers }, 'Response from available keyworker request');
 
-    const resultsLimit = allocationStatus === 'all' ? offenderSearchResultMax : 4000;
 
-    const offenders = await elite2Api.searchOffenders(context, keywords, locationPrefix, resultsLimit);
+    const offenders = await elite2Api.searchOffenders(context, keywords, locationPrefix, 4000);
     log.debug({ searchOffenders: offenders }, 'Response from searchOffenders request');
 
 
@@ -153,7 +152,6 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
     const partialResults = filteredOffenders.length > offenderSearchResultMax;
     if (partialResults) {
-      /* truncate array to max length */
       filteredOffenders.length = offenderSearchResultMax;
     }
 
