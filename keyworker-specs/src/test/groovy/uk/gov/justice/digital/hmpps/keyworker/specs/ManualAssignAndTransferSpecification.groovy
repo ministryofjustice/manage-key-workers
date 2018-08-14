@@ -178,7 +178,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         at OffenderResultsPage
         messageDiv.isDisplayed()
 
-        WireMock.reset();
+        WireMock.reset()
 
         when:
         stubOffenderResultsPage(false)

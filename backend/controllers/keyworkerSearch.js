@@ -9,7 +9,7 @@ const keyworkerSearchFactory = (keyworkerApi) => {
       {
         agencyId,
         searchText,
-        statusFilter
+        statusFilter: statusFilter ? statusFilter : ''
       });
     log.debug({ keyworkerSearch: response }, 'Response from keyworker search request');
     res.json(response);
