@@ -94,20 +94,20 @@ const healthApi = healthApiFactory(
   }),
   clientFactory({
     baseUrl: config.apis.keyworker.url,
-    timeout: 10000
+    timeout: 2000
   })
 );
 
 const elite2Api = eliteApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
-    timeout: 10000
+    timeout: 1000 * config.apis.elite2.timeoutSeconds
   }));
 
 const keyworkerApi = keyworkerApiFactory(
   clientFactory({
     baseUrl: config.apis.keyworker.url,
-    timeout: 10000
+    timeout: 1000 * config.apis.keyworker.timeoutSeconds
   }));
 
 const controller = controllerFactory(
