@@ -1,6 +1,6 @@
 const { userMeFactory } = require('../controllers/userMe');
 
-const req = {};
+const context = {};
 const staffRoles = [
   { roleId: -201, roleCode: 'KW_ADMIN', roleName: 'Key worker Admin', caseloadId: 'NWEB' }
 ];
@@ -11,8 +11,6 @@ const staff1 = {
 };
 
 describe('userMe controller', () => {
-  let res;
-
   const elite2Api = {
     currentUser: () => {},
     getStaffRoles: () => {}
@@ -22,10 +20,6 @@ describe('userMe controller', () => {
   };
 
   beforeEach(function () {
-    res = {
-      status: () => {},
-      json: jest.fn()
-    };
     elite2Api.currentUser = jest.fn();
     elite2Api.getStaffRoles = jest.fn();
     keyworkerApi.getPrisonMigrationStatus = jest.fn();
@@ -40,7 +34,7 @@ describe('userMe controller', () => {
     elite2Api.getStaffRoles.mockImplementation(() => []);
 
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
-    const data = await userMeService(req, res);
+    const data = await userMeService();
 
     expect(data).toEqual({
       ...staff1,
@@ -51,10 +45,10 @@ describe('userMe controller', () => {
     elite2Api.getStaffRoles.mockImplementation(() => staffRoles);
 
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
-    const data = await userMeService(req, res);
+    const data = await userMeService(context);
 
     expect(elite2Api.currentUser).toHaveBeenCalled();
-    expect(elite2Api.getStaffRoles).toHaveBeenCalledWith({}, staff1.staffId, staff1.activeCaseLoadId);
+    expect(elite2Api.getStaffRoles).toHaveBeenCalledWith(context, staff1.staffId, staff1.activeCaseLoadId);
 
     expect(data).toEqual({
       ...staff1,
@@ -69,11 +63,11 @@ describe('userMe controller', () => {
 
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
 
-    const data = await userMeService(req, res);
+    const data = await userMeService(context);
 
     expect(elite2Api.currentUser).toHaveBeenCalled();
-    expect(elite2Api.getStaffRoles).toHaveBeenCalledWith({}, staff1.staffId, staff1.activeCaseLoadId);
-    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith({}, staff1.activeCaseLoadId);
+    expect(elite2Api.getStaffRoles).toHaveBeenCalledWith(context, staff1.staffId, staff1.activeCaseLoadId);
+    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith(context, staff1.activeCaseLoadId);
 
     expect(data).toEqual({
       ...staff1,
