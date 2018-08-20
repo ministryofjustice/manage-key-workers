@@ -181,7 +181,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         WireMock.reset()
 
         when:
-        stubOffenderResultsPage(false)
+        fixture.stubOffenderResultsPage(false)
         searchButton.click()
 
         then: "I am shown the Offender Search results page"
@@ -226,7 +226,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
     def toOffenderResultsPage() {
         toOffenderSearchPage()
-        stubOffenderResultsPage()
+        fixture.stubOffenderResultsPage()
         searchButton.click()
         at OffenderResultsPage
     }
