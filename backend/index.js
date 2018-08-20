@@ -142,7 +142,7 @@ sessionManagementRoutes.configureRoutes({
 
 app.use('/api/config', getConfiguration);
 
-app.use('/api/me', userMeFactory(elite2Api).userMe);
+app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe);
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads);
 app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload);
 app.use('/api/unallocated', controller.unallocated);

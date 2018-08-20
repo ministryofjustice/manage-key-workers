@@ -12,6 +12,8 @@ import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 
+import java.lang.reflect.Array
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*
 
 class Elite2Api extends WireMockRule {
@@ -256,5 +258,16 @@ class Elite2Api extends WireMockRule {
                                 .withBody(JsonOutput.toJson([
                                     status         : status,
                                     userMessage        : message]))))
+    }
+
+    void stubGetStaffRoles(Integer staffId, AgencyLocation agencyLocation, def roles) {
+
+        def json = JsonOutput.toJson(roles)
+
+        this.stubFor(
+                get(urlPathEqualTo("/api/staff/${staffId}/${agencyLocation.id}/roles"))
+                        .willReturn(aResponse()
+                        .withBody(json)
+                        .withStatus(200)))
     }
 }

@@ -8,6 +8,10 @@ import { renderDate } from '../../stringUtils';
 import MessageBar from "../../MessageBar/index";
 
 class OffenderResults extends Component {
+  constructor () {
+    super();
+    this.buttons = this.buttons.bind(this);
+  }
   buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
     if (keyworkerDisplay) {
       if (numberAllocated || numberAllocated === 0) {
@@ -46,7 +50,7 @@ class OffenderResults extends Component {
         </td>
         <td><a className="link" target="_blank" href={getKeyWorkerHistoryLink(a.offenderNo)}>View</a></td>
         <td className="row-gutters">
-          <select id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+          <select disabled={!this.props.user || !this.props.user.writeAccess} id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
             onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
             <option key="choose" value="--">-- No change --</option>
             {a.staffId ? <option key="choose" value="_DEALLOCATE">-- Deallocate --</option> : ''}
@@ -58,6 +62,9 @@ class OffenderResults extends Component {
   }
 
   buttons (rows) {
+    if (!this.props.user || !this.props.user.writeAccess) {
+      return <div />;
+    }
     return (<div>
       {rows > 0 && <button className="button button-save" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm</button>}
       <button className="button greyButton button-cancel margin-left" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel</button>
@@ -118,7 +125,8 @@ OffenderResults.propTypes = {
   onFinishAllocation: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
   loaded: PropTypes.bool,
-  displayBack: PropTypes.func.isRequired
+  displayBack: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const OffenderResultsWithRouter = withRouter(OffenderResults);

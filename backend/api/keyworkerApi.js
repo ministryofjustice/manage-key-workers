@@ -33,6 +33,7 @@ const keyworkerApiFactory = (client) => {
   const allocationHistory = (context, offenderNo) => get(context, `key-worker/allocation-history/${offenderNo}`);
   const autoAllocate = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/start`);
   const autoAllocateConfirm = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/confirm`);
+  const getPrisonMigrationStatus = (context, prisonId) => get(context, `key-worker/prison/${prisonId}`);
 
   /**
    *
@@ -148,7 +149,8 @@ const keyworkerApiFactory = (client) => {
     keyworkerSearch,
     keyworkerUpdate,
     offenderKeyworkerList,
-    unallocated
+    unallocated,
+    getPrisonMigrationStatus
   };
 };
 

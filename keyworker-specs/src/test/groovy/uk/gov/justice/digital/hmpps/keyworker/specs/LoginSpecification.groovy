@@ -6,6 +6,7 @@ import org.junit.Rule
 import spock.lang.Ignore
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
@@ -51,6 +52,8 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
+        elite2api.stubGetStaffRoles(ITAG_USER.staffMember.id, AgencyLocation.LEI, [[roleId: -1, roleCode: 'KW_ADMIN']])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
         to LoginPage
 
         elite2api.stubValidOAuthTokenRequest(ITAG_USER)
@@ -101,6 +104,8 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
+        elite2api.stubGetStaffRoles(ITAG_USER.staffMember.id, AgencyLocation.LEI, [[roleId: -1, roleCode: 'KW_ADMIN']])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
         to LoginPage
 
         and: 'The OAuth server responds with a long delay'

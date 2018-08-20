@@ -18,6 +18,10 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   componentDidMount () {
+    if (!this.props.user || !this.props.user.writeAccess) {
+      this.props.history.push('/');
+      return;
+    }
     //invalid deeplink
     if (!this.props.keyworker.staffId) {
       this.props.history.push(`/keyworker/${this.props.match.params.staffId}/profile`);
@@ -123,7 +127,8 @@ KeyworkerProfileEditContainer.propTypes = {
   capacity: PropTypes.string,
   validationErrors: PropTypes.object,
   setValidationErrorDispatch: PropTypes.func,
-  resetValidationErrorsDispatch: PropTypes.func
+  resetValidationErrorsDispatch: PropTypes.func,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {

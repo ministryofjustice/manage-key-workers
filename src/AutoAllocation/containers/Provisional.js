@@ -20,6 +20,10 @@ class ProvisionalContainer extends Component {
 
   async componentWillMount () {
     try {
+      if (!this.props.user || !this.props.user.writeAccess) {
+        this.props.history.push('/');
+        return;
+      }
       const viewModel = await this.getAllocated();
       this.props.allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
       this.props.manualOverrideDispatch([]);
@@ -109,7 +113,9 @@ ProvisionalContainer.propTypes = {
   manualOverrideDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  user: PropTypes.object.isRequired,
+  history: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {

@@ -69,6 +69,10 @@ const results = { offenderResponse, keyworkerResponse };
 
 const resultsLongList = { offenderResponse: offenderResponseLongList, keyworkerResponse };
 
+const user = {
+  writeAccess: true
+};
+
 describe('Offender results component', () => {
   it('should render initial offender results form correctly', async () => {
     const component = shallow(<OffenderResults
@@ -108,6 +112,7 @@ describe('Offender results component', () => {
       displayBack={jest.fn()}
       postManualOverride={jest.fn()}
       onFinishAllocation={jest.fn()}
+      user={user}
       handleKeyworkerChange={jest.fn()}/>);
     expect(component.find('tr').length).toEqual(21); // includes table header tr
     expect(component.find('.button-save').length).toEqual(2);
@@ -124,6 +129,7 @@ describe('Offender results component', () => {
       onFinishAllocation={cancel}
       history ={{ push: jest.fn() }}
       displayBack={jest.fn()}
+      user={user}
       handleKeyworkerChange={jest.fn()}/>);
 
     component.find('.button-save').simulate('click');
@@ -141,10 +147,74 @@ describe('Offender results component', () => {
       onFinishAllocation={cancel}
       history ={{ push: jest.fn() }}
       displayBack={jest.fn()}
+      user={user}
       handleKeyworkerChange={jest.fn()}/>);
 
     component.find('.button-cancel').simulate('click');
     expect(postManualOverride).not.toHaveBeenCalled();
     expect(cancel).toHaveBeenCalled();
+  });
+
+  it('should disable the assign new key worker drop down when the user has no write access', () => {
+    const component = shallow(<OffenderResults
+      loaded
+      offenderResults={results}
+      postManualOverride={jest.fn()}
+      onFinishAllocation={jest.fn()}
+      history ={{ push: jest.fn() }}
+      displayBack={jest.fn()}
+      handleKeyworkerChange={jest.fn()}/>);
+
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select');
+
+    expect(dropDown.props().disabled).toBe(true);
+  });
+
+  it('should not disable the assign new key worker drop down when the user has write access', () => {
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(<OffenderResults
+      loaded
+      offenderResults={results}
+      postManualOverride={jest.fn()}
+      onFinishAllocation={jest.fn()}
+      history ={{ push: jest.fn() }}
+      displayBack={jest.fn()}
+      user={user}
+      handleKeyworkerChange={jest.fn()}/>);
+
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select');
+
+    expect(dropDown.props().disabled).toBe(false);
+  });
+
+  it('should hide the confirm and cancel buttons when the user does not have write access', () => {
+    const component = shallow(<OffenderResults
+      loaded
+      offenderResults={results}
+      postManualOverride={jest.fn()}
+      onFinishAllocation={jest.fn()}
+      history ={{ push: jest.fn() }}
+      displayBack={jest.fn()}
+      handleKeyworkerChange={jest.fn()}/>);
+
+    expect(component.find('.button-save').length).toBe(0);
+    expect(component.find('.button-cancel').length).toBe(0);
+  });
+
+  it('should not hide the confirm and cancel buttons when the user has write access', () => {
+    const component = shallow(<OffenderResults
+      loaded
+      offenderResults={results}
+      postManualOverride={jest.fn()}
+      onFinishAllocation={jest.fn()}
+      history ={{ push: jest.fn() }}
+      displayBack={jest.fn()}
+      user={user}
+      handleKeyworkerChange={jest.fn()}/>);
+
+    expect(component.find('.button-save').length).toBe(1);
+    expect(component.find('.button-cancel').length).toBe(1);
   });
 });
