@@ -3,10 +3,10 @@ const asyncMiddleware = require('../middleware/asyncHandler');
 const userMeFactory = (elite2Api, keyworkerApi) => {
   const userMeService = async (context) => {
     const user = await elite2Api.currentUser(context);
-    const { staffId, activeCaseLoadId } = user;
+    const { activeCaseLoadId } = user;
 
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(context, activeCaseLoadId);
-    const roles = await elite2Api.getStaffRoles(context, staffId, activeCaseLoadId);
+    const roles = await elite2Api.getUserAccessRoles(context);
 
     const isKeyWorkerAdmin = roles
       .filter(role => role.roleCode === 'OMIC_ADMIN')

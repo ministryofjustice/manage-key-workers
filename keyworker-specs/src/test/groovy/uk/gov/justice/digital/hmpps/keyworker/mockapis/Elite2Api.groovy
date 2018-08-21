@@ -260,12 +260,12 @@ class Elite2Api extends WireMockRule {
                                     userMessage        : message]))))
     }
 
-    void stubGetStaffRoles(Integer staffId, AgencyLocation agencyLocation, def roles) {
+    void stubGetStaffAccessRoles(def roles) {
 
         def json = JsonOutput.toJson(roles)
 
         this.stubFor(
-                get(urlPathEqualTo("/api/staff/${staffId}/${agencyLocation.id}/roles"))
+                get(urlPathEqualTo("/api/users/me/roles"))
                         .willReturn(aResponse()
                         .withBody(json)
                         .withStatus(200)))

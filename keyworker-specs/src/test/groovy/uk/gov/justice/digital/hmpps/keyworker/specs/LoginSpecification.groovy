@@ -3,7 +3,6 @@ package uk.gov.justice.digital.hmpps.keyworker.specs
 import com.github.tomakehurst.wiremock.client.WireMock
 import geb.spock.GebReportingSpec
 import org.junit.Rule
-import spock.lang.Ignore
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
@@ -52,7 +51,7 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
-        elite2api.stubGetStaffRoles(ITAG_USER.staffMember.id, AgencyLocation.LEI, [[roleId: -1, roleCode: 'KW_ADMIN']])
+        elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
         to LoginPage
 
@@ -104,7 +103,7 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
-        elite2api.stubGetStaffRoles(ITAG_USER.staffMember.id, AgencyLocation.LEI, [[roleId: -1, roleCode: 'KW_ADMIN']])
+        elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
         to LoginPage
 

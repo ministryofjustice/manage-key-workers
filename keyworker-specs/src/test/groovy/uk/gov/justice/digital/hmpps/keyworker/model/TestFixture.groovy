@@ -37,7 +37,7 @@ class TestFixture {
         elite2Api.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
-        elite2Api.stubGetStaffRoles(ITAG_USER.staffMember.id, AgencyLocation.LEI, [[roleId: -1, roleCode: 'OMIC_ADMIN']])
+        elite2Api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
 
         browser.page.loginAs currentUser, 'password'
