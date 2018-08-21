@@ -48,7 +48,7 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{renderDate(a.lastKeyWorkerSessionDate)}</td>
           <td className="row-gutters">
 
-            <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+            <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess || a.deallocOnly)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">Choose key worker</option>
               {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}

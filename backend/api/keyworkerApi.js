@@ -60,7 +60,7 @@ const keyworkerApiFactory = (client) => {
    *
    * @param context
    * @param agencyId
-   * @returns array of KeyworkerDto. Each keywokerDto looks like:
+   * @returns array of KeyworkerDto. Each keyworkerDto looks like:
    * {
     private Long staffId;
     private String firstName;
