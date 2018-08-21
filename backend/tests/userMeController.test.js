@@ -2,7 +2,7 @@ const { userMeFactory } = require('../controllers/userMe');
 
 const context = {};
 const staffRoles = [
-  { roleId: -201, roleCode: 'KW_ADMIN', roleName: 'Key worker Admin', caseloadId: 'NWEB' }
+  { roleId: -201, roleCode: 'OMIC_ADMIN', roleName: 'Omic Admin', caseloadId: 'NWEB' }
 ];
 const staff1 = {
   staffId: 1,

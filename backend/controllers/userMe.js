@@ -9,7 +9,7 @@ const userMeFactory = (elite2Api, keyworkerApi) => {
     const roles = await elite2Api.getStaffRoles(context, staffId, activeCaseLoadId);
 
     const isKeyWorkerAdmin = roles
-      .filter(role => role.roleCode === 'KW_ADMIN')
+      .filter(role => role.roleCode === 'OMIC_ADMIN')
       .length > 0;
 
     return {
