@@ -48,7 +48,7 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{renderDate(a.lastKeyWorkerSessionDate)}</td>
           <td className="row-gutters">
 
-            <select id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+            <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">Choose key worker</option>
               {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
@@ -80,7 +80,7 @@ class KeyworkerProfile extends Component {
             <tbody>{allocations}</tbody>
           </table>
         </div>
-        {this.props.keyworkerAllocations.length > 0 && <button id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>}
+        {this.props.keyworkerAllocations.length > 0 && (this.props.user && this.props.user.writeAccess) && <button id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>}
       </div>
     </div>
     );
@@ -118,9 +118,9 @@ class KeyworkerProfile extends Component {
                 <label className="form-label" htmlFor="name">Return date</label>
                 <div className="bold padding-top-small" id="active-date">{renderDate(this.props.keyworker.activeDate)}</div>
               </div>)}
-              <div className="pure-u-md-3-12 right-content" >
+              {this.props.user && this.props.user.writeAccess && <div className="pure-u-md-3-12 right-content" >
                 <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
-              </div>
+              </div>}
             </div>
           </div>
           <hr/>
@@ -141,7 +141,8 @@ KeyworkerProfile.propTypes = {
   handleKeyworkerChange: PropTypes.func.isRequired,
   handleEditProfileClick: PropTypes.func.isRequired,
   message: PropTypes.string,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  user: PropTypes.object.isRequired
 };
 
 

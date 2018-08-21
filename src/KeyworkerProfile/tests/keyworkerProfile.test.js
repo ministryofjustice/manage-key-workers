@@ -87,7 +87,10 @@ const allocatedOffenders = [{
 
 describe('Keyworker Profile component', () => {
   it('should render component correctly', async () => {
-    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(<KeyworkerProfile user={user} keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={jest.fn()}/>);
     console.log(component.debug());
     expect(component.text()).toContain('Key worker: Frank Butcher');
     expect(component.find('#keyworker-status').at(0).prop('className')).toContain('inactiveStatus');
@@ -115,9 +118,12 @@ describe('Keyworker Profile component', () => {
   });
 
   it('should handle click correctly', async () => {
+    const user = {
+      writeAccess: true
+    };
     let postKeyworkerChange = jest.fn();
 
-    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={postKeyworkerChange} handleEditProfileClick={jest.fn()}/>);
+    const component = shallow(<KeyworkerProfile user={user} keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={postKeyworkerChange} handleEditProfileClick={jest.fn()}/>);
 
     component.find('#updateAllocationButton').simulate('click');
     expect(postKeyworkerChange.mock.calls.length).toEqual(1);
@@ -125,8 +131,10 @@ describe('Keyworker Profile component', () => {
 
   it('should handle edit profile click correctly', async () => {
     let handleButtonClick = jest.fn();
-
-    const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={handleButtonClick}/>);
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(<KeyworkerProfile user={user} keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={jest.fn()} handleAllocationChange={jest.fn()} handleEditProfileClick={handleButtonClick}/>);
 
     component.find('#editProfileButton').simulate('click');
     expect(handleButtonClick.mock.calls.length).toEqual(1);
@@ -137,6 +145,80 @@ describe('Keyworker Profile component', () => {
     console.log(component.debug());
     expect(component.text()).toContain('Key worker: Frank Butcher');
     expect(component.find('#active-date').at(0).text()).toEqual('28/06/2018');
+  });
+
+  it('should hide the edit profile and update buttons when the user does not have write access', () => {
+    const component = shallow(
+      <KeyworkerProfile
+        keyworkerAllocations={allocatedOffenders}
+        keyworkerChangeList={[]}
+        keyworkerList={keyworkerList}
+        keyworker={keyworkerWithActiveDate}
+        handleKeyworkerChange={jest.fn()}
+        handleAllocationChange={jest.fn()}
+        handleEditProfileClick={jest.fn()}
+      />);
+
+    expect(component.find('#editProfileButton').length).toBe(0);
+    expect(component.find('#updateAllocationButton').length).toBe(0);
+  });
+
+  it('should show the edit profile and update buttons when the user has write access', () => {
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(
+      <KeyworkerProfile
+        keyworkerAllocations={allocatedOffenders}
+        keyworkerChangeList={[]}
+        keyworkerList={keyworkerList}
+        keyworker={keyworkerWithActiveDate}
+        handleKeyworkerChange={jest.fn()}
+        handleAllocationChange={jest.fn()}
+        handleEditProfileClick={jest.fn()}
+        user={user}
+      />);
+
+    expect(component.find('#editProfileButton').length).toBe(1);
+    expect(component.find('#updateAllocationButton').length).toBe(1);
+  });
+
+  it('should disable the allocate new key worker drop down when the user does not have write access', () => {
+    const component = shallow(
+      <KeyworkerProfile
+        keyworkerAllocations={allocatedOffenders}
+        keyworkerChangeList={[]}
+        keyworkerList={keyworkerList}
+        keyworker={keyworkerWithActiveDate}
+        handleKeyworkerChange={jest.fn()}
+        handleAllocationChange={jest.fn()}
+        handleEditProfileClick={jest.fn()}
+      />);
+
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select');
+
+    expect(dropDown.props().disabled).toBe(true);
+  });
+
+  it('should not disable the allocate new key worker drop down when the user has write access', () => {
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(
+      <KeyworkerProfile
+        keyworkerAllocations={allocatedOffenders}
+        keyworkerChangeList={[]}
+        keyworkerList={keyworkerList}
+        keyworker={keyworkerWithActiveDate}
+        handleKeyworkerChange={jest.fn()}
+        handleAllocationChange={jest.fn()}
+        handleEditProfileClick={jest.fn()}
+        user={user}
+      />);
+
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select');
+
+    expect(dropDown.props().disabled).toBe(false);
   });
 });
 

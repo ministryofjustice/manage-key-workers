@@ -4,6 +4,8 @@ import geb.Browser
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
@@ -34,10 +36,27 @@ class TestFixture {
         elite2Api.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
-        browser.page.loginAs currentUser, 'password'
 
+        elite2Api.stubGetStaffRoles(ITAG_USER.staffMember.id, AgencyLocation.LEI, [[roleId: -1, roleCode: 'KW_ADMIN']])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+
+        browser.page.loginAs currentUser, 'password'
         browser.at KeyworkerManagementPage
     }
+
+    def loginWithoutStaffRoles(UserAccount user) {
+        currentUser = user
+        keyworkerApi.stubHealth()
+        elite2Api.stubHealth()
+        browser.to LoginPage
+        elite2Api.stubValidOAuthTokenRequest currentUser
+        elite2Api.stubGetMyDetails currentUser
+        elite2Api.stubGetMyCaseloads currentUser.caseloads
+
+        browser.page.loginAs currentUser, 'password'
+        browser.at KeyworkerManagementPage
+    }
+
 
     def toUnallocatedPage() {
         elite2Api.stubGetMyLocations(locationsForCaseload(currentUser.workingCaseload))
@@ -90,6 +109,15 @@ class TestFixture {
         browser.at SearchForKeyworkerPage
     }
 
+    def toKeyWorkersProfilePage() {
+        toKeyworkerSearchPage()
+
+        browser.page.keyworkerSearchButton.click()
+        browser.at KeyworkerResultsPage
+        browser.page.testKeyworkerLink.click()
+        browser.at KeyworkerProfilePage
+    }
+
     def stubKeyworkerProfilePage() {
         keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI)
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
@@ -101,6 +129,16 @@ class TestFixture {
 
     def toOffenderSearchResultsPageWithoutInitialSearch() {
         browser.go '/offender/results'
+    }
+
+    def stubOffenderResultsPage(largeResult) {
+        List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
+        elite2Api.stubGetMyLocations(locations)
+        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
+        largeResult == true ? elite2Api.stubOffenderSearchLargeResponse(AgencyLocation.LEI) : elite2Api.stubOffenderSearchResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
+        elite2Api.stubOffenderSentenceResponse(AgencyLocation.LEI)
+        keyworkerApi.stubOffenderKeyworkerListResponse(AgencyLocation.LEI)
     }
 
     static List<Location> locationsForCaseload(Caseload caseload) {

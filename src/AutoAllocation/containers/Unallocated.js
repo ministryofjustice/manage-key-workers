@@ -20,6 +20,10 @@ class UnallocatedContainer extends Component {
 
   async componentWillMount () {
     try {
+      if (!this.props.user || !this.props.user.writeAccess) {
+        this.props.history.push('/');
+        return;
+      }
       const list = await this.getUnallocated(this.props.agencyId);
       this.props.unallocatedListDispatch(list);
     } catch (error) {
@@ -61,7 +65,9 @@ UnallocatedContainer.propTypes = {
   unallocatedListDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func,
-  loaded: PropTypes.bool
+  loaded: PropTypes.bool,
+  user: PropTypes.object.isRequired,
+  history: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {

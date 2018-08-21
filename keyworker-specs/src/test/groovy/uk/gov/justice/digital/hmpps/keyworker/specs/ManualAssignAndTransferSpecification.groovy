@@ -48,7 +48,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         toOffenderSearchPage()
 
         when: "I click the search button"
-        stubOffenderResultsPage()
+        fixture.stubOffenderResultsPage()
         searchButton.click()
 
         then: "I am shown the Offender Search results page"
@@ -77,7 +77,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         toOffenderSearchPage()
 
         when: "I click the search button"
-        stubOffenderResultsPage(false)
+        fixture.stubOffenderResultsPage(false)
         allocationStatusSelect="Unallocated"
         searchButton.click()
 
@@ -94,7 +94,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         toOffenderSearchPage()
 
         when: "I click the search button"
-        stubOffenderResultsPage(true)
+        fixture.stubOffenderResultsPage(true)
         allocationStatusSelect="Unallocated"
         searchButton.click()
 
@@ -111,7 +111,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         toOffenderSearchPage()
 
         when: "I click the search button"
-        stubOffenderResultsPage()
+        fixture.stubOffenderResultsPage()
         allocationStatusSelect="Allocated"
         searchButton.click()
 
@@ -181,7 +181,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         WireMock.reset()
 
         when:
-        stubOffenderResultsPage(false)
+        fixture.stubOffenderResultsPage(false)
         searchButton.click()
 
         then: "I am shown the Offender Search results page"
@@ -207,16 +207,6 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         messageBar.text() == 'Key workers successfully updated.'
     }
 
-    def stubOffenderResultsPage(largeResult) {
-        List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
-        elite2api.stubGetMyLocations(locations)
-        keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
-        largeResult == true ? elite2api.stubOffenderSearchLargeResponse(AgencyLocation.LEI) : elite2api.stubOffenderSearchResponse(AgencyLocation.LEI)
-        elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
-        elite2api.stubOffenderSentenceResponse(AgencyLocation.LEI)
-        keyworkerApi.stubOffenderKeyworkerListResponse(AgencyLocation.LEI)
-    }
-
     def stubEmptyOffenderResultsPage() {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         elite2api.stubEmptyOffenderSearchResponse(AgencyLocation.LEI)
@@ -236,7 +226,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
     def toOffenderResultsPage() {
         toOffenderSearchPage()
-        stubOffenderResultsPage()
+        fixture.stubOffenderResultsPage()
         searchButton.click()
         at OffenderResultsPage
     }

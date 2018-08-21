@@ -13,10 +13,10 @@ class HomePage extends Component {
           <div className="pure-u-md-12-12 padding-top"><a className="link backlink" href={getHomeLink()}><img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Home</a></div>
           <div className="pure-u-md-8-12 padding-bottom-large">
             <h1 className="heading-large margin-top padding-bottom-40">Manage Key workers</h1>
-            <div className="pure-u-md-6-12">
+            {this.props.user && this.props.user.writeAccess && <div className="pure-u-md-6-12">
               <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated" >Auto-allocate key workers</Link>
               <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
-            </div>
+            </div>}
             <div className="pure-u-md-6-12">
               <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworker/search" >Update key worker availability</Link>
               <div>Update a key worker's availability. Assign prisoners to another key worker.</div>
@@ -34,7 +34,8 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  message: PropTypes.string
+  message: PropTypes.string,
+  user: PropTypes.object.isRequired
 };
 
 export default HomePage;

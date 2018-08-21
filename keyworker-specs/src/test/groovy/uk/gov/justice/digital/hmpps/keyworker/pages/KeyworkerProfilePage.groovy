@@ -20,9 +20,10 @@ public class KeyworkerProfilePage extends Page {
         status { $('#keyworker-status')}
         allocationCount { $('#allocationCount')}
         allocationStyleGreen (required: false) { $("div[class='numberCircleGreen']")}
+        keyworkerSelectForTestOffender { $('#keyworker-select-' + test_offender_Z0024ZZ )}
         keyworkerOptionsForTestOffender { $('#keyworker-select-' + test_offender_Z0024ZZ + ' option')}
-        keyworkerEditButton(to: KeyworkerEditPage) { $('#editProfileButton') }
-        updateKeyworkerAllocationButton(to: KeyworkerManagementPage) { $('#updateAllocationButton') }
+        keyworkerEditButton(required: false, to: KeyworkerEditPage) { $('#editProfileButton') }
+        updateKeyworkerAllocationButton(required: false, to: KeyworkerManagementPage) { $('#updateAllocationButton') }
         messageBar(required: false) { $('div #messageBar')}
         backLink { $('a.backlink')}
     }
