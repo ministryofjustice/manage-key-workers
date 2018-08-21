@@ -27,7 +27,8 @@ const elite2ApiFactory = (client) => {
   const userCaseLoads = (context) => get(context, 'api/users/me/caseLoads');
   const currentUser = (context) => get(context, 'api/users/me');
   const userLocations = (context) => get(context, 'api/users/me/locations');
-  const getStaffRoles = (context, staffId, agencyId) => get(context, `api/staff/${staffId}/${agencyId}/roles`);
+  const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
+
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.
@@ -73,7 +74,7 @@ const elite2ApiFactory = (client) => {
     searchOffenders,
     sentenceDetailList,
     setActiveCaseload,
-    getStaffRoles
+    getUserAccessRoles
   };
 };
 
