@@ -117,7 +117,7 @@ const controller = controllerFactory(
     config.app.offenderSearchResultMax)
 );
 
-const oauthApi = oauthApiFactory({ ...config.apis.elite2 });
+const oauthApi = oauthApiFactory({ ...config.apis.oauth2 });
 const tokenRefresher = tokenRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds);
 
 const hmppsCookieOperations = cookieOperationsFactory(
