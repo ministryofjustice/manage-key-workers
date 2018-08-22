@@ -34,7 +34,7 @@ class AutoAllocationSpecification extends GebReportingSpec {
         report "Unallocatedsdar"
         allocateButton.text() == 'Allocate'
         table.find("tr", 1).find("td", 0).text() == 'Bradley, Neil'
-        table.find("tr", 1).find("a", href: endsWith('/offenders/A6676RS/personal')).size() == 1
+        table.find("tr", 1).find("a", href: endsWith('/offenders/A6676RS/quick-look')).size() == 1
         table.find("tr", 1).find("td", 1).text() == 'A6676RS'
         table.find("tr", 1).find("td", 2).text() == 'H-1'
         table.find("tr", 1).find("td", 3).text() == '--'
@@ -78,7 +78,7 @@ class AutoAllocationSpecification extends GebReportingSpec {
         confirmButton.text() == 'Confirm allocation'
         cancelButton.text() == 'Cancel allocation'
         table.find("tr", 1).find("td", 0).text() == 'Bradley, Neil'
-        table.find("tr", 1).find("a", href: endsWith('/offenders/A6676RS/personal')).size() == 1
+        table.find("tr", 1).find("a", href: endsWith('/offenders/A6676RS/quick-look')).size() == 1
         table.find("tr", 1).find("td", 1).text() == 'A6676RS'
         table.find("tr", 1).find("td", 2).text() == 'H-1'
         table.find("tr", 1).find("td", 3).text() == '--'
