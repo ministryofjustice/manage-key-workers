@@ -1,4 +1,5 @@
 import { unallocated, allocated, app, offenderSearch, keyworkerSearch } from './index';
+import { setMenuOpen } from "../actions";
 import * as types from '../actions/actionTypes';
 import moment from 'moment';
 
@@ -81,7 +82,8 @@ describe('app (global) reducer', () => {
         shouldShowTerms: false,
         error: null,
         message: null,
-        loaded: false
+        loaded: false,
+        menuOpen: false
       }
     );
   });
@@ -681,5 +683,14 @@ describe('key worker search reducer', () => {
         annualLeaveReturnDate: '23/23/2017'
       }
     );
+  });
+  it('should handle SET_MENU_OPEN', () => {
+    let state = app(appInitialState, setMenuOpen(true));
+
+    expect(state.menuOpen).toBe(true);
+
+    state = app(appInitialState, setMenuOpen(false));
+
+    expect(state.menuOpen).toBe(false);
   });
 });

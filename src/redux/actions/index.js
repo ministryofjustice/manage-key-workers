@@ -217,3 +217,10 @@ export const resetValidationErrors = (fieldName, message) => {
   };
 };
 
+export const setMenuOpen = (payload) => {
+  return {
+    type: ActionTypes.SET_MENU_OPEN,
+    payload
+  };
+};
+
