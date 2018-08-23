@@ -20,7 +20,8 @@ const appInitialState = {
   shouldShowTerms: false,
   error: null,
   message: null,
-  loaded: false
+  loaded: false,
+  menuOpen: false
 };
 
 const offenderSearchInitialState = {
@@ -94,6 +95,11 @@ export function app (state = appInitialState, action) {
       return {
         ...state,
         validationErrors: null
+      };
+    case ActionTypes.SET_MENU_OPEN:
+      return {
+        ...state,
+        menuOpen: action.payload
       };
     default:
       return state;

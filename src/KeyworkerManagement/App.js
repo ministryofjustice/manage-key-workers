@@ -14,16 +14,26 @@ import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
 import Error from "../Error/index";
+import links from "../links";
+
+import {
+  switchAgency,
+  setTermsVisibility,
+  setError, resetError,
+  setConfig,
+  setUserDetails,
+  setMessage,
+  setMenuOpen
+} from '../redux/actions/index';
+
 import {
   BrowserRouter as Router, Link,
   Route
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { switchAgency, setTermsVisibility, setError, resetError, setConfig, setUserDetails, setMessage } from '../redux/actions/index';
-import { connect } from 'react-redux';
-import links from "../links";
-import ReactGA from 'react-ga';
 
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import ReactGA from 'react-ga';
 const axios = require('axios');
 
 class App extends React.Component {
@@ -122,7 +132,7 @@ class App extends React.Component {
 
   render () {
     let innerContent;
-    const routes = (<div className="inner-content"><div className="pure-g">
+    const routes = (<div className="inner-content" onClick={() => this.props.setMenuOpen(false)} ><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
       <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
       <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} {...this.props} />}/>
@@ -140,10 +150,8 @@ class App extends React.Component {
     if (this.shouldDisplayInnerContent()) {
       innerContent = routes;
     } else {
-      innerContent = (<div className="inner-content"><div className="pure-g"><Error {...this.props} /></div></div>);
+      innerContent = (<div className="inner-content" onClick={() => this.props.setMenuOpen(false)}><div className="pure-g"><Error {...this.props} /></div></div>);
     }
-
-
     return (
       <Router>
         <div className="content">
@@ -161,7 +169,11 @@ class App extends React.Component {
           />
           {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <Footer showTermsAndConditions={this.showTermsAndConditions} mailTo={this.props.config.mailTo}/>
+          <Footer
+            setMenuOpen={this.props.setMenuOpen}
+            showTermsAndConditions={this.showTermsAndConditions}
+            mailTo={this.props.config.mailTo}
+          />
         </div>
       </Router>);
   }
@@ -179,7 +191,8 @@ App.propTypes = {
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func,
-  setMessageDispatch: PropTypes.func.isRequired
+  setMessageDispatch: PropTypes.func.isRequired,
+  setMenuOpen: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -189,7 +202,8 @@ const mapStateToProps = state => {
     page: state.app.page,
     config: state.app.config,
     user: state.app.user,
-    shouldShowTerms: state.app.shouldShowTerms
+    shouldShowTerms: state.app.shouldShowTerms,
+    menuOpen: state.app.menuOpen
   };
 };
 
@@ -201,7 +215,8 @@ const mapDispatchToProps = dispatch => {
     setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
     setErrorDispatch: (error) => dispatch(setError(error)),
     resetErrorDispatch: () => dispatch(resetError()),
-    setMessageDispatch: (message) => dispatch(setMessage(message))
+    setMessageDispatch: (message) => dispatch(setMessage(message)),
+    setMenuOpen: (flag) => dispatch(setMenuOpen(flag))
   };
 };
 

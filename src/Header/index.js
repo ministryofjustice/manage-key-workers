@@ -17,7 +17,7 @@ class Header extends Component {
     return (
       <header className="page-header">
         <div className="header-content">
-          <div className="left-content">
+          <div className="left-content clickable">
             <a title="Home link" className="link" href={getHomeLink()}>
               <div className="logo"><img src="/images/Crest@2x.png" alt="" width="42" height="35"/></div>
             </a>

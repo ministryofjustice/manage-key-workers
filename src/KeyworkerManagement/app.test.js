@@ -1,6 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import App from "./App";
 
 jest.mock('../Spinner/index', () => '');
@@ -20,6 +21,7 @@ describe('App component', () => {
       switchAgencyDispatch={jest.fn()}
       configDispatch={jest.fn()}
       setMessageDispatch={jest.fn()}
+      setMenuOpen={jest.fn()}
       setTermsVisibilityDispatch={jest.fn()}/>
     );
     const appInstance = component.instance();
@@ -51,6 +53,7 @@ describe('App component', () => {
       switchAgencyDispatch={jest.fn()}
       configDispatch={jest.fn()}
       setMessageDispatch={jest.fn()}
+      setMenuOpen={jest.fn()}
       setTermsVisibilityDispatch={jest.fn()}/>
     );
     const appInstance = component.instance();
@@ -65,5 +68,27 @@ describe('App component', () => {
     appInstance.displayAlertAndLogout = jest.fn();
     appInstance.handleError({});
     expect(component.instance().displayAlertAndLogout).not.toBeCalled();
+  });
+
+  it('should close the menu when the content is clicked', () => {
+    const setMenuOpen = jest.fn();
+
+    const component = shallow(<App
+      switchCaseLoad ={jest.fn()}
+      history={jest.fn()}
+      config = {{}}
+      user={{}}
+      setErrorDispatch={jest.fn()}
+      userDetailsDispatch={jest.fn()}
+      switchAgencyDispatch={jest.fn()}
+      configDispatch={jest.fn()}
+      setMessageDispatch={jest.fn()}
+      menuOpen
+      setMenuOpen={setMenuOpen}
+      setTermsVisibilityDispatch={jest.fn()}/>);
+
+    component.find('.inner-content').simulate('click');
+
+    expect(setMenuOpen).toHaveBeenCalledWith(false);
   });
 });
