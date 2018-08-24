@@ -32,7 +32,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         rows.size() == 4
         //  use to provide screenshot - browser.report("Failure")
         allocationCount.text() == '4'
-        keyworkerOptionsForTestOffender.size() == 4
+        keyworkerOptionsForTestOffender.size() == 5
         allocationStyleGreen.isDisplayed()
     }
 
