@@ -114,7 +114,7 @@ describe('Keyworker Profile component', () => {
 
   it('should remove keyworker from select if currently allocated', async () => {
     const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={() => {}} handleAllocationChange={() => {}} handleEditProfileClick={jest.fn()}/>);
-    expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(1);
+    expect(component.find('tr').at(2).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2);
   });
 
   it('should handle click correctly', async () => {

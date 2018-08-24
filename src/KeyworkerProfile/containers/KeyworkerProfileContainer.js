@@ -57,6 +57,12 @@ class KeyworkerProfileContainer extends Component {
 
     if (event.target.value === '--') {
       keyworkerChangeList[index] = null;
+    } else if (event.target.value === '_DEALLOCATE') {
+      keyworkerChangeList[index] = {
+        deallocate: true,
+        staffId: event.target.value,
+        offenderNo: offenderNo
+      };
     } else {
       keyworkerChangeList[index] = {
         staffId: event.target.value,
