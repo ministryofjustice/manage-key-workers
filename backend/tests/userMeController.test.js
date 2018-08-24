@@ -32,18 +32,25 @@ describe('userMe controller', () => {
 
   it('should not have writeAccess when the user does not have the key worker admin role', async () => {
     elite2Api.getUserAccessRoles.mockImplementation(() => []);
-
+    keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
+      migrated: false,
+      kwSessionFrequencyInWeeks: 1
+    }));
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
     const data = await userMeService();
 
     expect(data).toEqual({
       ...staff1,
-      writeAccess: false
+      writeAccess: false,
+      kwFrequency: 1
     });
   });
   it('should have writeAccess when the user has the key worker admin role', async () => {
     elite2Api.getUserAccessRoles.mockImplementation(() => staffRoles);
-
+    keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
+      migrated: true,
+      kwSessionFrequencyInWeeks: 2
+    }));
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
     const data = await userMeService(context);
 
@@ -52,13 +59,15 @@ describe('userMe controller', () => {
 
     expect(data).toEqual({
       ...staff1,
-      writeAccess: true
+      writeAccess: true,
+      kwFrequency: 2
     });
   });
   it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
     elite2Api.getUserAccessRoles.mockImplementation(() => staffRoles);
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
-      migrated: false
+      migrated: false,
+      kwSessionFrequencyInWeeks: 1
     }));
 
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
@@ -71,7 +80,8 @@ describe('userMe controller', () => {
 
     expect(data).toEqual({
       ...staff1,
-      writeAccess: false
+      writeAccess: false,
+      kwFrequency: 1
     });
   });
 });

@@ -16,6 +16,7 @@ public class KeyworkerResultsPage extends Page {
 
     static content = {
         headingText { $('h1').text() }
+        table { $('table') }
         rows { $('table tbody tr') }
         testKeyworkerLink(to: KeyworkerProfilePage) { $('#key_worker_'+test_keyworker_staffId+'_link')}
     }

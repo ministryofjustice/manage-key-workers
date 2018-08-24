@@ -29,6 +29,10 @@ class TestFixture {
     }
 
     def loginAs(UserAccount user) {
+        loginAs(user, 1)
+    }
+
+    def loginAs(UserAccount user, int kwFrequency) {
         currentUser = user
         keyworkerApi.stubHealth()
         elite2Api.stubHealth()
@@ -38,7 +42,7 @@ class TestFixture {
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
         elite2Api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, kwFrequency)
 
         browser.page.loginAs currentUser, 'password'
         browser.at KeyworkerManagementPage

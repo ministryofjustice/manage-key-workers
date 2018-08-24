@@ -229,8 +229,8 @@ class KeyworkerApi extends WireMockRule {
         )
     }
 
-    void stubPrisonMigrationStatus(AgencyLocation agencyLocation, Boolean migrated) {
-        def json = JsonOutput.toJson([migrated: migrated])
+    void stubPrisonMigrationStatus(AgencyLocation agencyLocation, Boolean migrated, int kwSessionFrequencyInWeeks) {
+        def json = JsonOutput.toJson([migrated: migrated, kwSessionFrequencyInWeeks: kwSessionFrequencyInWeeks])
 
         this.stubFor(
                 get(urlPathEqualTo("/key-worker/prison/${agencyLocation.id}"))

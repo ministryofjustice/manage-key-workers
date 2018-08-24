@@ -30,6 +30,7 @@ class KeyworkerSearchResults extends Component {
 
   render () {
     const keyworkers = this.buildTableForRender();
+    const kwFrequency = this.props.user ? this.props.user.kwFrequency : 1;
 
     return (
       <div>
@@ -62,7 +63,7 @@ class KeyworkerSearchResults extends Component {
                     <th>No. allocated prisoners</th>
                     <th>Capacity</th>
                     <th>Auto allocation</th>
-                    <th>No. KW sessions<br/>(Last week)</th>
+                    <th>No. KW sessions<br/>(last {kwFrequency > 1 ? kwFrequency : ''} week{kwFrequency > 1 ? 's' : ''})</th>
                   </tr>
                 </thead>
                 <tbody>{keyworkers}</tbody>
@@ -84,7 +85,8 @@ KeyworkerSearchResults.propTypes = {
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  displayBack: PropTypes.func.isRequired
+  displayBack: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 
