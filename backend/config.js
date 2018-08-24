@@ -17,17 +17,17 @@ module.exports = {
   apis: {
     oauth2: {
       url: process.env.OAUTH_ENDPOINT_URL || process.env.API_ENDPOINT_URL || 'http://localhost:8080/',
-      timeoutSeconds: process.env.OAUTH_ENDPOINT_TIMEOUT_SECONDS || 15,
+      timeoutSeconds: process.env.OAUTH_ENDPOINT_TIMEOUT_SECONDS || 10,
       clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
       clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret'
     },
     elite2: {
       url: process.env.API_ENDPOINT_URL || 'http://localhost:8080/',
-      timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 15
+      timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 45
     },
     keyworker: {
       url: process.env.KEYWORKER_API_URL || 'http://localhost:8081/',
-      timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 15,
+      timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 45,
       ui_url: process.env.OMIC_UI_URL
     }
   }
