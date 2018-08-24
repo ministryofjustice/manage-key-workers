@@ -25,7 +25,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "should not see the auto allocation link when the current user is not a key worker admin"() {
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, 1)
 
         given: "I am logged in"
         fixture.loginWithoutStaffRoles(ITAG_USER)
@@ -40,7 +40,7 @@ class AccessSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def roles = [keyWorkerAdminRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
 
         given: "I am logged in"
         fixture.loginWithoutStaffRoles(ITAG_USER)
@@ -55,7 +55,7 @@ class AccessSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def roles = [keyWorkerAdminRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, 0)
 
         given: "I am logged in"
         fixture.loginWithoutStaffRoles(ITAG_USER)
@@ -68,7 +68,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "should not see the edit profile and update buttons on the profile page when the current user is not a key worker admin"() {
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true,2)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
@@ -88,7 +88,7 @@ class AccessSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def roles = [keyWorkerAdminRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 2)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
@@ -106,7 +106,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "the allocate to new key worker drop down should be disabled on the profile page when not a key worker admin"() {
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
@@ -125,7 +125,7 @@ class AccessSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def roles = [keyWorkerAdminRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
@@ -142,7 +142,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "should not be able to navigate to a key workers profile when the current user is not a key worker admin"() {
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
 
         keyworkerApi.stubKeyworkerUpdate(AgencyLocation.LEI)
         fixture.stubKeyworkerProfilePage()
@@ -160,7 +160,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "should not be able to navigate to the auto allocation page when the current user is not a key worker admin"(){
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
         keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
 
         given: "I am logged in"
@@ -175,7 +175,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "should not be able to navigate to the provisional allocation page when the current user is not a key worker admin"(){
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true,2)
         keyworkerApi.stubAllocationsForKeyworkerResponse(AgencyLocation.LEI)
 
         given: "I am logged in"
@@ -190,7 +190,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "the allocate to new key worker drop down should be disabled on the manual allocations page when the current user is not a key worker admin"() {
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 2)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
@@ -210,7 +210,7 @@ class AccessSpecification extends GebReportingSpec {
 
     def "the confirm and cancel buttons should be hidden on the manual allocations page when the current user is not a key worker admin"() {
         elite2api.stubGetStaffAccessRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 2)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
@@ -233,7 +233,7 @@ class AccessSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def roles = [keyWorkerAdminRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
 
         fixture.stubKeyworkerProfilePage()
         keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)

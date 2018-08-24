@@ -69,6 +69,35 @@ class KeyworkerSearchSpecification extends GebReportingSpec {
         rows.size() == 5
     }
 
+    def "Search for all key workers returns results show last KW Session of 2 weeks"() {
+        given: "I am at the Search for key worker page"
+        fixture.loginAs(ITAG_USER, 2)
+        fixture.toKeyworkerSearchPage()
+
+        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
+
+        when: "I perform the search"
+        keyworkerSearchButton.click()
+
+        then: "There will be KW session title of last 2 weeks"
+        at KeyworkerResultsPage
+        table.find("tr", 0).find("th", 5).text() == 'No. KW sessions\n' + '(last 2 weeks)'
+    }
+
+    def "Search for all key workers returns results show last KW Session of 1 week"() {
+        given: "I am at the Search for key worker page"
+        fixture.loginAs(ITAG_USER, 1)
+        fixture.toKeyworkerSearchPage()
+
+        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
+
+        when: "I perform the search"
+        keyworkerSearchButton.click()
+
+        then: "There will be KW session title of last 1 weeks"
+        at KeyworkerResultsPage
+        table.find("tr", 0).find("th", 5).text() == 'No. KW sessions\n' + '(last week)'
+    }
     /* def "Attempt to search ofter cookie expiry"() {
         given: "I am at the Search for key worker page"
         fixture.loginAs(ITAG_USER)

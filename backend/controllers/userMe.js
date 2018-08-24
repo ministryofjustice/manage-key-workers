@@ -14,7 +14,8 @@ const userMeFactory = (elite2Api, keyworkerApi) => {
 
     return {
       ...user,
-      writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin)
+      writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin),
+      kwFrequency: prisonStatus.kwSessionFrequencyInWeeks
     };
   };
   const userMe = asyncMiddleware(async (req, res) => {
