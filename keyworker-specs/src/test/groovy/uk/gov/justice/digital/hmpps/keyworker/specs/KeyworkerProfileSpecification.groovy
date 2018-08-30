@@ -29,11 +29,16 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
 
         then: "data should display as expected"
         status.text() == 'Active'
-        rows.size() == 4
+        rows.size() == 5
         //  use to provide screenshot - browser.report("Failure")
-        allocationCount.text() == '4'
+        allocationCount.text() == '5'
         keyworkerOptionsForTestOffender.size() == 5
+        keyworkerMovedPrison.size() == 2  // dealloc only
         allocationStyleGreen.isDisplayed()
+        table.find("tr", 4).find("td", 0).find("a").text() == 'Talbot, Nick'
+        def row5 = table.find("tr", 5).find("td", 0)
+        row5.find("a").text() == null
+        row5.text() == 'Bowie, David'
     }
 
     def "key worker edit profile is displayed correctly"() {
