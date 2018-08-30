@@ -24,6 +24,7 @@ const keyworkerSearchFactory = require('./controllers/keyworkerSearch').keyworke
 const keyworkerProfileFactory = require('./controllers/keyworkerProfile').keyworkerProfileFactory;
 const keyworkerUpdateFactory = require('./controllers/keyworkerUpdate').keyworkerUpdateFactory;
 const userMeFactory = require('./controllers/userMe').userMeFactory;
+const enableNewNomisFactory = require('./controllers/enableNewNomis').enableNewNomisFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
 const healthFactory = require('./controllers/health').healthFactory;
 
@@ -156,6 +157,7 @@ app.use('/api/manualoverride', manualOverrideFactory(keyworkerApi).manualOverrid
 app.use('/api/keyworkerSearch', keyworkerSearchFactory(keyworkerApi).keyworkerSearch);
 app.use('/api/autoAllocateConfirmWithOverride', autoAllocateFactory(keyworkerApi).autoAllocate);
 app.use('/api/keyworkerUpdate', keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate);
+app.use('/api/enableNewNomis', enableNewNomisFactory(elite2Api).enableNewNomis);
 
 // app.use('/api/config', getConfiguration);
 

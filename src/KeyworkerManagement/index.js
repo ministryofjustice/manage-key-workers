@@ -28,6 +28,15 @@ class HomePage extends Component {
               <div className="padding-right-large">Check a prisoner's key worker and allocate manually.</div>
             </div>
           </div>
+          {this.props.user && (this.props.user.maintainAccess /* || this.props.user.migration */) &&
+          <h2 className="padding-top-small heading-medium">Admin tasks</h2>
+          }
+          {this.props.user && this.props.user.maintainAccess && <div className="pure-u-md-8-12 padding-top-small">
+            <div className="pure-u-md-6-12">
+              <Link id="enable_new_nomis_link" title="Enable Nomis" className="link" to="/admin/nomis/access" >Give access to New NOMIS</Link>
+              <div className="padding-right-large">Allow prisons to use New NOMIS. Add new prison staff.</div>
+            </div>
+          </div>}
         </div>
       </div>);
   }

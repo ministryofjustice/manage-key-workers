@@ -10,6 +10,7 @@ import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer';
 import UnallocatedContainer from '../AutoAllocation/containers/Unallocated';
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional';
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer';
+import EnableNomisContainer from '../Admin/containers/EnableNomisContainer';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
@@ -145,6 +146,7 @@ class App extends React.Component {
       <Route exact path="/keyworker/:staffId/profile/edit" render={() => <KeyworkerProfileEditContainer handleError={this.handleError} {...this.props} />}/>
       <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} {...this.props} />}/>
       <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props} />}/>
+      <Route exact path="/admin/nomis/access" render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props}/>}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {

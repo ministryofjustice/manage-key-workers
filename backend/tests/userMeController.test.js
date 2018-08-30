@@ -7,7 +7,9 @@ const staffRoles = [
 const staff1 = {
   staffId: 1,
   username: "staff1",
-  activeCaseLoadId: "LEI"
+  activeCaseLoadId: "LEI",
+  maintainAccess: false,
+  migration: false
 };
 
 describe('userMe controller', () => {
