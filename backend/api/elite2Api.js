@@ -28,6 +28,7 @@ const elite2ApiFactory = (client) => {
   const currentUser = (context) => get(context, 'api/users/me');
   const userLocations = (context) => get(context, 'api/users/me/locations');
   const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
+  const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
 
 
   /**
@@ -74,7 +75,8 @@ const elite2ApiFactory = (client) => {
     searchOffenders,
     sentenceDetailList,
     setActiveCaseload,
-    getUserAccessRoles
+    getUserAccessRoles,
+    enableNewNomis
   };
 };
 

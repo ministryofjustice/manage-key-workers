@@ -12,10 +12,20 @@ const userMeFactory = (elite2Api, keyworkerApi) => {
       .filter(role => role.roleCode === 'OMIC_ADMIN')
       .length > 0;
 
+    const hasMaintainAccessRolesRole = roles
+      .filter(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES')
+      .length > 0;
+
+    const hasKwMigrationRole = roles
+      .filter(role => role.roleCode === 'KW_MIGRATION')
+      .length > 0;
+
     return {
       ...user,
       writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin),
-      kwFrequency: prisonStatus.kwSessionFrequencyInWeeks
+      kwFrequency: prisonStatus.kwSessionFrequencyInWeeks,
+      migration: hasKwMigrationRole,
+      maintainAccess: hasMaintainAccessRolesRole
     };
   };
   const userMe = asyncMiddleware(async (req, res) => {

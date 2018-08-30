@@ -34,6 +34,7 @@ class AccessSpecification extends GebReportingSpec {
 
         then: "I should not see the auto allocation link"
         assert autoAllocateLink.displayed == false
+        assert enableNewNomisLink.displayed == false
     }
 
     def "should see the auto allocation link when the prison has been migrated and the current user is a key worker admin"() {
@@ -49,6 +50,7 @@ class AccessSpecification extends GebReportingSpec {
 
         then: "I should not see the auto allocation link"
         assert autoAllocateLink.displayed == true
+        assert enableNewNomisLink.displayed == false
     }
 
     def "should not see auto allocation link if the prison has not been migrated regardless of role"() {
@@ -64,6 +66,22 @@ class AccessSpecification extends GebReportingSpec {
 
         then: "I should not see the auto allocation link"
         assert autoAllocateLink.displayed == false
+    }
+
+    def "should see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
+        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, 0)
+
+        given: "I am logged in"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+
+        when: "I am on the key worker management page"
+
+        then: "I should not see the auto allocation link"
+        assert enableNewNomisLink.displayed == true
     }
 
     def "should not see the edit profile and update buttons on the profile page when the current user is not a key worker admin"() {
