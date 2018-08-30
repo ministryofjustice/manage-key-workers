@@ -40,7 +40,9 @@ class KeyworkerProfile extends Component {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.offenderNo}>
-          <td className="row-gutters"><a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>
+          <td className="row-gutters">
+            {a.deallocOnly ? formattedName : (<a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>{formattedName}</a>)}
+          </td>
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
@@ -48,10 +50,11 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{renderDate(a.lastKeyWorkerSessionDate)}</td>
           <td className="row-gutters">
 
-            <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess || a.deallocOnly)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+            <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
-              <option key="choose" value="--">Choose key worker</option>
-              {keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
+              <option key="choose" value="--">-- No change --</option>
+              <option key="choose" value="_DEALLOCATE">-- Deallocate --</option>
+              {a.deallocOnly ? '' : keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
             </select>
           </td>
         </tr>
@@ -74,7 +77,7 @@ class KeyworkerProfile extends Component {
                 <th>Release date</th>
                 <th>CSRA</th>
                 <th>Last key<br/>worker activity</th>
-                <th>Allocate to new key worker</th>
+                <th>Change or deallocate <br/>key worker</th>
               </tr>
             </thead>
             <tbody>{allocations}</tbody>
