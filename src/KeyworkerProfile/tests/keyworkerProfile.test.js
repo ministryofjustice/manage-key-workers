@@ -23,7 +23,12 @@ const keyworkerList = [
   {
     firstName: "David",
     lastName: "Loo",
-    staffId: 123
+    staffId: 143
+  },
+  {
+    firstName: "Special",
+    lastName: "Baby",
+    staffId: 211
   }]
 ;
 
@@ -57,7 +62,8 @@ const allocatedOffenders = [{
   lastKeyWorkerSessionDate: '2018-05-01',
   keyworkerDisplay: "Hanson, Sam",
   numberAllocated: 4,
-  staffId: 123
+  staffId: 123,
+  deallocOnly: false
 },
 {
   bookingId: 2,
@@ -69,7 +75,8 @@ const allocatedOffenders = [{
   crsaClassification: "High",
   lastKeyWorkerSessionDate: '2018-06-15',
   keyworkerDisplay: NO_DATA,
-  staffId: 999
+  staffId: 999,
+  deallocOnly: false
 },
 {
   bookingId: 3,
@@ -83,6 +90,49 @@ const allocatedOffenders = [{
   keyworkerDisplay: "Hanson, Sam",
   numberAllocated: 5,
   staffId: 123
+}];
+
+const allocatedOffendersWithDangling = [{
+  bookingId: 1,
+  lastName: "Rendell",
+  firstName: "Steve",
+  offenderNo: "ZZ124WX",
+  internalLocationDesc: "L-1-1",
+  confirmedReleaseDate: "2019-10-20",
+  crsaClassification: "Standard",
+  lastKeyWorkerSessionDate: '2018-05-01',
+  keyworkerDisplay: "Hanson, Sam",
+  numberAllocated: 4,
+  staffId: 123,
+  deallocOnly: false
+},
+{
+  bookingId: 2,
+  lastName: "Bennett",
+  firstName: "Lucinda",
+  offenderNo: "ZB125WX",
+  internalLocationDesc: "L-2-2",
+  confirmedReleaseDate: "2019-10-20",
+  crsaClassification: NO_DATA,
+  lastKeyWorkerSessionDate: '2018-06-01',
+  keyworkerDisplay: "Hanson, Sam",
+  numberAllocated: 5,
+  staffId: 123,
+  deallocOnly: false
+},
+{
+  bookingId: 3,
+  lastName: "Buckley",
+  firstName: "Jeff",
+  offenderNo: "ZB195WX",
+  internalLocationDesc: "LPI-A-2-2",
+  confirmedReleaseDate: "2020-10-20",
+  crsaClassification: NO_DATA,
+  lastKeyWorkerSessionDate: '2018-04-01',
+  keyworkerDisplay: "Hanson, Sam",
+  numberAllocated: 5,
+  staffId: 123,
+  deallocOnly: true
 }];
 
 describe('Keyworker Profile component', () => {
@@ -114,7 +164,7 @@ describe('Keyworker Profile component', () => {
 
   it('should remove keyworker from select if currently allocated', async () => {
     const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffenders} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={() => {}} handleAllocationChange={() => {}} handleEditProfileClick={jest.fn()}/>);
-    expect(component.find('tr').at(2).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2);
+    expect(component.find('tr').at(2).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(4);
   });
 
   it('should handle click correctly', async () => {
@@ -220,6 +270,36 @@ describe('Keyworker Profile component', () => {
 
     expect(dropDown.props().disabled).toBe(false);
   });
+});
+
+it('should only show the de-allocate KW drop down when the offender in different prison', async () => {
+  const component = shallow(<KeyworkerProfile keyworkerAllocations={allocatedOffendersWithDangling} keyworkerChangeList={[]} keyworkerList={keyworkerList} keyworker={keyworker} handleKeyworkerChange={() => {}} handleAllocationChange={() => {}} handleEditProfileClick={jest.fn()}/>);
+  expect(component.find('tr').at(3).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2);
+});
+
+it('should not provide offender link when the offender in different prison', () => {
+  const user = {
+    writeAccess: true
+  };
+  const component = shallow(
+    <KeyworkerProfile
+      keyworkerAllocations={allocatedOffendersWithDangling}
+      keyworkerChangeList={[]}
+      keyworkerList={keyworkerList}
+      keyworker={keyworkerWithActiveDate}
+      handleKeyworkerChange={jest.fn()}
+      handleAllocationChange={jest.fn()}
+      handleEditProfileClick={jest.fn()}
+      user={user}
+    />);
+  const activeLink = component.find('tr').at(1).find('td').at(OFFENDER_NAME_COLUMN).find('a');
+  expect(activeLink.props().href).toBe("offenders/ZZ124WX/quick-look");
+
+  const nextActiveLink = component.find('tr').at(2).find('td').at(OFFENDER_NAME_COLUMN).find('a');
+  expect(nextActiveLink.props().href).toBe("offenders/ZB125WX/quick-look");
+
+  const noLink = component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).html();
+  expect(noLink).toBe("<td class=\"row-gutters\">Buckley, Jeff</td>");
 });
 
 describe('KeyworkerProfileContainer component', () => {
