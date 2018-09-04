@@ -113,7 +113,6 @@
   height: 19px;
   cursor: pointer;
   text-decoration: underline;
-
 }
 .FooterLink:last-child {
   border-right: 0;
@@ -123,16 +122,16 @@
 }
 
 .FooterLink a {
-  color: #005EA5;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
+  color: #454A4C;
 }
 
 .FooterLink a:visited {
-  color: #4C2C92;
+  color: #454A4C;
 }
 
 .FooterLink a:hover {
-  color: #2B8CC4;
+  color: #323334;
 }
 
 .FooterSignature {
