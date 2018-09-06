@@ -23,7 +23,6 @@ const userMeFactory = (elite2Api, keyworkerApi) => {
     return {
       ...user,
       writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin),
-      kwFrequency: prisonStatus.kwSessionFrequencyInWeeks,
       migration: hasKwMigrationRole,
       maintainAccess: hasMaintainAccessRolesRole
     };

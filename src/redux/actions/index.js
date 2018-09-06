@@ -224,3 +224,58 @@ export const setMenuOpen = (payload) => {
   };
 };
 
+export const setSettingsCapacity = (capacity) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS_CAPACITY,
+    capacity
+  };
+};
+
+export const setSettingsExtCapacity = (extCapacity) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
+    extCapacity
+  };
+};
+
+export const setSettingsAllowAutoAllocation = (allowAuto) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
+    allowAuto
+  };
+};
+
+export const setSettingsMigrated = (migrated) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS_MIGRATED,
+    migrated
+  };
+};
+
+export const setSettingsSupported = (supported) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS_SUPPORTED,
+    supported
+  };
+};
+
+export const setSettingsSequenceFrequency = (sequenceFrequency) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
+    sequenceFrequency
+  };
+};
+
+export const setSettings = (settings) => {
+  return {
+    type: ActionTypes.SET_KEYWORKER_SETTINGS,
+    migrated: settings.migrated,
+    allowAuto: settings.allowAuto,
+    capacity: settings.capacity,
+    extCapacity: settings.extCapacity,
+    supported: settings.supported,
+    sequenceFrequency: settings.sequenceFrequency
+  };
+};
+
+

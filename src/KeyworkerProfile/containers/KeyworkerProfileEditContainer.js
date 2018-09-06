@@ -7,6 +7,7 @@ import Error from '../../Error';
 import { withRouter } from 'react-router';
 import { resetValidationErrors, setMessage, setValidationError } from "../../redux/actions";
 import axios from "axios";
+import { stringIsInteger } from "../../stringUtils";
 
 class KeyworkerProfileEditContainer extends Component {
   constructor () {
@@ -87,13 +88,8 @@ class KeyworkerProfileEditContainer extends Component {
     this.props.keyworkerCapacityDispatch(event.target.value);
   }
 
-  stringIsInteger (input) {
-    var parsed = Number.parseInt(input, 10);
-    return !Number.isNaN(parsed);
-  }
-
   validate () {
-    if (!this.stringIsInteger(this.props.capacity)) {
+    if (!stringIsInteger(this.props.capacity)) {
       this.props.setValidationErrorDispatch("capacity", "Please enter a number");
       return false;
     }

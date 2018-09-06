@@ -34,6 +34,8 @@ const keyworkerApiFactory = (client) => {
   const autoAllocate = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/start`);
   const autoAllocateConfirm = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/confirm`);
   const getPrisonMigrationStatus = (context, prisonId) => get(context, `key-worker/prison/${prisonId}`);
+  const enableAutoAllocationAndMigrate = (context, agencyId, migrate, capacity, frequency) => post(context, `key-worker/enable/${agencyId}/auto-allocate?migrate=${migrate}&capacity=${capacity}&frequency=${frequency}`, {});
+  const enableManualAllocationAndMigrate = (context, agencyId, migrate, capacity, frequency) => post(context, `key-worker/enable/${agencyId}/manual?migrate=${migrate}&capacity=${capacity}&frequency=${frequency}`, {});
 
   /**
    *
@@ -150,7 +152,9 @@ const keyworkerApiFactory = (client) => {
     keyworkerUpdate,
     offenderKeyworkerList,
     unallocated,
-    getPrisonMigrationStatus
+    getPrisonMigrationStatus,
+    enableAutoAllocationAndMigrate,
+    enableManualAllocationAndMigrate
   };
 };
 

@@ -265,5 +265,67 @@ describe('actions', () => {
     };
     expect(actions.resetValidationErrors()).toEqual(expectedAction);
   });
+
+  it('should create an action to save key worker setting -  capacity', () => {
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS_CAPACITY,
+      capacity: 8
+    };
+    expect(actions.setSettingsCapacity(8)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker setting -  ext capacity', () => {
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
+      extCapacity: 10
+    };
+    expect(actions.setSettingsExtCapacity(10)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker setting -  sequence frequency', () => {
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
+      sequenceFrequency: 1
+    };
+    expect(actions.setSettingsSequenceFrequency(1)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker setting -  allow auto allocation', () => {
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
+      allowAuto: true
+    };
+    expect(actions.setSettingsAllowAutoAllocation(true)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker setting -  supported', () => {
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS_SUPPORTED,
+      supported: true
+    };
+    expect(actions.setSettingsSupported(true)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker setting -  migrated', () => {
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS_MIGRATED,
+      migrated: true
+    };
+    expect(actions.setSettingsMigrated(true)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save key worker settings', () => {
+    const settings = { migrated: true, capacity: 5, extCapacity: 6, allowAuto: false, supported: false, sequenceFrequency: 2 };
+    const expectedAction = {
+      type: types.SET_KEYWORKER_SETTINGS,
+      migrated: true,
+      allowAuto: false,
+      capacity: 5,
+      extCapacity: 6,
+      sequenceFrequency: 2,
+      supported: false
+    };
+    expect(actions.setSettings(settings)).toEqual(expectedAction);
+  });
 });
 

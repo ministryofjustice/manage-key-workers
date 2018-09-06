@@ -25,6 +25,9 @@ const keyworkerProfileFactory = require('./controllers/keyworkerProfile').keywor
 const keyworkerUpdateFactory = require('./controllers/keyworkerUpdate').keyworkerUpdateFactory;
 const userMeFactory = require('./controllers/userMe').userMeFactory;
 const enableNewNomisFactory = require('./controllers/enableNewNomis').enableNewNomisFactory;
+const autoAllocationAndMigrateFactory = require('./controllers/autoAllocationMigrate').autoAllocationAndMigrateFactory;
+const manualAllocationAndMigrateFactory = require('./controllers/manualAllocationMigrate').manualAllocationAndMigrateFactory;
+const keyworkerSettingsFactory = require('./controllers/keyworkerSettings').keyworkerSettingsFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
 const healthFactory = require('./controllers/health').healthFactory;
 
@@ -158,6 +161,9 @@ app.use('/api/keyworkerSearch', keyworkerSearchFactory(keyworkerApi).keyworkerSe
 app.use('/api/autoAllocateConfirmWithOverride', autoAllocateFactory(keyworkerApi).autoAllocate);
 app.use('/api/keyworkerUpdate', keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate);
 app.use('/api/enableNewNomis', enableNewNomisFactory(elite2Api).enableNewNomis);
+app.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate);
+app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate);
+app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings);
 
 // app.use('/api/config', getConfiguration);
 

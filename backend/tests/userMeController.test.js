@@ -36,22 +36,29 @@ describe('userMe controller', () => {
     elite2Api.getUserAccessRoles.mockImplementation(() => []);
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: false,
-      kwSessionFrequencyInWeeks: 1
+      supported: false,
+      autoAllocatedSupported: false,
+      kwSessionFrequencyInWeeks: 1,
+      capacityTier1: 1,
+      capacityTier2: 2
     }));
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
     const data = await userMeService();
 
     expect(data).toEqual({
       ...staff1,
-      writeAccess: false,
-      kwFrequency: 1
+      writeAccess: false
     });
   });
   it('should have writeAccess when the user has the key worker admin role', async () => {
     elite2Api.getUserAccessRoles.mockImplementation(() => staffRoles);
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
-      kwSessionFrequencyInWeeks: 2
+      supported: true,
+      autoAllocatedSupported: false,
+      kwSessionFrequencyInWeeks: 2,
+      capacityTier1: 1,
+      capacityTier2: 2
     }));
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
     const data = await userMeService(context);
@@ -61,15 +68,18 @@ describe('userMe controller', () => {
 
     expect(data).toEqual({
       ...staff1,
-      writeAccess: true,
-      kwFrequency: 2
+      writeAccess: true
     });
   });
   it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
     elite2Api.getUserAccessRoles.mockImplementation(() => staffRoles);
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: false,
-      kwSessionFrequencyInWeeks: 1
+      supported: false,
+      autoAllocatedSupported: false,
+      kwSessionFrequencyInWeeks: 1,
+      capacityTier1: 1,
+      capacityTier2: 2
     }));
 
     const { userMeService } = userMeFactory(elite2Api, keyworkerApi);
@@ -82,8 +92,7 @@ describe('userMe controller', () => {
 
     expect(data).toEqual({
       ...staff1,
-      writeAccess: false,
-      kwFrequency: 1
+      writeAccess: false
     });
   });
 });
