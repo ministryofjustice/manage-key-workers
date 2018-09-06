@@ -15,7 +15,8 @@ class AllocationsForKeyworkerResponse {
       "prisonId": "LEI",
       "assigned": "2018-04-09T14:34:35.574",
       "allocationType": "A",
-      "internalLocationDesc": "H-1"
+      "internalLocationDesc": "H-1",
+      "deallocOnly": false
     },
     {
       "bookingId": -33,
@@ -27,7 +28,8 @@ class AllocationsForKeyworkerResponse {
       "prisonId": "LEI",
       "assigned": "2018-04-09T14:34:35.587",
       "allocationType": "A",
-      "internalLocationDesc": "H-1"
+      "internalLocationDesc": "H-1",
+      "deallocOnly": false
     },
     {
       "bookingId": -34,
@@ -39,7 +41,8 @@ class AllocationsForKeyworkerResponse {
       "prisonId": "LEI",
       "assigned": "2018-04-09T14:34:35.595",
       "allocationType": "A",
-      "internalLocationDesc": "H-1"
+      "internalLocationDesc": "H-1",
+      "deallocOnly": false
     },
     {
       "bookingId": -18,
@@ -51,7 +54,21 @@ class AllocationsForKeyworkerResponse {
       "prisonId": "LEI",
       "assigned": "2018-04-09T14:34:35.616",
       "allocationType": "A",
-      "internalLocationDesc": "H-1"
+      "internalLocationDesc": "H-1",
+      "deallocOnly": false
+    },
+     {
+      "bookingId": -19,
+      "offenderNo": "Z0018ZT",
+      "firstName": "DAVID",
+      "lastName": "BOWIE",
+      "staffId": -3,
+      "agencyId": "LPI",
+      "prisonId": "LPI",
+      "assigned": "2018-04-10T12:00:00.000",
+      "allocationType": "M",
+      "internalLocationDesc": "LPI-A-1",
+      "deallocOnly": true
     }
   ]
 '''
