@@ -63,6 +63,11 @@ const switchToIsoDateFormat = (displayDateString) => {
   return isBlank(displayDateString) ? undefined : moment(displayDateString, 'DD/MM/YYYY').format(iso8601DateFormat);
 };
 
+const stringIsInteger = (input) => {
+  var parsed = Number.parseInt(input, 10);
+  return !Number.isNaN(parsed);
+};
+
 module.exports = {
   properCase,
   properCaseName,
@@ -70,5 +75,6 @@ module.exports = {
   renderDate,
   renderDateTime,
   switchToIsoDateFormat,
-  isBlank
+  isBlank,
+  stringIsInteger
 };

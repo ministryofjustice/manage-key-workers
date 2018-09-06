@@ -30,7 +30,7 @@ class KeyworkerSearchResults extends Component {
 
   render () {
     const keyworkers = this.buildTableForRender();
-    const kwFrequency = this.props.user ? this.props.user.kwFrequency : 1;
+    const kwFrequency = this.props.keyworkerSettings ? this.props.keyworkerSettings.sequenceFrequency : 1;
 
     return (
       <div>
@@ -86,7 +86,8 @@ KeyworkerSearchResults.propTypes = {
   handleStatusFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   displayBack: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  keyworkerSettings: PropTypes.object.isRequired
 };
 
 

@@ -4,6 +4,7 @@ import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerP
 import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer';
 import KeyworkerProfileEditConfirmContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditConfirmContainer';
 import KeyworkerSearchContainer from '../KeyworkerProfile/containers/KeyworkerSearchContainer';
+import KeyworkerSettingsContainer from '../admin/containers/KeyworkerSettingsContainer';
 import KeyworkerSearchResultsContainer from '../KeyworkerProfile/containers/KeyworkerSearchResultsContainer';
 import KeyworkerReports from '../KeyworkerReports/index';
 import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer';
@@ -24,7 +25,8 @@ import {
   setConfig,
   setUserDetails,
   setMessage,
-  setMenuOpen
+  setMenuOpen,
+  setSettings
 } from '../redux/actions/index';
 
 import {
@@ -59,10 +61,7 @@ class App extends React.Component {
     }, (error) => Promise.reject(error));
 
     try {
-      const user = await axios.get('/api/me');
-      const caseloads = await axios.get('/api/usercaseloads');
-      this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
-
+      await this.loadUserAndCaseload();
       const config = await axios.get('/api/config');
       links.notmEndpointUrl = config.data.notmEndpointUrl;
 
@@ -80,10 +79,19 @@ class App extends React.Component {
     history.push('/');
   }
 
+  async loadUserAndCaseload () {
+    const user = await axios.get('/api/me');
+    const caseloads = await axios.get('/api/usercaseloads');
+    const keyworkerSettings = await axios.get('/api/keyworkerSettings');
+    this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
+    this.props.keyworkerSettingsDispatch(keyworkerSettings.data);
+  }
+
   async switchCaseLoad (newCaseload) {
     try {
       await axios.put('/api/setactivecaseload', { caseLoadId: newCaseload });
       this.props.switchAgencyDispatch(newCaseload);
+      await this.loadUserAndCaseload();
     } catch (error) {
       this.props.setErrorDispatch(error.message);
     }
@@ -147,6 +155,7 @@ class App extends React.Component {
       <Route exact path="/keyworker/:staffId/profile/edit/confirm" render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} {...this.props} />}/>
       <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props} />}/>
       <Route exact path="/admin/nomis/access" render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props}/>}/>
+      <Route exact path="/admin/settings" render={() => <KeyworkerSettingsContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {
@@ -193,6 +202,7 @@ App.propTypes = {
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func,
+  keyworkerSettingsDispatch: PropTypes.func,
   setMessageDispatch: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired
 };
@@ -218,7 +228,8 @@ const mapDispatchToProps = dispatch => {
     setErrorDispatch: (error) => dispatch(setError(error)),
     resetErrorDispatch: () => dispatch(resetError()),
     setMessageDispatch: (message) => dispatch(setMessage(message)),
-    setMenuOpen: (flag) => dispatch(setMenuOpen(flag))
+    setMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
+    keyworkerSettingsDispatch: (settings) => dispatch(setSettings(settings))
   };
 };
 

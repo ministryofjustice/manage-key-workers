@@ -1,4 +1,4 @@
-import { unallocated, allocated, app, offenderSearch, keyworkerSearch } from './index';
+import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings } from './index';
 import { setMenuOpen } from "../actions";
 import * as types from '../actions/actionTypes';
 import moment from 'moment';
@@ -71,6 +71,15 @@ const keyworkerSearchPopulatedState = {
   capacity: "7",
   statusChangeBehaviour: 'newBehaviour',
   annualLeaveReturnDate: '25/06/2018'
+};
+
+const keyworkerSettingsInitialState = {
+  capacity: 6,
+  extCapacity: 9,
+  allowAuto: false,
+  sequenceFrequency: 1,
+  supported: false,
+  migrated: false
 };
 
 describe('app (global) reducer', () => {
@@ -694,3 +703,115 @@ describe('key worker search reducer', () => {
     expect(state.menuOpen).toBe(false);
   });
 });
+
+describe('key worker settings reducer', () => {
+  it('should return the initial state', () => {
+    expect(keyworkerSettings(undefined, {})).toEqual(
+      keyworkerSettingsInitialState
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS_CAPACITY', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.capacity = 4;
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS_CAPACITY,
+        capacity: 4
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS_EXT_CAPACITY', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.extCapacity = 11;
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
+        extCapacity: 11
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.sequenceFrequency = 11;
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
+        sequenceFrequency: 11
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.allowAuto = true;
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
+        allowAuto: true
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS_MIGRATED', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.migrated = true;
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS_MIGRATED,
+        migrated: true
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS_SUPPORTED', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.supported = true;
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS_SUPPORTED,
+        supported: true
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+
+  it('should handle SET_KEYWORKER_SETTINGS', () => {
+    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    updatedKeyworkerSettings.supported = true;
+    updatedKeyworkerSettings.capacity = 1;
+    updatedKeyworkerSettings.extCapacity = 2;
+    updatedKeyworkerSettings.sequenceFrequency = 3;
+    updatedKeyworkerSettings.allowAuto = true;
+    updatedKeyworkerSettings.migrated = true;
+
+    expect(
+      keyworkerSettings(keyworkerSettingsInitialState, {
+        type: types.SET_KEYWORKER_SETTINGS,
+        supported: true,
+        migrated: true,
+        allowAuto: true,
+        capacity: 1,
+        extCapacity: 2,
+        sequenceFrequency: 3
+      })
+    ).toEqual(
+      updatedKeyworkerSettings
+    );
+  });
+});
+
+

@@ -49,6 +49,15 @@ const allocationHistoryInitialState = {
   allocationHistory: {}
 };
 
+const keyworkerSettingsInitialState = {
+  capacity: 6,
+  extCapacity: 9,
+  allowAuto: false,
+  sequenceFrequency: 1,
+  supported: false,
+  migrated: false
+};
+
 export function app (state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_CONFIG:
@@ -220,6 +229,46 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
   }
 }
 
+export function keyworkerSettings (state = keyworkerSettingsInitialState, action) {
+  switch (action.type) {
+    case ActionTypes.SET_KEYWORKER_SETTINGS_CAPACITY:
+      return { ...state,
+        capacity: action.capacity
+      };
+    case ActionTypes.SET_KEYWORKER_SETTINGS_EXT_CAPACITY:
+      return { ...state,
+        extCapacity: action.extCapacity
+      };
+    case ActionTypes.SET_KEYWORKER_SETTINGS_SUPPORTED:
+      return { ...state,
+        supported: action.supported
+      };
+    case ActionTypes.SET_KEYWORKER_SETTINGS_MIGRATED:
+      return { ...state,
+        migrated: action.migrated
+      };
+    case ActionTypes.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION:
+      return { ...state,
+        allowAuto: action.allowAuto
+      };
+    case ActionTypes.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY:
+      return { ...state,
+        sequenceFrequency: action.sequenceFrequency
+      };
+    case ActionTypes.SET_KEYWORKER_SETTINGS:
+      return { ...state,
+        allowAuto: action.allowAuto,
+        migrated: action.migrated,
+        extCapacity: action.extCapacity,
+        capacity: action.capacity,
+        supported: action.supported,
+        sequenceFrequency: action.sequenceFrequency
+      };
+    default:
+      return state;
+  }
+}
+
 function updateObject (oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
@@ -242,7 +291,8 @@ const allocationApp = combineReducers({
   app,
   offenderSearch,
   keyworkerSearch,
-  allocationHistory
+  allocationHistory,
+  keyworkerSettings
 });
 
 export default allocationApp;
