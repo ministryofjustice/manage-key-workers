@@ -6,8 +6,8 @@ import Error from '../../Error';
 import { withRouter } from 'react-router';
 import {
   setLoaded, setMessage, setSettingsSupported, setSettingsMigrated, setSettingsCapacity,
-  setSettingsSequenceFrequency, setSettingsAllowAutoAllocation, setSettingsExtCapacity, setSettings, setValidationError,
-  resetValidationErrors
+  setSettingsSequenceFrequency, setSettingsAllowAutoAllocation, setSettingsExtCapacity,
+  setSettings, setValidationError, resetValidationErrors
 } from "../../redux/actions";
 import Spinner from '../../Spinner';
 import axios from "axios";
