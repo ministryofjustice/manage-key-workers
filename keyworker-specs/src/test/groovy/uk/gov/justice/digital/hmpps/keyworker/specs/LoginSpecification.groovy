@@ -52,7 +52,7 @@ class LoginSpecification extends GebReportingSpec {
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
         elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 1)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
         to LoginPage
 
         elite2api.stubValidOAuthTokenRequest(ITAG_USER)
@@ -104,7 +104,7 @@ class LoginSpecification extends GebReportingSpec {
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
         elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, 2)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 2, true)
         to LoginPage
 
         and: 'The OAuth server responds with a long delay'

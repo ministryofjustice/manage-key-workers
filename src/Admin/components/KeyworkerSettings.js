@@ -8,7 +8,6 @@ import ValidationErrors from "../../ValidationError";
 
 class KeyworkerSettings extends Component {
   render () {
-    const allowAllocString = this.props.allowAuto ? 'true' : 'false';
     const buttonText = this.props.supported ? 'Save settings' : 'Save settings and migrate';
     const statusText = this.props.supported ? 'Enabled' : 'Not yet enabled';
     const sequenceFrequencyString = this.props.sequenceFrequency && this.props.sequenceFrequency.toString();
@@ -17,8 +16,8 @@ class KeyworkerSettings extends Component {
       (<select id="frequency-select" name="frequency-select" className="form-control sequenceFrequency"
         value={sequenceFrequencyString}
         onChange={this.props.handleSequenceFrequency}>
-        <option key="1" value="1">Once a week</option>
-        <option key="2" value="2">Once a fortnight</option>
+        <option id="option_once_a_week" key="1" value="1">Once a week</option>
+        <option id="option_once_a_fortnight" key="2" value="2">Once a fortnight</option>
       </select>);
 
     const { user } = this.props;
@@ -46,7 +45,7 @@ class KeyworkerSettings extends Component {
             <div className="pure-u-md-2-12" >
               <div className="bold">Status</div>
             </div>
-            <div className="pure-u-md-7-12" >
+            <div className="pure-u-md-7-12" id="status">
               <div>{statusText}</div>
             </div>
             <hr/>
@@ -59,11 +58,11 @@ class KeyworkerSettings extends Component {
               </div>
               <div className="pure-u-md-4-12" >
                 <div className="multiple-choice pure-u-md-1-12">
-                  <input type="radio" value="true" checked={allowAllocString === "true"} onClick={this.props.handleAllowAutoChange}/>
+                  <input type="radio" value="true" checked={this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
                   <label>Yes</label>
                 </div>
                 <div className="multiple-choice pure-u-md-1-12">
-                  <input type="radio" value="false" checked={allowAllocString === "false"} onClick={this.props.handleAllowAutoChange}/>
+                  <input type="radio" value="false" checked={!this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
                   <label>No</label>
                 </div>
               </div>
@@ -102,7 +101,7 @@ class KeyworkerSettings extends Component {
           <div className="pure-u-md-8-12 padding-top-large margin-top">
             <div className="pure-u-md-10-12">
               <div className="buttonGroup">
-                <button className="button button-save"
+                <button id="save-button" className="button button-save"
                   onClick={() => this.props.handleUpdate(this.props.history)}>{buttonText}
                 </button>
               </div>

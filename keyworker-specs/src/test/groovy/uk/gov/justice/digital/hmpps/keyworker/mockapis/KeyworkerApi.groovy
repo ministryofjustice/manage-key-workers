@@ -229,13 +229,55 @@ class KeyworkerApi extends WireMockRule {
         )
     }
 
-    void stubPrisonMigrationStatus(AgencyLocation agencyLocation, Boolean migrated, int kwSessionFrequencyInWeeks) {
-        def json = JsonOutput.toJson([migrated: migrated, kwSessionFrequencyInWeeks: kwSessionFrequencyInWeeks])
+    void stubPrisonMigrationStatus(AgencyLocation agencyLocation, Boolean supported, Boolean migrated, int kwSessionFrequencyInWeeks, Boolean allowAuto) {
+        def json = JsonOutput.toJson([
+                                          "supported": supported,
+                                          "migrated": migrated,
+                                          "autoAllocatedSupported": allowAuto,
+                                          "capacityTier1": 3,
+                                          "capacityTier2": 6,
+                                          "kwSessionFrequencyInWeeks": kwSessionFrequencyInWeeks
+                                      ])
 
         this.stubFor(
                 get(urlPathEqualTo("/key-worker/prison/${agencyLocation.id}"))
                         .willReturn(aResponse()
                         .withBody(json)
                         .withStatus(200)))
+    }
+
+
+    void stubAutoAllocateMigrateResponse(AgencyLocation agencyLocation, Boolean supported, Boolean migrated, int kwSessionFrequencyInWeeks) {
+        def json = JsonOutput.toJson([
+                "supported": supported,
+                "migrated": migrated,
+                "autoAllocatedSupported": true,
+                "capacityTier1": 3,
+                "capacityTier2": 6,
+                "kwSessionFrequencyInWeeks": kwSessionFrequencyInWeeks
+        ])
+        this.stubFor(
+                post(urlPathEqualTo("/key-worker/enable/${agencyLocation.id}/auto-allocate"))
+                        .willReturn(aResponse()
+                        .withBody(json)
+                        .withStatus(200))
+        )
+    }
+
+    void stubManualMigrateResponse(AgencyLocation agencyLocation, Boolean supported, Boolean migrated, int kwSessionFrequencyInWeeks, int capacity, int extCapacity) {
+        def json = JsonOutput.toJson([
+                "supported": supported,
+                "migrated": migrated,
+                "autoAllocatedSupported": false,
+                "capacityTier1": capacity,
+                "capacityTier2": extCapacity,
+                "kwSessionFrequencyInWeeks": kwSessionFrequencyInWeeks
+        ])
+        this.stubFor(
+                post(urlPathEqualTo("/key-worker/enable/${agencyLocation.id}/manual"))
+                        .willReturn(aResponse()
+                        .withBody(json)
+                        .withStatus(200))
+        )
     }
 }
