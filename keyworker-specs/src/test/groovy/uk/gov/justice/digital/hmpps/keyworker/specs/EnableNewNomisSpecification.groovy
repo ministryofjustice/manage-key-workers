@@ -24,7 +24,7 @@ class EnableNewNomisSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def roles = [MaintainAccessRolesRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, 0)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
 
         given: "I have navigated to the enable new nomis page"
         fixture.loginWithoutStaffRoles(ITAG_USER)

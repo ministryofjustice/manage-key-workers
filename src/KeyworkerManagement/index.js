@@ -6,6 +6,9 @@ import { getHomeLink } from "../links";
 
 class HomePage extends Component {
   render () {
+    const showEnableNewNomis = this.props.user && this.props.user.maintainAccess;
+    const showKeyworkerSettings = this.props.user && this.props.user.maintainAccess && this.props.user.migration;
+    const showAdminSection = showEnableNewNomis || showKeyworkerSettings;
     return (
       <div>
         <MessageBar {...this.props}/>
@@ -29,15 +32,15 @@ class HomePage extends Component {
             </div>
           </div>
           <div className="pure-u-md-8-12">
-            {this.props.user && (this.props.user.maintainAccess) &&
-          <h2 className="padding-top-small heading-medium">Admin tasks</h2>
+            {showAdminSection &&
+          <h2 id="admin-task-header" className="padding-top-small heading-medium">Admin tasks</h2>
             }
-            {this.props.user && this.props.user.maintainAccess && <div className="pure-u-md-6-12">
+            {showEnableNewNomis && <div className="pure-u-md-6-12">
               <Link id="enable_new_nomis_link" title="Enable Nomis" className="link" to="/admin/nomis/access" >Give access to New NOMIS</Link>
               <div className="padding-right-large">Allow prisons to use New NOMIS. Add new prison staff.</div>
             </div>}
-            {this.props.user && this.props.user.maintainAccess && this.props.user.migration && <div className="pure-u-md-5-12">
-              <Link id="enable_new_nomis_link" title="Enable Nomis" className="link" to="/admin/settings" >Manage key worker settings</Link>
+            {showKeyworkerSettings && <div className="pure-u-md-5-12">
+              <Link id="keyworker_settings_link" title="Key worker settings" className="link" to="/admin/settings" >Manage key worker settings</Link>
               <div className="padding-right-large">Allow auto-allocation. Edit key worker capacity and session frequency.</div>
             </div>}
           </div>
