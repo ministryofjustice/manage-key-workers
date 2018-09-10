@@ -38,14 +38,15 @@ class KeyworkerProfileEditContainer extends Component {
     try {
       if (this.formChange()) {
         if (statusChange && this.props.status !== 'ACTIVE') {
-          history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
+          history.replace(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
         } else {
           await this.postKeyworkerUpdate();
           this.props.setMessageDispatch("Profile changed");
-          history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+          // Return to profile page
+          history.goBack();
         }
       } else {
-        history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+        history.goBack();
       }
     } catch (error) {
       this.props.handleError(error);
@@ -77,7 +78,8 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   handleCancel (history) {
-    history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+    // Return to profile page
+    history.goBack();
   }
 
   handleStatusChange (event) {

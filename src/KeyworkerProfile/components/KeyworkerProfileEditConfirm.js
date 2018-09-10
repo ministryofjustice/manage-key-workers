@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
 import ValidationErrors from "../../ValidationError";
 import DatePickerInput from "../../DatePickerInput";
-import { Link } from "react-router-dom";
-
 
 class KeyworkerProfileEditConfirm extends Component {
   render () {
@@ -46,8 +44,8 @@ class KeyworkerProfileEditConfirm extends Component {
       <div>
         <div className="pure-g">
           <div className="pure-u-md-8-12 padding-top">
-            <Link id={`back_link`} title="Back link" className="link backlink" to={`/keyworker/${this.props.keyworker.staffId}/profile`} >
-              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</Link>
+            <a href="#back" title="Back link" className="link backlink" onClick={this.props.history.goBack}>
+              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
             <h1 className="heading-large margin-top">Update status</h1>
           </div>
           <div className="pure-g">

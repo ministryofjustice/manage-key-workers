@@ -19,6 +19,6 @@ public class KeyworkerEditPage extends Page {
         selectedOption { $('#status-select option:selected')}
         cancelButton(to: KeyworkerProfilePage) { $('.button-cancel') }
         saveChangesButton{ $('.button-save') }
+        backLink { $('a.backlink')}
     }
-
 }

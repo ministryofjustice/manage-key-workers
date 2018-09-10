@@ -22,6 +22,6 @@ public class KeyworkerEditConfirmPage extends Page {
         saveButton(to: KeyworkerProfilePage) { $('.button-save') }
         saveButtonValidationError{ $('.button-save') }
         cancelButton(to: KeyworkerEditPage) { $('.button-cancel') }
+        backLink { $('a.backlink')}
     }
-
 }

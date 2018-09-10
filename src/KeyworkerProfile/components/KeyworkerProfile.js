@@ -11,9 +11,10 @@ class KeyworkerProfile extends Component {
     this.goBack = this.goBack.bind(this);
   }
 
-  goBack (e) {
+  goBack (e, history) {
     e.preventDefault();
-    window.history.back();
+    // Return to previous page in history. There can be multiple origin pages.
+    history.goBack();
   }
 
   getAllocationStyle () {
@@ -53,7 +54,7 @@ class KeyworkerProfile extends Component {
             <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
               onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">-- No change --</option>
-              <option key="choose" value="_DEALLOCATE">-- Deallocate --</option>
+              <option key="deallocate" value="_DEALLOCATE">-- Deallocate --</option>
               {a.deallocOnly ? '' : keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
             </select>
           </td>
@@ -93,7 +94,7 @@ class KeyworkerProfile extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <a href="#back" title="Back link" className="link backlink" onClick={this.goBack} >
+            <a href="#back" title="Back link" className="link backlink" onClick={(event) => this.goBack(event, this.props.history)} >
               <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
             <h1 className="heading-large margin-top">Key worker: {keyworkerDisplayName}</h1>
           </div>
