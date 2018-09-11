@@ -39,6 +39,12 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         def row5 = table.find("tr", 5).find("td", 0)
         row5.find("a").text() == null
         row5.text() == 'Bowie, David'
+
+        when: "Back link is clicked"
+        backLink.click()
+
+        then: "We return to KW results page"
+        at KeyworkerResultsPage
     }
 
     def "key worker edit profile is displayed correctly"() {
@@ -49,6 +55,12 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         at KeyworkerEditPage
         capacity.value() == '6'
         keyworkerStatusOptions.size() == 5
+
+        when: "Back link is clicked"
+        backLink.click()
+
+        then: "We return to KW profile page"
+        at KeyworkerProfilePage
     }
 
     def "key worker edit confirm - INACTIVE - is displayed correctly"() {
@@ -64,6 +76,12 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         at KeyworkerEditConfirmPage
         status.text() == 'Inactive'
         inactiveWarning.isDisplayed()
+
+        when: "Back link is clicked"
+        backLink.click()
+
+        then: "We return to KW profile page"
+        at KeyworkerProfilePage
     }
 
     def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly"() {
@@ -125,6 +143,12 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         at KeyworkerProfilePage
         status.text() == 'Active'
         !messageBar.isDisplayed()
+
+        when: "Back link is clicked"
+        backLink.click()
+
+        then: "We return to KW results page"
+        at KeyworkerResultsPage
     }
 
     def "key worker edit confirm - no allocations - should not display Prisoners removed message"() {
@@ -195,6 +219,4 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         browser.page.testKeyworkerLink.click()
         assert browser.page instanceof KeyworkerProfilePage
     }
-
-
 }

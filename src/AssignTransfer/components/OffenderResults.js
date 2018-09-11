@@ -53,7 +53,7 @@ class OffenderResults extends Component {
           <select disabled={!this.props.user || !this.props.user.writeAccess} id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
             onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
             <option key="choose" value="--">-- No change --</option>
-            {a.staffId ? <option key="choose" value="_DEALLOCATE">-- Deallocate --</option> : ''}
+            {a.staffId ? <option key="deallocate" value="_DEALLOCATE">-- Deallocate --</option> : ''}
             {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
           </select>
         </td>

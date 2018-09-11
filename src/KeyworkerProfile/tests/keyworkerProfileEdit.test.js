@@ -22,7 +22,7 @@ describe('Keyworker Profile Edit component', () => {
     expect(component.text()).toContain('Frank Butcher');
     const selectComponent = component.find('Status').shallow();
     expect(selectComponent.find('option').length).toEqual(5);
-    expect(component.find('#back_link').length).toEqual(1);
+    expect(component.find('a.backlink').length).toEqual(1);
   });
 
 

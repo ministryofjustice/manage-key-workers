@@ -47,7 +47,8 @@ class KeyworkerProfileEditConfirmContainer extends Component {
       } else {
         this.props.setMessageDispatch("Profile changed");
       }
-      history.push(`/keyworker/${this.props.keyworker.staffId}/profile`);
+      // On success, return to KW profile by 'popping' history
+      history.goBack();
     } catch (error) {
       this.props.handleError(error);
     }
@@ -88,7 +89,8 @@ class KeyworkerProfileEditConfirmContainer extends Component {
   }
 
   handleCancel (history) {
-    history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
+    // Use replace to ensure the profile page remains the history 'parent'
+    history.replace(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
   }
 
   handleOptionChange (event) {
