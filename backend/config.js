@@ -4,7 +4,7 @@ module.exports = {
     notmEndpointUrl: process.env.NN_ENDPOINT_URL || 'http://localhost:3000/',
     mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
     tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
-    offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 50
+    offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200
   },
   analytics: {
     googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID

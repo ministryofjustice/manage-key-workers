@@ -128,11 +128,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       locationPrefix,
       allocationStatus
     }) => {
+    const offenderReturnSize = allocationStatus === "all" ? offenderSearchResultMax + 1 : 3000;
     const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId);
     log.debug({ availableKeyworkers }, 'Response from available keyworker request');
 
 
-    const offenders = await elite2Api.searchOffenders(context, keywords, locationPrefix, 4000);
+    const offenders = await elite2Api.searchOffenders(context, keywords, locationPrefix, offenderReturnSize);
     log.debug({ searchOffenders: offenders }, 'Response from searchOffenders request');
 
 
