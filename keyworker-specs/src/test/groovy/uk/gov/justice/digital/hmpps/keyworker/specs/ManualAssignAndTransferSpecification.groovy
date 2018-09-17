@@ -102,7 +102,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         at OffenderResultsPage
 
         and: "The 4 unallocated results are displayed"
-        rows.size() == 5
+        rows.size() == 50
     }
 
     def "Assign and Transfer filtered by allocated"() {
