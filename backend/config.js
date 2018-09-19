@@ -1,5 +1,5 @@
 const setTestDefaults = () => {
-  // Setup different defaults when running locally or integration tests
+  // Setup different default values when running locally or integration tests
   // .env file still overrides.
   if (!process.env.OFFENDER_SEARCH_RESULT_MAX) {
     app.offenderSearchResultMax = 50;
