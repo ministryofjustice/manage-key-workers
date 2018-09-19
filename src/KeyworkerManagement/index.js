@@ -16,7 +16,7 @@ class HomePage extends Component {
           <div className="pure-u-md-12-12 padding-top"><a className="link backlink" href={getHomeLink()}><img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Home</a></div>
           <div className="pure-u-md-8-12 padding-bottom-large">
             <h1 className="heading-large margin-top padding-bottom-40">Manage Key workers</h1>
-            {this.props.user && this.props.user.writeAccess && <div className="pure-u-md-6-12">
+            {this.props.user && this.props.user.writeAccess && this.props.allowAuto && <div className="pure-u-md-6-12">
               <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated" >Auto-allocate key workers</Link>
               <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
             </div>}
@@ -51,7 +51,8 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   message: PropTypes.string,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  allowAuto: PropTypes.bool
 };
 
 export default HomePage;

@@ -204,7 +204,8 @@ App.propTypes = {
   resetErrorDispatch: PropTypes.func,
   keyworkerSettingsDispatch: PropTypes.func,
   setMessageDispatch: PropTypes.func.isRequired,
-  setMenuOpen: PropTypes.func.isRequired
+  setMenuOpen: PropTypes.func.isRequired,
+  allowAuto: PropTypes.bool
 };
 
 const mapStateToProps = state => {
@@ -215,7 +216,8 @@ const mapStateToProps = state => {
     config: state.app.config,
     user: state.app.user,
     shouldShowTerms: state.app.shouldShowTerms,
-    menuOpen: state.app.menuOpen
+    menuOpen: state.app.menuOpen,
+    allowAuto: state.keyworkerSettings.allowAuto
   };
 };
 

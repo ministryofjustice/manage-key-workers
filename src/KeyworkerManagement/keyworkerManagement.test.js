@@ -11,7 +11,7 @@ describe('HomePage component', () => {
     const user = {
       writeAccess: true
     };
-    const component = shallow(<HomePage message="Hello!" clearMessage={jest.fn()} user={user}/>);
+    const component = shallow(<HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto/>);
     expect(component.find('#auto_allocate_link').length).toBe(1);
     expect(component.find('#keyworker_profile_link').length).toBe(1);
     expect(component.find('#assign_transfer_link').length).toBe(1);
@@ -21,6 +21,32 @@ describe('HomePage component', () => {
       <HomePage
         message="Hello!"
         clearMessage={jest.fn()}
+      />);
+    expect(component.find('#auto_allocate_link').length).toBe(0);
+  });
+  it('should show the auto allocate link when allow autoallocate (keyworker settings) is true and user has writeAccess', () => {
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto
+      />);
+    expect(component.find('#auto_allocate_link').length).toBe(1);
+  });
+  it('should hide the auto allocate link when allow autoallocate (keyworker settings) is false and user has writeAccess', () => {
+    const user = {
+      writeAccess: true
+    };
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
       />);
     expect(component.find('#auto_allocate_link').length).toBe(0);
   });
