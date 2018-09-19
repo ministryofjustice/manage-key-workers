@@ -74,6 +74,8 @@ app.use('/info', health);
 
 if (config.app.production) {
   app.use(ensureHttps);
+} else {
+  config.setTestDefaults();
 }
 
 app.use(cookieParser());
