@@ -7,7 +7,10 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const user = {
   activeCaseLoadId: "LEI",
-  caseLoadOptions: [{ caseLoadId: "LEI", description: "LEEDS (HMP)", type: "INST", caseloadFunction: "GENERAL" }]
+  caseLoadOptions: [
+    { caseLoadId: "LEI", description: "LEEDS (HMP)", type: "INST", caseloadFunction: "GENERAL" },
+    { caseLoadId: "SYI", description: "Shrewsbury (HMP)", type: "INST", caseloadFunction: "GENERAL" }
+  ]
 };
 
 const userWithoutCaseLoadOptions = {
@@ -24,7 +27,10 @@ describe('Dropdown component', () => {
       menuOpen
       history={{ push: jest.fn() }}/>
     );
-    expect(component.find('a.dropdown-menu-option').get(0).props.children).toEqual('LEEDS (HMP)');
+    const dropdown = component.find('a.dropdown-menu-option');
+    // Current id 'LEI' should be omitted
+    expect(dropdown.length).toEqual(1);
+    expect(dropdown.get(0).props.children).toEqual('Shrewsbury (HMP)');
   });
 
   it('should handle empty caseLoadOptions elegantly', async () => {
