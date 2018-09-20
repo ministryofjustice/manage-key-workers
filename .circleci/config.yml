@@ -50,7 +50,7 @@ jobs:
           at: ~/app
       - run:
           name: Run the node app.
-          command: OFFENDER_SEARCH_RESULT_MAX=50 yarn start
+          command: yarn start
           background: true
 #      - run:
 #          name: Wait for node app to start
