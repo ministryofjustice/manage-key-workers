@@ -327,5 +327,55 @@ describe('actions', () => {
     };
     expect(actions.setSettings(settings)).toEqual(expectedAction);
   });
+
+  it('should create an action to save maintain roles user list', () => {
+    const list = [{ firstName: 'Jack', surname: 'Brown' }];
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_RESULTS_LIST,
+      userList: list
+    };
+    expect(actions.setMaintainRolesUserList(list)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save maintain roles role list', () => {
+    const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }];
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_ROLE_LIST,
+      roleList: list
+    };
+    expect(actions.setMaintainRolesRoleList(list)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save user search page size', () => {
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
+      pageSize: 4
+    };
+    expect(actions.setMaintainRolesUserPageSize(4)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save user search page number', () => {
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
+      pageNumber: 6
+    };
+    expect(actions.setMaintainRolesUserPageNumber(6)).toEqual(expectedAction);
+  });
+
+  it('should create an action to save a maintain roles name filter', () => {
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_NAME_FILTER,
+      nameFilter: 'aField'
+    };
+    expect(actions.setMaintainRolesNameFilter('aField')).toEqual(expectedAction);
+  });
+
+  it('should create an action to save a maintain roles role filter', () => {
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_ROLE_FILTER,
+      roleFilter: 'aField'
+    };
+    expect(actions.setMaintainRolesRoleFilter('aField')).toEqual(expectedAction);
+  });
 });
 

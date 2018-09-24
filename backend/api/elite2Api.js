@@ -29,7 +29,8 @@ const elite2ApiFactory = (client) => {
   const userLocations = (context) => get(context, 'api/users/me/locations');
   const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
-
+  const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
+  const getRoles = (context) => get(context, 'api/access-roles');
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.
@@ -76,7 +77,9 @@ const elite2ApiFactory = (client) => {
     sentenceDetailList,
     setActiveCaseload,
     getUserAccessRoles,
-    enableNewNomis
+    enableNewNomis,
+    userSearch,
+    getRoles
   };
 };
 

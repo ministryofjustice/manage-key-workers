@@ -58,6 +58,15 @@ const keyworkerSettingsInitialState = {
   migrated: false
 };
 
+const maintainRolesInitialState = {
+  roleList: [],
+  userList: [],
+  nameFilter: '',
+  roleFilter: [],
+  pageNumber: 1,
+  pageSize: 10
+};
+
 export function app (state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_CONFIG:
@@ -269,6 +278,37 @@ export function keyworkerSettings (state = keyworkerSettingsInitialState, action
   }
 }
 
+export function maintainRoles (state = maintainRolesInitialState, action) {
+  switch (action.type) {
+    case ActionTypes.SET_USER_SEARCH_NAME_FILTER:
+      return { ...state,
+        nameFilter: action.nameFilter
+      };
+    case ActionTypes.SET_USER_SEARCH_ROLE_FILTER:
+      return { ...state,
+        roleFilter: action.roleFilter
+      };
+    case ActionTypes.SET_USER_SEARCH_RESULTS_LIST:
+      return { ...state,
+        userList: action.userList
+      };
+    case ActionTypes.SET_USER_SEARCH_ROLE_LIST:
+      return { ...state,
+        roleList: action.roleList
+      };
+    case ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_SIZE:
+      return { ...state,
+        pageSize: action.pageSize
+      };
+    case ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER:
+      return { ...state,
+        pageNumber: action.pageNumber
+      };
+    default:
+      return state;
+  }
+}
+
 function updateObject (oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
@@ -292,7 +332,8 @@ const allocationApp = combineReducers({
   offenderSearch,
   keyworkerSearch,
   allocationHistory,
-  keyworkerSettings
+  keyworkerSettings,
+  maintainRoles
 });
 
 export default allocationApp;

@@ -28,6 +28,8 @@ const enableNewNomisFactory = require('./controllers/enableNewNomis').enableNewN
 const autoAllocationAndMigrateFactory = require('./controllers/autoAllocationMigrate').autoAllocationAndMigrateFactory;
 const manualAllocationAndMigrateFactory = require('./controllers/manualAllocationMigrate').manualAllocationAndMigrateFactory;
 const keyworkerSettingsFactory = require('./controllers/keyworkerSettings').keyworkerSettingsFactory;
+const getRolesFactory = require('./controllers/getRoles').getRolesFactory;
+const userSearchFactory = require('./controllers/userSearch').userSearchFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
 const healthFactory = require('./controllers/health').healthFactory;
 
@@ -166,6 +168,8 @@ app.use('/api/enableNewNomis', enableNewNomisFactory(elite2Api).enableNewNomis);
 app.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate);
 app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate);
 app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings);
+app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch);
+app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles);
 
 // app.use('/api/config', getConfiguration);
 

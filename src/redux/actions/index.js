@@ -266,6 +266,48 @@ export const setSettingsSequenceFrequency = (sequenceFrequency) => {
   };
 };
 
+export const setMaintainRolesUserList = (userList) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_RESULTS_LIST,
+    userList
+  };
+};
+
+export const setMaintainRolesRoleList = (roleList) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_ROLE_LIST,
+    roleList
+  };
+};
+
+export const setMaintainRolesNameFilter = (nameFilter) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_NAME_FILTER,
+    nameFilter
+  };
+};
+
+export const setMaintainRolesRoleFilter = (roleFilter) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_ROLE_FILTER,
+    roleFilter
+  };
+};
+
+export const setMaintainRolesUserPageNumber = (pageNumber) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
+    pageNumber
+  };
+};
+
+export const setMaintainRolesUserPageSize = (pageSize) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
+    pageSize
+  };
+};
+
 export const setSettings = (settings) => {
   return {
     type: ActionTypes.SET_KEYWORKER_SETTINGS,
