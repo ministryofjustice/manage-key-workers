@@ -92,7 +92,7 @@ class LoginSpecification extends GebReportingSpec {
         when: "I login using valid credentials"
         keyworkerApi.stubHealthError()
         elite2api.stubHealth()
-        elite2api.stubPostError('/oauth/token', 503)
+        oauthApi.stubPostError('/auth/oauth/token', 503)
         elite2api.stubGetMyDetails(ITAG_USER)
         elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
         loginAs ITAG_USER, 'password'

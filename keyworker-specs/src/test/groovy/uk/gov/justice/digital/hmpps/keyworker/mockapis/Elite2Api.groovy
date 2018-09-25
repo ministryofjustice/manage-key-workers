@@ -210,14 +210,6 @@ class Elite2Api extends WireMockRule {
         ))
     }
 
-    void stubPostError(url, status) {
-        this.stubFor(
-                post(url)
-                        .willReturn(
-                        aResponse()
-                                .withStatus(status)))
-    }
-
     void stubHealthError() {
         this.stubFor(
                 get('/health')

@@ -59,4 +59,12 @@ class OauthApi extends WireMockRule {
                                                 "invalid authorization specification"
                         ]))))
     }
+
+    void stubPostError(url, status) {
+        this.stubFor(
+                post(url)
+                        .willReturn(
+                        aResponse()
+                                .withStatus(status)))
+    }
 }
