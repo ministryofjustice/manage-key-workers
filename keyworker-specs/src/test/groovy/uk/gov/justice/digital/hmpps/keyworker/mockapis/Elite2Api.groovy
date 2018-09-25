@@ -87,6 +87,43 @@ class Elite2Api extends WireMockRule {
                         ]))))
     }
 
+    void stubGetRoles() {
+        this.stubFor(
+                get('/api/access-roles')
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''[
+                                {
+                                    "roleCode": "LICENCE_CA",
+                                    "roleName": "Licence Case Admin",
+                                    "parentRoleCode": "LICENCE_ROLE"
+                                },
+                                {
+                                    "roleCode": "OMIC_ADMIN",
+                                    "roleName": "OMIC Admin"
+                                },
+                                {
+                                    "roleCode": "MAINTAIN_ACCESS_ROLES",
+                                    "roleName": "Maintain Roles"
+                                },
+                                {
+                                    "roleCode": "KW_MIGRATION",
+                                    "roleName": "Key worker Migration Priv"
+                                },
+                                {
+                                    "roleCode": "NOMIS_BATCHLOAD",
+                                    "roleName": "Nomis Batchloader"
+                                },
+                                {
+                                    "roleCode": "USER_ADMIN",
+                                    "roleName": "User Admin"
+                                }
+                            ]''')))
+                                }
+
+
     void stubGetMyCaseloads(List<Caseload> caseloads) {
         def json = new JsonBuilder()
         json caseloads, { caseload ->

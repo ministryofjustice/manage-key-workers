@@ -7,6 +7,7 @@ import { getHomeLink } from "../links";
 class HomePage extends Component {
   render () {
     const showEnableNewNomis = this.props.user && this.props.user.maintainAccess;
+    const showMaintainRoles = this.props.config && this.props.config.maintainRolesEnabled && this.props.user && this.props.user.maintainAccess;
     const showKeyworkerSettings = this.props.user && this.props.user.maintainAccess && this.props.user.migration;
     const showAdminSection = showEnableNewNomis || showKeyworkerSettings;
     return (
@@ -43,6 +44,10 @@ class HomePage extends Component {
               <Link id="keyworker_settings_link" title="Key worker settings" className="link" to="/admin/settings" >Manage key worker settings</Link>
               <div className="padding-right-large">Allow auto-allocation. Edit key worker capacity and session frequency.</div>
             </div>}
+            {showMaintainRoles && <div className="pure-u-md-5-12">
+              <Link id="maintain_roles_link" title="maintain access roles" className="link" to="/maintainRoles/search" >Maintain access roles</Link>
+              <div className="padding-right-large">Some text for maintain roles</div>
+            </div>}
           </div>
         </div>
       </div>);
@@ -52,6 +57,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   message: PropTypes.string,
   user: PropTypes.object.isRequired,
+  config: PropTypes.object.isRequired,
   allowAuto: PropTypes.bool
 };
 
