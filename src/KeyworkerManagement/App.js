@@ -157,6 +157,7 @@ class App extends React.Component {
       <Route exact path="/offender/results" render={() => <AssignTransferContainer onFinishAllocation={this.onFinishAllocation} displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props} />}/>
       <Route exact path="/admin/nomis/access" render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props}/>}/>
       <Route exact path="/admin/settings" render={() => <KeyworkerSettingsContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
+      <Route exact path="/maintainRoles/search" render={() => <UserSearchContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {
