@@ -93,7 +93,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../build/static')));
-app.use(express.static(path.join(__dirname, '../build')));
 
 app.get('/terms', async (req, res) => {
   res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl });
@@ -157,6 +156,8 @@ if (config.app.production === false) {
   app.use(middleware(compiler, { writeToDisk: true }));
   app.use(hrm(compiler, {}));
 }
+
+app.use(express.static(path.join(__dirname, '../build')));
 
 app.use('/api/config', getConfiguration);
 app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe);

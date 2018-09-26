@@ -173,6 +173,8 @@ class App extends React.Component {
               ReactGA.pageview(props.location.pathname);
             }
             return (<Header
+              logoText="HMPPS"
+              title="Prison-NOMIS"
               switchCaseLoad={this.switchCaseLoad}
               history={props.history}
               resetError={this.resetError}
