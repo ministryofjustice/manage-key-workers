@@ -157,6 +157,8 @@ if (config.app.production === false) {
   app.use(hrm(compiler, {}));
 }
 
+app.use(express.static(path.join(__dirname, '../build')));
+
 app.use('/api/config', getConfiguration);
 app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe);
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads);
