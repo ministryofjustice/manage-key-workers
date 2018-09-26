@@ -2,13 +2,9 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { AssignTransferContainer } from "../AssignTransferContainer";
-import jsdom from 'jsdom';
 
 jest.mock('../../Spinner/index', () => '');
 
-const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
-global.document = doc;
-global.window = doc.defaultView;
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('AssignTransferContainer', () => {

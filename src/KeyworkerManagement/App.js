@@ -13,7 +13,7 @@ import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisi
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer';
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer';
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer';
-import Header from '../Header/index';
+import { Header } from 'new-nomis-shared-components';
 import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
 import Error from "../Error/index";

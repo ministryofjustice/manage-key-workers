@@ -9,28 +9,28 @@ ShallowWrapper {
     gotoNext={[Function]}
     loaded={true}
     unallocatedList={
-        Array [
-            Object {
-              "assignedLivingUnitDesc": "L-1-1",
-              "bookingId": 1,
-              "confirmedReleaseDate": "2020-01-02",
-              "crsaClassification": "High",
-              "firstName": "Steve",
-              "lastName": "Rendell",
-              "offenderNo": "ZZ124WX",
-            },
-            Object {
-              "assignedLivingUnitDesc": "L-1-2",
-              "bookingId": 2,
-              "confirmedReleaseDate": null,
-              "crsaClassification": null,
-              "firstName": "Steve2",
-              "lastName": "Rendell2",
-              "offenderNo": "ZZ125WX",
-            },
-          ]
+      Array [
+        Object {
+          "assignedLivingUnitDesc": "L-1-1",
+          "bookingId": 1,
+          "confirmedReleaseDate": "2020-01-02",
+          "crsaClassification": "High",
+          "firstName": "Steve",
+          "lastName": "Rendell",
+          "offenderNo": "ZZ124WX",
+        },
+        Object {
+          "assignedLivingUnitDesc": "L-1-2",
+          "bookingId": 2,
+          "confirmedReleaseDate": null,
+          "crsaClassification": null,
+          "firstName": "Steve2",
+          "lastName": "Rendell2",
+          "offenderNo": "ZZ125WX",
+        },
+      ]
     }
-/>,
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -46,115 +46,115 @@ ShallowWrapper {
       "children": Array [
         <div
           className="pure-u-md-7-12 padding-bottom-40"
->
+        >
           <a
-                    href="test"
+            href="test"
           >
-                    home
+            home
           </a>
           <h1
-                    className="heading-large margin-top"
+            className="heading-large margin-top"
           >
-                    Auto-allocate key workers
+            Auto-allocate key workers
           </h1>
           <table>
-                    <thead>
-                              <tr>
-                                        <th>
-                                                  Prisoner
-                                        </th>
-                                        <th>
-                                                  Prison no.
-                                        </th>
-                                        <th>
-                                                  Location
-                                        </th>
-                                        <th>
-                                                  RD
-                                        </th>
-                                        <th>
-                                                  CSRA
-                                        </th>
-                              </tr>
-                    </thead>
-                    <tbody>
-                              <tr>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  <a
-                                                            className="link"
-                                                            href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                            target="_blank"
-                                                  >
-                                                            Rendell, Steve
-                                                  </a>
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  ZZ124WX
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  L-1-1
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  02/01/2020
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  High
-                                        </td>
-                              </tr>
-                              <tr>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  <a
-                                                            className="link"
-                                                            href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                            target="_blank"
-                                                  >
-                                                            Rendell2, Steve2
-                                                  </a>
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  ZZ125WX
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  L-1-2
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  --
-                                        </td>
-                                        <td
-                                                  className="row-gutters"
-                                        >
-                                                  --
-                                        </td>
-                              </tr>
-                    </tbody>
+            <thead>
+              <tr>
+                <th>
+                  Prisoner
+                </th>
+                <th>
+                  Prison no.
+                </th>
+                <th>
+                  Location
+                </th>
+                <th>
+                  RD
+                </th>
+                <th>
+                  CSRA
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  className="row-gutters"
+                >
+                  <a
+                    className="link"
+                    href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                    target="_blank"
+                  >
+                    Rendell, Steve
+                  </a>
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  ZZ124WX
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  L-1-1
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  02/01/2020
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  High
+                </td>
+              </tr>
+              <tr>
+                <td
+                  className="row-gutters"
+                >
+                  <a
+                    className="link"
+                    href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                    target="_blank"
+                  >
+                    Rendell2, Steve2
+                  </a>
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  ZZ125WX
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  L-1-2
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  --
+                </td>
+                <td
+                  className="row-gutters"
+                >
+                  --
+                </td>
+              </tr>
+            </tbody>
           </table>
-</div>,
+        </div>,
         <div>
           <button
-                    className="button"
-                    onClick={[Function]}
+            className="button"
+            onClick={[Function]}
           >
-                    Allocate
+            Allocate
           </button>
-</div>,
+        </div>,
       ],
     },
     "ref": null,
@@ -167,103 +167,103 @@ ShallowWrapper {
           "children": Array [
             <a
               href="test"
->
+            >
               home
-</a>,
+            </a>,
             <h1
               className="heading-large margin-top"
->
+            >
               Auto-allocate key workers
-</h1>,
+            </h1>,
             <table>
               <thead>
-                            <tr>
-                                          <th>
-                                                        Prisoner
-                                          </th>
-                                          <th>
-                                                        Prison no.
-                                          </th>
-                                          <th>
-                                                        Location
-                                          </th>
-                                          <th>
-                                                        RD
-                                          </th>
-                                          <th>
-                                                        CSRA
-                                          </th>
-                            </tr>
+                <tr>
+                  <th>
+                    Prisoner
+                  </th>
+                  <th>
+                    Prison no.
+                  </th>
+                  <th>
+                    Location
+                  </th>
+                  <th>
+                    RD
+                  </th>
+                  <th>
+                    CSRA
+                  </th>
+                </tr>
               </thead>
               <tbody>
-                            <tr>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        <a
-                                                                      className="link"
-                                                                      href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                      target="_blank"
-                                                        >
-                                                                      Rendell, Steve
-                                                        </a>
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        ZZ124WX
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        L-1-1
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        02/01/2020
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        High
-                                          </td>
-                            </tr>
-                            <tr>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        <a
-                                                                      className="link"
-                                                                      href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                      target="_blank"
-                                                        >
-                                                                      Rendell2, Steve2
-                                                        </a>
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        ZZ125WX
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        L-1-2
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        --
-                                          </td>
-                                          <td
-                                                        className="row-gutters"
-                                          >
-                                                        --
-                                          </td>
-                            </tr>
+                <tr>
+                  <td
+                    className="row-gutters"
+                  >
+                    <a
+                      className="link"
+                      href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                      target="_blank"
+                    >
+                      Rendell, Steve
+                    </a>
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    ZZ124WX
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    L-1-1
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    02/01/2020
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    High
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    className="row-gutters"
+                  >
+                    <a
+                      className="link"
+                      href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                      target="_blank"
+                    >
+                      Rendell2, Steve2
+                    </a>
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    ZZ125WX
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    L-1-2
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    --
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    --
+                  </td>
+                </tr>
               </tbody>
-</table>,
+            </table>,
             false,
           ],
           "className": "pure-u-md-7-12 padding-bottom-40",
@@ -302,91 +302,91 @@ ShallowWrapper {
               "children": Array [
                 <thead>
                   <tr>
-                                    <th>
-                                                      Prisoner
-                                    </th>
-                                    <th>
-                                                      Prison no.
-                                    </th>
-                                    <th>
-                                                      Location
-                                    </th>
-                                    <th>
-                                                      RD
-                                    </th>
-                                    <th>
-                                                      CSRA
-                                    </th>
+                    <th>
+                      Prisoner
+                    </th>
+                    <th>
+                      Prison no.
+                    </th>
+                    <th>
+                      Location
+                    </th>
+                    <th>
+                      RD
+                    </th>
+                    <th>
+                      CSRA
+                    </th>
                   </tr>
-</thead>,
+                </thead>,
                 <tbody>
                   <tr>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      <a
-                                                                        className="link"
-                                                                        href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                        target="_blank"
-                                                      >
-                                                                        Rendell, Steve
-                                                      </a>
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      ZZ124WX
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      L-1-1
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      02/01/2020
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      High
-                                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      <a
+                        className="link"
+                        href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                        target="_blank"
+                      >
+                        Rendell, Steve
+                      </a>
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      ZZ124WX
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      L-1-1
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      02/01/2020
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      High
+                    </td>
                   </tr>
                   <tr>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      <a
-                                                                        className="link"
-                                                                        href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                        target="_blank"
-                                                      >
-                                                                        Rendell2, Steve2
-                                                      </a>
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      ZZ125WX
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      L-1-2
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      --
-                                    </td>
-                                    <td
-                                                      className="row-gutters"
-                                    >
-                                                      --
-                                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      <a
+                        className="link"
+                        href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                        target="_blank"
+                      >
+                        Rendell2, Steve2
+                      </a>
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      ZZ125WX
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      L-1-2
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      --
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      --
+                    </td>
                   </tr>
-</tbody>,
+                </tbody>,
               ],
             },
             "ref": null,
@@ -398,21 +398,21 @@ ShallowWrapper {
                 "props": Object {
                   "children": <tr>
                     <th>
-                                        Prisoner
+                      Prisoner
                     </th>
                     <th>
-                                        Prison no.
+                      Prison no.
                     </th>
                     <th>
-                                        Location
+                      Location
                     </th>
                     <th>
-                                        RD
+                      RD
                     </th>
                     <th>
-                                        CSRA
+                      CSRA
                     </th>
-</tr>,
+                  </tr>,
                 },
                 "ref": null,
                 "rendered": Object {
@@ -423,19 +423,19 @@ ShallowWrapper {
                     "children": Array [
                       <th>
                         Prisoner
-</th>,
+                      </th>,
                       <th>
                         Prison no.
-</th>,
+                      </th>,
                       <th>
                         Location
-</th>,
+                      </th>,
                       <th>
                         RD
-</th>,
+                      </th>,
                       <th>
                         CSRA
-</th>,
+                      </th>,
                     ],
                   },
                   "ref": null,
@@ -508,70 +508,70 @@ ShallowWrapper {
                   "children": Array [
                     <tr>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            <a
-                                                                  className="link"
-                                                                  href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                  target="_blank"
-                                            >
-                                                                  Rendell, Steve
-                                            </a>
+                        <a
+                          className="link"
+                          href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                          target="_blank"
+                        >
+                          Rendell, Steve
+                        </a>
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            ZZ124WX
+                        ZZ124WX
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            L-1-1
+                        L-1-1
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            02/01/2020
+                        02/01/2020
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            High
+                        High
                       </td>
-</tr>,
+                    </tr>,
                     <tr>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            <a
-                                                                  className="link"
-                                                                  href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                  target="_blank"
-                                            >
-                                                                  Rendell2, Steve2
-                                            </a>
+                        <a
+                          className="link"
+                          href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                          target="_blank"
+                        >
+                          Rendell2, Steve2
+                        </a>
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            ZZ125WX
+                        ZZ125WX
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            L-1-2
+                        L-1-2
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            --
+                        --
                       </td>
                       <td
-                                            className="row-gutters"
+                        className="row-gutters"
                       >
-                                            --
+                        --
                       </td>
-</tr>,
+                    </tr>,
                   ],
                 },
                 "ref": null,
@@ -584,35 +584,35 @@ ShallowWrapper {
                       "children": Array [
                         <td
                           className="row-gutters"
->
+                        >
                           <a
-                                                    className="link"
-                                                    href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                    target="_blank"
+                            className="link"
+                            href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                            target="_blank"
                           >
-                                                    Rendell, Steve
+                            Rendell, Steve
                           </a>
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           ZZ124WX
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           L-1-1
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           02/01/2020
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           High
-</td>,
+                        </td>,
                       ],
                     },
                     "ref": null,
@@ -626,9 +626,9 @@ ShallowWrapper {
                             className="link"
                             href="http://my.testUrl/offenders/ZZ124WX/quick-look"
                             target="_blank"
->
+                          >
                             Rendell, Steve
-</a>,
+                          </a>,
                           "className": "row-gutters",
                         },
                         "ref": null,
@@ -707,35 +707,35 @@ ShallowWrapper {
                       "children": Array [
                         <td
                           className="row-gutters"
->
+                        >
                           <a
-                                                    className="link"
-                                                    href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                    target="_blank"
+                            className="link"
+                            href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                            target="_blank"
                           >
-                                                    Rendell2, Steve2
+                            Rendell2, Steve2
                           </a>
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           ZZ125WX
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           L-1-2
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           --
-</td>,
+                        </td>,
                         <td
                           className="row-gutters"
->
+                        >
                           --
-</td>,
+                        </td>,
                       ],
                     },
                     "ref": null,
@@ -749,9 +749,9 @@ ShallowWrapper {
                             className="link"
                             href="http://my.testUrl/offenders/ZZ125WX/quick-look"
                             target="_blank"
->
+                          >
                             Rendell2, Steve2
-</a>,
+                          </a>,
                           "className": "row-gutters",
                         },
                         "ref": null,
@@ -840,9 +840,9 @@ ShallowWrapper {
           "children": <button
             className="button"
             onClick={[Function]}
->
+          >
             Allocate
-</button>,
+          </button>,
         },
         "ref": null,
         "rendered": Object {
@@ -872,115 +872,115 @@ ShallowWrapper {
         "children": Array [
           <div
             className="pure-u-md-7-12 padding-bottom-40"
->
+          >
             <a
-                        href="test"
+              href="test"
             >
-                        home
+              home
             </a>
             <h1
-                        className="heading-large margin-top"
+              className="heading-large margin-top"
             >
-                        Auto-allocate key workers
+              Auto-allocate key workers
             </h1>
             <table>
-                        <thead>
-                                    <tr>
-                                                <th>
-                                                            Prisoner
-                                                </th>
-                                                <th>
-                                                            Prison no.
-                                                </th>
-                                                <th>
-                                                            Location
-                                                </th>
-                                                <th>
-                                                            RD
-                                                </th>
-                                                <th>
-                                                            CSRA
-                                                </th>
-                                    </tr>
-                        </thead>
-                        <tbody>
-                                    <tr>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            <a
-                                                                        className="link"
-                                                                        href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                        target="_blank"
-                                                            >
-                                                                        Rendell, Steve
-                                                            </a>
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            ZZ124WX
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            L-1-1
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            02/01/2020
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            High
-                                                </td>
-                                    </tr>
-                                    <tr>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            <a
-                                                                        className="link"
-                                                                        href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                        target="_blank"
-                                                            >
-                                                                        Rendell2, Steve2
-                                                            </a>
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            ZZ125WX
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            L-1-2
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            --
-                                                </td>
-                                                <td
-                                                            className="row-gutters"
-                                                >
-                                                            --
-                                                </td>
-                                    </tr>
-                        </tbody>
+              <thead>
+                <tr>
+                  <th>
+                    Prisoner
+                  </th>
+                  <th>
+                    Prison no.
+                  </th>
+                  <th>
+                    Location
+                  </th>
+                  <th>
+                    RD
+                  </th>
+                  <th>
+                    CSRA
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    className="row-gutters"
+                  >
+                    <a
+                      className="link"
+                      href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                      target="_blank"
+                    >
+                      Rendell, Steve
+                    </a>
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    ZZ124WX
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    L-1-1
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    02/01/2020
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    High
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    className="row-gutters"
+                  >
+                    <a
+                      className="link"
+                      href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                      target="_blank"
+                    >
+                      Rendell2, Steve2
+                    </a>
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    ZZ125WX
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    L-1-2
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    --
+                  </td>
+                  <td
+                    className="row-gutters"
+                  >
+                    --
+                  </td>
+                </tr>
+              </tbody>
             </table>
-</div>,
+          </div>,
           <div>
             <button
-                        className="button"
-                        onClick={[Function]}
+              className="button"
+              onClick={[Function]}
             >
-                        Allocate
+              Allocate
             </button>
-</div>,
+          </div>,
         ],
       },
       "ref": null,
@@ -993,103 +993,103 @@ ShallowWrapper {
             "children": Array [
               <a
                 href="test"
->
+              >
                 home
-</a>,
+              </a>,
               <h1
                 className="heading-large margin-top"
->
+              >
                 Auto-allocate key workers
-</h1>,
+              </h1>,
               <table>
                 <thead>
-                                <tr>
-                                                <th>
-                                                                Prisoner
-                                                </th>
-                                                <th>
-                                                                Prison no.
-                                                </th>
-                                                <th>
-                                                                Location
-                                                </th>
-                                                <th>
-                                                                RD
-                                                </th>
-                                                <th>
-                                                                CSRA
-                                                </th>
-                                </tr>
+                  <tr>
+                    <th>
+                      Prisoner
+                    </th>
+                    <th>
+                      Prison no.
+                    </th>
+                    <th>
+                      Location
+                    </th>
+                    <th>
+                      RD
+                    </th>
+                    <th>
+                      CSRA
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
-                                <tr>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                <a
-                                                                                className="link"
-                                                                                href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                                target="_blank"
-                                                                >
-                                                                                Rendell, Steve
-                                                                </a>
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                ZZ124WX
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                L-1-1
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                02/01/2020
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                High
-                                                </td>
-                                </tr>
-                                <tr>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                <a
-                                                                                className="link"
-                                                                                href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                                target="_blank"
-                                                                >
-                                                                                Rendell2, Steve2
-                                                                </a>
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                ZZ125WX
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                L-1-2
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                --
-                                                </td>
-                                                <td
-                                                                className="row-gutters"
-                                                >
-                                                                --
-                                                </td>
-                                </tr>
+                  <tr>
+                    <td
+                      className="row-gutters"
+                    >
+                      <a
+                        className="link"
+                        href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                        target="_blank"
+                      >
+                        Rendell, Steve
+                      </a>
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      ZZ124WX
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      L-1-1
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      02/01/2020
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      High
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      className="row-gutters"
+                    >
+                      <a
+                        className="link"
+                        href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                        target="_blank"
+                      >
+                        Rendell2, Steve2
+                      </a>
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      ZZ125WX
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      L-1-2
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      --
+                    </td>
+                    <td
+                      className="row-gutters"
+                    >
+                      --
+                    </td>
+                  </tr>
                 </tbody>
-</table>,
+              </table>,
               false,
             ],
             "className": "pure-u-md-7-12 padding-bottom-40",
@@ -1128,91 +1128,91 @@ ShallowWrapper {
                 "children": Array [
                   <thead>
                     <tr>
-                                        <th>
-                                                            Prisoner
-                                        </th>
-                                        <th>
-                                                            Prison no.
-                                        </th>
-                                        <th>
-                                                            Location
-                                        </th>
-                                        <th>
-                                                            RD
-                                        </th>
-                                        <th>
-                                                            CSRA
-                                        </th>
+                      <th>
+                        Prisoner
+                      </th>
+                      <th>
+                        Prison no.
+                      </th>
+                      <th>
+                        Location
+                      </th>
+                      <th>
+                        RD
+                      </th>
+                      <th>
+                        CSRA
+                      </th>
                     </tr>
-</thead>,
+                  </thead>,
                   <tbody>
                     <tr>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            <a
-                                                                                className="link"
-                                                                                href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                                target="_blank"
-                                                            >
-                                                                                Rendell, Steve
-                                                            </a>
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            ZZ124WX
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            L-1-1
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            02/01/2020
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            High
-                                        </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        <a
+                          className="link"
+                          href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                          target="_blank"
+                        >
+                          Rendell, Steve
+                        </a>
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        ZZ124WX
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        L-1-1
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        02/01/2020
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        High
+                      </td>
                     </tr>
                     <tr>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            <a
-                                                                                className="link"
-                                                                                href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                                target="_blank"
-                                                            >
-                                                                                Rendell2, Steve2
-                                                            </a>
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            ZZ125WX
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            L-1-2
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            --
-                                        </td>
-                                        <td
-                                                            className="row-gutters"
-                                        >
-                                                            --
-                                        </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        <a
+                          className="link"
+                          href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                          target="_blank"
+                        >
+                          Rendell2, Steve2
+                        </a>
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        ZZ125WX
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        L-1-2
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        --
+                      </td>
+                      <td
+                        className="row-gutters"
+                      >
+                        --
+                      </td>
                     </tr>
-</tbody>,
+                  </tbody>,
                 ],
               },
               "ref": null,
@@ -1224,21 +1224,21 @@ ShallowWrapper {
                   "props": Object {
                     "children": <tr>
                       <th>
-                                            Prisoner
+                        Prisoner
                       </th>
                       <th>
-                                            Prison no.
+                        Prison no.
                       </th>
                       <th>
-                                            Location
+                        Location
                       </th>
                       <th>
-                                            RD
+                        RD
                       </th>
                       <th>
-                                            CSRA
+                        CSRA
                       </th>
-</tr>,
+                    </tr>,
                   },
                   "ref": null,
                   "rendered": Object {
@@ -1249,19 +1249,19 @@ ShallowWrapper {
                       "children": Array [
                         <th>
                           Prisoner
-</th>,
+                        </th>,
                         <th>
                           Prison no.
-</th>,
+                        </th>,
                         <th>
                           Location
-</th>,
+                        </th>,
                         <th>
                           RD
-</th>,
+                        </th>,
                         <th>
                           CSRA
-</th>,
+                        </th>,
                       ],
                     },
                     "ref": null,
@@ -1334,70 +1334,70 @@ ShallowWrapper {
                     "children": Array [
                       <tr>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                <a
-                                                                        className="link"
-                                                                        href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                                        target="_blank"
-                                                >
-                                                                        Rendell, Steve
-                                                </a>
+                          <a
+                            className="link"
+                            href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                            target="_blank"
+                          >
+                            Rendell, Steve
+                          </a>
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                ZZ124WX
+                          ZZ124WX
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                L-1-1
+                          L-1-1
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                02/01/2020
+                          02/01/2020
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                High
+                          High
                         </td>
-</tr>,
+                      </tr>,
                       <tr>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                <a
-                                                                        className="link"
-                                                                        href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                                        target="_blank"
-                                                >
-                                                                        Rendell2, Steve2
-                                                </a>
+                          <a
+                            className="link"
+                            href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                            target="_blank"
+                          >
+                            Rendell2, Steve2
+                          </a>
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                ZZ125WX
+                          ZZ125WX
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                L-1-2
+                          L-1-2
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                --
+                          --
                         </td>
                         <td
-                                                className="row-gutters"
+                          className="row-gutters"
                         >
-                                                --
+                          --
                         </td>
-</tr>,
+                      </tr>,
                     ],
                   },
                   "ref": null,
@@ -1410,35 +1410,35 @@ ShallowWrapper {
                         "children": Array [
                           <td
                             className="row-gutters"
->
+                          >
                             <a
-                                                        className="link"
-                                                        href="http://my.testUrl/offenders/ZZ124WX/quick-look"
-                                                        target="_blank"
+                              className="link"
+                              href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                              target="_blank"
                             >
-                                                        Rendell, Steve
+                              Rendell, Steve
                             </a>
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             ZZ124WX
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             L-1-1
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             02/01/2020
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             High
-</td>,
+                          </td>,
                         ],
                       },
                       "ref": null,
@@ -1452,9 +1452,9 @@ ShallowWrapper {
                               className="link"
                               href="http://my.testUrl/offenders/ZZ124WX/quick-look"
                               target="_blank"
->
+                            >
                               Rendell, Steve
-</a>,
+                            </a>,
                             "className": "row-gutters",
                           },
                           "ref": null,
@@ -1533,35 +1533,35 @@ ShallowWrapper {
                         "children": Array [
                           <td
                             className="row-gutters"
->
+                          >
                             <a
-                                                        className="link"
-                                                        href="http://my.testUrl/offenders/ZZ125WX/quick-look"
-                                                        target="_blank"
+                              className="link"
+                              href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                              target="_blank"
                             >
-                                                        Rendell2, Steve2
+                              Rendell2, Steve2
                             </a>
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             ZZ125WX
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             L-1-2
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             --
-</td>,
+                          </td>,
                           <td
                             className="row-gutters"
->
+                          >
                             --
-</td>,
+                          </td>,
                         ],
                       },
                       "ref": null,
@@ -1575,9 +1575,9 @@ ShallowWrapper {
                               className="link"
                               href="http://my.testUrl/offenders/ZZ125WX/quick-look"
                               target="_blank"
->
+                            >
                               Rendell2, Steve2
-</a>,
+                            </a>,
                             "className": "row-gutters",
                           },
                           "ref": null,
@@ -1666,9 +1666,9 @@ ShallowWrapper {
             "children": <button
               className="button"
               onClick={[Function]}
->
+            >
               Allocate
-</button>,
+            </button>,
           },
           "ref": null,
           "rendered": Object {
