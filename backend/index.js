@@ -43,6 +43,10 @@ const eliteApiFactory = require('./api/elite2Api').elite2ApiFactory;
 const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
 const oauthApiFactory = require('./api/oauthApi');
 
+const webpack = require('webpack');
+const middleware = require('webpack-dev-middleware');
+const hrm = require('webpack-hot-middleware');
+
 const log = require('./log');
 const config = require('./config');
 
@@ -86,8 +90,7 @@ app.use(helmet.noCache());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../public'), { index: 'dummy-file-which-doesnt-exist' })); // TODO: setting the index to false doesn't seem to work
-app.use(express.static(path.join(__dirname, '../build'), { index: 'dummy-file-which-doesnt-exist' }));
+app.use(express.static(path.join(__dirname, '../build/static')));
 
 app.get('/terms', async (req, res) => {
   res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl });
@@ -146,8 +149,13 @@ sessionManagementRoutes.configureRoutes({
   homeLink: config.app.notmEndpointUrl
 });
 
-app.use('/api/config', getConfiguration);
+if (config.app.production === false) {
+  const compiler = webpack(require('../webpack.config.js'));
+  app.use(middleware(compiler, { writeToDisk: true }));
+  app.use(hrm(compiler, {}));
+}
 
+app.use('/api/config', getConfiguration);
 app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe);
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads);
 app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload);
@@ -166,8 +174,6 @@ app.use('/api/enableNewNomis', enableNewNomisFactory(elite2Api).enableNewNomis);
 app.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate);
 app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate);
 app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings);
-
-// app.use('/api/config', getConfiguration);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

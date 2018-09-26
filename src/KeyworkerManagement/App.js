@@ -12,7 +12,7 @@ import UnallocatedContainer from '../AutoAllocation/containers/Unallocated';
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional';
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer';
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer';
-import Header from '../Header/index';
+import { Header } from 'new-nomis-shared-components';
 import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
 import Error from "../Error/index";
@@ -171,9 +171,11 @@ class App extends React.Component {
               ReactGA.pageview(props.location.pathname);
             }
             return (<Header
+              logoText={'HMPPS'}
+              title={'Prison-NOMIS'}
+              homeLink={'/'}
               switchCaseLoad={this.switchCaseLoad}
               history={props.history}
-              resetError={this.resetError}
               {...this.props}
             />);
           }}
