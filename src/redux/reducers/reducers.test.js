@@ -1,4 +1,4 @@
-import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings } from './index';
+import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings, maintainRoles } from './index';
 import { setMenuOpen } from "../actions";
 import * as types from '../actions/actionTypes';
 import moment from 'moment';
@@ -80,6 +80,15 @@ const keyworkerSettingsInitialState = {
   sequenceFrequency: 1,
   supported: false,
   migrated: false
+};
+
+const maintainRolesInitialState = {
+  roleList: [],
+  userList: [],
+  nameFilter: '',
+  roleFilter: [],
+  pageNumber: 1,
+  pageSize: 10
 };
 
 describe('app (global) reducer', () => {
@@ -810,6 +819,94 @@ describe('key worker settings reducer', () => {
       })
     ).toEqual(
       updatedKeyworkerSettings
+    );
+  });
+});
+
+describe('Maintain roles reducer', () => {
+  it('should return the initial state', () => {
+    expect(maintainRoles(undefined, {})).toEqual(
+      maintainRolesInitialState
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_ROLE_FILTER', () => {
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.roleFilter = 'newRole';
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_ROLE_FILTER,
+        roleFilter: 'newRole'
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_NAME_FILTER', () => {
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.nameFilter = 'name';
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_NAME_FILTER,
+        nameFilter: 'name'
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_PAGINATION_PAGE_SIZE', () => {
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.pageSize = 5;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
+        pageSize: 5
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_PAGINATION_PAGE_NUMBER', () => {
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.pageNumber = 5;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
+        pageNumber: 5
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_ROLE_LIST', () => {
+    const list = [{ name: 'Jack', keyworker: 'Jill' }];
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.roleList = list;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_ROLE_LIST,
+        roleList: list
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_USER_LIST', () => {
+    const list = [{ name: 'Jack', keyworker: 'Jill' }];
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.userList = list;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_RESULTS_LIST,
+        userList: list
+      })
+    ).toEqual(
+      updatedMaintainRoles
     );
   });
 });

@@ -3,6 +3,7 @@ package uk.gov.justice.digital.hmpps.keyworker.model
 import geb.Browser
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
@@ -17,15 +18,17 @@ class TestFixture {
 
     Browser browser
     Elite2Api elite2Api
+    OauthApi oauthApi
     KeyworkerApi keyworkerApi
 
     UserAccount currentUser
     List<Location> locations
 
-    TestFixture(Browser browser, Elite2Api elite2Api, KeyworkerApi keyworkerApi) {
+    TestFixture(Browser browser, Elite2Api elite2Api, KeyworkerApi keyworkerApi, OauthApi oauthApi) {
         this.browser = browser
         this.elite2Api = elite2Api
         this.keyworkerApi = keyworkerApi
+        this.oauthApi = oauthApi
     }
 
     def loginAs(UserAccount user) {
@@ -37,7 +40,7 @@ class TestFixture {
         keyworkerApi.stubHealth()
         elite2Api.stubHealth()
         browser.to LoginPage
-        elite2Api.stubValidOAuthTokenRequest currentUser
+        oauthApi.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
@@ -53,7 +56,7 @@ class TestFixture {
         keyworkerApi.stubHealth()
         elite2Api.stubHealth()
         browser.to LoginPage
-        elite2Api.stubValidOAuthTokenRequest currentUser
+        oauthApi.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 

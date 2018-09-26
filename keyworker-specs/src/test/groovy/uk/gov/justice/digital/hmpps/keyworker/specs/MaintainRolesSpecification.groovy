@@ -7,11 +7,12 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerSettingsPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
-class EnableNewNomisSpecification extends GebReportingSpec {
+class MaintainRolesSpecification extends GebReportingSpec {
 
     @Rule
     OauthApi oauthApi = new OauthApi()
@@ -24,22 +25,26 @@ class EnableNewNomisSpecification extends GebReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
 
-    def "should allow current prison's new nomis access to be updated"() {
+    def "should allow an unsupported prison's default settings to be displayed"() {
+        finish
+    }
+
+    def "should show the user search screen"() {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
-        def roles = [MaintainAccessRolesRole]
+        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
+        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
         elite2api.stubGetStaffAccessRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
-        given: "I have navigated to the enable new nomis page"
+        given: "I have navigated to the Maintain roles - User search page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        enableNewNomisLink.click()
 
-        when: "I select the give access button"
-        elite2api.stubEnableNewNomisResponse(AgencyLocation.LEI)
-        giveAccessButton.click()
+        when: "i click the maintain roles link"
+        elite2api.stubGetRoles()
+        maintainRolesLink.click()
 
-        then: "I am returned to the home page"
-        at KeyworkerManagementPage
-        messageBar.isDisplayed()
+        then: "the user search page is displayed"
+        at UserSearchPage
+        searchButton.text() == 'Search'
     }
 }

@@ -5,6 +5,7 @@ import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
@@ -16,12 +17,15 @@ import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.NOT_KNOWN
 class LoginSpecification extends GebReportingSpec {
 
     @Rule
+    OauthApi oauthApi = new OauthApi()
+
+    @Rule
     Elite2Api elite2api = new Elite2Api()
 
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi)
+    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
 
     def "The login page is present"() {
         given:
@@ -55,7 +59,7 @@ class LoginSpecification extends GebReportingSpec {
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
         to LoginPage
 
-        elite2api.stubValidOAuthTokenRequest(ITAG_USER)
+        oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
         elite2api.stubGetMyDetails(ITAG_USER)
         elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
@@ -88,7 +92,7 @@ class LoginSpecification extends GebReportingSpec {
         when: "I login using valid credentials"
         keyworkerApi.stubHealthError()
         elite2api.stubHealth()
-        elite2api.stubPostError('/oauth/token', 503)
+        oauthApi.stubPostError('/auth/oauth/token', 503)
         elite2api.stubGetMyDetails(ITAG_USER)
         elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
         loginAs ITAG_USER, 'password'
@@ -108,7 +112,7 @@ class LoginSpecification extends GebReportingSpec {
         to LoginPage
 
         and: 'The OAuth server responds with a long delay'
-        elite2api.stubValidOAuthTokenRequest(ITAG_USER, true)
+        oauthApi.stubValidOAuthTokenRequest(ITAG_USER, true)
         elite2api.stubGetMyDetails(ITAG_USER)
         elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
@@ -124,7 +128,7 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
-        elite2api.stubInvalidOAuthTokenRequest(NOT_KNOWN)
+        oauthApi.stubInvalidOAuthTokenRequest(NOT_KNOWN)
         to LoginPage
 
         when: 'I login using an unknown username'
@@ -141,7 +145,7 @@ class LoginSpecification extends GebReportingSpec {
         given: 'I am on the Login page'
         keyworkerApi.stubHealth()
         elite2api.stubHealth()
-        elite2api.stubInvalidOAuthTokenRequest(ITAG_USER, true)
+        oauthApi.stubInvalidOAuthTokenRequest(ITAG_USER, true)
         to LoginPage
 
         when: 'I login using an unknown username'

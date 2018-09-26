@@ -4,6 +4,7 @@ import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.*
@@ -13,12 +14,15 @@ import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 class KeyworkerProfileSpecification extends GebReportingSpec {
 
     @Rule
+    OauthApi oauthApi = new OauthApi()
+
+    @Rule
     Elite2Api elite2api = new Elite2Api()
 
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi)
+    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
 
     def "key worker profile is displayed correctly"() {
         given: "I am at the key worker profile page"
