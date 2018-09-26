@@ -93,6 +93,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../build/static')));
+app.use(express.static(path.join(__dirname, '../build')));
 
 app.get('/terms', async (req, res) => {
   res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl });
