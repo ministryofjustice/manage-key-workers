@@ -1,9 +1,12 @@
+const contextProperties = require('../contextProperties');
+
 const encodeOffenderNumbers = (offenderNumbers) => offenderNumbers.map(offenderNo => `offenderNo=${offenderNo}`).join('&');
 
 const encodeQueryString = input => encodeURIComponent(input);
 
 const elite2ApiFactory = (client) => {
   const processResponse = (context) => (response) => {
+    contextProperties.setResponsePagination(context, response.headers);
     return response.data;
   };
 
@@ -29,7 +32,7 @@ const elite2ApiFactory = (client) => {
   const userLocations = (context) => get(context, 'api/users/me/locations');
   const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
-  const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
+  const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
   const getRoles = (context) => get(context, 'api/access-roles');
 
   /**

@@ -308,6 +308,13 @@ export const setMaintainRolesUserPageSize = (pageSize) => {
   };
 };
 
+export const setMaintainRolesUserTotalRecords = (totalRecords) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
+    totalRecords
+  };
+};
+
 export const setSettings = (settings) => {
   return {
     type: ActionTypes.SET_KEYWORKER_SETTINGS,

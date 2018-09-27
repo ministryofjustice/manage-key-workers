@@ -12,17 +12,16 @@ class UserSearch extends Component {
     const roleSelect = (<select id="role-select" name="role-select" className="form-control"
       value={this.props.roleFilter}
       onChange={this.props.handleRoleFilterChange}>
-      {/* When this is used for a filter we need an 'all' option*/}
-      {this.props.roleFilter && <option key="" value="">All</option>}
+      <option key="role_option_all" value="">All</option>}
       {roleListOptions}
     </select>);
 
 
     return (
-      <div>
+      <div className="padding-bottom-large">
         {this.props.displayBack()}
         <div className="pure-g">
-          <div className="pure-u-md-12-12 ">
+          <div className="pure-u-md-11-12 ">
             <h1 className="heading-large margin-top" id="page-title">User access management</h1>
             <div>
               <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">

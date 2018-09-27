@@ -19,6 +19,7 @@ public class UserSearchPage extends Page {
         roleSelect { $('#role-select')}
         nameFilter { $('#name-Filter')}
         messageBar(required: false) { $('div #messageBar')}
+        rows (required: false) { $('table tbody tr') }
     }
 
 }

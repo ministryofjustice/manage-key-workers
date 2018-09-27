@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const requestForwarding = require('./request-forwarding');
+
 // Do appinsights first as it does some magic instrumentation work, i.e. it affects other 'require's
 // In particular, applicationinsights automatically collects bunyan logs
 require('./azure-appinsights');
@@ -159,6 +161,9 @@ if (config.app.production === false) {
 
 app.use(express.static(path.join(__dirname, '../build')));
 
+// Extract pagination header information from requests and set on the 'context'
+app.use('/api', requestForwarding.extractRequestPaginationMiddleware);
+
 app.use('/api/config', getConfiguration);
 app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe);
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads);
@@ -180,6 +185,11 @@ app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworke
 app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings);
 app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch);
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles);
+
+// Forward requests to the eliteApi get/post functions.
+//app.use('/api', requestForwarding.forwardingHandlerFactory(elite2Api));
+
+// app.use('/api/config', getConfiguration);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

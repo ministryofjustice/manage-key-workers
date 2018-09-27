@@ -86,9 +86,10 @@ const maintainRolesInitialState = {
   roleList: [],
   userList: [],
   nameFilter: '',
-  roleFilter: [],
-  pageNumber: 1,
-  pageSize: 10
+  roleFilter: '',
+  pageNumber: 0,
+  pageSize: 10,
+  totalRecords: 0
 };
 
 describe('app (global) reducer', () => {
@@ -876,6 +877,19 @@ describe('Maintain roles reducer', () => {
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
         pageNumber: 5
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS', () => {
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.totalRecords = 5;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
+        totalRecords: 5
       })
     ).toEqual(
       updatedMaintainRoles

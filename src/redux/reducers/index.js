@@ -62,9 +62,10 @@ const maintainRolesInitialState = {
   roleList: [],
   userList: [],
   nameFilter: '',
-  roleFilter: [],
-  pageNumber: 1,
-  pageSize: 10
+  roleFilter: '',
+  pageNumber: 0,
+  pageSize: 10,
+  totalRecords: 0
 };
 
 export function app (state = appInitialState, action) {
@@ -303,6 +304,10 @@ export function maintainRoles (state = maintainRolesInitialState, action) {
     case ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER:
       return { ...state,
         pageNumber: action.pageNumber
+      };
+    case ActionTypes.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS:
+      return { ...state,
+        totalRecords: action.totalRecords
       };
     default:
       return state;

@@ -10,6 +10,7 @@ const userSearchFactory = (eliteApi) => {
         nameFilter,
         roleFilter: roleFilter ? roleFilter : ''
       });
+    res.set(res.locals.responseHeaders);
     res.json(response);
   });
 

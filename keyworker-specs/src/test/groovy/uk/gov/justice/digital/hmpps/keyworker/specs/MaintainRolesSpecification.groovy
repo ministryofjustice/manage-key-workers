@@ -47,4 +47,26 @@ class MaintainRolesSpecification extends GebReportingSpec {
         at UserSearchPage
         searchButton.text() == 'Search'
     }
+
+    def "should collection of users after search"() {
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
+        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Maintain roles - User search page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        maintainRolesLink.click()
+
+        when: "i perform a search"
+        elite2api.stubUserSearch()
+
+
+        then: "the user search results page is displayed"
+        at UserSearchPage
+        rows.size() == 6
+        searchButton.text() == 'Search'
+    }
 }

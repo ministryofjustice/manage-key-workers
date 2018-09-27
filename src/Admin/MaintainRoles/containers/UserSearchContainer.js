@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setMaintainRolesNameFilter, setMaintainRolesRoleList, setMaintainRolesRoleFilter, resetError, setError } from '../../../redux/actions/index';
+import { setMaintainRolesNameFilter, setMaintainRolesRoleList, setMaintainRolesRoleFilter, setMaintainRolesUserPageNumber, resetError, setError } from '../../../redux/actions/index';
 import { connect } from 'react-redux';
 import Error from '../../../Error';
 
@@ -14,6 +14,9 @@ class UserSearchContainer extends Component {
     this.handleNameFilterChange = this.handleNameFilterChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     props.resetErrorDispatch();
+    props.nameFilterDispatch('');
+    props.roleFilterDispatch('');
+    props.pageNumberDispatch(0);
   }
 
   async componentDidMount () {
@@ -79,6 +82,7 @@ const mapDispatchToProps = dispatch => {
     nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
     roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
     roleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
+    pageNumberDispatch: list => dispatch(setMaintainRolesUserPageNumber(list)),
     resetErrorDispatch: () => dispatch(resetError()),
     setErrorDispatch: () => dispatch(setError())
   };

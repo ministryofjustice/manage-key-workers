@@ -26,9 +26,48 @@ const getRefreshToken = (context) => {
   return context.refreshToken;
 };
 
+const normalizeHeaderNames = (srcHeaders) =>
+  Object.keys(srcHeaders).reduce((previous, headerName) => ({
+    ...previous,
+    [headerName.toLowerCase()]: srcHeaders[headerName]
+  }), {});
+
+const copyNamedHeaders = (headerNames, srcHeaders) =>
+  headerNames.reduce(
+    (previous, name) => {
+      if (srcHeaders[name]) {
+        return {
+          ...previous,
+          [name]: srcHeaders[name]
+        };
+      }
+      return previous;
+    },
+    {}
+  );
+
+
+const setRequestPagination = (context, headers) => {
+  const headerNames = ['page-offset', 'page-limit', 'sort-fields', 'sort-order'];
+  context.requestHeaders = copyNamedHeaders(headerNames, (headers && normalizeHeaderNames(headers)) || {});
+};
+
+const getRequestPagination = (context) => context.requestHeaders || {};
+
+const setResponsePagination = (context, headers) => {
+  const headerNames = ['page-offset', 'page-limit', 'sort-fields', 'sort-order', 'total-records'];
+  context.responseHeaders = copyNamedHeaders(headerNames, (headers && normalizeHeaderNames(headers)) || {});
+};
+
+const getResponsePagination = (context) => context.responseHeaders || {};
+
 module.exports = {
   setTokens,
   hasTokens,
   getAccessToken,
-  getRefreshToken
+  getRefreshToken,
+  setRequestPagination,
+  getRequestPagination,
+  setResponsePagination,
+  getResponsePagination
 };
