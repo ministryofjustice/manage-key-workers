@@ -68,6 +68,7 @@ class LoginSpecification extends GebReportingSpec {
 
         then: 'My credentials are accepted and I am shown the Key worker management page'
         at KeyworkerManagementPage
+        homeLink.size() == 2
     }
 
     def "Login page displays service unavilable message if health returns unhealthy"() {
