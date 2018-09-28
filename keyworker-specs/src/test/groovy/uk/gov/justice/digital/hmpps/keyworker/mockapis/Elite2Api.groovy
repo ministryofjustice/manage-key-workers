@@ -7,6 +7,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.CaseNoteUsa
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSentencesResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.UserSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
@@ -74,6 +75,30 @@ class Elite2Api extends WireMockRule {
                                 }
                             ]''')))
                                 }
+
+
+    void stubUserSearch(AgencyLocation agencyLocation) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(UserSearchResponse.getResponse())))
+    }
+
+    void stubUserSearch(AgencyLocation agencyLocation, Integer page) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
+                        .withHeader('page-offset', equalTo((page * 10).toString()))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withHeader('total-records', "30")
+                                .withBody(UserSearchResponse.pagedResponse(page))))
+    }
+
 
 
     void stubGetMyCaseloads(List<Caseload> caseloads) {

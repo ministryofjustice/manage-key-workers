@@ -14,6 +14,8 @@ import AllocationHistoryContainer from '../AllocationHistory/containers/Allocati
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer';
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer';
 import { Header } from 'new-nomis-shared-components';
+import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer';
+import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer';
 import Footer from '../Footer/index';
 import Terms from '../Footer/terms-and-conditions';
 import Error from "../Error/index";
@@ -158,6 +160,8 @@ class App extends React.Component {
       <Route exact path="/admin/nomis/access" render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props}/>}/>
       <Route exact path="/admin/settings" render={() => <KeyworkerSettingsContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
       <Route exact path="/maintainRoles/search" render={() => <UserSearchContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
+      <Route exact path="/maintainRoles/results" render={() => <UserSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
+      <Route exact path="/maintainRoles/profile" render={() => <StaffRoleProfileContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {

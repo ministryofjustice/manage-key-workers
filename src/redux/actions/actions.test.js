@@ -362,6 +362,14 @@ describe('actions', () => {
     expect(actions.setMaintainRolesUserPageNumber(6)).toEqual(expectedAction);
   });
 
+  it('should create an action to save user search total records', () => {
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
+      totalRecords: 6
+    };
+    expect(actions.setMaintainRolesUserTotalRecords(6)).toEqual(expectedAction);
+  });
+
   it('should create an action to save a maintain roles name filter', () => {
     const expectedAction = {
       type: types.SET_USER_SEARCH_NAME_FILTER,

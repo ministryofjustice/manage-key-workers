@@ -1,7 +1,7 @@
 const axios = require('axios');
 const logger = require('../log');
 
-const { addAuthorizationHeader } = require('./axios-config-decorators');
+const { addAuthorizationHeader, addPaginationHeaders } = require('./axios-config-decorators');
 
 const resultLogger = (result) => {
   logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`);
@@ -30,25 +30,24 @@ const factory = ({ baseUrl, timeout }) => {
   });
 
 
+  const addHeaders = (context, config) => addPaginationHeaders(context, addAuthorizationHeader(context, config));
+
   /**
    * An Axios GET request with Oauth token
    *
    * @param context A request scoped context. Holds OAuth tokens and pagination information for the request
    * @param url if url is relative then baseURL will be prepended. If the url is absolute the baseURL is ignored.
-   * @param resultLimit - the maximum number of results that a Get request should return.  Becomes the value of the 'page-limit' request header.
-   *        The header isn't set if resultLimit is falsy.
    * @returns A Promise which settles to the Axios result object if the promise is resolved, otherwise to the 'error' object.
    */
-  const get = (context, url, resultLimit) =>
+  const get = (context, url) =>
     axiosInstance(
-      addAuthorizationHeader(
+      addHeaders(
         context,
         {
           method: 'get',
-          url,
-          headers: resultLimit ? { 'Page-Limit': resultLimit } : {}
-        }
-      )
+          url
+        },
+      ),
     )
       .then(resultLogger)
       .catch(errorLogger);
@@ -62,42 +61,42 @@ const factory = ({ baseUrl, timeout }) => {
    */
   const post = (context, url, body) =>
     axiosInstance(
-      addAuthorizationHeader(
+      addHeaders(
         context,
         {
           method: 'post',
           url,
           data: body
-        }
-      )
+        },
+      ),
     )
       .then(resultLogger)
       .catch(errorLogger);
 
   const put = (context, url, body) =>
     axiosInstance(
-      addAuthorizationHeader(
+      addHeaders(
         context,
         {
           method: 'put',
           url,
           data: body
-        }
-      )
+        },
+      ),
     )
       .then(resultLogger)
       .catch(errorLogger);
 
   const getStream = (context, url) =>
     axiosInstance(
-      addAuthorizationHeader(
+      addHeaders(
         context,
         {
           method: 'get',
           url,
           responseType: 'stream'
-        }
-      )
+        },
+      ),
     )
       .catch(errorLogger);
 

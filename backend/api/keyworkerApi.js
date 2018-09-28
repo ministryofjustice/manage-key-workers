@@ -1,6 +1,4 @@
-const processResponse = (response) => {
-  return response.data;
-};
+const contextProperties = require('../contextProperties');
 
 const processError = error => {
   if (!error.response) throw error;
@@ -12,21 +10,26 @@ const processError = error => {
 const encodeQueryString = (input) => encodeURIComponent(input);
 
 const keyworkerApiFactory = (client) => {
+  const processResponse = (context) => (response) => {
+    contextProperties.setResponsePagination(context, response.headers);
+    return response.data;
+  };
+
   const get = (context, url) =>
     client
       .get(context, url)
-      .then(processResponse)
+      .then(processResponse(context))
       .catch(processError);
 
   const post = (context, url, data) =>
     client
       .post(context, url, data)
-      .then(processResponse);
+      .then(processResponse(context));
 
   const put = (context, url, data) =>
     client
       .put(context, url, data)
-      .then(processResponse);
+      .then(processResponse(context));
 
   const allocate = (context, data) => post(context, 'key-worker/allocate', data);
   const allocated = (context, agencyId) => get(context, `key-worker/${agencyId}/allocations`);
