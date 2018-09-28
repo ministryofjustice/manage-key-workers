@@ -77,14 +77,26 @@ class Elite2Api extends WireMockRule {
                                 }
 
 
-    void stubUserSearch() {
+    void stubUserSearch(AgencyLocation agencyLocation) {
         this.stubFor(
-                get("/users/caseload/${agencyLocation.id}")
+                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
                                 .withBody(UserSearchResponse.getResponse())))
+    }
+
+    void stubUserSearch(AgencyLocation agencyLocation, Integer page) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
+                        .withHeader('page-offset', equalTo((page * 10).toString()))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withHeader('total-records', "30")
+                                .withBody(UserSearchResponse.pagedResponse(page))))
     }
 
 

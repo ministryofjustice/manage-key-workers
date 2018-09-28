@@ -35,7 +35,7 @@ class UserSearchResults extends Component {
                   <th />
                 </tr>
               </thead>
-              <tbody>{results}</tbody>
+              <tbody>{results.length > 0 ? results : <div className="font-small padding-top padding-left">No users found</div>}</tbody>
             </table>
           </div>
         </div>

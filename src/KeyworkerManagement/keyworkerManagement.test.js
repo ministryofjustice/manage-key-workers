@@ -11,7 +11,7 @@ describe('HomePage component', () => {
     const user = {
       writeAccess: true
     };
-    const component = shallow(<HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto/>);
+    const component = shallow(<HomePage message="Hello!" config={{}} clearMessage={jest.fn()} user={user} allowAuto/>);
     expect(component.find('#auto_allocate_link').length).toBe(1);
     expect(component.find('#keyworker_profile_link').length).toBe(1);
     expect(component.find('#assign_transfer_link').length).toBe(1);
@@ -21,6 +21,8 @@ describe('HomePage component', () => {
       <HomePage
         message="Hello!"
         clearMessage={jest.fn()}
+        config={{}}
+        user={{}}
       />);
     expect(component.find('#auto_allocate_link').length).toBe(0);
   });
@@ -34,6 +36,7 @@ describe('HomePage component', () => {
         clearMessage={jest.fn()}
         user={user}
         allowAuto
+        config={{}}
       />);
     expect(component.find('#auto_allocate_link').length).toBe(1);
   });
@@ -47,7 +50,44 @@ describe('HomePage component', () => {
         clearMessage={jest.fn()}
         user={user}
         allowAuto={false}
+        config={{}}
       />);
     expect(component.find('#auto_allocate_link').length).toBe(0);
+  });
+  it('should hide the maintain roles link when feature toggle off', () => {
+    const user = {
+      writeAccess: true,
+      maintainAccess: true
+    };
+    const config = {
+      maintainRolesEnabled: false
+    };
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={config}
+      />);
+    expect(component.find('#maintain_roles_link').length).toBe(0);
+  });
+  it('should show the maintain roles link when feature toggle on (and correct role exists for user)', () => {
+    const user = {
+      writeAccess: true,
+      maintainAccess: true
+    };
+    const config = {
+      maintainRolesEnabled: true
+    };
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={config}
+      />);
+    expect(component.find('#maintain_roles_link').length).toBe(1);
   });
 });

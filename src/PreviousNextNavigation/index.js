@@ -47,6 +47,20 @@ PreviousNextNavigation.propTypes = {
   pageAction: PropTypes.func
 };
 
+GetPrevNavigationRegion.propTypes = {
+  pagination: PropTypes.object,
+  totalPages: PropTypes.number,
+  pN: PropTypes.number,
+  pageAction: PropTypes.func
+};
+
+GetNextNavigationRegion.propTypes = {
+  pagination: PropTypes.object,
+  totalPages: PropTypes.number,
+  pN: PropTypes.number,
+  pageAction: PropTypes.func
+};
+
 PreviousNextNavigation.defaultProps = {
   pagination: Map({
     perPage: 10,

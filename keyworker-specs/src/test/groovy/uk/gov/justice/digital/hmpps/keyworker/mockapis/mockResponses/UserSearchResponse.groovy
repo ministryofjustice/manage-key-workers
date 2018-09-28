@@ -55,4 +55,36 @@ class UserSearchResponse {
     }
 ]
 '''
+
+
+    static pagedResponse(int page) {
+        return """
+[
+    {
+        "staffId": 485576,
+        "username": "user${page}",
+        "firstName": "KAREN",
+        "lastName": "BECK",
+        "lockedFlag": false,
+        "expiredFlag": false
+    },
+    {
+        "staffId": 485577,
+        "username": "ADEY",
+        "firstName": "ABS",
+        "lastName": "DEY",
+        "lockedFlag": false,
+        "expiredFlag": false
+    },
+    {
+        "staffId": 485636,
+        "username": "JDUCKETT_GEN",
+        "firstName": "JENNY",
+        "lastName": "DUCKETT",
+        "lockedFlag": false,
+        "expiredFlag": false
+    }
+]
+"""
+    }
 }

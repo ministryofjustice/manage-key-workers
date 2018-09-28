@@ -18,18 +18,18 @@ const keyworkerApiFactory = (client) => {
   const get = (context, url) =>
     client
       .get(context, url)
-      .then(processResponse)
+      .then(processResponse(context))
       .catch(processError);
 
   const post = (context, url, data) =>
     client
       .post(context, url, data)
-      .then(processResponse);
+      .then(processResponse(context));
 
   const put = (context, url, data) =>
     client
       .put(context, url, data)
-      .then(processResponse);
+      .then(processResponse(context));
 
   const allocate = (context, data) => post(context, 'key-worker/allocate', data);
   const allocated = (context, agencyId) => get(context, `key-worker/${agencyId}/allocations`);

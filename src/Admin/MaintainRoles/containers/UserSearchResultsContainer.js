@@ -46,7 +46,9 @@ class UserSearchContainer extends Component {
 
   async performSearch (page) {
     try {
-      const pageNumber = page ? page : this.props.pageNumber;
+      console.log(`passed in page number to handler is ${page}`);
+      const pageNumber = page === undefined ? this.props.pageNumber : page;
+      console.log(`actual page to use is is ${pageNumber}`);
       const users = await axios.get('/api/userSearch', {
         params: {
           nameFilter: this.props.nameFilter,
@@ -58,8 +60,6 @@ class UserSearchContainer extends Component {
           'Page-Limit': this.props.pageSize
         }
       });
-      console.log(`page number ${this.props.pageNumber}`);
-      console.log(`page size ${this.props.pageSize}`);
       this.props.totalRecordsDispatch(parseInt(users.headers['total-records']));
       this.props.userListDispatch(users.data);
       this.props.pageNumberDispatch(pageNumber);
@@ -83,7 +83,6 @@ class UserSearchContainer extends Component {
   }
 
   async handlePageAction (pageNumber) {
-    console.log(`handle page action ${pageNumber}`);
     await this.performSearch(pageNumber);
   }
 

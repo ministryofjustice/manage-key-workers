@@ -64,6 +64,7 @@ UserSearchContainer.propTypes = {
   nameFilterDispatch: PropTypes.func,
   roleFilterDispatch: PropTypes.func,
   roleListDispatch: PropTypes.func,
+  pageNumberDispatch: PropTypes.func,
   resetErrorDispatch: PropTypes.func,
   setErrorDispatch: PropTypes.func
 };
