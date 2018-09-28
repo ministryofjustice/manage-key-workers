@@ -175,6 +175,7 @@ class App extends React.Component {
             return (<Header
               logoText="HMPPS"
               title="Prison-NOMIS"
+              homeLink={links.getHomeLink()}
               switchCaseLoad={this.switchCaseLoad}
               history={props.history}
               resetError={this.resetError}
