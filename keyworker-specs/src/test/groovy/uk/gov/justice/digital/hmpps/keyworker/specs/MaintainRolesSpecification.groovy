@@ -45,11 +45,13 @@ class MaintainRolesSpecification extends GebReportingSpec {
 
         when: "i perform a search"
         elite2api.stubUserSearch(AgencyLocation.LEI)
+        searchButton.click()
 
         then: "the user search results page is displayed"
-        at UserSearchPage
+        at UserSearchResultsPage
         rows.size() == 6
         searchButton.text() == 'Search'
+        roleSelect.find('option').size() == 7
     }
 
     def "should handle pagination"() {
