@@ -24,5 +24,6 @@ class KeyworkerManagementPage extends Page {
         manualAssignLink(to: SearchForOffenderPage) { $('#assign_transfer_link') }
         keyworkerProfileLink(to: SearchForKeyworkerPage) { $('#keyworker_profile_link') }
         messageBar(required: false) { $('div #messageBar')}
+        homeLink { $('a.link', href: 'http://localhost:3000/') }
     }
 }
