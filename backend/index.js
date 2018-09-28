@@ -186,11 +186,6 @@ app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2A
 app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch);
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles);
 
-// Forward requests to the eliteApi get/post functions.
-//app.use('/api', requestForwarding.forwardingHandlerFactory(elite2Api));
-
-// app.use('/api/config', getConfiguration);
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });

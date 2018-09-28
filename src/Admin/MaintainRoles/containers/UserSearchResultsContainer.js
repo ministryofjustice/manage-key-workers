@@ -46,9 +46,7 @@ class UserSearchContainer extends Component {
 
   async performSearch (page) {
     try {
-      console.log(`passed in page number to handler is ${page}`);
       const pageNumber = page === undefined ? this.props.pageNumber : page;
-      console.log(`actual page to use is is ${pageNumber}`);
       const users = await axios.get('/api/userSearch', {
         params: {
           nameFilter: this.props.nameFilter,
