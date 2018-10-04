@@ -60,12 +60,14 @@ const keyworkerSettingsInitialState = {
 
 const maintainRolesInitialState = {
   roleList: [],
+  roleFilterList: [],
   userList: [],
   nameFilter: '',
   roleFilter: '',
   pageNumber: 0,
   pageSize: 10,
-  totalRecords: 0
+  totalRecords: 0,
+  contextUser: {}
 };
 
 export function app (state = appInitialState, action) {
@@ -297,6 +299,10 @@ export function maintainRoles (state = maintainRolesInitialState, action) {
       return { ...state,
         roleList: action.roleList
       };
+    case ActionTypes.SET_USER_SEARCH_ROLE_FILTER_LIST:
+      return { ...state,
+        roleFilterList: action.roleFilterList
+      };
     case ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_SIZE:
       return { ...state,
         pageSize: action.pageSize
@@ -308,6 +314,10 @@ export function maintainRoles (state = maintainRolesInitialState, action) {
     case ActionTypes.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS:
       return { ...state,
         totalRecords: action.totalRecords
+      };
+    case ActionTypes.SET_USER_SEARCH_CONTEXT_USER:
+      return { ...state,
+        contextUser: action.contextUser
       };
     default:
       return state;

@@ -17,7 +17,7 @@ describe('User search Results component', () => {
     const component = shallow(<UserSearchResults user={user}
       nameFilter={''}
       roleFilter={''}
-      roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+      roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
       userList={[{
         staffId: 70029,
         username: "HQA63K",
@@ -36,7 +36,7 @@ describe('User search Results component', () => {
       displayBack={jest.fn()}
       handleAllowAutoChange={jest.fn()}
       roleFilterDispatch={jest.fn()}
-      roleListDispatch={jest.fn()}
+      roleFilterListDispatch={jest.fn()}
       handleRoleFilterChange={jest.fn()}
       handleNameFilterChange={jest.fn()}
       handleEdit={jest.fn()}
@@ -74,7 +74,7 @@ describe('User search Results component', () => {
       displayBack={jest.fn()}
       handleAllowAutoChange={jest.fn()}
       roleFilterDispatch={jest.fn()}
-      roleListDispatch={jest.fn()}
+      roleFilterListDispatch={jest.fn()}
       handleRoleFilterChange={handleRoleSelectMock}
       handleNameFilterChange={handleNameFilterMock}
       handleEdit={handleEditMock}

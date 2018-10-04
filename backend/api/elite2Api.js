@@ -25,6 +25,11 @@ const elite2ApiFactory = (client) => {
       .put(context, url, data)
       .then(processResponse(context));
 
+  const del = (context, url, data) =>
+    client
+      .del(context, url, data)
+      .then(processResponse(context));
+
   const caseNoteUsageList = (context, offenderNumbers) => get(context, `api/case-notes/usage?type=KA&numMonths=6&${encodeOffenderNumbers(offenderNumbers)}`);
   const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers);
   const userCaseLoads = (context) => get(context, 'api/users/me/caseLoads');
@@ -34,6 +39,8 @@ const elite2ApiFactory = (client) => {
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
   const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
   const getRoles = (context) => get(context, 'api/access-roles');
+  const contextUserRoles = (context, agencyId, username) => get(context, `api/users/${username}/access-roles/caseload/${agencyId}`);
+  const removeRole = (context, agencyId, username, roleCode) => del(context, `api/users/${username}/caseload/${agencyId}/access-role/${roleCode}`);
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.
@@ -82,7 +89,9 @@ const elite2ApiFactory = (client) => {
     getUserAccessRoles,
     enableNewNomis,
     userSearch,
-    getRoles
+    getRoles,
+    contextUserRoles,
+    removeRole
   };
 };
 

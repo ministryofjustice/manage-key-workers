@@ -346,6 +346,15 @@ describe('actions', () => {
     expect(actions.setMaintainRolesRoleList(list)).toEqual(expectedAction);
   });
 
+  it('should create an action to save maintain roles role filter list', () => {
+    const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }];
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_ROLE_FILTER_LIST,
+      roleFilterList: list
+    };
+    expect(actions.setMaintainRolesRoleFilterList(list)).toEqual(expectedAction);
+  });
+
   it('should create an action to save user search page size', () => {
     const expectedAction = {
       type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,

@@ -87,6 +87,20 @@ const factory = ({ baseUrl, timeout }) => {
       .then(resultLogger)
       .catch(errorLogger);
 
+  const del = (context, url, body) =>
+    axiosInstance(
+      addHeaders(
+        context,
+        {
+          method: 'delete',
+          url,
+          data: body
+        },
+      ),
+    )
+      .then(resultLogger)
+      .catch(errorLogger);
+
   const getStream = (context, url) =>
     axiosInstance(
       addHeaders(
@@ -105,6 +119,7 @@ const factory = ({ baseUrl, timeout }) => {
     getStream,
     post,
     put,
+    del,
     axiosInstance // exposed for testing...
   };
 };
