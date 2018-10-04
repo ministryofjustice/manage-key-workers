@@ -78,7 +78,7 @@ describe('HomePage component', () => {
       maintainAccess: true
     };
     const config = {
-      maintainRolesEnabled: true
+      maintainRolesEnabled: "true"
     };
     const component = shallow(
       <HomePage

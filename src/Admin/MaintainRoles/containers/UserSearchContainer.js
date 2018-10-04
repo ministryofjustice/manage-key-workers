@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setMaintainRolesNameFilter, setMaintainRolesRoleList, setMaintainRolesRoleFilter, setMaintainRolesUserPageNumber, resetError, setError } from '../../../redux/actions/index';
+import { setMaintainRolesNameFilter, setMaintainRolesRoleFilterList, setMaintainRolesRoleFilter, setMaintainRolesUserPageNumber, resetError } from '../../../redux/actions/index';
 import { connect } from 'react-redux';
 import Error from '../../../Error';
 
@@ -26,9 +26,9 @@ class UserSearchContainer extends Component {
   async getRoles () {
     try {
       const roles = await axios.get('/api/getRoles');
-      this.props.roleListDispatch(roles.data);
+      this.props.roleFilterListDispatch(roles.data);
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      this.props.handleError(error);
     }
   }
 
@@ -63,10 +63,9 @@ UserSearchContainer.propTypes = {
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func,
   roleFilterDispatch: PropTypes.func,
-  roleListDispatch: PropTypes.func,
+  roleFilterListDispatch: PropTypes.func,
   pageNumberDispatch: PropTypes.func,
-  resetErrorDispatch: PropTypes.func,
-  setErrorDispatch: PropTypes.func
+  resetErrorDispatch: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -74,7 +73,7 @@ const mapStateToProps = state => {
     nameFilter: state.maintainRoles.nameFilter,
     roleFilter: state.maintainRoles.roleFilter,
     agencyId: state.app.user.activeCaseLoadId,
-    roleList: state.maintainRoles.roleList
+    roleFilterList: state.maintainRoles.roleFilterList
   };
 };
 
@@ -82,10 +81,9 @@ const mapDispatchToProps = dispatch => {
   return {
     nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
     roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
-    roleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
+    roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
     pageNumberDispatch: list => dispatch(setMaintainRolesUserPageNumber(list)),
-    resetErrorDispatch: () => dispatch(resetError()),
-    setErrorDispatch: () => dispatch(setError())
+    resetErrorDispatch: () => dispatch(resetError())
   };
 };
 

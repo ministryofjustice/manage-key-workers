@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 class UserSearch extends Component {
   render () {
-    const roleListOptions = this.props.roleList ? this.props.roleList.map((role, optionIndex) => {
+    const roleListOptions = this.props.roleFilterList ? this.props.roleFilterList.map((role, optionIndex) => {
       return <option key={`role_option_${optionIndex}`} value={role.roleCode}>{role.roleName}</option>;
     }) : [];
 
@@ -50,12 +50,12 @@ UserSearch.propTypes = {
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func,
   roleFilterDispatch: PropTypes.func,
-  roleListDispatch: PropTypes.func,
+  roleFilterListDispatch: PropTypes.func,
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func,
-  roleList: PropTypes.array,
+  roleFilterList: PropTypes.array,
   displayBack: PropTypes.func.isRequired,
   history: PropTypes.object
 };

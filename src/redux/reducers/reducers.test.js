@@ -84,12 +84,14 @@ const keyworkerSettingsInitialState = {
 
 const maintainRolesInitialState = {
   roleList: [],
+  roleFilterList: [],
   userList: [],
   nameFilter: '',
   roleFilter: '',
   pageNumber: 0,
   pageSize: 10,
-  totalRecords: 0
+  totalRecords: 0,
+  contextUser: {}
 };
 
 describe('app (global) reducer', () => {
@@ -910,6 +912,20 @@ describe('Maintain roles reducer', () => {
     );
   });
 
+  it('should handle SET_USER_SEARCH_ROLE_FILTER_LIST', () => {
+    const list = [{ name: 'Jack', keyworker: 'Jill' }];
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.roleFilterList = list;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_ROLE_FILTER_LIST,
+        roleFilterList: list
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
   it('should handle SET_USER_SEARCH_USER_LIST', () => {
     const list = [{ name: 'Jack', keyworker: 'Jill' }];
     let updatedMaintainRoles = maintainRolesInitialState;
@@ -918,6 +934,20 @@ describe('Maintain roles reducer', () => {
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_RESULTS_LIST,
         userList: list
+      })
+    ).toEqual(
+      updatedMaintainRoles
+    );
+  });
+
+  it('should handle SET_USER_SEARCH_CONTEXT_USER', () => {
+    const user = { firstName: 'Jack', lastName: 'Jill' };
+    let updatedMaintainRoles = maintainRolesInitialState;
+    updatedMaintainRoles.contextUser = user;
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_CONTEXT_USER,
+        contextUser: user
       })
     ).toEqual(
       updatedMaintainRoles

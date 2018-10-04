@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   setMaintainRolesNameFilter,
-  setMaintainRolesRoleList,
+  setMaintainRolesRoleFilterList,
   setMaintainRolesRoleFilter,
   setMaintainRolesUserList,
   setMaintainRolesUserTotalRecords,
+  setMaintainRolesUserContextUser,
   resetError,
-  setError,
   setLoaded, setMaintainRolesUserPageNumber
 } from '../../../redux/actions/index';
 import { connect } from 'react-redux';
@@ -38,7 +38,7 @@ class UserSearchContainer extends Component {
   async getRoles () {
     try {
       const roles = await axios.get('/api/getRoles');
-      this.props.roleListDispatch(roles.data);
+      this.props.roleFilterListDispatch(roles.data);
     } catch (error) {
       this.props.setErrorDispatch(error.message);
     }
@@ -62,7 +62,7 @@ class UserSearchContainer extends Component {
       this.props.userListDispatch(users.data);
       this.props.pageNumberDispatch(pageNumber);
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      this.props.handleError(error);
     }
   }
 
@@ -85,7 +85,8 @@ class UserSearchContainer extends Component {
   }
 
   async handleEdit (event, history) {
-    //stash identifier
+    const chosenUser = this.props.userList[event.target.value];
+    this.props.contextUserDispatch(chosenUser);
     history.push('/maintainRoles/profile');
   }
 
@@ -118,7 +119,7 @@ UserSearchContainer.propTypes = {
   roleFilterDispatch: PropTypes.func,
   totalRecordsDispatch: PropTypes.func,
   pageNumberDispatch: PropTypes.func,
-  roleListDispatch: PropTypes.func,
+  roleFilterListDispatch: PropTypes.func,
   resetErrorDispatch: PropTypes.func,
   setErrorDispatch: PropTypes.func
 };
@@ -128,7 +129,8 @@ const mapStateToProps = state => {
     nameFilter: state.maintainRoles.nameFilter,
     roleFilter: state.maintainRoles.roleFilter,
     agencyId: state.app.user.activeCaseLoadId,
-    roleList: state.maintainRoles.roleList,
+    roleFilterList: state.maintainRoles.roleFilterList,
+    contextUser: state.maintainRoles.contextUser,
     userList: state.maintainRoles.userList,
     pageNumber: state.maintainRoles.pageNumber,
     pageSize: state.maintainRoles.pageSize,
@@ -141,13 +143,13 @@ const mapDispatchToProps = dispatch => {
   return {
     nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
     roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
-    roleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
+    roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
     userListDispatch: list => dispatch(setMaintainRolesUserList(list)),
+    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
     pageNumberDispatch: no => dispatch(setMaintainRolesUserPageNumber(no)),
     totalRecordsDispatch: no => dispatch(setMaintainRolesUserTotalRecords(no)),
     resetErrorDispatch: () => dispatch(resetError()),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
-    setErrorDispatch: () => dispatch(setError())
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 

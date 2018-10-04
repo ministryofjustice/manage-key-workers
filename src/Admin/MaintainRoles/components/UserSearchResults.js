@@ -16,7 +16,7 @@ class UserSearchResults extends Component {
         <tr key={a.username}>
           <td className="row-gutters">{formattedName}</td>
           <td className="row-gutters">{a.username}</td>
-          <td className="row-gutters"><button className="button" id={`edit-button"-${a.username}`} value={a.username} onClick={(event) => { this.props.handleEdit(event, this.props.history);}}>Edit</button></td>
+          <td className="row-gutters"><button className="button" id={`edit-button"-${a.username}`} value={index} onClick={(event) => { this.props.handleEdit(event, this.props.history);}}>Edit</button></td>
         </tr>
       );
     }
@@ -35,7 +35,7 @@ class UserSearchResults extends Component {
                   <th />
                 </tr>
               </thead>
-              <tbody>{results.length > 0 ? results : <div className="font-small padding-top padding-left">No users found</div>}</tbody>
+              <tbody>{results.length > 0 ? results : <tr><td className="padding-left font-small row-gutters no-results-row">No users found</td></tr>}</tbody>
             </table>
           </div>
         </div>
@@ -54,14 +54,14 @@ UserSearchResults.propTypes = {
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func,
   roleFilterDispatch: PropTypes.func,
-  roleListDispatch: PropTypes.func,
+  roleFilterListDispatch: PropTypes.func,
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handlePageAction: PropTypes.func,
   resetErrorDispatch: PropTypes.func,
-  roleList: PropTypes.array,
+  roleFilterList: PropTypes.array,
   userList: PropTypes.array,
   displayBack: PropTypes.func.isRequired,
   history: PropTypes.object,

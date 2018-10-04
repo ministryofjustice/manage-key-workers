@@ -31,6 +31,8 @@ const autoAllocationAndMigrateFactory = require('./controllers/autoAllocationMig
 const manualAllocationAndMigrateFactory = require('./controllers/manualAllocationMigrate').manualAllocationAndMigrateFactory;
 const keyworkerSettingsFactory = require('./controllers/keyworkerSettings').keyworkerSettingsFactory;
 const getRolesFactory = require('./controllers/getRoles').getRolesFactory;
+const removeRoleFactory = require('./controllers/removeRole').removeRoleFactory;
+const contextUserRolesFactory = require('./controllers/contextUserRoles').contextUserRolesFactory;
 const userSearchFactory = require('./controllers/userSearch').userSearchFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
 const healthFactory = require('./controllers/health').healthFactory;
@@ -185,6 +187,8 @@ app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworke
 app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings);
 app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch);
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles);
+app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole);
+app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

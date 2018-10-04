@@ -280,6 +280,13 @@ export const setMaintainRolesRoleList = (roleList) => {
   };
 };
 
+export const setMaintainRolesRoleFilterList = (roleFilterList) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_ROLE_FILTER_LIST,
+    roleFilterList
+  };
+};
+
 export const setMaintainRolesNameFilter = (nameFilter) => {
   return {
     type: ActionTypes.SET_USER_SEARCH_NAME_FILTER,
@@ -312,6 +319,13 @@ export const setMaintainRolesUserTotalRecords = (totalRecords) => {
   return {
     type: ActionTypes.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
     totalRecords
+  };
+};
+
+export const setMaintainRolesUserContextUser = (contextUser) => {
+  return {
+    type: ActionTypes.SET_USER_SEARCH_CONTEXT_USER,
+    contextUser
   };
 };
 
