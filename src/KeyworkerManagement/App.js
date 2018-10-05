@@ -161,7 +161,7 @@ class App extends React.Component {
       <Route exact path="/admin/settings" render={() => <KeyworkerSettingsContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
       <Route exact path="/maintainRoles/search" render={() => <UserSearchContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
       <Route exact path="/maintainRoles/results" render={() => <UserSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
-      <Route exact path="/maintainRoles/profile" render={() => <StaffRoleProfileContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
+      <Route exact path="/maintainRoles/:username/profile" render={() => <StaffRoleProfileContainer displayBack={this.displayBack} handleError={this.handleError} clearMessage={this.clearMessage} {...this.props}/>}/>
     </div></div>);
 
     if (this.shouldDisplayInnerContent()) {

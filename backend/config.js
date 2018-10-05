@@ -15,7 +15,8 @@ const app = {
   mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
   tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
   offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
-  maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || "false"
+  maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || "false",
+  applicationCaseload: process.env.APPLICATION_CASELOAD || "NWEB"
 };
 
 const analytics = {

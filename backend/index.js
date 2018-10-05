@@ -31,6 +31,7 @@ const autoAllocationAndMigrateFactory = require('./controllers/autoAllocationMig
 const manualAllocationAndMigrateFactory = require('./controllers/manualAllocationMigrate').manualAllocationAndMigrateFactory;
 const keyworkerSettingsFactory = require('./controllers/keyworkerSettings').keyworkerSettingsFactory;
 const getRolesFactory = require('./controllers/getRoles').getRolesFactory;
+const getUserFactory = require('./controllers/getUser').getUserFactory;
 const removeRoleFactory = require('./controllers/removeRole').removeRoleFactory;
 const contextUserRolesFactory = require('./controllers/contextUserRoles').contextUserRolesFactory;
 const userSearchFactory = require('./controllers/userSearch').userSearchFactory;
@@ -187,6 +188,7 @@ app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworke
 app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings);
 app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch);
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles);
+app.use('/api/getUser', getUserFactory(elite2Api).getUser);
 app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole);
 app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles);
 
