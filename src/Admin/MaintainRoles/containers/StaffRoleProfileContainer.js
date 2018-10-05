@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { resetError, setMaintainRolesRoleList, setMessage } from '../../../redux/actions/index';
+import { resetError, setMaintainRolesRoleList, setMessage, setMaintainRolesUserContextUser } from '../../../redux/actions/index';
 import { connect } from 'react-redux';
 import Error from '../../../Error';
 
 import { StaffRoleProfile } from "../components/StaffRoleProfile";
 import axios from "axios";
+import { withRouter } from 'react-router';
 
 class StaffRoleProfileContainer extends Component {
   constructor (props) {
@@ -16,6 +17,8 @@ class StaffRoleProfileContainer extends Component {
   }
 
   async componentDidMount () {
+    console.log(`username para : ${this.props.match.params.username}`);
+    await this.loadUser(this.props.match.params.username);
     await this.getUserRoles();
   }
 
@@ -29,7 +32,20 @@ class StaffRoleProfileContainer extends Component {
         }
       });
       await this.getUserRoles();
-      this.props.setMessageDispatch('Role list updated.');
+      this.props.setMessageDispatch('Role list updated');
+    } catch (error) {
+      this.props.handleError(error);
+    }
+  }
+
+  async loadUser (username) {
+    try {
+      const user = await axios.get('/api/getUser', {
+        params: {
+          username: username
+        }
+      });
+      this.props.contextUserDispatch(user.data);
     } catch (error) {
       this.props.handleError(error);
     }
@@ -43,8 +59,7 @@ class StaffRoleProfileContainer extends Component {
     try {
       const roles = await axios.get('/api/contextUserRoles', {
         params: {
-          username: this.props.contextUser.username,
-          agencyId: this.props.agencyId
+          username: this.props.contextUser.username
         }
       });
       this.props.setRoleListDispatch(roles.data);
@@ -87,9 +102,11 @@ const mapDispatchToProps = dispatch => {
   return {
     resetErrorDispatch: () => dispatch(resetError()),
     setRoleListDispatch: (list) => dispatch(setMaintainRolesRoleList(list)),
-    setMessageDispatch: (message) => dispatch(setMessage(message))
+    setMessageDispatch: (message) => dispatch(setMessage(message)),
+    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StaffRoleProfileContainer);
+export { StaffRoleProfileContainer };
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(StaffRoleProfileContainer));
 

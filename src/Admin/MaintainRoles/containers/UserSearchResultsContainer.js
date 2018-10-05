@@ -7,7 +7,6 @@ import {
   setMaintainRolesRoleFilter,
   setMaintainRolesUserList,
   setMaintainRolesUserTotalRecords,
-  setMaintainRolesUserContextUser,
   resetError,
   setLoaded, setMaintainRolesUserPageNumber
 } from '../../../redux/actions/index';
@@ -86,8 +85,7 @@ class UserSearchContainer extends Component {
 
   async handleEdit (event, history) {
     const chosenUser = this.props.userList[event.target.value];
-    this.props.contextUserDispatch(chosenUser);
-    history.push('/maintainRoles/profile');
+    history.push(`/maintainRoles/${chosenUser.username}/profile`);
   }
 
   render () {
@@ -130,7 +128,6 @@ const mapStateToProps = state => {
     roleFilter: state.maintainRoles.roleFilter,
     agencyId: state.app.user.activeCaseLoadId,
     roleFilterList: state.maintainRoles.roleFilterList,
-    contextUser: state.maintainRoles.contextUser,
     userList: state.maintainRoles.userList,
     pageNumber: state.maintainRoles.pageNumber,
     pageSize: state.maintainRoles.pageSize,
@@ -145,7 +142,6 @@ const mapDispatchToProps = dispatch => {
     roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
     roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
     userListDispatch: list => dispatch(setMaintainRolesUserList(list)),
-    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
     pageNumberDispatch: no => dispatch(setMaintainRolesUserPageNumber(no)),
     totalRecordsDispatch: no => dispatch(setMaintainRolesUserTotalRecords(no)),
     resetErrorDispatch: () => dispatch(resetError()),

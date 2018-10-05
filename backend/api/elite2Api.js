@@ -1,3 +1,4 @@
+const config = require('../config');
 const contextProperties = require('../contextProperties');
 
 const encodeOffenderNumbers = (offenderNumbers) => offenderNumbers.map(offenderNo => `offenderNo=${offenderNo}`).join('&');
@@ -39,8 +40,9 @@ const elite2ApiFactory = (client) => {
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
   const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
   const getRoles = (context) => get(context, 'api/access-roles');
-  const contextUserRoles = (context, agencyId, username) => get(context, `api/users/${username}/access-roles/caseload/${agencyId}`);
-  const removeRole = (context, agencyId, username, roleCode) => del(context, `api/users/${username}/caseload/${agencyId}/access-role/${roleCode}`);
+  const contextUserRoles = (context, username) => get(context, `api/users/${username}/access-roles/caseload/${config.app.applicationCaseload}`);
+  const removeRole = (context, agencyId, username, roleCode) => del(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
+  const getUser = (context, username) => get(context, `api/users/${username}`);
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.
@@ -91,7 +93,8 @@ const elite2ApiFactory = (client) => {
     userSearch,
     getRoles,
     contextUserRoles,
-    removeRole
+    removeRole,
+    getUser
   };
 };
 
