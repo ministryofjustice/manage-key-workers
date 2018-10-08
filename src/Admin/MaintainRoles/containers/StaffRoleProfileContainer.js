@@ -18,7 +18,7 @@ class StaffRoleProfileContainer extends Component {
 
   async componentDidMount () {
     await this.loadUser(this.props.match.params.username);
-    await this.getUserRoles();
+    await this.getUserRoles(this.props.match.params.username);
   }
 
   async handleRemove (event) {
@@ -30,7 +30,7 @@ class StaffRoleProfileContainer extends Component {
           roleCode: event.target.value
         }
       });
-      await this.getUserRoles();
+      await this.getUserRoles(this.props.contextUser.username);
       this.props.setMessageDispatch('Role list updated');
     } catch (error) {
       this.props.handleError(error);
@@ -54,11 +54,11 @@ class StaffRoleProfileContainer extends Component {
     history.push('/maintainRoles/addRole');
   }
 
-  async getUserRoles () {
+  async getUserRoles (username) {
     try {
       const roles = await axios.get('/api/contextUserRoles', {
         params: {
-          username: this.props.contextUser.username
+          username: username
         }
       });
       this.props.setRoleListDispatch(roles.data);

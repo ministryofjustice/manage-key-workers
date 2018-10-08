@@ -136,9 +136,9 @@ class MaintainRolesSpecification extends GebReportingSpec {
         elite2api.stubUserSearch(AgencyLocation.LEI)
         searchButton.click()
         at UserSearchResultsPage
-        editButtonAPI_TEST_USER.click()
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
+        editButtonAPI_TEST_USER.click()
         at StaffRoleProfilePage
 
         when: "I remove a role"
