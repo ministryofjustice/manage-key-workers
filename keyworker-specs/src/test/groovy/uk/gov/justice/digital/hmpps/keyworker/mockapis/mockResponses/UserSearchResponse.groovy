@@ -15,7 +15,7 @@ class UserSearchResponse {
     },
     {
         "staffId": 485577,
-        "username": "ADEY",
+        "username": "API_TEST_USER",
         "firstName": "ABS",
         "lastName": "DEY",
         "lockedFlag": false,

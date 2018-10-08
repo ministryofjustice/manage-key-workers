@@ -7,6 +7,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.CaseNoteUsa
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSentencesResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.RolesResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.UserSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
@@ -26,6 +27,23 @@ class Elite2Api extends WireMockRule {
     void stubGetMyDetails(UserAccount user) {
         this.stubFor(
                 get('/api/users/me')
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(JsonOutput.toJson([
+                                staffId         : user.staffMember.id,
+                                username        : user.username,
+                                firstName       : user.staffMember.firstName,
+                                lastName        : user.staffMember.lastName,
+                                email           : 'itaguser@syscon.net',
+                                activeCaseLoadId: 'LEI'
+                        ]))))
+    }
+
+    void stubGetUserDetails(UserAccount user) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/${user.username}"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
@@ -99,6 +117,25 @@ class Elite2Api extends WireMockRule {
                                 .withBody(UserSearchResponse.pagedResponse(page))))
     }
 
+    void stubGetNWEBAccessRolesForUserAndCaseload(String username, boolean withOmicAdmin) {
+
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/${username}/access-roles/caseload/NWEB"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(withOmicAdmin ? RolesResponse.getResponse() : RolesResponse.withoutOmicAdmin())))
+    }
+
+    void stubRemoveNWEBRole(String username, String roleCode) {
+
+        this.stubFor(
+                delete(urlPathEqualTo("/api/users/${username}/caseload/NWEB/access-role/${roleCode}"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)))
+    }
 
 
     void stubGetMyCaseloads(List<Caseload> caseloads) {

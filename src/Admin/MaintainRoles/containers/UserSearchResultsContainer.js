@@ -76,7 +76,9 @@ class UserSearchContainer extends Component {
   }
 
   async handleSearch (history) {
+    this.props.setLoadedDispatch(false);
     await this.performSearch();
+    this.props.setLoadedDispatch(true);
   }
 
   async handlePageAction (pageNumber) {

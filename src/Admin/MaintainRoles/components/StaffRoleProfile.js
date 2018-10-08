@@ -5,6 +5,12 @@ import MessageBar from "../../../MessageBar";
 import { properCaseName } from "../../../stringUtils";
 
 class StaffRoleProfile extends Component {
+  goBack (e, history) {
+    e.preventDefault();
+    // Return to previous page in history. There can be multiple origin pages.
+    history.goBack();
+  }
+
   render () {
     const formattedName = this.props.contextUser && properCaseName(this.props.contextUser.firstName) + ' ' + properCaseName(this.props.contextUser.lastName);
     const results = this.props.roleList.map((a, index) => {
@@ -20,7 +26,10 @@ class StaffRoleProfile extends Component {
     return (
       <div className="padding-bottom-large">
         <MessageBar {...this.props}/>
-        {this.props.displayBack()}
+        <div className="padding-top">
+          <a href="#back" title="Back link" className="link backlink" onClick={(event) => this.goBack(event, this.props.history)} >
+            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
+        </div>
         <div className="pure-g">
           <div className="pure-u-md-11-12 ">
             <h1 className="heading-large margin-top" id="page-title">Staff role profile</h1>

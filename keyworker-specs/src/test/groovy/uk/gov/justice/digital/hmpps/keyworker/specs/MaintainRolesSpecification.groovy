@@ -1,13 +1,14 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import geb.spock.GebReportingSpec
-import groovy.mock.interceptor.Ignore
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
+import uk.gov.justice.digital.hmpps.keyworker.pages.StaffRoleProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchResultsPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -66,7 +67,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a search"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 0);
+        elite2api.stubUserSearch(AgencyLocation.LEI, 0)
         searchButton.click()
 
         then: "the user search results page is displayed"
@@ -77,7 +78,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         rows[0].find("td",1).text() == 'user0'
 
         and: "i click on the next page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 1);
+        elite2api.stubUserSearch(AgencyLocation.LEI, 1)
         nextPage.click()
 
         then:
@@ -88,7 +89,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         rows[0].find("td",1).text() == 'user1'
 
         and: "i click on the next page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 2);
+        elite2api.stubUserSearch(AgencyLocation.LEI, 2)
         nextPage.click()
 
         then:
@@ -99,7 +100,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         rows[0].find("td",1).text() == 'user2'
 
         and: "i click on the previous page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 1);
+        elite2api.stubUserSearch(AgencyLocation.LEI, 1)
         previousPage.click()
 
         then:
@@ -108,7 +109,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         previousPage.text() == "Previous\n1 of 3"
 
         and: "i click on the previous page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 0);
+        elite2api.stubUserSearch(AgencyLocation.LEI, 0)
         previousPage.click()
 
         then: "i'm back to the first page"
@@ -120,7 +121,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
 
     }
 
-    /*
+
     def "should display Staff Role profile and allow role removal"() {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
@@ -132,59 +133,23 @@ class MaintainRolesSpecification extends GebReportingSpec {
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRoles()
         maintainRolesLink.click()
-        elite2api.stubUserSearch(AgencyLocation.LEI, 0);
+        elite2api.stubUserSearch(AgencyLocation.LEI)
         searchButton.click()
         at UserSearchResultsPage
-        searchButton.click()
+        elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
+        editButtonAPI_TEST_USER.click()
+        at StaffRoleProfilePage
 
-        then: "the user profile page is displayed"
-        at UserSearchResultsPage
-        rows.size() == 3
-        nextPage.text() == "Next\n2 of 3"
-        !previousPage.isDisplayed()
-        rows[0].find("td",1).text() == 'user0'
+        when: "I remove a role"
+        elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, false)
+        elite2api.stubRemoveNWEBRole(UserAccount.API_TEST_USER.username, "OMIC_ADMIN")
+        removeButtonOMIC_ADMIN.click()
 
-        and: "i click on the next page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 1);
-        nextPage.click()
-
-        then:
-        at UserSearchResultsPage
-        rows.size() == 3
-        nextPage.text() == "Next\n3 of 3"
-        previousPage.text() == "Previous\n1 of 3"
-        rows[0].find("td",1).text() == 'user1'
-
-        and: "i click on the next page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 2);
-        nextPage.click()
-
-        then:
-        at UserSearchResultsPage
-        rows.size() == 3
-        !nextPage.isDisplayed()
-        previousPage.text() == "Previous\n2 of 3"
-        rows[0].find("td",1).text() == 'user2'
-
-        and: "i click on the previous page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 1);
-        previousPage.click()
-
-        then:
-        at UserSearchResultsPage
-        rows.size() == 3
-        previousPage.text() == "Previous\n1 of 3"
-
-        and: "i click on the previous page link"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 0);
-        previousPage.click()
-
-        then: "i'm back to the first page"
-        at UserSearchResultsPage
-        rows.size() == 3
-        nextPage.text() == "Next\n2 of 3"
-        !previousPage.isDisplayed()
-        rows[0].find("td",1).text() == 'user0'
-
-    }*/
+        then: "The new role list is displayed"
+        at StaffRoleProfilePage
+        messageBar.isDisplayed()
+        rows.size() == 1
+    }
 }
