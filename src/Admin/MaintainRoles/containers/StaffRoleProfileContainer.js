@@ -17,7 +17,6 @@ class StaffRoleProfileContainer extends Component {
   }
 
   async componentDidMount () {
-    console.log(`username para : ${this.props.match.params.username}`);
     await this.loadUser(this.props.match.params.username);
     await this.getUserRoles();
   }
