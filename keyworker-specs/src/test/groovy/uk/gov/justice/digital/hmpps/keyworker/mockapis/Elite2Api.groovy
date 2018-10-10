@@ -137,6 +137,15 @@ class Elite2Api extends WireMockRule {
                                 .withStatus(200)))
     }
 
+    void stubAddNWEBRole(String username, String roleCode) {
+
+        this.stubFor(
+                put(urlPathEqualTo("/api/users/${username}/caseload/NWEB/access-role/${roleCode}"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(201)))
+    }
+
 
     void stubGetMyCaseloads(List<Caseload> caseloads) {
         def json = new JsonBuilder()

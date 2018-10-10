@@ -8,6 +8,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
+import uk.gov.justice.digital.hmpps.keyworker.pages.AddRolePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.StaffRoleProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchResultsPage
 
@@ -151,5 +152,40 @@ class MaintainRolesSpecification extends GebReportingSpec {
         at StaffRoleProfilePage
         messageBar.isDisplayed()
         rows.size() == 1
+    }
+
+    def "should allow adding a new role"() {
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
+        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Staff Profile page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        maintainRolesLink.click()
+        elite2api.stubUserSearch(AgencyLocation.LEI)
+        searchButton.click()
+        at UserSearchResultsPage
+        elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
+        editButtonAPI_TEST_USER.click()
+        at StaffRoleProfilePage
+
+        and: "I select add a role"
+        elite2api.stubGetStaffAccessRoles(roles)
+        addButton.click()
+
+        when: "I select a new role and submit"
+        at AddRolePage
+        elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
+        roleOptionUSER_ADMIN.click()
+        elite2api.stubAddNWEBRole(UserAccount.API_TEST_USER.username, 'USER_ADMIN')
+        addButton.click()
+
+        then: "I am returned to the StaffRoleProfile page with an updated role list"
+        at StaffRoleProfilePage
     }
 }

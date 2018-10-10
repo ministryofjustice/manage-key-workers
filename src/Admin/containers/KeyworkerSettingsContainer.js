@@ -146,9 +146,7 @@ const mapStateToProps = state => {
     sequenceFrequency: state.keyworkerSettings.sequenceFrequency,
     supported: state.keyworkerSettings.supported,
     migrated: state.keyworkerSettings.migrated,
-    validationErrors: state.app.validationErrors,
-    setValidationErrorDispatch: PropTypes.func,
-    resetValidationErrorsDispatch: PropTypes.func
+    validationErrors: state.app.validationErrors
   };
 };
 

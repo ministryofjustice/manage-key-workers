@@ -33,6 +33,7 @@ const keyworkerSettingsFactory = require('./controllers/keyworkerSettings').keyw
 const getRolesFactory = require('./controllers/getRoles').getRolesFactory;
 const getUserFactory = require('./controllers/getUser').getUserFactory;
 const removeRoleFactory = require('./controllers/removeRole').removeRoleFactory;
+const addRoleFactory = require('./controllers/addRole').addRoleFactory;
 const contextUserRolesFactory = require('./controllers/contextUserRoles').contextUserRolesFactory;
 const userSearchFactory = require('./controllers/userSearch').userSearchFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
@@ -190,6 +191,7 @@ app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch);
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles);
 app.use('/api/getUser', getUserFactory(elite2Api).getUser);
 app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole);
+app.use('/api/addRole', addRoleFactory(elite2Api).addRole);
 app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles);
 
 app.get('*', (req, res) => {

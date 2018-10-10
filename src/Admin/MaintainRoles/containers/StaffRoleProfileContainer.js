@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { resetError, setMaintainRolesRoleList, setMessage, setMaintainRolesUserContextUser } from '../../../redux/actions/index';
+import {
+  resetError,
+  setMaintainRolesRoleList,
+  setMaintainRolesRoleFilter,
+  setMessage,
+  setMaintainRolesUserContextUser,
+  setLoaded
+} from '../../../redux/actions/index';
 import { connect } from 'react-redux';
 import Error from '../../../Error';
 
 import { StaffRoleProfile } from "../components/StaffRoleProfile";
 import axios from "axios";
 import { withRouter } from 'react-router';
+import Spinner from "../../../Spinner";
 
 class StaffRoleProfileContainer extends Component {
   constructor (props) {
@@ -17,8 +25,10 @@ class StaffRoleProfileContainer extends Component {
   }
 
   async componentDidMount () {
+    this.props.setLoadedDispatch(false);
     await this.loadUser(this.props.match.params.username);
     await this.getUserRoles(this.props.match.params.username);
+    this.props.setLoadedDispatch(true);
   }
 
   async handleRemove (event) {
@@ -50,8 +60,9 @@ class StaffRoleProfileContainer extends Component {
     }
   }
 
-  handleAdd (history) {
-    history.push('/maintainRoles/addRole');
+  handleAdd (event, history) {
+    this.props.setRoleFilterDispatch('');
+    history.push(`/maintainRoles/${this.props.contextUser.username}/addRole`);
   }
 
   async getUserRoles (username) {
@@ -71,9 +82,13 @@ class StaffRoleProfileContainer extends Component {
     if (this.props.error) {
       return <Error {...this.props} />;
     }
-    return (<StaffRoleProfile handleRemove={this.handleRemove}
-      handleAdd={this.handleAdd}
-      {...this.props}/>);
+
+    if (this.props.loaded) {
+      return (<StaffRoleProfile handleRemove={this.handleRemove}
+        handleAdd={this.handleAdd}
+        {...this.props}/>);
+    }
+    return <Spinner />;
   }
 }
 
@@ -93,7 +108,8 @@ const mapStateToProps = state => {
   return {
     agencyId: state.app.user.activeCaseLoadId,
     contextUser: state.maintainRoles.contextUser,
-    roleList: state.maintainRoles.roleList
+    roleList: state.maintainRoles.roleList,
+    loaded: state.app.loaded
   };
 };
 
@@ -101,8 +117,10 @@ const mapDispatchToProps = dispatch => {
   return {
     resetErrorDispatch: () => dispatch(resetError()),
     setRoleListDispatch: (list) => dispatch(setMaintainRolesRoleList(list)),
+    setRoleFilterDispatch: (list) => dispatch(setMaintainRolesRoleFilter(list)),
     setMessageDispatch: (message) => dispatch(setMessage(message)),
-    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user))
+    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
+    setLoadedDispatch: (status) => dispatch(setLoaded(status))
   };
 };
 
