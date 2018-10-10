@@ -1,7 +1,7 @@
 const axios = require('axios');
 const logger = require('../log');
 
-const { addAuthorizationHeader, addPaginationHeaders } = require('./axios-config-decorators');
+const { addAuthorizationHeader, addPaginationHeaders, addMediaHeaders } = require('./axios-config-decorators');
 
 const resultLogger = (result) => {
   logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`);
@@ -30,7 +30,7 @@ const factory = ({ baseUrl, timeout }) => {
   });
 
 
-  const addHeaders = (context, config) => addPaginationHeaders(context, addAuthorizationHeader(context, config));
+  const addHeaders = (context, config) => addMediaHeaders(context, addPaginationHeaders(context, addAuthorizationHeader(context, config)));
 
   /**
    * An Axios GET request with Oauth token

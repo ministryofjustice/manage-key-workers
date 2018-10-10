@@ -42,6 +42,7 @@ const elite2ApiFactory = (client) => {
   const getRoles = (context) => get(context, 'api/access-roles');
   const contextUserRoles = (context, username) => get(context, `api/users/${username}/access-roles/caseload/${config.app.applicationCaseload}`);
   const removeRole = (context, agencyId, username, roleCode) => del(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
+  const addRole = (context, agencyId, username, roleCode) => put(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
   const getUser = (context, username) => get(context, `api/users/${username}`);
 
   /**
@@ -94,6 +95,7 @@ const elite2ApiFactory = (client) => {
     getRoles,
     contextUserRoles,
     removeRole,
+    addRole,
     getUser
   };
 };

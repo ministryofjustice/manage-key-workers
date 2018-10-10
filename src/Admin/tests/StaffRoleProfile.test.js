@@ -15,7 +15,7 @@ const user = {
 };
 const ROLE_DESCRIPTION_COLUMN = 0;
 
-describe('User search Results component', () => {
+describe('Staff role profile component', () => {
   it('should render the initial view of the Staff role profile', async () => {
     const component = shallow(<StaffRoleProfile user={user}
       contextUser={user}

@@ -9,6 +9,11 @@ const addAuthorizationHeader = (context, config) => {
   return config;
 };
 
+const addMediaHeaders = (context, config) => {
+  config.headers['Content-Type'] = 'application/json';
+  return config;
+};
+
 /**
  * Don't like this, but the pagination information is being passed around in headers. If that information were
  * conveyed in request parameters or as part of the body of a request then this wouldn't be necessary.
@@ -25,5 +30,6 @@ const addPaginationHeaders = (context, config) => {
 
 module.exports = {
   addAuthorizationHeader,
-  addPaginationHeaders
+  addPaginationHeaders,
+  addMediaHeaders
 };
