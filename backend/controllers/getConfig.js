@@ -6,7 +6,8 @@ const getConfiguration = asyncMiddleware(
     notmEndpointUrl: config.app.notmEndpointUrl,
     mailTo: config.app.mailTo,
     googleAnalyticsId: config.analytics.googleAnalyticsId,
-    maintainRolesEnabled: config.app.maintainRolesEnabled
+    maintainRolesEnabled: config.app.maintainRolesEnabled,
+    keyworkerDashboardStats: config.app.keyworkerDashboardStats
   }));
 
 module.exports = {
