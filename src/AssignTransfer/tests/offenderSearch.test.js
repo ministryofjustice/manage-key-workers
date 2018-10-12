@@ -23,7 +23,6 @@ describe('Offender search component', () => {
       handleSearchHousingLocationChange={() => {}}
       handleSearchAllocationStatusChange={() => {}}
       history ={{}} />);
-    //console.log(component.debug());
     expect(component.find('#search-text').length).toBe(1);
     expect(component.find('#housing-location-select').length).toBe(1);
   });

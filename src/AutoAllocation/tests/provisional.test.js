@@ -47,7 +47,7 @@ const allocatedList = [{
   staffId: 123
 }];
 
-const allocatedLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i }));
+const allocatedLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i, offenderNo: i }));
 
 const keyworkList = [{
   staffId: 123,

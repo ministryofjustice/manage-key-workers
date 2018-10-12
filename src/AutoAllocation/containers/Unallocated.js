@@ -67,7 +67,7 @@ UnallocatedContainer.propTypes = {
   setLoadedDispatch: PropTypes.func,
   loaded: PropTypes.bool,
   user: PropTypes.object.isRequired,
-  history: PropTypes.func.isRequired
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {

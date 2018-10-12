@@ -22,7 +22,6 @@ describe('User search component', () => {
       handleRoleFilterChange={jest.fn()}
       handleNameFilterChange={jest.fn()}
       handleSearch={jest.fn()}/>);
-    console.log(component.debug());
     expect(component.find('#page-title').text()).toEqual('Search for staff member');
     expect(component.find('#search-button').text()).toEqual("Search");
   });

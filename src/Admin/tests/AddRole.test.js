@@ -21,7 +21,6 @@ describe('User search component', () => {
       agencyId={'LEI'}
       handleCancel={jest.fn()}
       handleAdd={jest.fn()}/>);
-    console.log(component.debug());
     expect(component.find('#add-button').text()).toEqual("Add role");
     expect(component.find('#cancel-button').length).toEqual(1);
     expect(component.find('#role-select').find('option').length).toEqual(2); // there is also a '-- select--' option
