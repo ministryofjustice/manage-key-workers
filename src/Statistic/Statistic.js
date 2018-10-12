@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Heading, Value, Change, ChangeIcon } from './Statistic.styles';
+import { Container, Heading, Value, Change, ChangeIcon } from './Statistic.styles';
 
 class Statistic extends Component {
   constructor (props) {
@@ -25,11 +25,11 @@ class Statistic extends Component {
 
   render () {
     return (
-      <Fragment>
+      <Container>
         <Heading>{this.props.heading}</Heading>
         <Value>{this.props.value}</Value>
         <Change>{this.renderChangeString(this.props.change)}</Change>
-      </Fragment>
+      </Container>
     );
   }
 }
@@ -45,7 +45,7 @@ Statistic.propTypes = {
 
 Statistic.defaultProps = {
   heading: 'Statistic info',
-  value: '-',
+  value: '17',
   change: {
     value: 0,
     period: 'week'
