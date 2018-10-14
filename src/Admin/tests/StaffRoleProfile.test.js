@@ -1,9 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { StaffRoleProfile } from "../MaintainRoles/components/StaffRoleProfile";
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const user = {
   staffId: 485576,

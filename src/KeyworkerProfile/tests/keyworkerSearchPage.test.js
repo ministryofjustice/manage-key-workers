@@ -1,10 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { KeyworkerSearchPage } from "../components/KeyworkerSearchPage";
-
-Enzyme.configure({ adapter: new Adapter() });
-
 
 describe('Keyworker search component', () => {
   it('should render key worker search form correctly', async () => {

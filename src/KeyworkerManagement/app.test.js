@@ -1,13 +1,8 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
+import { shallow } from 'enzyme';
 import App from "./App";
 
 jest.mock('../Spinner/index', () => '');
-
-Enzyme.configure({ adapter: new Adapter() });
-
 
 describe('App component', () => {
   it('should handle session timeout error response and display alert', async () => {

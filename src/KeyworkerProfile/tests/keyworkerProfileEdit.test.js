@@ -1,10 +1,7 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import KeyworkerProfileEdit from "../components/KeyworkerProfileEdit";
 import Status from "../components/Status";
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const keyworker = {
   firstName: "Frank",
