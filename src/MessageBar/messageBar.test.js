@@ -1,10 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import MessageBar from "../MessageBar";
-
-Enzyme.configure({ adapter: new Adapter() });
-
 
 describe('ManualAllocation component', () => {
   it('should render message correctly', async () => {
