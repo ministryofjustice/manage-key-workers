@@ -1,4 +1,4 @@
-import styled, { css } from 'react-emotion';
+import styled from 'react-emotion';
 import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants';
 
 export const Container = styled('div')`
@@ -35,20 +35,11 @@ export const Change = styled('p')`
   margin: 0;
   font-size: ${FONT_SIZE.SIZE_16};
 
+  img {
+    margin: -${SPACING.SCALE_1} ${SPACING.SCALE_1} 0;
+  }
+
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
     font-size: ${FONT_SIZE.SIZE_19};
   }
-`;
-
-export const ChangeIcon = styled('span')`
-  display: inline-block;
-  margin: 0 ${SPACING.SCALE_1};
-  height: 20px;
-  width: 20px;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  ${props => props.isPositiveValue && css`background-image: url(/images/icon-positive-arrow.png);`};
-  ${props =>
-    !props.isPositiveValue && css`background-image: url(/images/icon-negative-arrow.png);`};
 `;
