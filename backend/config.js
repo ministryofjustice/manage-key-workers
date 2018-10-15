@@ -16,7 +16,8 @@ const app = {
   tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
   offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
   maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || "false",
-  applicationCaseload: process.env.APPLICATION_CASELOAD || "NWEB"
+  applicationCaseload: process.env.APPLICATION_CASELOAD || "NWEB",
+  keyworkerDashboardStats: process.env.KEYWORKER_DASHBOARD || false
 };
 
 const analytics = {

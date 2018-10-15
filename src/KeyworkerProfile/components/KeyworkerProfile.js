@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { properCaseName, renderDate } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import MessageBar from "../../MessageBar/index";
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
 import { getOffenderLink } from "../../links";
+import KeyworkerStats from './KeyworkerStats';
 
 class KeyworkerProfile extends Component {
   constructor (props) {
@@ -66,6 +67,12 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
+      {this.props.config.keyworkerDashboardStats &&
+        <Fragment>
+          <KeyworkerStats />
+          <hr/>
+        </Fragment>
+      }
       <div className="lede padding-top padding-bottom-large bold">Current allocations <div id="allocationCount" className={allocationCountStyle}><div className="adjustCount">{this.props.keyworkerAllocations.length}</div></div></div>
       <div className="pure-u-md-12-12">
         <div className="padding-bottom-40">

@@ -8,6 +8,9 @@
     "node": ">=8.4.*"
   },
   "dependencies": {
+    "@govuk-react/constants": "^0.2.7",
+    "@govuk-react/grid-col": "^0.2.12",
+    "@govuk-react/grid-row": "^0.2.12",
     "applicationinsights": "^1.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -18,6 +21,7 @@
     "debug": "~2.6.9",
     "dotenv": "^5.0.1",
     "ejs": "^2.6.1",
+    "emotion": "^9.2.12",
     "express": "^4.16.3",
     "govuk-elements-sass": "^3.1.2",
     "govuk_frontend_toolkit": "^7.5.0",
@@ -27,12 +31,12 @@
     "jsonwebtoken": "^8.2.1",
     "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.21",
+    "new-nomis-shared-components": "^1.3.0",
     "pre-commit": "^1.2.2",
     "prop-types": "^15.5.8",
     "react-datetime": "^2.14.0",
-    "spin.js": "^3.1.0",
-    "styled-components": "3.4.9",
-    "new-nomis-shared-components": "^1.3.0"
+    "react-emotion": "^9.2.12",
+    "spin.js": "^3.1.0"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
@@ -40,6 +44,7 @@
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -68,6 +73,7 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-test-renderer": "^16.5.2",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "sass-loader": "^7.0.1",

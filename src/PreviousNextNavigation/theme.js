@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from 'react-emotion';
 import { media } from './style-utils';
 
-export const PrevNextNavContainer = styled.nav`
+export const PrevNextNavContainer = styled('nav')`
   display: ${(props) => props.show ? 'block' : 'none'};
 `;
 
-export const PrevNextNavWrapper = styled.ul`
+export const PrevNextNavWrapper = styled('ul')`
   display: flex;
   flex-direction: row;
   margin: auto;
@@ -29,7 +29,7 @@ export const PrevNextNavWrapper = styled.ul`
   }
 `;
 
-export const PrevNavigatorRegion = styled.li`
+export const PrevNavigatorRegion = styled('li')`
   float: left;
   
   div {
@@ -48,11 +48,11 @@ export const PrevNavigatorRegion = styled.li`
   }
 `;
 
-export const NavigatorContent = styled.div`
+export const NavigatorContent = styled('div')`
   ${media.desktop`font-size: 27px !important;`}
 `;
 
-export const NextNavigatorRegion = styled.li`
+export const NextNavigatorRegion = styled('li')`
   float: right;
   text-align: right;
   
@@ -72,7 +72,7 @@ export const NextNavigatorRegion = styled.li`
   }
 `;
 
-export const VisuallyHiddenSpan = styled.span`
+export const VisuallyHiddenSpan = styled('span')`
   position: absolute;
   left: -9999em;
   top: auto;
@@ -81,7 +81,7 @@ export const VisuallyHiddenSpan = styled.span`
   overflow: hidden;
 `;
 
-export const PageNumbers = styled.span`
+export const PageNumbers = styled('span')`
   display: block;
   font-size: 12px;
   line-height: 1.25;
