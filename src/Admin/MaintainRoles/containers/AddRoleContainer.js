@@ -66,7 +66,7 @@ class AddRoleContainer extends Component {
         }
       });
       // await this.getUserRoles();
-      this.props.setMessageDispatch('Role list updated');
+      this.props.setMessageDispatch('Role successfully added');
       history.goBack();
     } catch (error) {
       this.props.handleError(error);

@@ -17,7 +17,7 @@ class StaffRoleProfile extends Component {
       return (
         <tr key={a.roleCode}>
           <td className="row-gutters">{a.roleName}</td>
-          <td className="row-gutters"><button className="button removeButton" id={`remove-button-${a.roleCode}`} value={a.roleCode} onClick={(event) => { this.props.handleRemove(event, this.props.history);}}>Remove</button></td>
+          <td className="row-gutters"><button className="button greyButtonNoMinWidth removeButton" id={`remove-button-${a.roleCode}`} value={a.roleCode} onClick={(event) => { this.props.handleRemove(event, this.props.history);}}>Remove</button></td>
         </tr>
       );
     }
@@ -32,25 +32,14 @@ class StaffRoleProfile extends Component {
         </div>
         <div className="pure-g">
           <div className="pure-u-md-11-12 ">
-            <h1 className="heading-large margin-top" id="page-title">Staff role profile</h1>
-
-            <div className="pure-u-md-12-12 padding-top ">
-              <div className="pure-u-md-2-12" >
-                <div className="bold">Name</div>
-              </div>
-              <div className="pure-u-md-7-12" >
-                <div>{formattedName}</div>
-              </div>
-            </div>
-
-            <hr/>
+            <h1 className="heading-large margin-top" id="page-title">Staff roles: {formattedName}</h1>
 
             <div className="pure-u-md-7-12">
               <div className="padding-bottom-40">
                 <table>
                   <thead>
                     <tr>
-                      <th>Role</th>
+                      <th>Current roles</th>
                       <th />
                     </tr>
                   </thead>

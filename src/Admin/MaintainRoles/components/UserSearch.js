@@ -22,11 +22,11 @@ class UserSearch extends Component {
         {this.props.displayBack()}
         <div className="pure-g">
           <div className="pure-u-md-11-12 ">
-            <h1 className="heading-large margin-top" id="page-title">User access management</h1>
+            <h1 className="heading-large margin-top" id="page-title">Search for staff member</h1>
             <div>
               <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
                 <div className="pure-u-md-4-12">
-                  <label className="form-label" htmlFor="nameFilter">User name</label>
+                  <label className="form-label" htmlFor="nameFilter">Name or staff NOMIS ID</label>
                   <input type="text" className="full-width form-control" id="name-filter" name="nameFilter" value={this.props.nameFilter} onChange={this.props.handleNameFilterChange}/>
                 </div>
                 <div className="pure-u-md-3-12 margin-left">

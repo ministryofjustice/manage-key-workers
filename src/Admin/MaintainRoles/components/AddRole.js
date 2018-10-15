@@ -20,7 +20,7 @@ class AddRole extends Component {
 
     const rolesAvailable = roleListOptions && roleListOptions.length > 0;
 
-    const roleSelect = (<select id="role-select" name="role-select" className="form-control"
+    const roleSelect = (<select id="role-select" name="role-select" className="widthAuto form-control"
       value={this.props.roleFilter}
       onChange={this.props.handleRoleFilterChange}>
       <option key="choose" value="--">-- Select --</option>
@@ -36,22 +36,12 @@ class AddRole extends Component {
           </div>
           <div className="pure-g">
             <div className="pure-u-md-11-12 ">
-              <h1 className="heading-large margin-top" id="page-title">Add staff role</h1>
-              <div className="pure-u-md-12-12 padding-top ">
-                <div className="pure-u-md-2-12" >
-                  <div className="bold">Name</div>
-                </div>
-                <div className="pure-u-md-7-12" >
-                  <div>{formattedName}</div>
-                </div>
-              </div>
-
-              <hr/>
+              <h1 className="heading-large margin-top" id="page-title">Add staff role: {formattedName}</h1>
 
               <div>
-                <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
-                  {!rolesAvailable && <div className="pure-u-md-3-12 margin-left">No roles available</div>}
-                  {rolesAvailable && <div className="pure-u-md-3-12 margin-left">
+                <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large">
+                  {!rolesAvailable && <div className="pure-u-md-6-12 margin-left-15">No roles available</div>}
+                  {rolesAvailable && <div className="margin-left-15">
                     <label className="form-label" htmlFor="role-select">Choose new role</label>
                     <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'role-select'} />
                     { roleSelect }
@@ -61,8 +51,8 @@ class AddRole extends Component {
             </div>
           </div>
           <div className="pure-u-md-7-12">
-            <button className="button margin-left margin-top-large" id="cancel-button" onClick={(event) => { this.props.handleCancel(event, this.props.history);}}>Cancel</button>
             {rolesAvailable && <button className="button margin-left margin-top-large" id="add-button" onClick={(event) => { this.props.handleAdd(event, this.props.history);}}>Add role</button>}
+            <button className="button margin-left-15 margin-top-large" id="cancel-button" onClick={(event) => { this.props.handleCancel(event, this.props.history);}}>Cancel</button>
           </div>
         </div>
       </div>

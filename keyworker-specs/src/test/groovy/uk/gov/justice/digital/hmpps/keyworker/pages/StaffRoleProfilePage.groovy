@@ -9,7 +9,7 @@ public class StaffRoleProfilePage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText.contains('Staff role profile')
+        headingText.contains('Staff roles')
     }
 
     static content = {

@@ -105,9 +105,19 @@ class Elite2Api extends WireMockRule {
                                 .withBody(UserSearchResponse.getResponse())))
     }
 
-    void stubUserSearch(AgencyLocation agencyLocation, Integer page) {
+    void stubUserLocalAdministratorSearch(AgencyLocation agencyLocation) {
         this.stubFor(
-                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
+                get(urlPathEqualTo("/api/users/local-administrator/caseload/${agencyLocation.id}"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(UserSearchResponse.getResponse())))
+    }
+
+    void stubUserLocalAdministratorSearch(AgencyLocation agencyLocation, Integer page) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/local-administrator/caseload/${agencyLocation.id}"))
                         .withHeader('page-offset', equalTo((page * 10).toString()))
                         .willReturn(
                         aResponse()
@@ -237,6 +247,7 @@ class Elite2Api extends WireMockRule {
     void stubOffenderSearchLargeResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
+                        .withHeader('page-limit', equalTo('3000'))
                         .willReturn(aResponse()
                         .withBody(OffenderSearchResponse.response_55_results)
                         .withStatus(200))

@@ -15,8 +15,8 @@ class UserSearchResults extends Component {
       return (
         <tr key={a.username}>
           <td className="row-gutters">{formattedName}</td>
-          <td className="row-gutters">{a.username}</td>
-          <td className="row-gutters"><button className="button" id={`edit-button-${a.username}`} value={index} onClick={(event) => { this.props.handleEdit(event, this.props.history);}}>Edit</button></td>
+          <td className="row-gutters width13em">{a.username}</td>
+          <td className="row-gutters width5em"><button className="button greyButtonNoMinWidth" id={`edit-button-${a.username}`} value={index} onClick={(event) => { this.props.handleEdit(event, this.props.history);}}>Edit</button></td>
         </tr>
       );
     }
