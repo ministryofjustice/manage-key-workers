@@ -247,6 +247,7 @@ class Elite2Api extends WireMockRule {
     void stubOffenderSearchLargeResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
+                        .withHeader('page-limit', equalTo('3000'))
                         .willReturn(aResponse()
                         .withBody(OffenderSearchResponse.response_55_results)
                         .withStatus(200))
