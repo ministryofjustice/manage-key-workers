@@ -36,8 +36,7 @@
     "prop-types": "^15.5.8",
     "react-datetime": "^2.14.0",
     "react-emotion": "^9.2.12",
-    "spin.js": "^3.1.0",
-    "styled-components": "3.4.9"
+    "spin.js": "^3.1.0"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
@@ -45,6 +44,7 @@
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",

@@ -7,7 +7,8 @@ class Statistic extends Component {
     super(props);
   }
 
-  renderChangeString (change) {
+  renderChangeString = () => {
+    const { change } = this.props;
     if (!change || change.value === 0) return `no change since last ${change.period}`;
 
     const { value, period } = change;
@@ -23,14 +24,14 @@ class Statistic extends Component {
         {period && `since last ${period}`}
       </Fragment>
     );
-  }
+  };
 
   render () {
     return (
       <Container>
         <Heading>{this.props.heading}</Heading>
         <Value>{this.props.value}</Value>
-        <Change>{this.renderChangeString(this.props.change)}</Change>
+        <Change>{this.renderChangeString()}</Change>
       </Container>
     );
   }

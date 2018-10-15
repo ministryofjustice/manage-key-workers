@@ -1,4 +1,4 @@
 {
   "presets": ["env", "babel-preset-react", "stage-2"],
-  "plugins": ["transform-regenerator"]
+  "plugins": ["transform-regenerator", "transform-class-properties"]
 }
