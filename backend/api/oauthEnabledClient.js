@@ -39,13 +39,14 @@ const factory = ({ baseUrl, timeout }) => {
    * @param url if url is relative then baseURL will be prepended. If the url is absolute the baseURL is ignored.
    * @returns A Promise which settles to the Axios result object if the promise is resolved, otherwise to the 'error' object.
    */
-  const get = (context, url) =>
+  const get = (context, url, resultLimit) =>
     axiosInstance(
       addHeaders(
         context,
         {
           method: 'get',
-          url
+          url,
+          headers: resultLimit ? { 'Page-Limit': resultLimit } : {}
         },
       ),
     )

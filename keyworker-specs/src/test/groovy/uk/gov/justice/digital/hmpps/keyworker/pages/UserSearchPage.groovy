@@ -9,7 +9,7 @@ public class UserSearchPage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText.contains('User access management')
+        headingText.contains('Search for staff member')
     }
 
     static content = {

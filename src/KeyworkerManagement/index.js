@@ -45,8 +45,8 @@ class HomePage extends Component {
               <div className="padding-right-large">Allow auto-allocation. Edit key worker capacity and session frequency.</div>
             </div>}
             {showMaintainRoles && <div className="pure-u-md-5-12">
-              <Link id="maintain_roles_link" title="maintain access roles" className="link" to="/maintainRoles/search" >Maintain access roles</Link>
-              <div className="padding-right-large">Some text for maintain roles</div>
+              <Link id="maintain_roles_link" title="maintain access roles" className="link" to="/maintainRoles/search" >Manage access roles</Link>
+              <div className="padding-right-large">Add and remove staff roles</div>
             </div>}
           </div>
         </div>
