@@ -1,9 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { OffenderSearch } from "../components/OffenderSearch";
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const housingLocations = [{ id: 123, description: "block 1" }, { id: 223, description: "block 2" }];
 

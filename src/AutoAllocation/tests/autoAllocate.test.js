@@ -1,6 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { UnallocatedContainer } from "../containers/Unallocated";
 import { ProvisionalContainer } from "../containers/Provisional";
 import axios from 'axios';
@@ -9,9 +8,6 @@ const AXIOS_URL = 0;
 const AXIOS_CONFIG = 1;
 
 jest.mock('../../Spinner/index', () => 'div id="spinner"');
-
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const user = {
   writeAccess: true

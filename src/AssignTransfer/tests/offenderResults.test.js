@@ -1,9 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import { OffenderResults } from "../components/OffenderResults";
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const OFFENDER_NAME_COLUMN = 0;
 const NOMS_ID_COLUMN = 1;
