@@ -67,7 +67,7 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
-      {this.props.config.keyworkerDashboardStats &&
+      {this.props.config.keyworkeProfileStatsEnabled === "true" &&
         <Fragment>
           <KeyworkerStats />
           <hr/>

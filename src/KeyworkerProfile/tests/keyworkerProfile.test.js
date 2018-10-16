@@ -146,7 +146,7 @@ const props = {
   handleAllocationChange: jest.fn(),
   handleEditProfileClick: jest.fn(),
   config: {
-    keyworkerDashboardStats: false
+    keyworkeProfileStatsEnabled: false
   }
 };
 const component = shallow(<KeyworkerProfile {...props} />);

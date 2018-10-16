@@ -17,7 +17,7 @@ const app = {
   offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
   maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || "false",
   applicationCaseload: process.env.APPLICATION_CASELOAD || "NWEB",
-  keyworkerDashboardStats: process.env.KEYWORKER_DASHBOARD || false
+  keyworkeProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || "false"
 };
 
 const analytics = {
