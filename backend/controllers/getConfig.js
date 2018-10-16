@@ -7,7 +7,7 @@ const getConfiguration = asyncMiddleware(
     mailTo: config.app.mailTo,
     googleAnalyticsId: config.analytics.googleAnalyticsId,
     maintainRolesEnabled: config.app.maintainRolesEnabled,
-    keyworkerDashboardStats: config.app.keyworkerDashboardStats
+    keyworkeProfileStatsEnabled: config.app.keyworkeProfileStatsEnabled
   }));
 
 module.exports = {
