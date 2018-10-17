@@ -5,7 +5,7 @@ import StatisticChange from './StatisticChange';
 
 const Statistic = ({ heading, value, change }) => {
   return (
-    <Container>
+    <Container data-qa="keyworker-stat">
       <Heading>{heading}</Heading>
       <Value>{value}</Value>
       <Change>

@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerAllocationList, setKeyworker, setKeyworkerChangeList, setAvailableKeyworkerList, setKeyworkerStatus, setKeyworkerCapacity, setMessage, setLoaded } from '../../redux/actions/index';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import KeyworkerProfile from '../components/KeyworkerProfile';
 import Error from '../../Error';
 import { withRouter } from 'react-router';
 import Spinner from '../../Spinner';
+
+import {
+  setKeyworkerAllocationList,
+  setKeyworker,
+  setKeyworkerChangeList,
+  setAvailableKeyworkerList,
+  setKeyworkerStatus,
+  setKeyworkerCapacity,
+  setMessage,
+  setLoaded,
+  setKeyworkerStats
+} from '../../redux/actions/index';
+
 
 import axios from 'axios';
 
@@ -15,6 +28,8 @@ class KeyworkerProfileContainer extends Component {
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.postAllocationChange = this.postAllocationChange.bind(this);
     this.handleEditProfileClick = this.handleEditProfileClick.bind(this);
+    this.getKeyworkerStats = this.getKeyworkerStats.bind(this);
+
     props.setLoadedDispatch(false);
   }
 
@@ -22,6 +37,7 @@ class KeyworkerProfileContainer extends Component {
     try {
       await this.getKeyworkerProfile();
       await this.getKeyworkerAllocations();
+      await this.getKeyworkerStats();
     } catch (error) {
       this.props.handleError(error);
     }
@@ -39,6 +55,30 @@ class KeyworkerProfileContainer extends Component {
     this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
     this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
     this.props.keyworkerChangeListDispatch([]);
+  }
+
+  async getKeyworkerStats () {
+    const format = 'YYYY-MM-DD';
+    const fromDate = moment().subtract(1, 'month').format(format);
+    const toDate = moment().format(format);
+
+    const stats = await this.getKeyworkerStatsCall(this.props.agencyId, this.props.match.params.staffId, fromDate, toDate);
+
+    this.props.keyworkerStatsDispatch(stats);
+  }
+
+  async getKeyworkerStatsCall (agencyId, staffId, fromDate, toDate) {
+    const response = await axios.get('/api/keyworker-profile-stats', {
+      params: {
+        agencyId,
+        staffId,
+        fromDate,
+        toDate,
+        period: 'month'
+      }
+    });
+
+    return response.data;
   }
 
 
@@ -159,6 +199,7 @@ const mapDispatchToProps = dispatch => {
   return {
     keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
     keyworkerDispatch: id => dispatch(setKeyworker(id)),
+    keyworkerStatsDispatch: stats => dispatch(setKeyworkerStats(stats)),
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
     availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
     keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),

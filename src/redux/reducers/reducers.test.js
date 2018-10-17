@@ -559,6 +559,27 @@ describe('key worker search reducer', () => {
     );
   });
 
+  it('should handle SET_KEY_WORKER_STATS', () => {
+    expect(keyworkerSearch(keyworkerSearchInitialState, {
+      type: types.SET_KEY_WORKER_STATS,
+      stats: { hello: 'world' }
+    })).toEqual(
+      {
+        searchText: '',
+        statusFilter: '',
+        keyworkerSearchResults: [],
+        keyworkerAllocations: [],
+        keyworkerChangeList: [],
+        keyworkerList: [],
+        keyworker: { stats: { hello: 'world' } },
+        status: '',
+        capacity: '',
+        statusChangeBehaviour: '',
+        annualLeaveReturnDate: ''
+      }
+    );
+  });
+
   it('should handle SET_KEY_WORKER_CHANGE_LIST', () => {
     expect(keyworkerSearch(keyworkerSearchInitialState, {
       type: types.SET_KEY_WORKER_CHANGE_LIST,

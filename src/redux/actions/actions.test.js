@@ -394,5 +394,14 @@ describe('actions', () => {
     };
     expect(actions.setMaintainRolesRoleFilter('aField')).toEqual(expectedAction);
   });
+
+  it('should create an action to set the keyworker stats', () => {
+    const stats = {};
+    const expectedAction = {
+      type: types.SET_KEY_WORKER_STATS,
+      stats
+    };
+    expect(actions.setKeyworkerStats(stats)).toEqual(expectedAction);
+  });
 });
 

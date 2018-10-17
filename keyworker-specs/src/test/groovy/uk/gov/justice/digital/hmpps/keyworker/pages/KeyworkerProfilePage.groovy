@@ -29,5 +29,8 @@ public class KeyworkerProfilePage extends Page {
         updateKeyworkerAllocationButton(required: false, to: KeyworkerManagementPage) { $('#updateAllocationButton') }
         messageBar(required: false) { $('div #messageBar')}
         backLink { $('a.backlink')}
+        stats {  $("[data-qa='keyworker-stat']") }
     }
+
+
 }

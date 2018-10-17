@@ -3,18 +3,11 @@ package uk.gov.justice.digital.hmpps.keyworker.mockapis
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.CaseNoteUsageResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderAssessmentsResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSentencesResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.RolesResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.UserSearchResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.*
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
-
-import java.lang.reflect.Array
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*
 

@@ -212,6 +212,13 @@ export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
       return { ...state,
         keyworker: action.keyworker
       };
+    case ActionTypes.SET_KEY_WORKER_STATS:
+      return { ...state,
+        keyworker: {
+          ...state.keyworker,
+          stats: action.stats
+        }
+      };
     case ActionTypes.SET_KEY_WORKER_CHANGE_LIST:
       return { ...state,
         keyworkerChangeList: action.keyworkerChangeList

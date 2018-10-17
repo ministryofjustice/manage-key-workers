@@ -161,6 +161,14 @@ export const setKeyworker = (keyworker) => {
   };
 };
 
+export const setKeyworkerStats = (stats) => {
+  return {
+    type: ActionTypes.SET_KEY_WORKER_STATS,
+    stats
+  };
+};
+
+
 export const setKeyworkerChangeList = (keyworkerChangeList) => {
   return {
     type: ActionTypes.SET_KEY_WORKER_CHANGE_LIST,
