@@ -47,7 +47,7 @@ const offenderResponse = [{
   staffId: 123
 }];
 
-const offenderResponseLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i }));
+const offenderResponseLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i, offenderNo: i }));
 
 const keyworkerResponse = [{
   staffId: 123,
@@ -73,6 +73,7 @@ const user = {
 describe('Offender results component', () => {
   it('should render initial offender results form correctly', async () => {
     const component = shallow(<OffenderResults
+      user={{}}
       loaded
       keyworkerList={keyworkerResponse}
       offenderResults={results}
@@ -154,6 +155,7 @@ describe('Offender results component', () => {
 
   it('should disable the assign new key worker drop down when the user has no write access', () => {
     const component = shallow(<OffenderResults
+      user={{}}
       loaded
       offenderResults={results}
       postManualOverride={jest.fn()}
@@ -188,6 +190,7 @@ describe('Offender results component', () => {
 
   it('should hide the confirm and cancel buttons when the user does not have write access', () => {
     const component = shallow(<OffenderResults
+      user={{}}
       loaded
       offenderResults={results}
       postManualOverride={jest.fn()}

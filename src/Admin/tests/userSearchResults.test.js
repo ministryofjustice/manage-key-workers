@@ -38,7 +38,6 @@ describe('User search Results component', () => {
       handleNameFilterChange={jest.fn()}
       handleEdit={jest.fn()}
       handleSearch={jest.fn()}/>);
-    console.log(component.debug());
     const searchComponent = component.find('UserSearch').shallow();
     expect(searchComponent.find('#search-button').text()).toEqual("Search");
     expect(component.find('tr').at(1).find('td').at(NAME_COLUMN).text()).toEqual('Hunston, Martha');

@@ -126,9 +126,9 @@ KeyworkerSettings.propTypes = {
   allowAuto: PropTypes.bool,
   migrated: PropTypes.bool,
   supported: PropTypes.bool,
-  sequenceFrequency: PropTypes.bool,
-  capacity: PropTypes.string,
-  extCapacity: PropTypes.string,
+  sequenceFrequency: PropTypes.number,
+  capacity: PropTypes.number,
+  extCapacity: PropTypes.number,
   validationErrors: PropTypes.object
 };
 

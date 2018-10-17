@@ -9,18 +9,18 @@ const getTestData = function () {
       firstName: 'Brent',
       lastName: 'Daggart',
       numberAllocated: 3,
-      status: "ACTIVE",
+      status: 'ACTIVE',
       numKeyWorkerSessions: 2,
-      currentRole: "Key worker2"
+      currentRole: 'Key worker2'
     },
     {
       staffId: 1,
       firstName: 'Amy',
       lastName: 'Hanson',
       numberAllocated: 4,
-      status: "ACTIVE",
+      status: 'ACTIVE',
       numKeyWorkerSessions: 1,
-      currentRole: "Key worker"
+      currentRole: 'Key worker'
     },
     {
       staffId: 3,
@@ -28,8 +28,8 @@ const getTestData = function () {
       lastName: 'Welch',
       numberAllocated: 1,
       numKeyWorkerSessions: 4,
-      status: "ACTIVE",
-      currentRole: "Key worker3"
+      status: 'ACTIVE',
+      currentRole: 'Key worker3'
     }
   ];
   return list;
@@ -38,7 +38,19 @@ const getTestData = function () {
 describe('Keyworker search result component', () => {
   it('should render component correctly', async () => {
     const list = getTestData();
-    const component = shallow(<KeyworkerSearchResult keyworkerList={list} displayBack={jest.fn()} handleSearchTextChange={jest.fn()} />);
+    const component = shallow(
+      <KeyworkerSearchResult
+        keyworkerList={list}
+        displayBack={jest.fn()}
+        handleSearch={jest.fn()}
+        handleSearchTextChange={jest.fn()}
+        handleStatusChange={jest.fn()}
+        handleStatusFilterChange={jest.fn()}
+        user={{}}
+        keyworkerSettings={{}}
+        history={{}}
+      />
+    );
     expect(component.find('tr').length).toEqual(4); // includes header tr
     expect(component.find('tr').at(1).find('td').at(0).text()).toContain('Link');
     expect(component.find('tr').at(1).find('td').at(2).text()).toEqual('3');
@@ -46,5 +58,3 @@ describe('Keyworker search result component', () => {
     expect(component.find('tr').at(1).find('td').at(5).text()).toEqual('2');
   });
 });
-
-
