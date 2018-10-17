@@ -57,13 +57,13 @@ class KeyworkerSettings extends Component {
                 Allow auto-allocation
               </div>
               <div className="pure-u-md-4-12" >
-                <div className="multiple-choice pure-u-md-1-12">
-                  <input type="radio" value="true" checked={this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
-                  <label>Yes</label>
+                <div className="multiple-choice">
+                  <input id="allowAutoYes" name="allowAutoYes" type="radio" value="true" checked={this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
+                  <label htmlFor="allowAutoYes">Yes</label>
                 </div>
-                <div className="multiple-choice pure-u-md-1-12">
-                  <input type="radio" value="false" checked={!this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
-                  <label>No</label>
+                <div className="multiple-choice">
+                  <input id="allowAutoNo" name="allowAutoNo" type="radio" value="false" checked={!this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
+                  <label htmlFor="allowAutoNo">No</label>
                 </div>
               </div>
             </fieldset>
