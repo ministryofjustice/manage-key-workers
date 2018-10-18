@@ -62,15 +62,14 @@ class KeyworkerProfileContainer extends Component {
     const fromDate = moment().subtract(1, 'month').format(format);
     const toDate = moment().format(format);
 
-    const stats = await this.getKeyworkerStatsCall(this.props.agencyId, this.props.match.params.staffId, fromDate, toDate);
+    const stats = await this.getKeyworkerStatsCall(this.props.match.params.staffId, fromDate, toDate);
 
     this.props.keyworkerStatsDispatch(stats);
   }
 
-  async getKeyworkerStatsCall (agencyId, staffId, fromDate, toDate) {
+  async getKeyworkerStatsCall (staffId, fromDate, toDate) {
     const response = await axios.get('/api/keyworker-profile-stats', {
       params: {
-        agencyId,
         staffId,
         fromDate,
         toDate,

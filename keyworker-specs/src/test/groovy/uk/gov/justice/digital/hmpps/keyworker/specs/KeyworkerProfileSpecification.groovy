@@ -209,6 +209,7 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         keyworkerApi.stubEmptyListResponse("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${AgencyLocation.LEI}/offenders")
         elite2api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
         elite2api.stubOffenderSentenceResponse(AgencyLocation.LEI)
+        keyworkerApi.stubKeyworkerStats()
         browser.page.testKeyworkerLink.click()
         assert browser.page instanceof KeyworkerProfilePage
         keyworkerEditButton.click()

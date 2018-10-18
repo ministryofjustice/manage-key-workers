@@ -285,7 +285,7 @@ class KeyworkerApi extends WireMockRule {
 
     void stubKeyworkerStats() {
         this.stubFor(
-                get(urlPathMatching("/key-worker-stats/-3/prison/LEI?.*"))
+                get(urlPathEqualTo("/key-worker-stats/${KeyworkerResultsPage.test_keyworker_staffId}"))
                         .willReturn(aResponse()
                         .withBody(KeyworkerStatsResponse.statsForStaffResponse)
                         .withStatus(200)))

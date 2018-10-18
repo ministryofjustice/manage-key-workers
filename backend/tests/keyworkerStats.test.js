@@ -13,14 +13,13 @@ describe('Key worker profile controller', async () => {
     await controller.getStatsForStaff({
       locals: {},
       staffId: -5,
-      agencyId: 'LEI',
       fromDate: '2018-05-10',
       toDate: '2018-05-15'
     });
 
     expect(keyworkerApi.stats.mock.calls).toEqual([
-      [{}, 'LEI', -5, '2018-05-10', '2018-05-15'],
-      [{}, 'LEI', -5, '2018-05-05', '2018-05-10']
+      [{}, -5, '2018-05-10', '2018-05-15'],
+      [{}, -5, '2018-05-05', '2018-05-10']
     ]);
   });
 
@@ -41,7 +40,7 @@ describe('Key worker profile controller', async () => {
     });
 
     const stats =
-        await controller.getStatsForStaff({ locals: {}, staffId: -5, agencyId: 'LEI',
+        await controller.getStatsForStaff({ locals: {}, staffId: -5,
           fromDate: '2018-10-10', toDate: '2018-10-15' });
 
     const statsByName = getStatsByName(stats);
@@ -82,7 +81,7 @@ describe('Key worker profile controller', async () => {
     });
 
     const stats = await controller
-      .getStatsForStaff({ locals: {}, staffId: -5, agencyId: 'LEI',
+      .getStatsForStaff({ locals: {}, staffId: -5,
         fromDate: '2018-10-10', toDate: '2018-10-15' });
 
     const statsByName = getStatsByName(stats);
@@ -123,7 +122,7 @@ describe('Key worker profile controller', async () => {
     });
 
     const stats = await controller
-      .getStatsForStaff({ locals: {}, staffId: -5, agencyId: 'LEI',
+      .getStatsForStaff({ locals: {}, staffId: -5,
         fromDate: '2018-10-10', toDate: '2018-10-15' });
 
     const statsByName = getStatsByName(stats);
