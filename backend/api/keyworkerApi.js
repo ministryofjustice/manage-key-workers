@@ -140,8 +140,8 @@ const keyworkerApiFactory = (client) => {
    */
   const unallocated = (context, agencyId) => get(context, `key-worker/${agencyId}/offenders/unallocated`);
 
-  const stats = (context, staffId, fromDate, toDate) =>
-    get(context, `key-worker-stats/${staffId}?fromDate=${fromDate}&toDate=${toDate}`);
+  const stats = (context, agencyId, staffId, fromDate, toDate) =>
+    get(context, `key-worker-stats/${staffId}/prison/${agencyId}?fromDate=${fromDate}&toDate=${toDate}`);
 
   return {
     allocate,

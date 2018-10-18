@@ -5,16 +5,16 @@ const log = require('../log');
 
 const keyworkerStatsFactory = (keyworkerApi) => {
   const getStatsForStaffRoute = asyncMiddleware(async (req, res) => {
-    const { staffId, fromDate, toDate, period } = req.query;
-    const stats = await getStatsForStaff({ locals: res.locals, staffId, fromDate, toDate, period });
+    const { agencyId, staffId, fromDate, toDate, period } = req.query;
+    const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period });
     log.debug({ data: stats }, 'Response from keyworker stats request');
     res.json(stats);
   });
 
-  const getStatsForStaff = async ({ locals, staffId, fromDate, toDate, period }) => {
+  const getStatsForStaff = async ({ locals, agencyId, staffId, fromDate, toDate, period }) => {
     const getStats = [
-      keyworkerApi.stats(locals, staffId, fromDate, toDate),
-      getPastStats(locals, staffId, fromDate, toDate)
+      keyworkerApi.stats(locals, agencyId, staffId, fromDate, toDate),
+      getPastStats(locals, agencyId, staffId, fromDate, toDate)
     ];
 
     const [
@@ -30,13 +30,13 @@ const keyworkerStatsFactory = (keyworkerApi) => {
     ];
   };
 
-  const getPastStats = async (locals, staffId, fromDate, toDate) => {
+  const getPastStats = async (locals, agencyId, staffId, fromDate, toDate) => {
     const format = 'YYYY-MM-DD';
     const days = moment(toDate, format).diff(moment(fromDate, format), 'days');
     const pastFromDate = moment(fromDate).subtract(days, 'day');
     const pastToDate = moment(toDate).subtract(days, 'day');
 
-    return keyworkerApi.stats(locals, staffId, pastFromDate.format(format), pastToDate.format(format));
+    return keyworkerApi.stats(locals, agencyId, staffId, pastFromDate.format(format), pastToDate.format(format));
   };
 
   return {
