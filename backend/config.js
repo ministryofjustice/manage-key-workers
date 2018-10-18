@@ -8,7 +8,7 @@ const setTestDefaults = () => {
     app.maintainRolesEnabled = "true";
   }
 
-  app.keyworkeProfileStatsEnabled = true;
+  app.keyworkeProfileStatsEnabled = "true";
 };
 
 const app = {
