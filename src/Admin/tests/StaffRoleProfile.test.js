@@ -21,7 +21,6 @@ describe('Staff role profile component', () => {
       displayBack={jest.fn()}
       handleRemove={jest.fn()}
       handleAdd={jest.fn()}/>);
-    console.log(component.debug());
     expect(component.find('#add-button').text()).toEqual("Add role");
     expect(component.find('.removeButton').length).toEqual(2);
     expect(component.find('tr').at(1).find('td').at(ROLE_DESCRIPTION_COLUMN).text()).toEqual('Role 1');

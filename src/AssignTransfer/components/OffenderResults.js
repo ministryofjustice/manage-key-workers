@@ -91,7 +91,7 @@ class OffenderResults extends Component {
           <div className="pure-u-md-11-12-12"><OffenderSearch {...this.props} /></div>
         </div>
         {this.props.offenderResults.partialResults &&
-        <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><img alt="" className="padding-left" src="/images/icon-important-2x.png" height="30" width="30"/></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
+        <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><span className="padding-left"><img alt="Warning icon" src="/images/icon-important-2x.png" height="30" width="30"/></span></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
         {offenders.length >= 20 && <div className="padding-top">{this.buttons(offenders.length)}</div>}
         <div className="padding-bottom-40 padding-top">
           <table className="row-gutters">
