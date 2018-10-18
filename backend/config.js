@@ -7,6 +7,8 @@ const setTestDefaults = () => {
   if (!process.env.MAINTAIN_ROLES_ENABLED) {
     app.maintainRolesEnabled = "true";
   }
+
+  app.keyworkeProfileStatsEnabled = true;
 };
 
 const app = {
