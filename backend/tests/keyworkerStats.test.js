@@ -30,14 +30,14 @@ describe('Key worker profile controller', async () => {
       caseNoteEntryCount: 10,
       caseNoteSessionCount: 10,
       numberOfProjectedKeyworkerSessions: 1,
-      complianceRate: 1
+      complianceRate: 2.56
     });
 
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 5,
       caseNoteSessionCount: 5,
       numberOfProjectedKeyworkerSessions: 0,
-      complianceRate: 0
+      complianceRate: 3.09
     });
 
     const stats =
@@ -59,8 +59,8 @@ describe('Key worker profile controller', async () => {
     expect(totalNumberOfEntryAndSessionCaseNoteWritten.value).toBe(20);
     expect(totalNumberOfEntryAndSessionCaseNoteWritten.change.value).toBe(10);
 
-    expect(complianceRate.value).toBe(1);
-    expect(complianceRate.change.value).toBe(1);
+    expect(complianceRate.value).toBe(2.56);
+    expect(complianceRate.change.value).toBe(-0.53);
 
     expect(numberOfProjectedKeyworkerSessions.value).toBe(1);
     expect(numberOfProjectedKeyworkerSessions.change.value).toBe(1);
@@ -101,7 +101,7 @@ describe('Key worker profile controller', async () => {
     expect(totalNumberOfEntryAndSessionCaseNoteWritten.change.value).toBe(-20);
 
     expect(complianceRate.value).toBe(0);
-    expect(complianceRate.change.value).toBe(-1);
+    expect(complianceRate.change.value).toBe(-1.00);
 
     expect(numberOfProjectedKeyworkerSessions.value).toBe(0);
     expect(numberOfProjectedKeyworkerSessions.change.value).toBe(-1);
@@ -142,7 +142,7 @@ describe('Key worker profile controller', async () => {
     expect(totalNumberOfEntryAndSessionCaseNoteWritten.change.value).toBe(0);
 
     expect(complianceRate.value).toBe(0);
-    expect(complianceRate.change.value).toBe(0);
+    expect(complianceRate.change.value).toBe(0.00);
 
     expect(numberOfProjectedKeyworkerSessions.value).toBe(0);
     expect(numberOfProjectedKeyworkerSessions.change.value).toBe(0);
