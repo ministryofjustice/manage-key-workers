@@ -38,6 +38,7 @@ const contextUserRolesFactory = require('./controllers/contextUserRoles').contex
 const userSearchFactory = require('./controllers/userSearch').userSearchFactory;
 const getConfiguration = require('./controllers/getConfig').getConfiguration;
 const healthFactory = require('./controllers/health').healthFactory;
+const keyworkerStatsFactory = require('./controllers/keyworkerStats').keyworkerStatsFactory;
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
 
@@ -193,6 +194,7 @@ app.use('/api/getUser', getUserFactory(elite2Api).getUser);
 app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole);
 app.use('/api/addRole', addRoleFactory(elite2Api).addRole);
 app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles);
+app.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));

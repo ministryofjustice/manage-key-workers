@@ -3,6 +3,7 @@
 exports[`<Statistic /> should match the default snapshot 1`] = `
 <div
   className="css-flq1iw"
+  data-qa="keyworker-stat"
 >
   <h2
     className="css-1uz4jaw"
@@ -25,6 +26,7 @@ exports[`<Statistic /> should match the default snapshot 1`] = `
 exports[`<Statistic /> with negative change value should match the negative change snapshot 1`] = `
 <div
   className="css-flq1iw"
+  data-qa="keyworker-stat"
 >
   <h2
     className="css-1uz4jaw"
@@ -54,6 +56,7 @@ exports[`<Statistic /> with negative change value should match the negative chan
 exports[`<Statistic /> with no change in value over the change period should match the no change snapshot 1`] = `
 <div
   className="css-flq1iw"
+  data-qa="keyworker-stat"
 >
   <h2
     className="css-1uz4jaw"
@@ -76,6 +79,7 @@ exports[`<Statistic /> with no change in value over the change period should mat
 exports[`<Statistic /> with positive change value should match the positive change snapshot 1`] = `
 <div
   className="css-flq1iw"
+  data-qa="keyworker-stat"
 >
   <h2
     className="css-1uz4jaw"

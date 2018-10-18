@@ -69,7 +69,7 @@ class KeyworkerProfile extends Component {
     renderContent = (<div>
       {this.props.config.keyworkeProfileStatsEnabled === "true" &&
         <Fragment>
-          <KeyworkerStats />
+          <KeyworkerStats stats={(this.props.keyworker && this.props.keyworker.stats) || []} />
           <hr/>
         </Fragment>
       }

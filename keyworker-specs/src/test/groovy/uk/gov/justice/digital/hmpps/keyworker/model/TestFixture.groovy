@@ -102,11 +102,13 @@ class TestFixture {
         browser.page.allocateButton.click()
     }
 
-    def toManuallyAssignAndTransferPage() {
-        locations = locationsForCaseload(currentUser.workingCaseload)
-        elite2Api.stubGetMyLocations(locations)
-        browser.page.manualAssignLink.click()
-        browser.at SearchForOffenderPage
+    def toKeyworkerProfilePage() {
+        toKeyworkerSearchPage()
+        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
+        browser.page.keyworkerSearchButton.click()
+        stubKeyworkerProfilePage()
+        browser.page.testKeyworkerLink.click()
+        assert browser.page instanceof KeyworkerProfilePage
     }
 
     def toKeyworkerSearchPage() {
@@ -125,6 +127,13 @@ class TestFixture {
         browser.at KeyworkerProfilePage
     }
 
+    def toManuallyAssignAndTransferPage() {
+        locations = locationsForCaseload(currentUser.workingCaseload)
+        elite2Api.stubGetMyLocations(locations)
+        browser.page.manualAssignLink.click()
+        browser.at SearchForOffenderPage
+    }
+
     def stubKeyworkerProfilePage() {
         keyworkerApi.stubKeyworkerDetailResponse(AgencyLocation.LEI)
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
@@ -132,6 +141,7 @@ class TestFixture {
         elite2Api.stubOffenderAssessmentResponse(AgencyLocation.LEI)
         elite2Api.stubOffenderSentenceResponse()
         elite2Api.stubCaseNoteUsageResponse()
+        keyworkerApi.stubKeyworkerStats()
     }
 
     def toOffenderSearchResultsPageWithoutInitialSearch() {
