@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MessageBar from "../MessageBar";
+import MessageBar from ".";
 
 describe('ManualAllocation component', () => {
   it('should render message correctly', async () => {

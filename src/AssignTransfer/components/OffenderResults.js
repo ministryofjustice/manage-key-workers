@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { properCaseName } from "../../stringUtils";
 import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from "../../links";
-import OffenderSearch from "../components/OffenderSearch";
+import OffenderSearch from "./OffenderSearch";
 import { renderDate } from "../../stringUtils";
 import MessageBar from "../../MessageBar/index";
 
