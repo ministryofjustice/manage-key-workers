@@ -5,10 +5,11 @@ import { getOffenderLink } from "../../links";
 
 class Unallocated extends Component {
   buildTableForRender () {
-    if (!(this.props.unallocatedList && this.props.unallocatedList.map)) {
-      return [];
-    }
-    return this.props.unallocatedList.map(a => {
+    const { unallocatedList } = this.props;
+
+    if (!(unallocatedList && unallocatedList.map)) return [];
+
+    return unallocatedList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.offenderNo}>
@@ -23,14 +24,15 @@ class Unallocated extends Component {
   }
 
   render () {
-    if (!this.props.loaded) {
-      return '';
-    }
+    const { loaded, displayBack, history, gotoNext } = this.props;
+
+    if (!loaded) return '';
+
     const offenders = this.buildTableForRender();
     return (
       <div>
         <div className="pure-u-md-7-12 padding-bottom-40">
-          {this.props.displayBack()}
+          {displayBack()}
           <h1 className="heading-large margin-top">Auto-allocate key workers</h1>
           <table>
             <thead>
@@ -47,7 +49,7 @@ class Unallocated extends Component {
           {offenders.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
         </div>
         <div>
-          {offenders.length > 0 && <button className="button" onClick={() => this.props.gotoNext(this.props.history)}>Allocate</button>}
+          {offenders.length > 0 && <button className="button" onClick={() => gotoNext(history)}>Allocate</button>}
         </div>
       </div>
     );

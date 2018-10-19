@@ -7,10 +7,21 @@ import ValidationErrors from "../../../ValidationError";
 
 class AddRole extends Component {
   render () {
-    const formattedName = this.props.contextUser && properCaseName(this.props.contextUser.firstName) + ' ' + properCaseName(this.props.contextUser.lastName);
+    const {
+      contextUser,
+      history,
+      handleCancel,
+      validationErrors,
+      roleFilter,
+      roleFilterList,
+      handleRoleFilterChange,
+      roleList,
+      handleAdd
+    } = this.props;
+    const formattedName = contextUser && properCaseName(contextUser.firstName) + ' ' + properCaseName(contextUser.lastName);
 
-    const roleListWithoutCurrentRoles = this.props.roleFilterList.filter(
-      filteredRole => !this.props.roleList.some(currentRole => currentRole.roleCode === filteredRole.roleCode)
+    const roleListWithoutCurrentRoles = roleFilterList.filter(
+      filteredRole => !roleList.some(currentRole => currentRole.roleCode === filteredRole.roleCode)
     );
 
 
@@ -21,8 +32,8 @@ class AddRole extends Component {
     const rolesAvailable = roleListOptions && roleListOptions.length > 0;
 
     const roleSelect = (<select id="role-select" name="role-select" className="widthAuto form-control"
-      value={this.props.roleFilter}
-      onChange={this.props.handleRoleFilterChange}>
+      value={roleFilter}
+      onChange={handleRoleFilterChange}>
       <option key="choose" value="--">-- Select --</option>
       {roleListOptions}
     </select>);
@@ -31,7 +42,7 @@ class AddRole extends Component {
       <div>
         <div className="padding-bottom-large">
           <div className="padding-top">
-            <a href="#back" title="Back link" className="link backlink" onClick={(event) => this.props.handleCancel(event, this.props.history)} >
+            <a href="#back" title="Back link" className="link backlink" onClick={(event) => handleCancel(event, history)} >
               <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
           </div>
           <div className="pure-g">
@@ -43,7 +54,7 @@ class AddRole extends Component {
                   {!rolesAvailable && <div className="pure-u-md-6-12 margin-left-15">No roles available</div>}
                   {rolesAvailable && <div className="margin-left-15">
                     <label className="form-label" htmlFor="role-select">Choose new role</label>
-                    <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'role-select'} />
+                    <ValidationErrors validationErrors={validationErrors} fieldName={'role-select'} />
                     { roleSelect }
                   </div>}
                 </div>
@@ -51,8 +62,8 @@ class AddRole extends Component {
             </div>
           </div>
           <div className="pure-u-md-7-12">
-            {rolesAvailable && <button className="button margin-left margin-top-large" id="add-button" onClick={(event) => { this.props.handleAdd(event, this.props.history);}}>Add role</button>}
-            <button className="button margin-left-15 margin-top-large" id="cancel-button" onClick={(event) => { this.props.handleCancel(event, this.props.history);}}>Cancel</button>
+            {rolesAvailable && <button className="button margin-left margin-top-large" id="add-button" onClick={(event) => { handleAdd(event, history);}}>Add role</button>}
+            <button className="button margin-left-15 margin-top-large" id="cancel-button" onClick={(event) => { handleCancel(event, history);}}>Cancel</button>
           </div>
         </div>
       </div>

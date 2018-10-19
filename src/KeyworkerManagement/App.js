@@ -56,6 +56,8 @@ class App extends React.Component {
     this.handleError = this.handleError.bind(this);
   }
   async componentDidMount () {
+    const { configDispatch, setErrorDispatch } = this.props;
+
     axios.interceptors.response.use((config) => {
       if (config.status === 205) {
         alert("There is a newer version of this website available, click ok to ensure you're using the latest version."); // eslint-disable-line no-alert
@@ -73,9 +75,9 @@ class App extends React.Component {
         ReactGA.initialize(config.data.googleAnalyticsId);
       }
 
-      this.props.configDispatch(config.data);
+      configDispatch(config.data);
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      setErrorDispatch(error.message);
     }
   }
 
@@ -84,48 +86,64 @@ class App extends React.Component {
   }
 
   async loadUserAndCaseload () {
+    const { userDetailsDispatch, keyworkerSettingsDispatch } = this.props;
     const user = await axios.get('/api/me');
     const caseloads = await axios.get('/api/usercaseloads');
     const keyworkerSettings = await axios.get('/api/keyworkerSettings');
-    this.props.userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
-    this.props.keyworkerSettingsDispatch(keyworkerSettings.data);
+
+    userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data });
+    keyworkerSettingsDispatch(keyworkerSettings.data);
   }
 
   async switchCaseLoad (newCaseload) {
+    const { switchAgencyDispatch, setErrorDispatch } = this.props;
+
     try {
       await axios.put('/api/setactivecaseload', { caseLoadId: newCaseload });
-      this.props.switchAgencyDispatch(newCaseload);
+      switchAgencyDispatch(newCaseload);
       await this.loadUserAndCaseload();
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      setErrorDispatch(error.message);
     }
   }
 
   showTermsAndConditions () {
-    this.props.setTermsVisibilityDispatch(true);
+    const { setTermsVisibilityDispatch } = this.props;
+
+    setTermsVisibilityDispatch(true);
   }
 
   hideTermsAndConditions () {
-    this.props.setTermsVisibilityDispatch(false);
+    const { setTermsVisibilityDispatch } = this.props;
+
+    setTermsVisibilityDispatch(false);
   }
 
   clearMessage () {
-    this.props.setMessageDispatch(null);
+    const { setMessageDispatch } = this.props;
+
+    setMessageDispatch(null);
   }
 
   resetError () {
-    this.props.resetErrorDispatch();
+    const { resetErrorDispatch } = this.props;
+
+    resetErrorDispatch();
   }
 
   displayError (error) {
-    this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
+    const { setErrorDispatch } = this.props;
+
+    setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
   }
 
   handleError (error) {
+    const { setErrorDispatch } = this.props;
+
     if ((error.response && error.response.status === 401) && (error.response.data && error.response.data.reason === 'session-expired')) {
       this.displayAlertAndLogout("Your session has expired, please click OK to be redirected back to the login page");
     } else {
-      this.props.setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
+      setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
     }
   }
 
@@ -135,7 +153,9 @@ class App extends React.Component {
   }
 
   shouldDisplayInnerContent () {
-    return !this.props.shouldShowTerms && (this.props.user && this.props.user.activeCaseLoadId);
+    const { shouldShowTerms, user } = this.props;
+
+    return !shouldShowTerms && (user && user.activeCaseLoadId);
   }
 
   displayBack () {
@@ -144,8 +164,9 @@ class App extends React.Component {
   }
 
   render () {
+    const { setMenuOpen, config, shouldShowTerms } = this.props;
     let innerContent;
-    const routes = (<div className="inner-content" onClick={() => this.props.setMenuOpen(false)} ><div className="pure-g">
+    const routes = (<div className="inner-content" onClick={() => setMenuOpen(false)} ><div className="pure-g">
       <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage}/>}/>
       <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />}/>
       <Route exact path="/offender/search" render={() => <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} {...this.props} />}/>
@@ -169,13 +190,13 @@ class App extends React.Component {
     if (this.shouldDisplayInnerContent()) {
       innerContent = routes;
     } else {
-      innerContent = (<div className="inner-content" onClick={() => this.props.setMenuOpen(false)}><div className="pure-g"><Error {...this.props} /></div></div>);
+      innerContent = (<div className="inner-content" onClick={() => setMenuOpen(false)}><div className="pure-g"><Error {...this.props} /></div></div>);
     }
     return (
       <Router>
         <div className="content">
           <Route render={(props) => {
-            if (this.props.config.googleAnalyticsId) {
+            if (config.googleAnalyticsId) {
               ReactGA.pageview(props.location.pathname);
             }
             return (<Header
@@ -189,12 +210,12 @@ class App extends React.Component {
             />);
           }}
           />
-          {this.props.shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
+          {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
           <Footer
-            setMenuOpen={this.props.setMenuOpen}
+            setMenuOpen={setMenuOpen}
             showTermsAndConditions={this.showTermsAndConditions}
-            mailTo={this.props.config.mailTo}
+            mailTo={config.mailTo}
           />
         </div>
       </Router>);

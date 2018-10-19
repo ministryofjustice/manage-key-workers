@@ -25,47 +25,57 @@ class StaffRoleProfileContainer extends Component {
   }
 
   async componentDidMount () {
-    this.props.setLoadedDispatch(false);
-    await this.loadUser(this.props.match.params.username);
-    await this.getUserRoles(this.props.match.params.username);
-    this.props.setLoadedDispatch(true);
+    const { setLoadedDispatch, match } = this.props;
+
+    setLoadedDispatch(false);
+    await this.loadUser(match.params.username);
+    await this.getUserRoles(match.params.username);
+    setLoadedDispatch(true);
   }
 
   async handleRemove (event) {
+    const { contextUser, agencyId, setMessageDispatch, handleError } = this.props;
+
     try {
       await axios.get('/api/removeRole', {
         params: {
-          username: this.props.contextUser.username,
-          agencyId: this.props.agencyId,
+          username: contextUser.username,
+          agencyId,
           roleCode: event.target.value
         }
       });
-      await this.getUserRoles(this.props.contextUser.username);
-      this.props.setMessageDispatch('Role list updated');
+      await this.getUserRoles(contextUser.username);
+      setMessageDispatch('Role list updated');
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   async loadUser (username) {
+    const { contextUserDispatch, handleError } = this.props;
+  
     try {
       const user = await axios.get('/api/getUser', {
         params: {
           username: username
         }
       });
-      this.props.contextUserDispatch(user.data);
+      contextUserDispatch(user.data);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   handleAdd (event, history) {
-    this.props.setRoleFilterDispatch('');
-    history.push(`/maintainRoles/${this.props.contextUser.username}/addRole`);
+    const { setRoleFilterDispatch, contextUser} = this.props;
+
+    setRoleFilterDispatch('');
+    history.push(`/maintainRoles/${contextUser.username}/addRole`);
   }
 
   async getUserRoles (username) {
+    const { setRoleListDispatch, handleError } = this.props;
+
     try {
       const roles = await axios.get('/api/contextUserRoles', {
         params: {
@@ -73,22 +83,26 @@ class StaffRoleProfileContainer extends Component {
           hasAdminRole: this.props.user.maintainAccessAdmin
         }
       });
-      this.props.setRoleListDispatch(roles.data);
+      setRoleListDispatch(roles.data);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
+  render() {
+    const { error, loaded } = this.props;
 
-    if (this.props.loaded) {
-      return (<StaffRoleProfile handleRemove={this.handleRemove}
-        handleAdd={this.handleAdd}
-        {...this.props}/>);
-    }
+    if (error) return <Error {...this.props} />;
+
+    if (loaded)
+      return (
+        <StaffRoleProfile 
+          handleRemove={this.handleRemove}
+          handleAdd={this.handleAdd}
+          {...this.props}
+        />
+      );
+
     return <Spinner />;
   }
 }

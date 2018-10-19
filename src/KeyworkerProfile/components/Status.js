@@ -4,11 +4,13 @@ import { getStatusDescription } from "../keyworkerStatus";
 
 class Status extends Component {
   render () {
+    const { statusValue, handleStatusChange, filter } = this.props;
+    
     return (<select id="status-select" name="status-select" className="form-control"
-      value={this.props.statusValue}
-      onChange={this.props.handleStatusChange}>
+      value={statusValue}
+      onChange={handleStatusChange}>
       {/* When this is used for a filter we need an 'all' option*/}
-      {this.props.filter && <option key="" value="">All</option>}
+      {filter && <option key="" value="">All</option>}
       <option key="ACTIVE" value="ACTIVE">{getStatusDescription('ACTIVE')}</option>
       <option key="UNAVAILABLE_ANNUAL_LEAVE"
         value="UNAVAILABLE_ANNUAL_LEAVE">{getStatusDescription('UNAVAILABLE_ANNUAL_LEAVE')}</option>

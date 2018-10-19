@@ -24,24 +24,30 @@ class UserSearchContainer extends Component {
   }
 
   async getRoles () {
+    const { roleFilterListDispatch, handleError, user } = this.props;
+
     try {
       const roles = await axios.get('/api/getRoles', {
         params: {
-          hasAdminRole: this.props.user.maintainAccessAdmin
+          hasAdminRole: user.maintainAccessAdmin
         }
       });
-      this.props.roleFilterListDispatch(roles.data);
+      roleFilterListDispatch(roles.data);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   handleRoleFilterChange (event) {
-    this.props.roleFilterDispatch(event.target.value);
+    const { roleFilterDispatch } = this.props;
+
+    roleFilterDispatch(event.target.value);
   }
 
   handleNameFilterChange (event) {
-    this.props.nameFilterDispatch(event.target.value);
+    const { nameFilterDispatch } = this.props;
+
+    nameFilterDispatch(event.target.value);
   }
 
   handleSearch (history) {
@@ -49,9 +55,10 @@ class UserSearchContainer extends Component {
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
+    const { error } = this.props;
+
+    if (error) return <Error {...this.props} />;
+
     return (<UserSearch
       handleRoleFilterChange={this.handleRoleFilterChange}
       handleNameFilterChange={this.handleNameFilterChange}

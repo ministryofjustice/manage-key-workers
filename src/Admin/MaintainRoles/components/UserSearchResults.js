@@ -8,15 +8,23 @@ import PreviousNextNavigation from '../../../PreviousNextNavigation';
 
 class UserSearchResults extends Component {
   render () {
-    const pagination = { perPage: this.props.pageSize, pageNumber: this.props.pageNumber };
-    const totalRecords = this.props.totalRecords;
-    const results = this.props.userList.map((a, index) => {
+    const {
+      pageSize,
+      pageNumber,
+      totalRecords,
+      userList,
+      handlePageAction,
+      handleEdit,
+      history
+    } = this.props;
+    const pagination = { perPage: pageSize, pageNumber };
+    const results = userList.map((a, index) => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.username}>
           <td className="row-gutters">{formattedName}</td>
           <td className="row-gutters width13em">{a.username}</td>
-          <td className="row-gutters width5em"><button className="button greyButtonNoMinWidth" id={`edit-button-${a.username}`} value={index} onClick={(event) => { this.props.handleEdit(event, this.props.history);}}>Edit</button></td>
+          <td className="row-gutters width5em"><button className="button greyButtonNoMinWidth" id={`edit-button-${a.username}`} value={index} onClick={(event) => { handleEdit(event, history);}}>Edit</button></td>
         </tr>
       );
     }
@@ -40,7 +48,7 @@ class UserSearchResults extends Component {
           </div>
         </div>
         <div className="pure-u-md-7-12">
-          <PreviousNextNavigation pagination={pagination} totalRecords={totalRecords} pageAction={(id) => { this.props.handlePageAction(id); }} />
+          <PreviousNextNavigation pagination={pagination} totalRecords={totalRecords} pageAction={(id) => { handlePageAction(id); }} />
         </div>
       </div>
     );

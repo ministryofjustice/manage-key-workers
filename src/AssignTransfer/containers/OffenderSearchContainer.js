@@ -15,21 +15,24 @@ class OffenderSearchContainer extends Component {
   }
 
   componentWillMount () {
+    const { offenderSearchTextDispatch, offenderSearchAllocationStatusDispatch } = this.props;
+
     this.getLocations();
-    this.props.offenderSearchTextDispatch('');
-    this.props.offenderSearchAllocationStatusDispatch('all');
+    offenderSearchTextDispatch('');
+    offenderSearchAllocationStatusDispatch('all');
   }
 
   async getLocations () {
+    const { offenderSearchLocationsDispatch, offenderSearchHousingLocationDispatch, handleError, initialSearch } = this.props;
     try {
       const response = await axios.get('/api/userLocations');
-      this.props.offenderSearchLocationsDispatch(response.data);
+      offenderSearchLocationsDispatch(response.data);
       // Use the first location by default
-      if (this.props.initialSearch && response.data && response.data[0]) {
-        this.props.offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
+      if (initialSearch && response.data && response.data[0]) {
+        offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
       }
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 

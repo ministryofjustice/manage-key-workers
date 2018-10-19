@@ -33,12 +33,13 @@ class OffenderResults extends Component {
   }
 
   buildTableForRender (keyworkerOptions, offenderList) {
+    const { keyworkerChangeList, user, handleKeyworkerChange } = this.props;
     if (!(offenderList && offenderList.map)) {
       return [];
     }
     return offenderList.map((a, index) => {
-      const currentSelectValue = this.props.keyworkerChangeList && this.props.keyworkerChangeList[index] ?
-        this.props.keyworkerChangeList[index].staffId : '';
+      const currentSelectValue = keyworkerChangeList && keyworkerChangeList[index] ?
+        keyworkerChangeList[index].staffId : '';
       return (<tr key={a.offenderNo} className="row-gutters">
         <td className="row-gutters"><a target="_blank" className="link"
           href={getOffenderLink(a.offenderNo)}>{properCaseName(a.lastName)}, {properCaseName(a.firstName)}</a></td>
@@ -50,8 +51,8 @@ class OffenderResults extends Component {
         </td>
         <td><a className="link" target="_blank" href={getKeyWorkerHistoryLink(a.offenderNo)}>View</a></td>
         <td className="row-gutters">
-          <select disabled={!this.props.user || !this.props.user.writeAccess} id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
-            onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
+          <select disabled={!user || !user.writeAccess} id={`keyworker-select-${a.offenderNo}`} name={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+            onChange={(event) => handleKeyworkerChange(event, index, a.offenderNo)}>
             <option key="choose" value="--">-- No change --</option>
             {a.staffId ? <option key="deallocate" value="_DEALLOCATE">-- Deallocate --</option> : ''}
             {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
@@ -62,36 +63,39 @@ class OffenderResults extends Component {
   }
 
   buttons (rows) {
-    if (!this.props.user || !this.props.user.writeAccess) {
-      return <div />;
-    }
+    const { user, postManualOverride, onFinishAllocation, history } = this.props;
+
+    if (!user || !user.writeAccess) return <div />;
+
     return (<div>
-      {rows > 0 && <button className="button button-save" onClick={() => this.props.postManualOverride(this.props.history)}>Confirm</button>}
-      <button className="button greyButton button-cancel margin-left" onClick={() => this.props.onFinishAllocation(this.props.history)}>Cancel</button>
+      {rows > 0 && <button className="button button-save" onClick={() => postManualOverride(history)}>Confirm</button>}
+      <button className="button greyButton button-cancel margin-left" onClick={() => onFinishAllocation(history)}>Cancel</button>
     </div>);
   }
 
   render () {
-    if (!this.props.offenderResults || !this.props.loaded) {
-      return "";
-    }
-    const keyworkerOptions = this.props.offenderResults.keyworkerResponse ?
-      this.props.offenderResults.keyworkerResponse.map((kw, optionIndex) => {
+    const { offenderResults, loaded, displayBack } = this.props;
+
+    if (!offenderResults || !loaded) return "";
+
+    const keyworkerOptions = offenderResults.keyworkerResponse ?
+      offenderResults.keyworkerResponse.map((kw, optionIndex) => {
         const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
         return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{formattedDetails}</option>;
       }) : [];
-    const offenders = this.buildTableForRender(keyworkerOptions, this.props.offenderResults.offenderResponse);
+    const offenders = this.buildTableForRender(keyworkerOptions, offenderResults.offenderResponse);
+
     return (
       <div>
         <MessageBar {...this.props}/>
 
         <div className="pure-g">
-          {this.props.displayBack()}
+          {displayBack()}
           <div className="pure-u-md-7-12"><h1 className="heading-large margin-top">Change key workers</h1></div>
           <div className="pure-u-md-11-12-12"><OffenderSearch {...this.props} /></div>
         </div>
-        {this.props.offenderResults.partialResults &&
-        <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><span className="padding-left"><img alt="Warning icon" src="/images/icon-important-2x.png" height="30" width="30"/></span></div><div className="pure-u-md-9-12 padding-top-small">The top {this.props.offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
+        {offenderResults.partialResults &&
+        <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large"><div className="pure-u-md-1-12"><span className="padding-left"><img alt="Warning icon" src="/images/icon-important-2x.png" height="30" width="30"/></span></div><div className="pure-u-md-9-12 padding-top-small">The top {offenderResults.offenderResponse.length} results are displayed, please refine your search.</div></div>}
         {offenders.length >= 20 && <div className="padding-top">{this.buttons(offenders.length)}</div>}
         <div className="padding-bottom-40 padding-top">
           <table className="row-gutters">

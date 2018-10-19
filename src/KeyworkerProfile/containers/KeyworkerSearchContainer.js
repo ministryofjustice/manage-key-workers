@@ -19,11 +19,15 @@ class KeyworkerSearchContainer extends Component {
   }
 
   handleSearchTextChange (event) {
-    this.props.keyworkerSearchTextDispatch(event.target.value);
+    const { keyworkerSearchTextDispatch } = this.props;
+
+    keyworkerSearchTextDispatch(event.target.value);
   }
 
   handleStatusFilterChange (event) {
-    this.props.keyworkerStatusFilterDispatch(event.target.value);
+    const { keyworkerStatusFilterDispatch } = this.props;
+
+    keyworkerStatusFilterDispatch(event.target.value);
   }
 
   handleSearch (history) {
@@ -31,14 +35,18 @@ class KeyworkerSearchContainer extends Component {
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    return (<KeyworkerSearchPage
-      handleSearchTextChange={this.handleSearchTextChange}
-      handleStatusFilterChange={this.handleStatusFilterChange}
-      handleSearch={this.handleSearch}
-      {...this.props}/>);
+    const { error } = this.props;
+
+    if (error) return <Error {...this.props} />;
+
+    return (
+      <KeyworkerSearchPage
+        handleSearchTextChange={this.handleSearchTextChange}
+        handleStatusFilterChange={this.handleStatusFilterChange}
+        handleSearch={this.handleSearch}
+        {...this.props}
+      />
+    );
   }
 }
 

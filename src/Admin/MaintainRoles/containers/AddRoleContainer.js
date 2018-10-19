@@ -28,14 +28,18 @@ class AddRoleContainer extends Component {
   }
 
   async componentDidMount () {
-    this.props.setLoadedDispatch(false);
-    await this.loadUser(this.props.match.params.username);
+    const { setLoadedDispatch, match } = this.props;
+
+    setLoadedDispatch(false);
+    await this.loadUser(match.params.username);
     await this.getRoles();
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   handleRoleFilterChange (event) {
-    this.props.setRoleFilterDispatch(event.target.value);
+    const { setRoleFilterDispatch } = this.props;
+
+    setRoleFilterDispatch(event.target.value);
   }
 
   handleCancel (e, history) {
@@ -45,67 +49,81 @@ class AddRoleContainer extends Component {
   }
 
   async getRoles () {
+    const { roleFilterListDispatch, handleError, user } = this.props;
+
     try {
       const roles = await axios.get('/api/getRoles', {
         params: {
-          hasAdminRole: this.props.user.maintainAccessAdmin
+          hasAdminRole: maintainAccessAdmin
         }
       });
-      this.props.roleFilterListDispatch(roles.data);
+      roleFilterListDispatch(roles.data);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   async handleAdd (event, history) {
-    if (!this.validate()) {
-      return;
-    }
+    const { contextUser, agencyId, roleFilter, setMessageDispatch, handleError } = this.props;
+
+    if (!this.validate()) return;
+
     try {
       await axios.get('/api/addRole', {
         params: {
-          username: this.props.contextUser.username,
-          agencyId: this.props.agencyId,
-          roleCode: this.props.roleFilter
+          username: contextUser.username,
+          agencyId,
+          roleCode: roleFilter
         }
       });
       // await this.getUserRoles();
-      this.props.setMessageDispatch('Role successfully added');
+      setMessageDispatch('Role successfully added');
       history.goBack();
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   async loadUser (username) {
+    const { contextUserDispatch, handleError} = this.props;
+ 
     try {
       const user = await axios.get('/api/getUser', {
         params: {
           username: username
         }
       });
-      this.props.contextUserDispatch(user.data);
+      contextUserDispatch(user.data);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   validate () {
-    this.props.resetValidationErrorsDispatch();
-    if (isBlank(this.props.roleFilter)) {
-      this.props.setValidationErrorDispatch("role-select", "Please select a role");
+    const { resetValidationErrorsDispatch, setValidationErrorDispatch, roleFilter } = this.props;
+
+    resetValidationErrorsDispatch();
+    if (isBlank(roleFilter)) {
+      setValidationErrorDispatch("role-select", "Please select a role");
       return false;
     }
     return true;
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<AddRole handleAdd={this.handleAdd} handleCancel={this.handleCancel} handleRoleFilterChange={this.handleRoleFilterChange} {...this.props}/>);
-    }
+  render() {
+    const { error, loaded } = this.props;
+
+    if (error) return <Error {...this.props} />;
+
+    if (loaded)
+      return (
+        <AddRole
+          handleAdd={this.handleAdd}
+          handleCancel={this.handleCancel}
+          handleRoleFilterChange={this.handleRoleFilterChange}
+          {...this.props}
+        />
+      );
     return <Spinner />;
   }
 }

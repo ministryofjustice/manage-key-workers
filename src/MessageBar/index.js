@@ -13,7 +13,7 @@ class MessageBar extends Component {
     let renderContent = null;
     if (message && message !== '') {
       renderContent = (<div id="messageBar" className="messageBarContainer pure-g"><div className="messageBar">
-        {this.props.message}
+        {message}
       </div></div>);
       this.clearMessage(this.props);
       return renderContent;
@@ -23,7 +23,8 @@ class MessageBar extends Component {
   }
 
   render () {
-    return this.renderMessage(this.props.message);
+    const { message } = this.props;
+    return this.renderMessage(message);
   }
 }
 

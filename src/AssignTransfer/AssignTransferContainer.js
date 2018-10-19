@@ -8,22 +8,30 @@ import Error from '../Error';
 
 class AssignTransferContainer extends Component {
   handleSearchTextChange (event) {
-    this.props.offenderSearchTextDispatch(event.target.value);
+    const { offenderSearchTextDispatch } = this.props;
+
+    offenderSearchTextDispatch(event.target.value);
   }
 
   handleSearchAllocationStatusChange (event) {
-    this.props.offenderSearchAllocationStatusDispatch(event.target.value);
+    const { offenderSearchAllocationStatusDispatch } = this.props;
+
+    offenderSearchAllocationStatusDispatch(event.target.value);
   }
 
   handleSearchHousingLocationChange (event) {
-    this.props.offenderSearchHousingLocationDispatch(event.target.value);
+    const { offenderSearchHousingLocationDispatch } = this.props;
+
+    offenderSearchHousingLocationDispatch(event.target.value);
   }
 
   render () {
+    const { initialSearch, displayBack } = this.props;
+
     return (<div>
-      {this.props.initialSearch && this.props.displayBack()}
+      {initialSearch && displayBack()}
       <Error {...this.props} />
-      {this.props.initialSearch ? (<div className="pure-g">
+      {initialSearch ? (<div className="pure-g">
         <div className="pure-u-md-8-12">
           <h1 className="heading-large margin-top">Search for an offender</h1>
           <OffenderSearchContainer

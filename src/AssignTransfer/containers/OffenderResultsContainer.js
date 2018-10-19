@@ -20,9 +20,11 @@ class OffenderResultsContainer extends Component {
   }
 
   async componentWillMount () {
+    const { locations, history } = this.props;
+
     /* if arriving from a page refresh - redirect to initial search */
-    if (!this.props.locations || this.props.locations.length === 0) {
-      this.props.history.push({
+    if (!locations || locations.length === 0) {
+      history.push({
         pathname: '/offender/search',
         state: { initialSearch: true }
       });
@@ -36,62 +38,80 @@ class OffenderResultsContainer extends Component {
   }
 
   async doSearch () {
-    this.props.resetErrorDispatch();
-    this.props.setLoadedDispatch(false);
+    const {
+      resetErrorDispatch,
+      setLoadedDispatch,
+      housingLocation,
+      searchText,
+      allocationStatus,
+      agencyId,
+      keyworkerChangeListDispatch,
+      offenderSearchResultsDispatch,
+      handleError
+    } = this.props;
+
+    resetErrorDispatch();
+    setLoadedDispatch(false);
     try {
       const response = await axios.get('/api/searchOffenders', {
         params: {
-          locationPrefix: this.props.housingLocation,
-          keywords: this.props.searchText,
-          allocationStatus: this.props.allocationStatus,
-          agencyId: this.props.agencyId
+          locationPrefix: housingLocation,
+          keywords: searchText,
+          allocationStatus,
+          agencyId
         }
       });
       const data = response.data;
-      this.props.keyworkerChangeListDispatch([]);
-      this.props.offenderSearchResultsDispatch(data);
+      keyworkerChangeListDispatch([]);
+      offenderSearchResultsDispatch(data);
     } catch (error) {
-      this.props.offenderSearchResultsDispatch({
+      offenderSearchResultsDispatch({
         keyworkerResponse: [],
         offenderResponse: [] });
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   handleKeyworkerChange (event, index, offenderNo) {
-    const keyworkerChangeList = this.props.keyworkerChangeList ? [...this.props.keyworkerChangeList] : [];
+    const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props;
+    const changeList = keyworkerChangeList ? [...keyworkerChangeList] : [];
+
     if (event.target.value === '--') {
-      keyworkerChangeList[index] = null;
+      changeList[index] = null;
     } else if (event.target.value === '_DEALLOCATE') {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         deallocate: true,
         staffId: event.target.value,
         offenderNo: offenderNo
       };
     } else {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         staffId: event.target.value,
         offenderNo: offenderNo
       };
     }
-    this.props.keyworkerChangeListDispatch(keyworkerChangeList);
+    keyworkerChangeListDispatch(changeList);
   }
 
   async postManualOverride (history) {
+    const { agencyId, keyworkerChangeList, setMessageDispatch, handleError } = this.props;
+
     try {
-      if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axios.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
-        this.props.setMessageDispatch('Key workers successfully updated.');
+      if (keyworkerChangeList && keyworkerChangeList.length > 0) {
+        await axios.post('/api/manualoverride', { allocatedKeyworkers: keyworkerChangeList }, { params: { agencyId } });
+        setMessageDispatch('Key workers successfully updated.');
         await this.doSearch();
       }
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   render () {
-    if (this.props.loaded) {
+    const { loaded } = this.props;
+
+    if (loaded) {
       return (<OffenderResults
         handleKeyworkerChange={this.handleKeyworkerChange}
         postManualOverride={this.postManualOverride}

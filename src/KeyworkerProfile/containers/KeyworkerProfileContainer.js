@@ -34,27 +34,42 @@ class KeyworkerProfileContainer extends Component {
   }
 
   async componentDidMount () {
+    const { handleError, setLoadedDispatch } = this.props;
+
     try {
       await this.getKeyworkerProfile();
       await this.getKeyworkerAllocations();
       await this.getKeyworkerStats();
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   async getKeyworkerProfile () {
-    const keyworker = await this.makeKeyworkerProfileCall(this.props.match.params.staffId);
-    this.props.keyworkerDispatch(keyworker);
+    const { match, keyworkerDispatch } = this.props;
+    const keyworker = await this.makeKeyworkerProfileCall(match.params.staffId);
+
+    keyworkerDispatch(keyworker);
   }
 
 
   async getKeyworkerAllocations () {
-    const allocationsViewModel = await this.makeKeyworkerAllocationsCall(this.props.agencyId, this.props.match.params.staffId);
-    this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
-    this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
-    this.props.keyworkerChangeListDispatch([]);
+    const {
+      agencyId,
+      match,
+      keyworkerAllocationsDispatch,
+      availableKeyworkerListDispatch,
+      keyworkerChangeListDispatch
+    } = this.props;
+    const allocationsViewModel = await this.makeKeyworkerAllocationsCall(
+      agencyId,
+      match.params.staffId
+    );
+    
+    keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
+    availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
+    keyworkerChangeListDispatch([]);
   }
 
   async getKeyworkerStats () {
@@ -88,69 +103,82 @@ class KeyworkerProfileContainer extends Component {
   }
 
   handleKeyworkerChange (event, index, offenderNo) {
-    const keyworkerChangeList = [...this.props.keyworkerChangeList];
+    const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props;
+    const changeList = [...keyworkerChangeList];
 
     if (event.target.value === '--') {
-      keyworkerChangeList[index] = null;
+      changeList[index] = null;
     } else if (event.target.value === '_DEALLOCATE') {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         deallocate: true,
         staffId: event.target.value,
         offenderNo: offenderNo
       };
     } else {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         staffId: event.target.value,
         offenderNo: offenderNo
       };
     }
-    this.props.keyworkerChangeListDispatch(keyworkerChangeList);
+    keyworkerChangeListDispatch(changeList);
   }
 
   async makeKeyworkerProfileCall (staffId) {
+    const { agencyId } = this.props;
     const response = await axios.get('/api/keyworker', {
       params: {
-        staffId: staffId,
-        agencyId: this.props.agencyId
+        staffId,
+        agencyId
       }
     });
     return response.data;
   }
 
   handleEditProfileClick (history) {
+    const { keyworker, keyworkerCapacityDispatch, keyworkerStatusDispatch } = this.props;
+
     // initialise inputs with current capacity value
-    this.props.keyworkerCapacityDispatch(this.props.keyworker.capacity.toString());
-    this.props.keyworkerStatusDispatch(this.props.keyworker.status);
-    history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
+    keyworkerCapacityDispatch(keyworker.capacity.toString());
+    keyworkerStatusDispatch(keyworker.status);
+    history.push(`/keyworker/${keyworker.staffId}/profile/edit`);
   }
 
   async postAllocationChange (history) {
+    const {
+      agencyId,
+      keyworkerChangeList,
+      setMessageDispatch,
+      keyworkerChangeListDispatch,
+      handleError
+    } = this.props;
+
     try {
-      if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
+      if (keyworkerChangeList && keyworkerChangeList.length > 0) {
         await axios.post('/api/manualoverride',
           {
-            allocatedKeyworkers: this.props.keyworkerChangeList
+            allocatedKeyworkers: keyworkerChangeList
           },
           {
             params:
               {
-                agencyId: this.props.agencyId
+                agencyId,
               }
           });
-        this.props.setMessageDispatch('Offender allocation updated.');
-        this.props.keyworkerChangeListDispatch([]);
+        setMessageDispatch('Offender allocation updated.');
+        keyworkerChangeListDispatch([]);
       }
       history.push('/');
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
+    const { error, loaded } = this.props;
+    
+    if (error) return <Error {...this.props} />;
+
+    if (loaded) {
       return (<KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange}
         handleAllocationChange={this.postAllocationChange}
         handleEditProfileClick={this.handleEditProfileClick} {...this.props} />);

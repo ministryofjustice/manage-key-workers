@@ -19,13 +19,14 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   componentDidMount () {
-    if (!this.props.user || !this.props.user.writeAccess) {
-      this.props.history.push('/');
+    const { user, history, match, keyworker } = this.props;
+    if (!user || !user.writeAccess) {
+      history.push('/');
       return;
     }
     //invalid deeplink
-    if (!this.props.keyworker.staffId) {
-      this.props.history.push(`/keyworker/${this.props.match.params.staffId}/profile`);
+    if (!keyworker.staffId) {
+      history.push(`/keyworker/${match.params.staffId}/profile`);
     }
   }
 
@@ -33,15 +34,17 @@ class KeyworkerProfileEditContainer extends Component {
     if (!this.validate()) {
       return;
     }
-    let statusChange = (this.props.status !== this.props.keyworker.status);
+
+    const { status, keyworker,setMessageDispatch, handleError } = this.props;
+    let statusChange = (status !== keyworker.status);
 
     try {
       if (this.formChange()) {
-        if (statusChange && this.props.status !== 'ACTIVE') {
-          history.replace(`/keyworker/${this.props.keyworker.staffId}/profile/edit/confirm`);
+        if (statusChange && status !== 'ACTIVE') {
+          history.replace(`/keyworker/${keyworker.staffId}/profile/edit/confirm`);
         } else {
           await this.postKeyworkerUpdate();
-          this.props.setMessageDispatch("Profile changed");
+          setMessageDispatch("Profile changed");
           // Return to profile page
           history.goBack();
         }
@@ -49,30 +52,34 @@ class KeyworkerProfileEditContainer extends Component {
         history.goBack();
       }
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   formChange () {
-    let capacityChange = (this.props.capacity !== this.props.keyworker.capacity.toString());
-    let statusChange = (this.props.status !== this.props.keyworker.status);
+    const { capacity, keyworker, status } = this.props;
+    let capacityChange = (capacity !== keyworker.capacity.toString());
+    let statusChange = (status !== keyworker.status);
+
     return capacityChange || statusChange;
   }
 
   async postKeyworkerUpdate () {
+    const { agencyId, staffId, status, capacity } = this.props;
+
     await axios.post('/api/keyworkerUpdate',
       {
         keyworker:
             {
-              status: this.props.status,
-              capacity: this.props.capacity
+              status,
+              capacity
             }
       },
       {
         params:
             {
-              agencyId: this.props.agencyId,
-              staffId: this.props.keyworker.staffId
+              agencyId,
+              staffId
             }
       });
   }
@@ -83,30 +90,42 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   handleStatusChange (event) {
-    this.props.keyworkerStatusDispatch(event.target.value);
+    const { keyworkerStatusDispatch } = this.props;
+
+    keyworkerStatusDispatch(event.target.value);
   }
 
   handleCapacityChange (event) {
-    this.props.keyworkerCapacityDispatch(event.target.value);
+    const { keyworkerCapacityDispatch } = this.props;
+
+    keyworkerCapacityDispatch(event.target.value);
   }
 
   validate () {
-    if (!stringIsInteger(this.props.capacity)) {
-      this.props.setValidationErrorDispatch("capacity", "Please enter a number");
+    const { capacity, setValidationErrorDispatch, resetValidationErrorsDispatch } = this.props;
+
+    if (!stringIsInteger(capacity)) {
+      setValidationErrorDispatch("capacity", "Please enter a number");
       return false;
     }
-    this.props.resetValidationErrorsDispatch();
+    resetValidationErrorsDispatch();
     return true;
   }
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
+    const { error } = this.props;
 
-    return (<KeyworkerProfileEdit handleSaveChanges={this.handleSaveChanges} handleCancel={this.handleCancel}
-      handleStatusChange={this.handleStatusChange}
-      handleCapacityChange={this.handleCapacityChange} {...this.props} />);
+    if (error) return <Error {...this.props} />;
+
+    return (
+      <KeyworkerProfileEdit
+        handleSaveChanges={this.handleSaveChanges}
+        handleCancel={this.handleCancel}
+        handleStatusChange={this.handleStatusChange}
+        handleCapacityChange={this.handleCapacityChange}
+        {...this.props}
+      />
+    );
   }
 }
 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 class EnableNomis extends Component {
   render () {
-    const { user } = this.props;
+    const { user, history, handleEnable, handleCancel } = this.props;
     const caseLoadOption = user.caseLoadOptions ? user.caseLoadOptions.find((option) => option.caseLoadId === user.activeCaseLoadId) : undefined;
     const caseLoadDesc = caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId;
 
@@ -33,10 +33,10 @@ class EnableNomis extends Component {
           </div>
           <div className="pure-u-md-5-12 padding-top-large margin-top" >
             <div className="buttonGroup" >
-              <button id="giveAccessButton" className="button button-save" onClick={() => this.props.handleEnable(this.props.history)}>Yes, give access now</button>
+              <button id="giveAccessButton" className="button button-save" onClick={() => handleEnable(history)}>Yes, give access now</button>
             </div>
             <div className="buttonGroup">
-              <button className="button greyButton button-cancel" onClick={() => this.props.handleCancel(this.props.history)}>Cancel</button>
+              <button className="button greyButton button-cancel" onClick={() => handleCancel(history)}>Cancel</button>
             </div>
           </div>
         </div>

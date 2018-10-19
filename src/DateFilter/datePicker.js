@@ -11,13 +11,16 @@ class DatePicker extends Component {
   }
 
   handleChange (date) {
-    this.props.handleDateFilterChange(date, this.props.name);
+    const { handleDateFilterChange, name } = this.props;
+    handleDateFilterChange(date, name);
   }
 
   renderInput (props) {
+    const { className, name } = this.props;
+
     return (
       <div>
-        <input className={this.props.className} name={this.props.name} {...props} readOnly/>
+        <input className={className} name={name} {...props} readOnly/>
       </div>
     );
   }

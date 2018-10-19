@@ -19,23 +19,25 @@ class UnallocatedContainer extends Component {
   }
 
   async componentWillMount () {
+    const { agencyId, user, history, unallocatedListDispatch, handleError, setLoadedDispatch } = this.props;
+
     try {
-      if (!this.props.user || !this.props.user.writeAccess) {
-        this.props.history.push('/');
+      if (!user || !user.writeAccess) {
+        history.push('/');
         return;
       }
-      const list = await this.getUnallocated(this.props.agencyId);
-      this.props.unallocatedListDispatch(list);
+      const list = await this.getUnallocated(agencyId);
+      unallocatedListDispatch(list);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   async getUnallocated (agencyId) {
     const response = await axios.get('/api/unallocated', {
       params: {
-        agencyId: agencyId
+        agencyId
       }
     });
     return response.data;
@@ -46,7 +48,9 @@ class UnallocatedContainer extends Component {
   }
 
   render () {
-    if (this.props.loaded) {
+    const { loaded } = this.props;
+
+    if (loaded) {
       return (<div>
         <ErrorComponent {...this.props} />
         {<Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />}

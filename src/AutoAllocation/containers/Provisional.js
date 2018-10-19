@@ -19,16 +19,18 @@ class ProvisionalContainer extends Component {
   }
 
   async componentWillMount () {
+    const { user, history, allocatedDetailsDispatch, manualOverrideDispatch, handleError, setLoadedDispatch } = this.props;
+
     try {
-      if (!this.props.user || !this.props.user.writeAccess) {
-        this.props.history.push('/');
+      if (!user || !user.writeAccess) {
+        history.push('/');
         return;
       }
       const viewModel = await this.getAllocated();
-      this.props.allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
-      this.props.manualOverrideDispatch([]);
+      allocatedDetailsDispatch(viewModel.allocatedResponse, viewModel.keyworkerResponse);
+      manualOverrideDispatch([]);
       if (viewModel.warning) {
-        this.props.handleError({
+        handleError({
           response: {
             data: viewModel.warning +
           ' Please try allocating manually, adding more Key workers or raising their capacities.'
@@ -36,57 +38,64 @@ class ProvisionalContainer extends Component {
         });
       }
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   async getAllocated () {
+    const { agencyId, fromDate, toDate } = this.props;
     const response = await axios.get('/api/allocated', {
       params: {
-        agencyId: this.props.agencyId,
+        agencyId,
         allocationType: 'A',
-        fromDate: this.props.fromDate,
-        toDate: this.props.toDate
+        fromDate,
+        toDate
       }
     });
     return response.data;
   }
 
   handleKeyworkerChange (event, index, offenderNo) {
+    const { allocatedKeyworkers, manualOverrideDispatch, handleError } = this.props;
+
     try {
-      const allocatedKeyworkers = [...this.props.allocatedKeyworkers];
+      const allocatedKeyworkersList = [...allocatedKeyworkers];
 
       if (event.target.value === '--') {
-        allocatedKeyworkers[index] = null;
+        allocatedKeyworkersList[index] = null;
       } else {
-        allocatedKeyworkers[index] = {
+        allocatedKeyworkersList[index] = {
           staffId: event.target.value,
           offenderNo: offenderNo
         };
       }
-      this.props.manualOverrideDispatch(allocatedKeyworkers);
+      manualOverrideDispatch(allocatedKeyworkersList);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   async postManualOverride (history) {
+    const { agencyId, allocatedKeyworkers, setMessageDispatch, onFinishAllocation, handleError } = this.props;
+
     try {
-      await axios.post('/api/autoAllocateConfirmWithOverride', { allocatedKeyworkers: this.props.allocatedKeyworkers }, {
+      await axios.post('/api/autoAllocateConfirmWithOverride', { allocatedKeyworkers }, {
         params: {
-          agencyId: this.props.agencyId
+          agencyId
         }
       });
-      this.props.setMessageDispatch('Key workers successfully updated.');
-      this.props.onFinishAllocation(history);
+      setMessageDispatch('Key workers successfully updated.');
+      onFinishAllocation(history);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   render () {
-    if (this.props.loaded) {
+    const { loaded } = this.props;
+
+    if (loaded) {
       return (<div>
         <ErrorComponent {...this.props} />
         {

@@ -5,16 +5,18 @@ import MessageBar from "../../MessageBar/index";
 
 class AllocationHistory extends Component {
   getCurrentKeyWorker () {
+    const { allocationHistory } = this.props;
     let currentKw = '--';
-    if (this.props.allocationHistory.allocationHistory.length > 0) {
-      let topEntry = this.props.allocationHistory.allocationHistory[0];
+    if (allocationHistory.allocationHistory.length > 0) {
+      let topEntry = allocationHistory.allocationHistory[0];
       currentKw = topEntry.expired ? '--' : properCaseName(topEntry.lastName) + ', ' + properCaseName(topEntry.firstName);
     }
     return currentKw;
   }
   render () {
-    const offenderDisplayName = properCaseName(this.props.allocationHistory.offender.firstName) + ' ' + properCaseName(this.props.allocationHistory.offender.lastName);
-    const allocations = this.props.allocationHistory.allocationHistory.map((a, index) => {
+    const { allocationHistory } = this.props;
+    const offenderDisplayName = properCaseName(allocationHistory.offender.firstName) + ' ' + properCaseName(allocationHistory.offender.lastName);
+    const allocations = allocationHistory.allocationHistory.map((a, index) => {
       const kwName = properCaseName(a.firstName) + ' ' + properCaseName(a.lastName);
       const createdStaff = properCaseName(a.userId.firstName) + ' ' + properCaseName(a.userId.lastName);
       const lastModStaff = properCaseName(a.lastModifiedByUser.firstName) + ' ' + properCaseName(a.lastModifiedByUser.lastName);
@@ -76,11 +78,11 @@ class AllocationHistory extends Component {
               </div>
               <div className="pure-u-md-3-12" >
                 <label className="form-label" htmlFor="name">Prisoner no.</label>
-                <div className="bold padding-top-small">{this.props.allocationHistory.offender.offenderNo}</div>
+                <div className="bold padding-top-small">{allocationHistory.offender.offenderNo}</div>
               </div>
               <div className="pure-u-md-4-12" >
                 <label className="form-label" htmlFor="name">Total key workers</label>
-                <div className="bold padding-top-small">{this.props.allocationHistory.allocationHistory.length}</div>
+                <div className="bold padding-top-small">{allocationHistory.allocationHistory.length}</div>
               </div>
             </div>
           </div>

@@ -6,18 +6,30 @@ import Status from "./Status";
 
 class KeyworkerProfileEdit extends Component {
   render () {
-    const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
+    const {
+      keyworker,
+      status,
+      handleStatusChange,
+      handleCancel,
+      history,
+      capacity,
+      validationErrors,
+      handleCapacityChange,
+      handleSaveChanges
+    } = this.props;
+    const keyworkerDisplayName =
+      properCaseName(keyworker.firstName) + " " + properCaseName(keyworker.lastName);
     const statusSelect = (
       <div>
         <label className="form-label" htmlFor="status-select">Status</label>
-        <Status statusValue={this.props.status || this.props.keyworker.status} handleStatusChange={this.props.handleStatusChange} />
+        <Status statusValue={status || keyworker.status} handleStatusChange={handleStatusChange} />
       </div>);
 
     return (
       <div>
         <div className="pure-g">
           <div className="pure-u-md-8-12 padding-top">
-            <a href="#back" title="Back link" className="link backlink" onClick={() => this.props.handleCancel(this.props.history)} >
+            <a href="#back" title="Back link" className="link backlink" onClick={() => handleCancel(history)} >
               <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
             <h1 className="heading-large margin-top">Edit profile</h1>
           </div>
@@ -28,17 +40,17 @@ class KeyworkerProfileEdit extends Component {
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Establishment</label>
-              <div className="bold padding-top-small">{this.props.keyworker.agencyDescription}</div>
+              <div className="bold padding-top-small">{keyworker.agencyDescription}</div>
             </div>
             <div className="pure-u-md-2-12" >
               <label className="form-label" htmlFor="name">Schedule type</label>
-              <div className="bold padding-top-small">{this.props.keyworker.scheduleType}</div>
+              <div className="bold padding-top-small">{keyworker.scheduleType}</div>
             </div>
             <div className="pure-u-md-1-12" >
               <label className="form-label" htmlFor="name">Capacity</label>
               <div>
-                <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'capacity'} />
-                <input type="text" className="form-control capacityInput" id="capacity" name="capacity" value={this.props.capacity} onChange={this.props.handleCapacityChange}/>
+                <ValidationErrors validationErrors={validationErrors} fieldName={'capacity'} />
+                <input type="text" className="form-control capacityInput" id="capacity" name="capacity" value={capacity} onChange={handleCapacityChange}/>
               </div>
             </div>
             <div className="pure-u-md-3-12" >
@@ -48,10 +60,10 @@ class KeyworkerProfileEdit extends Component {
           </div>
           <div className="pure-u-md-5-12 padding-top-large margin-top" >
             <div className="buttonGroup" >
-              <button className="button button-save" onClick={() => this.props.handleSaveChanges(this.props.history)}>Save and continue</button>
+              <button className="button button-save" onClick={() => handleSaveChanges(history)}>Save and continue</button>
             </div>
             <div className="buttonGroup">
-              <button className="button greyButton button-cancel" onClick={() => this.props.handleCancel(this.props.history)}>Cancel</button>
+              <button className="button greyButton button-cancel" onClick={() => handleCancel(history)}>Cancel</button>
             </div>
           </div>
         </div>

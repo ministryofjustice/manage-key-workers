@@ -7,10 +7,13 @@ import Status from "./Status";
 
 class KeyworkerSearchResults extends Component {
   buildTableForRender () {
-    if (!(this.props.keyworkerList && this.props.keyworkerList.map)) {
+    const { keyworkerList } = this.props;
+
+    if (!(keyworkerList && keyworkerList.map)) {
       return [];
     }
-    return this.props.keyworkerList.map(a => {
+
+    return keyworkerList.map(a => {
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
       return (
@@ -29,26 +32,36 @@ class KeyworkerSearchResults extends Component {
   }
 
   render () {
+    const {
+      keyworkerSettings,
+      displayBack,
+      statusFilter,
+      handleStatusFilterChange,
+      searchText,
+      handleSearchTextChange,
+      history,
+      handleSearch
+    } = this.props;
     const keyworkers = this.buildTableForRender();
-    const kwFrequency = this.props.keyworkerSettings ? this.props.keyworkerSettings.sequenceFrequency : 1;
+    const kwFrequency = keyworkerSettings ? keyworkerSettings.sequenceFrequency : 1;
 
     return (
       <div>
         <div className="pure-g padding-bottom-large">
-          {this.props.displayBack()}
+          {displayBack()}
           <div className="pure-u-md-12-12 ">
             <h1 className="heading-large margin-top">Search results</h1>
             <div>
               <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
                 <div className="pure-u-md-4-12">
                   <label className="form-label" htmlFor="seachText">Key worker name</label>
-                  <input type="text" className="full-width form-control" id="search-text" name="searchText" value={this.props.searchText} onChange={this.props.handleSearchTextChange}/>
+                  <input type="text" className="full-width form-control" id="search-text" name="searchText" value={searchText} onChange={handleSearchTextChange}/>
                 </div>
                 <div className="pure-u-md-3-12 margin-left">
                   <label className="form-label" htmlFor="status-select">Status</label>
-                  <Status filter statusValue={this.props.statusFilter} handleStatusChange={this.props.handleStatusFilterChange} />
+                  <Status filter statusValue={statusFilter} handleStatusChange={handleStatusFilterChange} />
                 </div>
-                <button className="button margin-left margin-top-large" onClick={() => { this.props.handleSearch(this.props.history);}}>Search again</button>
+                <button className="button margin-left margin-top-large" onClick={() => { handleSearch(history);}}>Search again</button>
               </div>
             </div>
           </div>

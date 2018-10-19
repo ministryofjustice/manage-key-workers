@@ -16,39 +16,50 @@ class EnableNomisContainer extends Component {
   }
 
   componentWillMount () {
-    this.props.setLoadedDispatch(true);
+    const { setLoadedDispatch } = this.props;
+
+    setLoadedDispatch(true);
   }
 
   async handleEnable (history) {
-    this.props.setLoadedDispatch(false);
+    const { agencyId, setLoadedDispatch, setMessageDispatch, handleError } = this.props;
+
+    setLoadedDispatch(false);
     try {
       await axios.post('/api/enableNewNomis',
         {},
         {
           params:
             {
-              agencyId: this.props.agencyId
+              agencyId
             }
         });
-      this.props.setMessageDispatch("New NOMIS access updated");
+      setMessageDispatch("New NOMIS access updated");
       history.push(`/`);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   handleCancel (history) {
     history.push(`/`);
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return <EnableNomis handleEnable={this.handleEnable} handleCancel={this.handleCancel} {...this.props} />;
-    }
+  render() {
+    const { error, loaded } = this.props;
+
+    if (error) return <Error {...this.props} />;
+
+    if (loaded)
+      return (
+        <EnableNomis
+          handleEnable={this.handleEnable}
+          handleCancel={this.handleCancel}
+          {...this.props}
+        />
+      );
+
     return <Spinner />;
   }
 }

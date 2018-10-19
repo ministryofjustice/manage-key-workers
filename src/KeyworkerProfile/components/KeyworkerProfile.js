@@ -19,26 +19,41 @@ class KeyworkerProfile extends Component {
   }
 
   getAllocationStyle () {
+    const { keyworker, keyworkerAllocations } = this.props;
     let allocationStyleClass = 'numberCircleGreen';
-    if (this.props.keyworkerAllocations.length === 0) {
+
+    if (keyworkerAllocations.length === 0) {
       allocationStyleClass = 'numberCircleGrey';
-    } else if (this.props.keyworkerAllocations.length === this.props.keyworker.capacity) {
+    } else if (keyworkerAllocations.length === keyworker.capacity) {
       allocationStyleClass = 'numberCircleAmber';
-    } else if (this.props.keyworkerAllocations.length > this.props.keyworker.capacity) {
+    } else if (keyworkerAllocations.length > keyworker.capacity) {
       allocationStyleClass = 'numberCircleRed';
     }
     return allocationStyleClass;
   }
 
   render () {
-    const keyworkerDisplayName = properCaseName(this.props.keyworker.firstName) + ' ' + properCaseName(this.props.keyworker.lastName);
-    const statusStyle = getStatusStyle(this.props.keyworker.status);
-    const keyworkerOptions = this.props.keyworkerList.map((kw, optionIndex) => {
+    const {
+      keyworker,
+      user,
+      config,
+      history,
+      keyworkerList,
+      keyworkerChangeList,
+      keyworkerAllocations,
+      handleKeyworkerChange,
+      handleAllocationChange,
+      handleEditProfileClick
+    } = this.props;
+    const keyworkerDisplayName =
+      properCaseName(keyworker.firstName) + " " + properCaseName(keyworker.lastName);
+    const statusStyle = getStatusStyle(keyworker.status);
+    const keyworkerOptions = keyworkerList.map((kw, optionIndex) => {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
       return <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>{formattedDetails}</option>;
     });
-    const allocations = this.props.keyworkerAllocations.map((a, index) => {
-      const currentSelectValue = this.props.keyworkerChangeList[index] ? this.props.keyworkerChangeList[index].staffId : '';
+    const allocations = keyworkerAllocations.map((a, index) => {
+      const currentSelectValue = keyworkerChangeList[index] ? keyworkerChangeList[index].staffId : '';
       const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
       return (
         <tr key={a.offenderNo}>
@@ -52,11 +67,11 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{renderDate(a.lastKeyWorkerSessionDate)}</td>
           <td className="row-gutters">
 
-            <select disabled={Boolean(!this.props.user || !this.props.user.writeAccess)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
-              onChange={(event) => this.props.handleKeyworkerChange(event, index, a.offenderNo)}>
+            <select disabled={Boolean(!user || !user.writeAccess)} id={`keyworker-select-${a.offenderNo}`} className="form-control" value={currentSelectValue}
+              onChange={(event) => handleKeyworkerChange(event, index, a.offenderNo)}>
               <option key="choose" value="--">-- No change --</option>
               <option key="deallocate" value="_DEALLOCATE">-- Deallocate --</option>
-              {a.deallocOnly ? '' : keyworkerOptions.filter(e => e.props.value !== this.props.keyworker.staffId)}
+              {a.deallocOnly ? '' : keyworkerOptions.filter(e => e.props.value !== keyworker.staffId)}
             </select>
           </td>
         </tr>
@@ -67,13 +82,13 @@ class KeyworkerProfile extends Component {
     const allocationCountStyle = this.getAllocationStyle();
 
     renderContent = (<div>
-      {this.props.config.keyworkeProfileStatsEnabled === "true" &&
+      {config.keyworkeProfileStatsEnabled === "true" &&
         <Fragment>
           <KeyworkerStats stats={(this.props.keyworker && this.props.keyworker.stats) || []} />
           <hr/>
         </Fragment>
       }
-      <div className="lede padding-top padding-bottom-large bold">Current allocations <div id="allocationCount" className={allocationCountStyle}><div className="adjustCount">{this.props.keyworkerAllocations.length}</div></div></div>
+      <div className="lede padding-top padding-bottom-large bold">Current allocations <div id="allocationCount" className={allocationCountStyle}><div className="adjustCount">{keyworkerAllocations.length}</div></div></div>
       <div className="pure-u-md-12-12">
         <div className="padding-bottom-40">
           <table>
@@ -91,7 +106,7 @@ class KeyworkerProfile extends Component {
             <tbody>{allocations}</tbody>
           </table>
         </div>
-        {this.props.keyworkerAllocations.length > 0 && (this.props.user && this.props.user.writeAccess) && <button id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => this.props.handleAllocationChange(this.props.history)}>Update keyworker allocation</button>}
+        {keyworkerAllocations.length > 0 && (user && user.writeAccess) && <button id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => handleAllocationChange(history)}>Update keyworker allocation</button>}
       </div>
     </div>
     );
@@ -101,7 +116,7 @@ class KeyworkerProfile extends Component {
         <MessageBar {...this.props}/>
         <div className="pure-g padding-bottom-large">
           <div className="pure-u-md-8-12 padding-top">
-            <a href="#back" title="Back link" className="link backlink" onClick={(event) => this.goBack(event, this.props.history)} >
+            <a href="#back" title="Back link" className="link backlink" onClick={(event) => this.goBack(event, history)} >
               <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10"/> Back</a>
             <h1 className="heading-large margin-top">Key worker: {keyworkerDisplayName}</h1>
           </div>
@@ -109,28 +124,28 @@ class KeyworkerProfile extends Component {
             <div className="pure-u-md-5-12">
               <div className="pure-u-md-5-12" >
                 <label className="form-label" htmlFor="name">Establishment</label>
-                <div className="bold padding-top-small">{this.props.keyworker.agencyDescription}</div>
+                <div className="bold padding-top-small">{keyworker.agencyDescription}</div>
               </div>
               <div className="pure-u-md-4-12" >
                 <label className="form-label" htmlFor="name">Schedule type</label>
-                <div className="bold padding-top-small">{this.props.keyworker.scheduleType}</div>
+                <div className="bold padding-top-small">{keyworker.scheduleType}</div>
               </div>
               <div className="pure-u-md-1-12" >
                 <label className="form-label" htmlFor="name">Capacity</label>
-                <div className="bold padding-top-small">{this.props.keyworker.capacity}</div>
+                <div className="bold padding-top-small">{keyworker.capacity}</div>
               </div>
             </div>
             <div className="pure-u-md-7-12">
               <div className="pure-u-md-6-12" >
                 <label className="form-label" htmlFor="name">Status</label>
-                <div id="keyworker-status" className={`${statusStyle}Status`}>{getStatusDescription(this.props.keyworker.status)}</div>
+                <div id="keyworker-status" className={`${statusStyle}Status`}>{getStatusDescription(keyworker.status)}</div>
               </div>
-              {(this.props.keyworker.status === 'UNAVAILABLE_ANNUAL_LEAVE') && (<div className="pure-u-md-3-12 activeDate" >
+              {(keyworker.status === 'UNAVAILABLE_ANNUAL_LEAVE') && (<div className="pure-u-md-3-12 activeDate" >
                 <label className="form-label" htmlFor="name">Return date</label>
-                <div className="bold padding-top-small" id="active-date">{renderDate(this.props.keyworker.activeDate)}</div>
+                <div className="bold padding-top-small" id="active-date">{renderDate(keyworker.activeDate)}</div>
               </div>)}
-              {this.props.user && this.props.user.writeAccess && <div className="pure-u-md-3-12 right-content" >
-                <button id="editProfileButton" className="button blueButton" onClick={() => this.props.handleEditProfileClick(this.props.history)}>Edit profile</button>
+              {user && user.writeAccess && <div className="pure-u-md-3-12 right-content" >
+                <button id="editProfileButton" className="button blueButton" onClick={() => handleEditProfileClick(history)}>Edit profile</button>
               </div>}
             </div>
           </div>

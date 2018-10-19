@@ -16,32 +16,34 @@ class AllocationHistoryContainer extends Component {
   }
 
   async componentDidMount () {
+    const { handleError, setLoadedDispatch } = this.props;
+
     try {
       await this.getAllocationHistory();
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   async getAllocationHistory () {
+    const { match, allocationHistoryDispatch } = this.props;
     const response = await axios.get('/api/allocationHistory', {
       params: {
-        offenderNo: this.props.match.params.offenderNo
+        offenderNo: match.params.offenderNo
       }
     });
 
-    await this.props.allocationHistoryDispatch(response.data);
+    await allocationHistoryDispatch(response.data);
   }
 
 
   render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<AllocationHistory {...this.props} />);
-    }
+    const { error, loaded } = this.props;
+    
+    if (error) return <Error {...this.props} />;
+    
+    if (loaded) return (<AllocationHistory {...this.props} />);
 
     return <Spinner />;
   }

@@ -8,14 +8,28 @@ import ValidationErrors from "../../ValidationError";
 
 class KeyworkerSettings extends Component {
   render () {
-    const buttonText = this.props.supported ? 'Save settings' : 'Save settings and migrate';
-    const statusText = this.props.supported ? 'Enabled' : 'Not yet enabled';
-    const sequenceFrequencyString = this.props.sequenceFrequency && this.props.sequenceFrequency.toString();
+    const {
+      capacity,
+      supported,
+      sequenceFrequency,
+      handleSequenceFrequency,
+      allowAuto,
+      handleAllowAutoChange,
+      validationErrors,
+      handleCapacityChange,
+      extCapacity,
+      handleExtCapacityChange,
+      handleUpdate,
+      history
+    } = this.props;
+    const buttonText = supported ? 'Save settings' : 'Save settings and migrate';
+    const statusText = supported ? 'Enabled' : 'Not yet enabled';
+    const sequenceFrequencyString = sequenceFrequency && sequenceFrequency.toString();
     const frequencySelect =
 
       (<select id="frequency-select" name="frequency-select" className="form-control sequenceFrequency"
         value={sequenceFrequencyString}
-        onChange={this.props.handleSequenceFrequency}>
+        onChange={handleSequenceFrequency}>
         <option id="option_once_a_week" key="1" value="1">Once a week</option>
         <option id="option_once_a_fortnight" key="2" value="2">Once a fortnight</option>
       </select>);
@@ -58,11 +72,11 @@ class KeyworkerSettings extends Component {
               </div>
               <div className="pure-u-md-4-12" >
                 <div className="multiple-choice">
-                  <input id="allowAutoYes" name="allowAutoYes" type="radio" value="true" checked={this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
+                  <input id="allowAutoYes" name="allowAutoYes" type="radio" value="true" checked={allowAuto} onClick={handleAllowAutoChange}/>
                   <label htmlFor="allowAutoYes">Yes</label>
                 </div>
                 <div className="multiple-choice">
-                  <input id="allowAutoNo" name="allowAutoNo" type="radio" value="false" checked={!this.props.allowAuto} onClick={this.props.handleAllowAutoChange}/>
+                  <input id="allowAutoNo" name="allowAutoNo" type="radio" value="false" checked={!allowAuto} onClick={handleAllowAutoChange}/>
                   <label htmlFor="allowAutoNo">No</label>
                 </div>
               </div>
@@ -74,8 +88,8 @@ class KeyworkerSettings extends Component {
               Capacity Tier 1
             </div>
             <div className="pure-u-md-7-12" >
-              <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'capacity'} />
-              <input type="text" className="form-control capacityInput" id="capacity" name="capacity" value={this.props.capacity} onChange={this.props.handleCapacityChange}/>
+              <ValidationErrors validationErrors={validationErrors} fieldName={'capacity'} />
+              <input type="text" className="form-control capacityInput" id="capacity" name="capacity" value={capacity} onChange={handleCapacityChange}/>
             </div>
           </div>
 
@@ -84,8 +98,8 @@ class KeyworkerSettings extends Component {
               Capacity Tier 2
             </div>
             <div className="pure-u-md-7-12" >
-              <ValidationErrors validationErrors={this.props.validationErrors} fieldName={'extCapacity'} />
-              <input type="text" className="form-control capacityInput" id="extCapacity" name="extCapacity" value={this.props.extCapacity} onChange={this.props.handleExtCapacityChange}/>
+              <ValidationErrors validationErrors={validationErrors} fieldName={'extCapacity'} />
+              <input type="text" className="form-control capacityInput" id="extCapacity" name="extCapacity" value={extCapacity} onChange={handleExtCapacityChange}/>
             </div>
           </div>
 
@@ -102,7 +116,7 @@ class KeyworkerSettings extends Component {
             <div className="pure-u-md-10-12">
               <div className="buttonGroup">
                 <button id="save-button" className="button button-save"
-                  onClick={() => this.props.handleUpdate(this.props.history)}>{buttonText}
+                  onClick={() => handleUpdate(history)}>{buttonText}
                 </button>
               </div>
             </div>

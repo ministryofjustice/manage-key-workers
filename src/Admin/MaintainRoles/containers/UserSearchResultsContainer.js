@@ -28,62 +28,85 @@ class UserSearchContainer extends Component {
   }
 
   async componentDidMount () {
-    this.props.setLoadedDispatch(false);
+    const { setLoadedDispatch, pageNumber } = this.props;
+
+    setLoadedDispatch(false);
     await this.getRoles();
-    await this.performSearch(this.props.pageNumber);
-    this.props.setLoadedDispatch(true);
+    await this.performSearch(pageNumber);
+    setLoadedDispatch(true);
   }
 
   async getRoles () {
+    const { roleFilterListDispatch, setErrorDispatch, user } = this.props;
+
     try {
       const roles = await axios.get('/api/getRoles', {
         params: {
-          hasAdminRole: this.props.user.maintainAccessAdmin
+          hasAdminRole: user.maintainAccessAdmin
         }
       });
-      this.props.roleFilterListDispatch(roles.data);
+      roleFilterListDispatch(roles.data);
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      setErrorDispatch(error.message);
     }
   }
 
   async performSearch (page) {
+    const {
+      nameFilter,
+      roleFilter,
+      agencyId,
+      pageSize,
+      totalRecordsDispatch,
+      userListDispatch,
+      pageNumberDispatch,
+      handleError,
+      pageNumber,
+      user,
+    } = this.props;
+
     try {
-      const pageNumber = page === undefined ? this.props.pageNumber : page;
+      const pageNum = page === undefined ? pageNumber : page;
       const users = await axios.get('/api/userSearch', {
         params: {
-          nameFilter: this.props.nameFilter,
-          roleFilter: this.props.roleFilter,
-          agencyId: this.props.agencyId,
-          hasAdminRole: this.props.user.maintainAccessAdmin
+          nameFilter,
+          roleFilter,
+          agencyId,
+          hasAdminRole: user.maintainAccessAdmin
         },
         headers: {
-          'Page-Offset': this.props.pageSize * pageNumber,
-          'Page-Limit': this.props.pageSize
+          'Page-Offset': pageSize * pageNum,
+          'Page-Limit': pageSize
         }
       });
-      this.props.totalRecordsDispatch(parseInt(users.headers['total-records']));
-      this.props.userListDispatch(users.data);
-      this.props.pageNumberDispatch(pageNumber);
+      totalRecordsDispatch(parseInt(users.headers['total-records']));
+      userListDispatch(users.data);
+      pageNumberDispatch(pageNumber);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
   }
 
   handleRoleFilterChange (event) {
-    this.props.pageNumberDispatch(0);
-    this.props.roleFilterDispatch(event.target.value);
+    const { pageNumberDispatch, roleFilterDispatch } = this.props;
+
+    pageNumberDispatch(0);
+    roleFilterDispatch(event.target.value);
   }
 
   handleNameFilterChange (event) {
-    this.props.pageNumberDispatch(0);
-    this.props.nameFilterDispatch(event.target.value);
+    const { pageNumberDispatch, nameFilterDispatch } = this.props;
+
+    pageNumberDispatch(0);
+    nameFilterDispatch(event.target.value);
   }
 
   async handleSearch (history) {
-    this.props.setLoadedDispatch(false);
+    const { setLoadedDispatch } = this.props;
+
+    setLoadedDispatch(false);
     await this.performSearch();
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   async handlePageAction (pageNumber) {
@@ -91,23 +114,28 @@ class UserSearchContainer extends Component {
   }
 
   async handleEdit (event, history) {
-    const chosenUser = this.props.userList[event.target.value];
+    const { userList } = this.props;
+    const chosenUser = userList[event.target.value];
     history.push(`/maintainRoles/${chosenUser.username}/profile`);
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<UserSearchResults
-        handleRoleFilterChange={this.handleRoleFilterChange}
-        handleNameFilterChange={this.handleNameFilterChange}
-        handlePageAction={this.handlePageAction}
-        handleSearch={this.handleSearch}
-        handleEdit={this.handleEdit}
-        {...this.props}/>);
-    }
+  render() {
+    const { error, loaded } = this.props;
+
+    if (error) return <Error {...this.props} />;
+
+    if (loaded)
+      return (
+        <UserSearchResults
+          handleRoleFilterChange={this.handleRoleFilterChange}
+          handleNameFilterChange={this.handleNameFilterChange}
+          handlePageAction={this.handlePageAction}
+          handleSearch={this.handleSearch}
+          handleEdit={this.handleEdit}
+          {...this.props}
+        />
+      );
+
     return <Spinner />;
   }
 }

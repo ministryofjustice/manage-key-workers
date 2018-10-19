@@ -25,88 +25,121 @@ class KeyworkerSettingsContainer extends Component {
   }
 
   async componentWillMount () {
-    this.props.setLoadedDispatch(true);
-    this.props.resetValidationErrorsDispatch();
+    const { setLoadedDispatch, resetValidationErrorsDispatch } = this.props;
+
+    setLoadedDispatch(true);
+    resetValidationErrorsDispatch();
   }
 
   async handleUpdate (history) {
-    if (!this.validate()) {
-      return;
-    }
-    this.props.setLoadedDispatch(false);
-    const controller = this.props.allowAuto ? '/api/autoAllocateMigrate' : '/api/manualAllocateMigrate';
+    const {
+      setLoadedDispatch,
+      allowAuto,
+      supported,
+      capacity,
+      extCapacity,
+      sequenceFrequency,
+      agencyId,
+      setSettingsMigratedDispatch,
+      setSettingsSupportedDispatch,
+      setMessageDispatch,
+      handleError
+    } = this.props;
+
+    if (!this.validate()) return;
+
+    setLoadedDispatch(false);
+    const controller = allowAuto ? '/api/autoAllocateMigrate' : '/api/manualAllocateMigrate';
 
     try {
       const response = await axios.post(controller,
         {
-          migrate: !this.props.supported,
-          capacity: `${this.props.capacity},${this.props.extCapacity}`,
-          frequency: this.props.sequenceFrequency
+          migrate: !supported,
+          capacity: `${capacity},${extCapacity}`,
+          frequency: sequenceFrequency
         },
         {
           params:
             {
-              agencyId: this.props.agencyId
+              agencyId
             }
         });
-      this.props.setSettingsMigratedDispatch(response.data.migrated);
-      this.props.setSettingsSupportedDispatch(response.data.supported);
-      this.props.setMessageDispatch("key worker settings updated");
+      setSettingsMigratedDispatch(response.data.migrated);
+      setSettingsSupportedDispatch(response.data.supported);
+      setMessageDispatch("key worker settings updated");
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   handleCapacityChange (event) {
-    this.props.setSettingsCapacityDispatch(event.target.value);
+    const { setSettingsCapacityDispatch } = this.props;
+    
+    setSettingsCapacityDispatch(event.target.value);
   }
 
   handleExtCapacityChange (event) {
-    this.props.setSettingsExtCapacityDispatch(event.target.value);
+    const { setSettingsExtCapacityDispatch } = this.props;
+
+    setSettingsExtCapacityDispatch(event.target.value);
   }
 
   handleMigratedChange (event) {
-    this.props.setSettingsMigratedDispatch(event.target.value);
+    const { setSettingsMigratedDispatch } = this.props;
+
+    setSettingsMigratedDispatch(event.target.value);
   }
 
   handleAllowAutoChange (event) {
+    const { setSettingsAllowAutoDispatch } = this.props;
     const allowAllocBoolean = (event.target.value === 'true');
-    this.props.setSettingsAllowAutoDispatch(allowAllocBoolean);
+
+    setSettingsAllowAutoDispatch(allowAllocBoolean);
   }
 
   handleSequenceFrequency (event) {
-    this.props.setSettingsSequenceFrequencyDispatch(event.target.value);
+    const { setSettingsSequenceFrequencyDispatch } = this.props;
+
+    setSettingsSequenceFrequencyDispatch(event.target.value);
   }
 
   validate () {
-    this.props.resetValidationErrorsDispatch();
-    if (!stringIsInteger(this.props.capacity)) {
-      this.props.setValidationErrorDispatch("capacity", "Please enter a number");
+    const { resetValidationErrorsDispatch, capacity, extCapacity } = this.props;
+
+    resetValidationErrorsDispatch();
+    if (!stringIsInteger(capacity)) {
+      setValidationErrorDispatch("capacity", "Please enter a number");
       return false;
     }
-    if (!stringIsInteger(this.props.extCapacity)) {
-      this.props.setValidationErrorDispatch("extCapacity", "Please enter a number");
+    if (!stringIsInteger(extCapacity)) {
+      setValidationErrorDispatch("extCapacity", "Please enter a number");
       return false;
     }
-    if (this.props.capacity > this.props.extCapacity) {
-      this.props.setValidationErrorDispatch("extCapacity", "Capacity Tier 2 must be equal to or greater than Capacity Tier 1");
+    if (capacity > extCapacity) {
+      setValidationErrorDispatch("extCapacity", "Capacity Tier 2 must be equal to or greater than Capacity Tier 1");
       return false;
     }
     return true;
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<KeyworkerSettings handleUpdate={this.handleUpdate}
-        handleAllowAutoChange={this.handleAllowAutoChange}
-        handleCapacityChange={this.handleCapacityChange}
-        handleExtCapacityChange={this.handleExtCapacityChange}
-        handleSequenceFrequency={this.handleSequenceFrequency} {...this.props} />);
-    }
+  render() {
+    const { error, loaded } = this.props;
+
+    if (error) return <Error {...this.props} />;
+
+    if (loaded)
+      return (
+        <KeyworkerSettings
+          handleUpdate={this.handleUpdate}
+          handleAllowAutoChange={this.handleAllowAutoChange}
+          handleCapacityChange={this.handleCapacityChange}
+          handleExtCapacityChange={this.handleExtCapacityChange}
+          handleSequenceFrequency={this.handleSequenceFrequency}
+          {...this.props}
+        />
+      );
+
     return <Spinner />;
   }
 }

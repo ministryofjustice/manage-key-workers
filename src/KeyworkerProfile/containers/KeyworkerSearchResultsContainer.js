@@ -23,40 +23,55 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   async performSearch () {
-    this.props.resetErrorDispatch();
-    this.props.setLoadedDispatch(false);
+    const {
+      agencyId,
+      resetErrorDispatch,
+      setLoadedDispatch,
+      keyworkerSearchResultsDispatch,
+      handleError
+    } = this.props;
+
+    resetErrorDispatch();
+    setLoadedDispatch(false);
     try {
-      const list = await this.getKeyworkerList(this.props.agencyId);
-      this.props.keyworkerSearchResultsDispatch(list);
+      const list = await this.getKeyworkerList(agencyId);
+      keyworkerSearchResultsDispatch(list);
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error);
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true);
   }
 
   async getKeyworkerSettings () {
+    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props;
+
     try {
       const keyworkerSettings = await axios.get('/api/keyworkerSettings');
-      this.props.keyworkerSettingsDispatch(keyworkerSettings.data);
+      keyworkerSettingsDispatch(keyworkerSettings.data);
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      setErrorDispatch(error.message);
     }
   }
 
   handleSearchTextChange (event) {
-    this.props.keyworkerSearchTextDispatch(event.target.value);
+    const { keyworkerSearchTextDispatch } = this.props;
+
+    keyworkerSearchTextDispatch(event.target.value);
   }
 
   handleStatusFilterChange (event) {
-    this.props.keyworkerStatusFilterDispatch(event.target.value);
+    const { keyworkerStatusFilterDispatch } = this.props;
+
+    keyworkerStatusFilterDispatch(event.target.value);
   }
 
   async getKeyworkerList (agencyId) {
+    const { searchText, statusFilter } = this.props;
     const response = await axios.get('/api/keyworkerSearch', {
       params: {
-        agencyId: agencyId,
-        searchText: this.props.searchText,
-        statusFilter: this.props.statusFilter
+        agencyId,
+        searchText,
+        statusFilter,
       }
     });
     return response.data;
@@ -64,7 +79,9 @@ class KeyworkerSearchResultsContainer extends Component {
 
   render () {
     let inner;
-    if (this.props.loaded) {
+    const { loaded } = this.props;
+
+    if (loaded) {
       inner = (<KeyworkerSearchResults {...this.props}
         handleSearchTextChange={this.handleSearchTextChange}
         handleStatusFilterChange={this.handleStatusFilterChange}

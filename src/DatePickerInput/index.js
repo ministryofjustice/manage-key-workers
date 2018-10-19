@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 
 class DatePickerInput extends Component {
   render () {
+    const { additionalClassName, handleDateChange } = this.props;
+
     return (<DatePicker
-      inputProps={{ className: `datePickerInput form-control ${this.props.additionalClassName}` }}
+      inputProps={{ className: `datePickerInput form-control ${additionalClassName}` }}
       name="date"
       shouldShowDay={(date) => !date.isBefore(moment().add(1, 'days').startOf('day'))}
       title="Date" {...this.props}
-      handleDateChange={this.props.handleDateChange}
+      handleDateChange={handleDateChange}
     />);
   }
 }
