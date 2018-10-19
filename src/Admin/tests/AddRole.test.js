@@ -4,7 +4,7 @@ import { AddRole } from "../MaintainRoles/components/AddRole";
 
 const user = {
   staffId: 485576,
-  username: "user${page}",
+  username: "user",
   firstName: "CHARLIE",
   lastName: "BARTLET",
   lockedFlag: false,
