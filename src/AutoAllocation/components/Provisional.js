@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Link } from "react-router-dom";
 import { properCaseName, renderDate } from '../../stringUtils';
-import DateFilter from '../../DateFilter/index.js';
+import DateFilter from '../../DateFilter/index';
 import { getOffenderLink, getStaffLink } from "../../links";
 
 class Provisional extends Component {

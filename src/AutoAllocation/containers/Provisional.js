@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Provisional from '../components/Provisional.js';
+import Provisional from '../components/Provisional';
 import { setAllocatedDetails, manualOverride, setMessage, setLoaded } from '../../redux/actions/index';
 import ErrorComponent from '../../Error/index';
 import Spinner from '../../Spinner';
