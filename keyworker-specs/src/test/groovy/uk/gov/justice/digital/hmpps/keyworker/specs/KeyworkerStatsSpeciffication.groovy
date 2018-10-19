@@ -1,5 +1,7 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
+import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.matching.UrlPattern
 import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
@@ -7,6 +9,12 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
+
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 
 class KeyworkerStatsSpecification extends GebReportingSpec {
     @Rule
@@ -31,11 +39,11 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
 
         def statsMapArray = stats.collect{stat -> statToMap(stat) }
 
-        assert statsMapArray[0].description == "Number of projected key worker sessions last month"
+        assert statsMapArray[0].description == "Number of projected key worker sessions in the last month"
         assert statsMapArray[0].value == "0"
         assert statsMapArray[0].change == "no change since last month"
 
-        assert statsMapArray[1].description == "Number of recorded key worker sessions last month"
+        assert statsMapArray[1].description == "Number of recorded key worker sessions in the last month"
         assert statsMapArray[1].value == "10"
         assert statsMapArray[1].change == "no change since last month"
 
@@ -46,6 +54,30 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         assert statsMapArray[3].description == "Total number of key worker case notes written"
         assert statsMapArray[3].value == "20"
         assert statsMapArray[3].change == "no change since last month"
+    }
+
+    def "should pull stats from a month ago to yesterday"() {
+        given: "I am logged in"
+        fixture.loginAs(UserAccount.ITAG_USER)
+
+        when: "I navigate to a key workers profile page"
+        fixture.toKeyworkerProfilePage()
+
+        then: "I have made a request from the correct fromDate and toDate"
+
+        String path = "/key-worker-stats/${KeyworkerResultsPage.test_keyworker_staffId}/prison/LEI"
+
+        LocalDate toDate = LocalDate.now().minus(1, ChronoUnit.DAYS)
+        LocalDate fromDate = LocalDate.now().minus(1, ChronoUnit.MONTHS).minus(1, ChronoUnit.DAYS)
+
+        UrlPattern requestUrl =
+               urlPathEqualTo(
+                        "${path}")
+
+        keyworkerApi.verify(WireMock
+                .getRequestedFor(requestUrl)
+                .withQueryParam("fromDate", WireMock.equalTo(fromDate.toString()))
+                .withQueryParam("toDate", WireMock.equalTo(toDate.toString())))
     }
 
     static statToMap(def stat) {
