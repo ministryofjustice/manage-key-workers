@@ -24,7 +24,7 @@ class KeyworkerProfileEditContainer extends Component {
       history.push('/');
       return;
     }
-    //invalid deeplink
+    // invalid deeplink
     if (!keyworker.staffId) {
       history.push(`/keyworker/${match.params.staffId}/profile`);
     }

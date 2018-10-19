@@ -29,7 +29,7 @@ describe('Keyworker Profile Edit component', () => {
     expect(component.text()).toContain(
       'This will remove the key worker from the auto-allocation pool and release all of their allocated prisoners.'
     );
-    expect(component.find('input').length).toEqual(0); //no options shown
+    expect(component.find('input').length).toEqual(0); // no options shown
     expect(component.find('#keyworker-status').hasClass('inactiveStatus')).toBe(true);
     expect(component.find('DatePickerInput').length).toEqual(0);
     expect(component.find('a.backlink').length).toEqual(1);
