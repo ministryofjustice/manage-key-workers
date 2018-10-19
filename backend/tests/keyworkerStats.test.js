@@ -29,14 +29,14 @@ describe('Key worker profile controller', async () => {
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 10,
       caseNoteSessionCount: 10,
-      numberOfProjectedKeyworkerSessions: 1,
+      projectedKeyworkerSessions: 1,
       complianceRate: 2.56
     });
 
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 5,
       caseNoteSessionCount: 5,
-      numberOfProjectedKeyworkerSessions: 0,
+      projectedKeyworkerSessions: 0,
       complianceRate: 3.09
     });
 
@@ -70,14 +70,14 @@ describe('Key worker profile controller', async () => {
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 0,
       caseNoteSessionCount: 0,
-      numberOfProjectedKeyworkerSessions: 0,
+      projectedKeyworkerSessions: 0,
       complianceRate: 0
     });
 
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 10,
       caseNoteSessionCount: 10,
-      numberOfProjectedKeyworkerSessions: 1,
+      projectedKeyworkerSessions: 1,
       complianceRate: 1
     });
 
@@ -111,14 +111,14 @@ describe('Key worker profile controller', async () => {
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 0,
       caseNoteSessionCount: 0,
-      numberOfProjectedKeyworkerSessions: 0,
+      projectedKeyworkerSessions: 0,
       complianceRate: 0
     });
 
     keyworkerApi.stats.mockReturnValueOnce({
       caseNoteEntryCount: 0,
       caseNoteSessionCount: 0,
-      numberOfProjectedKeyworkerSessions: 0,
+      projectedKeyworkerSessions: 0,
       complianceRate: 0
     });
 

@@ -47,7 +47,7 @@ const keyworkerStatsFactory = (keyworkerApi) => {
 
 const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfSessionCaseNotesWritten',
-  heading: 'Number of recorded key worker sessions last month',
+  heading: 'Number of recorded key worker sessions in the last month',
   value: currentStats.caseNoteSessionCount,
   change: {
     value: pastStats && currentStats.caseNoteSessionCount - pastStats.caseNoteSessionCount,
@@ -79,10 +79,10 @@ const complianceRate = (currentStats, pastStats, period) => ({
 
 const numberOfProjectedKeyworkerSessions = (currentStats, pastStats, period) => ({
   name: 'numberOfProjectedKeyworkerSessions',
-  heading: 'Number of projected key worker sessions last month',
-  value: currentStats.numberOfProjectedKeyworkerSessions,
+  heading: 'Number of projected key worker sessions in the last month',
+  value: currentStats.projectedKeyworkerSessions,
   change: {
-    value: pastStats && currentStats.numberOfProjectedKeyworkerSessions - pastStats.numberOfProjectedKeyworkerSessions,
+    value: pastStats && currentStats.projectedKeyworkerSessions - pastStats.projectedKeyworkerSessions,
     period
   }
 });

@@ -7,7 +7,7 @@ class KeyworkerStatsResponse {
         caseNoteEntryCount: 10,
         caseNoteSessionCount: 10,
         complianceRate: 0,
-        numberOfProjectedKeyworkerSessions: 0
+        projectedKeyworkerSessions: 0
     ]
 
     static statsForStaffResponse = JsonOutput.toJson(statsForStaff)
