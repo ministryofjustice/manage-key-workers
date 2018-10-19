@@ -93,9 +93,9 @@ describe('ManualAllocation component', () => {
   });
 
   it('should handle submit click correctly', async () => {
-    let postOverrideCallBack = jest.fn();
-    let cancelCallBack = jest.fn();
-    let keyworkerChangeCallback = jest.fn();
+    const postOverrideCallBack = jest.fn();
+    const cancelCallBack = jest.fn();
+    const keyworkerChangeCallback = jest.fn();
 
     const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={[]} keyworkerList={[]}
       onFinishAllocation={cancelCallBack}
@@ -107,8 +107,8 @@ describe('ManualAllocation component', () => {
   });
 
   it('should handle cancel click correctly', async () => {
-    let postOverrideCallBack = jest.fn();
-    let cancelCallBack = jest.fn();
+    const postOverrideCallBack = jest.fn();
+    const cancelCallBack = jest.fn();
     const component = shallow(<Provisional allocatedKeyworkers={[]} allocatedList={[]} keyworkerList={[]}
       handleKeyworkerChange={jest.fn()}
       onFinishAllocation={cancelCallBack} postManualOverride={postOverrideCallBack} applyDateFilter={() => {}} />);

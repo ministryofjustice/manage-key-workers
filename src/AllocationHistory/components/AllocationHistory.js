@@ -8,7 +8,7 @@ class AllocationHistory extends Component {
     const { allocationHistory } = this.props;
     let currentKw = '--';
     if (allocationHistory.allocationHistory.length > 0) {
-      let topEntry = allocationHistory.allocationHistory[0];
+      const topEntry = allocationHistory.allocationHistory[0];
       currentKw = topEntry.expired ? '--' : properCaseName(topEntry.lastName) + ', ' + properCaseName(topEntry.firstName);
     }
     return currentKw;

@@ -35,7 +35,7 @@ describe('Unallocated component', () => {
   });
 
   it('should handle click correctly', async () => {
-    let callBack = jest.fn();
+    const callBack = jest.fn();
 
     const component = shallow(<Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={callBack}/>);
 

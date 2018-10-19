@@ -90,7 +90,7 @@ describe('Keyworker Profile Edit component', () => {
   });
 
   it('should handle save click correctly', async () => {
-    let handleSave = jest.fn();
+    const handleSave = jest.fn();
 
     const component = shallow(
       <KeyworkerProfileEditConfirm
@@ -108,7 +108,7 @@ describe('Keyworker Profile Edit component', () => {
   });
 
   it('should handle cancel click correctly', async () => {
-    let handleCancel = jest.fn();
+    const handleCancel = jest.fn();
 
     const component = shallow(
       <KeyworkerProfileEditConfirm

@@ -11,7 +11,7 @@ describe('Keyworker search component', () => {
   });
 
   it('should handle click correctly', async () => {
-    let searchCallBack = jest.fn();
+    const searchCallBack = jest.fn();
 
     const component = shallow(<KeyworkerSearchPage handleSearchTextChange={jest.fn()} handleStatusFilterChange={jest.fn()} handleSearch={searchCallBack} displayBack={jest.fn()}/>);
 
@@ -20,7 +20,7 @@ describe('Keyworker search component', () => {
   });
 
   it('should search text entry correctly', async () => {
-    let searchTextCallBack = jest.fn();
+    const searchTextCallBack = jest.fn();
 
     const component = shallow(<KeyworkerSearchPage handleSearchTextChange={searchTextCallBack} handleStatusFilterChange={jest.fn()} handleSearch={jest.fn()} displayBack={jest.fn()}/>);
 
@@ -30,7 +30,7 @@ describe('Keyworker search component', () => {
   });
 
   it('should handle status select correctly', async () => {
-    let callBack = jest.fn();
+    const callBack = jest.fn();
 
     const component = shallow(<KeyworkerSearchPage handleSearchTextChange={jest.fn()} handleStatusFilterChange={callBack} handleSearch={jest.fn()} displayBack={jest.fn()}/>);
 

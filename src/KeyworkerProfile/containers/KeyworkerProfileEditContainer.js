@@ -36,7 +36,7 @@ class KeyworkerProfileEditContainer extends Component {
     }
 
     const { status, keyworker,setMessageDispatch, handleError } = this.props;
-    let statusChange = (status !== keyworker.status);
+    const statusChange = (status !== keyworker.status);
 
     try {
       if (this.formChange()) {
@@ -58,8 +58,8 @@ class KeyworkerProfileEditContainer extends Component {
 
   formChange () {
     const { capacity, keyworker, status } = this.props;
-    let capacityChange = (capacity !== keyworker.capacity.toString());
-    let statusChange = (status !== keyworker.status);
+    const capacityChange = (capacity !== keyworker.capacity.toString());
+    const statusChange = (status !== keyworker.status);
 
     return capacityChange || statusChange;
   }

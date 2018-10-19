@@ -745,7 +745,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS_CAPACITY', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.capacity = 4;
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -758,7 +758,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS_EXT_CAPACITY', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.extCapacity = 11;
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -771,7 +771,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.sequenceFrequency = 11;
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -784,7 +784,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.allowAuto = true;
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -797,7 +797,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS_MIGRATED', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.migrated = true;
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -810,7 +810,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS_SUPPORTED', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.supported = true;
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -823,7 +823,7 @@ describe('key worker settings reducer', () => {
   });
 
   it('should handle SET_KEYWORKER_SETTINGS', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState;
     updatedKeyworkerSettings.supported = true;
     updatedKeyworkerSettings.capacity = 1;
     updatedKeyworkerSettings.extCapacity = 2;
@@ -855,7 +855,7 @@ describe('Maintain roles reducer', () => {
   });
 
   it('should handle SET_USER_SEARCH_ROLE_FILTER', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.roleFilter = 'newRole';
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -868,7 +868,7 @@ describe('Maintain roles reducer', () => {
   });
 
   it('should handle SET_USER_SEARCH_NAME_FILTER', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.nameFilter = 'name';
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -881,7 +881,7 @@ describe('Maintain roles reducer', () => {
   });
 
   it('should handle SET_USER_SEARCH_PAGINATION_PAGE_SIZE', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.pageSize = 5;
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -894,7 +894,7 @@ describe('Maintain roles reducer', () => {
   });
 
   it('should handle SET_USER_SEARCH_PAGINATION_PAGE_NUMBER', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.pageNumber = 5;
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -907,7 +907,7 @@ describe('Maintain roles reducer', () => {
   });
 
   it('should handle SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.totalRecords = 5;
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -921,7 +921,7 @@ describe('Maintain roles reducer', () => {
 
   it('should handle SET_USER_SEARCH_ROLE_LIST', () => {
     const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.roleList = list;
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -935,7 +935,7 @@ describe('Maintain roles reducer', () => {
 
   it('should handle SET_USER_SEARCH_ROLE_FILTER_LIST', () => {
     const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.roleFilterList = list;
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -949,7 +949,7 @@ describe('Maintain roles reducer', () => {
 
   it('should handle SET_USER_SEARCH_USER_LIST', () => {
     const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.userList = list;
     expect(
       maintainRoles(maintainRolesInitialState, {
@@ -963,7 +963,7 @@ describe('Maintain roles reducer', () => {
 
   it('should handle SET_USER_SEARCH_CONTEXT_USER', () => {
     const user = { firstName: 'Jack', lastName: 'Jill' };
-    let updatedMaintainRoles = maintainRolesInitialState;
+    const updatedMaintainRoles = maintainRolesInitialState;
     updatedMaintainRoles.contextUser = user;
     expect(
       maintainRoles(maintainRolesInitialState, {
