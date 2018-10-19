@@ -24,13 +24,13 @@ class HomePage extends Component {
             </div>}
             <div className="pure-u-md-6-12">
               <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworker/search" >Update key worker availability</Link>
-              <div>Update a key worker's availability. Assign prisoners to another key worker.</div>
+              <div>Update a key worker&apos;s availability. Assign prisoners to another key worker.</div>
             </div>
           </div>
           <div className="pure-u-md-8-12">
             <div className="pure-u-md-6-12">
               <Link id="assign_transfer_link" title="Manually allocate key workers" className="link" to="/offender/search" >Manually allocate key workers</Link>
-              <div className="padding-right-large">Check a prisoner's key worker and allocate manually.</div>
+              <div className="padding-right-large">Check a prisoner&apos;s key worker and allocate manually.</div>
             </div>
           </div>
           <div className="pure-u-md-8-12">

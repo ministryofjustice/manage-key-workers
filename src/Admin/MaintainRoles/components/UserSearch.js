@@ -22,7 +22,7 @@ class UserSearch extends Component {
     const roleSelect = (<select id="role-select" name="role-select" className="form-control"
       value={roleFilter}
       onChange={handleRoleFilterChange}>
-      <option key="role_option_all" value="">All</option>}
+      <option key="role_option_all" value="">All</option>
       {roleListOptions}
     </select>);
 

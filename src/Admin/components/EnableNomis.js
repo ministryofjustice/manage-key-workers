@@ -28,7 +28,7 @@ class EnableNomis extends Component {
           </div>
           <div className="pure-u-md-12-12 padding-top">
             <div className="pure-u-md-4-12 padding-top bold">
-            Select Yes to give a prison access to New NOMIS for the first time, or to add new prison staff to this prison's account.
+            Select Yes to give a prison access to New NOMIS for the first time, or to add new prison staff to this prison&apos;s account.
             </div>
           </div>
           <div className="pure-u-md-5-12 padding-top-large margin-top" >
