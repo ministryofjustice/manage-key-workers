@@ -64,7 +64,7 @@ const switchToIsoDateFormat = (displayDateString) => {
 };
 
 const stringIsInteger = (input) => {
-  var parsed = Number.parseInt(input, 10);
+  const parsed = Number.parseInt(input, 10);
   return !Number.isNaN(parsed);
 };
 

@@ -76,8 +76,7 @@
     "react/no-unescaped-entities": 0,
     "import/extensions": 0,
     "lines-between-class-members": 0,
-    "no-template-curly-in-string": 0,
-    "no-var": 0
+    "no-template-curly-in-string": 0
   },
   "plugins": [
     "prettier"
