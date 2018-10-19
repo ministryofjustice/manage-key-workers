@@ -55,7 +55,6 @@
     "no-unused-vars": 0,
     "no-case-declarations": 0,
     "no-restricted-syntax": 0,
-    "no-unneeded-ternary": 0,
     "no-await-in-loop": 0,
     "no-continue": 0
   },
