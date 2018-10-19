@@ -86,15 +86,9 @@ const UserSearch = ({
 UserSearch.propTypes = {
   nameFilter: PropTypes.string,
   roleFilter: PropTypes.string,
-  error: PropTypes.string,
-  agencyId: PropTypes.string.isRequired,
-  nameFilterDispatch: PropTypes.func,
-  roleFilterDispatch: PropTypes.func,
-  roleFilterListDispatch: PropTypes.func,
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  resetErrorDispatch: PropTypes.func,
   roleFilterList: PropTypes.array,
   displayBack: PropTypes.func.isRequired,
   history: PropTypes.object

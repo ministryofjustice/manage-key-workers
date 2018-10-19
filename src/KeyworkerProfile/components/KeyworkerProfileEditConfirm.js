@@ -140,13 +140,11 @@ const KeyworkerProfileEditConfirm = ({
 
 KeyworkerProfileEditConfirm.propTypes = {
   history: PropTypes.object,
-  keyworker: PropTypes.object.isRequired,
   handleSaveChanges: PropTypes.func.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
   handleDateChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   status: PropTypes.string,
-  capacity: PropTypes.string,
   validationErrors: PropTypes.object
 };
 

@@ -129,14 +129,10 @@ const AddRole = ({
 };
 
 AddRole.propTypes = {
-  error: PropTypes.string,
   roleFilter: PropTypes.string,
-  agencyId: PropTypes.string.isRequired,
-  roleFilterDispatch: PropTypes.func,
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  resetErrorDispatch: PropTypes.func,
   roleFilterList: PropTypes.array,
   roleList: PropTypes.array,
   history: PropTypes.object,

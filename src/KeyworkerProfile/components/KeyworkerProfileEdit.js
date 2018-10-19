@@ -113,7 +113,6 @@ KeyworkerProfileEdit.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   status: PropTypes.string,
   capacity: PropTypes.string,
-  keyworkerStatus: PropTypes.string,
   validationErrors: PropTypes.object
 };
 

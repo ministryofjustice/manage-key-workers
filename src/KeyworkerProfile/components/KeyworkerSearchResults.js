@@ -99,7 +99,6 @@ KeyworkerSearchResults.propTypes = {
   handleStatusFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   displayBack: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   keyworkerSettings: PropTypes.object.isRequired
 };
 

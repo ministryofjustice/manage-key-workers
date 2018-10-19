@@ -30,7 +30,6 @@ class MessageBar extends Component {
 
 MessageBar.propTypes = {
   message: PropTypes.string,
-  displaytime: PropTypes.number
 };
 
 export default MessageBar;

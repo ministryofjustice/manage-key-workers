@@ -64,7 +64,6 @@ KeyworkerSearchPage.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,
-  statusValue: PropTypes.string
 };
 
 const KeyworkerSearchPageWithRouter = withRouter(KeyworkerSearchPage);
