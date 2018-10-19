@@ -61,7 +61,7 @@ class KeyworkerSearchResults extends Component {
                   <label className="form-label" htmlFor="status-select">Status</label>
                   <Status filter statusValue={statusFilter} handleStatusChange={handleStatusFilterChange} />
                 </div>
-                <button className="button margin-left margin-top-large" onClick={() => { handleSearch(history);}}>Search again</button>
+                <button type="button" className="button margin-left margin-top-large" onClick={() => { handleSearch(history);}}>Search again</button>
               </div>
             </div>
           </div>

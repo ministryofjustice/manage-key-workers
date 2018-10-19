@@ -150,6 +150,7 @@ const KeyworkerSettings = props => {
           <div className="pure-u-md-10-12">
             <div className="buttonGroup">
               <button
+                type="button"
                 id="save-button"
                 className="button button-save"
                 onClick={() => handleUpdate(history)}

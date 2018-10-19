@@ -42,6 +42,7 @@ const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
         <div className="pure-u-md-5-12 padding-top-large margin-top">
           <div className="buttonGroup">
             <button
+              type="button"
               id="giveAccessButton"
               className="button button-save"
               onClick={() => handleEnable(history)}
@@ -51,6 +52,7 @@ const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
           </div>
           <div className="buttonGroup">
             <button
+              type="button"
               className="button greyButton button-cancel"
               onClick={() => handleCancel(history)}
             >

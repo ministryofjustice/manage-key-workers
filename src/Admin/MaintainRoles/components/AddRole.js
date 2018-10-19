@@ -104,6 +104,7 @@ const AddRole = ({
         <div className="pure-u-md-7-12">
           {rolesAvailable && (
             <button
+              type="button"
               className="button margin-left margin-top-large"
               id="add-button"
               onClick={event => {
@@ -114,6 +115,7 @@ const AddRole = ({
             </button>
           )}
           <button
+            type="button"
             className="button margin-left-15 margin-top-large"
             id="cancel-button"
             onClick={event => {

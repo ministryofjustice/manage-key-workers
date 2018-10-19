@@ -29,7 +29,11 @@ const DateFilter = props => {
         />
       </div>
       <div className="pure-u-md-3-12">
-        <button className="button top-gutter-large" onClick={() => applyDateFilter(history)}>
+        <button
+          type="button"
+          className="button top-gutter-large"
+          onClick={() => applyDateFilter(history)}
+        >
           Filter
         </button>
       </div>

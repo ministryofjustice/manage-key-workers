@@ -49,7 +49,7 @@ class Unallocated extends Component {
           {offenders.length === 0 && <div className="font-small padding-top-large padding-bottom padding-left">No prisoners found</div>}
         </div>
         <div>
-          {offenders.length > 0 && <button className="button" onClick={() => gotoNext(history)}>Allocate</button>}
+          {offenders.length > 0 && <button type="button" className="button" onClick={() => gotoNext(history)}>Allocate</button>}
         </div>
       </div>
     );

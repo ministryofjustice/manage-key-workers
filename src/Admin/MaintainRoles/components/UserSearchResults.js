@@ -24,6 +24,7 @@ const UserSearchResults = (props) => {
         <td className="row-gutters width13em">{a.username}</td>
         <td className="row-gutters width5em">
           <button
+            type="button"
             className="button greyButtonNoMinWidth"
             id={`edit-button-${a.username}`}
             value={index}

@@ -93,6 +93,7 @@ const OffenderSearch = ({
               onChange={handleSearchTextChange}
             />
             <button
+              type="button"
               id="searchButton"
               className="button margin-left"
               onClick={() => handleSubmit(history)}
@@ -132,7 +133,12 @@ const OffenderSearch = ({
         <div className="pure-u-md-2-12 padding-top padding-left">{allocationStatusSelect}</div>
         <div className="pure-u-md-2-12 padding-top padding-left">
           <label className="form-label">&nbsp;</label>
-          <button id="searchButton" className="button" onClick={() => handleSubmit(history)}>
+          <button
+            type="button"
+            id="searchButton"
+            className="button"
+            onClick={() => handleSubmit(history)}
+          >
             Search again
           </button>
         </div>

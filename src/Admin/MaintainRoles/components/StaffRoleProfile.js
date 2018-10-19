@@ -18,7 +18,7 @@ class StaffRoleProfile extends Component {
       return (
         <tr key={a.roleCode}>
           <td className="row-gutters">{a.roleName}</td>
-          <td className="row-gutters"><button className="button greyButtonNoMinWidth removeButton" id={`remove-button-${a.roleCode}`} value={a.roleCode} onClick={(event) => { handleRemove(event, history);}}>Remove</button></td>
+          <td className="row-gutters"><button type="button" className="button greyButtonNoMinWidth removeButton" id={`remove-button-${a.roleCode}`} value={a.roleCode} onClick={(event) => { handleRemove(event, history);}}>Remove</button></td>
         </tr>
       );
     }
@@ -47,7 +47,7 @@ class StaffRoleProfile extends Component {
                   <tbody>{results.length > 0 ? results : <tr><td className="padding-left font-small row-gutters no-results-row">No roles found</td></tr>}</tbody>
                 </table>
               </div>
-              <div><button className="button" id="add-button" onClick={(event) => { handleAdd(event, history);}}>Add role</button></div>
+              <div><button type="button" className="button" id="add-button" onClick={(event) => { handleAdd(event, history);}}>Add role</button></div>
             </div>
           </div>
         </div>

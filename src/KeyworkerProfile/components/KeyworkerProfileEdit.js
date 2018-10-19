@@ -86,12 +86,17 @@ const KeyworkerProfileEdit = ({
         </div>
         <div className="pure-u-md-5-12 padding-top-large margin-top">
           <div className="buttonGroup">
-            <button className="button button-save" onClick={() => handleSaveChanges(history)}>
+            <button
+              type="button"
+              className="button button-save"
+              onClick={() => handleSaveChanges(history)}
+            >
               Save and continue
             </button>
           </div>
           <div className="buttonGroup">
             <button
+              type="button"
               className="button greyButton button-cancel"
               onClick={() => handleCancel(history)}
             >

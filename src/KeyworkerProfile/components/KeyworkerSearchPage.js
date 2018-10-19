@@ -32,6 +32,7 @@ const KeyworkerSearchPage = ({
               onChange={handleSearchTextChange}
             />
             <button
+              type="button"
               className="button margin-left"
               onClick={() => {
                 handleSearch(history);

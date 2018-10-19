@@ -106,7 +106,7 @@ class KeyworkerProfile extends Component {
             <tbody>{allocations}</tbody>
           </table>
         </div>
-        {keyworkerAllocations.length > 0 && (user && user.writeAccess) && <button id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => handleAllocationChange(history)}>Update keyworker allocation</button>}
+        {keyworkerAllocations.length > 0 && (user && user.writeAccess) && <button type="button" id="updateAllocationButton" className="button pure-u-md-5-24" onClick={() => handleAllocationChange(history)}>Update keyworker allocation</button>}
       </div>
     </div>
     );
@@ -145,7 +145,7 @@ class KeyworkerProfile extends Component {
                 <div className="bold padding-top-small" id="active-date">{renderDate(keyworker.activeDate)}</div>
               </div>)}
               {user && user.writeAccess && <div className="pure-u-md-3-12 right-content" >
-                <button id="editProfileButton" className="button blueButton" onClick={() => handleEditProfileClick(history)}>Edit profile</button>
+                <button type="button" id="editProfileButton" className="button blueButton" onClick={() => handleEditProfileClick(history)}>Edit profile</button>
               </div>}
             </div>
           </div>

@@ -67,6 +67,7 @@ const UserSearch = ({
                 {roleSelect}
               </div>
               <button
+                type="button"
                 className="button margin-left margin-top-large"
                 id="search-button"
                 onClick={() => {
