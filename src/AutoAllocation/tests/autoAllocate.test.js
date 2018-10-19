@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import axios from 'axios';
 import { UnallocatedContainer } from "../containers/Unallocated";
 import { ProvisionalContainer } from "../containers/Provisional";
-import axios from 'axios';
 
 const AXIOS_URL = 0;
 const AXIOS_CONFIG = 1;

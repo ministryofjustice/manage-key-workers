@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import axios from "axios";
 import KeyworkerSettings from '../components/KeyworkerSettings';
 import Error from '../../Error';
-import { withRouter } from 'react-router';
 import {
   setLoaded, setMessage, setSettingsSupported, setSettingsMigrated, setSettingsCapacity,
   setSettingsSequenceFrequency, setSettingsAllowAutoAllocation, setSettingsExtCapacity,
   setSettings, setValidationError, resetValidationErrors
 } from "../../redux/actions";
 import Spinner from '../../Spinner';
-import axios from "axios";
 import { stringIsInteger } from "../../stringUtils";
 
 class KeyworkerSettingsContainer extends Component {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import EnableNomis from '../components/EnableNomis';
-import Error from '../../Error';
 import { withRouter } from 'react-router';
 import axios from "axios";
+import EnableNomis from '../components/EnableNomis';
+import Error from '../../Error';
 import { setLoaded, setMessage } from "../../redux/actions";
 import Spinner from '../../Spinner';
 

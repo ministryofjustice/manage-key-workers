@@ -1,7 +1,7 @@
+import moment from 'moment';
 import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings, maintainRoles } from './index';
 import { setMenuOpen } from "../actions";
 import * as types from '../actions/actionTypes';
-import moment from 'moment';
 
 const appInitialState = {
   error: null,

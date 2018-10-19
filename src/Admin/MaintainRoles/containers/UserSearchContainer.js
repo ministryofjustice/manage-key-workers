@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setMaintainRolesNameFilter, setMaintainRolesRoleFilterList, setMaintainRolesRoleFilter, setMaintainRolesUserPageNumber, resetError } from '../../../redux/actions/index';
 import { connect } from 'react-redux';
+import axios from "axios/index";
+import { setMaintainRolesNameFilter, setMaintainRolesRoleFilterList, setMaintainRolesRoleFilter, setMaintainRolesUserPageNumber, resetError } from '../../../redux/actions/index';
 import Error from '../../../Error';
 
 import UserSearch from "../components/UserSearch";
-import axios from "axios/index";
 
 class UserSearchContainer extends Component {
   constructor (props) {

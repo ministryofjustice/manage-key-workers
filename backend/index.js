@@ -1,11 +1,7 @@
 require('dotenv').config();
-
-const requestForwarding = require('./request-forwarding');
-
 // Do appinsights first as it does some magic instrumentation work, i.e. it affects other 'require's
 // In particular, applicationinsights automatically collects bunyan logs
 require('./azure-appinsights');
-
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -13,8 +9,11 @@ const bodyParser = require('body-parser');
 const bunyanMiddleware = require('bunyan-middleware');
 const hsts = require('hsts');
 const helmet = require('helmet');
+const webpack = require('webpack');
+const middleware = require('webpack-dev-middleware');
+const hrm = require('webpack-hot-middleware');
 const ensureHttps = require('./middleware/ensureHttps');
-
+const requestForwarding = require('./request-forwarding');
 const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory;
 const setActiveCaseLoadFactory = require('./controllers/setactivecaseload').activeCaseloadFactory;
 const allocationServiceFactory = require('./services/allocationService').serviceFactory;
@@ -51,10 +50,6 @@ const healthApiFactory = require('./api/healthApi').healthApiFactory;
 const eliteApiFactory = require('./api/elite2Api').elite2ApiFactory;
 const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
 const oauthApiFactory = require('./api/oauthApi');
-
-const webpack = require('webpack');
-const middleware = require('webpack-dev-middleware');
-const hrm = require('webpack-hot-middleware');
 
 const log = require('./log');
 const config = require('./config');

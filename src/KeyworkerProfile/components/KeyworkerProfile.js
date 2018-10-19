@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { properCaseName, renderDate } from "../../stringUtils";
 import PropTypes from 'prop-types';
+import { properCaseName, renderDate } from "../../stringUtils";
 import MessageBar from "../../MessageBar/index";
 import { getStatusStyle, getStatusDescription } from "../keyworkerStatus";
 import { getOffenderLink } from "../../links";

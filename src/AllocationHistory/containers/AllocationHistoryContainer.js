@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setAllocationHistory, setLoaded } from '../../redux/actions';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import axios from 'axios';
+import { setAllocationHistory, setLoaded } from '../../redux/actions';
 import AllocationHistory from '../components/AllocationHistory';
 import Error from '../../Error';
-import { withRouter } from 'react-router';
 import Spinner from '../../Spinner';
 
-import axios from 'axios';
 
 class AllocationHistoryContainer extends Component {
   constructor (props) {

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import axios from "axios";
+import { withRouter } from 'react-router';
 import {
   resetError,
   setMaintainRolesRoleList,
@@ -8,12 +11,9 @@ import {
   setMaintainRolesUserContextUser,
   setLoaded
 } from '../../../redux/actions/index';
-import { connect } from 'react-redux';
 import Error from '../../../Error';
 
 import { StaffRoleProfile } from "../components/StaffRoleProfile";
-import axios from "axios";
-import { withRouter } from 'react-router';
 import Spinner from "../../../Spinner";
 
 class StaffRoleProfileContainer extends Component {

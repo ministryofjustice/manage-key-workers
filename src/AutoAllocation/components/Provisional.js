@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { properCaseName, renderDate } from '../../stringUtils';
-import DateFilter from '../../DateFilter/index.js';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { getOffenderLink, getStaffLink } from "../../links";
 import { Link } from "react-router-dom";
+import { properCaseName, renderDate } from '../../stringUtils';
+import DateFilter from '../../DateFilter/index.js';
+import { getOffenderLink, getStaffLink } from "../../links";
 
 class Provisional extends Component {
   buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {

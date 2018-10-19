@@ -1,4 +1,12 @@
 import React from 'react';
+import { Header } from 'new-nomis-shared-components';
+import {
+  BrowserRouter as Router, Link,
+  Route
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import ReactGA from 'react-ga';
 import HomePage from './index';
 import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer';
 import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer';
@@ -13,7 +21,6 @@ import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisi
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer';
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer';
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer';
-import { Header } from 'new-nomis-shared-components';
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer';
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer';
 import AddRoleContainer from '../Admin/MaintainRoles/containers/AddRoleContainer';
@@ -33,14 +40,7 @@ import {
   setSettings
 } from '../redux/actions/index';
 
-import {
-  BrowserRouter as Router, Link,
-  Route
-} from 'react-router-dom';
 
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import ReactGA from 'react-ga';
 const axios = require('axios');
 
 class App extends React.Component {

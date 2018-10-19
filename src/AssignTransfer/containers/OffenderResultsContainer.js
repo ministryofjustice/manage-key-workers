@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import axios from 'axios';
 import OffenderResults from "../components/OffenderResults";
 import Spinner from '../../Spinner';
 
-import axios from 'axios';
 import {
   resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults
 } from "../../redux/actions";

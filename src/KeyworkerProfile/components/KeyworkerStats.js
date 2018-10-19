@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import Statistic from '../../Statistic/Statistic';
 import GridRow from '@govuk-react/grid-row';
 import GridCol from '@govuk-react/grid-col';
+import Statistic from '../../Statistic/Statistic';
 
 const KeyworkerStats = ({ stats }) => (
   <GridRow>

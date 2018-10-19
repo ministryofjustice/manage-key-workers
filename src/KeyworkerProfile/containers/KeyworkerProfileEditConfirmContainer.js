@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworker, setKeyworkerStatusChangeBehaviour } from '../../redux/actions/index';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import axios from "axios";
+import moment from 'moment';
+import { setKeyworker, setKeyworkerStatusChangeBehaviour } from '../../redux/actions/index';
 import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfirm';
 import Error from '../../Error';
-import { withRouter } from 'react-router';
 import { resetValidationErrors, setMessage, setValidationError, setAnnualLeaveReturnDate } from "../../redux/actions";
-import axios from "axios";
 import * as behaviours from '../keyworkerStatusBehavour';
-import moment from 'moment';
 import { switchToIsoDateFormat, isBlank } from '../../stringUtils';
 
 class KeyworkerProfileEditConfirmContainer extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { properCaseName, renderDateTime } from "../../stringUtils";
 import PropTypes from 'prop-types';
+import { properCaseName, renderDateTime } from "../../stringUtils";
 import MessageBar from "../../MessageBar/index";
 
 class AllocationHistory extends Component {

@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import KeyworkerProfile from '../components/KeyworkerProfile';
-import Error from '../../Error';
 import { withRouter } from 'react-router';
-import Spinner from '../../Spinner';
-
+import axios from 'axios';
 import {
   setKeyworkerAllocationList,
   setKeyworker,
@@ -18,9 +15,9 @@ import {
   setLoaded,
   setKeyworkerStats
 } from '../../redux/actions/index';
-
-
-import axios from 'axios';
+import KeyworkerProfile from '../components/KeyworkerProfile';
+import Error from '../../Error';
+import Spinner from '../../Spinner';
 
 class KeyworkerProfileContainer extends Component {
   constructor (props) {
@@ -73,14 +70,15 @@ class KeyworkerProfileContainer extends Component {
   }
 
   async getKeyworkerStats () {
+    const { agencyId, match, keyworkerStatsDispatch } = this.props;
     const format = 'YYYY-MM-DD';
     const toDate = moment().subtract(1, 'day').format(format);
     const fromDate = moment().subtract(1, 'month').subtract(1, 'day').format(format);
 
     const response = await axios.get('/api/keyworker-profile-stats', {
       params: {
-        agencyId: this.props.agencyId,
-        staffId: this.props.match.params.staffId,
+        agencyId,
+        staffId: match.params.staffId,
         fromDate,
         toDate,
         period: 'month'
@@ -88,7 +86,7 @@ class KeyworkerProfileContainer extends Component {
     });
 
 
-    this.props.keyworkerStatsDispatch(response.data);
+    keyworkerStatsDispatch(response.data);
   }
 
 

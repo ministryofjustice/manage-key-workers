@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { properCaseName, renderDate } from "../../stringUtils";
 import PropTypes from 'prop-types';
+import { properCaseName, renderDate } from "../../stringUtils";
 import { getOffenderLink } from "../../links";
 
 class Unallocated extends Component {

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import axios from "axios";
+import { withRouter } from 'react-router';
+import Error from '../../../Error';
 import {
   resetError,
   setMaintainRolesRoleFilter,
@@ -8,11 +13,6 @@ import {
   setMaintainRolesRoleFilterList,
   setMaintainRolesRoleList, setValidationError, resetValidationErrors, setLoaded
 } from '../../../redux/actions/index';
-import { connect } from 'react-redux';
-import Error from '../../../Error';
-
-import axios from "axios";
-import { withRouter } from 'react-router';
 import { AddRole } from "../components/AddRole";
 import { isBlank } from "../../../stringUtils";
 import Spinner from "../../../Spinner";

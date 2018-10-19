@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText, resetError } from '../../redux/actions/index';
 import { connect } from 'react-redux';
+import { setKeyworkerSearchText, resetError } from '../../redux/actions/index';
 import Error from '../../Error';
 
 import KeyworkerSearchPage from "../components/KeyworkerSearchPage";

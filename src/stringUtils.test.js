@@ -1,5 +1,5 @@
-import { renderDate, switchToIsoDateFormat } from './stringUtils';
 import moment from 'moment';
+import { renderDate, switchToIsoDateFormat } from './stringUtils';
 
 describe('the renderDate function', () => {
   const notPresentString = '--';

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Provisional from '../components/Provisional.js';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import Provisional from '../components/Provisional.js';
 import { setAllocatedDetails, manualOverride, setMessage, setLoaded } from '../../redux/actions/index';
 import ErrorComponent from '../../Error/index';
-import { connect } from 'react-redux';
 import Spinner from '../../Spinner';
 
 import '../../allocation.scss';
-import { withRouter } from 'react-router';
 
 class ProvisionalContainer extends Component {
   constructor (props) {

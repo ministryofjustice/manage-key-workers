@@ -1,6 +1,8 @@
 /* eslint-disable radix */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import axios from "axios/index";
 import {
   setMaintainRolesNameFilter,
   setMaintainRolesRoleFilterList,
@@ -10,10 +12,8 @@ import {
   resetError,
   setLoaded, setMaintainRolesUserPageNumber
 } from '../../../redux/actions/index';
-import { connect } from 'react-redux';
 import Error from '../../../Error';
 import UserSearchResults from "../components/UserSearchResults";
-import axios from "axios/index";
 import Spinner from "../../../Spinner";
 
 class UserSearchContainer extends Component {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded, resetError, setKeyworkerStatusFilter, setSettings } from '../../redux/actions/index';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded, resetError, setKeyworkerStatusFilter, setSettings } from '../../redux/actions/index';
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
 import Spinner from '../../Spinner';
 
-import axios from 'axios';
 import Error from "../../Error";
 
 class KeyworkerSearchResultsContainer extends Component {

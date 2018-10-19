@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MessageBar from "../MessageBar/index";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import MessageBar from "../MessageBar/index";
 import { getHomeLink } from "../links";
 
 class HomePage extends Component {

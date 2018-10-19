@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import { properCaseName } from "../../stringUtils";
 import { getStatusDescription } from "../keyworkerStatus";
 import Status from "./Status";
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { properCaseName } from "../../stringUtils";
 import PropTypes from 'prop-types';
+import { properCaseName } from "../../stringUtils";
 import ValidationErrors from "../../ValidationError";
 import Status from "./Status";
 
