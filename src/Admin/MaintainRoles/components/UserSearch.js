@@ -1,57 +1,87 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
-// import '../index.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 
-class UserSearch extends Component {
-  render () {
-    const {
-      roleFilterList,
-      roleFilter,
-      handleRoleFilterChange,
-      nameFilter,
-      handleNameFilterChange,
-      history,
-      handleSearch,
-      displayBack
-    } = this.props;
-    const roleListOptions = roleFilterList ? roleFilterList.map((role, optionIndex) => {
-      return <option key={`role_option_${optionIndex}`} value={role.roleCode}>{role.roleName}</option>;
-    }) : [];
+const UserSearch = ({
+  roleFilterList,
+  roleFilter,
+  handleRoleFilterChange,
+  nameFilter,
+  handleNameFilterChange,
+  history,
+  handleSearch,
+  displayBack
+}) => {
+  const roleListOptions = roleFilterList
+    ? roleFilterList.map((role, optionIndex) => {
+        return (
+          <option key={`role_option_${optionIndex}`} value={role.roleCode}>
+            {role.roleName}
+          </option>
+        );
+      })
+    : [];
 
-    const roleSelect = (<select id="role-select" name="role-select" className="form-control"
+  const roleSelect = (
+    <select
+      id="role-select"
+      name="role-select"
+      className="form-control"
       value={roleFilter}
-      onChange={handleRoleFilterChange}>
-      <option key="role_option_all" value="">All</option>
+      onChange={handleRoleFilterChange}
+    >
+      <option key="role_option_all" value="">
+        All
+      </option>
       {roleListOptions}
-    </select>);
+    </select>
+  );
 
-
-    return (
-      <div className="padding-bottom-large">
-        {displayBack()}
-        <div className="pure-g">
-          <div className="pure-u-md-11-12 ">
-            <h1 className="heading-large margin-top" id="page-title">Search for staff member</h1>
-            <div>
-              <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
-                <div className="pure-u-md-4-12">
-                  <label className="form-label" htmlFor="nameFilter">Name or staff NOMIS ID</label>
-                  <input type="text" className="full-width form-control" id="name-filter" name="nameFilter" value={nameFilter} onChange={handleNameFilterChange}/>
-                </div>
-                <div className="pure-u-md-3-12 margin-left">
-                  <label className="form-label" htmlFor="role-select">Filter by role</label>
-                  { roleSelect }
-                </div>
-                <button className="button margin-left margin-top-large" id="search-button" onClick={() => { handleSearch(history);}}>Search</button>
+  return (
+    <div className="padding-bottom-large">
+      {displayBack()}
+      <div className="pure-g">
+        <div className="pure-u-md-11-12 ">
+          <h1 className="heading-large margin-top" id="page-title">
+            Search for staff member
+          </h1>
+          <div>
+            <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
+              <div className="pure-u-md-4-12">
+                <label className="form-label" htmlFor="nameFilter">
+                  Name or staff NOMIS ID
+                </label>
+                <input
+                  type="text"
+                  className="full-width form-control"
+                  id="name-filter"
+                  name="nameFilter"
+                  value={nameFilter}
+                  onChange={handleNameFilterChange}
+                />
               </div>
+              <div className="pure-u-md-3-12 margin-left">
+                <label className="form-label" htmlFor="role-select">
+                  Filter by role
+                </label>
+                {roleSelect}
+              </div>
+              <button
+                className="button margin-left margin-top-large"
+                id="search-button"
+                onClick={() => {
+                  handleSearch(history);
+                }}
+              >
+                Search
+              </button>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 UserSearch.propTypes = {
   nameFilter: PropTypes.string,

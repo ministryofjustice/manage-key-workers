@@ -1,21 +1,28 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import DatePicker from './datePicker';
+import React from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
+import DatePicker from "./datePicker";
 
-class DatePickerInput extends Component {
-  render () {
-    const { additionalClassName, handleDateChange } = this.props;
+const DatePickerInput = props => {
+  const { additionalClassName, handleDateChange } = props;
 
-    return (<DatePicker
+  return (
+    <DatePicker
       inputProps={{ className: `datePickerInput form-control ${additionalClassName}` }}
       name="date"
-      shouldShowDay={(date) => !date.isBefore(moment().add(1, 'days').startOf('day'))}
-      title="Date" {...this.props}
+      shouldShowDay={date =>
+        !date.isBefore(
+          moment()
+            .add(1, "days")
+            .startOf("day")
+        )
+      }
+      title="Date"
       handleDateChange={handleDateChange}
-    />);
-  }
-}
+      {...props}
+    />
+  );
+};
 
 DatePickerInput.propTypes = {
   history: PropTypes.object,
