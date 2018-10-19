@@ -39,11 +39,11 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
 
         def statsMapArray = stats.collect{stat -> statToMap(stat) }
 
-        assert statsMapArray[0].description == "Number of projected key worker sessions last month"
+        assert statsMapArray[0].description == "Number of projected key worker sessions in the last month"
         assert statsMapArray[0].value == "0"
         assert statsMapArray[0].change == "no change since last month"
 
-        assert statsMapArray[1].description == "Number of recorded key worker sessions last month"
+        assert statsMapArray[1].description == "Number of recorded key worker sessions in the last month"
         assert statsMapArray[1].value == "10"
         assert statsMapArray[1].change == "no change since last month"
 
