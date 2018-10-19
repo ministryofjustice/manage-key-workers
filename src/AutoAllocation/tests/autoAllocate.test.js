@@ -160,8 +160,6 @@ describe('Unallocated component', () => {
       />
     );
 
-    console.log(component.debug());
-
     setTimeout(() => {
       component.update();
       expect(errorDispatch.mock.calls.length).toBe(1);
