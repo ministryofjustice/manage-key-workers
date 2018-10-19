@@ -33,6 +33,22 @@ class StaffRoleProfileContainer extends Component {
     setLoadedDispatch(true);
   }
 
+  async getUserRoles (username) {
+    const { setRoleListDispatch, handleError, user } = this.props;
+
+    try {
+      const roles = await axios.get('/api/contextUserRoles', {
+        params: {
+          username,
+          hasAdminRole: user.maintainAccessAdmin
+        }
+      });
+      setRoleListDispatch(roles.data);
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
   async handleRemove (event) {
     const { contextUser, agencyId, setMessageDispatch, handleError } = this.props;
 
@@ -71,22 +87,6 @@ class StaffRoleProfileContainer extends Component {
 
     setRoleFilterDispatch('');
     history.push(`/maintainRoles/${contextUser.username}/addRole`);
-  }
-
-  async getUserRoles (username) {
-    const { setRoleListDispatch, handleError } = this.props;
-
-    try {
-      const roles = await axios.get('/api/contextUserRoles', {
-        params: {
-          username: username,
-          hasAdminRole: this.props.user.maintainAccessAdmin
-        }
-      });
-      setRoleListDispatch(roles.data);
-    } catch (error) {
-      handleError(error);
-    }
   }
 
   render() {

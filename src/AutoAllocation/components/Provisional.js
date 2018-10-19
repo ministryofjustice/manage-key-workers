@@ -7,6 +7,14 @@ import DateFilter from '../../DateFilter/index';
 import { getOffenderLink, getStaffLink } from "../../links";
 
 class Provisional extends Component {
+  getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
+    if (staffId) {
+      return <a className="link" target="_blank" href={getStaffLink(staffId)}>{this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}</a>;
+    } else {
+      return <strong className="bold-xsmall">Not allocated</strong>;
+    }
+  }
+
   buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
     if (keyworkerDisplay !== '--') {
       if (numberAllocated || numberAllocated === 0) {
@@ -16,14 +24,6 @@ class Provisional extends Component {
       }
     } else {
       return staffId + ' (no details available)';
-    }
-  }
-
-  getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
-    if (staffId) {
-      return <a className="link" target="_blank" href={getStaffLink(staffId)}>{this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}</a>;
-    } else {
-      return <strong className="bold-xsmall">Not allocated</strong>;
     }
   }
 

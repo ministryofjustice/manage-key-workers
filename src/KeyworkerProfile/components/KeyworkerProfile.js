@@ -12,12 +12,6 @@ class KeyworkerProfile extends Component {
     this.goBack = this.goBack.bind(this);
   }
 
-  goBack (e, history) {
-    e.preventDefault();
-    // Return to previous page in history. There can be multiple origin pages.
-    history.goBack();
-  }
-
   getAllocationStyle () {
     const { keyworker, keyworkerAllocations } = this.props;
     let allocationStyleClass = 'numberCircleGreen';
@@ -30,6 +24,12 @@ class KeyworkerProfile extends Component {
       allocationStyleClass = 'numberCircleRed';
     }
     return allocationStyleClass;
+  }
+
+  goBack (e, history) {
+    e.preventDefault();
+    // Return to previous page in history. There can be multiple origin pages.
+    history.goBack();
   }
 
   render () {

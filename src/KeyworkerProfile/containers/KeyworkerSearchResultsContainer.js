@@ -22,6 +22,41 @@ class KeyworkerSearchResultsContainer extends Component {
     await this.performSearch();
   }
 
+  async getKeyworkerSettings () {
+    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props;
+
+    try {
+      const keyworkerSettings = await axios.get('/api/keyworkerSettings');
+      keyworkerSettingsDispatch(keyworkerSettings.data);
+    } catch (error) {
+      setErrorDispatch(error.message);
+    }
+  }
+
+  async getKeyworkerList (agencyId) {
+    const { searchText, statusFilter } = this.props;
+    const response = await axios.get('/api/keyworkerSearch', {
+      params: {
+        agencyId,
+        searchText,
+        statusFilter,
+      }
+    });
+    return response.data;
+  }
+
+  handleSearchTextChange (event) {
+    const { keyworkerSearchTextDispatch } = this.props;
+
+    keyworkerSearchTextDispatch(event.target.value);
+  }
+
+  handleStatusFilterChange (event) {
+    const { keyworkerStatusFilterDispatch } = this.props;
+
+    keyworkerStatusFilterDispatch(event.target.value);
+  }
+
   async performSearch () {
     const {
       agencyId,
@@ -40,41 +75,6 @@ class KeyworkerSearchResultsContainer extends Component {
       handleError(error);
     }
     setLoadedDispatch(true);
-  }
-
-  async getKeyworkerSettings () {
-    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props;
-
-    try {
-      const keyworkerSettings = await axios.get('/api/keyworkerSettings');
-      keyworkerSettingsDispatch(keyworkerSettings.data);
-    } catch (error) {
-      setErrorDispatch(error.message);
-    }
-  }
-
-  handleSearchTextChange (event) {
-    const { keyworkerSearchTextDispatch } = this.props;
-
-    keyworkerSearchTextDispatch(event.target.value);
-  }
-
-  handleStatusFilterChange (event) {
-    const { keyworkerStatusFilterDispatch } = this.props;
-
-    keyworkerStatusFilterDispatch(event.target.value);
-  }
-
-  async getKeyworkerList (agencyId) {
-    const { searchText, statusFilter } = this.props;
-    const response = await axios.get('/api/keyworkerSearch', {
-      params: {
-        agencyId,
-        searchText,
-        statusFilter,
-      }
-    });
-    return response.data;
   }
 
   render () {

@@ -36,6 +36,21 @@ class AddRoleContainer extends Component {
     setLoadedDispatch(true);
   }
 
+  async getRoles () {
+    const { roleFilterListDispatch, handleError, user } = this.props;
+
+    try {
+      const roles = await axios.get('/api/getRoles', {
+        params: {
+          hasAdminRole: user.maintainAccessAdmin
+        }
+      });
+      roleFilterListDispatch(roles.data);
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
   handleRoleFilterChange (event) {
     const { setRoleFilterDispatch } = this.props;
 
@@ -46,21 +61,6 @@ class AddRoleContainer extends Component {
     e.preventDefault();
     // Return to previous page in history. There can be multiple origin pages.
     history.goBack();
-  }
-
-  async getRoles () {
-    const { roleFilterListDispatch, handleError, user } = this.props;
-
-    try {
-      const roles = await axios.get('/api/getRoles', {
-        params: {
-          hasAdminRole: maintainAccessAdmin
-        }
-      });
-      roleFilterListDispatch(roles.data);
-    } catch (error) {
-      handleError(error);
-    }
   }
 
   async handleAdd (event, history) {

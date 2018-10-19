@@ -12,6 +12,15 @@ class OffenderResults extends Component {
     super();
     this.buttons = this.buttons.bind(this);
   }
+
+  getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
+    if (staffId) {
+      return <a className="link" href={getStaffLink(staffId)}>{this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}</a>;
+    } else {
+      return <strong className="bold-xsmall">Not allocated</strong>;
+    }
+  }
+
   buildKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
     if (keyworkerDisplay) {
       if (numberAllocated || numberAllocated === 0) {
@@ -21,14 +30,6 @@ class OffenderResults extends Component {
       }
     } else {
       return staffId + ' (no details available)';
-    }
-  }
-
-  getKeyworkerDisplay (staffId, keyworkerDisplay, numberAllocated) {
-    if (staffId) {
-      return <a className="link" href={getStaffLink(staffId)}>{this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}</a>;
-    } else {
-      return <strong className="bold-xsmall">Not allocated</strong>;
     }
   }
 
