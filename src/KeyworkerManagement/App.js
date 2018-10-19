@@ -55,6 +55,7 @@ class App extends React.Component {
     this.displayError = this.displayError.bind(this);
     this.handleError = this.handleError.bind(this);
   }
+
   async componentDidMount () {
     const { configDispatch, setErrorDispatch } = this.props;
 

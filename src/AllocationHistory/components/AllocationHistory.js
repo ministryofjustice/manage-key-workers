@@ -13,6 +13,7 @@ class AllocationHistory extends Component {
     }
     return currentKw;
   }
+
   render () {
     const { allocationHistory } = this.props;
     const offenderDisplayName = properCaseName(allocationHistory.offender.firstName) + ' ' + properCaseName(allocationHistory.offender.lastName);

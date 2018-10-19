@@ -58,8 +58,7 @@
     "no-restricted-syntax": 0,
     "no-unneeded-ternary": 0,
     "no-await-in-loop": 0,
-    "no-continue": 0,
-    "lines-between-class-members": 0,
+    "no-continue": 0
   },
   "plugins": [
     "prettier"
