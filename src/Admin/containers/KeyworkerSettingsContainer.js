@@ -105,7 +105,7 @@ class KeyworkerSettingsContainer extends Component {
   }
 
   validate () {
-    const { resetValidationErrorsDispatch, capacity, extCapacity } = this.props;
+    const { resetValidationErrorsDispatch, capacity, extCapacity, setValidationErrorDispatch } = this.props;
 
     resetValidationErrorsDispatch();
     if (!stringIsInteger(capacity)) {
