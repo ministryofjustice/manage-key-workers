@@ -71,7 +71,7 @@
     "import/no-extraneous-dependencies": 0,
     "no-unneeded-ternary": 0,
     "no-await-in-loop": 0,
-    "default-case": 0,
+    // "default-case": 0,
     "no-continue": 0,
     "react/no-unescaped-entities": 0,
     "import/extensions": 0,

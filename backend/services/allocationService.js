@@ -221,6 +221,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       case "allocated":
         offenderResults = offenderResults.filter(offender => offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo));
         break;
+      default:
+        break;
     }
     log.debug(`After allocation status filter of ${allocationStatus} - new offender list is:`, { searchOffenders: offenderResults });
     return offenderResults;
