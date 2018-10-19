@@ -22,7 +22,7 @@ describe('userMe controller', () => {
     getPrisonMigrationStatus: () => {}
   };
 
-  beforeEach(function () {
+  beforeEach(() => {
     elite2Api.currentUser = jest.fn();
     elite2Api.getUserAccessRoles = jest.fn();
     keyworkerApi.getPrisonMigrationStatus = jest.fn();

@@ -4,7 +4,7 @@ import './index.scss';
 
 class MessageBar extends Component {
   clearMessage (props) {
-    setTimeout(function () {
+    setTimeout(() => {
       props.clearMessage();
     }, props.displayTime || 5000);
   }

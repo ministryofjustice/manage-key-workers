@@ -11,7 +11,7 @@ describe('ManualAllocation component', () => {
   it('should clear message after displayTime expires', async (done) => {
     const clearMessageMock = jest.fn();
     shallow(<MessageBar message="Hello!" displayTime={100} clearMessage={clearMessageMock}/>);
-    setTimeout(function () {
+    setTimeout(() => {
       expect(clearMessageMock.mock.calls.length).toBe(1);
       done();
     }, 200);
