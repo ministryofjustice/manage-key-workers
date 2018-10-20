@@ -17,9 +17,9 @@ class MessageBar extends Component {
       </div></div>);
       this.clearMessage(this.props);
       return renderContent;
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   render () {

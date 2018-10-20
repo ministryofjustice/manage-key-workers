@@ -14,21 +14,18 @@ class Provisional extends Component {
           {this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}
         </a>
       );
-    } else {
-      return <strong className="bold-xsmall">Not allocated</strong>;
     }
+    return <strong className="bold-xsmall">Not allocated</strong>;
   }
 
   buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
     if (keyworkerDisplay !== "--") {
       if (numberAllocated || numberAllocated === 0) {
         return keyworkerDisplay + " (" + numberAllocated + ")";
-      } else {
+      } 
         return keyworkerDisplay;
-      }
-    } else {
+    } 
       return staffId + " (no details available)";
-    }
   }
 
   buildTableForRender(keyworkerOptions) {
