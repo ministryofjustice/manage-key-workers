@@ -12,8 +12,8 @@ const USERNAME_COLUMN = 1;
 describe('User search Results component', () => {
   it('should render the initial view of User search', async () => {
     const component = shallow(<UserSearchResults user={user}
-      nameFilter={''}
-      roleFilter={''}
+      nameFilter=""
+      roleFilter=""
       roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
       userList={[{
         staffId: 70029,
@@ -28,7 +28,7 @@ describe('User search Results component', () => {
         lastName: "KNIGHT"
       }
       ]}
-      agencyId={'LEI'}
+      agencyId="LEI"
       nameFilterDispatch={jest.fn()}
       displayBack={jest.fn()}
       handleAllowAutoChange={jest.fn()}
@@ -50,8 +50,8 @@ describe('User search Results component', () => {
     const handleNameFilterMock = jest.fn();
     const handleRoleSelectMock = jest.fn();
     const component = shallow(<UserSearchResults user={user}
-      nameFilter={''}
-      roleFilter={''}
+      nameFilter=""
+      roleFilter=""
       userList={[{
         staffId: 70029,
         username: "HQA63K",
@@ -65,7 +65,7 @@ describe('User search Results component', () => {
         lastName: "KNIGHT"
       }
       ]}
-      agencyId={'LEI'}
+      agencyId="LEI"
       nameFilterDispatch={jest.fn()}
       displayBack={jest.fn()}
       handleAllowAutoChange={jest.fn()}

@@ -12,7 +12,7 @@ const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
     <div>
       <div className="pure-g">
         <div className="pure-u-md-12-12 padding-top">
-          <Link id={`back_link`} title="Back link" className="link backlink" to={`/`}>
+          <Link id="back_link" title="Back link" className="link backlink" to="/">
             <img
               className="back-triangle"
               src="/images/BackTriangle.png"

@@ -26,7 +26,7 @@ describe('Unallocated component', () => {
       <UnallocatedContainer
         user={user}
         loaded
-        agencyId={'LEI'}
+        agencyId="LEI"
         setMessageDispatch={jest.fn()}
         handleError={jest.fn()}
         unallocatedListDispatch={jest.fn()}
@@ -50,7 +50,7 @@ describe('Unallocated component', () => {
 
     const component = await shallow(
       <UnallocatedContainer
-        agencyId={'LEI'}
+        agencyId="LEI"
         setMessageDispatch={jest.fn()}
         handleError={jest.fn()}
         unallocatedListDispatch={jest.fn()}
@@ -79,7 +79,7 @@ describe('Unallocated component', () => {
       <ProvisionalContainer
         user={user}
         loaded
-        agencyId={'LEI'}
+        agencyId="LEI"
         onFinishAllocation={jest.fn()}
         setMessageDispatch={jest.fn()}
         handleError={jest.fn()}
@@ -109,7 +109,7 @@ describe('Unallocated component', () => {
       <UnallocatedContainer
         user={user}
         loaded
-        agencyId={'LEI'}
+        agencyId="LEI"
         handleError={errorDispatch}
         setMessageDispatch={jest.fn()}
         unallocatedListDispatch={jest.fn()}
@@ -147,7 +147,7 @@ describe('Unallocated component', () => {
       <ProvisionalContainer
         user={user}
         loaded
-        agencyId={'LEI'}
+        agencyId="LEI"
         onFinishAllocation={jest.fn()}
         handleError={errorDispatch}
         setMessageDispatch={jest.fn()}

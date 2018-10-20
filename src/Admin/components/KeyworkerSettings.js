@@ -51,7 +51,7 @@ const KeyworkerSettings = props => {
       <MessageBar {...props} />
       <div className="pure-g">
         <div className="pure-u-md-12-12 padding-top">
-          <Link id={`back_link`} title="Back link" className="link backlink" to={`/`}>
+          <Link id="back_link" title="Back link" className="link backlink" to="/">
             <img
               className="back-triangle"
               src="/images/BackTriangle.png"
@@ -114,7 +114,7 @@ const KeyworkerSettings = props => {
         <div className="pure-u-md-12-12 padding-top">
           <div className="pure-u-md-2-12">Capacity Tier 1</div>
           <div className="pure-u-md-7-12">
-            <ValidationErrors validationErrors={validationErrors} fieldName={"capacity"} />
+            <ValidationErrors validationErrors={validationErrors} fieldName="capacity" />
             <input
               type="text"
               className="form-control capacityInput"
@@ -129,7 +129,7 @@ const KeyworkerSettings = props => {
         <div className="pure-u-md-12-12 padding-top">
           <div className="pure-u-md-2-12">Capacity Tier 2</div>
           <div className="pure-u-md-7-12">
-            <ValidationErrors validationErrors={validationErrors} fieldName={"extCapacity"} />
+            <ValidationErrors validationErrors={validationErrors} fieldName="extCapacity" />
             <input
               type="text"
               className="form-control capacityInput"

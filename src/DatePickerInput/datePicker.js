@@ -30,7 +30,7 @@ class DatePicker extends Component {
         timeFormat={false}
         isValidDate={shouldShowDay}
         locale="en-GB"
-        dateFormat={"DD/MM/YYYY"}
+        dateFormat="DD/MM/YYYY"
         closeOnSelect
         strictParsing
         {...this.props}

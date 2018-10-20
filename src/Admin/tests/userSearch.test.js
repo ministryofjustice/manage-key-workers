@@ -10,10 +10,10 @@ const user = {
 describe('User search component', () => {
   it('should render the initial view of User search', async () => {
     const component = shallow(<UserSearch user={user}
-      nameFilter={''}
-      roleFilter={''}
+      nameFilter=""
+      roleFilter=""
       roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
-      agencyId={'LEI'}
+      agencyId="LEI"
       nameFilterDispatch={jest.fn()}
       displayBack={jest.fn()}
       handleAllowAutoChange={jest.fn()}
@@ -31,9 +31,9 @@ describe('User search component', () => {
     const handleNameFilterMock = jest.fn();
     const handleRoleSelectMock = jest.fn();
     const component = shallow(<UserSearch user={user}
-      nameFilter={''}
-      roleFilter={''}
-      agencyId={'LEI'}
+      nameFilter=""
+      roleFilter=""
+      agencyId="LEI"
       nameFilterDispatch={jest.fn()}
       displayBack={jest.fn()}
       handleAllowAutoChange={jest.fn()}

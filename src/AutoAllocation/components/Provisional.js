@@ -114,7 +114,7 @@ class Provisional extends Component {
       <div>
         <div className="pure-g">
           <div className="pure-u-md-7-12">
-            <Link id={`back_link`} title="Back link" className="link backlink" to="/unallocated">
+            <Link id="back_link" title="Back link" className="link backlink" to="/unallocated">
               <img
                 className="back-triangle"
                 src="/images/BackTriangle.png"

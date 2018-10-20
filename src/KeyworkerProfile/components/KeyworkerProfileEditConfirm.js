@@ -30,7 +30,7 @@ const KeyworkerProfileEditConfirm = ({
       <div>
         <div className="pure-u-md-6-12">
           <div className="padding-bottom">Choose an option:</div>
-          <ValidationErrors validationErrors={validationErrors} fieldName={"behaviourRadios"} />
+          <ValidationErrors validationErrors={validationErrors} fieldName="behaviourRadios" />
           <div name="behaviourRadios" id="behaviourRadios" className="multiple-choice">
             <input
               type="radio"
@@ -65,7 +65,7 @@ const KeyworkerProfileEditConfirm = ({
             <div className="padding-bottom padding-top">
               What date will they return from annual leave?
             </div>
-            <ValidationErrors validationErrors={validationErrors} fieldName={"active-date"} />
+            <ValidationErrors validationErrors={validationErrors} fieldName="active-date" />
             <div className="pure-u-md-5-12" id="active-date">
               <DatePickerInput
                 className="annualLeaveDate"

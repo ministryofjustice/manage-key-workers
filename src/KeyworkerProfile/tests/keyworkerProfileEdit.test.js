@@ -42,7 +42,7 @@ describe('Keyworker Profile Edit component', () => {
   });
 
   it('should render select with correct value', async () => {
-    const component = shallow(<Status statusValue={'INACTIVE'} handleStatusChange={jest.fn()} />);
+    const component = shallow(<Status statusValue="INACTIVE" handleStatusChange={jest.fn()} />);
     expect(component.find('#status-select').get(0).props.value).toEqual("INACTIVE");
   });
 });

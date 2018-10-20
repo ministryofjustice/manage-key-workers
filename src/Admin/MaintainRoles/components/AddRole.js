@@ -92,7 +92,7 @@ const AddRole = ({
                     </label>
                     <ValidationErrors
                       validationErrors={validationErrors}
-                      fieldName={"role-select"}
+                      fieldName="role-select"
                     />
                     {roleSelect}
                   </div>

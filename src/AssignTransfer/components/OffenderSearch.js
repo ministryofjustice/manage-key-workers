@@ -35,7 +35,7 @@ const OffenderSearch = ({
       <label className="form-label" htmlFor="housing-location-select">
         Location
       </label>
-      <ValidationErrors validationErrors={validationErrors} fieldName={"housing-location-select"} />
+      <ValidationErrors validationErrors={validationErrors} fieldName="housing-location-select" />
       <select
         id="housing-location-select"
         name="housing-location-select"
@@ -53,7 +53,7 @@ const OffenderSearch = ({
       <label className="form-label" htmlFor="housing-location-select">
         Allocation status
       </label>
-      <ValidationErrors validationErrors={validationErrors} fieldName={"housing-location-select"} />
+      <ValidationErrors validationErrors={validationErrors} fieldName="housing-location-select" />
       <select
         id="allocation-status-select"
         name="allocation-status-select"
@@ -82,7 +82,7 @@ const OffenderSearch = ({
             <label className="form-label" htmlFor="search-text">
               Prisoner name or number
             </label>
-            <ValidationErrors validationErrors={validationErrors} fieldName={"searchText"} />
+            <ValidationErrors validationErrors={validationErrors} fieldName="searchText" />
             <input
               type="text"
               className="form-control width70 margin-bottom"
@@ -118,7 +118,7 @@ const OffenderSearch = ({
           <label className="form-label" htmlFor="seachText">
             Prisoner name or number
           </label>
-          <ValidationErrors validationErrors={validationErrors} fieldName={"searchText"} />
+          <ValidationErrors validationErrors={validationErrors} fieldName="searchText" />
           <input
             type="text"
             className="form-control width100"

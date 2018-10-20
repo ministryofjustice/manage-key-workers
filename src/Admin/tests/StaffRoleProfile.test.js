@@ -17,7 +17,7 @@ describe('Staff role profile component', () => {
     const component = shallow(<StaffRoleProfile user={user}
       contextUser={user}
       roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
-      agencyId={'LEI'}
+      agencyId="LEI"
       displayBack={jest.fn()}
       handleRemove={jest.fn()}
       handleAdd={jest.fn()}/>);
@@ -32,7 +32,7 @@ describe('Staff role profile component', () => {
     const component = shallow(<StaffRoleProfile user={user}
       contextUser={user}
       roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
-      agencyId={'LEI'}
+      agencyId="LEI"
       displayBack={jest.fn()}
       handleRemove={handleRemoveMock}
       handleAdd={handleAddMock}/>);

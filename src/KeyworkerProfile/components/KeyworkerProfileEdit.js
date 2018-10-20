@@ -71,7 +71,7 @@ const KeyworkerProfileEdit = ({
               Capacity
             </label>
             <div>
-              <ValidationErrors validationErrors={validationErrors} fieldName={"capacity"} />
+              <ValidationErrors validationErrors={validationErrors} fieldName="capacity" />
               <input
                 type="text"
                 className="form-control capacityInput"
