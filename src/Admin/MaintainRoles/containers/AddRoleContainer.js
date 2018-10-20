@@ -90,7 +90,7 @@ class AddRoleContainer extends Component {
     try {
       const user = await axios.get('/api/getUser', {
         params: {
-          username: username
+          username
         }
       });
       contextUserDispatch(user.data);

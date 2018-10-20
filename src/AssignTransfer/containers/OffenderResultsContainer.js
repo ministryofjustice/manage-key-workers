@@ -83,12 +83,12 @@ class OffenderResultsContainer extends Component {
       changeList[index] = {
         deallocate: true,
         staffId: event.target.value,
-        offenderNo: offenderNo
+        offenderNo
       };
     } else {
       changeList[index] = {
         staffId: event.target.value,
-        offenderNo: offenderNo
+        offenderNo
       };
     }
     keyworkerChangeListDispatch(changeList);

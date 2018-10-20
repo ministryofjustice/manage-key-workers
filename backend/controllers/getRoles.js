@@ -15,5 +15,5 @@ const getRolesFactory = (elite2Api) => {
 };
 
 module.exports = {
-  getRolesFactory: getRolesFactory
+  getRolesFactory
 };

@@ -67,7 +67,7 @@ class ProvisionalContainer extends Component {
       } else {
         allocatedKeyworkersList[index] = {
           staffId: event.target.value,
-          offenderNo: offenderNo
+          offenderNo
         };
       }
       manualOverrideDispatch(allocatedKeyworkersList);

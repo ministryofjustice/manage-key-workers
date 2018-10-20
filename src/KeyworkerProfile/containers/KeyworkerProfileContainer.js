@@ -93,8 +93,8 @@ class KeyworkerProfileContainer extends Component {
   async makeKeyworkerAllocationsCall (agencyId, staffId) {
     const response = await axios.get('/api/keyworkerAllocations', {
       params: {
-        agencyId: agencyId,
-        staffId: staffId
+        agencyId,
+        staffId
       }
     });
     return response.data;
@@ -110,12 +110,12 @@ class KeyworkerProfileContainer extends Component {
       changeList[index] = {
         deallocate: true,
         staffId: event.target.value,
-        offenderNo: offenderNo
+        offenderNo
       };
     } else {
       changeList[index] = {
         staffId: event.target.value,
-        offenderNo: offenderNo
+        offenderNo
       };
     }
     keyworkerChangeListDispatch(changeList);

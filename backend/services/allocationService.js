@@ -188,7 +188,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     return {
       keyworkerResponse: availableKeyworkers,
       offenderResponse: filteredOffenders,
-      partialResults: partialResults
+      partialResults
     };
   };
 

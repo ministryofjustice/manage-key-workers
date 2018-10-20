@@ -3,7 +3,7 @@ import * as ActionTypes from './actionTypes';
 export const setConfig = (config) => {
   return {
     type: ActionTypes.SET_CONFIG,
-    config: config
+    config
   };
 };
 
@@ -36,8 +36,8 @@ export const setUnallocatedList = (unallocatedList) => {
 export const setAllocatedDetails = (allocatedList, keyworkerList) => {
   return {
     type: ActionTypes.SET_ALLOCATED_DETAILS,
-    allocatedList: allocatedList,
-    keyworkerList: keyworkerList,
+    allocatedList,
+    keyworkerList,
     allocatedKeyworkers: []
   };
 };
