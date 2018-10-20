@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getStatusDescription } from "../keyworkerStatus";
 
-const Status = ({ statusValue, handleStatusChange, filter }) => {
-  return (
+const Status = ({ statusValue, handleStatusChange, filter }) => (
     <select
       id="status-select"
       name="status-select"
@@ -34,7 +33,6 @@ const Status = ({ statusValue, handleStatusChange, filter }) => {
       </option>
     </select>
   );
-};
 
 Status.propTypes = {
   handleStatusChange: PropTypes.func.isRequired,

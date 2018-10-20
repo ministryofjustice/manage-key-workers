@@ -148,8 +148,7 @@ KeyworkerProfileEditContainer.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     keyworker: state.keyworkerSearch.keyworker,
     capacity: state.keyworkerSearch.capacity,
@@ -157,19 +156,16 @@ const mapStateToProps = state => {
     validationErrors: state.app.validationErrors,
     setValidationErrorDispatch: PropTypes.func,
     resetValidationErrorsDispatch: PropTypes.func
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     keyworkerDispatch: object => dispatch(setKeyworker(object)),
     keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status)),
     keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
     resetValidationErrorsDispatch: () => dispatch(resetValidationErrors())
-  };
-};
+  });
 
 export { KeyworkerProfileEditContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditContainer));

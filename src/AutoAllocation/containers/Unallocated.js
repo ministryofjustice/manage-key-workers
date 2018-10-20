@@ -74,23 +74,19 @@ UnallocatedContainer.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     unallocatedList: state.unallocated.unallocatedList,
     allocatedKeyworkers: state.allocated.allocatedKeyworkers,
     message: state.app.message,
     agencyId: state.app.user.activeCaseLoadId,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     unallocatedListDispatch: list => dispatch(setUnallocatedList(list)),
     setMessageDispatch: message => dispatch(setMessage(message)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+  });
 
 export { UnallocatedContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UnallocatedContainer));

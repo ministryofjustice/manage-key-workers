@@ -61,20 +61,16 @@ AllocationHistoryContainer.propTypes = {
   loaded: PropTypes.bool
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     allocationHistory: state.allocationHistory.allocationHistory,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     allocationHistoryDispatch: allocHistory => dispatch(setAllocationHistory(allocHistory)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+  });
 
 export { AllocationHistoryContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AllocationHistoryContainer));

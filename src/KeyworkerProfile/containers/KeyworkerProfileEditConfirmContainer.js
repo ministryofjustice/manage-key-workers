@@ -145,8 +145,7 @@ KeyworkerProfileEditConfirmContainer.propTypes = {
   validationErrors: PropTypes.object
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     keyworker: state.keyworkerSearch.keyworker,
     status: state.keyworkerSearch.status,
@@ -154,19 +153,16 @@ const mapStateToProps = state => {
     behaviour: state.keyworkerSearch.statusChangeBehaviour,
     validationErrors: state.app.validationErrors,
     annualLeaveReturnDate: state.keyworkerSearch.annualLeaveReturnDate
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     keyworkerDispatch: object => dispatch(setKeyworker(object)),
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setStatusChangeBehaviourDispatch: (message) => dispatch(setKeyworkerStatusChangeBehaviour(message)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
     resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
     dateDispatch: text => dispatch(setAnnualLeaveReturnDate(text))
-  };
-};
+  });
 
 export { KeyworkerProfileEditConfirmContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditConfirmContainer));

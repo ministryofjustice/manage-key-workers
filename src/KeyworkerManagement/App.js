@@ -241,8 +241,7 @@ App.propTypes = {
   allowAuto: PropTypes.bool
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     error: state.app.error,
     message: state.app.message,
     page: state.app.page,
@@ -251,11 +250,9 @@ const mapStateToProps = state => {
     shouldShowTerms: state.app.shouldShowTerms,
     menuOpen: state.app.menuOpen,
     allowAuto: state.keyworkerSettings.allowAuto
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     configDispatch: (config) => dispatch(setConfig(config)),
     userDetailsDispatch: (user) => dispatch(setUserDetails(user)),
     switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
@@ -265,8 +262,7 @@ const mapDispatchToProps = dispatch => {
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
     keyworkerSettingsDispatch: (settings) => dispatch(setSettings(settings))
-  };
-};
+  });
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 

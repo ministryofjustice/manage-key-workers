@@ -12,8 +12,7 @@ const KeyworkerSearchPage = ({
   handleSearchTextChange,
   statusFilter,
   handleStatusFilterChange
-}) => {
-  return (
+}) => (
     <div>
       {displayBack()}
       <div className="pure-g">
@@ -55,7 +54,6 @@ const KeyworkerSearchPage = ({
       </div>
     </div>
   );
-};
 
 KeyworkerSearchPage.propTypes = {
   displayBack: PropTypes.func.isRequired,

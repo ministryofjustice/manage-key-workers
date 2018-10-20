@@ -73,19 +73,15 @@ EnableNomisContainer.propTypes = {
   loaded: PropTypes.bool
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+  });
 
 export { EnableNomisContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EnableNomisContainer));

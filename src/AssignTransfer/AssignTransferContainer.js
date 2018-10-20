@@ -60,8 +60,7 @@ AssignTransferContainer.propTypes = {
   displayBack: PropTypes.func
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     searchText: state.searchText,
     allocationStatus: state.allocationStatus,
     housingLocation: state.housingLocation,
@@ -69,18 +68,15 @@ const mapStateToProps = state => {
     error: state.app.error,
     message: state.app.message,
     agencyId: state.app.user.activeCaseLoadId
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     offenderSearchTextDispatch: text => dispatch(setOffenderSearchText(text)),
     offenderSearchAllocationStatusDispatch: status => dispatch(setOffenderSearchAllocationStatus(status)),
     offenderSearchHousingLocationDispatch: location => dispatch(setOffenderSearchHousingLocation(location)),
     setErrorDispatch: error => dispatch(setError(error)),
     setMessageDispatch: message => dispatch(setMessage(message))
-  };
-};
+  });
 
 export { AssignTransferContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(AssignTransferContainer);

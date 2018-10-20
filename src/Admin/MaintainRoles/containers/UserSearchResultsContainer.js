@@ -158,8 +158,7 @@ UserSearchContainer.propTypes = {
   config: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     nameFilter: state.maintainRoles.nameFilter,
     roleFilter: state.maintainRoles.roleFilter,
     agencyId: state.app.user.activeCaseLoadId,
@@ -169,11 +168,9 @@ const mapStateToProps = state => {
     pageSize: state.maintainRoles.pageSize,
     totalRecords: state.maintainRoles.totalRecords,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
     roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
     roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
@@ -182,8 +179,7 @@ const mapDispatchToProps = dispatch => {
     totalRecordsDispatch: no => dispatch(setMaintainRolesUserTotalRecords(no)),
     resetErrorDispatch: () => dispatch(resetError()),
     setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserSearchContainer);
 

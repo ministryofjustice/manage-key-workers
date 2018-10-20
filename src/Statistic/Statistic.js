@@ -14,7 +14,6 @@ const Statistic = ({ heading, value, change }) => {
       </Change>
     </Container>
   );
-};
 
 Statistic.propTypes = {
   heading: PropTypes.string,

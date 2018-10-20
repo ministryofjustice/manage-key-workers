@@ -141,8 +141,7 @@ OffenderResultsContainer.propTypes = {
   history: PropTypes.object
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     searchText: state.offenderSearch.searchText,
     allocationStatus: state.offenderSearch.allocationStatus,
     keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
@@ -151,17 +150,14 @@ const mapStateToProps = state => {
     agencyId: state.app.user.activeCaseLoadId,
     locations: state.offenderSearch.locations,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status)),
     resetErrorDispatch: () => dispatch(resetError())
-  };
-};
+  });
 
 export { OffenderResultsContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderResultsContainer));

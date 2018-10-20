@@ -59,22 +59,18 @@ KeyworkerSearchContainer.propTypes = {
   resetErrorDispatch: PropTypes.func
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     searchText: state.keyworkerSearch.searchText,
     statusFilter: state.keyworkerSearch.statusFilter,
     agencyId: state.app.user.activeCaseLoadId,
     keyworkerList: state.keyworkerSearch.keyworkerSearchResults
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
     keyworkerStatusFilterDispatch: status => dispatch(setKeyworkerStatusFilter(status)),
     resetErrorDispatch: () => dispatch(resetError())
-  };
-};
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyworkerSearchContainer);
 

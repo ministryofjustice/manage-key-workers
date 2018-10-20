@@ -119,25 +119,21 @@ StaffRoleProfileContainer.propTypes = {
   setMessageDispatch: PropTypes.func
 };
 
-const mapStateToProps = state => {
-  return {
-    agencyId: state.app.user.activeCaseLoadId,
-    contextUser: state.maintainRoles.contextUser,
-    roleList: state.maintainRoles.roleList,
-    loaded: state.app.loaded
-  };
-};
+const mapStateToProps = state => ({
+  agencyId: state.app.user.activeCaseLoadId,
+  contextUser: state.maintainRoles.contextUser,
+  roleList: state.maintainRoles.roleList,
+  loaded: state.app.loaded
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    resetErrorDispatch: () => dispatch(resetError()),
-    setRoleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
-    setRoleFilterDispatch: list => dispatch(setMaintainRolesRoleFilter(list)),
-    setMessageDispatch: message => dispatch(setMessage(message)),
-    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
-    setLoadedDispatch: status => dispatch(setLoaded(status))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  resetErrorDispatch: () => dispatch(resetError()),
+  setRoleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
+  setRoleFilterDispatch: list => dispatch(setMaintainRolesRoleFilter(list)),
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
+  setLoadedDispatch: status => dispatch(setLoaded(status))
+});
 
 export { StaffRoleProfileContainer };
 export default connect(

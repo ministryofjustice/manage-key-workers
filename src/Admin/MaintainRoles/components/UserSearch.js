@@ -13,13 +13,11 @@ const UserSearch = ({
   displayBack
 }) => {
   const roleListOptions = roleFilterList
-    ? roleFilterList.map((role, optionIndex) => {
-        return (
+    ? roleFilterList.map((role, optionIndex) => (
           <option key={`role_option_${optionIndex}`} value={role.roleCode}>
             {role.roleName}
           </option>
-        );
-      })
+        ))
     : [];
 
   const roleSelect = (

@@ -127,25 +127,21 @@ ProvisionalContainer.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     allocatedList: state.allocated.allocatedList,
     keyworkerList: state.allocated.keyworkerList,
     allocatedKeyworkers: state.allocated.allocatedKeyworkers,
     message: state.app.message,
     agencyId: state.app.user.activeCaseLoadId,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     allocatedDetailsDispatch: (allocatedList, keyworkerList) => dispatch(setAllocatedDetails(allocatedList, keyworkerList)),
     manualOverrideDispatch: allocatedKeyworkers => dispatch(manualOverride(allocatedKeyworkers)),
     setMessageDispatch: message => dispatch(setMessage(message)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+  });
 
 export { ProvisionalContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProvisionalContainer));

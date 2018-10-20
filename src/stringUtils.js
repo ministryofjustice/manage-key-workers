@@ -2,9 +2,7 @@ const moment = require('moment');
 
 const iso8601DateFormat = 'YYYY-MM-DD';
 
-const properCase = (word) => {
-  return ((typeof word === 'string') && (word.length >= 1)) ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word;
-};
+const properCase = (word) => ((typeof word === 'string') && (word.length >= 1)) ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word;
 
 /**
  * Converts a name (first name, last name, middle name, etc.) to proper case equivalent, handling double-barreled names
@@ -12,13 +10,9 @@ const properCase = (word) => {
  * @param name name to be converted.
  * @returns name converted to proper case.
  */
-const properCaseName = (name) => {
-  return isBlank(name) ? '' : name.split('-').map(properCase).join('-');
-};
+const properCaseName = (name) => isBlank(name) ? '' : name.split('-').map(properCase).join('-');
 
-const isBlank = (str) => {
-  return (!str || /^\s*$/.test(str));
-};
+const isBlank = (str) => (!str || /^\s*$/.test(str));
 
 const toFullName = ({ firstName, lastName, name }) =>
   !isBlank(name) ? name.split(' ').map(properCaseName).join(', ') :
@@ -60,9 +54,7 @@ const renderDateTime = (date) => {
   return notPresentString;
 };
 
-const switchToIsoDateFormat = (displayDateString) => {
-  return isBlank(displayDateString) ? undefined : moment(displayDateString, 'DD/MM/YYYY').format(iso8601DateFormat);
-};
+const switchToIsoDateFormat = (displayDateString) => isBlank(displayDateString) ? undefined : moment(displayDateString, 'DD/MM/YYYY').format(iso8601DateFormat);
 
 const stringIsInteger = (input) => {
   const parsed = Number.parseInt(input, 10);

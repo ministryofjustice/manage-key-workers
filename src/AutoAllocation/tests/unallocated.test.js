@@ -22,9 +22,7 @@ const list = [{
   crsaClassification: null
 }];
 
-const mockBack = () => {
-  return <a href="test">home</a>;
-};
+const mockBack = () => <a href="test">home</a>;
 
 describe('Unallocated component', () => {
   it('should render list correctly', () => {

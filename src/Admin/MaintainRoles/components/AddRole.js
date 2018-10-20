@@ -24,8 +24,7 @@ const AddRole = ({
   );
 
   const roleListOptions = roleListWithoutCurrentRoles
-    ? roleListWithoutCurrentRoles.map((role, optionIndex) => {
-        return (
+    ? roleListWithoutCurrentRoles.map((role, optionIndex) => (
           <option
             key={`role_option_${optionIndex}`}
             id={`${role.roleCode}_option`}
@@ -33,8 +32,7 @@ const AddRole = ({
           >
             {role.roleName}
           </option>
-        );
-      })
+        ))
     : [];
 
   const rolesAvailable = roleListOptions && roleListOptions.length > 0;

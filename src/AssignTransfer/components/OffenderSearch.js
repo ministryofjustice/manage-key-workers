@@ -18,16 +18,14 @@ const OffenderSearch = ({
   handleSearchTextChange
 }) => {
   const housingLocations = locations
-    ? locations.map((kw, optionIndex) => {
-        return (
+    ? locations.map((kw, optionIndex) => (
           <option
             key={`housinglocation_option_${optionIndex}_${kw.locationId}`}
             value={kw.locationPrefix}
           >
             {kw.description || kw.locationPrefix}
           </option>
-        );
-      })
+        ))
     : [];
 
   const locationSelect = (

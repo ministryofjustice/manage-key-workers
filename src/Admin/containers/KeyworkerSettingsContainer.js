@@ -169,8 +169,7 @@ KeyworkerSettingsContainer.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     loaded: state.app.loaded,
     allowAuto: state.keyworkerSettings.allowAuto,
@@ -180,11 +179,9 @@ const mapStateToProps = state => {
     supported: state.keyworkerSettings.supported,
     migrated: state.keyworkerSettings.migrated,
     validationErrors: state.app.validationErrors
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status)),
     setSettingsCapacityDispatch: (input) => dispatch(setSettingsCapacity(input)),
@@ -196,8 +193,7 @@ const mapDispatchToProps = dispatch => {
     setSettingsSequenceFrequencyDispatch: (input) => dispatch(setSettingsSequenceFrequency(input)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
     resetValidationErrorsDispatch: () => dispatch(resetValidationErrors())
-  };
-};
+  });
 
 export { KeyworkerSettingsContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerSettingsContainer));

@@ -144,8 +144,7 @@ AddRoleContainer.propTypes = {
   setValidationErrorDispatch: PropTypes.func
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     contextUser: state.maintainRoles.contextUser,
     roleFilterList: state.maintainRoles.roleFilterList,
@@ -153,11 +152,9 @@ const mapStateToProps = state => {
     roleFilter: state.maintainRoles.roleFilter,
     validationErrors: state.app.validationErrors,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     resetErrorDispatch: () => dispatch(resetError()),
     setRoleFilterDispatch: (filter) => dispatch(setMaintainRolesRoleFilter(filter)),
     roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
@@ -167,8 +164,7 @@ const mapDispatchToProps = dispatch => {
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
     resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
     setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+  });
 
 export { AddRoleContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddRoleContainer));

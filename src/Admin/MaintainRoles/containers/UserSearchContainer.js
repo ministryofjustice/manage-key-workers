@@ -79,24 +79,20 @@ UserSearchContainer.propTypes = {
   resetErrorDispatch: PropTypes.func
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     nameFilter: state.maintainRoles.nameFilter,
     roleFilter: state.maintainRoles.roleFilter,
     agencyId: state.app.user.activeCaseLoadId,
     roleFilterList: state.maintainRoles.roleFilterList
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
     roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
     roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
     pageNumberDispatch: list => dispatch(setMaintainRolesUserPageNumber(list)),
     resetErrorDispatch: () => dispatch(resetError())
-  };
-};
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserSearchContainer);
 

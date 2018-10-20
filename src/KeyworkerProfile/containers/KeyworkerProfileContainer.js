@@ -205,19 +205,16 @@ KeyworkerProfileContainer.propTypes = {
   loaded: PropTypes.bool
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     agencyId: state.app.user.activeCaseLoadId,
     keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
     keyworker: state.keyworkerSearch.keyworker,
     keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
     keyworkerList: state.keyworkerSearch.keyworkerList,
     loaded: state.app.loaded
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
     keyworkerDispatch: id => dispatch(setKeyworker(id)),
     keyworkerStatsDispatch: stats => dispatch(setKeyworkerStats(stats)),
@@ -227,8 +224,7 @@ const mapDispatchToProps = dispatch => {
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setLoadedDispatch: (status) => dispatch(setLoaded(status)),
     keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status))
-  };
-};
+  });
 
 export { KeyworkerProfileContainer };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileContainer));

@@ -1,7 +1,6 @@
 import React from "react";
 
-const KeyworkerReports = () => {
-  return (
+const KeyworkerReports = () => (
     <div>
       <div className="pure-g">
         <div className="pure-u-md-7-12">
@@ -10,6 +9,5 @@ const KeyworkerReports = () => {
       </div>
     </div>
   );
-};
 
 export default KeyworkerReports;
