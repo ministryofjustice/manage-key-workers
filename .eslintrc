@@ -16,6 +16,12 @@
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-unused-vars": [
+      1,
+      {
+        "argsIgnorePattern": "res|next|^err"
+      }
+    ],
     "no-use-before-define": 0,
     "react/require-default-props": 0,
     "arrow-body-style": 0,
@@ -49,7 +55,6 @@
     "react/no-array-index-key": 0,
     "no-underscore-dangle": 0,
     "prefer-promise-reject-errors": 0,
-    "no-unused-vars": 0,
     "no-case-declarations": 0,
     "no-restricted-syntax": 0,
     "no-await-in-loop": 0,

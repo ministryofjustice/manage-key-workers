@@ -45,7 +45,7 @@ const axios = require('axios');
 
 class App extends React.Component {
   constructor (props) {
-    super();
+    super(props);
     this.onFinishAllocation = this.onFinishAllocation.bind(this);
     this.switchCaseLoad = this.switchCaseLoad.bind(this);
     this.showTermsAndConditions = this.showTermsAndConditions.bind(this);

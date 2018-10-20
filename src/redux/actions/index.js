@@ -33,7 +33,7 @@ export const setUnallocatedList = (unallocatedList) => {
   };
 };
 
-export const setAllocatedDetails = (allocatedList, keyworkerList, fromDate, toDate) => {
+export const setAllocatedDetails = (allocatedList, keyworkerList) => {
   return {
     type: ActionTypes.SET_ALLOCATED_DETAILS,
     allocatedList: allocatedList,
@@ -219,7 +219,7 @@ export const setValidationError = (fieldName, message) => {
   };
 };
 
-export const resetValidationErrors = (fieldName, message) => {
+export const resetValidationErrors = () => {
   return {
     type: ActionTypes.RESET_VALIDATION_ERRORS
   };

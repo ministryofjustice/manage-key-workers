@@ -101,7 +101,7 @@ class UserSearchContainer extends Component {
     nameFilterDispatch(event.target.value);
   }
 
-  async handleSearch (history) {
+  async handleSearch () {
     const { setLoadedDispatch } = this.props;
 
     setLoadedDispatch(false);

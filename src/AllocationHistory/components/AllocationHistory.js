@@ -17,7 +17,7 @@ class AllocationHistory extends Component {
   render () {
     const { allocationHistory } = this.props;
     const offenderDisplayName = properCaseName(allocationHistory.offender.firstName) + ' ' + properCaseName(allocationHistory.offender.lastName);
-    const allocations = allocationHistory.allocationHistory.map((a, index) => {
+    const allocations = allocationHistory.allocationHistory.map((a) => {
       const kwName = properCaseName(a.firstName) + ' ' + properCaseName(a.lastName);
       const createdStaff = properCaseName(a.userId.firstName) + ' ' + properCaseName(a.userId.lastName);
       const lastModStaff = properCaseName(a.lastModifiedByUser.firstName) + ' ' + properCaseName(a.lastModifiedByUser.lastName);

@@ -167,7 +167,7 @@ const mapDispatchToProps = dispatch => {
     keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
+    resetValidationErrorsDispatch: () => dispatch(resetValidationErrors())
   };
 };
 

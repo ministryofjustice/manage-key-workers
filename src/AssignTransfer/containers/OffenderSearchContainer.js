@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => {
     offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList)),
     keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
+    resetValidationErrorsDispatch: () => dispatch(resetValidationErrors())
   };
 };
 

@@ -8,7 +8,7 @@ import KeyworkerStats from './KeyworkerStats';
 
 class KeyworkerProfile extends Component {
   constructor (props) {
-    super();
+    super(props);
     this.goBack = this.goBack.bind(this);
   }
 

@@ -163,7 +163,7 @@ const mapDispatchToProps = dispatch => {
     setMessageDispatch: (message) => dispatch(setMessage(message)),
     setStatusChangeBehaviourDispatch: (message) => dispatch(setKeyworkerStatusChangeBehaviour(message)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors()),
+    resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
     dateDispatch: text => dispatch(setAnnualLeaveReturnDate(text))
   };
 };

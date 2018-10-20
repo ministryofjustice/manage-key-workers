@@ -2,7 +2,7 @@ const getStatusStyle = (status) => {
   const statusDescription = getStatusDescription(status);
   const styles = ['inactive', 'active', 'unavailable'];
   let styleClass = "";
-  styles.forEach((style, index) => {
+  styles.forEach((style) => {
     if (statusDescription && statusDescription.toLowerCase().startsWith(style)) styleClass = style;
   });
   return styleClass;

@@ -10,7 +10,7 @@ import Error from "../../Error";
 
 class KeyworkerSearchResultsContainer extends Component {
   constructor (props) {
-    super();
+    super(props);
     this.getKeyworkerList = this.getKeyworkerList.bind(this);
     this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
     this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);

@@ -12,7 +12,7 @@ import {
 
 class OffenderResultsContainer extends Component {
   constructor (props) {
-    super();
+    super(props);
     this.doSearch = this.doSearch.bind(this);
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
     this.postManualOverride = this.postManualOverride.bind(this);
@@ -33,7 +33,7 @@ class OffenderResultsContainer extends Component {
     }
   }
 
-  handleSubmit (history) {
+  handleSubmit () {
     this.doSearch();
   }
 
@@ -94,7 +94,7 @@ class OffenderResultsContainer extends Component {
     keyworkerChangeListDispatch(changeList);
   }
 
-  async postManualOverride (history) {
+  async postManualOverride () {
     const { agencyId, keyworkerChangeList, setMessageDispatch, handleError } = this.props;
 
     try {

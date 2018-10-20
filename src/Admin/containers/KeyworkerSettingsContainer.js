@@ -31,7 +31,7 @@ class KeyworkerSettingsContainer extends Component {
     resetValidationErrorsDispatch();
   }
 
-  async handleUpdate (history) {
+  async handleUpdate () {
     const {
       setLoadedDispatch,
       allowAuto,
@@ -195,7 +195,7 @@ const mapDispatchToProps = dispatch => {
     setSettingsAllowAutoDispatch: (input) => dispatch(setSettingsAllowAutoAllocation(input)),
     setSettingsSequenceFrequencyDispatch: (input) => dispatch(setSettingsSequenceFrequency(input)),
     setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
+    resetValidationErrorsDispatch: () => dispatch(resetValidationErrors())
   };
 };
 
