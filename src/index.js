@@ -9,6 +9,7 @@ import allocationApp from './redux/reducers';
 
 // Logger with default options
 import { AppContainer } from './KeyworkerManagement/App';
+
 const store = createStore(
   allocationApp,
   applyMiddleware(logger)

@@ -1,4 +1,5 @@
 const moment = require('moment');
+
 const iso8601DateFormat = 'YYYY-MM-DD';
 
 const properCase = (word) => {
