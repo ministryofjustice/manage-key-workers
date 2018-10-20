@@ -104,7 +104,7 @@ export function app (state = appInitialState, action) {
         ...state,
         loaded: action.loaded
       };
-    case ActionTypes.SET_VALIDATION_ERROR:
+    case ActionTypes.SET_VALIDATION_ERROR: {
       const newError = { [action.fieldName]: action.message };
       return {
         ...state,
@@ -112,6 +112,7 @@ export function app (state = appInitialState, action) {
           { ...state.validationErrors, ...newError } :
           newError
       };
+    }
     case ActionTypes.RESET_VALIDATION_ERRORS:
       return {
         ...state,
