@@ -17,7 +17,7 @@ const UserSearchResults = (props) => {
   } = props;
   const pagination = { perPage: pageSize, pageNumber };
   const results = userList.map((a, index) => {
-    const formattedName = properCaseName(a.lastName) + ", " + properCaseName(a.firstName);
+    const formattedName = `${properCaseName(a.lastName)  }, ${  properCaseName(a.firstName)}`;
     return (
       <tr key={a.username}>
         <td className="row-gutters">{formattedName}</td>

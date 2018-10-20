@@ -9,19 +9,19 @@ class AllocationHistory extends Component {
     let currentKw = '--';
     if (allocationHistory.allocationHistory.length > 0) {
       const topEntry = allocationHistory.allocationHistory[0];
-      currentKw = topEntry.expired ? '--' : properCaseName(topEntry.lastName) + ', ' + properCaseName(topEntry.firstName);
+      currentKw = topEntry.expired ? '--' : `${properCaseName(topEntry.lastName)  }, ${  properCaseName(topEntry.firstName)}`;
     }
     return currentKw;
   }
 
   render () {
     const { allocationHistory } = this.props;
-    const offenderDisplayName = properCaseName(allocationHistory.offender.firstName) + ' ' + properCaseName(allocationHistory.offender.lastName);
+    const offenderDisplayName = `${properCaseName(allocationHistory.offender.firstName)  } ${  properCaseName(allocationHistory.offender.lastName)}`;
     const allocations = allocationHistory.allocationHistory.map((a) => {
-      const kwName = properCaseName(a.firstName) + ' ' + properCaseName(a.lastName);
-      const createdStaff = properCaseName(a.userId.firstName) + ' ' + properCaseName(a.userId.lastName);
-      const lastModStaff = properCaseName(a.lastModifiedByUser.firstName) + ' ' + properCaseName(a.lastModifiedByUser.lastName);
-      const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
+      const kwName = `${properCaseName(a.firstName)  } ${  properCaseName(a.lastName)}`;
+      const createdStaff = `${properCaseName(a.userId.firstName)  } ${  properCaseName(a.userId.lastName)}`;
+      const lastModStaff = `${properCaseName(a.lastModifiedByUser.firstName)  } ${  properCaseName(a.lastModifiedByUser.lastName)}`;
+      const keyworkerHref = `/keyworker/${  a.staffId  }/profile`;
       return (
         <tr key={a.offenderKeyworkerId}>
           <td className="row-gutters"><a className="link" href={keyworkerHref}>{kwName}</a></td>

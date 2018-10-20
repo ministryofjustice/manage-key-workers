@@ -32,8 +32,8 @@ class ProvisionalContainer extends Component {
       if (viewModel.warning) {
         handleError({
           response: {
-            data: viewModel.warning +
-          ' Please try allocating manually, adding more Key workers or raising their capacities.'
+            data: `${viewModel.warning 
+          } Please try allocating manually, adding more Key workers or raising their capacities.`
           }
         });
       }

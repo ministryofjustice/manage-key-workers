@@ -14,8 +14,8 @@ class KeyworkerSearchResults extends Component {
     }
 
     return keyworkerList.map(a => {
-      const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
-      const keyworkerHref = '/keyworker/' + a.staffId + '/profile';
+      const formattedName = `${properCaseName(a.lastName)  }, ${  properCaseName(a.firstName)}`;
+      const keyworkerHref = `/keyworker/${  a.staffId  }/profile`;
       return (
         <tr key={a.staffId}>
           <td className="row-gutters">

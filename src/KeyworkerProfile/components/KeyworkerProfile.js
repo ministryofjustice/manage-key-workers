@@ -46,7 +46,7 @@ class KeyworkerProfile extends Component {
       handleEditProfileClick
     } = this.props;
     const keyworkerDisplayName =
-      properCaseName(keyworker.firstName) + " " + properCaseName(keyworker.lastName);
+      `${properCaseName(keyworker.firstName)  } ${  properCaseName(keyworker.lastName)}`;
     const statusStyle = getStatusStyle(keyworker.status);
     const keyworkerOptions = keyworkerList.map((kw, optionIndex) => {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`;
@@ -54,7 +54,7 @@ class KeyworkerProfile extends Component {
     });
     const allocations = keyworkerAllocations.map((a, index) => {
       const currentSelectValue = keyworkerChangeList[index] ? keyworkerChangeList[index].staffId : '';
-      const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
+      const formattedName = `${properCaseName(a.lastName)  }, ${  properCaseName(a.firstName)}`;
       return (
         <tr key={a.offenderNo}>
           <td className="row-gutters">

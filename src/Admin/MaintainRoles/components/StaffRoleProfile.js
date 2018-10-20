@@ -13,7 +13,7 @@ class StaffRoleProfile extends Component {
 
   render () {
     const { contextUser, roleList, history, handleAdd, handleRemove } = this.props;
-    const formattedName = contextUser && properCaseName(contextUser.firstName) + ' ' + properCaseName(contextUser.lastName);
+    const formattedName = contextUser && `${properCaseName(contextUser.firstName)  } ${  properCaseName(contextUser.lastName)}`;
     const results = roleList.map((a) => (
         <tr key={a.roleCode}>
           <td className="row-gutters">{a.roleName}</td>

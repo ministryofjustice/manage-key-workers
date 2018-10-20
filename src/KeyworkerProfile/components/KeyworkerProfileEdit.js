@@ -16,7 +16,7 @@ const KeyworkerProfileEdit = ({
   handleSaveChanges
 }) => {
   const keyworkerDisplayName =
-    properCaseName(keyworker.firstName) + " " + properCaseName(keyworker.lastName);
+    `${properCaseName(keyworker.firstName)  } ${  properCaseName(keyworker.lastName)}`;
   const statusSelect = (
     <div>
       <label className="form-label" htmlFor="status-select">

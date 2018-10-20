@@ -10,7 +10,7 @@ class Unallocated extends Component {
     if (!(unallocatedList && unallocatedList.map)) return [];
 
     return unallocatedList.map(a => {
-      const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
+      const formattedName = `${properCaseName(a.lastName)  }, ${  properCaseName(a.firstName)}`;
       return (
         <tr key={a.offenderNo}>
           <td className="row-gutters"><a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>{formattedName}</a></td>

@@ -135,7 +135,7 @@ class App extends React.Component {
   displayError (error) {
     const { setErrorDispatch } = this.props;
 
-    setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
+    setErrorDispatch((error.response && error.response.data) || `Something went wrong: ${  error}`);
   }
 
   handleError (error) {
@@ -144,7 +144,7 @@ class App extends React.Component {
     if ((error.response && error.response.status === 401) && (error.response.data && error.response.data.reason === 'session-expired')) {
       this.displayAlertAndLogout("Your session has expired, please click OK to be redirected back to the login page");
     } else {
-      setErrorDispatch((error.response && error.response.data) || 'Something went wrong: ' + error);
+      setErrorDispatch((error.response && error.response.data) || `Something went wrong: ${  error}`);
     }
   }
 

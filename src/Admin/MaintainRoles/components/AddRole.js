@@ -17,7 +17,7 @@ const AddRole = ({
 }) => {
   const formattedName =
     contextUser &&
-    properCaseName(contextUser.firstName) + " " + properCaseName(contextUser.lastName);
+    `${properCaseName(contextUser.firstName)  } ${  properCaseName(contextUser.lastName)}`;
 
   const roleListWithoutCurrentRoles = roleFilterList.filter(
     filteredRole => !roleList.some(currentRole => currentRole.roleCode === filteredRole.roleCode)

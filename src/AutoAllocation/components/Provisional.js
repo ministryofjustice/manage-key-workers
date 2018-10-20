@@ -21,11 +21,11 @@ class Provisional extends Component {
   buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
     if (keyworkerDisplay !== "--") {
       if (numberAllocated || numberAllocated === 0) {
-        return keyworkerDisplay + " (" + numberAllocated + ")";
+        return `${keyworkerDisplay  } (${  numberAllocated  })`;
       } 
         return keyworkerDisplay;
     } 
-      return staffId + " (no details available)";
+      return `${staffId  } (no details available)`;
   }
 
   buildTableForRender(keyworkerOptions) {
