@@ -1,10 +1,10 @@
-const serviceFactory = require('../services/allocationService').serviceFactory;
-const elite2ApiFactory = require('../api/elite2Api').elite2ApiFactory;
-const keyworkerApiFactory = require('../api/keyworkerApi').keyworkerApiFactory;
+const { serviceFactory } = require('../services/allocationService');
+const { elite2ApiFactory } = require('../api/elite2Api');
+const { keyworkerApiFactory } = require('../api/keyworkerApi');
 
 const elite2Api = elite2ApiFactory(null);
 const keyworkerApi = keyworkerApiFactory(null);
-const unallocated = serviceFactory(elite2Api, keyworkerApi).unallocated;
+const { unallocated } = serviceFactory(elite2Api, keyworkerApi);
 
 const allocationResponse = createDataResponse();
 

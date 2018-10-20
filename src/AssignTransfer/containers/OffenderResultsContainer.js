@@ -61,7 +61,7 @@ class OffenderResultsContainer extends Component {
           agencyId
         }
       });
-      const data = response.data;
+      const { data } = response;
       keyworkerChangeListDispatch([]);
       offenderSearchResultsDispatch(data);
     } catch (error) {

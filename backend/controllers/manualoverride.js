@@ -12,11 +12,11 @@ const manualOverrideFactory = (keyworkerApi) => {
     for (const element of allocateList) {
       if (!element) continue;
 
-      const staffId = element.staffId;
+      const { staffId } = element;
 
       if (!staffId) continue;
 
-      const offenderNo = element.offenderNo;
+      const { offenderNo } = element;
 
       if (element.deallocate) {
         const response = await keyworkerApi.deallocate(

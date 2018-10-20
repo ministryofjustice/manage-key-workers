@@ -17,38 +17,38 @@ const requestForwarding = require('./request-forwarding');
 const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory;
 const setActiveCaseLoadFactory = require('./controllers/setactivecaseload').activeCaseloadFactory;
 const allocationServiceFactory = require('./services/allocationService').serviceFactory;
-const userLocationsFactory = require('./controllers/userLocations').userLocationsFactory;
-const allocationHistoryFactory = require('./controllers/allocationHistory').allocationHistoryFactory;
-const manualOverrideFactory = require('./controllers/manualoverride').manualOverrideFactory;
+const { userLocationsFactory } = require('./controllers/userLocations');
+const { allocationHistoryFactory } = require('./controllers/allocationHistory');
+const { manualOverrideFactory } = require('./controllers/manualoverride');
 const autoAllocateFactory = require('./controllers/autoAllocateConfirmWithOverride').factory;
-const keyworkerSearchFactory = require('./controllers/keyworkerSearch').keyworkerSearchFactory;
-const keyworkerProfileFactory = require('./controllers/keyworkerProfile').keyworkerProfileFactory;
-const keyworkerUpdateFactory = require('./controllers/keyworkerUpdate').keyworkerUpdateFactory;
-const userMeFactory = require('./controllers/userMe').userMeFactory;
-const enableNewNomisFactory = require('./controllers/enableNewNomis').enableNewNomisFactory;
-const autoAllocationAndMigrateFactory = require('./controllers/autoAllocationMigrate').autoAllocationAndMigrateFactory;
-const manualAllocationAndMigrateFactory = require('./controllers/manualAllocationMigrate').manualAllocationAndMigrateFactory;
-const keyworkerSettingsFactory = require('./controllers/keyworkerSettings').keyworkerSettingsFactory;
-const getRolesFactory = require('./controllers/getRoles').getRolesFactory;
-const getUserFactory = require('./controllers/getUser').getUserFactory;
-const removeRoleFactory = require('./controllers/removeRole').removeRoleFactory;
-const addRoleFactory = require('./controllers/addRole').addRoleFactory;
-const contextUserRolesFactory = require('./controllers/contextUserRoles').contextUserRolesFactory;
-const userSearchFactory = require('./controllers/userSearch').userSearchFactory;
-const getConfiguration = require('./controllers/getConfig').getConfiguration;
-const healthFactory = require('./controllers/health').healthFactory;
-const keyworkerStatsFactory = require('./controllers/keyworkerStats').keyworkerStatsFactory;
+const { keyworkerSearchFactory } = require('./controllers/keyworkerSearch');
+const { keyworkerProfileFactory } = require('./controllers/keyworkerProfile');
+const { keyworkerUpdateFactory } = require('./controllers/keyworkerUpdate');
+const { userMeFactory } = require('./controllers/userMe');
+const { enableNewNomisFactory } = require('./controllers/enableNewNomis');
+const { autoAllocationAndMigrateFactory } = require('./controllers/autoAllocationMigrate');
+const { manualAllocationAndMigrateFactory } = require('./controllers/manualAllocationMigrate');
+const { keyworkerSettingsFactory } = require('./controllers/keyworkerSettings');
+const { getRolesFactory } = require('./controllers/getRoles');
+const { getUserFactory } = require('./controllers/getUser');
+const { removeRoleFactory } = require('./controllers/removeRole');
+const { addRoleFactory } = require('./controllers/addRole');
+const { contextUserRolesFactory } = require('./controllers/contextUserRoles');
+const { userSearchFactory } = require('./controllers/userSearch');
+const { getConfiguration } = require('./controllers/getConfig');
+const { healthFactory } = require('./controllers/health');
+const { keyworkerStatsFactory } = require('./controllers/keyworkerStats');
 
 const sessionManagementRoutes = require('./sessionManagementRoutes');
 
-const cookieOperationsFactory = require('./hmppsCookie').cookieOperationsFactory;
+const { cookieOperationsFactory } = require('./hmppsCookie');
 const tokenRefresherFactory = require('./tokenRefresher').factory;
 const controllerFactory = require('./controllers/controller').factory;
 
 const clientFactory = require('./api/oauthEnabledClient');
-const healthApiFactory = require('./api/healthApi').healthApiFactory;
+const { healthApiFactory } = require('./api/healthApi');
 const eliteApiFactory = require('./api/elite2Api').elite2ApiFactory;
-const keyworkerApiFactory = require('./api/keyworkerApi').keyworkerApiFactory;
+const { keyworkerApiFactory } = require('./api/keyworkerApi');
 const oauthApiFactory = require('./api/oauthApi');
 
 const log = require('./log');
@@ -75,7 +75,7 @@ app.use(bunyanMiddleware({
   obscureHeaders: ['Authorization']
 }));
 
-const health = healthFactory(config.apis.keyworker.url, config.apis.elite2.url).health;
+const { health } = healthFactory(config.apis.keyworker.url, config.apis.elite2.url);
 
 app.use('/health', health);
 app.use('/info', health);

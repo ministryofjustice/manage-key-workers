@@ -1,12 +1,12 @@
 Reflect.deleteProperty(process.env, 'APPINSIGHTS_INSTRUMENTATIONKEY');
 
-const serviceFactory = require('../services/allocationService').serviceFactory;
-const elite2ApiFactory = require('../api/elite2Api').elite2ApiFactory;
-const keyworkerApiFactory = require('../api/keyworkerApi').keyworkerApiFactory;
+const { serviceFactory } = require('../services/allocationService');
+const { elite2ApiFactory } = require('../api/elite2Api');
+const { keyworkerApiFactory } = require('../api/keyworkerApi');
 
 const elite2Api = elite2ApiFactory(null);
 const keyworkerApi = keyworkerApiFactory(null);
-const allocated = serviceFactory(elite2Api, keyworkerApi).allocated;
+const { allocated } = serviceFactory(elite2Api, keyworkerApi);
 
 describe('Allocated controller', async () => {
   it('Should add keyworker details to allocated data array', async () => {

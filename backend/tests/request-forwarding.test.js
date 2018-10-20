@@ -3,7 +3,7 @@ const supertest = require('supertest');
 const express = require('express');
 const chai = require('chai');
 
-const expect = chai.expect;
+const { expect } = chai;
 chai.use(require('sinon-chai'));
 const bodyParser = require('body-parser');
 

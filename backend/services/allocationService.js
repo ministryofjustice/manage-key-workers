@@ -1,6 +1,6 @@
 const log = require('../log');
-const logError = require('../logError').logError;
-const properCaseName = require('../../src/stringUtils').properCaseName;
+const { logError } = require('../logError');
+const { properCaseName } = require('../../src/stringUtils');
 const telemetry = require('../azure-appinsights');
 
 // TODO: There's a lot of duplication in this module...
@@ -19,7 +19,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       log.debug({ data: allCsras }, 'Response from csraList request');
 
       for (const offenderWithLocation of offenderWithLocationDtos) {
-        const offenderNo = offenderWithLocation.offenderNo;
+        const { offenderNo } = offenderWithLocation;
         offenderWithLocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo);
         offenderWithLocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo);
       }
@@ -77,7 +77,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
           offenderWithAllocatedKeyworker.keyworkerDisplay = details.keyworkerDisplay;
           offenderWithAllocatedKeyworker.numberAllocated = details.numberAllocated;
         }
-        const offenderNo = offenderWithAllocatedKeyworker.offenderNo;
+        const { offenderNo } = offenderWithAllocatedKeyworker;
         offenderWithAllocatedKeyworker.crsaClassification = findCrsaForOffender(allCsras, offenderNo);
         offenderWithAllocatedKeyworker.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo);
       }
@@ -107,7 +107,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       log.debug({ data: kwDates }, 'Response from case note usage request');
 
       for (const keyworkerAllocation of keyworkerAllocationDetailsDtos) {
-        const offenderNo = keyworkerAllocation.offenderNo;
+        const { offenderNo } = keyworkerAllocation;
         keyworkerAllocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo);
         keyworkerAllocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo);
         keyworkerAllocation.lastKeyWorkerSessionDate = findKeyworkerCaseNoteDate(kwDates, offenderNo);
@@ -165,7 +165,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       log.debug({ data: allCsras }, 'Response from csraList request');
 
       for (const offender of filteredOffenders) {
-        const offenderNo = offender.offenderNo;
+        const { offenderNo } = offender;
         const staffId = findKeyworkerStaffIdForOffender(offenderKeyworkers, offenderNo);
 
         offender.staffId = staffId;

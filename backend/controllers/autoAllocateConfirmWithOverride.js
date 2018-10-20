@@ -3,11 +3,11 @@ const log = require('../log');
 
 const factory = (keyworkerApi) => {
   const autoAllocate = asyncMiddleware(async (req, res) => {
-    const agencyId = req.query.agencyId;
+    const { agencyId } = req.query;
 
     await keyworkerApi.autoAllocateConfirm(res.locals, agencyId);
 
-    const allocatedKeyworkers = req.body.allocatedKeyworkers;
+    const { allocatedKeyworkers } = req.body;
 
     log.debug({ allocateList: allocatedKeyworkers }, 'Manual override contents');
 
