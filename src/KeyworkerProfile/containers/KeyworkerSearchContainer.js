@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setKeyworkerSearchText, resetError } from '../../redux/actions/index';
+import { setKeyworkerSearchText, resetError, setKeyworkerStatusFilter } from '../../redux/actions';
 import Error from '../../Error';
-
 import KeyworkerSearchPage from "../components/KeyworkerSearchPage";
-import { setKeyworkerStatusFilter } from "../../redux/actions";
 
 class KeyworkerSearchContainer extends Component {
   constructor (props) {

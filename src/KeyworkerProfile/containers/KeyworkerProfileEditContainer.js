@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import axios from "axios";
-import { setKeyworker, setKeyworkerCapacity, setKeyworkerStatus } from '../../redux/actions/index';
+import {
+  setKeyworker,
+  setKeyworkerCapacity,
+  setKeyworkerStatus,
+  resetValidationErrors,
+  setMessage,
+  setValidationError
+} from "../../redux/actions";
 import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit';
 import Error from '../../Error';
-import { resetValidationErrors, setMessage, setValidationError } from "../../redux/actions";
 import { stringIsInteger } from "../../stringUtils";
 
 class KeyworkerProfileEditContainer extends Component {

@@ -4,10 +4,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import axios from "axios";
 import moment from 'moment';
-import { setKeyworker, setKeyworkerStatusChangeBehaviour } from '../../redux/actions/index';
+import {
+  setKeyworker,
+  setKeyworkerStatusChangeBehaviour,
+  resetValidationErrors,
+  setMessage,
+  setValidationError,
+  setAnnualLeaveReturnDate
+} from "../../redux/actions";
 import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfirm';
 import Error from '../../Error';
-import { resetValidationErrors, setMessage, setValidationError, setAnnualLeaveReturnDate } from "../../redux/actions";
 import * as behaviours from '../keyworkerStatusBehavour';
 import { switchToIsoDateFormat, isBlank } from '../../stringUtils';
 

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
-import { properCaseName } from "../../stringUtils";
+import { properCaseName, renderDate } from "../../stringUtils";
 import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from "../../links";
 import OffenderSearch from "./OffenderSearch";
-import { renderDate } from "../../stringUtils";
 import MessageBar from "../../MessageBar/index";
 
 class OffenderResults extends Component {
