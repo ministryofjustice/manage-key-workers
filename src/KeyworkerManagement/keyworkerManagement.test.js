@@ -86,4 +86,22 @@ describe('HomePage component', () => {
       />);
     expect(component.find('#maintain_roles_link').length).toBe(1);
   });
+  it('should show the maintain roles link when feature toggle on (and maintain roles admin role exists for user)', () => {
+    const user = {
+      writeAccess: true,
+      maintainAccessAdmin: true
+    };
+    const config = {
+      maintainRolesEnabled: "true"
+    };
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={config}
+      />);
+    expect(component.find('#maintain_roles_link').length).toBe(1);
+  });
 });

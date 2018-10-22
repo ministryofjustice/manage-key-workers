@@ -77,10 +77,10 @@ class UserSearchResponse {
         "expiredFlag": false
     },
     {
-        "staffId": 485636,
-        "username": "JDUCKETT_GEN",
-        "firstName": "JENNY",
-        "lastName": "DUCKETT",
+        "staffId": 485577,
+        "username": "API_TEST_USER",
+        "firstName": "ABS",
+        "lastName": "DEY",
         "lockedFlag": false,
         "expiredFlag": false
     }
