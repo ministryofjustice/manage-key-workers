@@ -77,12 +77,12 @@ class MaintainRolesSpecification extends GebReportingSpec {
         searchButton.text() == 'Search'
         roleSelect.find('option').size() == 9
 
-        and:
+        and: "i select a user to edit"
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseloadForAdminUser(UserAccount.API_TEST_USER.username, true)
         editButtonAPI_TEST_USER.click()
 
-        then:
+        then: "i am presented with the Staff profile page"
         at StaffRoleProfilePage
     }
 
