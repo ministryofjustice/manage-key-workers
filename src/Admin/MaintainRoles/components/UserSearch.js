@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
 
 const UserSearch = ({
   roleFilterList,
@@ -10,15 +10,15 @@ const UserSearch = ({
   handleNameFilterChange,
   history,
   handleSearch,
-  displayBack
+  displayBack,
 }) => {
   const roleListOptions = roleFilterList
     ? roleFilterList.map((role, optionIndex) => (
-          <option key={`role_option_${optionIndex}`} value={role.roleCode}>
-            {role.roleName}
-          </option>
-        ))
-    : [];
+        <option key={`role_option_${optionIndex}`} value={role.roleCode}>
+          {role.roleName}
+        </option>
+      ))
+    : []
 
   const roleSelect = (
     <select
@@ -33,7 +33,7 @@ const UserSearch = ({
       </option>
       {roleListOptions}
     </select>
-  );
+  )
 
   return (
     <div className="padding-bottom-large">
@@ -69,7 +69,7 @@ const UserSearch = ({
                 className="button margin-left margin-top-large"
                 id="search-button"
                 onClick={() => {
-                  handleSearch(history);
+                  handleSearch(history)
                 }}
               >
                 Search
@@ -79,8 +79,8 @@ const UserSearch = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 UserSearch.propTypes = {
   nameFilter: PropTypes.string,
@@ -90,10 +90,10 @@ UserSearch.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   roleFilterList: PropTypes.array,
   displayBack: PropTypes.func.isRequired,
-  history: PropTypes.object
-};
+  history: PropTypes.object,
+}
 
-const UserSearchWithRouter = withRouter(UserSearch);
+const UserSearchWithRouter = withRouter(UserSearch)
 
-export { UserSearch };
-export default UserSearchWithRouter;
+export { UserSearch }
+export default UserSearchWithRouter

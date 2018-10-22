@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { properCaseName } from "../../stringUtils";
-import ValidationErrors from "../../ValidationError";
-import Status from "./Status";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { properCaseName } from '../../stringUtils'
+import ValidationErrors from '../../ValidationError'
+import Status from './Status'
 
 const KeyworkerProfileEdit = ({
   keyworker,
@@ -13,10 +13,9 @@ const KeyworkerProfileEdit = ({
   capacity,
   validationErrors,
   handleCapacityChange,
-  handleSaveChanges
+  handleSaveChanges,
 }) => {
-  const keyworkerDisplayName =
-    `${properCaseName(keyworker.firstName)  } ${  properCaseName(keyworker.lastName)}`;
+  const keyworkerDisplayName = `${properCaseName(keyworker.firstName)} ${properCaseName(keyworker.lastName)}`
   const statusSelect = (
     <div>
       <label className="form-label" htmlFor="status-select">
@@ -24,26 +23,14 @@ const KeyworkerProfileEdit = ({
       </label>
       <Status statusValue={status || keyworker.status} handleStatusChange={handleStatusChange} />
     </div>
-  );
+  )
 
   return (
     <div>
       <div className="pure-g">
         <div className="pure-u-md-8-12 padding-top">
-          <a
-            href="#back"
-            title="Back link"
-            className="link backlink"
-            onClick={() => handleCancel(history)}
-          >
-            <img
-              className="back-triangle"
-              src="/images/BackTriangle.png"
-              alt=""
-              width="6"
-              height="10"
-            />{" "}
-            Back
+          <a href="#back" title="Back link" className="link backlink" onClick={() => handleCancel(history)}>
+            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
           </a>
           <h1 className="heading-large margin-top">Edit profile</h1>
         </div>
@@ -86,28 +73,20 @@ const KeyworkerProfileEdit = ({
         </div>
         <div className="pure-u-md-5-12 padding-top-large margin-top">
           <div className="buttonGroup">
-            <button
-              type="button"
-              className="button button-save"
-              onClick={() => handleSaveChanges(history)}
-            >
+            <button type="button" className="button button-save" onClick={() => handleSaveChanges(history)}>
               Save and continue
             </button>
           </div>
           <div className="buttonGroup">
-            <button
-              type="button"
-              className="button greyButton button-cancel"
-              onClick={() => handleCancel(history)}
-            >
+            <button type="button" className="button greyButton button-cancel" onClick={() => handleCancel(history)}>
               Cancel
             </button>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 KeyworkerProfileEdit.propTypes = {
   history: PropTypes.object,
@@ -118,7 +97,7 @@ KeyworkerProfileEdit.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   status: PropTypes.string,
   capacity: PropTypes.string,
-  validationErrors: PropTypes.object
-};
+  validationErrors: PropTypes.object,
+}
 
-export default KeyworkerProfileEdit;
+export default KeyworkerProfileEdit

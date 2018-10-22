@@ -1,51 +1,53 @@
-const config = require('../config');
-const contextProperties = require('../contextProperties');
+const config = require('../config')
+const contextProperties = require('../contextProperties')
 
-const encodeOffenderNumbers = (offenderNumbers) => offenderNumbers.map(offenderNo => `offenderNo=${offenderNo}`).join('&');
+const encodeOffenderNumbers = offenderNumbers => offenderNumbers.map(offenderNo => `offenderNo=${offenderNo}`).join('&')
 
-const encodeQueryString = input => encodeURIComponent(input);
+const encodeQueryString = input => encodeURIComponent(input)
 
-const elite2ApiFactory = (client) => {
-  const processResponse = (context) => (response) => {
-    contextProperties.setResponsePagination(context, response.headers);
-    return response.data;
-  };
+const elite2ApiFactory = client => {
+  const processResponse = context => response => {
+    contextProperties.setResponsePagination(context, response.headers)
+    return response.data
+  }
 
-  const get = (context, url, resultsLimit) =>
-    client
-      .get(context, url, resultsLimit)
-      .then(processResponse(context));
+  const get = (context, url, resultsLimit) => client.get(context, url, resultsLimit).then(processResponse(context))
 
-  const post = (context, url, data) =>
-    client
-      .post(context, url, data)
-      .then(processResponse(context));
+  const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
 
-  const put = (context, url, data) =>
-    client
-      .put(context, url, data)
-      .then(processResponse(context));
+  const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
 
-  const del = (context, url, data) =>
-    client
-      .del(context, url, data)
-      .then(processResponse(context));
+  const del = (context, url, data) => client.del(context, url, data).then(processResponse(context))
 
-  const caseNoteUsageList = (context, offenderNumbers) => get(context, `api/case-notes/usage?type=KA&numMonths=6&${encodeOffenderNumbers(offenderNumbers)}`);
-  const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers);
-  const userCaseLoads = (context) => get(context, 'api/users/me/caseLoads');
-  const currentUser = (context) => get(context, 'api/users/me');
-  const userLocations = (context) => get(context, 'api/users/me/locations');
-  const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
-  const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
-  const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/local-administrator/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
-  const userSearchAdmin = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
-  const getRoles = (context) => get(context, 'api/access-roles');
-  const getRolesAdmin = (context) => get(context, 'api/access-roles?includeAdmin=true');
-  const contextUserRoles = (context, username, hasAdminRole) => get(context, `api/users/${username}/access-roles/caseload/${config.app.applicationCaseload}?includeAdmin=${hasAdminRole}`);
-  const removeRole = (context, agencyId, username, roleCode) => del(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
-  const addRole = (context, agencyId, username, roleCode) => put(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
-  const getUser = (context, username) => get(context, `api/users/${username}`);
+  const caseNoteUsageList = (context, offenderNumbers) =>
+    get(context, `api/case-notes/usage?type=KA&numMonths=6&${encodeOffenderNumbers(offenderNumbers)}`)
+  const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
+  const userCaseLoads = context => get(context, 'api/users/me/caseLoads')
+  const currentUser = context => get(context, 'api/users/me')
+  const userLocations = context => get(context, 'api/users/me/locations')
+  const getUserAccessRoles = context => get(context, 'api/users/me/roles')
+  const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
+  const userSearch = (context, { agencyId, nameFilter, roleFilter }) =>
+    get(
+      context,
+      `api/users/local-administrator/caseload/${agencyId}?nameFilter=${encodeQueryString(
+        nameFilter
+      )}&accessRole=${roleFilter}`
+    )
+  const userSearchAdmin = (context, { agencyId, nameFilter, roleFilter }) =>
+    get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`)
+  const getRoles = context => get(context, 'api/access-roles')
+  const getRolesAdmin = context => get(context, 'api/access-roles?includeAdmin=true')
+  const contextUserRoles = (context, username, hasAdminRole) =>
+    get(
+      context,
+      `api/users/${username}/access-roles/caseload/${config.app.applicationCaseload}?includeAdmin=${hasAdminRole}`
+    )
+  const removeRole = (context, agencyId, username, roleCode) =>
+    del(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`)
+  const addRole = (context, agencyId, username, roleCode) =>
+    put(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`)
+  const getUser = (context, username) => get(context, `api/users/${username}`)
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.
@@ -73,14 +75,19 @@ const elite2ApiFactory = (client) => {
     private String iepLevel;
    * }
    */
-  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) => get(context, `api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`, resultsLimit);
-  const sentenceDetailList = (context, offenderNumbers) => post(context, 'api/offender-sentences', offenderNumbers);
+  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) =>
+    get(
+      context,
+      `api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`,
+      resultsLimit
+    )
+  const sentenceDetailList = (context, offenderNumbers) => post(context, 'api/offender-sentences', offenderNumbers)
 
   // NB. This function expects a caseload object.
   // The object *must* have non-blank caseLoadId,  description and type properties.
   // However, only 'caseLoadId' has meaning.  The other two properties can take *any* non-blank value and these will be ignored.
   // TODO: Tech Debt: This might be better expressed as a PUT of the desired active caseload id to users/me/activeCaseloadId
-  const setActiveCaseload = (context, caseload) => put(context, 'api/users/me/activeCaseLoad', caseload);
+  const setActiveCaseload = (context, caseload) => put(context, 'api/users/me/activeCaseLoad', caseload)
 
   return {
     caseNoteUsageList,
@@ -100,8 +107,8 @@ const elite2ApiFactory = (client) => {
     removeRole,
     addRole,
     getUser,
-    userSearchAdmin
-  };
-};
+    userSearchAdmin,
+  }
+}
 
-module.exports = { elite2ApiFactory };
+module.exports = { elite2ApiFactory }

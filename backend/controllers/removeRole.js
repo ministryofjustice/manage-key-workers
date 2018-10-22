@@ -1,20 +1,19 @@
-const asyncMiddleware = require('../middleware/asyncHandler');
-const log = require('../log');
+const asyncMiddleware = require('../middleware/asyncHandler')
+const log = require('../log')
 
-const removeRoleFactory = (elite2Api) => {
+const removeRoleFactory = elite2Api => {
   const removeRole = asyncMiddleware(async (req, res) => {
-    const { agencyId, username, roleCode } = req.query;
-    const response = await elite2Api.removeRole(res.locals, agencyId, username, roleCode);
-    log.debug({ response }, 'Response from remove role request');
-    res.json({});
-  });
+    const { agencyId, username, roleCode } = req.query
+    const response = await elite2Api.removeRole(res.locals, agencyId, username, roleCode)
+    log.debug({ response }, 'Response from remove role request')
+    res.json({})
+  })
 
   return {
-    removeRole
-  };
-};
+    removeRole,
+  }
+}
 
 module.exports = {
-  removeRoleFactory
-};
-
+  removeRoleFactory,
+}

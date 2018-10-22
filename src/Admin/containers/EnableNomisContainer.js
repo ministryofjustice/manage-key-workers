@@ -1,66 +1,60 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import axios from "axios";
-import EnableNomis from '../components/EnableNomis';
-import Error from '../../Error';
-import { setLoaded, setMessage } from "../../redux/actions";
-import Spinner from '../../Spinner';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import axios from 'axios'
+import EnableNomis from '../components/EnableNomis'
+import Error from '../../Error'
+import { setLoaded, setMessage } from '../../redux/actions'
+import Spinner from '../../Spinner'
 
 class EnableNomisContainer extends Component {
-  constructor () {
-    super();
-    this.handleEnable = this.handleEnable.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
+  constructor() {
+    super()
+    this.handleEnable = this.handleEnable.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
   }
 
-  componentWillMount () {
-    const { setLoadedDispatch } = this.props;
+  componentWillMount() {
+    const { setLoadedDispatch } = this.props
 
-    setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  async handleEnable (history) {
-    const { agencyId, setLoadedDispatch, setMessageDispatch, handleError } = this.props;
+  async handleEnable(history) {
+    const { agencyId, setLoadedDispatch, setMessageDispatch, handleError } = this.props
 
-    setLoadedDispatch(false);
+    setLoadedDispatch(false)
     try {
-      await axios.post('/api/enableNewNomis',
+      await axios.post(
+        '/api/enableNewNomis',
         {},
         {
-          params:
-            {
-              agencyId
-            }
-        });
-      setMessageDispatch("New NOMIS access updated");
-      history.push(`/`);
+          params: {
+            agencyId,
+          },
+        }
+      )
+      setMessageDispatch('New NOMIS access updated')
+      history.push(`/`)
     } catch (error) {
-      handleError(error);
+      handleError(error)
     }
-    setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  handleCancel (history) {
-    history.push(`/`);
+  handleCancel(history) {
+    history.push(`/`)
   }
 
   render() {
-    const { error, loaded } = this.props;
+    const { error, loaded } = this.props
 
-    if (error) return <Error {...this.props} />;
+    if (error) return <Error {...this.props} />
 
-    if (loaded)
-      return (
-        <EnableNomis
-          handleEnable={this.handleEnable}
-          handleCancel={this.handleCancel}
-          {...this.props}
-        />
-      );
+    if (loaded) return <EnableNomis handleEnable={this.handleEnable} handleCancel={this.handleCancel} {...this.props} />
 
-    return <Spinner />;
+    return <Spinner />
   }
 }
 
@@ -70,19 +64,21 @@ EnableNomisContainer.propTypes = {
   setMessageDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func,
   handleError: PropTypes.func.isRequired,
-  loaded: PropTypes.bool
-};
+  loaded: PropTypes.bool,
+}
 
 const mapStateToProps = state => ({
-    agencyId: state.app.user.activeCaseLoadId,
-    loaded: state.app.loaded
-  });
+  agencyId: state.app.user.activeCaseLoadId,
+  loaded: state.app.loaded,
+})
 
 const mapDispatchToProps = dispatch => ({
-    setMessageDispatch: (message) => dispatch(setMessage(message)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  });
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+})
 
-export { EnableNomisContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EnableNomisContainer));
-
+export { EnableNomisContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(EnableNomisContainer))

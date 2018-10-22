@@ -1,18 +1,18 @@
-const contextProperties = require('../contextProperties');
+const contextProperties = require('../contextProperties')
 
 const addAuthorizationHeader = (context, config) => {
-  const accessToken = contextProperties.getAccessToken(context);
+  const accessToken = contextProperties.getAccessToken(context)
   if (accessToken) {
-    config.headers = config.headers || {};
-    config.headers.authorization = `Bearer ${accessToken}`;
+    config.headers = config.headers || {}
+    config.headers.authorization = `Bearer ${accessToken}`
   }
-  return config;
-};
+  return config
+}
 
 const addMediaHeaders = (context, config) => {
-  config.headers['Content-Type'] = 'application/json';
-  return config;
-};
+  config.headers['Content-Type'] = 'application/json'
+  return config
+}
 
 /**
  * Don't like this, but the pagination information is being passed around in headers. If that information were
@@ -22,14 +22,14 @@ const addMediaHeaders = (context, config) => {
  * @returns {*}
  */
 const addPaginationHeaders = (context, config) => {
-  const paginationHeaders = contextProperties.getRequestPagination(context);
-  config.headers = config.headers || {};
-  Object.assign(config.headers, paginationHeaders);
-  return config;
-};
+  const paginationHeaders = contextProperties.getRequestPagination(context)
+  config.headers = config.headers || {}
+  Object.assign(config.headers, paginationHeaders)
+  return config
+}
 
 module.exports = {
   addAuthorizationHeader,
   addPaginationHeaders,
-  addMediaHeaders
-};
+  addMediaHeaders,
+}

@@ -1,96 +1,105 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import { setKeyworkerSearchText, setKeyworkerSearchResults, setLoaded, resetError, setKeyworkerStatusFilter, setSettings } from '../../redux/actions/index';
-import KeyworkerSearchResults from '../components/KeyworkerSearchResults';
-import Spinner from '../../Spinner';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import {
+  setKeyworkerSearchText,
+  setKeyworkerSearchResults,
+  setLoaded,
+  resetError,
+  setKeyworkerStatusFilter,
+  setSettings,
+} from '../../redux/actions/index'
+import KeyworkerSearchResults from '../components/KeyworkerSearchResults'
+import Spinner from '../../Spinner'
 
-import Error from "../../Error";
+import Error from '../../Error'
 
 class KeyworkerSearchResultsContainer extends Component {
-  constructor (props) {
-    super(props);
-    this.getKeyworkerList = this.getKeyworkerList.bind(this);
-    this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
-    this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
-    this.performSearch = this.performSearch.bind(this);
+  constructor(props) {
+    super(props)
+    this.getKeyworkerList = this.getKeyworkerList.bind(this)
+    this.handleSearchTextChange = this.handleSearchTextChange.bind(this)
+    this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this)
+    this.performSearch = this.performSearch.bind(this)
   }
 
-  async componentDidMount () {
-    await this.getKeyworkerSettings();
-    await this.performSearch();
+  async componentDidMount() {
+    await this.getKeyworkerSettings()
+    await this.performSearch()
   }
 
-  async getKeyworkerSettings () {
-    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props;
+  async getKeyworkerSettings() {
+    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props
 
     try {
-      const keyworkerSettings = await axios.get('/api/keyworkerSettings');
-      keyworkerSettingsDispatch(keyworkerSettings.data);
+      const keyworkerSettings = await axios.get('/api/keyworkerSettings')
+      keyworkerSettingsDispatch(keyworkerSettings.data)
     } catch (error) {
-      setErrorDispatch(error.message);
+      setErrorDispatch(error.message)
     }
   }
 
-  async getKeyworkerList (agencyId) {
-    const { searchText, statusFilter } = this.props;
+  async getKeyworkerList(agencyId) {
+    const { searchText, statusFilter } = this.props
     const response = await axios.get('/api/keyworkerSearch', {
       params: {
         agencyId,
         searchText,
         statusFilter,
-      }
-    });
-    return response.data;
+      },
+    })
+    return response.data
   }
 
-  handleSearchTextChange (event) {
-    const { keyworkerSearchTextDispatch } = this.props;
+  handleSearchTextChange(event) {
+    const { keyworkerSearchTextDispatch } = this.props
 
-    keyworkerSearchTextDispatch(event.target.value);
+    keyworkerSearchTextDispatch(event.target.value)
   }
 
-  handleStatusFilterChange (event) {
-    const { keyworkerStatusFilterDispatch } = this.props;
+  handleStatusFilterChange(event) {
+    const { keyworkerStatusFilterDispatch } = this.props
 
-    keyworkerStatusFilterDispatch(event.target.value);
+    keyworkerStatusFilterDispatch(event.target.value)
   }
 
-  async performSearch () {
-    const {
-      agencyId,
-      resetErrorDispatch,
-      setLoadedDispatch,
-      keyworkerSearchResultsDispatch,
-      handleError
-    } = this.props;
+  async performSearch() {
+    const { agencyId, resetErrorDispatch, setLoadedDispatch, keyworkerSearchResultsDispatch, handleError } = this.props
 
-    resetErrorDispatch();
-    setLoadedDispatch(false);
+    resetErrorDispatch()
+    setLoadedDispatch(false)
     try {
-      const list = await this.getKeyworkerList(agencyId);
-      keyworkerSearchResultsDispatch(list);
+      const list = await this.getKeyworkerList(agencyId)
+      keyworkerSearchResultsDispatch(list)
     } catch (error) {
-      handleError(error);
+      handleError(error)
     }
-    setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  render () {
-    let inner;
-    const { loaded } = this.props;
+  render() {
+    let inner
+    const { loaded } = this.props
 
     if (loaded) {
-      inner = (<KeyworkerSearchResults {...this.props}
-        handleSearchTextChange={this.handleSearchTextChange}
-        handleStatusFilterChange={this.handleStatusFilterChange}
-        handleSearch={this.performSearch}/>);
+      inner = (
+        <KeyworkerSearchResults
+          {...this.props}
+          handleSearchTextChange={this.handleSearchTextChange}
+          handleStatusFilterChange={this.handleStatusFilterChange}
+          handleSearch={this.performSearch}
+        />
+      )
     } else {
-      inner = <Spinner/>;
+      inner = <Spinner />
     }
 
-    return <div><Error {...this.props} /> {inner} </div>;
+    return (
+      <div>
+        <Error {...this.props} /> {inner}{' '}
+      </div>
+    )
   }
 }
 
@@ -109,25 +118,28 @@ KeyworkerSearchResultsContainer.propTypes = {
   resetErrorDispatch: PropTypes.func,
   handleError: PropTypes.func.isRequired,
   keyworkerSettings: PropTypes.object,
-  loaded: PropTypes.bool
-};
+  loaded: PropTypes.bool,
+}
 
 const mapStateToProps = state => ({
-    searchText: state.keyworkerSearch.searchText,
-    statusFilter: state.keyworkerSearch.statusFilter,
-    agencyId: state.app.user.activeCaseLoadId,
-    keyworkerList: state.keyworkerSearch.keyworkerSearchResults,
-    loaded: state.app.loaded,
-    keyworkerSettings: state.keyworkerSettings
-  });
+  searchText: state.keyworkerSearch.searchText,
+  statusFilter: state.keyworkerSearch.statusFilter,
+  agencyId: state.app.user.activeCaseLoadId,
+  keyworkerList: state.keyworkerSearch.keyworkerSearchResults,
+  loaded: state.app.loaded,
+  keyworkerSettings: state.keyworkerSettings,
+})
 
 const mapDispatchToProps = dispatch => ({
-    keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
-    keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
-    keyworkerStatusFilterDispatch: status => dispatch(setKeyworkerStatusFilter(status)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
-    resetErrorDispatch: () => dispatch(resetError()),
-    keyworkerSettingsDispatch: (settings) => dispatch(setSettings(settings))
-  });
+  keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
+  keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
+  keyworkerStatusFilterDispatch: status => dispatch(setKeyworkerStatusFilter(status)),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+  resetErrorDispatch: () => dispatch(resetError()),
+  keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(KeyworkerSearchResultsContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(KeyworkerSearchResultsContainer)

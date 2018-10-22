@@ -1,109 +1,102 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import axios from "axios";
-import { withRouter } from "react-router";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { withRouter } from 'react-router'
 import {
   resetError,
   setMaintainRolesRoleList,
   setMaintainRolesRoleFilter,
   setMessage,
   setMaintainRolesUserContextUser,
-  setLoaded
-} from "../../../redux/actions/index";
-import Error from "../../../Error";
+  setLoaded,
+} from '../../../redux/actions/index'
+import Error from '../../../Error'
 
-import { StaffRoleProfile } from "../components/StaffRoleProfile";
-import Spinner from "../../../Spinner";
+import { StaffRoleProfile } from '../components/StaffRoleProfile'
+import Spinner from '../../../Spinner'
 
 class StaffRoleProfileContainer extends Component {
   constructor(props) {
-    super();
-    props.resetErrorDispatch();
-    this.handleRemove = this.handleRemove.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
+    super()
+    props.resetErrorDispatch()
+    this.handleRemove = this.handleRemove.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   async componentDidMount() {
-    const { setLoadedDispatch, match } = this.props;
+    const { setLoadedDispatch, match } = this.props
 
-    setLoadedDispatch(false);
-    await this.loadUser(match.params.username);
-    await this.getUserRoles(match.params.username);
-    setLoadedDispatch(true);
+    setLoadedDispatch(false)
+    await this.loadUser(match.params.username)
+    await this.getUserRoles(match.params.username)
+    setLoadedDispatch(true)
   }
 
   async getUserRoles(username) {
-    const { setRoleListDispatch, handleError, user } = this.props;
+    const { setRoleListDispatch, handleError, user } = this.props
 
     try {
-      const roles = await axios.get("/api/contextUserRoles", {
+      const roles = await axios.get('/api/contextUserRoles', {
         params: {
           username,
-          hasAdminRole: user.maintainAccessAdmin
-        }
-      });
-      setRoleListDispatch(roles.data);
+          hasAdminRole: user.maintainAccessAdmin,
+        },
+      })
+      setRoleListDispatch(roles.data)
     } catch (error) {
-      handleError(error);
+      handleError(error)
     }
   }
 
   async handleRemove(event) {
-    const { contextUser, agencyId, setMessageDispatch, handleError } = this.props;
+    const { contextUser, agencyId, setMessageDispatch, handleError } = this.props
 
     try {
-      await axios.get("/api/removeRole", {
+      await axios.get('/api/removeRole', {
         params: {
           username: contextUser.username,
           agencyId,
-          roleCode: event.target.value
-        }
-      });
-      await this.getUserRoles(contextUser.username);
-      setMessageDispatch("Role list updated");
+          roleCode: event.target.value,
+        },
+      })
+      await this.getUserRoles(contextUser.username)
+      setMessageDispatch('Role list updated')
     } catch (error) {
-      handleError(error);
+      handleError(error)
     }
   }
 
   async loadUser(username) {
-    const { contextUserDispatch, handleError } = this.props;
+    const { contextUserDispatch, handleError } = this.props
 
     try {
-      const user = await axios.get("/api/getUser", {
+      const user = await axios.get('/api/getUser', {
         params: {
-          username
-        }
-      });
-      contextUserDispatch(user.data);
+          username,
+        },
+      })
+      contextUserDispatch(user.data)
     } catch (error) {
-      handleError(error);
+      handleError(error)
     }
   }
 
   handleAdd(event, history) {
-    const { setRoleFilterDispatch, contextUser } = this.props;
+    const { setRoleFilterDispatch, contextUser } = this.props
 
-    setRoleFilterDispatch("");
-    history.push(`/maintainRoles/${contextUser.username}/addRole`);
+    setRoleFilterDispatch('')
+    history.push(`/maintainRoles/${contextUser.username}/addRole`)
   }
 
   render() {
-    const { error, loaded } = this.props;
+    const { error, loaded } = this.props
 
-    if (error) return <Error {...this.props} />;
+    if (error) return <Error {...this.props} />
 
-    if (loaded)
-      return (
-        <StaffRoleProfile
-          handleRemove={this.handleRemove}
-          handleAdd={this.handleAdd}
-          {...this.props}
-        />
-      );
+    if (loaded) return <StaffRoleProfile handleRemove={this.handleRemove} handleAdd={this.handleAdd} {...this.props} />
 
-    return <Spinner />;
+    return <Spinner />
   }
 }
 
@@ -116,15 +109,15 @@ StaffRoleProfileContainer.propTypes = {
   setErrorDispatch: PropTypes.func,
   contextUser: PropTypes.object.isRequired,
   roleList: PropTypes.array.isRequired,
-  setMessageDispatch: PropTypes.func
-};
+  setMessageDispatch: PropTypes.func,
+}
 
 const mapStateToProps = state => ({
   agencyId: state.app.user.activeCaseLoadId,
   contextUser: state.maintainRoles.contextUser,
   roleList: state.maintainRoles.roleList,
-  loaded: state.app.loaded
-});
+  loaded: state.app.loaded,
+})
 
 const mapDispatchToProps = dispatch => ({
   resetErrorDispatch: () => dispatch(resetError()),
@@ -132,11 +125,11 @@ const mapDispatchToProps = dispatch => ({
   setRoleFilterDispatch: list => dispatch(setMaintainRolesRoleFilter(list)),
   setMessageDispatch: message => dispatch(setMessage(message)),
   contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
-  setLoadedDispatch: status => dispatch(setLoaded(status))
-});
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+})
 
-export { StaffRoleProfileContainer };
+export { StaffRoleProfileContainer }
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(StaffRoleProfileContainer));
+)(withRouter(StaffRoleProfileContainer))

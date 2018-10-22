@@ -1,6 +1,4 @@
-
-
 module.exports = {
   isoDateFormat: 'YYYY-MM-DD',
-  isoDateTimeFormat: 'YYYY-MM-DDTHH:mm:ss'
-};
+  isoDateTimeFormat: 'YYYY-MM-DDTHH:mm:ss',
+}

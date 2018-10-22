@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
-import { properCaseName, renderDate } from "../../stringUtils";
-import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from "../../links";
-import OffenderSearch from "./OffenderSearch";
-import MessageBar from "../../MessageBar/index";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import { properCaseName, renderDate } from '../../stringUtils'
+import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from '../../links'
+import OffenderSearch from './OffenderSearch'
+import MessageBar from '../../MessageBar/index'
 
 class OffenderResults extends Component {
   constructor() {
-    super();
-    this.buttons = this.buttons.bind(this);
+    super()
+    this.buttons = this.buttons.bind(this)
   }
 
   getKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
@@ -18,32 +18,29 @@ class OffenderResults extends Component {
         <a className="link" href={getStaffLink(staffId)}>
           {this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}
         </a>
-      );
-    } 
-      return <strong className="bold-xsmall">Not allocated</strong>;
-    
+      )
+    }
+    return <strong className="bold-xsmall">Not allocated</strong>
   }
 
   buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
     if (keyworkerDisplay) {
       if (numberAllocated || numberAllocated === 0) {
-        return `${keyworkerDisplay  } (${  numberAllocated  })`;
-      } 
-        return keyworkerDisplay;
-      
-    } 
-      return `${staffId  } (no details available)`;
-    
+        return `${keyworkerDisplay} (${numberAllocated})`
+      }
+      return keyworkerDisplay
+    }
+    return `${staffId} (no details available)`
   }
 
   buildTableForRender(keyworkerOptions, offenderList) {
-    const { keyworkerChangeList, user, handleKeyworkerChange } = this.props;
+    const { keyworkerChangeList, user, handleKeyworkerChange } = this.props
     if (!(offenderList && offenderList.map)) {
-      return [];
+      return []
     }
     return offenderList.map((a, index) => {
       const currentSelectValue =
-        keyworkerChangeList && keyworkerChangeList[index] ? keyworkerChangeList[index].staffId : "";
+        keyworkerChangeList && keyworkerChangeList[index] ? keyworkerChangeList[index].staffId : ''
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters">
@@ -54,10 +51,8 @@ class OffenderResults extends Component {
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.assignedLivingUnitDesc}</td>
           <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
-          <td className="row-gutters">{a.crsaClassification || "--"}</td>
-          <td className="row-gutters">
-            {this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
-          </td>
+          <td className="row-gutters">{a.crsaClassification || '--'}</td>
+          <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}</td>
           <td>
             <a className="link" target="_blank" href={getKeyWorkerHistoryLink(a.offenderNo)}>
               View
@@ -80,29 +75,25 @@ class OffenderResults extends Component {
                   -- Deallocate --
                 </option>
               ) : (
-                ""
+                ''
               )}
               {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
             </select>
           </td>
         </tr>
-      );
-    });
+      )
+    })
   }
 
   buttons(rows) {
-    const { user, postManualOverride, onFinishAllocation, history } = this.props;
+    const { user, postManualOverride, onFinishAllocation, history } = this.props
 
-    if (!user || !user.writeAccess) return <div />;
+    if (!user || !user.writeAccess) return <div />
 
     return (
       <div>
         {rows > 0 && (
-          <button
-            type="button"
-            className="button button-save"
-            onClick={() => postManualOverride(history)}
-          >
+          <button type="button" className="button button-save" onClick={() => postManualOverride(history)}>
             Confirm
           </button>
         )}
@@ -114,27 +105,27 @@ class OffenderResults extends Component {
           Cancel
         </button>
       </div>
-    );
+    )
   }
 
   render() {
-    const { offenderResults, loaded, displayBack } = this.props;
+    const { offenderResults, loaded, displayBack } = this.props
 
-    if (!offenderResults || !loaded) return "";
+    if (!offenderResults || !loaded) return ''
 
     const keyworkerOptions = offenderResults.keyworkerResponse
       ? offenderResults.keyworkerResponse.map((kw, optionIndex) => {
-          const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(
-            kw.firstName
-          )} (${kw.numberAllocated})`;
+          const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${
+            kw.numberAllocated
+          })`
           return (
             <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>
               {formattedDetails}
             </option>
-          );
+          )
         })
-      : [];
-    const offenders = this.buildTableForRender(keyworkerOptions, offenderResults.offenderResponse);
+      : []
+    const offenders = this.buildTableForRender(keyworkerOptions, offenderResults.offenderResponse)
 
     return (
       <div>
@@ -150,29 +141,18 @@ class OffenderResults extends Component {
           </div>
         </div>
         {offenderResults.partialResults && (
-          <div
-            id="partialResultsWarning"
-            className="pure-u-md-9-12 font-small padding-top padding-bottom-large"
-          >
+          <div id="partialResultsWarning" className="pure-u-md-9-12 font-small padding-top padding-bottom-large">
             <div className="pure-u-md-1-12">
               <span className="padding-left">
-                <img
-                  alt="Warning icon"
-                  src="/images/icon-important-2x.png"
-                  height="30"
-                  width="30"
-                />
+                <img alt="Warning icon" src="/images/icon-important-2x.png" height="30" width="30" />
               </span>
             </div>
             <div className="pure-u-md-9-12 padding-top-small">
-              The top {offenderResults.offenderResponse.length} results are displayed, please refine
-              your search.
+              The top {offenderResults.offenderResponse.length} results are displayed, please refine your search.
             </div>
           </div>
         )}
-        {offenders.length >= 20 && (
-          <div className="padding-top">{this.buttons(offenders.length)}</div>
-        )}
+        {offenders.length >= 20 && <div className="padding-top">{this.buttons(offenders.length)}</div>}
         <div className="padding-bottom-40 padding-top">
           <table className="row-gutters">
             <thead>
@@ -205,7 +185,7 @@ class OffenderResults extends Component {
         </div>
         {this.buttons(offenders.length)}
       </div>
-    );
+    )
   }
 }
 
@@ -219,10 +199,10 @@ OffenderResults.propTypes = {
   postManualOverride: PropTypes.func.isRequired,
   loaded: PropTypes.bool,
   displayBack: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
-};
+  user: PropTypes.object.isRequired,
+}
 
-const OffenderResultsWithRouter = withRouter(OffenderResults);
+const OffenderResultsWithRouter = withRouter(OffenderResults)
 
-export { OffenderResults };
-export default OffenderResultsWithRouter;
+export { OffenderResults }
+export default OffenderResultsWithRouter

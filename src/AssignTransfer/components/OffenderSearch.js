@@ -1,8 +1,8 @@
-import React from "react";
-import "../index.scss";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
-import ValidationErrors from "../../ValidationError";
+import React from 'react'
+import '../index.scss'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import ValidationErrors from '../../ValidationError'
 
 const OffenderSearch = ({
   locations,
@@ -15,18 +15,15 @@ const OffenderSearch = ({
   handleSubmit,
   history,
   initialSearch,
-  handleSearchTextChange
+  handleSearchTextChange,
 }) => {
   const housingLocations = locations
     ? locations.map((kw, optionIndex) => (
-          <option
-            key={`housinglocation_option_${optionIndex}_${kw.locationId}`}
-            value={kw.locationPrefix}
-          >
-            {kw.description || kw.locationPrefix}
-          </option>
-        ))
-    : [];
+        <option key={`housinglocation_option_${optionIndex}_${kw.locationId}`} value={kw.locationPrefix}>
+          {kw.description || kw.locationPrefix}
+        </option>
+      ))
+    : []
 
   const locationSelect = (
     <div>
@@ -44,7 +41,7 @@ const OffenderSearch = ({
         {housingLocations}
       </select>
     </div>
-  );
+  )
 
   const allocationStatusSelect = (
     <div>
@@ -70,7 +67,7 @@ const OffenderSearch = ({
         </option>
       </select>
     </div>
-  );
+  )
 
   if (initialSearch) {
     return (
@@ -107,7 +104,7 @@ const OffenderSearch = ({
           </div>
         </div>
       </div>
-    );
+    )
   }
   return (
     <div>
@@ -131,19 +128,14 @@ const OffenderSearch = ({
         <div className="pure-u-md-2-12 padding-top padding-left">{allocationStatusSelect}</div>
         <div className="pure-u-md-2-12 padding-top padding-left">
           <label className="form-label">&nbsp;</label>
-          <button
-            type="button"
-            id="searchButton"
-            className="button"
-            onClick={() => handleSubmit(history)}
-          >
+          <button type="button" id="searchButton" className="button" onClick={() => handleSubmit(history)}>
             Search again
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 OffenderSearch.propTypes = {
   locations: PropTypes.array,
@@ -156,10 +148,10 @@ OffenderSearch.propTypes = {
   handleSearchHousingLocationChange: PropTypes.func.isRequired,
   handleSearchAllocationStatusChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
-  history: PropTypes.object.isRequired
-};
+  history: PropTypes.object.isRequired,
+}
 
-const OffenderSearchWithRouter = withRouter(OffenderSearch);
+const OffenderSearchWithRouter = withRouter(OffenderSearch)
 
-export { OffenderSearch };
-export default OffenderSearchWithRouter;
+export { OffenderSearch }
+export default OffenderSearchWithRouter

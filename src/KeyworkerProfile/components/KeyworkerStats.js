@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
-import GridRow from '@govuk-react/grid-row';
-import GridCol from '@govuk-react/grid-col';
-import Statistic from '../../Statistic/Statistic';
+import React, { Fragment } from 'react'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
+import Statistic from '../../Statistic/Statistic'
 
 const KeyworkerStats = ({ stats }) => (
   <GridRow>
@@ -13,6 +13,6 @@ const KeyworkerStats = ({ stats }) => (
       </Fragment>
     ))}
   </GridRow>
-);
+)
 
-export default KeyworkerStats;
+export default KeyworkerStats

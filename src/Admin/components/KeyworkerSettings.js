@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import "../index.scss";
-import MessageBar from "../../MessageBar/index";
-import ValidationErrors from "../../ValidationError";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import '../index.scss'
+import MessageBar from '../../MessageBar/index'
+import ValidationErrors from '../../ValidationError'
 
 const KeyworkerSettings = props => {
   const {
@@ -19,11 +19,11 @@ const KeyworkerSettings = props => {
     handleExtCapacityChange,
     handleUpdate,
     history,
-    user
-  } = props;
-  const buttonText = supported ? "Save settings" : "Save settings and migrate";
-  const statusText = supported ? "Enabled" : "Not yet enabled";
-  const sequenceFrequencyString = sequenceFrequency && sequenceFrequency.toString();
+    user,
+  } = props
+  const buttonText = supported ? 'Save settings' : 'Save settings and migrate'
+  const statusText = supported ? 'Enabled' : 'Not yet enabled'
+  const sequenceFrequencyString = sequenceFrequency && sequenceFrequency.toString()
   const frequencySelect = (
     <select
       id="frequency-select"
@@ -39,12 +39,12 @@ const KeyworkerSettings = props => {
         Once a fortnight
       </option>
     </select>
-  );
+  )
 
   const caseLoadOption = user.caseLoadOptions
     ? user.caseLoadOptions.find(option => option.caseLoadId === user.activeCaseLoadId)
-    : undefined;
-  const caseLoadDesc = caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId;
+    : undefined
+  const caseLoadDesc = caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId
 
   return (
     <div>
@@ -52,14 +52,7 @@ const KeyworkerSettings = props => {
       <div className="pure-g">
         <div className="pure-u-md-12-12 padding-top">
           <Link id="back_link" title="Back link" className="link backlink" to="/">
-            <img
-              className="back-triangle"
-              src="/images/BackTriangle.png"
-              alt=""
-              width="6"
-              height="10"
-            />{" "}
-            Back
+            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
           </Link>
           <h1 className="heading-large margin-top">Manage key worker settings</h1>
         </div>
@@ -162,8 +155,8 @@ const KeyworkerSettings = props => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 KeyworkerSettings.propTypes = {
   history: PropTypes.object,
@@ -179,7 +172,7 @@ KeyworkerSettings.propTypes = {
   sequenceFrequency: PropTypes.number,
   capacity: PropTypes.number,
   extCapacity: PropTypes.number,
-  validationErrors: PropTypes.object
-};
+  validationErrors: PropTypes.object,
+}
 
-export default KeyworkerSettings;
+export default KeyworkerSettings

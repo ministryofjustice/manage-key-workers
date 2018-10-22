@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import { properCaseName, renderDate } from "../../stringUtils";
-import DateFilter from "../../DateFilter/index";
-import { getOffenderLink, getStaffLink } from "../../links";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
+import { properCaseName, renderDate } from '../../stringUtils'
+import DateFilter from '../../DateFilter/index'
+import { getOffenderLink, getStaffLink } from '../../links'
 
 class Provisional extends Component {
   getKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
@@ -13,27 +13,25 @@ class Provisional extends Component {
         <a className="link" target="_blank" href={getStaffLink(staffId)}>
           {this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}
         </a>
-      );
+      )
     }
-    return <strong className="bold-xsmall">Not allocated</strong>;
+    return <strong className="bold-xsmall">Not allocated</strong>
   }
 
   buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
-    if (keyworkerDisplay !== "--") {
+    if (keyworkerDisplay !== '--') {
       if (numberAllocated || numberAllocated === 0) {
-        return `${keyworkerDisplay  } (${  numberAllocated  })`;
-      } 
-        return keyworkerDisplay;
-    } 
-      return `${staffId  } (no details available)`;
+        return `${keyworkerDisplay} (${numberAllocated})`
+      }
+      return keyworkerDisplay
+    }
+    return `${staffId} (no details available)`
   }
 
   buildTableForRender(keyworkerOptions) {
-    const { allocatedList, allocatedKeyworkers, handleKeyworkerChange } = this.props;
+    const { allocatedList, allocatedKeyworkers, handleKeyworkerChange } = this.props
     const offenders = allocatedList.map((a, index) => {
-      const currentSelectValue = allocatedKeyworkers[index]
-        ? allocatedKeyworkers[index].staffId
-        : "";
+      const currentSelectValue = allocatedKeyworkers[index] ? allocatedKeyworkers[index].staffId : ''
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters">
@@ -44,10 +42,8 @@ class Provisional extends Component {
           <td className="row-gutters">{a.offenderNo}</td>
           <td className="row-gutters">{a.internalLocationDesc}</td>
           <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
-          <td className="row-gutters">{a.crsaClassification || "--"}</td>
-          <td className="row-gutters">
-            {this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}
-          </td>
+          <td className="row-gutters">{a.crsaClassification || '--'}</td>
+          <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}</td>
           <td className="row-gutters">
             <select
               id={`keyworker-select-${a.offenderNo}`}
@@ -62,39 +58,27 @@ class Provisional extends Component {
             </select>
           </td>
         </tr>
-      );
-    });
-    return offenders;
+      )
+    })
+    return offenders
   }
 
   render() {
-    const {
-      keyworkerList,
-      postManualOverride,
-      onFinishAllocation,
-      history,
-      displayDateFilter
-    } = this.props;
+    const { keyworkerList, postManualOverride, onFinishAllocation, history, displayDateFilter } = this.props
     const keyworkerOptions = keyworkerList.map((kw, optionIndex) => {
-      const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${
-        kw.numberAllocated
-      })`;
+      const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`
       return (
         <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>
           {formattedDetails}
         </option>
-      );
-    });
+      )
+    })
 
-    const offenders = this.buildTableForRender(keyworkerOptions);
+    const offenders = this.buildTableForRender(keyworkerOptions)
 
     const buttons = (
       <div>
-        <button
-          type="button"
-          className="button button-save"
-          onClick={() => postManualOverride(history)}
-        >
+        <button type="button" className="button button-save" onClick={() => postManualOverride(history)}>
           Confirm allocation
         </button>
         <button
@@ -105,21 +89,14 @@ class Provisional extends Component {
           Cancel allocation
         </button>
       </div>
-    );
+    )
 
     return (
       <div>
         <div className="pure-g">
           <div className="pure-u-md-7-12">
             <Link id="back_link" title="Back link" className="link backlink" to="/unallocated">
-              <img
-                className="back-triangle"
-                src="/images/BackTriangle.png"
-                alt=""
-                width="6"
-                height="10"
-              />{" "}
-              Back
+              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
             </Link>
             <h1 className="heading-large">Suggested key worker allocation</h1>
           </div>
@@ -129,9 +106,7 @@ class Provisional extends Component {
             </div>
           )}
         </div>
-        {offenders.length >= 20 && (
-          <div className="padding-top padding-bottom-large">{buttons}</div>
-        )}
+        {offenders.length >= 20 && <div className="padding-top padding-bottom-large">{buttons}</div>}
         <div className="padding-bottom-40">
           <table className="row-gutters">
             <thead>
@@ -150,7 +125,7 @@ class Provisional extends Component {
         </div>
         {buttons}
       </div>
-    );
+    )
   }
 }
 
@@ -164,8 +139,8 @@ Provisional.propTypes = {
   postManualOverride: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   fromDate: PropTypes.string,
-  toDate: PropTypes.string
-};
+  toDate: PropTypes.string,
+}
 
-export { Provisional };
-export default withRouter(Provisional);
+export { Provisional }
+export default withRouter(Provisional)

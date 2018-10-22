@@ -1,10 +1,10 @@
-import React from "react";
-import moment from "moment";
-import PropTypes from "prop-types";
-import DatePicker from "./datePicker";
+import React from 'react'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+import DatePicker from './datePicker'
 
 const DatePickerInput = props => {
-  const { additionalClassName, handleDateChange } = props;
+  const { additionalClassName, handleDateChange } = props
 
   return (
     <DatePicker
@@ -13,22 +13,22 @@ const DatePickerInput = props => {
       shouldShowDay={date =>
         !date.isBefore(
           moment()
-            .add(1, "days")
-            .startOf("day")
+            .add(1, 'days')
+            .startOf('day')
         )
       }
       title="Date"
       handleDateChange={handleDateChange}
       {...props}
     />
-  );
-};
+  )
+}
 
 DatePickerInput.propTypes = {
   history: PropTypes.object,
   date: PropTypes.string,
   dateId: PropTypes.string,
   additionalClassName: PropTypes.string,
-  handleDateChange: PropTypes.func.isRequired
-};
-export default DatePickerInput;
+  handleDateChange: PropTypes.func.isRequired,
+}
+export default DatePickerInput

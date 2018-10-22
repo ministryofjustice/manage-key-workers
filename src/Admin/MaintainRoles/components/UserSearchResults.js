@@ -1,23 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
-import { UserSearch } from "./UserSearch";
-import { properCaseName } from "../../../stringUtils";
-import PreviousNextNavigation from "../../../PreviousNextNavigation";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import { UserSearch } from './UserSearch'
+import { properCaseName } from '../../../stringUtils'
+import PreviousNextNavigation from '../../../PreviousNextNavigation'
 
-const UserSearchResults = (props) => {
-  const {
-    pageSize,
-    pageNumber,
-    totalRecords,
-    userList,
-    handlePageAction,
-    handleEdit,
-    history
-  } = props;
-  const pagination = { perPage: pageSize, pageNumber };
+const UserSearchResults = props => {
+  const { pageSize, pageNumber, totalRecords, userList, handlePageAction, handleEdit, history } = props
+  const pagination = { perPage: pageSize, pageNumber }
   const results = userList.map((a, index) => {
-    const formattedName = `${properCaseName(a.lastName)  }, ${  properCaseName(a.firstName)}`;
+    const formattedName = `${properCaseName(a.lastName)}, ${properCaseName(a.firstName)}`
     return (
       <tr key={a.username}>
         <td className="row-gutters">{formattedName}</td>
@@ -29,15 +21,15 @@ const UserSearchResults = (props) => {
             id={`edit-button-${a.username}`}
             value={index}
             onClick={event => {
-              handleEdit(event, history);
+              handleEdit(event, history)
             }}
           >
             Edit
           </button>
         </td>
       </tr>
-    );
-  });
+    )
+  })
 
   return (
     <div>
@@ -57,9 +49,7 @@ const UserSearchResults = (props) => {
                 results
               ) : (
                 <tr>
-                  <td className="padding-left font-small row-gutters no-results-row">
-                    No users found
-                  </td>
+                  <td className="padding-left font-small row-gutters no-results-row">No users found</td>
                 </tr>
               )}
             </tbody>
@@ -71,13 +61,13 @@ const UserSearchResults = (props) => {
           pagination={pagination}
           totalRecords={totalRecords}
           pageAction={id => {
-            handlePageAction(id);
+            handlePageAction(id)
           }}
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 UserSearchResults.propTypes = {
   nameFilter: PropTypes.string,
@@ -99,10 +89,10 @@ UserSearchResults.propTypes = {
   history: PropTypes.object,
   pageNumber: PropTypes.number,
   pageSize: PropTypes.number,
-  totalRecords: PropTypes.number
-};
+  totalRecords: PropTypes.number,
+}
 
-const UserSearchWithRouter = withRouter(UserSearchResults);
+const UserSearchWithRouter = withRouter(UserSearchResults)
 
-export { UserSearchResults };
-export default UserSearchWithRouter;
+export { UserSearchResults }
+export default UserSearchWithRouter
