@@ -46,7 +46,11 @@ class AddRoleContainer extends Component {
 
   async getRoles () {
     try {
-      const roles = await axios.get('/api/getRoles');
+      const roles = await axios.get('/api/getRoles', {
+        params: {
+          hasAdminRole: this.props.user.maintainAccessAdmin
+        }
+      });
       this.props.roleFilterListDispatch(roles.data);
     } catch (error) {
       this.props.handleError(error);

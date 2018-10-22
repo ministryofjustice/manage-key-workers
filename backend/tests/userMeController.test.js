@@ -9,6 +9,7 @@ const staff1 = {
   username: "staff1",
   activeCaseLoadId: "LEI",
   maintainAccess: false,
+  maintainAccessAdmin: false,
   migration: false
 };
 

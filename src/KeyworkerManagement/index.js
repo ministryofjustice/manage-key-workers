@@ -6,9 +6,9 @@ import { getHomeLink } from "../links";
 
 class HomePage extends Component {
   render () {
-    const showEnableNewNomis = this.props.user && this.props.user.maintainAccess;
-    const showMaintainRoles = this.props.config && this.props.config.maintainRolesEnabled === 'true' && this.props.user && this.props.user.maintainAccess;
-    const showKeyworkerSettings = this.props.user && this.props.user.maintainAccess && this.props.user.migration;
+    const showEnableNewNomis = this.props.user && (this.props.user.maintainAccess || this.props.user.maintainAccessAdmin);
+    const showMaintainRoles = this.props.config && this.props.config.maintainRolesEnabled === 'true' && this.props.user && (this.props.user.maintainAccess || this.props.user.maintainAccessAdmin);
+    const showKeyworkerSettings = this.props.user && (this.props.user.maintainAccess || this.props.user.maintainAccessAdmin) && this.props.user.migration;
     const showAdminSection = showEnableNewNomis || showKeyworkerSettings;
     return (
       <div>

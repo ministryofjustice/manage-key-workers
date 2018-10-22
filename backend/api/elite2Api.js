@@ -39,8 +39,10 @@ const elite2ApiFactory = (client) => {
   const getUserAccessRoles = (context) => get(context, 'api/users/me/roles');
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {});
   const userSearch = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/local-administrator/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
+  const userSearchAdmin = (context, { agencyId, nameFilter, roleFilter }) => get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`);
   const getRoles = (context) => get(context, 'api/access-roles');
-  const contextUserRoles = (context, username) => get(context, `api/users/${username}/access-roles/caseload/${config.app.applicationCaseload}`);
+  const getRolesAdmin = (context) => get(context, 'api/access-roles?includeAdmin=true');
+  const contextUserRoles = (context, username, hasAdminRole) => get(context, `api/users/${username}/access-roles/caseload/${config.app.applicationCaseload}?includeAdmin=${hasAdminRole}`);
   const removeRole = (context, agencyId, username, roleCode) => del(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
   const addRole = (context, agencyId, username, roleCode) => put(context, `api/users/${username}/caseload/${config.app.applicationCaseload}/access-role/${roleCode}`);
   const getUser = (context, username) => get(context, `api/users/${username}`);
@@ -93,10 +95,12 @@ const elite2ApiFactory = (client) => {
     enableNewNomis,
     userSearch,
     getRoles,
+    getRolesAdmin,
     contextUserRoles,
     removeRole,
     addRole,
-    getUser
+    getUser,
+    userSearchAdmin
   };
 };
 

@@ -55,6 +55,29 @@ class MaintainRolesSpecification extends GebReportingSpec {
         roleSelect.find('option').size() == 7
     }
 
+    def "should allow an ADMIN user search and display results"() {
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
+        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
+        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Maintain roles - User search page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        maintainRolesLink.click()
+
+        when: "i perform a search"
+        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI)
+        searchButton.click()
+
+        then: "the user search results page is displayed"
+        at UserSearchResultsPage
+        rows.size() == 6
+        searchButton.text() == 'Search'
+        roleSelect.find('option').size() == 7
+    }
+
     def "should handle pagination"() {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
