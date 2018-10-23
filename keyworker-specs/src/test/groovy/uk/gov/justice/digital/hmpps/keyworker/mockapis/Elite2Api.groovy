@@ -87,6 +87,58 @@ class Elite2Api extends WireMockRule {
                             ]''')))
                                 }
 
+    void stubGetRolesIncludingAdminRoles() {
+        this.stubFor(
+                get('/api/access-roles?includeAdmin=true')
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''[
+                                {
+                                    "roleCode": "LICENCE_CA",
+                                    "roleName": "Licence Case Admin",
+                                    "parentRoleCode": "LICENCE_ROLE",
+                                    "roleFunction": "ADMIN"
+                                },
+                                {
+                                    "roleCode": "OMIC_ADMIN",
+                                    "roleName": "OMIC Admin",
+                                    "roleFunction": "ADMIN"
+                                },
+                                {
+                                    "roleCode": "MAINTAIN_ACCESS_ROLES",
+                                    "roleName": "Maintain Roles",
+                                    "roleFunction": "GENERAL"
+                                },
+                                {
+                                    "roleCode": "KW_MIGRATION",
+                                    "roleName": "Key worker Migration Priv",
+                                    "roleFunction": "ADMIN"
+                                },
+                                {
+                                    "roleCode": "NOMIS_BATCHLOAD",
+                                    "roleName": "Nomis Batchloader",
+                                    "roleFunction": "ADMIN"
+                                },
+                                {
+                                    "roleCode": "USER_ADMIN",
+                                    "roleName": "User Admin",
+                                    "roleFunction": "ADMIN"
+                                },
+                                {
+                                    "roleCode": "ANOTHER_ADMIN_ROLE",
+                                    "roleName": "Another admin role",
+                                    "roleFunction": "ADMIN"
+                                },
+                                {
+                                    "roleCode": "ANOTHER_GENERAL_ROLE",
+                                    "roleName": "Another general role",
+                                    "roleFunction": "GENERAL"
+                                }
+                            ]''')))
+    }
+
 
     void stubUserSearch(AgencyLocation agencyLocation) {
         this.stubFor(
@@ -96,6 +148,18 @@ class Elite2Api extends WireMockRule {
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
                                 .withBody(UserSearchResponse.getResponse())))
+    }
+
+    void stubUserSearch(AgencyLocation agencyLocation, Integer page) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
+                        .withHeader('page-offset', equalTo((page * 10).toString()))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withHeader('total-records', "30")
+                                .withBody(UserSearchResponse.pagedResponse(page))))
     }
 
     void stubUserLocalAdministratorSearch(AgencyLocation agencyLocation) {
@@ -124,6 +188,17 @@ class Elite2Api extends WireMockRule {
 
         this.stubFor(
                 get(urlPathEqualTo("/api/users/${username}/access-roles/caseload/NWEB"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(withOmicAdmin ? RolesResponse.getResponse() : RolesResponse.withoutOmicAdmin())))
+    }
+
+    void stubGetNWEBAccessRolesForUserAndCaseloadForAdminUser(String username, boolean withOmicAdmin) {
+
+        this.stubFor(
+                get("/api/users/${username}/access-roles/caseload/NWEB?includeAdmin=true")
                         .willReturn(
                         aResponse()
                                 .withStatus(200)

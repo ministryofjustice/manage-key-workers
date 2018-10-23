@@ -1,8 +1,11 @@
 const asyncMiddleware = require('../middleware/asyncHandler');
+const log = require('../log');
 
 const getRolesFactory = (elite2Api) => {
   const getRoles = asyncMiddleware(async (req, res) => {
-    const data = await elite2Api.getRoles(res.locals);
+    const hasAdminRole = req.query.hasAdminRole;
+    log.debug('Retrieving roles.  Admin role=' + hasAdminRole);
+    const data = hasAdminRole === 'true' ? await elite2Api.getRolesAdmin(res.locals) : await elite2Api.getRoles(res.locals);
     res.json(data);
   });
 

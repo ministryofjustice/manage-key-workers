@@ -36,7 +36,11 @@ class UserSearchContainer extends Component {
 
   async getRoles () {
     try {
-      const roles = await axios.get('/api/getRoles');
+      const roles = await axios.get('/api/getRoles', {
+        params: {
+          hasAdminRole: this.props.user.maintainAccessAdmin
+        }
+      });
       this.props.roleFilterListDispatch(roles.data);
     } catch (error) {
       this.props.setErrorDispatch(error.message);
@@ -50,7 +54,8 @@ class UserSearchContainer extends Component {
         params: {
           nameFilter: this.props.nameFilter,
           roleFilter: this.props.roleFilter,
-          agencyId: this.props.agencyId
+          agencyId: this.props.agencyId,
+          hasAdminRole: this.props.user.maintainAccessAdmin
         },
         headers: {
           'Page-Offset': this.props.pageSize * pageNumber,
@@ -121,7 +126,8 @@ UserSearchContainer.propTypes = {
   pageNumberDispatch: PropTypes.func,
   roleFilterListDispatch: PropTypes.func,
   resetErrorDispatch: PropTypes.func,
-  setErrorDispatch: PropTypes.func
+  setErrorDispatch: PropTypes.func,
+  config: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {

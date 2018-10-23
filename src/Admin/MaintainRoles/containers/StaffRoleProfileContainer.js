@@ -69,7 +69,8 @@ class StaffRoleProfileContainer extends Component {
     try {
       const roles = await axios.get('/api/contextUserRoles', {
         params: {
-          username: username
+          username: username,
+          hasAdminRole: this.props.user.maintainAccessAdmin
         }
       });
       this.props.setRoleListDispatch(roles.data);
