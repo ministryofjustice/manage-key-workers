@@ -10,7 +10,6 @@ const search = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
 
 const adminSearch = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
   eliteApi.userSearchAdmin(res.locals, {
-    agencyId,
     nameFilter,
     roleFilter: roleFilter || '',
   })

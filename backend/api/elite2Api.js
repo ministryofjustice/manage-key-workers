@@ -26,6 +26,7 @@ const elite2ApiFactory = client => {
   const currentUser = context => get(context, 'api/users/me')
   const userLocations = context => get(context, 'api/users/me/locations')
   const getUserAccessRoles = context => get(context, 'api/users/me/roles')
+  const getAgencyDetails = (context, agencyId) => get(context, `api/agencies/${agencyId}`)
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
   const userSearch = (context, { agencyId, nameFilter, roleFilter }) =>
     get(
@@ -34,8 +35,8 @@ const elite2ApiFactory = client => {
         nameFilter
       )}&accessRole=${roleFilter}`
     )
-  const userSearchAdmin = (context, { agencyId, nameFilter, roleFilter }) =>
-    get(context, `api/users/caseload/${agencyId}?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`)
+  const userSearchAdmin = (context, { nameFilter, roleFilter }) =>
+    get(context, `api/users?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`)
   const getRoles = context => get(context, 'api/access-roles')
   const getRolesAdmin = context => get(context, 'api/access-roles?includeAdmin=true')
   const contextUserRoles = (context, username, hasAdminRole) =>
@@ -108,6 +109,7 @@ const elite2ApiFactory = client => {
     addRole,
     getUser,
     userSearchAdmin,
+    getAgencyDetails,
   }
 }
 
