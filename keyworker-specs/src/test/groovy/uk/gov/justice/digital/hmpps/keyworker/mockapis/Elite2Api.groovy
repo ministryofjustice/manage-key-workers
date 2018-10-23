@@ -51,6 +51,23 @@ class Elite2Api extends WireMockRule {
                         ]))))
     }
 
+
+    void stubGetAgencyDetails(Caseload caseload) {
+        this.stubFor(
+                get(urlPathEqualTo("/api/agencies/${caseload.id}"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(JsonOutput.toJson([
+
+                                    agencyId: caseload.id,
+                                    description: caseload.description,
+                                    agencyType: caseload.type
+
+                        ]))))
+    }
+
     void stubGetRoles() {
         this.stubFor(
                 get('/api/access-roles')
@@ -150,9 +167,9 @@ class Elite2Api extends WireMockRule {
                                 .withBody(UserSearchResponse.getResponse())))
     }
 
-    void stubUserSearch(AgencyLocation agencyLocation, Integer page) {
+    void stubUserSearchAdmin(Integer page) {
         this.stubFor(
-                get(urlPathEqualTo("/api/users/caseload/${agencyLocation.id}"))
+                get(urlPathEqualTo("/api/users"))
                         .withHeader('page-offset', equalTo((page * 10).toString()))
                         .willReturn(
                         aResponse()
