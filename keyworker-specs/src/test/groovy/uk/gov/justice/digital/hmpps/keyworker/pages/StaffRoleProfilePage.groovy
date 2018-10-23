@@ -18,6 +18,7 @@ public class StaffRoleProfilePage extends Page {
         backLink { $('a.backlink')}
         addButton { $('#add-button')}
         messageBar(required: false) { $('div #messageBar')}
+        caseload(required: false) { $('div #caseloadDiv')}
         removeButtonOMIC_ADMIN (required: false) { $('#remove-button-OMIC_ADMIN')}
         rows (required: false) { $('table tbody tr') }
     }

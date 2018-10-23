@@ -6,6 +6,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
+import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.AddRolePage
@@ -67,8 +68,8 @@ class MaintainRolesSpecification extends GebReportingSpec {
         elite2api.stubGetRolesIncludingAdminRoles()
         maintainRolesLink.click()
 
-        when: "i perform a search"
-        elite2api.stubUserSearch(AgencyLocation.LEI, 0)
+        when: "i perform a global user search"
+        elite2api.stubUserSearchAdmin(0)
         searchButton.click()
 
         then: "the user search results page is displayed"
@@ -79,11 +80,13 @@ class MaintainRolesSpecification extends GebReportingSpec {
 
         and: "i select a user to edit"
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetAgencyDetails(Caseload.LEI)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseloadForAdminUser(UserAccount.API_TEST_USER.username, true)
         editButtonAPI_TEST_USER.click()
 
         then: "i am presented with the Staff profile page"
         at StaffRoleProfilePage
+        caseload.isDisplayed()
     }
 
     def "should handle pagination"() {
@@ -169,12 +172,14 @@ class MaintainRolesSpecification extends GebReportingSpec {
         searchButton.click()
         at UserSearchResultsPage
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetAgencyDetails(Caseload.LEI)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
         editButtonAPI_TEST_USER.click()
         at StaffRoleProfilePage
 
         when: "I remove a role"
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetAgencyDetails(Caseload.LEI)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, false)
         elite2api.stubRemoveNWEBRole(UserAccount.API_TEST_USER.username, "OMIC_ADMIN")
         removeButtonOMIC_ADMIN.click()
@@ -200,6 +205,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         searchButton.click()
         at UserSearchResultsPage
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetAgencyDetails(Caseload.LEI)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
         editButtonAPI_TEST_USER.click()
         at StaffRoleProfilePage
@@ -211,6 +217,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         when: "I select a new role and submit"
         at AddRolePage
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetAgencyDetails(Caseload.LEI)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseload(UserAccount.API_TEST_USER.username, true)
         roleOptionUSER_ADMIN.click()
         elite2api.stubAddNWEBRole(UserAccount.API_TEST_USER.username, 'USER_ADMIN')
