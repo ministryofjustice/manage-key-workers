@@ -217,7 +217,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     return null
   }
 
-  const applyAllocationStatusFilter = function(allocationStatus, currentOffenderResults, offenderKeyworkers) {
+  const applyAllocationStatusFilter = (allocationStatus, currentOffenderResults, offenderKeyworkers) => {
     let offenderResults = currentOffenderResults
 
     switch (allocationStatus) {
@@ -240,9 +240,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     return offenderResults
   }
 
-  const getOffenderNumbers = function(offenderResults) {
-    return offenderResults && offenderResults.length && offenderResults.map(row => row.offenderNo)
-  }
+  const getOffenderNumbers = offenderResults =>
+    offenderResults && offenderResults.length && offenderResults.map(row => row.offenderNo)
 
   /**
    *
@@ -251,7 +250,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
    * @param agencyId
    * @returns {Promise<{}>} of { keyworkerDisplay, numberAllocated }
    */
-  const getKeyworkerDetails = async function(context, staffId, agencyId) {
+  const getKeyworkerDetails = async (context, staffId, agencyId) => {
     try {
       const keyworkerData = await keyworkerApi.keyworker(context, staffId, agencyId)
       return keyworkerData
@@ -287,7 +286,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     return detail && detail.sentenceDetail && detail.sentenceDetail.releaseDate
   }
 
-  const findKeyworkerCaseNoteDate = function(kwDates, offenderNo) {
+  const findKeyworkerCaseNoteDate = (kwDates, offenderNo) => {
     const details = kwDates.filter(details => details.offenderNo === offenderNo)
     if (details.length < 1) {
       return

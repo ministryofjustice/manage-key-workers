@@ -1,21 +1,19 @@
 const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
-const search = function(eliteApi, res, agencyId, nameFilter, roleFilter) {
-  return eliteApi.userSearch(res.locals, {
+const search = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
+  eliteApi.userSearch(res.locals, {
     agencyId,
     nameFilter,
     roleFilter: roleFilter || '',
   })
-}
 
-const adminSearch = function(eliteApi, res, agencyId, nameFilter, roleFilter) {
-  return eliteApi.userSearchAdmin(res.locals, {
+const adminSearch = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
+  eliteApi.userSearchAdmin(res.locals, {
     agencyId,
     nameFilter,
     roleFilter: roleFilter || '',
   })
-}
 
 const userSearchFactory = eliteApi => {
   const userSearch = asyncMiddleware(async (req, res) => {
