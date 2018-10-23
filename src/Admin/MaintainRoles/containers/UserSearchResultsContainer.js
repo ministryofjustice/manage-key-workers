@@ -1,6 +1,8 @@
 /* eslint-disable radix */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import axios from 'axios/index'
 import {
   setMaintainRolesNameFilter,
   setMaintainRolesRoleFilterList,
@@ -8,107 +10,134 @@ import {
   setMaintainRolesUserList,
   setMaintainRolesUserTotalRecords,
   resetError,
-  setLoaded, setMaintainRolesUserPageNumber
-} from '../../../redux/actions/index';
-import { connect } from 'react-redux';
-import Error from '../../../Error';
-import UserSearchResults from "../components/UserSearchResults";
-import axios from "axios/index";
-import Spinner from "../../../Spinner";
+  setLoaded,
+  setMaintainRolesUserPageNumber,
+} from '../../../redux/actions/index'
+import Error from '../../../Error'
+import UserSearchResults from '../components/UserSearchResults'
+import Spinner from '../../../Spinner'
 
 class UserSearchContainer extends Component {
-  constructor (props) {
-    super();
-    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this);
-    this.handleNameFilterChange = this.handleNameFilterChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handlePageAction = this.handlePageAction.bind(this);
-    props.resetErrorDispatch();
+  constructor(props) {
+    super()
+    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this)
+    this.handleNameFilterChange = this.handleNameFilterChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handlePageAction = this.handlePageAction.bind(this)
+    props.resetErrorDispatch()
   }
 
-  async componentDidMount () {
-    this.props.setLoadedDispatch(false);
-    await this.getRoles();
-    await this.performSearch(this.props.pageNumber);
-    this.props.setLoadedDispatch(true);
+  async componentDidMount() {
+    const { setLoadedDispatch, pageNumber } = this.props
+
+    setLoadedDispatch(false)
+    await this.getRoles()
+    await this.performSearch(pageNumber)
+    setLoadedDispatch(true)
   }
 
-  async getRoles () {
+  async getRoles() {
+    const { roleFilterListDispatch, setErrorDispatch, user } = this.props
+
     try {
       const roles = await axios.get('/api/getRoles', {
         params: {
-          hasAdminRole: this.props.user.maintainAccessAdmin
-        }
-      });
-      this.props.roleFilterListDispatch(roles.data);
+          hasAdminRole: user.maintainAccessAdmin,
+        },
+      })
+      roleFilterListDispatch(roles.data)
     } catch (error) {
-      this.props.setErrorDispatch(error.message);
+      setErrorDispatch(error.message)
     }
   }
 
-  async performSearch (page) {
+  async performSearch(page) {
+    const {
+      nameFilter,
+      roleFilter,
+      agencyId,
+      pageSize,
+      totalRecordsDispatch,
+      userListDispatch,
+      pageNumberDispatch,
+      handleError,
+      pageNumber,
+      user,
+    } = this.props
+
     try {
-      const pageNumber = page === undefined ? this.props.pageNumber : page;
+      const pageNum = page === undefined ? pageNumber : page
       const users = await axios.get('/api/userSearch', {
         params: {
-          nameFilter: this.props.nameFilter,
-          roleFilter: this.props.roleFilter,
-          agencyId: this.props.agencyId,
-          hasAdminRole: this.props.user.maintainAccessAdmin
+          nameFilter,
+          roleFilter,
+          agencyId,
+          hasAdminRole: user.maintainAccessAdmin,
         },
         headers: {
-          'Page-Offset': this.props.pageSize * pageNumber,
-          'Page-Limit': this.props.pageSize
-        }
-      });
-      this.props.totalRecordsDispatch(parseInt(users.headers['total-records']));
-      this.props.userListDispatch(users.data);
-      this.props.pageNumberDispatch(pageNumber);
+          'Page-Offset': pageSize * pageNum,
+          'Page-Limit': pageSize,
+        },
+      })
+      totalRecordsDispatch(parseInt(users.headers['total-records']))
+      userListDispatch(users.data)
+      pageNumberDispatch(pageNum)
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  handleRoleFilterChange (event) {
-    this.props.pageNumberDispatch(0);
-    this.props.roleFilterDispatch(event.target.value);
+  handleRoleFilterChange(event) {
+    const { pageNumberDispatch, roleFilterDispatch } = this.props
+
+    pageNumberDispatch(0)
+    roleFilterDispatch(event.target.value)
   }
 
-  handleNameFilterChange (event) {
-    this.props.pageNumberDispatch(0);
-    this.props.nameFilterDispatch(event.target.value);
+  handleNameFilterChange(event) {
+    const { pageNumberDispatch, nameFilterDispatch } = this.props
+
+    pageNumberDispatch(0)
+    nameFilterDispatch(event.target.value)
   }
 
-  async handleSearch (history) {
-    this.props.setLoadedDispatch(false);
-    await this.performSearch();
-    this.props.setLoadedDispatch(true);
+  async handleSearch() {
+    const { setLoadedDispatch } = this.props
+
+    setLoadedDispatch(false)
+    await this.performSearch()
+    setLoadedDispatch(true)
   }
 
-  async handlePageAction (pageNumber) {
-    await this.performSearch(pageNumber);
+  async handlePageAction(pageNumber) {
+    await this.performSearch(pageNumber)
   }
 
-  async handleEdit (event, history) {
-    const chosenUser = this.props.userList[event.target.value];
-    history.push(`/maintainRoles/${chosenUser.username}/profile`);
+  async handleEdit(event, history) {
+    const { userList } = this.props
+    const chosenUser = userList[event.target.value]
+    history.push(`/maintainRoles/${chosenUser.username}/profile`)
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<UserSearchResults
-        handleRoleFilterChange={this.handleRoleFilterChange}
-        handleNameFilterChange={this.handleNameFilterChange}
-        handlePageAction={this.handlePageAction}
-        handleSearch={this.handleSearch}
-        handleEdit={this.handleEdit}
-        {...this.props}/>);
-    }
-    return <Spinner />;
+  render() {
+    const { error, loaded } = this.props
+
+    if (error) return <Error {...this.props} />
+
+    if (loaded)
+      return (
+        <UserSearchResults
+          handleRoleFilterChange={this.handleRoleFilterChange}
+          handleNameFilterChange={this.handleNameFilterChange}
+          handlePageAction={this.handlePageAction}
+          handleSearch={this.handleSearch}
+          handleEdit={this.handleEdit}
+          {...this.props}
+        />
+      )
+
+    return <Spinner />
   }
 }
 
@@ -127,35 +156,33 @@ UserSearchContainer.propTypes = {
   roleFilterListDispatch: PropTypes.func,
   resetErrorDispatch: PropTypes.func,
   setErrorDispatch: PropTypes.func,
-  config: PropTypes.object.isRequired
-};
+  config: PropTypes.object.isRequired,
+}
 
-const mapStateToProps = state => {
-  return {
-    nameFilter: state.maintainRoles.nameFilter,
-    roleFilter: state.maintainRoles.roleFilter,
-    agencyId: state.app.user.activeCaseLoadId,
-    roleFilterList: state.maintainRoles.roleFilterList,
-    userList: state.maintainRoles.userList,
-    pageNumber: state.maintainRoles.pageNumber,
-    pageSize: state.maintainRoles.pageSize,
-    totalRecords: state.maintainRoles.totalRecords,
-    loaded: state.app.loaded
-  };
-};
+const mapStateToProps = state => ({
+  nameFilter: state.maintainRoles.nameFilter,
+  roleFilter: state.maintainRoles.roleFilter,
+  agencyId: state.app.user.activeCaseLoadId,
+  roleFilterList: state.maintainRoles.roleFilterList,
+  userList: state.maintainRoles.userList,
+  pageNumber: state.maintainRoles.pageNumber,
+  pageSize: state.maintainRoles.pageSize,
+  totalRecords: state.maintainRoles.totalRecords,
+  loaded: state.app.loaded,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
-    roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
-    roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
-    userListDispatch: list => dispatch(setMaintainRolesUserList(list)),
-    pageNumberDispatch: no => dispatch(setMaintainRolesUserPageNumber(no)),
-    totalRecordsDispatch: no => dispatch(setMaintainRolesUserTotalRecords(no)),
-    resetErrorDispatch: () => dispatch(resetError()),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  nameFilterDispatch: text => dispatch(setMaintainRolesNameFilter(text)),
+  roleFilterDispatch: text => dispatch(setMaintainRolesRoleFilter(text)),
+  roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
+  userListDispatch: list => dispatch(setMaintainRolesUserList(list)),
+  pageNumberDispatch: no => dispatch(setMaintainRolesUserPageNumber(no)),
+  totalRecordsDispatch: no => dispatch(setMaintainRolesUserTotalRecords(no)),
+  resetErrorDispatch: () => dispatch(resetError()),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSearchContainer);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserSearchContainer)

@@ -1,50 +1,72 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
-import { UserSearch } from "./UserSearch";
-import { properCaseName } from "../../../stringUtils";
-import PreviousNextNavigation from '../../../PreviousNextNavigation';
-// import '../index.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+import { UserSearch } from './UserSearch'
+import { properCaseName } from '../../../stringUtils'
+import PreviousNextNavigation from '../../../PreviousNextNavigation'
 
-class UserSearchResults extends Component {
-  render () {
-    const pagination = { perPage: this.props.pageSize, pageNumber: this.props.pageNumber };
-    const totalRecords = this.props.totalRecords;
-    const results = this.props.userList.map((a, index) => {
-      const formattedName = properCaseName(a.lastName) + ', ' + properCaseName(a.firstName);
-      return (
-        <tr key={a.username}>
-          <td className="row-gutters">{formattedName}</td>
-          <td className="row-gutters width13em">{a.username}</td>
-          <td className="row-gutters width5em"><button className="button greyButtonNoMinWidth" id={`edit-button-${a.username}`} value={index} onClick={(event) => { this.props.handleEdit(event, this.props.history);}}>Edit</button></td>
-        </tr>
-      );
-    }
-    );
-
+const UserSearchResults = props => {
+  const { pageSize, pageNumber, totalRecords, userList, handlePageAction, handleEdit, history } = props
+  const pagination = { perPage: pageSize, pageNumber }
+  const results = userList.map((a, index) => {
+    const formattedName = `${properCaseName(a.lastName)}, ${properCaseName(a.firstName)}`
     return (
-      <div>
-        <UserSearch {...this.props} />
-        <div className="pure-u-md-7-12">
-          <div className="padding-bottom-40">
-            <table>
-              <thead>
+      <tr key={a.username}>
+        <td className="row-gutters">{formattedName}</td>
+        <td className="row-gutters width13em">{a.username}</td>
+        <td className="row-gutters width5em">
+          <button
+            type="button"
+            className="button greyButtonNoMinWidth"
+            id={`edit-button-${a.username}`}
+            value={index}
+            onClick={event => {
+              handleEdit(event, history)
+            }}
+          >
+            Edit
+          </button>
+        </td>
+      </tr>
+    )
+  })
+
+  return (
+    <div>
+      <UserSearch {...props} />
+      <div className="pure-u-md-7-12">
+        <div className="padding-bottom-40">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {results.length > 0 ? (
+                results
+              ) : (
                 <tr>
-                  <th>Name</th>
-                  <th>Username</th>
-                  <th />
+                  <td className="padding-left font-small row-gutters no-results-row">No users found</td>
                 </tr>
-              </thead>
-              <tbody>{results.length > 0 ? results : <tr><td className="padding-left font-small row-gutters no-results-row">No users found</td></tr>}</tbody>
-            </table>
-          </div>
-        </div>
-        <div className="pure-u-md-7-12">
-          <PreviousNextNavigation pagination={pagination} totalRecords={totalRecords} pageAction={(id) => { this.props.handlePageAction(id); }} />
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
-    );
-  }
+      <div className="pure-u-md-7-12">
+        <PreviousNextNavigation
+          pagination={pagination}
+          totalRecords={totalRecords}
+          pageAction={id => {
+            handlePageAction(id)
+          }}
+        />
+      </div>
+    </div>
+  )
 }
 
 UserSearchResults.propTypes = {
@@ -67,10 +89,10 @@ UserSearchResults.propTypes = {
   history: PropTypes.object,
   pageNumber: PropTypes.number,
   pageSize: PropTypes.number,
-  totalRecords: PropTypes.number
-};
+  totalRecords: PropTypes.number,
+}
 
-const UserSearchWithRouter = withRouter(UserSearchResults);
+const UserSearchWithRouter = withRouter(UserSearchResults)
 
-export { UserSearchResults };
-export default UserSearchWithRouter;
+export { UserSearchResults }
+export default UserSearchWithRouter

@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
-import DatePicker from './datePicker';
-import moment from 'moment';
-import PropTypes from 'prop-types';
+import React from 'react'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+import DatePicker from './datePicker'
 
-class DateFilter extends Component {
-  render () {
-    return (<div className="pure-g padding-top-large padding-left">
+const DateFilter = props => {
+  const { fromDate, toDate, applyDateFilter, history } = props
+
+  return (
+    <div className="pure-g padding-top-large padding-left">
       <h3 className="heading-small">Select date range to view</h3>
 
-      <div className="pure-u-md-4-12"><DatePicker
-        inputProps={{ placeholder: this.props.fromDate, className: 'dateFilterInput form-control' }} name="fromDate"
-        shouldShowDay={(date) => date.isBefore(moment())} title="From" {...this.props} /></div>
-      <div className="pure-u-md-4-12"><DatePicker
-        inputProps={{ placeholder: this.props.toDate, className: 'dateFilterInput form-control' }} name="toDate"
-        shouldShowDay={(date) => date.isBefore(moment())} title="To" {...this.props} /></div>
+      <div className="pure-u-md-4-12">
+        <DatePicker
+          inputProps={{ placeholder: fromDate, className: 'dateFilterInput form-control' }}
+          name="fromDate"
+          shouldShowDay={date => date.isBefore(moment())}
+          title="From"
+          {...props}
+        />
+      </div>
+      <div className="pure-u-md-4-12">
+        <DatePicker
+          inputProps={{ placeholder: toDate, className: 'dateFilterInput form-control' }}
+          name="toDate"
+          shouldShowDay={date => date.isBefore(moment())}
+          title="To"
+          {...props}
+        />
+      </div>
       <div className="pure-u-md-3-12">
-        <button className="button top-gutter-large"
-          onClick={() => this.props.applyDateFilter(this.props.history)}>Filter
+        <button type="button" className="button top-gutter-large" onClick={() => applyDateFilter(history)}>
+          Filter
         </button>
       </div>
-    </div>);
-  }
+    </div>
+  )
 }
 
 DateFilter.propTypes = {
@@ -28,6 +42,7 @@ DateFilter.propTypes = {
   history: PropTypes.object,
   toDate: PropTypes.string,
   fromDate: PropTypes.string,
-  applyDateFilter: PropTypes.func.isRequired
-};
-export default DateFilter;
+  applyDateFilter: PropTypes.func.isRequired,
+}
+
+export default DateFilter

@@ -1,62 +1,62 @@
-import { renderDate, switchToIsoDateFormat } from './stringUtils';
-import moment from 'moment';
+import moment from 'moment'
+import { renderDate, switchToIsoDateFormat } from './stringUtils'
 
 describe('the renderDate function', () => {
-  const notPresentString = '--';
+  const notPresentString = '--'
 
   it('should render a value that is not a moment as "--"', () => {
-    expect(renderDate()).toBe(notPresentString);
-  });
+    expect(renderDate()).toBe(notPresentString)
+  })
 
   it('should render a moment as DD/MM/YYYY', () => {
-    expect(renderDate(moment({ year: 2018, month: 11, day: 30 }))).toBe('30/12/2018');
-  });
+    expect(renderDate(moment({ year: 2018, month: 11, day: 30 }))).toBe('30/12/2018')
+  })
 
   it('should render an ISO 8601 date formatted string (YYYY-MM-DD) as DD/MM/YYYY', () => {
-    expect(renderDate('2018-12-30')).toBe('30/12/2018');
-  });
+    expect(renderDate('2018-12-30')).toBe('30/12/2018')
+  })
 
   it('should render leading zeros', () => {
-    expect(renderDate(moment({ year: 2018, M: 0, day: 1 }))).toBe('01/01/2018');
-  });
+    expect(renderDate(moment({ year: 2018, M: 0, day: 1 }))).toBe('01/01/2018')
+  })
 
   it('should render an illegal ISO 8601 formatted string as "--"', () => {
-    expect(renderDate('2018-02-29')).toBe(notPresentString);
-  });
+    expect(renderDate('2018-02-29')).toBe(notPresentString)
+  })
 
   it('should render unparsable string as "--"', () => {
-    expect(renderDate('abcd')).toBe(notPresentString);
-  });
+    expect(renderDate('abcd')).toBe(notPresentString)
+  })
 
   it('should render null as "--"', () => {
-    expect(renderDate(null)).toBe(notPresentString);
-  });
+    expect(renderDate(null)).toBe(notPresentString)
+  })
 
   it('should render an object as "--"', () => {
-    expect(renderDate({})).toBe(notPresentString);
-  });
+    expect(renderDate({})).toBe(notPresentString)
+  })
 
   it('should render an empty string as "--"', () => {
-    expect(renderDate('')).toBe(notPresentString);
-  });
+    expect(renderDate('')).toBe(notPresentString)
+  })
 
   it('should render an integer as "--"', () => {
-    expect(renderDate(0)).toBe(notPresentString);
-  });
+    expect(renderDate(0)).toBe(notPresentString)
+  })
 
   it('should render a boolean as "--"', () => {
-    expect(renderDate(false)).toBe(notPresentString);
-  });
+    expect(renderDate(false)).toBe(notPresentString)
+  })
 
   it('should switch date format', () => {
-    expect(switchToIsoDateFormat('25/11/1971')).toBe('1971-11-25');
-  });
+    expect(switchToIsoDateFormat('25/11/1971')).toBe('1971-11-25')
+  })
 
   it('should allow undefined when switching date format', () => {
-    expect(switchToIsoDateFormat(undefined)).toBeUndefined();
-  });
+    expect(switchToIsoDateFormat(undefined)).toBeUndefined()
+  })
 
   it('should allow empty strings when switching date format', () => {
-    expect(switchToIsoDateFormat('')).toBeUndefined();
-  });
-});
+    expect(switchToIsoDateFormat('')).toBeUndefined()
+  })
+})

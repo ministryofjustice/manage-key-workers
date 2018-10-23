@@ -1,105 +1,127 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import OffenderResults from "../components/OffenderResults";
-import Spinner from '../../Spinner';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import axios from 'axios'
+import OffenderResults from '../components/OffenderResults'
+import Spinner from '../../Spinner'
 
-import axios from 'axios';
-import {
-  resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults
-} from "../../redux/actions";
+import { resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from '../../redux/actions'
 
 class OffenderResultsContainer extends Component {
-  constructor (props) {
-    super();
-    this.doSearch = this.doSearch.bind(this);
-    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
-    this.postManualOverride = this.postManualOverride.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  constructor(props) {
+    super(props)
+    this.doSearch = this.doSearch.bind(this)
+    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this)
+    this.postManualOverride = this.postManualOverride.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
+    const { locations, history } = this.props
+
     /* if arriving from a page refresh - redirect to initial search */
-    if (!this.props.locations || this.props.locations.length === 0) {
-      this.props.history.push({
+    if (!locations || locations.length === 0) {
+      history.push({
         pathname: '/offender/search',
-        state: { initialSearch: true }
-      });
+        state: { initialSearch: true },
+      })
     } else {
-      await this.doSearch();
+      await this.doSearch()
     }
   }
 
-  handleSubmit (history) {
-    this.doSearch();
+  handleSubmit() {
+    this.doSearch()
   }
 
-  async doSearch () {
-    this.props.resetErrorDispatch();
-    this.props.setLoadedDispatch(false);
+  async doSearch() {
+    const {
+      resetErrorDispatch,
+      setLoadedDispatch,
+      housingLocation,
+      searchText,
+      allocationStatus,
+      agencyId,
+      keyworkerChangeListDispatch,
+      offenderSearchResultsDispatch,
+      handleError,
+    } = this.props
+
+    resetErrorDispatch()
+    setLoadedDispatch(false)
     try {
       const response = await axios.get('/api/searchOffenders', {
         params: {
-          locationPrefix: this.props.housingLocation,
-          keywords: this.props.searchText,
-          allocationStatus: this.props.allocationStatus,
-          agencyId: this.props.agencyId
-        }
-      });
-      const data = response.data;
-      this.props.keyworkerChangeListDispatch([]);
-      this.props.offenderSearchResultsDispatch(data);
+          locationPrefix: housingLocation,
+          keywords: searchText,
+          allocationStatus,
+          agencyId,
+        },
+      })
+      const { data } = response
+      keyworkerChangeListDispatch([])
+      offenderSearchResultsDispatch(data)
     } catch (error) {
-      this.props.offenderSearchResultsDispatch({
+      offenderSearchResultsDispatch({
         keyworkerResponse: [],
-        offenderResponse: [] });
-      this.props.handleError(error);
+        offenderResponse: [],
+      })
+      handleError(error)
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  handleKeyworkerChange (event, index, offenderNo) {
-    const keyworkerChangeList = this.props.keyworkerChangeList ? [...this.props.keyworkerChangeList] : [];
+  handleKeyworkerChange(event, index, offenderNo) {
+    const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props
+    const changeList = keyworkerChangeList ? [...keyworkerChangeList] : []
+
     if (event.target.value === '--') {
-      keyworkerChangeList[index] = null;
+      changeList[index] = null
     } else if (event.target.value === '_DEALLOCATE') {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         deallocate: true,
         staffId: event.target.value,
-        offenderNo: offenderNo
-      };
+        offenderNo,
+      }
     } else {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         staffId: event.target.value,
-        offenderNo: offenderNo
-      };
+        offenderNo,
+      }
     }
-    this.props.keyworkerChangeListDispatch(keyworkerChangeList);
+    keyworkerChangeListDispatch(changeList)
   }
 
-  async postManualOverride (history) {
+  async postManualOverride() {
+    const { agencyId, keyworkerChangeList, setMessageDispatch, handleError } = this.props
+
     try {
-      if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axios.post('/api/manualoverride', { allocatedKeyworkers: this.props.keyworkerChangeList }, { params: { agencyId: this.props.agencyId } });
-        this.props.setMessageDispatch('Key workers successfully updated.');
-        await this.doSearch();
+      if (keyworkerChangeList && keyworkerChangeList.length > 0) {
+        await axios.post('/api/manualoverride', { allocatedKeyworkers: keyworkerChangeList }, { params: { agencyId } })
+        setMessageDispatch('Key workers successfully updated.')
+        await this.doSearch()
       }
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  render () {
-    if (this.props.loaded) {
-      return (<OffenderResults
-        handleKeyworkerChange={this.handleKeyworkerChange}
-        postManualOverride={this.postManualOverride}
-        doSearch={this.doSearch}
-        handleSubmit={this.handleSubmit}
-        {...this.props} />);
+  render() {
+    const { loaded } = this.props
+
+    if (loaded) {
+      return (
+        <OffenderResults
+          handleKeyworkerChange={this.handleKeyworkerChange}
+          postManualOverride={this.postManualOverride}
+          doSearch={this.doSearch}
+          handleSubmit={this.handleSubmit}
+          {...this.props}
+        />
+      )
     }
-    return <Spinner />;
+    return <Spinner />
   }
 }
 
@@ -118,30 +140,29 @@ OffenderResultsContainer.propTypes = {
   resetErrorDispatch: PropTypes.func,
   setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool,
-  history: PropTypes.object
-};
+  history: PropTypes.object,
+}
 
-const mapStateToProps = state => {
-  return {
-    searchText: state.offenderSearch.searchText,
-    allocationStatus: state.offenderSearch.allocationStatus,
-    keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
-    housingLocation: state.offenderSearch.housingLocation,
-    offenderResults: state.offenderSearch.offenderResults,
-    agencyId: state.app.user.activeCaseLoadId,
-    locations: state.offenderSearch.locations,
-    loaded: state.app.loaded
-  };
-};
+const mapStateToProps = state => ({
+  searchText: state.offenderSearch.searchText,
+  allocationStatus: state.offenderSearch.allocationStatus,
+  keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
+  housingLocation: state.offenderSearch.housingLocation,
+  offenderResults: state.offenderSearch.offenderResults,
+  agencyId: state.app.user.activeCaseLoadId,
+  locations: state.offenderSearch.locations,
+  loaded: state.app.loaded,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
-    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
-    resetErrorDispatch: () => dispatch(resetError())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
+  keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+  resetErrorDispatch: () => dispatch(resetError()),
+})
 
-export { OffenderResultsContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderResultsContainer));
+export { OffenderResultsContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(OffenderResultsContainer))

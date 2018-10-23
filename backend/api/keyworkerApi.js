@@ -1,44 +1,48 @@
-const contextProperties = require('../contextProperties');
+const contextProperties = require('../contextProperties')
 
 const processError = error => {
-  if (!error.response) throw error;
-  if (!error.response.status) throw error;
-  if (error.response.status !== 404) throw error; // Not Found
-  return null;
-};
+  if (!error.response) throw error
+  if (!error.response.status) throw error
+  if (error.response.status !== 404) throw error // Not Found
+  return null
+}
 
-const encodeQueryString = (input) => encodeURIComponent(input);
+const encodeQueryString = input => encodeURIComponent(input)
 
-const keyworkerApiFactory = (client) => {
-  const processResponse = (context) => (response) => {
-    contextProperties.setResponsePagination(context, response.headers);
-    return response.data;
-  };
+const keyworkerApiFactory = client => {
+  const processResponse = context => response => {
+    contextProperties.setResponsePagination(context, response.headers)
+    return response.data
+  }
 
   const get = (context, url) =>
     client
       .get(context, url)
       .then(processResponse(context))
-      .catch(processError);
+      .catch(processError)
 
-  const post = (context, url, data) =>
-    client
-      .post(context, url, data)
-      .then(processResponse(context));
+  const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
 
-  const put = (context, url, data) =>
-    client
-      .put(context, url, data)
-      .then(processResponse(context));
+  const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
 
-  const allocate = (context, data) => post(context, 'key-worker/allocate', data);
-  const allocated = (context, agencyId) => get(context, `key-worker/${agencyId}/allocations`);
-  const allocationHistory = (context, offenderNo) => get(context, `key-worker/allocation-history/${offenderNo}`);
-  const autoAllocate = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/start`);
-  const autoAllocateConfirm = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/confirm`);
-  const getPrisonMigrationStatus = (context, prisonId) => get(context, `key-worker/prison/${prisonId}`);
-  const enableAutoAllocationAndMigrate = (context, agencyId, migrate, capacity, frequency) => post(context, `key-worker/enable/${agencyId}/auto-allocate?migrate=${migrate}&capacity=${capacity}&frequency=${frequency}`, {});
-  const enableManualAllocationAndMigrate = (context, agencyId, migrate, capacity, frequency) => post(context, `key-worker/enable/${agencyId}/manual?migrate=${migrate}&capacity=${capacity}&frequency=${frequency}`, {});
+  const allocate = (context, data) => post(context, 'key-worker/allocate', data)
+  const allocated = (context, agencyId) => get(context, `key-worker/${agencyId}/allocations`)
+  const allocationHistory = (context, offenderNo) => get(context, `key-worker/allocation-history/${offenderNo}`)
+  const autoAllocate = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/start`)
+  const autoAllocateConfirm = (context, agencyId) => post(context, `key-worker/${agencyId}/allocate/confirm`)
+  const getPrisonMigrationStatus = (context, prisonId) => get(context, `key-worker/prison/${prisonId}`)
+  const enableAutoAllocationAndMigrate = (context, agencyId, migrate, capacity, frequency) =>
+    post(
+      context,
+      `key-worker/enable/${agencyId}/auto-allocate?migrate=${migrate}&capacity=${capacity}&frequency=${frequency}`,
+      {}
+    )
+  const enableManualAllocationAndMigrate = (context, agencyId, migrate, capacity, frequency) =>
+    post(
+      context,
+      `key-worker/enable/${agencyId}/manual?migrate=${migrate}&capacity=${capacity}&frequency=${frequency}`,
+      {}
+    )
 
   /**
    *
@@ -59,7 +63,7 @@ const keyworkerApiFactory = (client) => {
        private String internalLocationDesc;
      }
    */
-  const autoallocated = (context, agencyId) => get(context, `key-worker/${agencyId}/allocations?allocationType=P`);
+  const autoallocated = (context, agencyId) => get(context, `key-worker/${agencyId}/allocations?allocationType=P`)
 
   /**
    *
@@ -83,10 +87,10 @@ const keyworkerApiFactory = (client) => {
     private Integer numKeyWorkerSessions;
     }
    */
-  const availableKeyworkers = (context, agencyId) => get(context, `key-worker/${agencyId}/available`);
+  const availableKeyworkers = (context, agencyId) => get(context, `key-worker/${agencyId}/available`)
 
-  const deallocate = (context, offenderNo) => put(context, `key-worker/deallocate/${offenderNo}`);
-  const keyworker = (context, staffId, agencyId) => get(context, `key-worker/${staffId}/prison/${agencyId}`);
+  const deallocate = (context, offenderNo) => put(context, `key-worker/deallocate/${offenderNo}`)
+  const keyworker = (context, staffId, agencyId) => get(context, `key-worker/${staffId}/prison/${agencyId}`)
 
   /**
    *
@@ -95,9 +99,15 @@ const keyworkerApiFactory = (client) => {
    * @param agencyId
    * @returns array of KeyworkerAllocationDetailsDto. See autoallocated above...
    */
-  const keyworkerAllocations = (context, staffId, agencyId) => get(context, `key-worker/${staffId}/prison/${agencyId}/offenders`);
-  const keyworkerSearch = (context, { agencyId, searchText, statusFilter }) => get(context, `key-worker/${agencyId}/members?statusFilter=${statusFilter}&nameFilter=${encodeQueryString(searchText)}`);
-  const keyworkerUpdate = (context, staffId, agencyId, data) => post(context, `key-worker/${staffId}/prison/${agencyId}`, data);
+  const keyworkerAllocations = (context, staffId, agencyId) =>
+    get(context, `key-worker/${staffId}/prison/${agencyId}/offenders`)
+  const keyworkerSearch = (context, { agencyId, searchText, statusFilter }) =>
+    get(
+      context,
+      `key-worker/${agencyId}/members?statusFilter=${statusFilter}&nameFilter=${encodeQueryString(searchText)}`
+    )
+  const keyworkerUpdate = (context, staffId, agencyId, data) =>
+    post(context, `key-worker/${staffId}/prison/${agencyId}`, data)
 
   /**
    *
@@ -116,7 +126,7 @@ const keyworkerApiFactory = (client) => {
     private String active;
    }
    */
-  const offenderKeyworkerList = (context, agencyId, data) => post(context, `key-worker/${agencyId}/offenders`, data);
+  const offenderKeyworkerList = (context, agencyId, data) => post(context, `key-worker/${agencyId}/offenders`, data)
 
   /**
    * @param context
@@ -138,10 +148,10 @@ const keyworkerApiFactory = (client) => {
        private String iepLevel;
      }
    */
-  const unallocated = (context, agencyId) => get(context, `key-worker/${agencyId}/offenders/unallocated`);
+  const unallocated = (context, agencyId) => get(context, `key-worker/${agencyId}/offenders/unallocated`)
 
   const stats = (context, agencyId, staffId, fromDate, toDate) =>
-    get(context, `key-worker-stats/${staffId}/prison/${agencyId}?fromDate=${fromDate}&toDate=${toDate}`);
+    get(context, `key-worker-stats/${staffId}/prison/${agencyId}?fromDate=${fromDate}&toDate=${toDate}`)
 
   return {
     allocate,
@@ -161,10 +171,10 @@ const keyworkerApiFactory = (client) => {
     getPrisonMigrationStatus,
     enableAutoAllocationAndMigrate,
     enableManualAllocationAndMigrate,
-    stats
-  };
-};
+    stats,
+  }
+}
 
 module.exports = {
-  keyworkerApiFactory
-};
+  keyworkerApiFactory,
+}

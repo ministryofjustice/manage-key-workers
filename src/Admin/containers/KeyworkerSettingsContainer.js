@@ -1,113 +1,155 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import KeyworkerSettings from '../components/KeyworkerSettings';
-import Error from '../../Error';
-import { withRouter } from 'react-router';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import axios from 'axios'
+import KeyworkerSettings from '../components/KeyworkerSettings'
+import Error from '../../Error'
 import {
-  setLoaded, setMessage, setSettingsSupported, setSettingsMigrated, setSettingsCapacity,
-  setSettingsSequenceFrequency, setSettingsAllowAutoAllocation, setSettingsExtCapacity,
-  setSettings, setValidationError, resetValidationErrors
-} from "../../redux/actions";
-import Spinner from '../../Spinner';
-import axios from "axios";
-import { stringIsInteger } from "../../stringUtils";
+  setLoaded,
+  setMessage,
+  setSettingsSupported,
+  setSettingsMigrated,
+  setSettingsCapacity,
+  setSettingsSequenceFrequency,
+  setSettingsAllowAutoAllocation,
+  setSettingsExtCapacity,
+  setSettings,
+  setValidationError,
+  resetValidationErrors,
+} from '../../redux/actions'
+import Spinner from '../../Spinner'
+import { stringIsInteger } from '../../stringUtils'
 
 class KeyworkerSettingsContainer extends Component {
-  constructor () {
-    super();
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleCapacityChange = this.handleCapacityChange.bind(this);
-    this.handleExtCapacityChange = this.handleExtCapacityChange.bind(this);
-    this.handleSequenceFrequency = this.handleSequenceFrequency.bind(this);
-    this.handleMigratedChange = this.handleMigratedChange.bind(this);
-    this.handleAllowAutoChange = this.handleAllowAutoChange.bind(this);
+  constructor() {
+    super()
+    this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleCapacityChange = this.handleCapacityChange.bind(this)
+    this.handleExtCapacityChange = this.handleExtCapacityChange.bind(this)
+    this.handleSequenceFrequency = this.handleSequenceFrequency.bind(this)
+    this.handleMigratedChange = this.handleMigratedChange.bind(this)
+    this.handleAllowAutoChange = this.handleAllowAutoChange.bind(this)
   }
 
-  async componentWillMount () {
-    this.props.setLoadedDispatch(true);
-    this.props.resetValidationErrorsDispatch();
+  async componentWillMount() {
+    const { setLoadedDispatch, resetValidationErrorsDispatch } = this.props
+
+    setLoadedDispatch(true)
+    resetValidationErrorsDispatch()
   }
 
-  async handleUpdate (history) {
-    if (!this.validate()) {
-      return;
-    }
-    this.props.setLoadedDispatch(false);
-    const controller = this.props.allowAuto ? '/api/autoAllocateMigrate' : '/api/manualAllocateMigrate';
+  async handleUpdate() {
+    const {
+      setLoadedDispatch,
+      allowAuto,
+      supported,
+      capacity,
+      extCapacity,
+      sequenceFrequency,
+      agencyId,
+      setSettingsMigratedDispatch,
+      setSettingsSupportedDispatch,
+      setMessageDispatch,
+      handleError,
+    } = this.props
+
+    if (!this.validate()) return
+
+    setLoadedDispatch(false)
+    const controller = allowAuto ? '/api/autoAllocateMigrate' : '/api/manualAllocateMigrate'
 
     try {
-      const response = await axios.post(controller,
+      const response = await axios.post(
+        controller,
         {
-          migrate: !this.props.supported,
-          capacity: `${this.props.capacity},${this.props.extCapacity}`,
-          frequency: this.props.sequenceFrequency
+          migrate: !supported,
+          capacity: `${capacity},${extCapacity}`,
+          frequency: sequenceFrequency,
         },
         {
-          params:
-            {
-              agencyId: this.props.agencyId
-            }
-        });
-      this.props.setSettingsMigratedDispatch(response.data.migrated);
-      this.props.setSettingsSupportedDispatch(response.data.supported);
-      this.props.setMessageDispatch("key worker settings updated");
+          params: {
+            agencyId,
+          },
+        }
+      )
+      setSettingsMigratedDispatch(response.data.migrated)
+      setSettingsSupportedDispatch(response.data.supported)
+      setMessageDispatch('key worker settings updated')
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  handleCapacityChange (event) {
-    this.props.setSettingsCapacityDispatch(event.target.value);
+  handleCapacityChange(event) {
+    const { setSettingsCapacityDispatch } = this.props
+
+    setSettingsCapacityDispatch(event.target.value)
   }
 
-  handleExtCapacityChange (event) {
-    this.props.setSettingsExtCapacityDispatch(event.target.value);
+  handleExtCapacityChange(event) {
+    const { setSettingsExtCapacityDispatch } = this.props
+
+    setSettingsExtCapacityDispatch(event.target.value)
   }
 
-  handleMigratedChange (event) {
-    this.props.setSettingsMigratedDispatch(event.target.value);
+  handleMigratedChange(event) {
+    const { setSettingsMigratedDispatch } = this.props
+
+    setSettingsMigratedDispatch(event.target.value)
   }
 
-  handleAllowAutoChange (event) {
-    const allowAllocBoolean = (event.target.value === 'true');
-    this.props.setSettingsAllowAutoDispatch(allowAllocBoolean);
+  handleAllowAutoChange(event) {
+    const { setSettingsAllowAutoDispatch } = this.props
+    const allowAllocBoolean = event.target.value === 'true'
+
+    setSettingsAllowAutoDispatch(allowAllocBoolean)
   }
 
-  handleSequenceFrequency (event) {
-    this.props.setSettingsSequenceFrequencyDispatch(event.target.value);
+  handleSequenceFrequency(event) {
+    const { setSettingsSequenceFrequencyDispatch } = this.props
+
+    setSettingsSequenceFrequencyDispatch(event.target.value)
   }
 
-  validate () {
-    this.props.resetValidationErrorsDispatch();
-    if (!stringIsInteger(this.props.capacity)) {
-      this.props.setValidationErrorDispatch("capacity", "Please enter a number");
-      return false;
+  validate() {
+    const { resetValidationErrorsDispatch, capacity, extCapacity, setValidationErrorDispatch } = this.props
+
+    resetValidationErrorsDispatch()
+    if (!stringIsInteger(capacity)) {
+      setValidationErrorDispatch('capacity', 'Please enter a number')
+      return false
     }
-    if (!stringIsInteger(this.props.extCapacity)) {
-      this.props.setValidationErrorDispatch("extCapacity", "Please enter a number");
-      return false;
+    if (!stringIsInteger(extCapacity)) {
+      setValidationErrorDispatch('extCapacity', 'Please enter a number')
+      return false
     }
-    if (this.props.capacity > this.props.extCapacity) {
-      this.props.setValidationErrorDispatch("extCapacity", "Capacity Tier 2 must be equal to or greater than Capacity Tier 1");
-      return false;
+    if (capacity > extCapacity) {
+      setValidationErrorDispatch('extCapacity', 'Capacity Tier 2 must be equal to or greater than Capacity Tier 1')
+      return false
     }
-    return true;
+    return true
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<KeyworkerSettings handleUpdate={this.handleUpdate}
-        handleAllowAutoChange={this.handleAllowAutoChange}
-        handleCapacityChange={this.handleCapacityChange}
-        handleExtCapacityChange={this.handleExtCapacityChange}
-        handleSequenceFrequency={this.handleSequenceFrequency} {...this.props} />);
-    }
-    return <Spinner />;
+  render() {
+    const { error, loaded } = this.props
+
+    if (error) return <Error {...this.props} />
+
+    if (loaded)
+      return (
+        <KeyworkerSettings
+          handleUpdate={this.handleUpdate}
+          handleAllowAutoChange={this.handleAllowAutoChange}
+          handleCapacityChange={this.handleCapacityChange}
+          handleExtCapacityChange={this.handleExtCapacityChange}
+          handleSequenceFrequency={this.handleSequenceFrequency}
+          {...this.props}
+        />
+      )
+
+    return <Spinner />
   }
 }
 
@@ -133,39 +175,37 @@ KeyworkerSettingsContainer.propTypes = {
   capacity: PropTypes.string,
   extCapacity: PropTypes.string,
   loaded: PropTypes.bool,
-  user: PropTypes.object.isRequired
-};
+  user: PropTypes.object.isRequired,
+}
 
-const mapStateToProps = state => {
-  return {
-    agencyId: state.app.user.activeCaseLoadId,
-    loaded: state.app.loaded,
-    allowAuto: state.keyworkerSettings.allowAuto,
-    capacity: state.keyworkerSettings.capacity,
-    extCapacity: state.keyworkerSettings.extCapacity,
-    sequenceFrequency: state.keyworkerSettings.sequenceFrequency,
-    supported: state.keyworkerSettings.supported,
-    migrated: state.keyworkerSettings.migrated,
-    validationErrors: state.app.validationErrors
-  };
-};
+const mapStateToProps = state => ({
+  agencyId: state.app.user.activeCaseLoadId,
+  loaded: state.app.loaded,
+  allowAuto: state.keyworkerSettings.allowAuto,
+  capacity: state.keyworkerSettings.capacity,
+  extCapacity: state.keyworkerSettings.extCapacity,
+  sequenceFrequency: state.keyworkerSettings.sequenceFrequency,
+  supported: state.keyworkerSettings.supported,
+  migrated: state.keyworkerSettings.migrated,
+  validationErrors: state.app.validationErrors,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setMessageDispatch: (message) => dispatch(setMessage(message)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
-    setSettingsCapacityDispatch: (input) => dispatch(setSettingsCapacity(input)),
-    setSettingsExtCapacityDispatch: (input) => dispatch(setSettingsExtCapacity(input)),
-    setSettingsMigratedDispatch: (input) => dispatch(setSettingsMigrated(input)),
-    setSettingsSupportedDispatch: (input) => dispatch(setSettingsSupported(input)),
-    setSettingsDispatch: (input) => dispatch(setSettings(input)),
-    setSettingsAllowAutoDispatch: (input) => dispatch(setSettingsAllowAutoAllocation(input)),
-    setSettingsSequenceFrequencyDispatch: (input) => dispatch(setSettingsSequenceFrequency(input)),
-    setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+  setSettingsCapacityDispatch: input => dispatch(setSettingsCapacity(input)),
+  setSettingsExtCapacityDispatch: input => dispatch(setSettingsExtCapacity(input)),
+  setSettingsMigratedDispatch: input => dispatch(setSettingsMigrated(input)),
+  setSettingsSupportedDispatch: input => dispatch(setSettingsSupported(input)),
+  setSettingsDispatch: input => dispatch(setSettings(input)),
+  setSettingsAllowAutoDispatch: input => dispatch(setSettingsAllowAutoAllocation(input)),
+  setSettingsSequenceFrequencyDispatch: input => dispatch(setSettingsSequenceFrequency(input)),
+  setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
+  resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
+})
 
-export { KeyworkerSettingsContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerSettingsContainer));
-
+export { KeyworkerSettingsContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(KeyworkerSettingsContainer))

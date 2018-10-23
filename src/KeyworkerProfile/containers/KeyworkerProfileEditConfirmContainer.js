@@ -1,114 +1,154 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { setKeyworker, setKeyworkerStatusChangeBehaviour } from '../../redux/actions/index';
-import { connect } from 'react-redux';
-import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfirm';
-import Error from '../../Error';
-import { withRouter } from 'react-router';
-import { resetValidationErrors, setMessage, setValidationError, setAnnualLeaveReturnDate } from "../../redux/actions";
-import axios from "axios";
-import * as behaviours from '../keyworkerStatusBehavour';
-import moment from 'moment';
-import { switchToIsoDateFormat, isBlank } from '../../stringUtils';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import axios from 'axios'
+import moment from 'moment'
+import {
+  setKeyworker,
+  setKeyworkerStatusChangeBehaviour,
+  resetValidationErrors,
+  setMessage,
+  setValidationError,
+  setAnnualLeaveReturnDate,
+} from '../../redux/actions'
+import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfirm'
+import Error from '../../Error'
+import * as behaviours from '../keyworkerStatusBehavour'
+import { switchToIsoDateFormat, isBlank } from '../../stringUtils'
 
 class KeyworkerProfileEditConfirmContainer extends Component {
-  constructor () {
-    super();
-    this.handleSaveChanges = this.handleSaveChanges.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleOptionChange = this.handleOptionChange.bind(this);
+  constructor() {
+    super()
+    this.handleSaveChanges = this.handleSaveChanges.bind(this)
+    this.handleDateChange = this.handleDateChange.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
+    this.handleOptionChange = this.handleOptionChange.bind(this)
   }
 
-  componentDidMount () {
-    if (!this.props.status || this.props.status === '') {
-      this.props.history.push(`/keyworker/${this.props.match.params.staffId}/profile`);
+  componentDidMount() {
+    const { status, history, match, setStatusChangeBehaviourDispatch, dateDispatch } = this.props
+
+    if (!status || status === '') {
+      history.push(`/keyworker/${match.params.staffId}/profile`)
     }
-    if (this.props.status === 'INACTIVE') {
-      this.props.setStatusChangeBehaviourDispatch('REMOVE_ALLOCATIONS_NO_AUTO');
+    if (status === 'INACTIVE') {
+      setStatusChangeBehaviourDispatch('REMOVE_ALLOCATIONS_NO_AUTO')
     } else {
-      this.props.setStatusChangeBehaviourDispatch('');
+      setStatusChangeBehaviourDispatch('')
     }
-    this.props.dateDispatch('');
+    dateDispatch('')
   }
 
-  async handleSaveChanges (history) {
-    if (!this.validate()) {
-      return;
-    }
+  async handleSaveChanges(history) {
+    const { behaviour, keyworker, setMessageDispatch, handleError } = this.props
+
+    if (!this.validate()) return
+
     try {
-      await this.postKeyworkerUpdate();
-      if (this.props.behaviour === behaviours.REMOVE_ALLOCATIONS_NO_AUTO) {
-        if (this.props.keyworker.numberAllocated > 0) {
-          this.props.setMessageDispatch("Prisoners removed from key worker");
+      await this.postKeyworkerUpdate()
+      if (behaviour === behaviours.REMOVE_ALLOCATIONS_NO_AUTO) {
+        if (keyworker.numberAllocated > 0) {
+          setMessageDispatch('Prisoners removed from key worker')
         } else {
-          this.props.setMessageDispatch("Profile changed");
+          setMessageDispatch('Profile changed')
         }
       } else {
-        this.props.setMessageDispatch("Profile changed");
+        setMessageDispatch('Profile changed')
       }
       // On success, return to KW profile by 'popping' history
-      history.goBack();
+      history.goBack()
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  validate () {
-    this.props.resetValidationErrorsDispatch();
-    let result = true;
-    if (!this.props.behaviour) {
-      this.props.setValidationErrorDispatch("behaviourRadios", "Please choose an option");
-      result = false;
+  validate() {
+    const {
+      behaviour,
+      status,
+      annualLeaveReturnDate,
+      resetValidationErrorsDispatch,
+      setValidationErrorDispatch,
+    } = this.props
+
+    resetValidationErrorsDispatch()
+    let result = true
+    if (!behaviour) {
+      setValidationErrorDispatch('behaviourRadios', 'Please choose an option')
+      result = false
     }
-    if (this.props.status === 'UNAVAILABLE_ANNUAL_LEAVE' && isBlank(this.props.annualLeaveReturnDate)) {
-      this.props.setValidationErrorDispatch("active-date", "Please choose a return date");
-      result = false;
+    if (status === 'UNAVAILABLE_ANNUAL_LEAVE' && isBlank(annualLeaveReturnDate)) {
+      setValidationErrorDispatch('active-date', 'Please choose a return date')
+      result = false
     }
-    return result;
+    return result
   }
 
-  async postKeyworkerUpdate () {
-    await axios.post('/api/keyworkerUpdate',
+  async postKeyworkerUpdate() {
+    const {
+      agencyId,
+      keyworker: { staffId },
+      status,
+      capacity,
+      behaviour,
+      annualLeaveReturnDate,
+    } = this.props
+
+    await axios.post(
+      '/api/keyworkerUpdate',
       {
-        keyworker:
-            {
-              status: this.props.status,
-              capacity: this.props.capacity,
-              behaviour: this.props.behaviour,
-              activeDate: switchToIsoDateFormat(this.props.annualLeaveReturnDate)
-            }
+        keyworker: {
+          status,
+          capacity,
+          behaviour,
+          activeDate: switchToIsoDateFormat(annualLeaveReturnDate),
+        },
       },
       {
-        params:
-            {
-              agencyId: this.props.agencyId,
-              staffId: this.props.keyworker.staffId
-            }
-      });
+        params: {
+          agencyId,
+          staffId,
+        },
+      }
+    )
   }
 
-  handleCancel (history) {
+  handleCancel(history) {
+    const { keyworker } = this.props
+
     // Use replace to ensure the profile page remains the history 'parent'
-    history.replace(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
+    history.replace(`/keyworker/${keyworker.staffId}/profile/edit`)
   }
 
-  handleOptionChange (event) {
-    this.props.setStatusChangeBehaviourDispatch(event.target.value);
+  handleOptionChange(event) {
+    const { setStatusChangeBehaviourDispatch } = this.props
+
+    setStatusChangeBehaviourDispatch(event.target.value)
   }
 
-  handleDateChange (date) {
+  handleDateChange(date) {
+    const { dateDispatch } = this.props
+
     if (date) {
-      this.props.dateDispatch(moment(date).format('DD/MM/YYYY'));
+      dateDispatch(moment(date).format('DD/MM/YYYY'))
     }
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
+  render() {
+    const { error } = this.props
 
-    return <KeyworkerProfileEditConfirm handleSaveChanges={this.handleSaveChanges} handleDateChange={this.handleDateChange} handleCancel={this.handleCancel} handleOptionChange={this.handleOptionChange} {...this.props} />;
+    if (error) return <Error {...this.props} />
+
+    return (
+      <KeyworkerProfileEditConfirm
+        handleSaveChanges={this.handleSaveChanges}
+        handleDateChange={this.handleDateChange}
+        handleCancel={this.handleCancel}
+        handleOptionChange={this.handleOptionChange}
+        {...this.props}
+      />
+    )
   }
 }
 
@@ -129,32 +169,30 @@ KeyworkerProfileEditConfirmContainer.propTypes = {
   history: PropTypes.object.isRequired,
   setValidationErrorDispatch: PropTypes.func,
   resetValidationErrorsDispatch: PropTypes.func,
-  validationErrors: PropTypes.object
-};
+  validationErrors: PropTypes.object,
+}
 
-const mapStateToProps = state => {
-  return {
-    agencyId: state.app.user.activeCaseLoadId,
-    keyworker: state.keyworkerSearch.keyworker,
-    status: state.keyworkerSearch.status,
-    capacity: state.keyworkerSearch.capacity,
-    behaviour: state.keyworkerSearch.statusChangeBehaviour,
-    validationErrors: state.app.validationErrors,
-    annualLeaveReturnDate: state.keyworkerSearch.annualLeaveReturnDate
-  };
-};
+const mapStateToProps = state => ({
+  agencyId: state.app.user.activeCaseLoadId,
+  keyworker: state.keyworkerSearch.keyworker,
+  status: state.keyworkerSearch.status,
+  capacity: state.keyworkerSearch.capacity,
+  behaviour: state.keyworkerSearch.statusChangeBehaviour,
+  validationErrors: state.app.validationErrors,
+  annualLeaveReturnDate: state.keyworkerSearch.annualLeaveReturnDate,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    keyworkerDispatch: object => dispatch(setKeyworker(object)),
-    setMessageDispatch: (message) => dispatch(setMessage(message)),
-    setStatusChangeBehaviourDispatch: (message) => dispatch(setKeyworkerStatusChangeBehaviour(message)),
-    setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors()),
-    dateDispatch: text => dispatch(setAnnualLeaveReturnDate(text))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  keyworkerDispatch: object => dispatch(setKeyworker(object)),
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  setStatusChangeBehaviourDispatch: message => dispatch(setKeyworkerStatusChangeBehaviour(message)),
+  setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
+  resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
+  dateDispatch: text => dispatch(setAnnualLeaveReturnDate(text)),
+})
 
-export { KeyworkerProfileEditConfirmContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditConfirmContainer));
-
+export { KeyworkerProfileEditConfirmContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(KeyworkerProfileEditConfirmContainer))

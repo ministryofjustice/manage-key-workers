@@ -1,49 +1,49 @@
-import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings, maintainRoles } from './index';
-import { setMenuOpen } from "../actions";
-import * as types from '../actions/actionTypes';
-import moment from 'moment';
+import moment from 'moment'
+import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings, maintainRoles } from './index'
+import { setMenuOpen } from '../actions'
+import * as types from '../actions/actionTypes'
 
 const appInitialState = {
   error: null,
   message: null,
-  loaded: false
-};
+  loaded: false,
+}
 
 const appWithErrorState = {
   error: 'There was a problem',
   message: null,
-  loaded: false
-};
+  loaded: false,
+}
 
 const appWithValidationErrorState = {
-  validationErrors: { myField: 'An error!' }
-};
+  validationErrors: { myField: 'An error!' },
+}
 
 const allocatedInitialState = {
   allocatedKeyworkers: [],
   allocatedList: [],
   keyworkerList: [],
   toDate: moment().format('DD/MM/YYYY'),
-  fromDate: moment().format('DD/MM/YYYY')
-};
+  fromDate: moment().format('DD/MM/YYYY'),
+}
 
 const allocatedPopulatedState = {
   allocatedKeyworkers: ['allocatedKeyworkers'],
   allocatedList: ['allocatedList'],
   keyworkerList: ['keyworkerList'],
   toDate: '01/01/2000',
-  fromDate: '01/01/1999'
-};
+  fromDate: '01/01/1999',
+}
 
 const unallocatedInitialState = {
-  unallocatedList: []
-};
+  unallocatedList: [],
+}
 
 const offenderSearchInitialState = {
   searchText: '',
   allocationStatus: 'all',
-  housingLocation: ''
-};
+  housingLocation: '',
+}
 
 const keyworkerSearchInitialState = {
   searchText: '',
@@ -54,10 +54,10 @@ const keyworkerSearchInitialState = {
   keyworkerList: [],
   keyworker: null,
   status: '',
-  capacity: "",
+  capacity: '',
   statusChangeBehaviour: '',
-  annualLeaveReturnDate: ''
-};
+  annualLeaveReturnDate: '',
+}
 
 const keyworkerSearchPopulatedState = {
   searchText: 'yes',
@@ -66,12 +66,12 @@ const keyworkerSearchPopulatedState = {
   keyworkerAllocations: [{ value: 'allocations' }],
   keyworkerChangeList: [],
   keyworkerList: [{ value: 'available keyworkers' }],
-  keyworker: { say: "hello" },
+  keyworker: { say: 'hello' },
   status: 'ACTIVE',
-  capacity: "7",
+  capacity: '7',
   statusChangeBehaviour: 'newBehaviour',
-  annualLeaveReturnDate: '25/06/2018'
-};
+  annualLeaveReturnDate: '25/06/2018',
+}
 
 const keyworkerSettingsInitialState = {
   capacity: 6,
@@ -79,8 +79,8 @@ const keyworkerSettingsInitialState = {
   allowAuto: false,
   sequenceFrequency: 1,
   supported: false,
-  migrated: false
-};
+  migrated: false,
+}
 
 const maintainRolesInitialState = {
   roleList: [],
@@ -91,745 +91,690 @@ const maintainRolesInitialState = {
   pageNumber: 0,
   pageSize: 10,
   totalRecords: 0,
-  contextUser: {}
-};
+  contextUser: {},
+}
 
 describe('app (global) reducer', () => {
   it('should return the initial state', () => {
-    expect(app(undefined, {})).toEqual(
-      {
-        config: { mailTo: '' },
-        user: { activeCaseLoadId: null },
-        shouldShowTerms: false,
-        error: null,
-        message: null,
-        loaded: false,
-        menuOpen: false
-      }
-    );
-  });
+    expect(app(undefined, {})).toEqual({
+      config: { mailTo: '' },
+      user: { activeCaseLoadId: null },
+      shouldShowTerms: false,
+      error: null,
+      message: null,
+      loaded: false,
+      menuOpen: false,
+    })
+  })
 
   it('should handle SET_CONFIG', () => {
     expect(
       app(appInitialState, {
         type: types.SET_CONFIG,
-        config: { mailTo: 'a@b.com' }
-      })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
         config: { mailTo: 'a@b.com' },
-        loaded: false
-      });
-  });
+      })
+    ).toEqual({
+      error: null,
+      message: null,
+      config: { mailTo: 'a@b.com' },
+      loaded: false,
+    })
+  })
 
   it('should handle SET_USER_DETAILS', () => {
     expect(
       app(appInitialState, {
         type: types.SET_USER_DETAILS,
-        user: { field: 'value' }
-      })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
         user: { field: 'value' },
-        loaded: false
-      }
-    );
-  });
+      })
+    ).toEqual({
+      error: null,
+      message: null,
+      user: { field: 'value' },
+      loaded: false,
+    })
+  })
 
   it('should handle SWITCH_AGENCY', () => {
     expect(
       app(appInitialState, {
         type: types.SWITCH_AGENCY,
-        activeCaseLoadId: 'BXI'
+        activeCaseLoadId: 'BXI',
       })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
-        user: { activeCaseLoadId: 'BXI' },
-        loaded: false
-      }
-    );
-  });
+    ).toEqual({
+      error: null,
+      message: null,
+      user: { activeCaseLoadId: 'BXI' },
+      loaded: false,
+    })
+  })
 
   it('should handle SET_TERMS_VISIBILITY', () => {
     expect(
       app(appInitialState, {
         type: types.SET_TERMS_VISIBILITY,
-        shouldShowTerms: true
-      })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
         shouldShowTerms: true,
-        loaded: false
-      }
-    );
-  });
-
+      })
+    ).toEqual({
+      error: null,
+      message: null,
+      shouldShowTerms: true,
+      loaded: false,
+    })
+  })
 
   it('should handle SET_ERROR', () => {
     expect(
       app(appInitialState, {
         type: types.SET_ERROR,
-        error: 'HELP!'
-      })
-    ).toEqual(
-      {
         error: 'HELP!',
-        message: null,
-        loaded: false
-      }
-    );
-  });
+      })
+    ).toEqual({
+      error: 'HELP!',
+      message: null,
+      loaded: false,
+    })
+  })
 
   it('should handle RESET_ERROR', () => {
     expect(
       app(appWithErrorState, {
-        type: types.RESET_ERROR
+        type: types.RESET_ERROR,
       })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
-        loaded: false
-      }
-    );
-  });
+    ).toEqual({
+      error: null,
+      message: null,
+      loaded: false,
+    })
+  })
 
   it('should handle SET_MESSAGE', () => {
     expect(
       app(appInitialState, {
         type: types.SET_MESSAGE,
-        message: 'An important message!'
-      })
-    ).toEqual(
-      {
-        error: null,
         message: 'An important message!',
-        loaded: false
-      }
-    );
-  });
+      })
+    ).toEqual({
+      error: null,
+      message: 'An important message!',
+      loaded: false,
+    })
+  })
 
   it('should handle SET_LOADED', () => {
     expect(
       app(appInitialState, {
         type: types.SET_LOADED,
-        loaded: true
+        loaded: true,
       })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
-        loaded: true
-      }
-    );
-  });
+    ).toEqual({
+      error: null,
+      message: null,
+      loaded: true,
+    })
+  })
 
   it('should handle SET_VALIDATION_ERROR (first error)', () => {
     expect(
       app(appInitialState, {
         type: types.SET_VALIDATION_ERROR,
         fieldName: 'myField',
-        message: 'An error!'
+        message: 'An error!',
       })
-    ).toEqual(
-      {
-        error: null,
-        message: null,
-        loaded: false,
-        validationErrors: { myField: 'An error!' }
-      }
-    );
-  });
+    ).toEqual({
+      error: null,
+      message: null,
+      loaded: false,
+      validationErrors: { myField: 'An error!' },
+    })
+  })
 
   it('should handle SET_VALIDATION_ERROR (second error)', () => {
     expect(
       app(appWithValidationErrorState, {
         type: types.SET_VALIDATION_ERROR,
         fieldName: 'myField2',
-        message: 'Another error!'
+        message: 'Another error!',
       })
-    ).toEqual(
-      {
-        validationErrors: {
-          myField: 'An error!',
-          myField2: 'Another error!'
-        }
-      }
-    );
-  });
+    ).toEqual({
+      validationErrors: {
+        myField: 'An error!',
+        myField2: 'Another error!',
+      },
+    })
+  })
 
   it('should handle RESET_VALIDATION_ERRORS', () => {
     expect(
       app(appWithValidationErrorState, {
-        type: types.RESET_VALIDATION_ERRORS
+        type: types.RESET_VALIDATION_ERRORS,
       })
-    ).toEqual(
-      {
-        validationErrors: null
-      }
-    );
-  });
-});
+    ).toEqual({
+      validationErrors: null,
+    })
+  })
+})
 
 describe('unallocated reducer', () => {
   it('should return the initial state', () => {
-    expect(unallocated(undefined, {})).toEqual(
-      {
-        unallocatedList: []
-      }
-    );
-  });
+    expect(unallocated(undefined, {})).toEqual({
+      unallocatedList: [],
+    })
+  })
 
   it('should handle SET_UNALLOCATED', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
     expect(
       unallocated(unallocatedInitialState, {
         type: types.SET_UNALLOCATED_LIST,
-        unallocatedList: list
+        unallocatedList: list,
       })
-    ).toEqual(
-      {
-        unallocatedList: list
-      }
-    );
-  });
-});
+    ).toEqual({
+      unallocatedList: list,
+    })
+  })
+})
 
 describe('allocated reducer', () => {
   it('should return the initial state', () => {
-    expect(allocated(undefined, {})).toEqual(
-      {
-        allocatedKeyworkers: [],
-        allocatedList: [],
-        keyworkerList: [],
-        fromDate: moment().format('DD/MM/YYYY'),
-        toDate: moment().format('DD/MM/YYYY')
-      }
-    );
-  });
+    expect(allocated(undefined, {})).toEqual({
+      allocatedKeyworkers: [],
+      allocatedList: [],
+      keyworkerList: [],
+      fromDate: moment().format('DD/MM/YYYY'),
+      toDate: moment().format('DD/MM/YYYY'),
+    })
+  })
 
   it('should handle SET_ALLOCATED_DETAILS', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    const keyWorkers = [{ name: 'Amy', staffId: 123 }];
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
+    const keyWorkers = [{ name: 'Amy', staffId: 123 }]
     expect(
       allocated(allocatedInitialState, {
         type: types.SET_ALLOCATED_DETAILS,
         allocatedList: list,
-        keyworkerList: keyWorkers
-      })
-    ).toEqual(
-      {
-        allocatedList: list,
         keyworkerList: keyWorkers,
-        fromDate: moment().format('DD/MM/YYYY'),
-        toDate: moment().format('DD/MM/YYYY'),
-        allocatedKeyworkers: []
-      }
-    );
-  });
+      })
+    ).toEqual({
+      allocatedList: list,
+      keyworkerList: keyWorkers,
+      fromDate: moment().format('DD/MM/YYYY'),
+      toDate: moment().format('DD/MM/YYYY'),
+      allocatedKeyworkers: [],
+    })
+  })
 
   it('should clear allocated keyworkers when SET_ALLOCATED_DETAILS is dispatched', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    const keyWorkers = [{ name: 'Amy', staffId: 123 }];
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
+    const keyWorkers = [{ name: 'Amy', staffId: 123 }]
     expect(
       allocated(allocatedPopulatedState, {
         type: types.SET_ALLOCATED_DETAILS,
         allocatedList: list,
-        keyworkerList: keyWorkers
-      })
-    ).toEqual(
-      {
-        allocatedList: list,
         keyworkerList: keyWorkers,
-        fromDate: '01/01/1999',
-        toDate: '01/01/2000',
-        allocatedKeyworkers: []
-      }
-    );
-  });
+      })
+    ).toEqual({
+      allocatedList: list,
+      keyworkerList: keyWorkers,
+      fromDate: '01/01/1999',
+      toDate: '01/01/2000',
+      allocatedKeyworkers: [],
+    })
+  })
 
   it('should handle SET_MANUAL_OVERRIDE_LIST', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
     expect(
       allocated(allocatedInitialState, {
         type: types.SET_MANUAL_OVERRIDE_LIST,
-        allocatedKeyworkers: list
+        allocatedKeyworkers: list,
       })
-    ).toEqual(
-      {
-        allocatedList: [],
-        keyworkerList: [],
-        fromDate: moment().format('DD/MM/YYYY'),
-        toDate: moment().format('DD/MM/YYYY'),
-        allocatedKeyworkers: list
-      }
-    );
-  });
+    ).toEqual({
+      allocatedList: [],
+      keyworkerList: [],
+      fromDate: moment().format('DD/MM/YYYY'),
+      toDate: moment().format('DD/MM/YYYY'),
+      allocatedKeyworkers: list,
+    })
+  })
 
   it('should handle SET_MANUAL_OVERRIDE_DATE_FILTER', () => {
     expect(
       allocated(allocatedPopulatedState, {
         type: types.SET_MANUAL_OVERRIDE_DATE_FILTER,
         date: '01/01/1888',
-        dateName: 'fromDate'
+        dateName: 'fromDate',
       })
-    ).toEqual(
-      {
-        allocatedKeyworkers: ['allocatedKeyworkers'],
-        allocatedList: ['allocatedList'],
-        keyworkerList: ['keyworkerList'],
-        fromDate: '01/01/1888',
-        toDate: '01/01/2000'
-      }
-    );
-  });
-});
+    ).toEqual({
+      allocatedKeyworkers: ['allocatedKeyworkers'],
+      allocatedList: ['allocatedList'],
+      keyworkerList: ['keyworkerList'],
+      fromDate: '01/01/1888',
+      toDate: '01/01/2000',
+    })
+  })
+})
 
 describe('offender search reducer', () => {
   it('should return the initial state', () => {
-    expect(offenderSearch(undefined, {})).toEqual(
-      {
-        searchText: '',
-        allocationStatus: 'all',
-        locations: [],
-        housingLocation: ''
-      }
-    );
-  });
+    expect(offenderSearch(undefined, {})).toEqual({
+      searchText: '',
+      allocationStatus: 'all',
+      locations: [],
+      housingLocation: '',
+    })
+  })
   it('should handle SET_OFFENDER_SEARCH_TEXT', () => {
-    expect(offenderSearch(offenderSearchInitialState, {
-      type: types.SET_OFFENDER_SEARCH_TEXT,
-      searchText: 'birdman of Alcatraz'
-    })).toEqual(
-      {
+    expect(
+      offenderSearch(offenderSearchInitialState, {
+        type: types.SET_OFFENDER_SEARCH_TEXT,
         searchText: 'birdman of Alcatraz',
-        allocationStatus: 'all',
-        housingLocation: ''
-      }
-    );
-  });
-
+      })
+    ).toEqual({
+      searchText: 'birdman of Alcatraz',
+      allocationStatus: 'all',
+      housingLocation: '',
+    })
+  })
 
   it('should handle SET_OFFENDER_SEARCH_ALLOCATION_STATUS', () => {
-    expect(offenderSearch(offenderSearchInitialState, {
-      type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
-      allocationStatus: 'unallocated'
-    })).toEqual(
-      {
-        searchText: '',
+    expect(
+      offenderSearch(offenderSearchInitialState, {
+        type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
         allocationStatus: 'unallocated',
-        housingLocation: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      allocationStatus: 'unallocated',
+      housingLocation: '',
+    })
+  })
 
   it('should handle SET_OFFENDER_SEARCH_HOUSING_LOCATION', () => {
-    expect(offenderSearch(offenderSearchInitialState, {
-      type: types.SET_OFFENDER_SEARCH_HOUSING_LOCATION,
-      housingLocation: 'Block C'
-    })).toEqual(
-      {
-        searchText: '',
-        allocationStatus: 'all',
-        housingLocation: 'Block C'
-      }
-    );
-  });
+    expect(
+      offenderSearch(offenderSearchInitialState, {
+        type: types.SET_OFFENDER_SEARCH_HOUSING_LOCATION,
+        housingLocation: 'Block C',
+      })
+    ).toEqual({
+      searchText: '',
+      allocationStatus: 'all',
+      housingLocation: 'Block C',
+    })
+  })
 
   it('should handle SET_OFFENDER_SEARCH_LOCATIONS', () => {
-    expect(offenderSearch(offenderSearchInitialState, {
-      type: types.SET_OFFENDER_SEARCH_LOCATIONS,
-      locations: ['The Sistine Chapel']
-    })).toEqual(
-      {
-        searchText: '',
-        allocationStatus: 'all',
-        housingLocation: '',
-        locations: ['The Sistine Chapel']
-      }
-    );
-  });
+    expect(
+      offenderSearch(offenderSearchInitialState, {
+        type: types.SET_OFFENDER_SEARCH_LOCATIONS,
+        locations: ['The Sistine Chapel'],
+      })
+    ).toEqual({
+      searchText: '',
+      allocationStatus: 'all',
+      housingLocation: '',
+      locations: ['The Sistine Chapel'],
+    })
+  })
 
   it('should handle SET_OFFENDER_SEARCH_RESULTS', () => {
-    expect(offenderSearch(offenderSearchInitialState, {
-      type: types.SET_OFFENDER_SEARCH_RESULTS,
-      offenderResults: [{ lastName: "Bloggs" }]
-    })).toEqual(
-      {
-        searchText: '',
-        allocationStatus: 'all',
-        housingLocation: '',
-        offenderResults: [{ lastName: "Bloggs" }]
-      }
-    );
-  });
-});
+    expect(
+      offenderSearch(offenderSearchInitialState, {
+        type: types.SET_OFFENDER_SEARCH_RESULTS,
+        offenderResults: [{ lastName: 'Bloggs' }],
+      })
+    ).toEqual({
+      searchText: '',
+      allocationStatus: 'all',
+      housingLocation: '',
+      offenderResults: [{ lastName: 'Bloggs' }],
+    })
+  })
+})
 
 describe('key worker search reducer', () => {
   it('should handle SET_KEY_WORKER_SEARCH_TEXT', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_SEARCH_TEXT,
-      searchText: 'Kelly Keyworker'
-    })).toEqual(
-      {
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_SEARCH_TEXT,
         searchText: 'Kelly Keyworker',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: null,
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: 'Kelly Keyworker',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: null,
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_STATUS_FILTER', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_STATUS_FILTER,
-      statusFilter: 'INACTIVE'
-    })).toEqual(
-      {
-        searchText: '',
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_STATUS_FILTER,
         statusFilter: 'INACTIVE',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: null,
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: 'INACTIVE',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: null,
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_SEARCH_RESULTS', () => {
-    const list = [{ firstName: 'Jack', surname: 'Brown' }];
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_SEARCH_RESULTS_LIST,
-      keyworkerSearchResults: list
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
+    const list = [{ firstName: 'Jack', surname: 'Brown' }]
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_SEARCH_RESULTS_LIST,
         keyworkerSearchResults: list,
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: null,
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: list,
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: null,
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER,
-      keyworker: { key: 'value' }
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER,
         keyworker: { key: 'value' },
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: { key: 'value' },
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_STATS', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_STATS,
-      stats: { hello: 'world' }
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: { stats: { hello: 'world' } },
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_STATS,
+        stats: { hello: 'world' },
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: { stats: { hello: 'world' } },
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_CHANGE_LIST', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_CHANGE_LIST,
-      keyworkerChangeList: [{ key: 'value' }]
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_CHANGE_LIST,
         keyworkerChangeList: [{ key: 'value' }],
-        keyworkerList: [],
-        keyworker: null,
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [{ key: 'value' }],
+      keyworkerList: [],
+      keyworker: null,
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_AVAILABLE_KEY_WORKER_LIST', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_AVAILABLE_KEY_WORKER_LIST,
-      keyworkerList: [{ key: 'value' }]
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_AVAILABLE_KEY_WORKER_LIST,
         keyworkerList: [{ key: 'value' }],
-        keyworker: null,
-        status: '',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [{ key: 'value' }],
+      keyworker: null,
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_CAPACITY', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_CAPACITY,
-      capacity: '9'
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: null,
-        status: '',
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_CAPACITY,
         capacity: '9',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: null,
+      status: '',
+      capacity: '9',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_STATUS', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_STATUS,
-      status: 'Unavailable'
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: null,
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_STATUS,
         status: 'Unavailable',
-        capacity: '',
-        statusChangeBehaviour: '',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: null,
+      status: 'Unavailable',
+      capacity: '',
+      statusChangeBehaviour: '',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR', () => {
-    expect(keyworkerSearch(keyworkerSearchInitialState, {
-      type: types.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
-      statusChangeBehaviour: 'runAround'
-    })).toEqual(
-      {
-        searchText: '',
-        statusFilter: '',
-        keyworkerSearchResults: [],
-        keyworkerAllocations: [],
-        keyworkerChangeList: [],
-        keyworkerList: [],
-        keyworker: null,
-        status: '',
-        capacity: '',
+    expect(
+      keyworkerSearch(keyworkerSearchInitialState, {
+        type: types.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
         statusChangeBehaviour: 'runAround',
-        annualLeaveReturnDate: ''
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: '',
+      statusFilter: '',
+      keyworkerSearchResults: [],
+      keyworkerAllocations: [],
+      keyworkerChangeList: [],
+      keyworkerList: [],
+      keyworker: null,
+      status: '',
+      capacity: '',
+      statusChangeBehaviour: 'runAround',
+      annualLeaveReturnDate: '',
+    })
+  })
 
   it('should handle SET_KEY_WORKER maintaining existing state', () => {
-    expect(keyworkerSearch(keyworkerSearchPopulatedState, {
-      type: types.SET_KEY_WORKER,
-      keyworker: { key: 'value' }
-    })).toEqual(
-      {
-        searchText: 'yes',
-        statusFilter: 'UNAVAILABLE',
-        keyworkerSearchResults: [{ value: 'search' }],
-        keyworkerAllocations: [{ value: 'allocations' }],
-        keyworkerChangeList: [],
-        keyworkerList: [{ value: 'available keyworkers' }],
+    expect(
+      keyworkerSearch(keyworkerSearchPopulatedState, {
+        type: types.SET_KEY_WORKER,
         keyworker: { key: 'value' },
-        status: 'ACTIVE',
-        capacity: '7',
-        statusChangeBehaviour: 'newBehaviour',
-        annualLeaveReturnDate: '25/06/2018'
-      }
-    );
-  });
+      })
+    ).toEqual({
+      searchText: 'yes',
+      statusFilter: 'UNAVAILABLE',
+      keyworkerSearchResults: [{ value: 'search' }],
+      keyworkerAllocations: [{ value: 'allocations' }],
+      keyworkerChangeList: [],
+      keyworkerList: [{ value: 'available keyworkers' }],
+      keyworker: { key: 'value' },
+      status: 'ACTIVE',
+      capacity: '7',
+      statusChangeBehaviour: 'newBehaviour',
+      annualLeaveReturnDate: '25/06/2018',
+    })
+  })
 
   it('should handle SET_ANNUAL_LEAVE_RETURN_DATE maintaining existing state', () => {
-    expect(keyworkerSearch(keyworkerSearchPopulatedState, {
-      type: types.SET_ANNUAL_LEAVE_RETURN_DATE,
-      annualLeaveReturnDate: '23/23/2017'
-    })).toEqual(
-      {
-        searchText: 'yes',
-        statusFilter: 'UNAVAILABLE',
-        keyworkerSearchResults: [{ value: 'search' }],
-        keyworkerAllocations: [{ value: 'allocations' }],
-        keyworkerChangeList: [],
-        keyworkerList: [{ value: 'available keyworkers' }],
-        keyworker: { say: 'hello' },
-        status: 'ACTIVE',
-        capacity: '7',
-        statusChangeBehaviour: 'newBehaviour',
-        annualLeaveReturnDate: '23/23/2017'
-      }
-    );
-  });
+    expect(
+      keyworkerSearch(keyworkerSearchPopulatedState, {
+        type: types.SET_ANNUAL_LEAVE_RETURN_DATE,
+        annualLeaveReturnDate: '23/23/2017',
+      })
+    ).toEqual({
+      searchText: 'yes',
+      statusFilter: 'UNAVAILABLE',
+      keyworkerSearchResults: [{ value: 'search' }],
+      keyworkerAllocations: [{ value: 'allocations' }],
+      keyworkerChangeList: [],
+      keyworkerList: [{ value: 'available keyworkers' }],
+      keyworker: { say: 'hello' },
+      status: 'ACTIVE',
+      capacity: '7',
+      statusChangeBehaviour: 'newBehaviour',
+      annualLeaveReturnDate: '23/23/2017',
+    })
+  })
   it('should handle SET_MENU_OPEN', () => {
-    let state = app(appInitialState, setMenuOpen(true));
+    let state = app(appInitialState, setMenuOpen(true))
 
-    expect(state.menuOpen).toBe(true);
+    expect(state.menuOpen).toBe(true)
 
-    state = app(appInitialState, setMenuOpen(false));
+    state = app(appInitialState, setMenuOpen(false))
 
-    expect(state.menuOpen).toBe(false);
-  });
-});
+    expect(state.menuOpen).toBe(false)
+  })
+})
 
 describe('key worker settings reducer', () => {
   it('should return the initial state', () => {
-    expect(keyworkerSettings(undefined, {})).toEqual(
-      keyworkerSettingsInitialState
-    );
-  });
+    expect(keyworkerSettings(undefined, {})).toEqual(keyworkerSettingsInitialState)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS_CAPACITY', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.capacity = 4;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.capacity = 4
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
         type: types.SET_KEYWORKER_SETTINGS_CAPACITY,
-        capacity: 4
+        capacity: 4,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
+    ).toEqual(updatedKeyworkerSettings)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS_EXT_CAPACITY', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.extCapacity = 11;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.extCapacity = 11
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
         type: types.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
-        extCapacity: 11
+        extCapacity: 11,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
+    ).toEqual(updatedKeyworkerSettings)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.sequenceFrequency = 11;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.sequenceFrequency = 11
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
         type: types.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
-        sequenceFrequency: 11
+        sequenceFrequency: 11,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
+    ).toEqual(updatedKeyworkerSettings)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.allowAuto = true;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.allowAuto = true
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
         type: types.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
-        allowAuto: true
+        allowAuto: true,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
+    ).toEqual(updatedKeyworkerSettings)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS_MIGRATED', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.migrated = true;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.migrated = true
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
         type: types.SET_KEYWORKER_SETTINGS_MIGRATED,
-        migrated: true
+        migrated: true,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
+    ).toEqual(updatedKeyworkerSettings)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS_SUPPORTED', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.supported = true;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.supported = true
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
         type: types.SET_KEYWORKER_SETTINGS_SUPPORTED,
-        supported: true
+        supported: true,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
+    ).toEqual(updatedKeyworkerSettings)
+  })
 
   it('should handle SET_KEYWORKER_SETTINGS', () => {
-    let updatedKeyworkerSettings = keyworkerSettingsInitialState;
-    updatedKeyworkerSettings.supported = true;
-    updatedKeyworkerSettings.capacity = 1;
-    updatedKeyworkerSettings.extCapacity = 2;
-    updatedKeyworkerSettings.sequenceFrequency = 3;
-    updatedKeyworkerSettings.allowAuto = true;
-    updatedKeyworkerSettings.migrated = true;
+    const updatedKeyworkerSettings = keyworkerSettingsInitialState
+    updatedKeyworkerSettings.supported = true
+    updatedKeyworkerSettings.capacity = 1
+    updatedKeyworkerSettings.extCapacity = 2
+    updatedKeyworkerSettings.sequenceFrequency = 3
+    updatedKeyworkerSettings.allowAuto = true
+    updatedKeyworkerSettings.migrated = true
 
     expect(
       keyworkerSettings(keyworkerSettingsInitialState, {
@@ -839,141 +784,117 @@ describe('key worker settings reducer', () => {
         allowAuto: true,
         capacity: 1,
         extCapacity: 2,
-        sequenceFrequency: 3
+        sequenceFrequency: 3,
       })
-    ).toEqual(
-      updatedKeyworkerSettings
-    );
-  });
-});
+    ).toEqual(updatedKeyworkerSettings)
+  })
+})
 
 describe('Maintain roles reducer', () => {
   it('should return the initial state', () => {
-    expect(maintainRoles(undefined, {})).toEqual(
-      maintainRolesInitialState
-    );
-  });
+    expect(maintainRoles(undefined, {})).toEqual(maintainRolesInitialState)
+  })
 
   it('should handle SET_USER_SEARCH_ROLE_FILTER', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.roleFilter = 'newRole';
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.roleFilter = 'newRole'
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_ROLE_FILTER,
-        roleFilter: 'newRole'
+        roleFilter: 'newRole',
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_NAME_FILTER', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.nameFilter = 'name';
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.nameFilter = 'name'
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_NAME_FILTER,
-        nameFilter: 'name'
+        nameFilter: 'name',
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_PAGINATION_PAGE_SIZE', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.pageSize = 5;
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.pageSize = 5
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
-        pageSize: 5
+        pageSize: 5,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_PAGINATION_PAGE_NUMBER', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.pageNumber = 5;
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.pageNumber = 5
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
-        pageNumber: 5
+        pageNumber: 5,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS', () => {
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.totalRecords = 5;
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.totalRecords = 5
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
-        totalRecords: 5
+        totalRecords: 5,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_ROLE_LIST', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.roleList = list;
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.roleList = list
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_ROLE_LIST,
-        roleList: list
+        roleList: list,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_ROLE_FILTER_LIST', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.roleFilterList = list;
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.roleFilterList = list
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_ROLE_FILTER_LIST,
-        roleFilterList: list
+        roleFilterList: list,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_USER_LIST', () => {
-    const list = [{ name: 'Jack', keyworker: 'Jill' }];
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.userList = list;
+    const list = [{ name: 'Jack', keyworker: 'Jill' }]
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.userList = list
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_RESULTS_LIST,
-        userList: list
+        userList: list,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
+    ).toEqual(updatedMaintainRoles)
+  })
 
   it('should handle SET_USER_SEARCH_CONTEXT_USER', () => {
-    const user = { firstName: 'Jack', lastName: 'Jill' };
-    let updatedMaintainRoles = maintainRolesInitialState;
-    updatedMaintainRoles.contextUser = user;
+    const user = { firstName: 'Jack', lastName: 'Jill' }
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.contextUser = user
     expect(
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_CONTEXT_USER,
-        contextUser: user
+        contextUser: user,
       })
-    ).toEqual(
-      updatedMaintainRoles
-    );
-  });
-});
-
-
+    ).toEqual(updatedMaintainRoles)
+  })
+})

@@ -1,18 +1,18 @@
-import { combineReducers } from 'redux';
-import * as ActionTypes from '../actions/actionTypes';
-import moment from 'moment';
+import { combineReducers } from 'redux'
+import moment from 'moment'
+import * as ActionTypes from '../actions/actionTypes'
 
 const unallocatedInitialState = {
-  unallocatedList: []
-};
+  unallocatedList: [],
+}
 
 const allocatedInitialState = {
   allocatedList: [],
   keyworkerList: [],
   allocatedKeyworkers: [],
   toDate: moment().format('DD/MM/YYYY'),
-  fromDate: moment().format('DD/MM/YYYY')
-};
+  fromDate: moment().format('DD/MM/YYYY'),
+}
 
 const appInitialState = {
   config: { mailTo: '' },
@@ -21,15 +21,15 @@ const appInitialState = {
   error: null,
   message: null,
   loaded: false,
-  menuOpen: false
-};
+  menuOpen: false,
+}
 
 const offenderSearchInitialState = {
   searchText: '',
   housingLocation: '',
   locations: [],
-  allocationStatus: 'all'
-};
+  allocationStatus: 'all',
+}
 
 const keyworkerSearchInitialState = {
   searchText: '',
@@ -42,12 +42,12 @@ const keyworkerSearchInitialState = {
   status: '',
   capacity: 0,
   statusChangeBehaviour: '',
-  annualLeaveReturnDate: ''
-};
+  annualLeaveReturnDate: '',
+}
 
 const allocationHistoryInitialState = {
-  allocationHistory: {}
-};
+  allocationHistory: {},
+}
 
 const keyworkerSettingsInitialState = {
   capacity: 6,
@@ -55,8 +55,8 @@ const keyworkerSettingsInitialState = {
   allowAuto: false,
   sequenceFrequency: 1,
   supported: false,
-  migrated: false
-};
+  migrated: false,
+}
 
 const maintainRolesInitialState = {
   roleList: [],
@@ -67,283 +67,317 @@ const maintainRolesInitialState = {
   pageNumber: 0,
   pageSize: 10,
   totalRecords: 0,
-  contextUser: {}
-};
+  contextUser: {},
+}
 
-export function app (state = appInitialState, action) {
+export function app(state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_CONFIG:
       return updateObject(state, {
-        config: action.config
-      });
+        config: action.config,
+      })
     case ActionTypes.SET_USER_DETAILS:
       return updateObject(state, {
-        user: action.user
-      });
+        user: action.user,
+      })
     case ActionTypes.SWITCH_AGENCY:
-      return { ...state, user: { ...state.user, activeCaseLoadId: action.activeCaseLoadId } };
+      return { ...state, user: { ...state.user, activeCaseLoadId: action.activeCaseLoadId } }
 
     case ActionTypes.SET_TERMS_VISIBILITY:
-      return { ...state, shouldShowTerms: action.shouldShowTerms };
+      return { ...state, shouldShowTerms: action.shouldShowTerms }
 
     case ActionTypes.SET_ERROR:
       return updateObject(state, {
-        error: action.error
-      });
+        error: action.error,
+      })
     case ActionTypes.RESET_ERROR:
       return updateObject(state, {
-        error: null
-      });
+        error: null,
+      })
     case ActionTypes.SET_MESSAGE:
       return {
         ...state,
-        message: action.message
-      };
+        message: action.message,
+      }
     case ActionTypes.SET_LOADED:
       return {
         ...state,
-        loaded: action.loaded
-      };
-    case ActionTypes.SET_VALIDATION_ERROR:
-      const newError = { [action.fieldName]: action.message };
+        loaded: action.loaded,
+      }
+    case ActionTypes.SET_VALIDATION_ERROR: {
+      const newError = { [action.fieldName]: action.message }
       return {
         ...state,
-        validationErrors: state.validationErrors ?
-          { ...state.validationErrors, ...newError } :
-          newError
-      };
+        validationErrors: state.validationErrors ? { ...state.validationErrors, ...newError } : newError,
+      }
+    }
     case ActionTypes.RESET_VALIDATION_ERRORS:
       return {
         ...state,
-        validationErrors: null
-      };
+        validationErrors: null,
+      }
     case ActionTypes.SET_MENU_OPEN:
       return {
         ...state,
-        menuOpen: action.payload
-      };
+        menuOpen: action.payload,
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export function unallocated (state = unallocatedInitialState, action) {
+export function unallocated(state = unallocatedInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_UNALLOCATED_LIST:
-      return updateObject(state, { unallocatedList: action.unallocatedList });
+      return updateObject(state, { unallocatedList: action.unallocatedList })
     default:
-      return state;
+      return state
   }
 }
 
-export function allocated (state = allocatedInitialState, action) {
+export function allocated(state = allocatedInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_ALLOCATED_DETAILS:
       return updateObject(state, {
         allocatedList: action.allocatedList,
         keyworkerList: action.keyworkerList,
-        allocatedKeyworkers: []
-      });
+        allocatedKeyworkers: [],
+      })
     case ActionTypes.SET_MANUAL_OVERRIDE_LIST:
       return updateObject(state, {
-        allocatedKeyworkers: action.allocatedKeyworkers
-      });
+        allocatedKeyworkers: action.allocatedKeyworkers,
+      })
     case ActionTypes.SET_MANUAL_OVERRIDE_DATE_FILTER:
       return updateObject(state, {
-        [action.dateName]: action.date
-      });
+        [action.dateName]: action.date,
+      })
     default:
-      return state;
+      return state
   }
 }
 
-export function offenderSearch (state = offenderSearchInitialState, action) {
+export function offenderSearch(state = offenderSearchInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_OFFENDER_SEARCH_TEXT:
-      return { ...state,
-        searchText: action.searchText
-      };
+      return {
+        ...state,
+        searchText: action.searchText,
+      }
     case ActionTypes.SET_OFFENDER_SEARCH_ALLOCATION_STATUS:
-      return { ...state,
-        allocationStatus: action.allocationStatus
-      };
+      return {
+        ...state,
+        allocationStatus: action.allocationStatus,
+      }
     case ActionTypes.SET_OFFENDER_SEARCH_HOUSING_LOCATION:
-      return { ...state,
-        housingLocation: action.housingLocation
-      };
+      return {
+        ...state,
+        housingLocation: action.housingLocation,
+      }
     case ActionTypes.SET_OFFENDER_SEARCH_LOCATIONS:
-      return { ...state,
-        locations: action.locations
-      };
+      return {
+        ...state,
+        locations: action.locations,
+      }
     case ActionTypes.SWITCH_AGENCY:
-      return Object.assign({}, offenderSearchInitialState);
+      return Object.assign({}, offenderSearchInitialState)
     case ActionTypes.SET_OFFENDER_SEARCH_RESULTS:
-      return { ...state,
-        offenderResults: action.offenderResults
-      };
+      return {
+        ...state,
+        offenderResults: action.offenderResults,
+      }
     case ActionTypes.SET_KEY_WORKER_CHANGE_LIST:
-      return { ...state,
-        keyworkerChangeList: action.keyworkerChangeList
-      };
+      return {
+        ...state,
+        keyworkerChangeList: action.keyworkerChangeList,
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export function keyworkerSearch (state = keyworkerSearchInitialState, action) {
+export function keyworkerSearch(state = keyworkerSearchInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_KEY_WORKER_SEARCH_TEXT:
-      return { ...state,
-        searchText: action.searchText
-      };
+      return {
+        ...state,
+        searchText: action.searchText,
+      }
     case ActionTypes.SET_KEY_WORKER_STATUS_FILTER:
-      return { ...state,
-        statusFilter: action.statusFilter
-      };
+      return {
+        ...state,
+        statusFilter: action.statusFilter,
+      }
     case ActionTypes.SET_KEY_WORKER_SEARCH_RESULTS_LIST:
-      return { ...state,
-        keyworkerSearchResults: action.keyworkerSearchResults
-      };
+      return {
+        ...state,
+        keyworkerSearchResults: action.keyworkerSearchResults,
+      }
     case ActionTypes.SET_KEY_WORKER_ALLOCATION_LIST:
-      return { ...state,
-        keyworkerAllocations: action.keyworkerAllocations
-      };
+      return {
+        ...state,
+        keyworkerAllocations: action.keyworkerAllocations,
+      }
     case ActionTypes.SET_KEY_WORKER:
-      return { ...state,
-        keyworker: action.keyworker
-      };
+      return {
+        ...state,
+        keyworker: action.keyworker,
+      }
     case ActionTypes.SET_KEY_WORKER_STATS:
-      return { ...state,
+      return {
+        ...state,
         keyworker: {
           ...state.keyworker,
-          stats: action.stats
-        }
-      };
+          stats: action.stats,
+        },
+      }
     case ActionTypes.SET_KEY_WORKER_CHANGE_LIST:
-      return { ...state,
-        keyworkerChangeList: action.keyworkerChangeList
-      };
+      return {
+        ...state,
+        keyworkerChangeList: action.keyworkerChangeList,
+      }
     case ActionTypes.SET_AVAILABLE_KEY_WORKER_LIST:
-      return { ...state,
-        keyworkerList: action.keyworkerList
-      };
+      return {
+        ...state,
+        keyworkerList: action.keyworkerList,
+      }
     case ActionTypes.SET_KEY_WORKER_CAPACITY:
-      return { ...state,
-        capacity: action.capacity
-      };
+      return {
+        ...state,
+        capacity: action.capacity,
+      }
     case ActionTypes.SET_KEY_WORKER_STATUS:
-      return { ...state,
-        status: action.status
-      };
+      return {
+        ...state,
+        status: action.status,
+      }
     case ActionTypes.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR:
-      return { ...state,
-        statusChangeBehaviour: action.statusChangeBehaviour
-      };
+      return {
+        ...state,
+        statusChangeBehaviour: action.statusChangeBehaviour,
+      }
     case ActionTypes.SET_ANNUAL_LEAVE_RETURN_DATE:
-      return { ...state,
-        annualLeaveReturnDate: action.annualLeaveReturnDate
-      };
+      return {
+        ...state,
+        annualLeaveReturnDate: action.annualLeaveReturnDate,
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export function keyworkerSettings (state = keyworkerSettingsInitialState, action) {
+export function keyworkerSettings(state = keyworkerSettingsInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_KEYWORKER_SETTINGS_CAPACITY:
-      return { ...state,
-        capacity: action.capacity
-      };
+      return {
+        ...state,
+        capacity: action.capacity,
+      }
     case ActionTypes.SET_KEYWORKER_SETTINGS_EXT_CAPACITY:
-      return { ...state,
-        extCapacity: action.extCapacity
-      };
+      return {
+        ...state,
+        extCapacity: action.extCapacity,
+      }
     case ActionTypes.SET_KEYWORKER_SETTINGS_SUPPORTED:
-      return { ...state,
-        supported: action.supported
-      };
+      return {
+        ...state,
+        supported: action.supported,
+      }
     case ActionTypes.SET_KEYWORKER_SETTINGS_MIGRATED:
-      return { ...state,
-        migrated: action.migrated
-      };
+      return {
+        ...state,
+        migrated: action.migrated,
+      }
     case ActionTypes.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION:
-      return { ...state,
-        allowAuto: action.allowAuto
-      };
+      return {
+        ...state,
+        allowAuto: action.allowAuto,
+      }
     case ActionTypes.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY:
-      return { ...state,
-        sequenceFrequency: action.sequenceFrequency
-      };
+      return {
+        ...state,
+        sequenceFrequency: action.sequenceFrequency,
+      }
     case ActionTypes.SET_KEYWORKER_SETTINGS:
-      return { ...state,
+      return {
+        ...state,
         allowAuto: action.allowAuto,
         migrated: action.migrated,
         extCapacity: action.extCapacity,
         capacity: action.capacity,
         supported: action.supported,
-        sequenceFrequency: action.sequenceFrequency
-      };
+        sequenceFrequency: action.sequenceFrequency,
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export function maintainRoles (state = maintainRolesInitialState, action) {
+export function maintainRoles(state = maintainRolesInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_USER_SEARCH_NAME_FILTER:
-      return { ...state,
-        nameFilter: action.nameFilter
-      };
+      return {
+        ...state,
+        nameFilter: action.nameFilter,
+      }
     case ActionTypes.SET_USER_SEARCH_ROLE_FILTER:
-      return { ...state,
-        roleFilter: action.roleFilter
-      };
+      return {
+        ...state,
+        roleFilter: action.roleFilter,
+      }
     case ActionTypes.SET_USER_SEARCH_RESULTS_LIST:
-      return { ...state,
-        userList: action.userList
-      };
+      return {
+        ...state,
+        userList: action.userList,
+      }
     case ActionTypes.SET_USER_SEARCH_ROLE_LIST:
-      return { ...state,
-        roleList: action.roleList
-      };
+      return {
+        ...state,
+        roleList: action.roleList,
+      }
     case ActionTypes.SET_USER_SEARCH_ROLE_FILTER_LIST:
-      return { ...state,
-        roleFilterList: action.roleFilterList
-      };
+      return {
+        ...state,
+        roleFilterList: action.roleFilterList,
+      }
     case ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_SIZE:
-      return { ...state,
-        pageSize: action.pageSize
-      };
+      return {
+        ...state,
+        pageSize: action.pageSize,
+      }
     case ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER:
-      return { ...state,
-        pageNumber: action.pageNumber
-      };
+      return {
+        ...state,
+        pageNumber: action.pageNumber,
+      }
     case ActionTypes.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS:
-      return { ...state,
-        totalRecords: action.totalRecords
-      };
+      return {
+        ...state,
+        totalRecords: action.totalRecords,
+      }
     case ActionTypes.SET_USER_SEARCH_CONTEXT_USER:
-      return { ...state,
-        contextUser: action.contextUser
-      };
+      return {
+        ...state,
+        contextUser: action.contextUser,
+      }
     default:
-      return state;
+      return state
   }
 }
 
-function updateObject (oldObject, newValues) {
-  return Object.assign({}, oldObject, newValues);
+function updateObject(oldObject, newValues) {
+  return Object.assign({}, oldObject, newValues)
 }
 
-export function allocationHistory (state = allocationHistoryInitialState, action) {
+export function allocationHistory(state = allocationHistoryInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_ALLOCATION_HISTORY:
-      return { ...state,
-        allocationHistory: action.allocationHistory
-      };
+      return {
+        ...state,
+        allocationHistory: action.allocationHistory,
+      }
 
     default:
-      return state;
+      return state
   }
 }
 
@@ -355,7 +389,7 @@ const allocationApp = combineReducers({
   keyworkerSearch,
   allocationHistory,
   keyworkerSettings,
-  maintainRoles
-});
+  maintainRoles,
+})
 
-export default allocationApp;
+export default allocationApp

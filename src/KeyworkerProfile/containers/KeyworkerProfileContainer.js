@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import { connect } from 'react-redux';
-import KeyworkerProfile from '../components/KeyworkerProfile';
-import Error from '../../Error';
-import { withRouter } from 'react-router';
-import Spinner from '../../Spinner';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import KeyworkerProfile from '../components/KeyworkerProfile'
+import Error from '../../Error'
+import Spinner from '../../Spinner'
 
 import {
   setKeyworkerAllocationList,
@@ -16,147 +17,167 @@ import {
   setKeyworkerCapacity,
   setMessage,
   setLoaded,
-  setKeyworkerStats
-} from '../../redux/actions/index';
-
-
-import axios from 'axios';
+  setKeyworkerStats,
+} from '../../redux/actions/index'
 
 class KeyworkerProfileContainer extends Component {
-  constructor (props) {
-    super();
-    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this);
-    this.postAllocationChange = this.postAllocationChange.bind(this);
-    this.handleEditProfileClick = this.handleEditProfileClick.bind(this);
-    this.getKeyworkerStats = this.getKeyworkerStats.bind(this);
+  constructor(props) {
+    super()
+    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this)
+    this.postAllocationChange = this.postAllocationChange.bind(this)
+    this.handleEditProfileClick = this.handleEditProfileClick.bind(this)
+    this.getKeyworkerStats = this.getKeyworkerStats.bind(this)
 
-    props.setLoadedDispatch(false);
+    props.setLoadedDispatch(false)
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
+    const { handleError, setLoadedDispatch } = this.props
     try {
-      await this.getKeyworkerProfile();
-      await this.getKeyworkerAllocations();
-      await this.getKeyworkerStats();
+      await this.getKeyworkerProfile()
+      await this.getKeyworkerAllocations()
+      await this.getKeyworkerStats()
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  async getKeyworkerProfile () {
-    const keyworker = await this.makeKeyworkerProfileCall(this.props.match.params.staffId);
-    this.props.keyworkerDispatch(keyworker);
+  async getKeyworkerProfile() {
+    const { match, keyworkerDispatch } = this.props
+    const keyworker = await this.makeKeyworkerProfileCall(match.params.staffId)
+    keyworkerDispatch(keyworker)
   }
 
-
-  async getKeyworkerAllocations () {
-    const allocationsViewModel = await this.makeKeyworkerAllocationsCall(this.props.agencyId, this.props.match.params.staffId);
-    this.props.keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse);
-    this.props.availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse);
-    this.props.keyworkerChangeListDispatch([]);
+  async getKeyworkerAllocations() {
+    const {
+      agencyId,
+      match,
+      keyworkerAllocationsDispatch,
+      availableKeyworkerListDispatch,
+      keyworkerChangeListDispatch,
+    } = this.props
+    const allocationsViewModel = await this.makeKeyworkerAllocationsCall(agencyId, match.params.staffId)
+    keyworkerAllocationsDispatch(allocationsViewModel.allocatedResponse)
+    availableKeyworkerListDispatch(allocationsViewModel.keyworkerResponse)
+    keyworkerChangeListDispatch([])
   }
 
-  async getKeyworkerStats () {
-    const format = 'YYYY-MM-DD';
-    const toDate = moment().subtract(1, 'day').format(format);
-    const fromDate = moment().subtract(1, 'month').subtract(1, 'day').format(format);
+  async getKeyworkerStats() {
+    const { agencyId, match, keyworkerStatsDispatch } = this.props
+    const format = 'YYYY-MM-DD'
+    const toDate = moment()
+      .subtract(1, 'day')
+      .format(format)
+    const fromDate = moment()
+      .subtract(1, 'month')
+      .subtract(1, 'day')
+      .format(format)
 
     const response = await axios.get('/api/keyworker-profile-stats', {
       params: {
-        agencyId: this.props.agencyId,
-        staffId: this.props.match.params.staffId,
+        agencyId,
+        staffId: match.params.staffId,
         fromDate,
         toDate,
-        period: 'month'
-      }
-    });
+        period: 'month',
+      },
+    })
 
-
-    this.props.keyworkerStatsDispatch(response.data);
+    keyworkerStatsDispatch(response.data)
   }
 
-
-  async makeKeyworkerAllocationsCall (agencyId, staffId) {
+  async makeKeyworkerAllocationsCall(agencyId, staffId) {
     const response = await axios.get('/api/keyworkerAllocations', {
       params: {
-        agencyId: agencyId,
-        staffId: staffId
-      }
-    });
-    return response.data;
+        agencyId,
+        staffId,
+      },
+    })
+    return response.data
   }
 
-  handleKeyworkerChange (event, index, offenderNo) {
-    const keyworkerChangeList = [...this.props.keyworkerChangeList];
+  handleKeyworkerChange(event, index, offenderNo) {
+    const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props
+    const changeList = [...keyworkerChangeList]
 
     if (event.target.value === '--') {
-      keyworkerChangeList[index] = null;
+      changeList[index] = null
     } else if (event.target.value === '_DEALLOCATE') {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         deallocate: true,
         staffId: event.target.value,
-        offenderNo: offenderNo
-      };
+        offenderNo,
+      }
     } else {
-      keyworkerChangeList[index] = {
+      changeList[index] = {
         staffId: event.target.value,
-        offenderNo: offenderNo
-      };
+        offenderNo,
+      }
     }
-    this.props.keyworkerChangeListDispatch(keyworkerChangeList);
+    keyworkerChangeListDispatch(changeList)
   }
 
-  async makeKeyworkerProfileCall (staffId) {
+  async makeKeyworkerProfileCall(staffId) {
+    const { agencyId } = this.props
     const response = await axios.get('/api/keyworker', {
       params: {
-        staffId: staffId,
-        agencyId: this.props.agencyId
-      }
-    });
-    return response.data;
+        staffId,
+        agencyId,
+      },
+    })
+    return response.data
   }
 
-  handleEditProfileClick (history) {
+  handleEditProfileClick(history) {
+    const { keyworkerCapacityDispatch, keyworkerStatusDispatch, keyworker } = this.props
     // initialise inputs with current capacity value
-    this.props.keyworkerCapacityDispatch(this.props.keyworker.capacity.toString());
-    this.props.keyworkerStatusDispatch(this.props.keyworker.status);
-    history.push(`/keyworker/${this.props.keyworker.staffId}/profile/edit`);
+    keyworkerCapacityDispatch(keyworker.capacity.toString())
+    keyworkerStatusDispatch(keyworker.status)
+    history.push(`/keyworker/${keyworker.staffId}/profile/edit`)
   }
 
-  async postAllocationChange (history) {
+  async postAllocationChange(history) {
+    const { agencyId, keyworkerChangeList, setMessageDispatch, keyworkerChangeListDispatch, handleError } = this.props
     try {
-      if (this.props.keyworkerChangeList && this.props.keyworkerChangeList.length > 0) {
-        await axios.post('/api/manualoverride',
+      if (keyworkerChangeList && keyworkerChangeList.length > 0) {
+        await axios.post(
+          '/api/manualoverride',
           {
-            allocatedKeyworkers: this.props.keyworkerChangeList
+            allocatedKeyworkers: keyworkerChangeList,
           },
           {
-            params:
-              {
-                agencyId: this.props.agencyId
-              }
-          });
-        this.props.setMessageDispatch('Offender allocation updated.');
-        this.props.keyworkerChangeListDispatch([]);
+            params: {
+              agencyId,
+            },
+          }
+        )
+        setMessageDispatch('Offender allocation updated.')
+        keyworkerChangeListDispatch([])
       }
-      history.push('/');
+      history.push('/')
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<KeyworkerProfile handleKeyworkerChange={this.handleKeyworkerChange}
-        handleAllocationChange={this.postAllocationChange}
-        handleEditProfileClick={this.handleEditProfileClick} {...this.props} />);
+  render() {
+    const { error, loaded } = this.props
+
+    if (error) return <Error {...this.props} />
+
+    if (loaded) {
+      return (
+        <KeyworkerProfile
+          handleKeyworkerChange={this.handleKeyworkerChange}
+          handleAllocationChange={this.postAllocationChange}
+          handleEditProfileClick={this.handleEditProfileClick}
+          {...this.props}
+        />
+      )
     }
 
-    return <Spinner />;
+    return <Spinner />
   }
 }
 
@@ -176,34 +197,32 @@ KeyworkerProfileContainer.propTypes = {
   availableKeyworkerListDispatch: PropTypes.func,
   keyworkerCapacityDispatch: PropTypes.func,
   keyworkerStatusDispatch: PropTypes.func,
-  loaded: PropTypes.bool
-};
+  loaded: PropTypes.bool,
+}
 
-const mapStateToProps = state => {
-  return {
-    agencyId: state.app.user.activeCaseLoadId,
-    keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
-    keyworker: state.keyworkerSearch.keyworker,
-    keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
-    keyworkerList: state.keyworkerSearch.keyworkerList,
-    loaded: state.app.loaded
-  };
-};
+const mapStateToProps = state => ({
+  agencyId: state.app.user.activeCaseLoadId,
+  keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
+  keyworker: state.keyworkerSearch.keyworker,
+  keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
+  keyworkerList: state.keyworkerSearch.keyworkerList,
+  loaded: state.app.loaded,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
-    keyworkerDispatch: id => dispatch(setKeyworker(id)),
-    keyworkerStatsDispatch: stats => dispatch(setKeyworkerStats(stats)),
-    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-    availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
-    keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
-    setMessageDispatch: (message) => dispatch(setMessage(message)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status)),
-    keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
+  keyworkerDispatch: id => dispatch(setKeyworker(id)),
+  keyworkerStatsDispatch: stats => dispatch(setKeyworkerStats(stats)),
+  keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+  availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
+  keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+  keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status)),
+})
 
-export { KeyworkerProfileContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileContainer));
-
+export { KeyworkerProfileContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(KeyworkerProfileContainer))

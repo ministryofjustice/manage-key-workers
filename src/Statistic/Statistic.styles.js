@@ -1,11 +1,11 @@
-import styled from 'react-emotion';
-import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants';
+import styled from 'react-emotion'
+import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants'
 
 export const Container = styled('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
-`;
+`
 
 export const Heading = styled('h2')`
   flex: 1;
@@ -15,7 +15,7 @@ export const Heading = styled('h2')`
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
     font-size: ${FONT_SIZE.SIZE_19};
   }
-`;
+`
 
 export const Value = styled('strong')`
   display: block;
@@ -27,7 +27,7 @@ export const Value = styled('strong')`
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
     font-size: 36px;
   }
-`;
+`
 
 export const Change = styled('p')`
   display: flex;
@@ -42,4 +42,4 @@ export const Change = styled('p')`
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
     font-size: ${FONT_SIZE.SIZE_19};
   }
-`;
+`

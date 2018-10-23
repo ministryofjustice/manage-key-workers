@@ -1,6 +1,4 @@
-
-
 export default {
   customerName: 'HMPPS',
-  serviceName: 'Prison-NOMIS'
-};
+  serviceName: 'Prison-NOMIS',
+}

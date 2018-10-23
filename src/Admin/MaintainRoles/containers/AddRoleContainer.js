@@ -1,112 +1,133 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+import axios from 'axios'
+import { withRouter } from 'react-router'
+import Error from '../../../Error'
 import {
   resetError,
   setMaintainRolesRoleFilter,
   setMessage,
   setMaintainRolesUserContextUser,
   setMaintainRolesRoleFilterList,
-  setMaintainRolesRoleList, setValidationError, resetValidationErrors, setLoaded
-} from '../../../redux/actions/index';
-import { connect } from 'react-redux';
-import Error from '../../../Error';
-
-import axios from "axios";
-import { withRouter } from 'react-router';
-import { AddRole } from "../components/AddRole";
-import { isBlank } from "../../../stringUtils";
-import Spinner from "../../../Spinner";
+  setMaintainRolesRoleList,
+  setValidationError,
+  resetValidationErrors,
+  setLoaded,
+} from '../../../redux/actions/index'
+import { AddRole } from '../components/AddRole'
+import { isBlank } from '../../../stringUtils'
+import Spinner from '../../../Spinner'
 
 class AddRoleContainer extends Component {
-  constructor (props) {
-    super();
-    props.resetErrorDispatch();
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this);
-    props.resetValidationErrorsDispatch();
+  constructor(props) {
+    super()
+    props.resetErrorDispatch()
+    this.handleAdd = this.handleAdd.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
+    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this)
+    props.resetValidationErrorsDispatch()
   }
 
-  async componentDidMount () {
-    this.props.setLoadedDispatch(false);
-    await this.loadUser(this.props.match.params.username);
-    await this.getRoles();
-    this.props.setLoadedDispatch(true);
+  async componentDidMount() {
+    const { setLoadedDispatch, match } = this.props
+
+    setLoadedDispatch(false)
+    await this.loadUser(match.params.username)
+    await this.getRoles()
+    setLoadedDispatch(true)
   }
 
-  handleRoleFilterChange (event) {
-    this.props.setRoleFilterDispatch(event.target.value);
-  }
+  async getRoles() {
+    const { roleFilterListDispatch, handleError, user } = this.props
 
-  handleCancel (e, history) {
-    e.preventDefault();
-    // Return to previous page in history. There can be multiple origin pages.
-    history.goBack();
-  }
-
-  async getRoles () {
     try {
       const roles = await axios.get('/api/getRoles', {
         params: {
-          hasAdminRole: this.props.user.maintainAccessAdmin
-        }
-      });
-      this.props.roleFilterListDispatch(roles.data);
+          hasAdminRole: user.maintainAccessAdmin,
+        },
+      })
+      roleFilterListDispatch(roles.data)
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  async handleAdd (event, history) {
-    if (!this.validate()) {
-      return;
-    }
+  handleRoleFilterChange(event) {
+    const { setRoleFilterDispatch } = this.props
+
+    setRoleFilterDispatch(event.target.value)
+  }
+
+  handleCancel(e, history) {
+    e.preventDefault()
+    // Return to previous page in history. There can be multiple origin pages.
+    history.goBack()
+  }
+
+  async handleAdd(event, history) {
+    const { contextUser, agencyId, roleFilter, setMessageDispatch, handleError } = this.props
+
+    if (!this.validate()) return
+
     try {
       await axios.get('/api/addRole', {
         params: {
-          username: this.props.contextUser.username,
-          agencyId: this.props.agencyId,
-          roleCode: this.props.roleFilter
-        }
-      });
+          username: contextUser.username,
+          agencyId,
+          roleCode: roleFilter,
+        },
+      })
       // await this.getUserRoles();
-      this.props.setMessageDispatch('Role successfully added');
-      history.goBack();
+      setMessageDispatch('Role successfully added')
+      history.goBack()
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  async loadUser (username) {
+  async loadUser(username) {
+    const { contextUserDispatch, handleError } = this.props
+
     try {
       const user = await axios.get('/api/getUser', {
         params: {
-          username: username
-        }
-      });
-      this.props.contextUserDispatch(user.data);
+          username,
+        },
+      })
+      contextUserDispatch(user.data)
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-  validate () {
-    this.props.resetValidationErrorsDispatch();
-    if (isBlank(this.props.roleFilter)) {
-      this.props.setValidationErrorDispatch("role-select", "Please select a role");
-      return false;
+  validate() {
+    const { resetValidationErrorsDispatch, setValidationErrorDispatch, roleFilter } = this.props
+
+    resetValidationErrorsDispatch()
+    if (isBlank(roleFilter)) {
+      setValidationErrorDispatch('role-select', 'Please select a role')
+      return false
     }
-    return true;
+    return true
   }
 
-  render () {
-    if (this.props.error) {
-      return <Error {...this.props} />;
-    }
-    if (this.props.loaded) {
-      return (<AddRole handleAdd={this.handleAdd} handleCancel={this.handleCancel} handleRoleFilterChange={this.handleRoleFilterChange} {...this.props}/>);
-    }
-    return <Spinner />;
+  render() {
+    const { error, loaded } = this.props
+
+    if (error) return <Error {...this.props} />
+
+    if (loaded)
+      return (
+        <AddRole
+          handleAdd={this.handleAdd}
+          handleCancel={this.handleCancel}
+          handleRoleFilterChange={this.handleRoleFilterChange}
+          {...this.props}
+        />
+      )
+    return <Spinner />
   }
 }
 
@@ -123,35 +144,33 @@ AddRoleContainer.propTypes = {
   contextUser: PropTypes.object.isRequired,
   setMessageDispatch: PropTypes.func,
   resetValidationErrorsDispatch: PropTypes.func,
-  setValidationErrorDispatch: PropTypes.func
-};
+  setValidationErrorDispatch: PropTypes.func,
+}
 
-const mapStateToProps = state => {
-  return {
-    agencyId: state.app.user.activeCaseLoadId,
-    contextUser: state.maintainRoles.contextUser,
-    roleFilterList: state.maintainRoles.roleFilterList,
-    roleList: state.maintainRoles.roleList,
-    roleFilter: state.maintainRoles.roleFilter,
-    validationErrors: state.app.validationErrors,
-    loaded: state.app.loaded
-  };
-};
+const mapStateToProps = state => ({
+  agencyId: state.app.user.activeCaseLoadId,
+  contextUser: state.maintainRoles.contextUser,
+  roleFilterList: state.maintainRoles.roleFilterList,
+  roleList: state.maintainRoles.roleList,
+  roleFilter: state.maintainRoles.roleFilter,
+  validationErrors: state.app.validationErrors,
+  loaded: state.app.loaded,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    resetErrorDispatch: () => dispatch(resetError()),
-    setRoleFilterDispatch: (filter) => dispatch(setMaintainRolesRoleFilter(filter)),
-    roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
-    roleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
-    setMessageDispatch: (message) => dispatch(setMessage(message)),
-    contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
-    setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  resetErrorDispatch: () => dispatch(resetError()),
+  setRoleFilterDispatch: filter => dispatch(setMaintainRolesRoleFilter(filter)),
+  roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
+  roleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
+  setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
+  resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+})
 
-export { AddRoleContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddRoleContainer));
-
+export { AddRoleContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AddRoleContainer))

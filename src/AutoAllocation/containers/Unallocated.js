@@ -1,59 +1,64 @@
-import React, { Component } from 'react';
-import Unallocated from '../components/Unallocated.js';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { setUnallocatedList, setMessage, setLoaded } from '../../redux/actions/index';
-import ErrorComponent from '../../Error/index';
-import { connect } from 'react-redux';
-import Spinner from '../../Spinner/index';
-import { withRouter } from 'react-router';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import Unallocated from '../components/Unallocated'
+import { setUnallocatedList, setMessage, setLoaded } from '../../redux/actions/index'
+import ErrorComponent from '../../Error/index'
+import Spinner from '../../Spinner/index'
 
-import '../../allocation.scss';
+import '../../allocation.scss'
 
 class UnallocatedContainer extends Component {
-  constructor (props) {
-    super();
-    this.gotoManualAllocation = this.gotoManualAllocation.bind(this);
-    props.unallocatedListDispatch([]);
-    props.setLoadedDispatch(false);
+  constructor(props) {
+    super()
+    this.gotoManualAllocation = this.gotoManualAllocation.bind(this)
+    props.unallocatedListDispatch([])
+    props.setLoadedDispatch(false)
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
+    const { agencyId, user, history, unallocatedListDispatch, handleError, setLoadedDispatch } = this.props
+
     try {
-      if (!this.props.user || !this.props.user.writeAccess) {
-        this.props.history.push('/');
-        return;
+      if (!user || !user.writeAccess) {
+        history.push('/')
+        return
       }
-      const list = await this.getUnallocated(this.props.agencyId);
-      this.props.unallocatedListDispatch(list);
+      const list = await this.getUnallocated(agencyId)
+      unallocatedListDispatch(list)
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
-    this.props.setLoadedDispatch(true);
+    setLoadedDispatch(true)
   }
 
-  async getUnallocated (agencyId) {
+  async getUnallocated(agencyId) {
     const response = await axios.get('/api/unallocated', {
       params: {
-        agencyId: agencyId
-      }
-    });
-    return response.data;
+        agencyId,
+      },
+    })
+    return response.data
   }
 
-  async gotoManualAllocation (history) {
-    history.push(`/provisionalAllocation`);
+  async gotoManualAllocation(history) {
+    history.push(`/provisionalAllocation`)
   }
 
-  render () {
-    if (this.props.loaded) {
-      return (<div>
-        <ErrorComponent {...this.props} />
-        {<Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />}
-      </div>
-      );
+  render() {
+    const { loaded } = this.props
+
+    if (loaded) {
+      return (
+        <div>
+          <ErrorComponent {...this.props} />
+          {<Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />}
+        </div>
+      )
     }
-    return <Spinner />;
+    return <Spinner />
   }
 }
 
@@ -67,26 +72,25 @@ UnallocatedContainer.propTypes = {
   setLoadedDispatch: PropTypes.func,
   loaded: PropTypes.bool,
   user: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
-};
+  history: PropTypes.object.isRequired,
+}
 
-const mapStateToProps = state => {
-  return {
-    unallocatedList: state.unallocated.unallocatedList,
-    allocatedKeyworkers: state.allocated.allocatedKeyworkers,
-    message: state.app.message,
-    agencyId: state.app.user.activeCaseLoadId,
-    loaded: state.app.loaded
-  };
-};
+const mapStateToProps = state => ({
+  unallocatedList: state.unallocated.unallocatedList,
+  allocatedKeyworkers: state.allocated.allocatedKeyworkers,
+  message: state.app.message,
+  agencyId: state.app.user.activeCaseLoadId,
+  loaded: state.app.loaded,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    unallocatedListDispatch: list => dispatch(setUnallocatedList(list)),
-    setMessageDispatch: message => dispatch(setMessage(message)),
-    setLoadedDispatch: (status) => dispatch(setLoaded(status))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  unallocatedListDispatch: list => dispatch(setUnallocatedList(list)),
+  setMessageDispatch: message => dispatch(setMessage(message)),
+  setLoadedDispatch: status => dispatch(setLoaded(status)),
+})
 
-export { UnallocatedContainer };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UnallocatedContainer));
+export { UnallocatedContainer }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(UnallocatedContainer))

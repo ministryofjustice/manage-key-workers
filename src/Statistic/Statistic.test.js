@@ -1,17 +1,17 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
-import Statistic from './Statistic';
+import React from 'react'
+import { shallow } from 'enzyme'
+import renderer from 'react-test-renderer'
+import Statistic from './Statistic'
 
 describe('<Statistic />', () => {
   it('renders without crashing', () => {
-    shallow(<Statistic />);
-  });
+    shallow(<Statistic />)
+  })
 
   it('should match the default snapshot', () => {
-    const tree = renderer.create(<Statistic />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+    const tree = renderer.create(<Statistic />).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 
   describe('with no change in value over the change period', () => {
     const statWithNoChange = {
@@ -19,15 +19,15 @@ describe('<Statistic />', () => {
       value: 1,
       change: {
         value: 0,
-        period: 'week'
-      }
-    };
+        period: 'week',
+      },
+    }
 
     it('should match the no change snapshot', () => {
-      const tree = renderer.create(<Statistic {...statWithNoChange} />).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
+      const tree = renderer.create(<Statistic {...statWithNoChange} />).toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+  })
 
   describe('with positive change value', () => {
     const statWithPositiveChange = {
@@ -35,15 +35,15 @@ describe('<Statistic />', () => {
       value: 2,
       change: {
         value: 1,
-        period: 'week'
-      }
-    };
+        period: 'week',
+      },
+    }
 
     it('should match the positive change snapshot', () => {
-      const tree = renderer.create(<Statistic {...statWithPositiveChange} />).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
+      const tree = renderer.create(<Statistic {...statWithPositiveChange} />).toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+  })
 
   describe('with negative change value', () => {
     const statWithNegativeChange = {
@@ -51,13 +51,13 @@ describe('<Statistic />', () => {
       value: 0,
       change: {
         value: -1,
-        period: 'week'
-      }
-    };
+        period: 'week',
+      },
+    }
 
     it('should match the negative change snapshot', () => {
-      const tree = renderer.create(<Statistic {...statWithNegativeChange} />).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-  });
-});
+      const tree = renderer.create(<Statistic {...statWithNegativeChange} />).toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+  })
+})

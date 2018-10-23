@@ -1,45 +1,54 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import OffenderSearch from "../components/OffenderSearch";
-import axios from 'axios';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import OffenderSearch from '../components/OffenderSearch'
 import {
-  resetValidationErrors, setKeyworkerChangeList,
-  setOffenderSearchLocations, setValidationError
-} from "../../redux/actions";
+  resetValidationErrors,
+  setKeyworkerChangeList,
+  setOffenderSearchLocations,
+  setValidationError,
+} from '../../redux/actions'
 
 class OffenderSearchContainer extends Component {
-  constructor () {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
+  constructor() {
+    super()
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentWillMount () {
-    this.getLocations();
-    this.props.offenderSearchTextDispatch('');
-    this.props.offenderSearchAllocationStatusDispatch('all');
+  componentWillMount() {
+    const { offenderSearchTextDispatch, offenderSearchAllocationStatusDispatch } = this.props
+
+    this.getLocations()
+    offenderSearchTextDispatch('')
+    offenderSearchAllocationStatusDispatch('all')
   }
 
-  async getLocations () {
+  async getLocations() {
+    const {
+      offenderSearchLocationsDispatch,
+      offenderSearchHousingLocationDispatch,
+      handleError,
+      initialSearch,
+    } = this.props
     try {
-      const response = await axios.get('/api/userLocations');
-      this.props.offenderSearchLocationsDispatch(response.data);
+      const response = await axios.get('/api/userLocations')
+      offenderSearchLocationsDispatch(response.data)
       // Use the first location by default
-      if (this.props.initialSearch && response.data && response.data[0]) {
-        this.props.offenderSearchHousingLocationDispatch(response.data[0].locationPrefix);
+      if (initialSearch && response.data && response.data[0]) {
+        offenderSearchHousingLocationDispatch(response.data[0].locationPrefix)
       }
     } catch (error) {
-      this.props.handleError(error);
+      handleError(error)
     }
   }
 
-
-  handleSubmit (history) {
-    history.push('/offender/results');
+  handleSubmit(history) {
+    history.push('/offender/results')
   }
 
-  render () {
-    return <OffenderSearch {...this.props} handleSubmit={this.handleSubmit}/>;
+  render() {
+    return <OffenderSearch {...this.props} handleSubmit={this.handleSubmit} />
   }
 }
 
@@ -55,25 +64,24 @@ OffenderSearchContainer.propTypes = {
   offenderSearchTextDispatch: PropTypes.func,
   offenderSearchAllocationStatusDispatch: PropTypes.func,
   initialSearch: PropTypes.bool,
-  doSearch: PropTypes.func
-};
+  doSearch: PropTypes.func,
+}
 
-const mapStateToProps = state => {
-  return {
-    locations: state.offenderSearch.locations,
-    searchText: state.offenderSearch.searchText,
-    allocationStatus: state.offenderSearch.allocationStatus,
-    validationErrors: state.app.validationErrors
-  };
-};
+const mapStateToProps = state => ({
+  locations: state.offenderSearch.locations,
+  searchText: state.offenderSearch.searchText,
+  allocationStatus: state.offenderSearch.allocationStatus,
+  validationErrors: state.app.validationErrors,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList)),
-    keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-    setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
-    resetValidationErrorsDispatch: message => dispatch(resetValidationErrors())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList)),
+  keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+  setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
+  resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(OffenderSearchContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OffenderSearchContainer)

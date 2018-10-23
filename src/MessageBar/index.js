@@ -1,35 +1,37 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import './index.scss';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import './index.scss'
 
 class MessageBar extends Component {
-  clearMessage (props) {
-    setTimeout(function () {
-      props.clearMessage();
-    }, props.displayTime || 5000);
+  clearMessage(props) {
+    setTimeout(() => {
+      props.clearMessage()
+    }, props.displayTime || 5000)
   }
 
-  renderMessage (message) {
-    let renderContent = null;
+  renderMessage(message) {
+    let renderContent = null
     if (message && message !== '') {
-      renderContent = (<div id="messageBar" className="messageBarContainer pure-g"><div className="messageBar">
-        {this.props.message}
-      </div></div>);
-      this.clearMessage(this.props);
-      return renderContent;
-    } else {
-      return null;
+      renderContent = (
+        <div id="messageBar" className="messageBarContainer pure-g">
+          <div className="messageBar">{message}</div>
+        </div>
+      )
+      this.clearMessage(this.props)
+      return renderContent
     }
+
+    return null
   }
 
-  render () {
-    return this.renderMessage(this.props.message);
+  render() {
+    const { message } = this.props
+    return this.renderMessage(message)
   }
 }
 
 MessageBar.propTypes = {
   message: PropTypes.string,
-  displaytime: PropTypes.number
-};
+}
 
-export default MessageBar;
+export default MessageBar

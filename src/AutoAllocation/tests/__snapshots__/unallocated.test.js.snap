@@ -151,6 +151,7 @@ ShallowWrapper {
           <button
             className="button"
             onClick={[Function]}
+            type="button"
           >
             Allocate
           </button>
@@ -840,6 +841,7 @@ ShallowWrapper {
           "children": <button
             className="button"
             onClick={[Function]}
+            type="button"
           >
             Allocate
           </button>,
@@ -853,6 +855,7 @@ ShallowWrapper {
             "children": "Allocate",
             "className": "button",
             "onClick": [Function],
+            "type": "button",
           },
           "ref": null,
           "rendered": "Allocate",
@@ -977,6 +980,7 @@ ShallowWrapper {
             <button
               className="button"
               onClick={[Function]}
+              type="button"
             >
               Allocate
             </button>
@@ -1666,6 +1670,7 @@ ShallowWrapper {
             "children": <button
               className="button"
               onClick={[Function]}
+              type="button"
             >
               Allocate
             </button>,
@@ -1679,6 +1684,7 @@ ShallowWrapper {
               "children": "Allocate",
               "className": "button",
               "onClick": [Function],
+              "type": "button",
             },
             "ref": null,
             "rendered": "Allocate",
