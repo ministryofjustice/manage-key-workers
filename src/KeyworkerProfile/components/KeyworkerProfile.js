@@ -13,9 +13,8 @@ class KeyworkerProfile extends Component {
   }
 
   getAllocationStyle() {
-    const { keyworker, keyworkerAllocations } = this.props
+    const { keyworkerAllocations, keyworker } = this.props
     let allocationStyleClass = 'numberCircleGreen'
-
     if (keyworkerAllocations.length === 0) {
       allocationStyleClass = 'numberCircleGrey'
     } else if (keyworkerAllocations.length === keyworker.capacity) {
@@ -35,14 +34,14 @@ class KeyworkerProfile extends Component {
   render() {
     const {
       keyworker,
-      user,
-      config,
-      history,
       keyworkerList,
       keyworkerChangeList,
       keyworkerAllocations,
+      user,
       handleKeyworkerChange,
       handleAllocationChange,
+      history,
+      config,
       handleEditProfileClick,
     } = this.props
     const keyworkerDisplayName = `${properCaseName(keyworker.firstName)} ${properCaseName(keyworker.lastName)}`
@@ -102,7 +101,7 @@ class KeyworkerProfile extends Component {
       <div>
         {config.keyworkeProfileStatsEnabled === 'true' && (
           <Fragment>
-            <KeyworkerStats stats={(this.props.keyworker && this.props.keyworker.stats) || []} />
+            <KeyworkerStats stats={(keyworker && keyworker.stats) || []} />
             <hr />
           </Fragment>
         )}
@@ -136,6 +135,17 @@ class KeyworkerProfile extends Component {
               <tbody>{allocations}</tbody>
             </table>
           </div>
+          {keyworkerAllocations.length > 0 &&
+            (user && user.writeAccess) && (
+              <button
+                type="button"
+                id="updateAllocationButton"
+                className="button pure-u-md-5-24"
+                onClick={() => handleAllocationChange(history)}
+              >
+                Update keyworker allocation
+              </button>
+            )}
         </div>
       </div>
     )

@@ -117,19 +117,15 @@ export const setKeyworker = keyworker => ({
   keyworker,
 })
 
-export const setKeyworkerStats = stats => {
-  return {
-    type: ActionTypes.SET_KEY_WORKER_STATS,
-    stats,
-  }
-}
+export const setKeyworkerStats = stats => ({
+  type: ActionTypes.SET_KEY_WORKER_STATS,
+  stats,
+})
 
-export const setKeyworkerChangeList = keyworkerChangeList => {
-  return {
-    type: ActionTypes.SET_KEY_WORKER_CHANGE_LIST,
-    keyworkerChangeList,
-  }
-}
+export const setKeyworkerChangeList = keyworkerChangeList => ({
+  type: ActionTypes.SET_KEY_WORKER_CHANGE_LIST,
+  keyworkerChangeList,
+})
 
 export const setAvailableKeyworkerList = keyworkerList => ({
   type: ActionTypes.SET_AVAILABLE_KEY_WORKER_LIST,

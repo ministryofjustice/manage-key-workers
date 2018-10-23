@@ -1,49 +1,47 @@
-const moment = require('moment');
-const asyncMiddleware = require('../middleware/asyncHandler');
-const log = require('../log');
+const moment = require('moment')
+const asyncMiddleware = require('../middleware/asyncHandler')
+const log = require('../log')
 
-
-const keyworkerStatsFactory = (keyworkerApi) => {
+const keyworkerStatsFactory = keyworkerApi => {
   const getStatsForStaffRoute = asyncMiddleware(async (req, res) => {
-    const { agencyId, staffId, fromDate, toDate, period } = req.query;
-    const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period });
-    log.debug({ data: stats }, 'Response from keyworker stats request');
-    res.json(stats);
-  });
+    const { agencyId, staffId, fromDate, toDate, period } = req.query
+    const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period })
+    log.debug({ data: stats }, 'Response from keyworker stats request')
+    res.json(stats)
+  })
 
   const getStatsForStaff = async ({ locals, agencyId, staffId, fromDate, toDate, period }) => {
     const getStats = [
       keyworkerApi.stats(locals, agencyId, staffId, fromDate, toDate),
-      getPastStats(locals, agencyId, staffId, fromDate, toDate)
-    ];
+      getPastStats(locals, agencyId, staffId, fromDate, toDate),
+    ]
 
-    const [
-      currentStats,
-      pastStats
-    ] = await Promise.all(getStats);
+    const [currentStats, pastStats] = await Promise.all(getStats)
 
-    return currentStats && [
-      numberOfProjectedKeyworkerSessions(currentStats, pastStats, period),
-      totalNumberOfSessionCaseNotesWritten(currentStats, pastStats, period),
-      complianceRate(currentStats, pastStats, period),
-      totalNumberOfEntryAndSessionCaseNoteWritten(currentStats, pastStats, period)
-    ];
-  };
+    return (
+      currentStats && [
+        numberOfProjectedKeyworkerSessions(currentStats, pastStats, period),
+        totalNumberOfSessionCaseNotesWritten(currentStats, pastStats, period),
+        complianceRate(currentStats, pastStats, period),
+        totalNumberOfEntryAndSessionCaseNoteWritten(currentStats, pastStats, period),
+      ]
+    )
+  }
 
   const getPastStats = async (locals, agencyId, staffId, fromDate, toDate) => {
-    const format = 'YYYY-MM-DD';
-    const days = moment(toDate, format).diff(moment(fromDate, format), 'days');
-    const pastFromDate = moment(fromDate).subtract(days, 'day');
-    const pastToDate = moment(toDate).subtract(days, 'day');
+    const format = 'YYYY-MM-DD'
+    const days = moment(toDate, format).diff(moment(fromDate, format), 'days')
+    const pastFromDate = moment(fromDate).subtract(days, 'day')
+    const pastToDate = moment(toDate).subtract(days, 'day')
 
-    return keyworkerApi.stats(locals, agencyId, staffId, pastFromDate.format(format), pastToDate.format(format));
-  };
+    return keyworkerApi.stats(locals, agencyId, staffId, pastFromDate.format(format), pastToDate.format(format))
+  }
 
   return {
     getStatsForStaffRoute,
-    getStatsForStaff
-  };
-};
+    getStatsForStaff,
+  }
+}
 
 const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfSessionCaseNotesWritten',
@@ -51,21 +49,23 @@ const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) =
   value: currentStats.caseNoteSessionCount,
   change: {
     value: pastStats && currentStats.caseNoteSessionCount - pastStats.caseNoteSessionCount,
-    period
-  }
-});
+    period,
+  },
+})
 
 const totalNumberOfEntryAndSessionCaseNoteWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfEntryAndSessionCaseNoteWritten',
   heading: 'Total number of key worker case notes written',
   value: currentStats.caseNoteEntryCount + currentStats.caseNoteSessionCount,
   change: {
-    value: pastStats && (currentStats.caseNoteEntryCount + currentStats.caseNoteSessionCount) -
+    value:
+      pastStats &&
+      currentStats.caseNoteEntryCount +
+        currentStats.caseNoteSessionCount -
         (pastStats.caseNoteEntryCount + pastStats.caseNoteSessionCount),
-    period
-  }
-});
-
+    period,
+  },
+})
 
 const complianceRate = (currentStats, pastStats, period) => ({
   name: 'complianceRate',
@@ -73,9 +73,9 @@ const complianceRate = (currentStats, pastStats, period) => ({
   value: currentStats.complianceRate,
   change: {
     value: pastStats && Number(parseFloat(currentStats.complianceRate - pastStats.complianceRate).toFixed(2)),
-    period
-  }
-});
+    period,
+  },
+})
 
 const numberOfProjectedKeyworkerSessions = (currentStats, pastStats, period) => ({
   name: 'numberOfProjectedKeyworkerSessions',
@@ -83,11 +83,10 @@ const numberOfProjectedKeyworkerSessions = (currentStats, pastStats, period) => 
   value: currentStats.projectedKeyworkerSessions,
   change: {
     value: pastStats && currentStats.projectedKeyworkerSessions - pastStats.projectedKeyworkerSessions,
-    period
-  }
-});
-
+    period,
+  },
+})
 
 module.exports = {
-  keyworkerStatsFactory
-};
+  keyworkerStatsFactory,
+}

@@ -20,7 +20,7 @@ const adminSearch = function(eliteApi, res, agencyId, nameFilter, roleFilter) {
 const userSearchFactory = eliteApi => {
   const userSearch = asyncMiddleware(async (req, res) => {
     const { agencyId, nameFilter, roleFilter, hasAdminRole } = req.query
-    log.debug('Performing user search.  Admin role=' + hasAdminRole)
+    log.debug(`Performing user search.  Admin role=${hasAdminRole}`)
     const response =
       hasAdminRole === 'true'
         ? await adminSearch(eliteApi, res, agencyId, nameFilter, roleFilter)
