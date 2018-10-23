@@ -82,7 +82,7 @@ class UserSearchContainer extends Component {
       })
       totalRecordsDispatch(parseInt(users.headers['total-records']))
       userListDispatch(users.data)
-      pageNumberDispatch(pageNumber)
+      pageNumberDispatch(pageNum)
     } catch (error) {
       handleError(error)
     }

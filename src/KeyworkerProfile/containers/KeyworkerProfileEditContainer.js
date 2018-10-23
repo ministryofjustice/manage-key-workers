@@ -71,7 +71,12 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   async postKeyworkerUpdate() {
-    const { agencyId, staffId, status, capacity } = this.props
+    const {
+      agencyId,
+      keyworker: { staffId },
+      status,
+      capacity,
+    } = this.props
 
     await axios.post(
       '/api/keyworkerUpdate',

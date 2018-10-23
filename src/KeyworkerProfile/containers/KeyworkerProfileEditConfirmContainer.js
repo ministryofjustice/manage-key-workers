@@ -86,7 +86,14 @@ class KeyworkerProfileEditConfirmContainer extends Component {
   }
 
   async postKeyworkerUpdate() {
-    const { agencyId, keyworker, status, capacity, behaviour, annualLeaveReturnDate } = this.props
+    const {
+      agencyId,
+      keyworker: { staffId },
+      status,
+      capacity,
+      behaviour,
+      annualLeaveReturnDate,
+    } = this.props
 
     await axios.post(
       '/api/keyworkerUpdate',
@@ -101,7 +108,7 @@ class KeyworkerProfileEditConfirmContainer extends Component {
       {
         params: {
           agencyId,
-          staffId: keyworker.staffId,
+          staffId,
         },
       }
     )
