@@ -8,40 +8,6 @@ const elite2Api = elite2ApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
 const { allocated } = serviceFactory(elite2Api, keyworkerApi)
 
-describe('Allocated controller', async () => {
-  it('Should add keyworker details to allocated data array', async () => {
-    keyworkerApi.autoAllocate = jest.fn()
-    keyworkerApi.availableKeyworkers = jest.fn()
-    keyworkerApi.autoallocated = jest.fn()
-
-    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
-
-    keyworkerApi.keyworker = jest.fn().mockImplementation(() => createSingleKeyworkerResponse())
-    keyworkerApi.autoallocated.mockReturnValueOnce(createAllocatedDataResponse())
-    keyworkerApi.availableKeyworkers.mockReturnValueOnce(createAvailableKeyworkerResponse())
-
-    const response = await allocated({}, 'LEI')
-
-    expect(keyworkerApi.autoAllocate.mock.calls.length).toBe(1)
-
-    expect(response.allocatedResponse[0].bookingId).toBe(-1)
-    expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA')
-    expect(response.allocatedResponse[0].firstName).toBe('ARTHUR')
-    expect(response.allocatedResponse[0].lastName).toBe('ANDERSON')
-    expect(response.allocatedResponse[0].staffId).toBe(123)
-    expect(response.allocatedResponse[0].agencyId).toBe('LEI')
-    expect(response.allocatedResponse[0].staffId).toBe(123)
-    expect(response.allocatedResponse[0].internalLocationDesc).toBe('A-1-1')
-    expect(response.allocatedResponse[0].keyworkerDisplay).toBe('Hanson, Amy')
-    expect(response.allocatedResponse[0].numberAllocated).toBe(4)
-    expect(response.allocatedResponse[0].crsaClassification).toBe('High')
-    expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03')
-
-    expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Lard, Ben')
-  })
-})
-
 function createAllocatedDataResponse() {
   return [
     {
@@ -157,3 +123,37 @@ function createAssessmentListResponse() {
     { offenderNo: 'A1234AD', classification: 'Low' },
   ]
 }
+
+describe('Allocated controller', async () => {
+  it('Should add keyworker details to allocated data array', async () => {
+    keyworkerApi.autoAllocate = jest.fn()
+    keyworkerApi.availableKeyworkers = jest.fn()
+    keyworkerApi.autoallocated = jest.fn()
+
+    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
+    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+
+    keyworkerApi.keyworker = jest.fn().mockImplementation(() => createSingleKeyworkerResponse())
+    keyworkerApi.autoallocated.mockReturnValueOnce(createAllocatedDataResponse())
+    keyworkerApi.availableKeyworkers.mockReturnValueOnce(createAvailableKeyworkerResponse())
+
+    const response = await allocated({}, 'LEI')
+
+    expect(keyworkerApi.autoAllocate.mock.calls.length).toBe(1)
+
+    expect(response.allocatedResponse[0].bookingId).toBe(-1)
+    expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA')
+    expect(response.allocatedResponse[0].firstName).toBe('ARTHUR')
+    expect(response.allocatedResponse[0].lastName).toBe('ANDERSON')
+    expect(response.allocatedResponse[0].staffId).toBe(123)
+    expect(response.allocatedResponse[0].agencyId).toBe('LEI')
+    expect(response.allocatedResponse[0].staffId).toBe(123)
+    expect(response.allocatedResponse[0].internalLocationDesc).toBe('A-1-1')
+    expect(response.allocatedResponse[0].keyworkerDisplay).toBe('Hanson, Amy')
+    expect(response.allocatedResponse[0].numberAllocated).toBe(4)
+    expect(response.allocatedResponse[0].crsaClassification).toBe('High')
+    expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03')
+
+    expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Lard, Ben')
+  })
+})

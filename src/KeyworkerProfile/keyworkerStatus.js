@@ -1,13 +1,3 @@
-const getStatusStyle = status => {
-  const statusDescription = getStatusDescription(status)
-  const styles = ['inactive', 'active', 'unavailable']
-  let styleClass = ''
-  styles.forEach(style => {
-    if (statusDescription && statusDescription.toLowerCase().startsWith(style)) styleClass = style
-  })
-  return styleClass
-}
-
 const getStatusDescription = status => {
   const styles = {
     ACTIVE: 'Active',
@@ -17,6 +7,16 @@ const getStatusDescription = status => {
     INACTIVE: 'Inactive',
   }
   return styles[status]
+}
+
+const getStatusStyle = status => {
+  const statusDescription = getStatusDescription(status)
+  const styles = ['inactive', 'active', 'unavailable']
+  let styleClass = ''
+  styles.forEach(style => {
+    if (statusDescription && statusDescription.toLowerCase().startsWith(style)) styleClass = style
+  })
+  return styleClass
 }
 
 const keyworkerStatus = {

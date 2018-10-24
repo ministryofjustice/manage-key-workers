@@ -1,3 +1,14 @@
+const app = {
+  production: process.env.NODE_ENV === 'production',
+  notmEndpointUrl: process.env.NN_ENDPOINT_URL || 'http://localhost:3000/',
+  mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
+  tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
+  offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
+  maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || 'false',
+  applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
+  keyworkeProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
+}
+
 const setTestDefaults = () => {
   // Setup different default values when running locally or integration tests
   // .env file still overrides.
@@ -9,17 +20,6 @@ const setTestDefaults = () => {
   }
 
   app.keyworkeProfileStatsEnabled = 'true'
-}
-
-const app = {
-  production: process.env.NODE_ENV === 'production',
-  notmEndpointUrl: process.env.NN_ENDPOINT_URL || 'http://localhost:3000/',
-  mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
-  tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
-  offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
-  maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || 'false',
-  applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
-  keyworkeProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
 }
 
 const analytics = {

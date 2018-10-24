@@ -6,30 +6,6 @@ const elite2Api = elite2ApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
 const { unallocated } = serviceFactory(elite2Api, keyworkerApi)
 
-const allocationResponse = createDataResponse()
-
-describe('Unallocated controller', async () => {
-  it('Should add keyworker details to allocated data array', async () => {
-    keyworkerApi.unallocated = jest.fn()
-    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-
-    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
-
-    keyworkerApi.unallocated.mockReturnValueOnce(allocationResponse)
-
-    const response = await unallocated({}, 'LEI')
-
-    expect(response[0].bookingId).toBe(-1)
-    expect(response[0].offenderNo).toBe('A1234AA')
-    expect(response[0].firstName).toBe('ARTHUR')
-    expect(response[0].lastName).toBe('ANDERSON')
-    expect(response[0].agencyId).toBe('LEI')
-    expect(response[0].internalLocationDesc).toBe('A-1-1')
-    expect(response[0].crsaClassification).toBe('High')
-    expect(response[0].confirmedReleaseDate).toBe('2024-03-03')
-  })
-})
-
 function createDataResponse() {
   return [
     {
@@ -95,3 +71,27 @@ function createAssessmentListResponse() {
     { offenderNo: 'A1234AD', classification: 'Low' },
   ]
 }
+
+const allocationResponse = createDataResponse()
+
+describe('Unallocated controller', async () => {
+  it('Should add keyworker details to allocated data array', async () => {
+    keyworkerApi.unallocated = jest.fn()
+    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
+
+    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+
+    keyworkerApi.unallocated.mockReturnValueOnce(allocationResponse)
+
+    const response = await unallocated({}, 'LEI')
+
+    expect(response[0].bookingId).toBe(-1)
+    expect(response[0].offenderNo).toBe('A1234AA')
+    expect(response[0].firstName).toBe('ARTHUR')
+    expect(response[0].lastName).toBe('ANDERSON')
+    expect(response[0].agencyId).toBe('LEI')
+    expect(response[0].internalLocationDesc).toBe('A-1-1')
+    expect(response[0].crsaClassification).toBe('High')
+    expect(response[0].confirmedReleaseDate).toBe('2024-03-03')
+  })
+})

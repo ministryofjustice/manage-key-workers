@@ -6,46 +6,6 @@ const elite2Api = elite2ApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
 const { keyworkerAllocations } = serviceFactory(elite2Api, keyworkerApi)
 
-const allocationResponse = createDataResponse()
-
-describe('keyworkerAllocations controller', async () => {
-  it('Should add keyworker details to data array', async () => {
-    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-    elite2Api.caseNoteUsageList = jest.fn().mockImplementationOnce(() => createCaseNoteUsageResponse())
-    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
-
-    keyworkerApi.availableKeyworkers = jest.fn().mockImplementationOnce(() => createAvailableKeyworkerResponse())
-
-    keyworkerApi.keyworkerAllocations = jest.fn().mockReturnValueOnce(allocationResponse)
-
-    const response = await keyworkerAllocations({}, 'Dont care', 'XYZ')
-
-    expect(response.allocatedResponse[0].bookingId).toBe(-1)
-    expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA')
-    expect(response.allocatedResponse[0].firstName).toBe('ARTHUR')
-    expect(response.allocatedResponse[0].lastName).toBe('ANDERSON')
-    expect(response.allocatedResponse[0].agencyId).toBe('LEI')
-    expect(response.allocatedResponse[0].internalLocationDesc).toBe('A-1-1')
-    expect(response.allocatedResponse[0].crsaClassification).toBe('High')
-    expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03')
-    expect(response.allocatedResponse[0].lastKeyWorkerSessionDate).toBe('2018-03-01')
-
-    expect(response.allocatedResponse[1].bookingId).toBe(-2)
-    expect(response.allocatedResponse[1].crsaClassification).toBe('High')
-    expect(response.allocatedResponse[1].confirmedReleaseDate).toBe('2025-04-03')
-    expect(response.allocatedResponse[1].lastKeyWorkerSessionDate).toBe('2018-03-03')
-
-    expect(response.allocatedResponse[2].bookingId).toBe(-6)
-    expect(response.allocatedResponse[2].crsaClassification).toBe('Low')
-    expect(response.allocatedResponse[2].confirmedReleaseDate).toBe('2026-03-03')
-    expect(response.allocatedResponse[2].lastKeyWorkerSessionDate).toBe('2018-04-13')
-
-    expect(response.keyworkerResponse[0].staffId).toBe(15583)
-    expect(response.keyworkerResponse[0].firstName).toBe('Brent')
-    expect(response.keyworkerResponse[0].lastName).toBe('Daggart')
-  })
-})
-
 function createDataResponse() {
   return [
     {
@@ -152,3 +112,43 @@ function createAvailableKeyworkerResponse() {
     },
   ]
 }
+
+const allocationResponse = createDataResponse()
+
+describe('keyworkerAllocations controller', async () => {
+  it('Should add keyworker details to data array', async () => {
+    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
+    elite2Api.caseNoteUsageList = jest.fn().mockImplementationOnce(() => createCaseNoteUsageResponse())
+    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+
+    keyworkerApi.availableKeyworkers = jest.fn().mockImplementationOnce(() => createAvailableKeyworkerResponse())
+
+    keyworkerApi.keyworkerAllocations = jest.fn().mockReturnValueOnce(allocationResponse)
+
+    const response = await keyworkerAllocations({}, 'Dont care', 'XYZ')
+
+    expect(response.allocatedResponse[0].bookingId).toBe(-1)
+    expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA')
+    expect(response.allocatedResponse[0].firstName).toBe('ARTHUR')
+    expect(response.allocatedResponse[0].lastName).toBe('ANDERSON')
+    expect(response.allocatedResponse[0].agencyId).toBe('LEI')
+    expect(response.allocatedResponse[0].internalLocationDesc).toBe('A-1-1')
+    expect(response.allocatedResponse[0].crsaClassification).toBe('High')
+    expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03')
+    expect(response.allocatedResponse[0].lastKeyWorkerSessionDate).toBe('2018-03-01')
+
+    expect(response.allocatedResponse[1].bookingId).toBe(-2)
+    expect(response.allocatedResponse[1].crsaClassification).toBe('High')
+    expect(response.allocatedResponse[1].confirmedReleaseDate).toBe('2025-04-03')
+    expect(response.allocatedResponse[1].lastKeyWorkerSessionDate).toBe('2018-03-03')
+
+    expect(response.allocatedResponse[2].bookingId).toBe(-6)
+    expect(response.allocatedResponse[2].crsaClassification).toBe('Low')
+    expect(response.allocatedResponse[2].confirmedReleaseDate).toBe('2026-03-03')
+    expect(response.allocatedResponse[2].lastKeyWorkerSessionDate).toBe('2018-04-13')
+
+    expect(response.keyworkerResponse[0].staffId).toBe(15583)
+    expect(response.keyworkerResponse[0].firstName).toBe('Brent')
+    expect(response.keyworkerResponse[0].lastName).toBe('Daggart')
+  })
+})
