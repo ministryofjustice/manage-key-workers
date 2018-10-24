@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { Header } from 'new-nomis-shared-components'
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'

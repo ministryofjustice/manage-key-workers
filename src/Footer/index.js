@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { linkOnClick } from '../helpers'
 import './footer.scss'
 
 const Footer = ({ showTermsAndConditions, mailTo, setMenuOpen }) => (
@@ -8,7 +9,7 @@ const Footer = ({ showTermsAndConditions, mailTo, setMenuOpen }) => (
     <div className="footer-content">
       <div className="FooterLinksContainer">
         <div className="FooterLink">
-          <a onClick={showTermsAndConditions}>Terms and conditions</a>
+          <a {...linkOnClick(showTermsAndConditions)}>Terms and conditions</a>
         </div>
         <div className="FooterLink">
           <a href={`mailto:${mailTo}`}>
