@@ -2,38 +2,35 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import KeyworkerSearchResult from '../components/KeyworkerSearchResults'
 
-const getTestData = function() {
-  const list = [
-    {
-      staffId: 2,
-      firstName: 'Brent',
-      lastName: 'Daggart',
-      numberAllocated: 3,
-      status: 'ACTIVE',
-      numKeyWorkerSessions: 2,
-      currentRole: 'Key worker2',
-    },
-    {
-      staffId: 1,
-      firstName: 'Amy',
-      lastName: 'Hanson',
-      numberAllocated: 4,
-      status: 'ACTIVE',
-      numKeyWorkerSessions: 1,
-      currentRole: 'Key worker',
-    },
-    {
-      staffId: 3,
-      firstName: 'Florence',
-      lastName: 'Welch',
-      numberAllocated: 1,
-      numKeyWorkerSessions: 4,
-      status: 'ACTIVE',
-      currentRole: 'Key worker3',
-    },
-  ]
-  return list
-}
+const getTestData = () => [
+  {
+    staffId: 2,
+    firstName: 'Brent',
+    lastName: 'Daggart',
+    numberAllocated: 3,
+    status: 'ACTIVE',
+    numKeyWorkerSessions: 2,
+    currentRole: 'Key worker2',
+  },
+  {
+    staffId: 1,
+    firstName: 'Amy',
+    lastName: 'Hanson',
+    numberAllocated: 4,
+    status: 'ACTIVE',
+    numKeyWorkerSessions: 1,
+    currentRole: 'Key worker',
+  },
+  {
+    staffId: 3,
+    firstName: 'Florence',
+    lastName: 'Welch',
+    numberAllocated: 1,
+    numKeyWorkerSessions: 4,
+    status: 'ACTIVE',
+    currentRole: 'Key worker3',
+  },
+]
 
 describe('Keyworker search result component', () => {
   it('should render component correctly', async () => {
