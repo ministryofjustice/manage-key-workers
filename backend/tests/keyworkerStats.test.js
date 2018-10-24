@@ -1,5 +1,11 @@
 const { keyworkerStatsFactory } = require('../controllers/keyworkerStats')
 
+const getStatsByName = stats =>
+  stats.reduce((acc, current) => {
+    acc[current.name] = current
+    return acc
+  }, {})
+
 describe('Key worker profile controller', async () => {
   const keyworkerApi = {}
   let controller
@@ -158,10 +164,4 @@ describe('Key worker profile controller', async () => {
     expect(numberOfProjectedKeyworkerSessions.value).toBe(0)
     expect(numberOfProjectedKeyworkerSessions.change.value).toBe(0)
   })
-
-  const getStatsByName = stats =>
-    stats.reduce((acc, current) => {
-      acc[current.name] = current
-      return acc
-    }, {})
 })

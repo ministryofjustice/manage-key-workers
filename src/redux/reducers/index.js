@@ -70,6 +70,10 @@ const maintainRolesInitialState = {
   contextUser: {},
 }
 
+function updateObject(oldObject, newValues) {
+  return Object.assign({}, oldObject, newValues)
+}
+
 export function app(state = appInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_CONFIG:
@@ -362,10 +366,6 @@ export function maintainRoles(state = maintainRolesInitialState, action) {
     default:
       return state
   }
-}
-
-function updateObject(oldObject, newValues) {
-  return Object.assign({}, oldObject, newValues)
 }
 
 export function allocationHistory(state = allocationHistoryInitialState, action) {

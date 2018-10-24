@@ -2,47 +2,6 @@ const moment = require('moment')
 const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
-const keyworkerStatsFactory = keyworkerApi => {
-  const getStatsForStaffRoute = asyncMiddleware(async (req, res) => {
-    const { agencyId, staffId, fromDate, toDate, period } = req.query
-    const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period })
-    log.debug({ data: stats }, 'Response from keyworker stats request')
-    res.json(stats)
-  })
-
-  const getStatsForStaff = async ({ locals, agencyId, staffId, fromDate, toDate, period }) => {
-    const getStats = [
-      keyworkerApi.stats(locals, agencyId, staffId, fromDate, toDate),
-      getPastStats(locals, agencyId, staffId, fromDate, toDate),
-    ]
-
-    const [currentStats, pastStats] = await Promise.all(getStats)
-
-    return (
-      currentStats && [
-        numberOfProjectedKeyworkerSessions(currentStats, pastStats, period),
-        totalNumberOfSessionCaseNotesWritten(currentStats, pastStats, period),
-        complianceRate(currentStats, pastStats, period),
-        totalNumberOfEntryAndSessionCaseNoteWritten(currentStats, pastStats, period),
-      ]
-    )
-  }
-
-  const getPastStats = async (locals, agencyId, staffId, fromDate, toDate) => {
-    const format = 'YYYY-MM-DD'
-    const days = moment(toDate, format).diff(moment(fromDate, format), 'days')
-    const pastFromDate = moment(fromDate).subtract(days, 'day')
-    const pastToDate = moment(toDate).subtract(days, 'day')
-
-    return keyworkerApi.stats(locals, agencyId, staffId, pastFromDate.format(format), pastToDate.format(format))
-  }
-
-  return {
-    getStatsForStaffRoute,
-    getStatsForStaff,
-  }
-}
-
 const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfSessionCaseNotesWritten',
   heading: 'Number of recorded key worker sessions in the last month',
@@ -86,6 +45,47 @@ const numberOfProjectedKeyworkerSessions = (currentStats, pastStats, period) => 
     period,
   },
 })
+
+const keyworkerStatsFactory = keyworkerApi => {
+  const getPastStats = async (locals, agencyId, staffId, fromDate, toDate) => {
+    const format = 'YYYY-MM-DD'
+    const days = moment(toDate, format).diff(moment(fromDate, format), 'days')
+    const pastFromDate = moment(fromDate).subtract(days, 'day')
+    const pastToDate = moment(toDate).subtract(days, 'day')
+
+    return keyworkerApi.stats(locals, agencyId, staffId, pastFromDate.format(format), pastToDate.format(format))
+  }
+
+  const getStatsForStaff = async ({ locals, agencyId, staffId, fromDate, toDate, period }) => {
+    const getStats = [
+      keyworkerApi.stats(locals, agencyId, staffId, fromDate, toDate),
+      getPastStats(locals, agencyId, staffId, fromDate, toDate),
+    ]
+
+    const [currentStats, pastStats] = await Promise.all(getStats)
+
+    return (
+      currentStats && [
+        numberOfProjectedKeyworkerSessions(currentStats, pastStats, period),
+        totalNumberOfSessionCaseNotesWritten(currentStats, pastStats, period),
+        complianceRate(currentStats, pastStats, period),
+        totalNumberOfEntryAndSessionCaseNoteWritten(currentStats, pastStats, period),
+      ]
+    )
+  }
+
+  const getStatsForStaffRoute = asyncMiddleware(async (req, res) => {
+    const { agencyId, staffId, fromDate, toDate, period } = req.query
+    const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period })
+    log.debug({ data: stats }, 'Response from keyworker stats request')
+    res.json(stats)
+  })
+
+  return {
+    getStatsForStaffRoute,
+    getStatsForStaff,
+  }
+}
 
 module.exports = {
   keyworkerStatsFactory,
