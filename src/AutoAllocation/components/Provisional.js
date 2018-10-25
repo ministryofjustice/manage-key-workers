@@ -10,7 +10,7 @@ class Provisional extends Component {
   getKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
     if (staffId) {
       return (
-        <a className="link" target="_blank" href={getStaffLink(staffId)}>
+        <a className="link" target="_blank" rel="noopener noreferrer" href={getStaffLink(staffId)}>
           {this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}
         </a>
       )
@@ -35,7 +35,7 @@ class Provisional extends Component {
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters">
-            <a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>
+            <a target="_blank" rel="noopener noreferrer" className="link" href={getOffenderLink(a.offenderNo)}>
               {properCaseName(a.lastName)}, {properCaseName(a.firstName)}
             </a>
           </td>

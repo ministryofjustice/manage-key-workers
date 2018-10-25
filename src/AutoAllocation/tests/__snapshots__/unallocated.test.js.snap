@@ -85,6 +85,7 @@ ShallowWrapper {
                   <a
                     className="link"
                     href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     Rendell, Steve
@@ -118,6 +119,7 @@ ShallowWrapper {
                   <a
                     className="link"
                     href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     Rendell2, Steve2
@@ -204,6 +206,7 @@ ShallowWrapper {
                     <a
                       className="link"
                       href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Rendell, Steve
@@ -237,6 +240,7 @@ ShallowWrapper {
                     <a
                       className="link"
                       href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Rendell2, Steve2
@@ -328,6 +332,7 @@ ShallowWrapper {
                       <a
                         className="link"
                         href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                        rel="noopener noreferrer"
                         target="_blank"
                       >
                         Rendell, Steve
@@ -361,6 +366,7 @@ ShallowWrapper {
                       <a
                         className="link"
                         href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                        rel="noopener noreferrer"
                         target="_blank"
                       >
                         Rendell2, Steve2
@@ -514,6 +520,7 @@ ShallowWrapper {
                         <a
                           className="link"
                           href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                          rel="noopener noreferrer"
                           target="_blank"
                         >
                           Rendell, Steve
@@ -547,6 +554,7 @@ ShallowWrapper {
                         <a
                           className="link"
                           href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                          rel="noopener noreferrer"
                           target="_blank"
                         >
                           Rendell2, Steve2
@@ -589,6 +597,7 @@ ShallowWrapper {
                           <a
                             className="link"
                             href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                            rel="noopener noreferrer"
                             target="_blank"
                           >
                             Rendell, Steve
@@ -626,6 +635,7 @@ ShallowWrapper {
                           "children": <a
                             className="link"
                             href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                            rel="noopener noreferrer"
                             target="_blank"
                           >
                             Rendell, Steve
@@ -641,6 +651,7 @@ ShallowWrapper {
                             "children": "Rendell, Steve",
                             "className": "link",
                             "href": "http://my.testUrl/offenders/ZZ124WX/quick-look",
+                            "rel": "noopener noreferrer",
                             "target": "_blank",
                           },
                           "ref": null,
@@ -712,6 +723,7 @@ ShallowWrapper {
                           <a
                             className="link"
                             href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                            rel="noopener noreferrer"
                             target="_blank"
                           >
                             Rendell2, Steve2
@@ -749,6 +761,7 @@ ShallowWrapper {
                           "children": <a
                             className="link"
                             href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                            rel="noopener noreferrer"
                             target="_blank"
                           >
                             Rendell2, Steve2
@@ -764,6 +777,7 @@ ShallowWrapper {
                             "children": "Rendell2, Steve2",
                             "className": "link",
                             "href": "http://my.testUrl/offenders/ZZ125WX/quick-look",
+                            "rel": "noopener noreferrer",
                             "target": "_blank",
                           },
                           "ref": null,
@@ -914,6 +928,7 @@ ShallowWrapper {
                     <a
                       className="link"
                       href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Rendell, Steve
@@ -947,6 +962,7 @@ ShallowWrapper {
                     <a
                       className="link"
                       href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Rendell2, Steve2
@@ -1033,6 +1049,7 @@ ShallowWrapper {
                       <a
                         className="link"
                         href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                        rel="noopener noreferrer"
                         target="_blank"
                       >
                         Rendell, Steve
@@ -1066,6 +1083,7 @@ ShallowWrapper {
                       <a
                         className="link"
                         href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                        rel="noopener noreferrer"
                         target="_blank"
                       >
                         Rendell2, Steve2
@@ -1157,6 +1175,7 @@ ShallowWrapper {
                         <a
                           className="link"
                           href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                          rel="noopener noreferrer"
                           target="_blank"
                         >
                           Rendell, Steve
@@ -1190,6 +1209,7 @@ ShallowWrapper {
                         <a
                           className="link"
                           href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                          rel="noopener noreferrer"
                           target="_blank"
                         >
                           Rendell2, Steve2
@@ -1343,6 +1363,7 @@ ShallowWrapper {
                           <a
                             className="link"
                             href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                            rel="noopener noreferrer"
                             target="_blank"
                           >
                             Rendell, Steve
@@ -1376,6 +1397,7 @@ ShallowWrapper {
                           <a
                             className="link"
                             href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                            rel="noopener noreferrer"
                             target="_blank"
                           >
                             Rendell2, Steve2
@@ -1418,6 +1440,7 @@ ShallowWrapper {
                             <a
                               className="link"
                               href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                              rel="noopener noreferrer"
                               target="_blank"
                             >
                               Rendell, Steve
@@ -1455,6 +1478,7 @@ ShallowWrapper {
                             "children": <a
                               className="link"
                               href="http://my.testUrl/offenders/ZZ124WX/quick-look"
+                              rel="noopener noreferrer"
                               target="_blank"
                             >
                               Rendell, Steve
@@ -1470,6 +1494,7 @@ ShallowWrapper {
                               "children": "Rendell, Steve",
                               "className": "link",
                               "href": "http://my.testUrl/offenders/ZZ124WX/quick-look",
+                              "rel": "noopener noreferrer",
                               "target": "_blank",
                             },
                             "ref": null,
@@ -1541,6 +1566,7 @@ ShallowWrapper {
                             <a
                               className="link"
                               href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                              rel="noopener noreferrer"
                               target="_blank"
                             >
                               Rendell2, Steve2
@@ -1578,6 +1604,7 @@ ShallowWrapper {
                             "children": <a
                               className="link"
                               href="http://my.testUrl/offenders/ZZ125WX/quick-look"
+                              rel="noopener noreferrer"
                               target="_blank"
                             >
                               Rendell2, Steve2
@@ -1593,6 +1620,7 @@ ShallowWrapper {
                               "children": "Rendell2, Steve2",
                               "className": "link",
                               "href": "http://my.testUrl/offenders/ZZ125WX/quick-look",
+                              "rel": "noopener noreferrer",
                               "target": "_blank",
                             },
                             "ref": null,

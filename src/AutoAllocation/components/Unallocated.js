@@ -14,7 +14,7 @@ class Unallocated extends Component {
       return (
         <tr key={a.offenderNo}>
           <td className="row-gutters">
-            <a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>
+            <a target="_blank" rel="noopener noreferrer" className="link" href={getOffenderLink(a.offenderNo)}>
               {formattedName}
             </a>
           </td>
