@@ -12,8 +12,7 @@ import '../../allocation.scss'
 
 class UnallocatedContainer extends Component {
   constructor(props) {
-    super()
-    this.gotoManualAllocation = this.gotoManualAllocation.bind(this)
+    super(props)
     props.unallocatedListDispatch([])
     props.setLoadedDispatch(false)
   }
@@ -34,7 +33,7 @@ class UnallocatedContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  async getUnallocated(agencyId) {
+  getUnallocated = async agencyId => {
     const response = await axios.get('/api/unallocated', {
       params: {
         agencyId,
@@ -43,7 +42,7 @@ class UnallocatedContainer extends Component {
     return response.data
   }
 
-  async gotoManualAllocation(history) {
+  gotoManualAllocation = async history => {
     history.push(`/provisionalAllocation`)
   }
 

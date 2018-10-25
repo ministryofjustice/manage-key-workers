@@ -16,19 +16,19 @@ class KeyworkerSearchContainer extends Component {
     props.keyworkerStatusFilterDispatch('')
   }
 
-  handleSearchTextChange(event) {
+  handleSearchTextChange = event => {
     const { keyworkerSearchTextDispatch } = this.props
 
     keyworkerSearchTextDispatch(event.target.value)
   }
 
-  handleStatusFilterChange(event) {
+  handleStatusFilterChange = event => {
     const { keyworkerStatusFilterDispatch } = this.props
 
     keyworkerStatusFilterDispatch(event.target.value)
   }
 
-  handleSearch(history) {
+  handleSearch = history => {
     history.push('/keyworker/results')
   }
 

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import './index.scss'
 
 class MessageBar extends Component {
-  clearMessage(props) {
+  clearMessage = props => {
     setTimeout(() => {
       props.clearMessage()
     }, props.displayTime || 5000)
   }
 
-  renderMessage(message) {
+  renderMessage = message => {
     let renderContent = null
     if (message && message !== '') {
       renderContent = (

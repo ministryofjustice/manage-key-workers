@@ -16,14 +16,6 @@ import Error from '../../Error'
 import { stringIsInteger } from '../../stringUtils'
 
 class KeyworkerProfileEditContainer extends Component {
-  constructor() {
-    super()
-    this.handleSaveChanges = this.handleSaveChanges.bind(this)
-    this.handleCancel = this.handleCancel.bind(this)
-    this.handleStatusChange = this.handleStatusChange.bind(this)
-    this.handleCapacityChange = this.handleCapacityChange.bind(this)
-  }
-
   componentDidMount() {
     const { user, history, match, keyworker } = this.props
     if (!user || !user.writeAccess) {
@@ -36,7 +28,7 @@ class KeyworkerProfileEditContainer extends Component {
     }
   }
 
-  async handleSaveChanges(history) {
+  handleSaveChanges = async history => {
     if (!this.validate()) {
       return
     }
@@ -62,7 +54,7 @@ class KeyworkerProfileEditContainer extends Component {
     }
   }
 
-  formChange() {
+  formChange = () => {
     const { capacity, keyworker, status } = this.props
     const capacityChange = capacity !== keyworker.capacity.toString()
     const statusChange = status !== keyworker.status
@@ -70,7 +62,7 @@ class KeyworkerProfileEditContainer extends Component {
     return capacityChange || statusChange
   }
 
-  async postKeyworkerUpdate() {
+  postKeyworkerUpdate = async () => {
     const {
       agencyId,
       keyworker: { staffId },
@@ -95,24 +87,24 @@ class KeyworkerProfileEditContainer extends Component {
     )
   }
 
-  handleCancel(history) {
+  handleCancel = history => {
     // Return to profile page
     history.goBack()
   }
 
-  handleStatusChange(event) {
+  handleStatusChange = event => {
     const { keyworkerStatusDispatch } = this.props
 
     keyworkerStatusDispatch(event.target.value)
   }
 
-  handleCapacityChange(event) {
+  handleCapacityChange = event => {
     const { keyworkerCapacityDispatch } = this.props
 
     keyworkerCapacityDispatch(event.target.value)
   }
 
-  validate() {
+  validate = () => {
     const { capacity, setValidationErrorDispatch, resetValidationErrorsDispatch } = this.props
 
     if (!stringIsInteger(capacity)) {

@@ -7,12 +7,7 @@ import OffenderSearch from './OffenderSearch'
 import MessageBar from '../../MessageBar/index'
 
 class OffenderResults extends Component {
-  constructor() {
-    super()
-    this.buttons = this.buttons.bind(this)
-  }
-
-  getKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
+  getKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
     if (staffId) {
       return (
         <a className="link" href={getStaffLink(staffId)}>
@@ -23,7 +18,7 @@ class OffenderResults extends Component {
     return <strong className="bold-xsmall">Not allocated</strong>
   }
 
-  buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
+  buildKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
     if (keyworkerDisplay) {
       if (numberAllocated || numberAllocated === 0) {
         return `${keyworkerDisplay} (${numberAllocated})`
@@ -33,7 +28,7 @@ class OffenderResults extends Component {
     return `${staffId} (no details available)`
   }
 
-  buildTableForRender(keyworkerOptions, offenderList) {
+  buildTableForRender = (keyworkerOptions, offenderList) => {
     const { keyworkerChangeList, user, handleKeyworkerChange } = this.props
     if (!(offenderList && offenderList.map)) {
       return []
@@ -85,7 +80,7 @@ class OffenderResults extends Component {
     })
   }
 
-  buttons(rows) {
+  buttons = rows => {
     const { user, postManualOverride, onFinishAllocation, history } = this.props
 
     if (!user || !user.writeAccess) return <div />

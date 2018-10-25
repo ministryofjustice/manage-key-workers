@@ -5,7 +5,7 @@ import MessageBar from '../../../MessageBar'
 import { properCaseName } from '../../../stringUtils'
 
 class StaffRoleProfile extends Component {
-  goBack(e, history) {
+  goBack = (e, history) => {
     e.preventDefault()
     // Return to previous page in history. There can be multiple origin pages.
     history.goBack()
