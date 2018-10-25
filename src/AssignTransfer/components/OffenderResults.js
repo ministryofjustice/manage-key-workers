@@ -114,12 +114,12 @@ class OffenderResults extends Component {
     if (!offenderResults || !loaded) return ''
 
     const keyworkerOptions = offenderResults.keyworkerResponse
-      ? offenderResults.keyworkerResponse.map((kw, optionIndex) => {
+      ? offenderResults.keyworkerResponse.map(kw => {
           const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${
             kw.numberAllocated
           })`
           return (
-            <option key={`option_${optionIndex}_${kw.staffId}`} value={kw.staffId}>
+            <option key={`option_${kw.staffId}`} value={kw.staffId}>
               {formattedDetails}
             </option>
           )
