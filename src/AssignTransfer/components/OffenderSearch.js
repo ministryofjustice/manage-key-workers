@@ -18,8 +18,8 @@ const OffenderSearch = ({
   handleSearchTextChange,
 }) => {
   const housingLocations = locations
-    ? locations.map((kw, optionIndex) => (
-        <option key={`housinglocation_option_${optionIndex}_${kw.locationId}`} value={kw.locationPrefix}>
+    ? locations.map(kw => (
+        <option key={`housinglocation_option_${kw.locationId}`} value={kw.locationPrefix}>
           {kw.description || kw.locationPrefix}
         </option>
       ))
