@@ -15,10 +15,7 @@ import UserSearch from '../components/UserSearch'
 
 class UserSearchContainer extends Component {
   constructor(props) {
-    super()
-    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this)
-    this.handleNameFilterChange = this.handleNameFilterChange.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
+    super(props)
     props.resetErrorDispatch()
     props.nameFilterDispatch('')
     props.roleFilterDispatch('')
@@ -29,7 +26,7 @@ class UserSearchContainer extends Component {
     await this.getRoles()
   }
 
-  async getRoles() {
+  getRoles = async () => {
     const { roleFilterListDispatch, handleError, user } = this.props
 
     try {
@@ -44,20 +41,20 @@ class UserSearchContainer extends Component {
     }
   }
 
-  handleRoleFilterChange(event) {
+  handleRoleFilterChange = event => {
     const { roleFilterDispatch } = this.props
 
     roleFilterDispatch(event.target.value)
+  }
+
+  handleSearch = history => {
+    history.push('/maintainRoles/results')
   }
 
   handleNameFilterChange(event) {
     const { nameFilterDispatch } = this.props
 
     nameFilterDispatch(event.target.value)
-  }
-
-  handleSearch(history) {
-    history.push('/maintainRoles/results')
   }
 
   render() {

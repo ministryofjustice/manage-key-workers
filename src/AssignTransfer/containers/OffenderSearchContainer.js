@@ -11,11 +11,6 @@ import {
 } from '../../redux/actions'
 
 class OffenderSearchContainer extends Component {
-  constructor() {
-    super()
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
   componentWillMount() {
     const { offenderSearchTextDispatch, offenderSearchAllocationStatusDispatch } = this.props
 
@@ -24,7 +19,7 @@ class OffenderSearchContainer extends Component {
     offenderSearchAllocationStatusDispatch('all')
   }
 
-  async getLocations() {
+  getLocations = async () => {
     const {
       offenderSearchLocationsDispatch,
       offenderSearchHousingLocationDispatch,
@@ -43,7 +38,7 @@ class OffenderSearchContainer extends Component {
     }
   }
 
-  handleSubmit(history) {
+  handleSubmit = history => {
     history.push('/offender/results')
   }
 

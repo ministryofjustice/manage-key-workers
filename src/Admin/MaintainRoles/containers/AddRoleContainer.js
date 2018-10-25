@@ -54,13 +54,13 @@ class AddRoleContainer extends Component {
     }
   }
 
-  handleRoleFilterChange(event) {
+  handleRoleFilterChange = event => {
     const { setRoleFilterDispatch } = this.props
 
     setRoleFilterDispatch(event.target.value)
   }
 
-  handleCancel(e, history) {
+  handleCancel = (e, history) => {
     e.preventDefault()
     // Return to previous page in history. There can be multiple origin pages.
     history.goBack()

@@ -22,12 +22,7 @@ import {
 
 class KeyworkerProfileContainer extends Component {
   constructor(props) {
-    super()
-    this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this)
-    this.postAllocationChange = this.postAllocationChange.bind(this)
-    this.handleEditProfileClick = this.handleEditProfileClick.bind(this)
-    this.getKeyworkerStats = this.getKeyworkerStats.bind(this)
-
+    super(props)
     props.setLoadedDispatch(false)
   }
 
@@ -43,13 +38,13 @@ class KeyworkerProfileContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  async getKeyworkerProfile() {
+  getKeyworkerProfile = async () => {
     const { match, keyworkerDispatch } = this.props
     const keyworker = await this.makeKeyworkerProfileCall(match.params.staffId)
     keyworkerDispatch(keyworker)
   }
 
-  async getKeyworkerAllocations() {
+  getKeyworkerAllocations = async () => {
     const {
       agencyId,
       match,
@@ -63,7 +58,7 @@ class KeyworkerProfileContainer extends Component {
     keyworkerChangeListDispatch([])
   }
 
-  async getKeyworkerStats() {
+  getKeyworkerStats = async () => {
     const { agencyId, match, keyworkerStatsDispatch } = this.props
     const format = 'YYYY-MM-DD'
     const toDate = moment()
@@ -87,7 +82,7 @@ class KeyworkerProfileContainer extends Component {
     keyworkerStatsDispatch(response.data)
   }
 
-  async makeKeyworkerAllocationsCall(agencyId, staffId) {
+  makeKeyworkerAllocationsCall = async (agencyId, staffId) => {
     const response = await axios.get('/api/keyworkerAllocations', {
       params: {
         agencyId,
@@ -97,7 +92,7 @@ class KeyworkerProfileContainer extends Component {
     return response.data
   }
 
-  handleKeyworkerChange(event, index, offenderNo) {
+  handleKeyworkerChange = (event, index, offenderNo) => {
     const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props
     const changeList = [...keyworkerChangeList]
 
@@ -118,7 +113,7 @@ class KeyworkerProfileContainer extends Component {
     keyworkerChangeListDispatch(changeList)
   }
 
-  async makeKeyworkerProfileCall(staffId) {
+  makeKeyworkerProfileCall = async staffId => {
     const { agencyId } = this.props
     const response = await axios.get('/api/keyworker', {
       params: {
@@ -129,7 +124,7 @@ class KeyworkerProfileContainer extends Component {
     return response.data
   }
 
-  handleEditProfileClick(history) {
+  handleEditProfileClick = history => {
     const { keyworkerCapacityDispatch, keyworkerStatusDispatch, keyworker } = this.props
     // initialise inputs with current capacity value
     keyworkerCapacityDispatch(keyworker.capacity.toString())
@@ -137,7 +132,7 @@ class KeyworkerProfileContainer extends Component {
     history.push(`/keyworker/${keyworker.staffId}/profile/edit`)
   }
 
-  async postAllocationChange(history) {
+  postAllocationChange = async history => {
     const { agencyId, keyworkerChangeList, setMessageDispatch, keyworkerChangeListDispatch, handleError } = this.props
     try {
       if (keyworkerChangeList && keyworkerChangeList.length > 0) {

@@ -42,18 +42,6 @@ import {
 const axios = require('axios')
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.onFinishAllocation = this.onFinishAllocation.bind(this)
-    this.switchCaseLoad = this.switchCaseLoad.bind(this)
-    this.showTermsAndConditions = this.showTermsAndConditions.bind(this)
-    this.hideTermsAndConditions = this.hideTermsAndConditions.bind(this)
-    this.clearMessage = this.clearMessage.bind(this)
-    this.resetError = this.resetError.bind(this)
-    this.displayError = this.displayError.bind(this)
-    this.handleError = this.handleError.bind(this)
-  }
-
   async componentDidMount() {
     const { configDispatch, setErrorDispatch } = this.props
 
@@ -86,11 +74,11 @@ class App extends React.Component {
     }
   }
 
-  onFinishAllocation(history) {
+  onFinishAllocation = history => {
     history.push('/')
   }
 
-  async loadUserAndCaseload() {
+  loadUserAndCaseload = async () => {
     const { userDetailsDispatch, keyworkerSettingsDispatch } = this.props
     const user = await axios.get('/api/me')
     const caseloads = await axios.get('/api/usercaseloads')
@@ -100,7 +88,7 @@ class App extends React.Component {
     keyworkerSettingsDispatch(keyworkerSettings.data)
   }
 
-  async switchCaseLoad(newCaseload) {
+  switchCaseLoad = async newCaseload => {
     const { switchAgencyDispatch, setErrorDispatch } = this.props
 
     try {
@@ -112,37 +100,32 @@ class App extends React.Component {
     }
   }
 
-  showTermsAndConditions() {
+  showTermsAndConditions = () => {
     const { setTermsVisibilityDispatch } = this.props
-
     setTermsVisibilityDispatch(true)
   }
 
-  hideTermsAndConditions() {
+  hideTermsAndConditions = () => {
     const { setTermsVisibilityDispatch } = this.props
-
     setTermsVisibilityDispatch(false)
   }
 
-  clearMessage() {
+  clearMessage = () => {
     const { setMessageDispatch } = this.props
-
     setMessageDispatch(null)
   }
 
-  resetError() {
+  resetError = () => {
     const { resetErrorDispatch } = this.props
-
     resetErrorDispatch()
   }
 
-  displayError(error) {
+  displayError = error => {
     const { setErrorDispatch } = this.props
-
     setErrorDispatch((error.response && error.response.data) || `Something went wrong: ${error}`)
   }
 
-  handleError(error) {
+  handleError = error => {
     const { setErrorDispatch } = this.props
 
     if (
@@ -156,26 +139,23 @@ class App extends React.Component {
     }
   }
 
-  displayAlertAndLogout(message) {
+  displayAlertAndLogout = message => {
     alert(message) // eslint-disable-line no-alert
     window.location = '/auth/logout'
   }
 
-  shouldDisplayInnerContent() {
+  shouldDisplayInnerContent = () => {
     const { shouldShowTerms, user } = this.props
-
     return !shouldShowTerms && (user && user.activeCaseLoadId)
   }
 
-  displayBack() {
-    return (
-      <div className="padding-top">
-        <Link id="back_to_menu_link" title="Back to menu link" className="link backlink" to="/">
-          <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-        </Link>
-      </div>
-    )
-  }
+  displayBack = () => (
+    <div className="padding-top">
+      <Link id="back_to_menu_link" title="Back to menu link" className="link backlink" to="/">
+        <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
+      </Link>
+    </div>
+  )
 
   render() {
     const { setMenuOpen, config, shouldShowTerms } = this.props

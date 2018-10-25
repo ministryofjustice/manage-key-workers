@@ -7,10 +7,10 @@ import DateFilter from '../../DateFilter/index'
 import { getOffenderLink, getStaffLink } from '../../links'
 
 class Provisional extends Component {
-  getKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
+  getKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
     if (staffId) {
       return (
-        <a className="link" target="_blank" href={getStaffLink(staffId)}>
+        <a className="link" target="_blank" rel="noopener noreferrer" href={getStaffLink(staffId)}>
           {this.buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated)}
         </a>
       )
@@ -18,7 +18,7 @@ class Provisional extends Component {
     return <strong className="bold-xsmall">Not allocated</strong>
   }
 
-  buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
+  buildKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
     if (keyworkerDisplay !== '--') {
       if (numberAllocated || numberAllocated === 0) {
         return `${keyworkerDisplay} (${numberAllocated})`
@@ -28,14 +28,14 @@ class Provisional extends Component {
     return `${staffId} (no details available)`
   }
 
-  buildTableForRender(keyworkerOptions) {
+  buildTableForRender = keyworkerOptions => {
     const { allocatedList, allocatedKeyworkers, handleKeyworkerChange } = this.props
     const offenders = allocatedList.map((a, index) => {
       const currentSelectValue = allocatedKeyworkers[index] ? allocatedKeyworkers[index].staffId : ''
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters">
-            <a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>
+            <a target="_blank" rel="noopener noreferrer" className="link" href={getOffenderLink(a.offenderNo)}>
               {properCaseName(a.lastName)}, {properCaseName(a.firstName)}
             </a>
           </td>
