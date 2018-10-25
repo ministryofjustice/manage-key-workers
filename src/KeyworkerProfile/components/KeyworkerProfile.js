@@ -7,12 +7,7 @@ import { getOffenderLink } from '../../links'
 import KeyworkerStats from './KeyworkerStats'
 
 class KeyworkerProfile extends Component {
-  constructor(props) {
-    super(props)
-    this.goBack = this.goBack.bind(this)
-  }
-
-  getAllocationStyle() {
+  getAllocationStyle = () => {
     const { keyworkerAllocations, keyworker } = this.props
     let allocationStyleClass = 'numberCircleGreen'
     if (keyworkerAllocations.length === 0) {
@@ -25,7 +20,7 @@ class KeyworkerProfile extends Component {
     return allocationStyleClass
   }
 
-  goBack(e, history) {
+  goBack = (e, history) => {
     e.preventDefault()
     // Return to previous page in history. There can be multiple origin pages.
     history.goBack()

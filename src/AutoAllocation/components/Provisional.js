@@ -7,7 +7,7 @@ import DateFilter from '../../DateFilter/index'
 import { getOffenderLink, getStaffLink } from '../../links'
 
 class Provisional extends Component {
-  getKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
+  getKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
     if (staffId) {
       return (
         <a className="link" target="_blank" rel="noopener noreferrer" href={getStaffLink(staffId)}>
@@ -18,7 +18,7 @@ class Provisional extends Component {
     return <strong className="bold-xsmall">Not allocated</strong>
   }
 
-  buildKeyworkerDisplay(staffId, keyworkerDisplay, numberAllocated) {
+  buildKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
     if (keyworkerDisplay !== '--') {
       if (numberAllocated || numberAllocated === 0) {
         return `${keyworkerDisplay} (${numberAllocated})`
@@ -28,7 +28,7 @@ class Provisional extends Component {
     return `${staffId} (no details available)`
   }
 
-  buildTableForRender(keyworkerOptions) {
+  buildTableForRender = keyworkerOptions => {
     const { allocatedList, allocatedKeyworkers, handleKeyworkerChange } = this.props
     const offenders = allocatedList.map((a, index) => {
       const currentSelectValue = allocatedKeyworkers[index] ? allocatedKeyworkers[index].staffId : ''

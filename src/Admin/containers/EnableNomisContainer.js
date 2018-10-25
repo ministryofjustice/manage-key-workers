@@ -9,19 +9,13 @@ import { setLoaded, setMessage } from '../../redux/actions'
 import Spinner from '../../Spinner'
 
 class EnableNomisContainer extends Component {
-  constructor() {
-    super()
-    this.handleEnable = this.handleEnable.bind(this)
-    this.handleCancel = this.handleCancel.bind(this)
-  }
-
   componentWillMount() {
     const { setLoadedDispatch } = this.props
 
     setLoadedDispatch(true)
   }
 
-  async handleEnable(history) {
+  handleEnable = async history => {
     const { agencyId, setLoadedDispatch, setMessageDispatch, handleError } = this.props
 
     setLoadedDispatch(false)
@@ -43,7 +37,7 @@ class EnableNomisContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  handleCancel(history) {
+  handleCancel = history => {
     history.push(`/`)
   }
 
