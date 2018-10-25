@@ -80,14 +80,49 @@ class MaintainRolesSpecification extends GebReportingSpec {
 
         and: "i select a user to edit"
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
-        elite2api.stubGetAgencyDetails(Caseload.LEI)
+        elite2api.stubGetAgencyDetailsMultipleAgencies(Caseload.LEI)
         elite2api.stubGetNWEBAccessRolesForUserAndCaseloadForAdminUser(UserAccount.API_TEST_USER.username, true)
         editButtonAPI_TEST_USER.click()
 
         then: "i am presented with the Staff profile page"
         at StaffRoleProfilePage
         caseload.isDisplayed()
+        caseload.text().contains('Agency 1, Agency 2')
     }
+
+    def "handles empty caseload on Staff role profile"() {
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
+        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
+        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Maintain roles - User search page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRolesIncludingAdminRoles()
+        maintainRolesLink.click()
+
+        when: "i perform a global user search"
+        elite2api.stubUserSearchAdmin(0)
+        searchButton.click()
+
+        then: "the user search results page is displayed"
+        at UserSearchResultsPage
+        rows.size() == 3
+        searchButton.text() == 'Search'
+        roleSelect.find('option').size() == 9
+
+        and: "i select a user to edit"
+        elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
+        elite2api.stubGetAgencyDetailsEmptyResult(Caseload.LEI)
+        elite2api.stubGetNWEBAccessRolesForUserAndCaseloadForAdminUser(UserAccount.API_TEST_USER.username, true)
+        editButtonAPI_TEST_USER.click()
+
+        then: "i am presented with the Staff profile page without a caseload description"
+        at StaffRoleProfilePage
+        !caseload.isDisplayed()
+    }
+
 
     def "should handle pagination"() {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
