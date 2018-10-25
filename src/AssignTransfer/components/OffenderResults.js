@@ -44,7 +44,7 @@ class OffenderResults extends Component {
       return (
         <tr key={a.offenderNo} className="row-gutters">
           <td className="row-gutters">
-            <a target="_blank" className="link" href={getOffenderLink(a.offenderNo)}>
+            <a target="_blank" rel="noopener noreferrer" className="link" href={getOffenderLink(a.offenderNo)}>
               {properCaseName(a.lastName)}, {properCaseName(a.firstName)}
             </a>
           </td>
@@ -54,7 +54,7 @@ class OffenderResults extends Component {
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">{this.getKeyworkerDisplay(a.staffId, a.keyworkerDisplay, a.numberAllocated)}</td>
           <td>
-            <a className="link" target="_blank" href={getKeyWorkerHistoryLink(a.offenderNo)}>
+            <a className="link" target="_blank" rel="noopener noreferrer" href={getKeyWorkerHistoryLink(a.offenderNo)}>
               View
             </a>
           </td>
