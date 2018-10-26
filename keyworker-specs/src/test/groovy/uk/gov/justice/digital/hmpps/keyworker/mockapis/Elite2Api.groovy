@@ -54,18 +54,48 @@ class Elite2Api extends WireMockRule {
 
     void stubGetAgencyDetails(Caseload caseload) {
         this.stubFor(
-                get(urlPathEqualTo("/api/agencies/${caseload.id}"))
+                get(urlPathEqualTo("/api/agencies/caseload/${caseload.id}"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
-                                .withBody(JsonOutput.toJson([
+                                .withBody(JsonOutput.toJson([[
 
                                     agencyId: caseload.id,
                                     description: caseload.description,
                                     agencyType: caseload.type
 
-                        ]))))
+                        ]]))))
+    }
+
+    void stubGetAgencyDetailsMultipleAgencies(Caseload caseload) {
+        this.stubFor(
+                get("/api/agencies/caseload/${caseload.id}")
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''[
+                                {
+                                    "agencyId": "AG1",
+                                    "description": "Agency 1",
+                                    "agencyType": "TYPE"
+                                },
+                                 {
+                                    "agencyId": "AG2",
+                                    "description": "Agency 2",
+                                    "agencyType": "TYPE"
+                                }]''')))
+    }
+
+    void stubGetAgencyDetailsEmptyResult(Caseload caseload) {
+        this.stubFor(
+                get("/api/agencies/caseload/${caseload.id}")
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody('''[]''')))
     }
 
     void stubGetRoles() {

@@ -26,7 +26,7 @@ const elite2ApiFactory = client => {
   const currentUser = context => get(context, 'api/users/me')
   const userLocations = context => get(context, 'api/users/me/locations')
   const getUserAccessRoles = context => get(context, 'api/users/me/roles')
-  const getAgencyDetails = (context, agencyId) => get(context, `api/agencies/${agencyId}`)
+  const getAgencyDetails = (context, caseloadId) => get(context, `api/agencies/caseload/${caseloadId}`)
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
   const userSearch = (context, { agencyId, nameFilter, roleFilter }) =>
     get(
