@@ -158,38 +158,28 @@ class KeyworkerProfile extends Component {
           <div className="padding-top">
             <div className="pure-u-md-5-12">
               <div className="pure-u-md-5-12">
-                <label className="form-label" htmlFor="name">
-                  Establishment
-                </label>
+                <span className="form-label">Establishment</span>
                 <div className="bold padding-top-small">{keyworker.agencyDescription}</div>
               </div>
               <div className="pure-u-md-4-12">
-                <label className="form-label" htmlFor="name">
-                  Schedule type
-                </label>
+                <span className="form-label">Schedule type</span>
                 <div className="bold padding-top-small">{keyworker.scheduleType}</div>
               </div>
               <div className="pure-u-md-1-12">
-                <label className="form-label" htmlFor="name">
-                  Capacity
-                </label>
+                <span className="form-label">Capacity</span>
                 <div className="bold padding-top-small">{keyworker.capacity}</div>
               </div>
             </div>
             <div className="pure-u-md-7-12">
               <div className="pure-u-md-6-12">
-                <label className="form-label" htmlFor="name">
-                  Status
-                </label>
+                <span className="form-label">Status</span>
                 <div id="keyworker-status" className={`${statusStyle}Status`}>
                   {getStatusDescription(keyworker.status)}
                 </div>
               </div>
               {keyworker.status === 'UNAVAILABLE_ANNUAL_LEAVE' && (
                 <div className="pure-u-md-3-12 activeDate">
-                  <label className="form-label" htmlFor="name">
-                    Return date
-                  </label>
+                  <span className="form-label">Return date</span>
                   <div className="bold padding-top-small" id="active-date">
                     {renderDate(keyworker.activeDate)}
                   </div>

@@ -61,7 +61,7 @@ class KeyworkerSearchResults extends Component {
             <div>
               <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
                 <div className="pure-u-md-4-12">
-                  <label className="form-label" htmlFor="seachText">
+                  <label className="form-label" htmlFor="search-text">
                     Key worker name
                   </label>
                   <input

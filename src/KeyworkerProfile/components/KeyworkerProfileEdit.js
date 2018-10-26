@@ -36,25 +36,19 @@ const KeyworkerProfileEdit = ({
         </div>
         <div className="padding-top">
           <div className="pure-u-md-2-12">
-            <label className="form-label" htmlFor="name">
-              Name
-            </label>
+            <span className="form-label">Name</span>
             <div className="bold padding-top-small">{keyworkerDisplayName}</div>
           </div>
           <div className="pure-u-md-2-12">
-            <label className="form-label" htmlFor="name">
-              Establishment
-            </label>
+            <span className="form-label">Establishment</span>
             <div className="bold padding-top-small">{keyworker.agencyDescription}</div>
           </div>
           <div className="pure-u-md-2-12">
-            <label className="form-label" htmlFor="name">
-              Schedule type
-            </label>
+            <span className="form-label">Schedule type</span>
             <div className="bold padding-top-small">{keyworker.scheduleType}</div>
           </div>
           <div className="pure-u-md-1-12">
-            <label className="form-label" htmlFor="name">
+            <label className="form-label" htmlFor="capacity">
               Capacity
             </label>
             <div>
