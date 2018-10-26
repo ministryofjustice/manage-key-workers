@@ -155,14 +155,14 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       log.debug({ data: allCsras }, 'Response from csraList request')
 
       for (const offenderWithAllocatedKeyworker of offenderWithAllocatedKeyworkerDtos) {
-        const keyworker = availableKeyworkers.find(
+        const keyworkerDetails = availableKeyworkers.find(
           keyworker => keyworker.staffId === offenderWithAllocatedKeyworker.staffId
         )
-        if (keyworker) {
-          offenderWithAllocatedKeyworker.keyworkerDisplay = `${properCaseName(keyworker.lastName)}, ${properCaseName(
-            keyworker.firstName
-          )}`
-          offenderWithAllocatedKeyworker.numberAllocated = keyworker.numberAllocated
+        if (keyworkerDetails) {
+          offenderWithAllocatedKeyworker.keyworkerDisplay = `${properCaseName(
+            keyworkerDetails.lastName
+          )}, ${properCaseName(keyworkerDetails.firstName)}`
+          offenderWithAllocatedKeyworker.numberAllocated = keyworkerDetails.numberAllocated
         } else {
           const details = await getKeyworkerDetails(
             context,
@@ -260,11 +260,13 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         offender.staffId = staffId
 
         if (staffId) {
-          const keyworker = availableKeyworkers.find(keyworker => keyworker.staffId === staffId)
-          if (keyworker) {
+          const keyworkerDetails = availableKeyworkers.find(keyworker => keyworker.staffId === staffId)
+          if (keyworkerDetails) {
             // eslint-disable-line max-depth
-            offender.keyworkerDisplay = `${properCaseName(keyworker.lastName)}, ${properCaseName(keyworker.firstName)}`
-            offender.numberAllocated = keyworker.numberAllocated
+            offender.keyworkerDisplay = `${properCaseName(keyworkerDetails.lastName)}, ${properCaseName(
+              keyworkerDetails.firstName
+            )}`
+            offender.numberAllocated = keyworkerDetails.numberAllocated
           } else {
             const details = await getKeyworkerDetails(context, staffId, offender.agencyId)
             offender.keyworkerDisplay = details.keyworkerDisplay

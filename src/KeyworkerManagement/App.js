@@ -158,10 +158,10 @@ class App extends React.Component {
   )
 
   render() {
-    const { setMenuOpen, config, shouldShowTerms } = this.props
+    const { boundSetMenuOpen, config, shouldShowTerms } = this.props
     let innerContent
     const routes = (
-      <div className="inner-content" onClick={() => setMenuOpen(false)}>
+      <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage} />} />
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />} />
@@ -333,7 +333,7 @@ class App extends React.Component {
       innerContent = routes
     } else {
       innerContent = (
-        <div className="inner-content" onClick={() => setMenuOpen(false)}>
+        <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
           <div className="pure-g">
             <Error {...this.props} />
           </div>
@@ -356,6 +356,7 @@ class App extends React.Component {
                   switchCaseLoad={this.switchCaseLoad}
                   history={props.history}
                   resetError={this.resetError}
+                  setMenuOpen={boundSetMenuOpen}
                   {...this.props}
                 />
               )
@@ -364,7 +365,7 @@ class App extends React.Component {
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
           <Footer
-            setMenuOpen={setMenuOpen}
+            setMenuOpen={boundSetMenuOpen}
             showTermsAndConditions={this.showTermsAndConditions}
             mailTo={config.mailTo}
           />
@@ -388,7 +389,7 @@ App.propTypes = {
   resetErrorDispatch: PropTypes.func,
   keyworkerSettingsDispatch: PropTypes.func,
   setMessageDispatch: PropTypes.func.isRequired,
-  setMenuOpen: PropTypes.func.isRequired,
+  boundSetMenuOpen: PropTypes.func,
   allowAuto: PropTypes.bool,
 }
 
@@ -411,7 +412,7 @@ const mapDispatchToProps = dispatch => ({
   setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   setMessageDispatch: message => dispatch(setMessage(message)),
-  setMenuOpen: flag => dispatch(setMenuOpen(flag)),
+  boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
   keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
 })
 
