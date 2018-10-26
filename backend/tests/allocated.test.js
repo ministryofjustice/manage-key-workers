@@ -108,52 +108,83 @@ function createSentenceDetailListResponse() {
   return [
     { offenderNo: 'A1234AA', sentenceDetail: { releaseDate: '2024-03-03' } },
     { offenderNo: 'A1234AB', sentenceDetail: { releaseDate: '2025-04-03' } },
-    { offenderNo: 'A1234AF', sentenceDetail: { releaseDate: '2026-03-03' } },
-    { offenderNo: 'A1234AC', sentenceDetail: { releaseDate: '2019-03-03' } },
-    { offenderNo: 'A1234AD', sentenceDetail: { releaseDate: '2018-03-03' } },
+    { offenderNo: 'A1234AC', sentenceDetail: { fred: 'someValue' } },
+    { offenderNo: 'A1234AD' },
   ]
 }
 
 function createAssessmentListResponse() {
   return [
     { offenderNo: 'A1234AA', classification: 'High' },
-    { offenderNo: 'A1234AB', classification: 'High' },
+    { offenderNo: 'A1234AB' },
     { offenderNo: 'A1234AF', classification: 'Low' },
     { offenderNo: 'A1234AC', classification: 'Silly' },
-    { offenderNo: 'A1234AD', classification: 'Low' },
+  ]
+}
+
+function createCaseNoteUsageListResponse() {
+  return [
+    { offenderNo: 'A1234AA', latestCaseNote: '2012-04-13' },
+    { offenderNo: 'A1234AB' },
+    { offenderNo: 'A1234AF', latestCaseNote: '2014-02-03' },
+    { offenderNo: 'A1234AC', latestCaseNote: '2015-03-04' },
   ]
 }
 
 describe('Allocated controller', async () => {
-  it('Should add keyworker details to allocated data array', async () => {
+  let response
+
+  beforeAll(async () => {
     keyworkerApi.autoAllocate = jest.fn()
     keyworkerApi.availableKeyworkers = jest.fn()
     keyworkerApi.autoallocated = jest.fn()
 
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
     elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+    elite2Api.caseNoteUsageList = jest.fn().mockImplementationOnce(() => createCaseNoteUsageListResponse())
 
     keyworkerApi.keyworker = jest.fn().mockImplementation(() => createSingleKeyworkerResponse())
     keyworkerApi.autoallocated.mockReturnValueOnce(createAllocatedDataResponse())
     keyworkerApi.availableKeyworkers.mockReturnValueOnce(createAvailableKeyworkerResponse())
 
-    const response = await allocated({}, 'LEI')
+    response = await allocated({}, 'LEI')
+  })
 
+  it('Should call auto allocate', () => {
     expect(keyworkerApi.autoAllocate.mock.calls.length).toBe(1)
+  })
 
-    expect(response.allocatedResponse[0].bookingId).toBe(-1)
-    expect(response.allocatedResponse[0].offenderNo).toBe('A1234AA')
-    expect(response.allocatedResponse[0].firstName).toBe('ARTHUR')
-    expect(response.allocatedResponse[0].lastName).toBe('ANDERSON')
-    expect(response.allocatedResponse[0].staffId).toBe(123)
-    expect(response.allocatedResponse[0].agencyId).toBe('LEI')
-    expect(response.allocatedResponse[0].staffId).toBe(123)
-    expect(response.allocatedResponse[0].internalLocationDesc).toBe('A-1-1')
-    expect(response.allocatedResponse[0].keyworkerDisplay).toBe('Hanson, Amy')
-    expect(response.allocatedResponse[0].numberAllocated).toBe(4)
-    expect(response.allocatedResponse[0].crsaClassification).toBe('High')
-    expect(response.allocatedResponse[0].confirmedReleaseDate).toBe('2024-03-03')
+  it('Should create data items in allocated data array', () => {
+    expect(response.allocatedResponse[0]).toMatchObject({
+      bookingId: -1,
+      offenderNo: 'A1234AA',
+      firstName: 'ARTHUR',
+      lastName: 'ANDERSON',
+      staffId: 123,
+      agencyId: 'LEI',
+      internalLocationDesc: 'A-1-1',
+      keyworkerDisplay: 'Hanson, Amy',
+      numberAllocated: 4,
+      crsaClassification: 'High',
+      confirmedReleaseDate: '2024-03-03',
+    })
+  })
 
+  it('Should map classifications for offenders', () => {
+    expect(response.allocatedResponse.map(a => a.crsaClassification)).toEqual(['High', null, 'Low', 'Silly', null])
+  })
+
+  it('Should map release date for offenders', () => {
+    expect(response.allocatedResponse.map(a => a.confirmedReleaseDate)).toEqual([
+      '2024-03-03',
+      '2025-04-03',
+      null,
+      null,
+      null,
+    ])
+  })
+
+  it('Should add keyworker details to allocated data array', () => {
     expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Lard, Ben')
   })
 })
