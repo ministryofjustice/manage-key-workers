@@ -6,33 +6,23 @@ const telemetry = require('../azure-appinsights')
 // TODO: There's a lot of duplication in this module...
 
 const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
-  const findCrsaForOffender = (csras, offenderNo) => {
-    const details = csras.filter(details => details.offenderNo === offenderNo)
-    if (details.length < 1) {
-      return
-    }
-    const detail = details[0]
-    return detail && detail.classification
-  }
+  const findCrsaForOffender = (csras, offenderNo) =>
+    csras
+      .filter(d => d.offenderNo === offenderNo)
+      .map(d => d.classification)
+      .find(e => !!e) || null
 
-  const findReleaseDateForOffender = (allReleaseDates, offenderNo) => {
-    const details = allReleaseDates.filter(details => details.offenderNo === offenderNo)
-    if (details.length < 1) {
-      return
-    }
-    const detail = details[0]
-    return detail && detail.sentenceDetail && detail.sentenceDetail.releaseDate
-  }
+  const findReleaseDateForOffender = (allReleaseDates, offenderNo) =>
+    allReleaseDates
+      .filter(d => d.offenderNo === offenderNo)
+      .map(d => d.sentenceDetail && d.sentenceDetail.releaseDate)
+      .find(d => !!d) || null
 
-  const findKeyworkerCaseNoteDate = (kwDates, offenderNo) => {
-    const details = kwDates.filter(details => details.offenderNo === offenderNo)
-    if (details.length < 1) {
-      return
-    }
-    return details.reduce(
-      (previous, current, index) => (current.latestCaseNote > previous.latestCaseNote && index ? current : previous)
-    ).latestCaseNote
-  }
+  const findKeyworkerCaseNoteDate = (kwDates, offenderNo) =>
+    kwDates
+      .filter(d => d.offenderNo === offenderNo)
+      .map(d => d.latestCaseNote)
+      .reduce((acc, cur) => (cur > acc ? cur : acc), '') || null
 
   const unallocated = async (context, agencyId) => {
     const offenderWithLocationDtos = await keyworkerApi.unallocated(context, agencyId)
@@ -71,15 +61,11 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
   const getOffenderNumbers = offenderResults =>
     offenderResults && offenderResults.length && offenderResults.map(row => row.offenderNo)
 
-  const findKeyworkerStaffIdForOffender = (offenderKeyworkers, offenderNo) => {
-    const keyworkerAssignmentsForOffender = offenderKeyworkers.filter(
-      offenderKeyworker => offenderKeyworker.offenderNo === offenderNo
-    )
-    if (keyworkerAssignmentsForOffender.length >= 1) {
-      const offenderKeyworker = keyworkerAssignmentsForOffender[0]
-      return offenderKeyworker && offenderKeyworker.staffId
-    }
-  }
+  const findKeyworkerStaffIdForOffender = (offenderKeyworkers, offenderNo) =>
+    offenderKeyworkers
+      .filter(k => k.offenderNo === offenderNo)
+      .map(k => k.staffId)
+      .find(e => !!e) || null
 
   const applyAllocationStatusFilter = (allocationStatus, currentOffenderResults, offenderKeyworkers) => {
     let offenderResults = currentOffenderResults
