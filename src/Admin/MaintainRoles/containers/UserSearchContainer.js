@@ -51,7 +51,7 @@ class UserSearchContainer extends Component {
     history.push('/maintainRoles/results')
   }
 
-  handleNameFilterChange(event) {
+  handleNameFilterChange = event => {
     const { nameFilterDispatch } = this.props
 
     nameFilterDispatch(event.target.value)
