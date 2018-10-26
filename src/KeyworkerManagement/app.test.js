@@ -17,7 +17,7 @@ describe('App component', () => {
         switchAgencyDispatch={jest.fn()}
         configDispatch={jest.fn()}
         setMessageDispatch={jest.fn()}
-        setMenuOpen={jest.fn()}
+        boundSetMenuOpen={jest.fn()}
         setTermsVisibilityDispatch={jest.fn()}
       />
     )
@@ -55,7 +55,7 @@ describe('App component', () => {
         switchAgencyDispatch={jest.fn()}
         configDispatch={jest.fn()}
         setMessageDispatch={jest.fn()}
-        setMenuOpen={jest.fn()}
+        boundSetMenuOpen={jest.fn()}
         setTermsVisibilityDispatch={jest.fn()}
       />
     )
@@ -88,7 +88,7 @@ describe('App component', () => {
         configDispatch={jest.fn()}
         setMessageDispatch={jest.fn()}
         menuOpen
-        setMenuOpen={setMenuOpen}
+        boundSetMenuOpen={setMenuOpen}
         setTermsVisibilityDispatch={jest.fn()}
       />
     )

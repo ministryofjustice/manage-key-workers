@@ -70,7 +70,7 @@ const results = { offenderResponse, keyworkerResponse }
 
 const resultsLongList = { offenderResponse: offenderResponseLongList, keyworkerResponse }
 
-const user = {
+let user = {
   writeAccess: true,
 }
 
@@ -284,7 +284,7 @@ describe('Offender results component', () => {
   })
 
   it('should not disable the assign new key worker drop down when the user has write access', () => {
-    const user = {
+    user = {
       writeAccess: true,
     }
     const component = shallow(
