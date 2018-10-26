@@ -19,7 +19,7 @@ const KeyworkerSearchPage = ({
       <div className="pure-u-md-8-12">
         <h1 className="heading-large margin-top">Search for a key worker</h1>
         <div className="searchForm padding-top padding-left-30 padding-right padding-bottom-large">
-          <label className="form-label" htmlFor="seachText">
+          <label className="form-label" htmlFor="search-text">
             Key worker name
           </label>
           <input

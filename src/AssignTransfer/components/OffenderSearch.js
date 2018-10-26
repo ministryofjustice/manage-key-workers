@@ -45,7 +45,7 @@ const OffenderSearch = ({
 
   const allocationStatusSelect = (
     <div>
-      <label className="form-label" htmlFor="housing-location-select">
+      <label className="form-label" htmlFor="allocation-status-select">
         Allocation status
       </label>
       <ValidationErrors validationErrors={validationErrors} fieldName="housing-location-select" />
@@ -110,7 +110,7 @@ const OffenderSearch = ({
     <div>
       <div className="pure-u-md-12-12 searchForm padding-bottom">
         <div className="pure-u-md-4-12 padding-top padding-left">
-          <label className="form-label" htmlFor="seachText">
+          <label className="form-label" htmlFor="search-text">
             Prisoner name or number
           </label>
           <ValidationErrors validationErrors={validationErrors} fieldName="searchText" />
@@ -127,7 +127,7 @@ const OffenderSearch = ({
         <div className="pure-u-md-3-12 padding-top padding-left">{locationSelect}</div>
         <div className="pure-u-md-2-12 padding-top padding-left">{allocationStatusSelect}</div>
         <div className="pure-u-md-2-12 padding-top padding-left">
-          <label className="form-label">&nbsp;</label>
+          <span className="form-label">&nbsp;</span>
           <button type="button" id="searchButton" className="button" onClick={() => handleSubmit(history)}>
             Search again
           </button>

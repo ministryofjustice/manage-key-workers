@@ -31,21 +31,34 @@ const KeyworkerProfileEditConfirm = ({
           <div className="padding-bottom">Choose an option:</div>
           <ValidationErrors validationErrors={validationErrors} fieldName="behaviourRadios" />
           <div name="behaviourRadios" id="behaviourRadios" className="multiple-choice">
-            <input type="radio" name="allocationOption" value="KEEP_ALLOCATIONS" onClick={handleOptionChange} />
-            <label>Continue to auto-allocate</label>
-          </div>
-          <div className="multiple-choice">
-            <input type="radio" name="allocationOption" value="KEEP_ALLOCATIONS_NO_AUTO" onClick={handleOptionChange} />
-            <label>Stop allocating</label>
+            <input
+              type="radio"
+              name="allocationOption"
+              id="keep"
+              value="KEEP_ALLOCATIONS"
+              onClick={handleOptionChange}
+            />
+            <label htmlFor="keep">Continue to auto-allocate</label>
           </div>
           <div className="multiple-choice">
             <input
               type="radio"
               name="allocationOption"
+              id="keepNoAuto"
+              value="KEEP_ALLOCATIONS_NO_AUTO"
+              onClick={handleOptionChange}
+            />
+            <label htmlFor="keepNoAuto">Stop allocating</label>
+          </div>
+          <div className="multiple-choice">
+            <input
+              type="radio"
+              name="allocationOption"
+              id="remove"
               value="REMOVE_ALLOCATIONS_NO_AUTO"
               onClick={handleOptionChange}
             />
-            <label>Stop allocating and unallocate all their current prisoners</label>
+            <label htmlFor="remove">Stop allocating and unallocate all their current prisoners</label>
           </div>
         </div>
 
@@ -80,9 +93,7 @@ const KeyworkerProfileEditConfirm = ({
         </div>
         <div className="pure-g">
           <div className="pure-u-md-4-12">
-            <label className="form-label" htmlFor="keyworker-status">
-              Proposed new status:
-            </label>
+            <span className="form-label">Proposed new status:</span>
             <div id="keyworker-status" name="keyworker-status" className={`${statusStyle}Status margin-top`}>
               {getStatusDescription(status)}
             </div>
