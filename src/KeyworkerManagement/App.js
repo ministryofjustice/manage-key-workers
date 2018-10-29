@@ -161,6 +161,7 @@ class App extends React.Component {
     const { boundSetMenuOpen, config, shouldShowTerms } = this.props
     let innerContent
     const routes = (
+      // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage} />} />
@@ -333,6 +334,7 @@ class App extends React.Component {
       innerContent = routes
     } else {
       innerContent = (
+        // eslint-disable-next-line
         <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
           <div className="pure-g">
             <Error {...this.props} />
