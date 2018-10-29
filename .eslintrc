@@ -27,7 +27,6 @@
     "jsx-a11y/anchor-is-valid": 0,
     "react/forbid-prop-types": 0,
     "react/prop-types": 0,
-    "prefer-promise-reject-errors": 0,
     "no-restricted-syntax": 0,
     "no-await-in-loop": 0,
     "no-continue": 0
