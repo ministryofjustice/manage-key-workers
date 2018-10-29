@@ -164,4 +164,34 @@ describe('Key worker profile controller', async () => {
     expect(numberOfProjectedKeyworkerSessions.value).toBe(0)
     expect(numberOfProjectedKeyworkerSessions.change.value).toBe(0)
   })
+
+  it('should return compliance rate as a percentage', async () => {
+    keyworkerApi.stats.mockReturnValueOnce({
+      caseNoteEntryCount: 0,
+      caseNoteSessionCount: 0,
+      projectedKeyworkerSessions: 0,
+      complianceRate: 5,
+    })
+
+    keyworkerApi.stats.mockReturnValueOnce({
+      caseNoteEntryCount: 0,
+      caseNoteSessionCount: 0,
+      projectedKeyworkerSessions: 0,
+      complianceRate: 10,
+    })
+
+    const stats = await controller.getStatsForStaff({
+      locals: {},
+      agencyId: 'LEI',
+      staffId: -5,
+      fromDate: '2018-10-10',
+      toDate: '2018-10-15',
+    })
+
+    const statsByName = getStatsByName(stats)
+
+    const { complianceRate } = statsByName
+
+    expect(complianceRate.percentage).toBe(true)
+  })
 })

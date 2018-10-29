@@ -48,7 +48,7 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         assert statsMapArray[1].change == "no change since last month"
 
         assert statsMapArray[2].description == "Compliance rate"
-        assert statsMapArray[2].value == "0"
+        assert statsMapArray[2].value == "0 %"
         assert statsMapArray[2].change == "no change since last month"
 
         assert statsMapArray[3].description == "Total number of key worker case notes written"
@@ -56,7 +56,7 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         assert statsMapArray[3].change == "no change since last month"
     }
 
-    def "should pull stats from a month ago to yesterday"() {
+    def "should pull stats from a month ago to today"() {
         given: "I am logged in"
         fixture.loginAs(UserAccount.ITAG_USER)
 
@@ -67,8 +67,8 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
 
         String path = "/key-worker-stats/${KeyworkerResultsPage.test_keyworker_staffId}/prison/LEI"
 
-        LocalDate toDate = LocalDate.now().minus(1, ChronoUnit.DAYS)
-        LocalDate fromDate = LocalDate.now().minus(1, ChronoUnit.MONTHS).minus(1, ChronoUnit.DAYS)
+        LocalDate toDate = LocalDate.now()
+        LocalDate fromDate = LocalDate.now().minus(1, ChronoUnit.MONTHS)
 
         UrlPattern requestUrl =
                urlPathEqualTo(
