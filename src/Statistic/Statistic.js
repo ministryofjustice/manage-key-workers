@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import { Container, Heading, Value, Change } from './Statistic.styles'
 import StatisticChange from './StatisticChange'
 
-const Statistic = ({ heading, value, change }) => (
+const Statistic = ({ heading, value, change, percentage }) => (
   <Container data-qa="keyworker-stat">
     <Heading>{heading}</Heading>
-    <Value>{value}</Value>
+    <Value>
+      {value} {percentage && '%'}
+    </Value>
     <Change>
       {change.value === 0 && `no change since last ${change.period}`}
-      {change.value !== 0 && <StatisticChange change={change} />}
+      {change.value !== 0 && <StatisticChange change={change} percentage={percentage} />}
     </Change>
   </Container>
 )

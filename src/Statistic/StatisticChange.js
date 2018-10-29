@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-const StatisticChange = ({ change }) => {
+const StatisticChange = ({ change, percentage }) => {
   const { value, period } = change
   const changeType = value > 0 ? 'increase' : 'decrease'
 
   return (
     <Fragment>
       {changeType === 'increase' && '+'}
-      {value}
+      {value} {percentage && '%'}
       <img src={`/images/icon-${changeType}.png`} alt={changeType} height={20} width={20} />
       {period && `since last ${period}`}
     </Fragment>

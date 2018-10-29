@@ -60,4 +60,21 @@ describe('<Statistic />', () => {
       expect(tree).toMatchSnapshot()
     })
   })
+
+  describe('with percentages', () => {
+    const stateWithPercentageValue = {
+      heading: 'A statistic with a percentage',
+      value: 5,
+      percentage: true,
+      change: {
+        value: 0,
+        period: 'week',
+      },
+    }
+
+    it('should decorate the value with a percent', () => {
+      const tree = renderer.create(<Statistic {...stateWithPercentageValue} />).toJSON()
+      expect(tree).toMatchSnapshot()
+    })
+  })
 })
