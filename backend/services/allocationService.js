@@ -36,11 +36,11 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allCsras = await elite2Api.csraList(context, offenderNumbers)
       log.debug({ data: allCsras }, 'Response from csraList request')
 
-      for (const offenderWithLocation of offenderWithLocationDtos) {
+      offenderWithLocationDtos.forEach(offenderWithLocation => {
         const { offenderNo } = offenderWithLocation
         offenderWithLocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
         offenderWithLocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-      }
+      })
     }
     return offenderWithLocationDtos
   }
@@ -154,7 +154,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allCsras = await elite2Api.csraList(context, offenderNumbers)
       log.debug({ data: allCsras }, 'Response from csraList request')
 
-      for (const offenderWithAllocatedKeyworker of offenderWithAllocatedKeyworkerDtos) {
+      const offenderKeyworkerPromises = offenderWithAllocatedKeyworkerDtos.map(async offenderWithAllocatedKeyworker => {
         const keyworkerDetails = availableKeyworkers.find(
           keyworker => keyworker.staffId === offenderWithAllocatedKeyworker.staffId
         )
@@ -176,7 +176,9 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         const { offenderNo } = offenderWithAllocatedKeyworker
         offenderWithAllocatedKeyworker.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
         offenderWithAllocatedKeyworker.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-      }
+      })
+
+      await Promise.all(offenderKeyworkerPromises)
     }
     return {
       keyworkerResponse: availableKeyworkers,
@@ -204,12 +206,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers)
       log.debug({ data: kwDates }, 'Response from case note usage request')
 
-      for (const keyworkerAllocation of keyworkerAllocationDetailsDtos) {
+      keyworkerAllocationDetailsDtos.forEach(keyworkerAllocation => {
         const { offenderNo } = keyworkerAllocation
         keyworkerAllocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
         keyworkerAllocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
         keyworkerAllocation.lastKeyWorkerSessionDate = findKeyworkerCaseNoteDate(kwDates, offenderNo)
-      }
+      })
     }
 
     return {
@@ -253,7 +255,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allCsras = await elite2Api.csraList(context, filteredOffenderNumbers)
       log.debug({ data: allCsras }, 'Response from csraList request')
 
-      for (const offender of filteredOffenders) {
+      const filteredOffendersPromises = filteredOffenders.map(async offender => {
         const { offenderNo } = offender
         const staffId = findKeyworkerStaffIdForOffender(offenderKeyworkers, offenderNo)
 
@@ -262,7 +264,6 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         if (staffId) {
           const keyworkerDetails = availableKeyworkers.find(keyworker => keyworker.staffId === staffId)
           if (keyworkerDetails) {
-            // eslint-disable-line max-depth
             offender.keyworkerDisplay = `${properCaseName(keyworkerDetails.lastName)}, ${properCaseName(
               keyworkerDetails.firstName
             )}`
@@ -275,7 +276,9 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         }
         offender.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
         offender.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-      }
+      })
+
+      await Promise.all(filteredOffendersPromises)
     }
     return {
       keyworkerResponse: availableKeyworkers,

@@ -11,10 +11,7 @@ const factory = keyworkerApi => {
 
     log.debug({ allocateList: allocatedKeyworkers }, 'Manual override contents')
 
-    for (const allocatedKeyworker of allocatedKeyworkers) {
-      if (!(allocatedKeyworker && allocatedKeyworker.staffId)) {
-        continue
-      }
+    const allocationPromises = allocatedKeyworkers.filter(item => item.staffId).map(async allocatedKeyworker => {
       const data = {
         offenderNo: allocatedKeyworker.offenderNo,
         staffId: allocatedKeyworker.staffId,
@@ -23,9 +20,12 @@ const factory = keyworkerApi => {
         allocationReason: 'MANUAL',
         deallocationReason: 'OVERRIDE',
       }
+
       const response = await keyworkerApi.allocate(res.locals, data)
       log.debug({ response }, 'Response from allocate request')
-    }
+    })
+
+    await Promise.all(allocationPromises)
     res.json({})
   })
 
