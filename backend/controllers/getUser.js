@@ -9,9 +9,9 @@ const getUserFactory = elite2Api => {
     if (data.activeCaseLoadId) {
       const agencyArray = await elite2Api.getAgencyDetails(res.locals, data.activeCaseLoadId)
       let description = ''
-      for (const element of agencyArray) {
+      agencyArray.forEach(element => {
         description += `${element.description}, `
-      }
+      })
       if (description !== '') {
         description = description.slice(0, -2)
         data.agencyDescription = description
