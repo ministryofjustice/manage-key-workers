@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import GridRow from '@govuk-react/grid-row'
 import GridCol from '@govuk-react/grid-col'
 import Statistic from '../../Statistic/Statistic'
@@ -14,5 +15,9 @@ const KeyworkerStats = ({ stats }) => (
     ))}
   </GridRow>
 )
+
+KeyworkerStats.propTypes = {
+  stats: PropTypes.arrayOf(PropTypes.object),
+}
 
 export default KeyworkerStats

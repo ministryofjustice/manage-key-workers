@@ -20,6 +20,7 @@ Statistic.propTypes = {
   heading: PropTypes.string,
   value: PropTypes.number,
   change: PropTypes.object,
+  percentage: PropTypes.bool,
 }
 
 Statistic.defaultProps = {
@@ -29,6 +30,7 @@ Statistic.defaultProps = {
     value: 0,
     period: 'week',
   },
+  percentage: false,
 }
 
 export default Statistic

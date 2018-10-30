@@ -20,6 +20,7 @@ StatisticChange.propTypes = {
     value: PropTypes.number,
     period: PropTypes.string,
   }),
+  percentage: PropTypes.bool,
 }
 
 export default StatisticChange
