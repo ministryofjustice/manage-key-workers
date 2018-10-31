@@ -158,14 +158,26 @@ class App extends React.Component {
   )
 
   render() {
-    const { boundSetMenuOpen, config, shouldShowTerms } = this.props
+    const { boundSetMenuOpen, config, shouldShowTerms, error, allowAuto, user, message } = this.props
     let innerContent
     const routes = (
       // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
-          <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage} />} />
-          <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <HomePage
+                allowAuto={allowAuto}
+                user={user}
+                config={config}
+                message={message}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
+          <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
             exact
             path="/offender/search"
@@ -305,7 +317,7 @@ class App extends React.Component {
         // eslint-disable-next-line
         <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
           <div className="pure-g">
-            <Error {...this.props} />
+            <Error error={error} />
           </div>
         </div>
       )
@@ -347,7 +359,6 @@ class App extends React.Component {
 
 App.propTypes = {
   error: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
   config: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   shouldShowTerms: PropTypes.bool.isRequired,
@@ -367,7 +378,6 @@ App.propTypes = {
 const mapStateToProps = state => ({
   error: state.app.error,
   message: state.app.message,
-  page: state.app.page,
   config: state.app.config,
   user: state.app.user,
   shouldShowTerms: state.app.shouldShowTerms,
