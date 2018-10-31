@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit'
 import Status from '../components/Status'
+import mockHistory from '../../test/mockHistory'
 
 const keyworker = {
   firstName: 'Frank',
@@ -21,7 +22,7 @@ describe('Keyworker Profile Edit component', () => {
         handleStatusChange={jest.fn()}
         handleCapacityChange={jest.fn()}
         handleCancel={jest.fn()}
-        history={{}}
+        history={mockHistory}
         status=""
         capacity="0"
         validationErrors={{}}
@@ -43,7 +44,7 @@ describe('Keyworker Profile Edit component', () => {
         handleStatusChange={jest.fn()}
         handleCapacityChange={jest.fn()}
         handleCancel={jest.fn()}
-        history={{}}
+        history={mockHistory}
         status=""
         capacity="0"
         validationErrors={{}}
@@ -64,7 +65,7 @@ describe('Keyworker Profile Edit component', () => {
         handleStatusChange={jest.fn()}
         handleCapacityChange={jest.fn()}
         handleCancel={handleCancel}
-        history={{}}
+        history={mockHistory}
         status=""
         capacity="0"
         validationErrors={{}}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import MessageBar from '../../../MessageBar'
 import { properCaseName } from '../../../stringUtils'
@@ -101,10 +102,10 @@ class StaffRoleProfile extends Component {
 }
 
 StaffRoleProfile.propTypes = {
-  history: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  contextUser: PropTypes.object.isRequired,
-  roleList: PropTypes.array.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  user: PropTypes.shape({}).isRequired,
+  contextUser: PropTypes.shape({}).isRequired,
+  roleList: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleRemove: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,
 }

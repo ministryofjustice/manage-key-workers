@@ -149,7 +149,7 @@ UserSearchContainer.propTypes = {
   pageSize: PropTypes.number.isRequired,
   totalRecords: PropTypes.number.isRequired,
   error: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func.isRequired,
   roleFilterDispatch: PropTypes.func.isRequired,
@@ -158,7 +158,7 @@ UserSearchContainer.propTypes = {
   roleFilterListDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  config: PropTypes.object.isRequired,
+  config: PropTypes.shape({}).isRequired,
 }
 
 const mapStateToProps = state => ({

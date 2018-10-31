@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Provisional } from '../components/Provisional'
+import mockHistory from '../../test/mockHistory'
 
 const NO_DATA = '--'
 const OFFENDER_NAME_COLUMN = 0
@@ -65,8 +66,6 @@ const keyworkList = [
     numberAllocated: 6,
   },
 ]
-
-const mockHistory = {}
 
 describe('ManualAllocation component', () => {
   it('should render list correctly', async () => {

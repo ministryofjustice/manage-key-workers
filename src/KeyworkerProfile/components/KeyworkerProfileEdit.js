@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { properCaseName } from '../../stringUtils'
 import ValidationErrors from '../../ValidationError'
 import Status from './Status'
@@ -83,15 +84,15 @@ const KeyworkerProfileEdit = ({
 }
 
 KeyworkerProfileEdit.propTypes = {
-  history: PropTypes.object.isRequired,
-  keyworker: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  keyworker: PropTypes.shape({}).isRequired,
   handleSaveChanges: PropTypes.func.isRequired,
   handleStatusChange: PropTypes.func.isRequired,
   handleCapacityChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
   capacity: PropTypes.string.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 export default KeyworkerProfileEdit

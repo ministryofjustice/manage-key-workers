@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import KeyworkerSearchResult from '../components/KeyworkerSearchResults'
+import mockHistory from '../../test/mockHistory'
 
 const getTestData = () => [
   {
@@ -45,7 +46,7 @@ describe('Keyworker search result component', () => {
         handleStatusFilterChange={jest.fn()}
         user={{}}
         keyworkerSettings={{}}
-        history={{}}
+        history={mockHistory}
         searchText=""
         statusFilter=""
         validationErrors={{}}

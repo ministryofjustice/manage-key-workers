@@ -175,8 +175,8 @@ KeyworkerSettingsContainer.propTypes = {
   capacity: PropTypes.string.isRequired,
   extCapacity: PropTypes.string.isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
   message: PropTypes.string.isRequired,
 }
 

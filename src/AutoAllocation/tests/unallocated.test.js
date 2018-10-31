@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Unallocated from '../components/Unallocated'
 import links from '../../links'
+import mockHistory from '../../test/mockHistory'
 
 const list = [
   {
@@ -30,7 +31,7 @@ describe('Unallocated component', () => {
   it('should render list correctly', () => {
     links.notmEndpointUrl = 'http://my.testUrl/'
     const component = shallow(
-      <Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={() => {}} history={{}} />
+      <Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={() => {}} history={mockHistory} />
     )
 
     expect(component).toMatchSnapshot()
@@ -40,7 +41,7 @@ describe('Unallocated component', () => {
     const callBack = jest.fn()
 
     const component = shallow(
-      <Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={callBack} history={{}} />
+      <Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={callBack} history={mockHistory} />
     )
 
     component.find('button').simulate('click')
@@ -49,7 +50,7 @@ describe('Unallocated component', () => {
 
   it('should omit button and show message when no list 1', async () => {
     const component = shallow(
-      <Unallocated loaded displayBack={mockBack} gotoNext={jest.fn()} history={{}} unallocatedList={[]} />
+      <Unallocated loaded displayBack={mockBack} gotoNext={jest.fn()} history={mockHistory} unallocatedList={[]} />
     )
 
     expect(component.find('button')).toHaveLength(0)
@@ -58,7 +59,7 @@ describe('Unallocated component', () => {
 
   it('should omit button and show message when no list 2', async () => {
     const component = shallow(
-      <Unallocated loaded unallocatedList={[]} displayBack={mockBack} gotoNext={jest.fn()} history={{}} />
+      <Unallocated loaded unallocatedList={[]} displayBack={mockBack} gotoNext={jest.fn()} history={mockHistory} />
     )
 
     expect(component.find('button')).toHaveLength(0)

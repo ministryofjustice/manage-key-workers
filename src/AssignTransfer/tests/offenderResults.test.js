@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { OffenderResults } from '../components/OffenderResults'
+import mockHistory from '../../test/mockHistory'
 
 const OFFENDER_NAME_COLUMN = 0
 const NOMS_ID_COLUMN = 1
@@ -82,7 +83,7 @@ describe('Offender results component', () => {
         loaded
         keyworkerList={keyworkerResponse}
         offenderResults={results}
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
@@ -206,7 +207,7 @@ describe('Offender results component', () => {
         loaded
         keyworkerList={keyworkerResponse}
         offenderResults={resultsLongList}
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
@@ -230,7 +231,7 @@ describe('Offender results component', () => {
         offenderResults={results}
         postManualOverride={postManualOverride}
         onFinishAllocation={cancel}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
@@ -254,7 +255,7 @@ describe('Offender results component', () => {
         offenderResults={results}
         postManualOverride={postManualOverride}
         onFinishAllocation={cancel}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
@@ -277,7 +278,7 @@ describe('Offender results component', () => {
         offenderResults={results}
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         displayBack={jest.fn()}
         handleKeyworkerChange={jest.fn()}
         keyworkerChangeList={[]}
@@ -306,7 +307,7 @@ describe('Offender results component', () => {
         offenderResults={results}
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
@@ -334,7 +335,7 @@ describe('Offender results component', () => {
         offenderResults={results}
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         displayBack={jest.fn()}
         handleKeyworkerChange={jest.fn()}
         keyworkerChangeList={[]}
@@ -354,7 +355,7 @@ describe('Offender results component', () => {
         offenderResults={results}
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}

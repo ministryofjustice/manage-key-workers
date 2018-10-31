@@ -50,11 +50,11 @@ class AllocationHistoryContainer extends Component {
 AllocationHistoryContainer.propTypes = {
   error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  allocationHistory: PropTypes.object.isRequired,
+  allocationHistory: PropTypes.shape({ allocationHistory: PropTypes.object }).isRequired,
   allocationHistoryDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
+  match: PropTypes.shape({}).isRequired,
   loaded: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
 }

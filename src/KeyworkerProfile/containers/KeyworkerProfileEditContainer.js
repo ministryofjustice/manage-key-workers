@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import axios from 'axios'
@@ -136,19 +137,19 @@ KeyworkerProfileEditContainer.propTypes = {
   error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerDispatch: PropTypes.func.isRequired,
-  keyworker: PropTypes.object.isRequired,
+  keyworker: PropTypes.shape({}).isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func.isRequired,
   keyworkerCapacityDispatch: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  match: PropTypes.shape({}).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   status: PropTypes.string.isRequired,
   capacity: PropTypes.number.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,
   resetValidationErrorsDispatch: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
 }
 
 const mapStateToProps = state => ({

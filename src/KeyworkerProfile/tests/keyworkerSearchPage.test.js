@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { KeyworkerSearchPage } from '../components/KeyworkerSearchPage'
+import mockHistory from '../../test/mockHistory'
 
 describe('Keyworker search component', () => {
   it('should render key worker search form correctly', async () => {
@@ -12,7 +13,7 @@ describe('Keyworker search component', () => {
         displayBack={jest.fn()}
         searchText=""
         statusFilter=""
-        history={{}}
+        history={mockHistory}
       />
     )
     expect(component.find('#search-text').length).toBe(1)
@@ -36,7 +37,7 @@ describe('Keyworker search component', () => {
         displayBack={jest.fn()}
         searchText=""
         statusFilter=""
-        history={{}}
+        history={mockHistory}
       />
     )
 
@@ -55,7 +56,7 @@ describe('Keyworker search component', () => {
         displayBack={jest.fn()}
         searchText=""
         statusFilter=""
-        history={{}}
+        history={mockHistory}
       />
     )
 
@@ -75,7 +76,7 @@ describe('Keyworker search component', () => {
         displayBack={jest.fn()}
         searchText=""
         statusFilter=""
-        history={{}}
+        history={mockHistory}
       />
     )
 

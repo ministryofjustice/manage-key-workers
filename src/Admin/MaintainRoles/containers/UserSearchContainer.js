@@ -77,7 +77,7 @@ UserSearchContainer.propTypes = {
   nameFilter: PropTypes.string.isRequired,
   roleFilter: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func.isRequired,
   roleFilterDispatch: PropTypes.func.isRequired,

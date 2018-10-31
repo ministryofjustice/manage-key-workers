@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { KeyworkerProfileEditConfirmContainer } from '../containers/KeyworkerProfileEditConfirmContainer'
+import mockHistory from '../../test/mockHistory'
 
 const keyworkerAnnualLeave = {
   firstName: 'Frank',
@@ -43,7 +44,7 @@ describe('Keyworker Profile Edit component', () => {
         dateDispatch={jest.fn()}
         handleCancel={jest.fn()}
         match={{}}
-        history={{}}
+        history={mockHistory}
         handleError={jest.fn()}
         handleOptionChange={jest.fn()}
         agencyId="LEI"
@@ -70,7 +71,7 @@ describe('Keyworker Profile Edit component', () => {
         dateDispatch={jest.fn()}
         handleCancel={jest.fn()}
         match={{}}
-        history={{}}
+        history={mockHistory}
         handleError={jest.fn()}
         handleOptionChange={jest.fn()}
         agencyId="LEI"

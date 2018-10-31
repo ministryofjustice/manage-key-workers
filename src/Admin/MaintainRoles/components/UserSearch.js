@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 
 const UserSearch = ({
@@ -88,9 +89,9 @@ UserSearch.propTypes = {
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.array.isRequired,
+  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
   displayBack: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 }
 
 const UserSearchWithRouter = withRouter(UserSearch)

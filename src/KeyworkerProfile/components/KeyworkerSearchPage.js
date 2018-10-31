@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import Status from './Status'
 import '../index.scss'
@@ -55,7 +56,7 @@ KeyworkerSearchPage.propTypes = {
   displayBack: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
   statusFilter: PropTypes.string.isRequired,
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   handleSearch: PropTypes.func.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,

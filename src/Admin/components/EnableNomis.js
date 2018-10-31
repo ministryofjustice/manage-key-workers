@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import ReactRouterPropTypes from 'react-router-prop-types'
 
 const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
   const caseLoadOption = user.caseLoadOptions
     ? user.caseLoadOptions.find(option => option.caseLoadId === user.activeCaseLoadId)
     : undefined
   const caseLoadDesc = caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId
-
   return (
     <div>
       <div className="pure-g">
@@ -55,10 +55,10 @@ const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
 }
 
 EnableNomis.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   handleEnable: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
 }
 
 export default EnableNomis

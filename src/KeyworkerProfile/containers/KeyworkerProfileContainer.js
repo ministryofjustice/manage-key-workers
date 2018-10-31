@@ -175,22 +175,22 @@ class KeyworkerProfileContainer extends Component {
 
 KeyworkerProfileContainer.propTypes = {
   error: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerAllocationsDispatch: PropTypes.func.isRequired,
   keyworkerDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
-  keyworkerChangeList: PropTypes.array.isRequired,
-  keyworker: PropTypes.object.isRequired,
+  match: PropTypes.shape({}).isRequired,
+  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworker: PropTypes.shape({}).isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   availableKeyworkerListDispatch: PropTypes.func.isRequired,
   keyworkerCapacityDispatch: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  config: PropTypes.object.isRequired,
+  config: PropTypes.shape({}).isRequired,
   message: PropTypes.string.isRequired,
 }
 

@@ -7,7 +7,24 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Unallocated
     displayBack={[Function]}
     gotoNext={[Function]}
-    history={Object {}}
+    history={
+      Object {
+        "action": "PUSH",
+        "block": [MockFunction],
+        "createHref": [MockFunction],
+        "go": [MockFunction],
+        "goBack": [MockFunction],
+        "goForward": [MockFunction],
+        "listen": [MockFunction],
+        "location": Object {
+          "hash": "",
+          "pathname": "",
+          "search": "",
+        },
+        "push": [MockFunction],
+        "replace": [MockFunction],
+      }
+    }
     loaded={true}
     unallocatedList={
       Array [

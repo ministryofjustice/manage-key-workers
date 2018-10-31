@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { Link } from 'react-router-dom'
 import { properCaseName } from '../../stringUtils'
 import { getStatusDescription } from '../keyworkerStatus'
@@ -124,15 +125,15 @@ class KeyworkerSearchResults extends Component {
 }
 
 KeyworkerSearchResults.propTypes = {
-  history: PropTypes.object.isRequired,
-  keyworkerList: PropTypes.array.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchText: PropTypes.string.isRequired,
   statusFilter: PropTypes.string.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   displayBack: PropTypes.func.isRequired,
-  keyworkerSettings: PropTypes.object.isRequired,
+  keyworkerSettings: PropTypes.shape({}).isRequired,
 }
 
 export default KeyworkerSearchResults

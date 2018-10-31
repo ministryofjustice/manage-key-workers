@@ -76,7 +76,7 @@ const GetNextNavigationRegion = ({ pN, pageAction, totalPages }) => (
 )
 
 PreviousNextNavigation.propTypes = {
-  pagination: PropTypes.object,
+  pagination: PropTypes.shape({}),
   totalRecords: PropTypes.number,
   pageAction: PropTypes.func,
 }

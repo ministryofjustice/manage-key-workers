@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import { properCaseName } from '../../../stringUtils'
 import ValidationErrors from '../../../ValidationError'
@@ -111,11 +112,11 @@ AddRole.propTypes = {
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.array.isRequired,
-  roleList: PropTypes.array.isRequired,
-  history: PropTypes.object.isRequired,
-  contextUser: PropTypes.object.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roleList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  contextUser: PropTypes.shape({}).isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 const AddRoleWithRouter = withRouter(AddRole)

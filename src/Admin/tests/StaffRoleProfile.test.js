@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { StaffRoleProfile } from '../MaintainRoles/components/StaffRoleProfile'
+import mockHistory from '../../test/mockHistory'
 
 const user = {
   staffId: 485576,
@@ -25,7 +26,7 @@ describe('Staff role profile component', () => {
         handleAdd={jest.fn()}
         error=""
         resetErrorDispatch={jest.fn()}
-        history={{}}
+        history={mockHistory}
         message=""
       />
     )
@@ -55,7 +56,7 @@ describe('Staff role profile component', () => {
         handleAdd={handleAddMock}
         error=""
         resetErrorDispatch={jest.fn()}
-        history={{}}
+        history={mockHistory}
         message=""
       />
     )

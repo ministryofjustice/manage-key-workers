@@ -92,8 +92,8 @@ const HomePage = props => {
 
 HomePage.propTypes = {
   message: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
-  config: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
+  config: PropTypes.shape({}).isRequired,
   allowAuto: PropTypes.bool.isRequired,
 }
 

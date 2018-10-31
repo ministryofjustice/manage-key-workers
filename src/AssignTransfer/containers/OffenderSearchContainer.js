@@ -50,7 +50,7 @@ class OffenderSearchContainer extends Component {
 OffenderSearchContainer.propTypes = {
   error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  locations: PropTypes.array.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.object).isRequired,
   offenderSearchLocationsDispatch: PropTypes.func.isRequired,
   offenderSearchHousingLocationDispatch: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
@@ -60,7 +60,7 @@ OffenderSearchContainer.propTypes = {
   offenderSearchAllocationStatusDispatch: PropTypes.func.isRequired,
   initialSearch: PropTypes.bool.isRequired,
   allocationStatus: PropTypes.string.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 const mapStateToProps = state => ({
