@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { Link } from 'react-router-dom'
 import '../index.scss'
 import MessageBar from '../../MessageBar/index'
@@ -159,20 +160,20 @@ const KeyworkerSettings = props => {
 }
 
 KeyworkerSettings.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   handleAllowAutoChange: PropTypes.func.isRequired,
   handleCapacityChange: PropTypes.func.isRequired,
   handleExtCapacityChange: PropTypes.func.isRequired,
   handleSequenceFrequency: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
   supported: PropTypes.bool.isRequired,
   sequenceFrequency: PropTypes.number.isRequired,
   capacity: PropTypes.number.isRequired,
   extCapacity: PropTypes.number.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 export default KeyworkerSettings

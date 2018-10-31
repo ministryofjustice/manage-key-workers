@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import { properCaseName, renderDate } from '../../stringUtils'
 import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from '../../links'
@@ -185,16 +186,16 @@ class OffenderResults extends Component {
 }
 
 OffenderResults.propTypes = {
-  offenderResults: PropTypes.object.isRequired,
-  keyworkerList: PropTypes.array.isRequired,
-  keyworkerChangeList: PropTypes.array.isRequired,
-  history: PropTypes.object.isRequired,
+  offenderResults: PropTypes.shape({}).isRequired,
+  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
   displayBack: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
 }
 
 const OffenderResultsWithRouter = withRouter(OffenderResults)

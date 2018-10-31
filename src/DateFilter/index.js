@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import DatePicker from './datePicker'
 
 const DateFilter = props => {
@@ -38,8 +39,8 @@ const DateFilter = props => {
 }
 
 DateFilter.propTypes = {
-  keyworkerList: PropTypes.array.isRequired,
-  history: PropTypes.object.isRequired,
+  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   toDate: PropTypes.string.isRequired,
   fromDate: PropTypes.string.isRequired,
   applyDateFilter: PropTypes.func.isRequired,

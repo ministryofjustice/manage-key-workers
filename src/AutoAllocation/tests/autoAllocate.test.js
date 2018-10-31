@@ -3,6 +3,7 @@ import { shallow } from 'enzyme'
 import axios from 'axios'
 import { UnallocatedContainer } from '../containers/Unallocated'
 import { ProvisionalContainer } from '../containers/Provisional'
+import mockHistory from '../../test/mockHistory'
 
 const AXIOS_URL = 0
 const AXIOS_CONFIG = 1
@@ -29,7 +30,7 @@ describe('Unallocated component', () => {
         handleError={jest.fn()}
         unallocatedListDispatch={jest.fn()}
         setLoadedDispatch={jest.fn()}
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         error=""
         unallocatedList={[]}
@@ -55,7 +56,7 @@ describe('Unallocated component', () => {
         handleError={jest.fn()}
         unallocatedListDispatch={jest.fn()}
         setLoadedDispatch={jest.fn()}
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         user={{}}
         error=""
@@ -87,7 +88,7 @@ describe('Unallocated component', () => {
         manualOverrideDispatch={jest.fn()}
         allocatedDetailsDispatch={jest.fn()}
         setLoadedDispatch={jest.fn()}
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         error=""
         unallocatedList={[]}
@@ -118,7 +119,7 @@ describe('Unallocated component', () => {
         unallocatedListDispatch={jest.fn()}
         setLoadedDispatch={jest.fn()}
         error="Something went wrong: Error: Request failed with status code 500,test error"
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         unallocatedList={[]}
         allocatedList={[]}
@@ -157,7 +158,7 @@ describe('Unallocated component', () => {
         allocatedDetailsDispatch={jest.fn()}
         setLoadedDispatch={jest.fn()}
         error="Something went wrong: Error: Request failed with status code 500,test error"
-        history={{}}
+        history={mockHistory}
         displayBack={jest.fn()}
         unallocatedList={[]}
         allocatedList={[]}

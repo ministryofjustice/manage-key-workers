@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { AddRole } from '../MaintainRoles/components/AddRole'
+import mockHistory from '../../test/mockHistory'
 
 const user = {
   staffId: 485576,
@@ -22,7 +23,7 @@ describe('User search component', () => {
         agencyId="LEI"
         handleCancel={jest.fn()}
         handleAdd={jest.fn()}
-        history={{}}
+        history={mockHistory}
         roleFilter=""
         validationErrors={{}}
       />
@@ -48,7 +49,7 @@ describe('User search component', () => {
         handleRoleFilterChange={jest.fn()}
         handleCancel={handleCancelMock}
         handleAdd={handleAddMock}
-        history={{}}
+        history={mockHistory}
         roleFilter=""
         validationErrors={{}}
       />
@@ -69,7 +70,7 @@ describe('User search component', () => {
         handleRoleFilterChange={jest.fn()}
         handleCancel={jest.fn()}
         handleAdd={jest.fn()}
-        history={{}}
+        history={mockHistory}
         roleFilter=""
         validationErrors={{}}
       />

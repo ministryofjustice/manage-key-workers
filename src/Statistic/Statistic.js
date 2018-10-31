@@ -19,7 +19,10 @@ const Statistic = ({ heading, value, change, percentage }) => (
 Statistic.propTypes = {
   heading: PropTypes.string,
   value: PropTypes.number,
-  change: PropTypes.object,
+  change: PropTypes.shape({
+    value: PropTypes.number,
+    period: PropTypes.string,
+  }),
   percentage: PropTypes.bool,
 }
 

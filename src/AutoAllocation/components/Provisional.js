@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { properCaseName, renderDate } from '../../stringUtils'
@@ -130,10 +131,10 @@ class Provisional extends Component {
 }
 
 Provisional.propTypes = {
-  allocatedList: PropTypes.array.isRequired,
-  keyworkerList: PropTypes.array.isRequired,
-  history: PropTypes.object.isRequired,
-  allocatedKeyworkers: PropTypes.array.isRequired,
+  allocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  allocatedKeyworkers: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,

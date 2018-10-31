@@ -18,7 +18,7 @@ class ValidationErrors extends React.Component {
 
 ValidationErrors.propTypes = {
   fieldName: PropTypes.string.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 export default ValidationErrors

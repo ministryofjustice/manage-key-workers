@@ -64,7 +64,7 @@ class AssignTransferContainer extends Component {
 }
 
 AssignTransferContainer.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   error: PropTypes.string.isRequired,
   searchText: PropTypes.string.isRequired,
   allocationStatus: PropTypes.string.isRequired,

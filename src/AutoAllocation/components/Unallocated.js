@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { properCaseName, renderDate } from '../../stringUtils'
 import { getOffenderLink } from '../../links'
 
@@ -67,10 +68,10 @@ class Unallocated extends Component {
 }
 
 Unallocated.propTypes = {
-  unallocatedList: PropTypes.array.isRequired,
+  unallocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
   gotoNext: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   displayBack: PropTypes.func.isRequired,
 }
 

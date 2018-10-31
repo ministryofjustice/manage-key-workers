@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { UserSearch } from '../MaintainRoles/components/UserSearch'
+import mockHistory from '../../test/mockHistory'
 
 const user = {
   activeCaseLoadId: 'LEI',
@@ -24,7 +25,7 @@ describe('User search component', () => {
         handleRoleFilterChange={jest.fn()}
         handleNameFilterChange={jest.fn()}
         handleSearch={jest.fn()}
-        history={{}}
+        history={mockHistory}
       />
     )
     expect(component.find('#page-title').text()).toEqual('Search for staff member')
@@ -49,7 +50,7 @@ describe('User search component', () => {
         handleRoleFilterChange={handleRoleSelectMock}
         handleNameFilterChange={handleNameFilterMock}
         handleSearch={handleSubmitMock}
-        history={{}}
+        history={mockHistory}
         roleFilterList={[]}
       />
     )

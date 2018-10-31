@@ -104,13 +104,13 @@ class StaffRoleProfileContainer extends Component {
 
 StaffRoleProfileContainer.propTypes = {
   error: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   agencyId: PropTypes.string.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setRoleListDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  contextUser: PropTypes.object.isRequired,
-  roleList: PropTypes.array.isRequired,
+  contextUser: PropTypes.shape({}).isRequired,
+  roleList: PropTypes.arrayOf(PropTypes.object).isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
 }

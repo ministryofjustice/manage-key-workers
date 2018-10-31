@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { OffenderSearch } from '../components/OffenderSearch'
+import mockHistory from '../../test/mockHistory'
 
 const housingLocations = [{ id: 123, description: 'block 1' }, { id: 223, description: 'block 2' }]
 
@@ -10,6 +11,7 @@ const props = {
   housingLocation: '',
   allocationStatus: '',
   initialSearch: false,
+  history: mockHistory,
 }
 
 describe('Offender search component', () => {
@@ -21,7 +23,6 @@ describe('Offender search component', () => {
         handleSearchTextChange={() => {}}
         handleSearchHousingLocationChange={() => {}}
         handleSearchAllocationStatusChange={() => {}}
-        history={{}}
         handleSubmit={jest.fn()}
         {...props}
       />
@@ -38,7 +39,6 @@ describe('Offender search component', () => {
         handleSearchTextChange={() => {}}
         handleSearchHousingLocationChange={() => {}}
         handleSearchAllocationStatusChange={() => {}}
-        history={{}}
         handleSubmit={jest.fn()}
         {...props}
       />
@@ -57,7 +57,6 @@ describe('Offender search component', () => {
         handleSearchAllocationStatusChange={() => {}}
         setValidationErrorDispatch={() => {}}
         handleSubmit={handleSubmitMock}
-        history={{}}
         {...props}
       />
     )

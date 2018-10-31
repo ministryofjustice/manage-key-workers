@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -126,8 +127,8 @@ class ProvisionalContainer extends Component {
 ProvisionalContainer.propTypes = {
   error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  allocatedList: PropTypes.array.isRequired,
-  allocatedKeyworkers: PropTypes.array.isRequired,
+  allocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allocatedKeyworkers: PropTypes.arrayOf(PropTypes.object).isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   agencyId: PropTypes.string.isRequired,
   allocatedDetailsDispatch: PropTypes.func.isRequired,
@@ -135,8 +136,8 @@ ProvisionalContainer.propTypes = {
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 }
 
 const mapStateToProps = state => ({

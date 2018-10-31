@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import { UserSearch } from './UserSearch'
 import { properCaseName } from '../../../stringUtils'
@@ -83,10 +84,10 @@ UserSearchResults.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   handlePageAction: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.array.isRequired,
-  userList: PropTypes.array.isRequired,
+  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  userList: PropTypes.arrayOf(PropTypes.object).isRequired,
   displayBack: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   pageNumber: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   totalRecords: PropTypes.number.isRequired,

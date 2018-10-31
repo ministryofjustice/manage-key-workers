@@ -133,19 +133,19 @@ class AddRoleContainer extends Component {
 
 AddRoleContainer.propTypes = {
   error: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   roleFilter: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  roleFilterList: PropTypes.array.isRequired,
-  roleList: PropTypes.array.isRequired,
+  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roleList: PropTypes.arrayOf(PropTypes.object).isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setRoleFilterDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  contextUser: PropTypes.object.isRequired,
+  contextUser: PropTypes.shape({}).isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   resetValidationErrorsDispatch: PropTypes.func.isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 const mapStateToProps = state => ({

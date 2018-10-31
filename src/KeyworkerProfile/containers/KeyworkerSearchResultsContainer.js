@@ -117,7 +117,7 @@ KeyworkerSearchResultsContainer.propTypes = {
   setErrorDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  keyworkerSettings: PropTypes.object.isRequired,
+  keyworkerSettings: PropTypes.shape({}).isRequired,
   loaded: PropTypes.bool.isRequired,
 }
 

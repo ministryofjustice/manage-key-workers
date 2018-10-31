@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import KeyworkerProfile from '../components/KeyworkerProfile'
+import mockHistory from '../../test/mockHistory'
 
 const NO_DATA = '--'
 const OFFENDER_NAME_COLUMN = 0
@@ -148,7 +149,7 @@ const props = {
   config: {
     keyworkeProfileStatsEnabled: false,
   },
-  history: {},
+  history: mockHistory,
   message: '',
   loaded: false,
 }

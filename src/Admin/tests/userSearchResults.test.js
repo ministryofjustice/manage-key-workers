@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { UserSearchResults } from '../MaintainRoles/components/UserSearchResults'
+import mockHistory from '../../test/mockHistory'
 
 const user = {
   activeCaseLoadId: 'LEI',
@@ -13,7 +14,7 @@ const props = {
   error: '',
   handlePageAction: jest.fn(),
   resetErrorDispatch: jest.fn(),
-  history: {},
+  history: mockHistory,
   pageNumber: 0,
   pageSize: 0,
   totalRecords: 0,

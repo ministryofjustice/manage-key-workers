@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import axios from 'axios'
@@ -133,15 +134,15 @@ OffenderResultsContainer.propTypes = {
   agencyId: PropTypes.string.isRequired,
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
-  keyworkerChangeList: PropTypes.array.isRequired,
-  keyworkerList: PropTypes.array.isRequired,
-  locations: PropTypes.array.isRequired,
+  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  locations: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
   message: PropTypes.string.isRequired,
 }
 

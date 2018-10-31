@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import App from './App'
+import mockHistory from '../test/mockHistory'
 
 jest.mock('../Spinner/index', () => '')
 
@@ -11,7 +12,7 @@ describe('App component', () => {
         switchCaseLoad={jest.fn()}
         config={{}}
         user={{}}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         setErrorDispatch={jest.fn()}
         userDetailsDispatch={jest.fn()}
         switchAgencyDispatch={jest.fn()}
@@ -56,7 +57,7 @@ describe('App component', () => {
         switchCaseLoad={jest.fn()}
         config={{}}
         user={{}}
-        history={{ push: jest.fn() }}
+        history={mockHistory}
         setErrorDispatch={jest.fn()}
         userDetailsDispatch={jest.fn()}
         switchAgencyDispatch={jest.fn()}
@@ -93,7 +94,7 @@ describe('App component', () => {
     const component = shallow(
       <App
         switchCaseLoad={jest.fn()}
-        history={jest.fn()}
+        history={mockHistory}
         config={{}}
         user={{}}
         setErrorDispatch={jest.fn()}

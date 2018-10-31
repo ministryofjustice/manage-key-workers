@@ -1,6 +1,7 @@
 import React from 'react'
 import '../index.scss'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import ValidationErrors from '../../ValidationError'
 
@@ -138,9 +139,9 @@ const OffenderSearch = ({
 }
 
 OffenderSearch.propTypes = {
-  locations: PropTypes.array.isRequired,
+  locations: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchText: PropTypes.string.isRequired,
-  validationErrors: PropTypes.object.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
   housingLocation: PropTypes.string.isRequired,
   allocationStatus: PropTypes.string.isRequired,
   initialSearch: PropTypes.bool.isRequired,
@@ -148,7 +149,7 @@ OffenderSearch.propTypes = {
   handleSearchHousingLocationChange: PropTypes.func.isRequired,
   handleSearchAllocationStatusChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 }
 
 const OffenderSearchWithRouter = withRouter(OffenderSearch)

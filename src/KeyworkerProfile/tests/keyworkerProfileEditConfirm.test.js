@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfirm'
+import mockHistory from '../../test/mockHistory'
 
 const keyworker = {
   firstName: 'Frank',
@@ -11,8 +12,6 @@ const keyworker = {
   capacity: 8,
 }
 
-const hist = { goBack: jest.fn() }
-
 describe('Keyworker Profile Edit component', () => {
   it('should render component correctly w with INACTIVE status', async () => {
     const component = shallow(
@@ -22,7 +21,7 @@ describe('Keyworker Profile Edit component', () => {
         handleCancel={jest.fn()}
         handleOptionChange={jest.fn()}
         status="INACTIVE"
-        history={hist}
+        history={mockHistory}
         handleDateChange={jest.fn()}
         validationErrors={{}}
       />
@@ -44,7 +43,7 @@ describe('Keyworker Profile Edit component', () => {
         handleCancel={jest.fn()}
         handleOptionChange={jest.fn()}
         status="UNAVAILABLE_ANNUAL_LEAVE"
-        history={hist}
+        history={mockHistory}
         handleDateChange={jest.fn()}
         validationErrors={{}}
       />
@@ -63,7 +62,7 @@ describe('Keyworker Profile Edit component', () => {
         handleCancel={jest.fn()}
         handleOptionChange={jest.fn()}
         status="UNAVAILABLE_LONG_TERM_ABSENCE"
-        history={hist}
+        history={mockHistory}
         handleDateChange={jest.fn()}
         validationErrors={{}}
       />
@@ -82,7 +81,7 @@ describe('Keyworker Profile Edit component', () => {
         handleCancel={jest.fn()}
         handleOptionChange={jest.fn()}
         status="UNAVAILABLE_NO_PRISONER_CONTACT"
-        history={hist}
+        history={mockHistory}
         handleDateChange={jest.fn()}
         validationErrors={{}}
       />
@@ -102,7 +101,7 @@ describe('Keyworker Profile Edit component', () => {
         handleSaveChanges={handleSave}
         handleCancel={jest.fn()}
         handleOptionChange={jest.fn()}
-        history={hist}
+        history={mockHistory}
         handleDateChange={jest.fn()}
         validationErrors={{}}
         status=""
@@ -122,7 +121,7 @@ describe('Keyworker Profile Edit component', () => {
         handleSaveChanges={jest.fn()}
         handleCancel={handleCancel}
         handleOptionChange={jest.fn()}
-        history={hist}
+        history={mockHistory}
         handleDateChange={jest.fn()}
         validationErrors={{}}
         status=""

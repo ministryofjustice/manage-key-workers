@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import KeyworkerSettings from '../components/KeyworkerSettings'
+import mockHistory from '../../test/mockHistory'
 
 const user = {
   activeCaseLoadId: 'LEI',
@@ -24,7 +25,7 @@ describe('Keyworker settings component', () => {
         handleCapacityChange={jest.fn()}
         handleUpdate={jest.fn()}
         handleSequenceFrequency={jest.fn()}
-        history={{}}
+        history={mockHistory}
         validationErrors={{}}
         message=""
       />
@@ -53,7 +54,7 @@ describe('Keyworker settings component', () => {
         handleCapacityChange={jest.fn()}
         handleUpdate={jest.fn()}
         handleSequenceFrequency={jest.fn()}
-        history={{}}
+        history={mockHistory}
         validationErrors={{}}
         message=""
       />

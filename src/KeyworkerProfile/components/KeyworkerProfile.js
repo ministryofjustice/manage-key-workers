@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { properCaseName, renderDate } from '../../stringUtils'
 import MessageBar from '../../MessageBar/index'
 import { getStatusStyle, getStatusDescription } from '../keyworkerStatus'
@@ -209,17 +210,17 @@ class KeyworkerProfile extends Component {
 }
 
 KeyworkerProfile.propTypes = {
-  history: PropTypes.object.isRequired,
-  keyworkerAllocations: PropTypes.array.isRequired,
-  keyworker: PropTypes.object.isRequired,
-  keyworkerList: PropTypes.array.isRequired,
-  keyworkerChangeList: PropTypes.array.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  keyworkerAllocations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworker: PropTypes.shape({}).isRequired,
+  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   handleEditProfileClick: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
 }
 
 export default KeyworkerProfile
