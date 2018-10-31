@@ -66,6 +66,8 @@ const keyworkList = [
   },
 ]
 
+const mockHistory = {}
+
 describe('ManualAllocation component', () => {
   it('should render list correctly', async () => {
     const component = shallow(
@@ -76,6 +78,7 @@ describe('ManualAllocation component', () => {
         handleKeyworkerChange={() => {}}
         postManualOverride={() => {}}
         onFinishAllocation={() => {}}
+        history={mockHistory}
       />
     )
 
@@ -142,6 +145,7 @@ describe('ManualAllocation component', () => {
         handleKeyworkerChange={() => {}}
         postManualOverride={() => {}}
         onFinishAllocation={() => {}}
+        history={mockHistory}
       />
     )
 
@@ -159,6 +163,7 @@ describe('ManualAllocation component', () => {
         handleKeyworkerChange={() => {}}
         postManualOverride={() => {}}
         onFinishAllocation={() => {}}
+        history={mockHistory}
       />
     )
     expect(
@@ -185,6 +190,7 @@ describe('ManualAllocation component', () => {
         handleKeyworkerChange={keyworkerChangeCallback}
         postManualOverride={postOverrideCallBack}
         applyDateFilter={() => {}}
+        history={mockHistory}
       />
     )
 
@@ -205,6 +211,7 @@ describe('ManualAllocation component', () => {
         onFinishAllocation={cancelCallBack}
         postManualOverride={postOverrideCallBack}
         applyDateFilter={() => {}}
+        history={mockHistory}
       />
     )
 
@@ -223,6 +230,7 @@ describe('ManualAllocation component', () => {
         handleKeyworkerChange={() => {}}
         postManualOverride={() => {}}
         applyDateFilter={() => {}}
+        history={mockHistory}
       />
     )
     expect(
@@ -245,6 +253,7 @@ describe('ManualAllocation component', () => {
         postManualOverride={() => {}}
         applyDateFilter={() => {}}
         onFinishAllocation={() => {}}
+        history={mockHistory}
       />
     )
     expect(
@@ -261,12 +270,16 @@ describe('ManualAllocation component', () => {
     const component = shallow(
       <Provisional
         displayDateFilter
+        toDate=""
+        fromDate=""
         allocatedList={[]}
         keyworkerList={[]}
         onFinishAllocation={() => {}}
         handleKeyworkerChange={() => {}}
         postManualOverride={() => {}}
         applyDateFilter={() => {}}
+        history={mockHistory}
+        allocatedKeyworkers={[]}
       />
     )
     expect(component.find('DateFilter').exists()).toEqual(true)
@@ -281,6 +294,8 @@ describe('ManualAllocation component', () => {
         onFinishAllocation={() => {}}
         postManualOverride={() => {}}
         applyDateFilter={() => {}}
+        history={mockHistory}
+        allocatedKeyworkers={[]}
       />
     )
     expect(component.find('DateFilter').exists()).toEqual(false)

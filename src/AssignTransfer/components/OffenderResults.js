@@ -185,14 +185,14 @@ class OffenderResults extends Component {
 }
 
 OffenderResults.propTypes = {
-  offenderResults: PropTypes.object,
-  keyworkerList: PropTypes.array,
-  keyworkerChangeList: PropTypes.array,
-  history: PropTypes.object,
+  offenderResults: PropTypes.object.isRequired,
+  keyworkerList: PropTypes.array.isRequired,
+  keyworkerChangeList: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
-  loaded: PropTypes.bool,
+  loaded: PropTypes.bool.isRequired,
   displayBack: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 }

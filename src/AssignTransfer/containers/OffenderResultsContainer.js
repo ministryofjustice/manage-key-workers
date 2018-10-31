@@ -126,32 +126,36 @@ class OffenderResultsContainer extends Component {
 }
 
 OffenderResultsContainer.propTypes = {
-  error: PropTypes.string,
-  searchText: PropTypes.string,
-  allocationStatus: PropTypes.string,
-  housingLocation: PropTypes.string,
+  error: PropTypes.string.isRequired,
+  searchText: PropTypes.string.isRequired,
+  allocationStatus: PropTypes.string.isRequired,
+  housingLocation: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
-  keyworkerChangeList: PropTypes.array,
-  locations: PropTypes.array,
+  keyworkerChangeList: PropTypes.array.isRequired,
+  keyworkerList: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   handleError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  resetErrorDispatch: PropTypes.func,
+  resetErrorDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
-  loaded: PropTypes.bool,
-  history: PropTypes.object,
+  loaded: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
   searchText: state.offenderSearch.searchText,
   allocationStatus: state.offenderSearch.allocationStatus,
-  keyworkerChangeList: state.offenderSearch.keyworkerChangeList,
+  keyworkerList: state.keyworkerSearch.keyworkerList,
+  keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
   housingLocation: state.offenderSearch.housingLocation,
   offenderResults: state.offenderSearch.offenderResults,
   agencyId: state.app.user.activeCaseLoadId,
   locations: state.offenderSearch.locations,
   loaded: state.app.loaded,
+  message: state.app.message,
 })
 
 const mapDispatchToProps = dispatch => ({

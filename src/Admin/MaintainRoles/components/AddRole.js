@@ -107,15 +107,15 @@ const AddRole = ({
 }
 
 AddRole.propTypes = {
-  roleFilter: PropTypes.string,
+  roleFilter: PropTypes.string.isRequired,
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.array,
-  roleList: PropTypes.array,
-  history: PropTypes.object,
-  contextUser: PropTypes.object,
-  validationErrors: PropTypes.object,
+  roleFilterList: PropTypes.array.isRequired,
+  roleList: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
+  contextUser: PropTypes.object.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 const AddRoleWithRouter = withRouter(AddRole)

@@ -21,6 +21,10 @@ describe('Keyworker Profile Edit component', () => {
         handleStatusChange={jest.fn()}
         handleCapacityChange={jest.fn()}
         handleCancel={jest.fn()}
+        history={{}}
+        status=""
+        capacity="0"
+        validationErrors={{}}
       />
     )
     expect(component.text()).toContain('Frank Butcher')
@@ -39,6 +43,10 @@ describe('Keyworker Profile Edit component', () => {
         handleStatusChange={jest.fn()}
         handleCapacityChange={jest.fn()}
         handleCancel={jest.fn()}
+        history={{}}
+        status=""
+        capacity="0"
+        validationErrors={{}}
       />
     )
 
@@ -56,6 +64,10 @@ describe('Keyworker Profile Edit component', () => {
         handleStatusChange={jest.fn()}
         handleCapacityChange={jest.fn()}
         handleCancel={handleCancel}
+        history={{}}
+        status=""
+        capacity="0"
+        validationErrors={{}}
       />
     )
 

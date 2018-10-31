@@ -22,6 +22,9 @@ describe('User search component', () => {
         agencyId="LEI"
         handleCancel={jest.fn()}
         handleAdd={jest.fn()}
+        history={{}}
+        roleFilter=""
+        validationErrors={{}}
       />
     )
     expect(component.find('#add-button').text()).toEqual('Add role')
@@ -45,6 +48,9 @@ describe('User search component', () => {
         handleRoleFilterChange={jest.fn()}
         handleCancel={handleCancelMock}
         handleAdd={handleAddMock}
+        history={{}}
+        roleFilter=""
+        validationErrors={{}}
       />
     )
     component.find('#add-button').simulate('click')
@@ -63,6 +69,9 @@ describe('User search component', () => {
         handleRoleFilterChange={jest.fn()}
         handleCancel={jest.fn()}
         handleAdd={jest.fn()}
+        history={{}}
+        roleFilter=""
+        validationErrors={{}}
       />
     )
     expect(component.find('#add-button').length).toEqual(0)

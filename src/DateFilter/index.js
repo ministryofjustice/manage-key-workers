@@ -38,10 +38,10 @@ const DateFilter = props => {
 }
 
 DateFilter.propTypes = {
-  keyworkerList: PropTypes.array,
-  history: PropTypes.object,
-  toDate: PropTypes.string,
-  fromDate: PropTypes.string,
+  keyworkerList: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
+  toDate: PropTypes.string.isRequired,
+  fromDate: PropTypes.string.isRequired,
   applyDateFilter: PropTypes.func.isRequired,
 }
 

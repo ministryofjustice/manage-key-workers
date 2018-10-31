@@ -49,15 +49,16 @@ class KeyworkerSearchContainer extends Component {
 }
 
 KeyworkerSearchContainer.propTypes = {
-  searchText: PropTypes.string,
-  error: PropTypes.string,
+  searchText: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  keyworkerSearchTextDispatch: PropTypes.func,
-  keyworkerStatusFilterDispatch: PropTypes.func,
-  resetErrorDispatch: PropTypes.func,
+  keyworkerSearchTextDispatch: PropTypes.func.isRequired,
+  keyworkerStatusFilterDispatch: PropTypes.func.isRequired,
+  resetErrorDispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
   searchText: state.keyworkerSearch.searchText,
   statusFilter: state.keyworkerSearch.statusFilter,
   agencyId: state.app.user.activeCaseLoadId,

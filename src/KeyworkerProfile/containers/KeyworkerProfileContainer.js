@@ -174,31 +174,37 @@ class KeyworkerProfileContainer extends Component {
 }
 
 KeyworkerProfileContainer.propTypes = {
-  error: PropTypes.string,
-  path: PropTypes.string,
+  error: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   agencyId: PropTypes.string.isRequired,
-  keyworkerAllocationsDispatch: PropTypes.func,
-  keyworkerDispatch: PropTypes.func,
-  setMessageDispatch: PropTypes.func,
-  setLoadedDispatch: PropTypes.func,
+  keyworkerAllocationsDispatch: PropTypes.func.isRequired,
+  keyworkerDispatch: PropTypes.func.isRequired,
+  setMessageDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  keyworkerChangeList: PropTypes.array,
-  keyworker: PropTypes.object,
-  keyworkerChangeListDispatch: PropTypes.func,
-  availableKeyworkerListDispatch: PropTypes.func,
-  keyworkerCapacityDispatch: PropTypes.func,
-  keyworkerStatusDispatch: PropTypes.func,
-  loaded: PropTypes.bool,
+  keyworkerChangeList: PropTypes.array.isRequired,
+  keyworker: PropTypes.object.isRequired,
+  keyworkerChangeListDispatch: PropTypes.func.isRequired,
+  availableKeyworkerListDispatch: PropTypes.func.isRequired,
+  keyworkerCapacityDispatch: PropTypes.func.isRequired,
+  keyworkerStatusDispatch: PropTypes.func.isRequired,
+  loaded: PropTypes.bool.isRequired,
+  config: PropTypes.object.isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
+  user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
   keyworkerAllocations: state.keyworkerSearch.keyworkerAllocations,
   keyworker: state.keyworkerSearch.keyworker,
   keyworkerChangeList: state.keyworkerSearch.keyworkerChangeList,
   keyworkerList: state.keyworkerSearch.keyworkerList,
   loaded: state.app.loaded,
+  config: state.app.config,
+  message: state.app.message,
 })
 
 const mapDispatchToProps = dispatch => ({

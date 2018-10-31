@@ -112,7 +112,7 @@ class App extends React.Component {
 
   clearMessage = () => {
     const { setMessageDispatch } = this.props
-    setMessageDispatch(null)
+    setMessageDispatch('')
   }
 
   resetError = () => {
@@ -158,43 +158,44 @@ class App extends React.Component {
   )
 
   render() {
-    const { boundSetMenuOpen, config, shouldShowTerms } = this.props
+    const { boundSetMenuOpen, config, shouldShowTerms, error, allowAuto, user, message } = this.props
     let innerContent
     const routes = (
       // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
-          <Route exact path="/" render={() => <HomePage {...this.props} clearMessage={this.clearMessage} />} />
-          <Route exact path="/keyworkerReports" render={() => <KeyworkerReports {...this.props} />} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <HomePage
+                allowAuto={allowAuto}
+                user={user}
+                config={config}
+                message={message}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
+          <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
             exact
             path="/offender/search"
             render={() => (
-              <AssignTransferContainer
-                initialSearch
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                {...this.props}
-              />
+              <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
             path="/offender/:offenderNo/history"
             render={() => (
-              <AllocationHistoryContainer
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-                {...this.props}
-              />
+              <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
             )}
           />
           <Route
             exact
             path="/unallocated"
-            render={() => (
-              <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props} />
-            )}
+            render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
@@ -203,48 +204,35 @@ class App extends React.Component {
               <ProvisionalAllocationContainer
                 handleError={this.handleError}
                 onFinishAllocation={this.onFinishAllocation}
-                {...this.props}
               />
             )}
           />
           <Route
             exact
             path="/keyworker/search"
-            render={() => (
-              <KeyworkerSearchContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props} />
-            )}
+            render={() => <KeyworkerSearchContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
             path="/keyworker/results"
             render={() => (
-              <KeyworkerSearchResultsContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                {...this.props}
-              />
+              <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
             path="/keyworker/:staffId/profile"
-            render={() => (
-              <KeyworkerProfileContainer
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-                {...this.props}
-              />
-            )}
+            render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
           />
           <Route
             exact
             path="/keyworker/:staffId/profile/edit"
-            render={() => <KeyworkerProfileEditContainer handleError={this.handleError} {...this.props} />}
+            render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
           />
           <Route
             exact
             path="/keyworker/:staffId/profile/edit/confirm"
-            render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} {...this.props} />}
+            render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
           />
           <Route
             exact
@@ -255,16 +243,13 @@ class App extends React.Component {
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}
-                {...this.props}
               />
             )}
           />
           <Route
             exact
             path="/admin/nomis/access"
-            render={() => (
-              <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} {...this.props} />
-            )}
+            render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
@@ -274,7 +259,6 @@ class App extends React.Component {
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}
-                {...this.props}
               />
             )}
           />
@@ -286,7 +270,6 @@ class App extends React.Component {
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}
-                {...this.props}
               />
             )}
           />
@@ -298,7 +281,6 @@ class App extends React.Component {
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}
-                {...this.props}
               />
             )}
           />
@@ -310,7 +292,6 @@ class App extends React.Component {
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}
-                {...this.props}
               />
             )}
           />
@@ -322,7 +303,6 @@ class App extends React.Component {
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}
-                {...this.props}
               />
             )}
           />
@@ -337,7 +317,7 @@ class App extends React.Component {
         // eslint-disable-next-line
         <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
           <div className="pure-g">
-            <Error {...this.props} />
+            <Error error={error} />
           </div>
         </div>
       )
@@ -378,27 +358,26 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  error: PropTypes.string,
-  page: PropTypes.number,
-  config: PropTypes.object,
-  user: PropTypes.object,
-  shouldShowTerms: PropTypes.bool,
+  error: PropTypes.string.isRequired,
+  config: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  shouldShowTerms: PropTypes.bool.isRequired,
   configDispatch: PropTypes.func.isRequired,
   userDetailsDispatch: PropTypes.func.isRequired,
   switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  resetErrorDispatch: PropTypes.func,
-  keyworkerSettingsDispatch: PropTypes.func,
+  resetErrorDispatch: PropTypes.func.isRequired,
+  keyworkerSettingsDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  boundSetMenuOpen: PropTypes.func,
-  allowAuto: PropTypes.bool,
+  boundSetMenuOpen: PropTypes.func.isRequired,
+  allowAuto: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
   error: state.app.error,
   message: state.app.message,
-  page: state.app.page,
   config: state.app.config,
   user: state.app.user,
   shouldShowTerms: state.app.shouldShowTerms,

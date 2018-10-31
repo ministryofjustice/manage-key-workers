@@ -101,16 +101,12 @@ class StaffRoleProfile extends Component {
 }
 
 StaffRoleProfile.propTypes = {
-  error: PropTypes.string,
-  agencyId: PropTypes.string.isRequired,
-  resetErrorDispatch: PropTypes.func,
-  displayBack: PropTypes.func.isRequired,
-  history: PropTypes.object,
-  user: PropTypes.object,
+  history: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   contextUser: PropTypes.object.isRequired,
   roleList: PropTypes.array.isRequired,
-  handleRemove: PropTypes.func,
-  handleAdd: PropTypes.func,
+  handleRemove: PropTypes.func.isRequired,
+  handleAdd: PropTypes.func.isRequired,
 }
 
 const StaffRoleProfileWithRouter = withRouter(StaffRoleProfile)

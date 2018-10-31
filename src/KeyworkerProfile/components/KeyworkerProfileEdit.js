@@ -83,15 +83,15 @@ const KeyworkerProfileEdit = ({
 }
 
 KeyworkerProfileEdit.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.object.isRequired,
   keyworker: PropTypes.object.isRequired,
   handleSaveChanges: PropTypes.func.isRequired,
   handleStatusChange: PropTypes.func.isRequired,
   handleCapacityChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  status: PropTypes.string,
-  capacity: PropTypes.string,
-  validationErrors: PropTypes.object,
+  status: PropTypes.string.isRequired,
+  capacity: PropTypes.string.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 export default KeyworkerProfileEdit

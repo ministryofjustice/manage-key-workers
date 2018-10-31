@@ -74,18 +74,21 @@ class UserSearchContainer extends Component {
 }
 
 UserSearchContainer.propTypes = {
-  nameFilter: PropTypes.string,
-  roleFilter: PropTypes.string,
-  error: PropTypes.string,
+  nameFilter: PropTypes.string.isRequired,
+  roleFilter: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   agencyId: PropTypes.string.isRequired,
-  nameFilterDispatch: PropTypes.func,
-  roleFilterDispatch: PropTypes.func,
-  roleFilterListDispatch: PropTypes.func,
-  pageNumberDispatch: PropTypes.func,
-  resetErrorDispatch: PropTypes.func,
+  nameFilterDispatch: PropTypes.func.isRequired,
+  roleFilterDispatch: PropTypes.func.isRequired,
+  roleFilterListDispatch: PropTypes.func.isRequired,
+  pageNumberDispatch: PropTypes.func.isRequired,
+  resetErrorDispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
+  user: state.app.user,
   nameFilter: state.maintainRoles.nameFilter,
   roleFilter: state.maintainRoles.roleFilter,
   agencyId: state.app.user.activeCaseLoadId,

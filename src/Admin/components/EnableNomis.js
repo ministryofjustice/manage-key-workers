@@ -55,10 +55,10 @@ const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
 }
 
 EnableNomis.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.object.isRequired,
   handleEnable: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  user: PropTypes.object,
+  user: PropTypes.object.isRequired,
 }
 
 export default EnableNomis

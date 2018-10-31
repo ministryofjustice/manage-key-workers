@@ -31,6 +31,10 @@ describe('Unallocated component', () => {
         setLoadedDispatch={jest.fn()}
         history={{}}
         displayBack={jest.fn()}
+        error=""
+        unallocatedList={[]}
+        allocatedList={[]}
+        allocatedKeyworkers={[]}
       />
     )
 
@@ -54,6 +58,11 @@ describe('Unallocated component', () => {
         history={{}}
         displayBack={jest.fn()}
         user={{}}
+        error=""
+        unallocatedList={[]}
+        loaded={false}
+        allocatedList={[]}
+        allocatedKeyworkers={[]}
       />
     )
     expect(component.find('#spinner').exists())
@@ -80,6 +89,10 @@ describe('Unallocated component', () => {
         setLoadedDispatch={jest.fn()}
         history={{}}
         displayBack={jest.fn()}
+        error=""
+        unallocatedList={[]}
+        allocatedList={[]}
+        allocatedKeyworkers={[]}
       />
     )
 
@@ -107,6 +120,9 @@ describe('Unallocated component', () => {
         error="Something went wrong: Error: Request failed with status code 500,test error"
         history={{}}
         displayBack={jest.fn()}
+        unallocatedList={[]}
+        allocatedList={[]}
+        allocatedKeyworkers={[]}
       />
     )
 
@@ -143,6 +159,9 @@ describe('Unallocated component', () => {
         error="Something went wrong: Error: Request failed with status code 500,test error"
         history={{}}
         displayBack={jest.fn()}
+        unallocatedList={[]}
+        allocatedList={[]}
+        allocatedKeyworkers={[]}
       />
     )
 

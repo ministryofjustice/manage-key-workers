@@ -13,7 +13,9 @@ describe('HomePage component', () => {
     expect(component.find('#assign_transfer_link').length).toBe(1)
   })
   it('should hide the auto allocate link when user does not have write access', () => {
-    const component = shallow(<HomePage message="Hello!" clearMessage={jest.fn()} config={{}} user={{}} />)
+    const component = shallow(
+      <HomePage message="Hello!" clearMessage={jest.fn()} config={{}} user={{}} allowAuto={false} />
+    )
     expect(component.find('#auto_allocate_link').length).toBe(0)
   })
   it('should show the auto allocate link when allow autoallocate (keyworker settings) is true and user has writeAccess', () => {

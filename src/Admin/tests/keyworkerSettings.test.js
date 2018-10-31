@@ -24,6 +24,9 @@ describe('Keyworker settings component', () => {
         handleCapacityChange={jest.fn()}
         handleUpdate={jest.fn()}
         handleSequenceFrequency={jest.fn()}
+        history={{}}
+        validationErrors={{}}
+        message=""
       />
     )
     expect(component.text()).toContain('Not yet enabled')
@@ -50,6 +53,9 @@ describe('Keyworker settings component', () => {
         handleCapacityChange={jest.fn()}
         handleUpdate={jest.fn()}
         handleSequenceFrequency={jest.fn()}
+        history={{}}
+        validationErrors={{}}
+        message=""
       />
     )
     expect(component.text()).toContain('Enabled')

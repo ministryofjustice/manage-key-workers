@@ -67,10 +67,10 @@ class Unallocated extends Component {
 }
 
 Unallocated.propTypes = {
-  unallocatedList: PropTypes.array,
+  unallocatedList: PropTypes.array.isRequired,
   gotoNext: PropTypes.func.isRequired,
-  loaded: PropTypes.bool,
-  history: PropTypes.object,
+  loaded: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired,
   displayBack: PropTypes.func.isRequired,
 }
 

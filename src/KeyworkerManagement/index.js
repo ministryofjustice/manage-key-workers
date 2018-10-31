@@ -91,10 +91,10 @@ const HomePage = props => {
 }
 
 HomePage.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
   config: PropTypes.object.isRequired,
-  allowAuto: PropTypes.bool,
+  allowAuto: PropTypes.bool.isRequired,
 }
 
 export default HomePage

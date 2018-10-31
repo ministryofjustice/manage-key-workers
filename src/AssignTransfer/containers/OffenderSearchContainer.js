@@ -48,18 +48,19 @@ class OffenderSearchContainer extends Component {
 }
 
 OffenderSearchContainer.propTypes = {
-  error: PropTypes.string,
-  handleError: PropTypes.func,
-  locations: PropTypes.array,
-  offenderSearchLocationsDispatch: PropTypes.func,
-  offenderSearchHousingLocationDispatch: PropTypes.func,
-  searchText: PropTypes.string,
-  setValidationErrorDispatch: PropTypes.func,
-  resetValidationErrorsDispatch: PropTypes.func,
-  offenderSearchTextDispatch: PropTypes.func,
-  offenderSearchAllocationStatusDispatch: PropTypes.func,
-  initialSearch: PropTypes.bool,
-  doSearch: PropTypes.func,
+  error: PropTypes.string.isRequired,
+  handleError: PropTypes.func.isRequired,
+  locations: PropTypes.array.isRequired,
+  offenderSearchLocationsDispatch: PropTypes.func.isRequired,
+  offenderSearchHousingLocationDispatch: PropTypes.func.isRequired,
+  searchText: PropTypes.string.isRequired,
+  setValidationErrorDispatch: PropTypes.func.isRequired,
+  resetValidationErrorsDispatch: PropTypes.func.isRequired,
+  offenderSearchTextDispatch: PropTypes.func.isRequired,
+  offenderSearchAllocationStatusDispatch: PropTypes.func.isRequired,
+  initialSearch: PropTypes.bool.isRequired,
+  allocationStatus: PropTypes.string.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({

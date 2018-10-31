@@ -9,6 +9,17 @@ const user = {
 const NAME_COLUMN = 0
 const USERNAME_COLUMN = 1
 
+const props = {
+  error: '',
+  handlePageAction: jest.fn(),
+  resetErrorDispatch: jest.fn(),
+  history: {},
+  pageNumber: 0,
+  pageSize: 0,
+  totalRecords: 0,
+  roleFilterList: [],
+}
+
 describe('User search Results component', () => {
   it('should render the initial view of User search', async () => {
     const component = shallow(
@@ -41,6 +52,7 @@ describe('User search Results component', () => {
         handleNameFilterChange={jest.fn()}
         handleEdit={jest.fn()}
         handleSearch={jest.fn()}
+        {...props}
       />
     )
     const searchComponent = component.find('UserSearch').shallow()
@@ -97,6 +109,7 @@ describe('User search Results component', () => {
         handleNameFilterChange={handleNameFilterMock}
         handleEdit={handleEditMock}
         handleSearch={handleSubmitMock}
+        {...props}
       />
     )
     const searchComponent = component.find('UserSearch').shallow()

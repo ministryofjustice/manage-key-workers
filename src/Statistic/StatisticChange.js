@@ -19,7 +19,8 @@ StatisticChange.propTypes = {
   change: PropTypes.shape({
     value: PropTypes.number,
     period: PropTypes.string,
-  }),
+  }).isRequired,
+  percentage: PropTypes.bool.isRequired,
 }
 
 export default StatisticChange

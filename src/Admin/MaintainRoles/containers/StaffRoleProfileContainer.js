@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { withRouter } from 'react-router'
 import {
+  setError,
   resetError,
   setMaintainRolesRoleList,
   setMaintainRolesRoleFilter,
@@ -102,25 +103,30 @@ class StaffRoleProfileContainer extends Component {
 }
 
 StaffRoleProfileContainer.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   agencyId: PropTypes.string.isRequired,
-  roleListDispatch: PropTypes.func,
-  resetErrorDispatch: PropTypes.func,
-  setRoleListDispatch: PropTypes.func,
-  setErrorDispatch: PropTypes.func,
+  resetErrorDispatch: PropTypes.func.isRequired,
+  setRoleListDispatch: PropTypes.func.isRequired,
+  setErrorDispatch: PropTypes.func.isRequired,
   contextUser: PropTypes.object.isRequired,
   roleList: PropTypes.array.isRequired,
-  setMessageDispatch: PropTypes.func,
+  setMessageDispatch: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
+  user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
   contextUser: state.maintainRoles.contextUser,
   roleList: state.maintainRoles.roleList,
   loaded: state.app.loaded,
+  message: state.app.message,
 })
 
 const mapDispatchToProps = dispatch => ({
+  setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   setRoleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
   setRoleFilterDispatch: list => dispatch(setMaintainRolesRoleFilter(list)),

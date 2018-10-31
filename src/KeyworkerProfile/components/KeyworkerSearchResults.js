@@ -125,9 +125,9 @@ class KeyworkerSearchResults extends Component {
 
 KeyworkerSearchResults.propTypes = {
   history: PropTypes.object.isRequired,
-  keyworkerList: PropTypes.array,
-  searchText: PropTypes.string,
-  statusFilter: PropTypes.string,
+  keyworkerList: PropTypes.array.isRequired,
+  searchText: PropTypes.string.isRequired,
+  statusFilter: PropTypes.string.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,

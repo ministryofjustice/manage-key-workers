@@ -19,6 +19,13 @@ describe('App component', () => {
         setMessageDispatch={jest.fn()}
         boundSetMenuOpen={jest.fn()}
         setTermsVisibilityDispatch={jest.fn()}
+        error=""
+        page={0}
+        shouldShowTerms={false}
+        resetErrorDispatch={jest.fn()}
+        keyworkerSettingsDispatch={jest.fn()}
+        message=""
+        allowAuto={false}
       />
     )
     const appInstance = component.instance()
@@ -57,6 +64,13 @@ describe('App component', () => {
         setMessageDispatch={jest.fn()}
         boundSetMenuOpen={jest.fn()}
         setTermsVisibilityDispatch={jest.fn()}
+        error=""
+        page={0}
+        shouldShowTerms={false}
+        resetErrorDispatch={jest.fn()}
+        keyworkerSettingsDispatch={jest.fn()}
+        message=""
+        allowAuto={false}
       />
     )
     const appInstance = component.instance()
@@ -90,6 +104,13 @@ describe('App component', () => {
         menuOpen
         boundSetMenuOpen={setMenuOpen}
         setTermsVisibilityDispatch={jest.fn()}
+        error=""
+        page={0}
+        shouldShowTerms={false}
+        resetErrorDispatch={jest.fn()}
+        keyworkerSettingsDispatch={jest.fn()}
+        message=""
+        allowAuto={false}
       />
     )
 

@@ -159,20 +159,20 @@ const KeyworkerSettings = props => {
 }
 
 KeyworkerSettings.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.object.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   handleAllowAutoChange: PropTypes.func.isRequired,
   handleCapacityChange: PropTypes.func.isRequired,
   handleExtCapacityChange: PropTypes.func.isRequired,
   handleSequenceFrequency: PropTypes.func.isRequired,
-  user: PropTypes.object,
-  allowAuto: PropTypes.bool,
-  migrated: PropTypes.bool,
-  supported: PropTypes.bool,
-  sequenceFrequency: PropTypes.number,
-  capacity: PropTypes.number,
-  extCapacity: PropTypes.number,
-  validationErrors: PropTypes.object,
+  user: PropTypes.object.isRequired,
+  allowAuto: PropTypes.bool.isRequired,
+  migrated: PropTypes.bool.isRequired,
+  supported: PropTypes.bool.isRequired,
+  sequenceFrequency: PropTypes.number.isRequired,
+  capacity: PropTypes.number.isRequired,
+  extCapacity: PropTypes.number.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 export default KeyworkerSettings

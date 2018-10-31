@@ -209,16 +209,16 @@ class KeyworkerProfile extends Component {
 }
 
 KeyworkerProfile.propTypes = {
-  history: PropTypes.object,
-  keyworkerAllocations: PropTypes.array,
+  history: PropTypes.object.isRequired,
+  keyworkerAllocations: PropTypes.array.isRequired,
   keyworker: PropTypes.object.isRequired,
-  keyworkerList: PropTypes.array,
-  keyworkerChangeList: PropTypes.array,
+  keyworkerList: PropTypes.array.isRequired,
+  keyworkerChangeList: PropTypes.array.isRequired,
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   handleEditProfileClick: PropTypes.func.isRequired,
-  message: PropTypes.string,
-  loaded: PropTypes.bool,
+  message: PropTypes.string.isRequired,
+  loaded: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 }
 

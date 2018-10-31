@@ -64,22 +64,28 @@ class AssignTransferContainer extends Component {
 }
 
 AssignTransferContainer.propTypes = {
-  error: PropTypes.string,
-  searchText: PropTypes.string,
-  allocationStatus: PropTypes.string,
-  housingLocation: PropTypes.string,
+  user: PropTypes.object.isRequired,
+  error: PropTypes.string.isRequired,
+  searchText: PropTypes.string.isRequired,
+  allocationStatus: PropTypes.string.isRequired,
+  housingLocation: PropTypes.string.isRequired,
   initialSearch: PropTypes.bool,
   setErrorDispatch: PropTypes.func.isRequired,
-  offenderSearchTextDispatch: PropTypes.func,
-  offenderSearchAllocationStatusDispatch: PropTypes.func,
-  offenderSearchHousingLocationDispatch: PropTypes.func,
-  displayBack: PropTypes.func,
+  offenderSearchTextDispatch: PropTypes.func.isRequired,
+  offenderSearchAllocationStatusDispatch: PropTypes.func.isRequired,
+  offenderSearchHousingLocationDispatch: PropTypes.func.isRequired,
+  displayBack: PropTypes.func.isRequired,
+}
+
+AssignTransferContainer.defaultProps = {
+  initialSearch: false,
 }
 
 const mapStateToProps = state => ({
-  searchText: state.searchText,
-  allocationStatus: state.allocationStatus,
-  housingLocation: state.housingLocation,
+  user: state.app.user,
+  searchText: state.offenderSearch.searchText,
+  allocationStatus: state.offenderSearch.allocationStatus,
+  housingLocation: state.offenderSearch.housingLocation,
   page: state.app.page,
   error: state.app.error,
   message: state.app.message,

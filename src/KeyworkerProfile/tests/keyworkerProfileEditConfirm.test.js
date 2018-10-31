@@ -24,6 +24,7 @@ describe('Keyworker Profile Edit component', () => {
         status="INACTIVE"
         history={hist}
         handleDateChange={jest.fn()}
+        validationErrors={{}}
       />
     )
     expect(component.text()).toContain(
@@ -45,6 +46,7 @@ describe('Keyworker Profile Edit component', () => {
         status="UNAVAILABLE_ANNUAL_LEAVE"
         history={hist}
         handleDateChange={jest.fn()}
+        validationErrors={{}}
       />
     )
     expect(component.text()).toContain('Choose an option')
@@ -63,6 +65,7 @@ describe('Keyworker Profile Edit component', () => {
         status="UNAVAILABLE_LONG_TERM_ABSENCE"
         history={hist}
         handleDateChange={jest.fn()}
+        validationErrors={{}}
       />
     )
     expect(component.text()).toContain('Choose an option')
@@ -81,6 +84,7 @@ describe('Keyworker Profile Edit component', () => {
         status="UNAVAILABLE_NO_PRISONER_CONTACT"
         history={hist}
         handleDateChange={jest.fn()}
+        validationErrors={{}}
       />
     )
     expect(component.text()).toContain('Choose an option')
@@ -100,6 +104,8 @@ describe('Keyworker Profile Edit component', () => {
         handleOptionChange={jest.fn()}
         history={hist}
         handleDateChange={jest.fn()}
+        validationErrors={{}}
+        status=""
       />
     )
 
@@ -118,6 +124,8 @@ describe('Keyworker Profile Edit component', () => {
         handleOptionChange={jest.fn()}
         history={hist}
         handleDateChange={jest.fn()}
+        validationErrors={{}}
+        status=""
       />
     )
 
