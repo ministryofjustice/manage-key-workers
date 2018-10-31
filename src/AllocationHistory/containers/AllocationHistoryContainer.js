@@ -48,21 +48,23 @@ class AllocationHistoryContainer extends Component {
 }
 
 AllocationHistoryContainer.propTypes = {
-  error: PropTypes.string,
-  path: PropTypes.string,
+  error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  allocationHistory: PropTypes.object,
-  allocationHistoryDispatch: PropTypes.func,
-  setLoadedDispatch: PropTypes.func,
+  allocationHistory: PropTypes.object.isRequired,
+  allocationHistoryDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  loaded: PropTypes.bool,
+  loaded: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
   agencyId: state.app.user.activeCaseLoadId,
   allocationHistory: state.allocationHistory.allocationHistory,
   loaded: state.app.loaded,
+  message: state.app.message,
 })
 
 const mapDispatchToProps = dispatch => ({

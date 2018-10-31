@@ -6,12 +6,12 @@ import axios from 'axios'
 import { withRouter } from 'react-router'
 import Error from '../../../Error'
 import {
+  setError,
   resetError,
   setMaintainRolesRoleFilter,
   setMessage,
   setMaintainRolesUserContextUser,
   setMaintainRolesRoleFilterList,
-  setMaintainRolesRoleList,
   setValidationError,
   resetValidationErrors,
   setLoaded,
@@ -132,22 +132,25 @@ class AddRoleContainer extends Component {
 }
 
 AddRoleContainer.propTypes = {
-  error: PropTypes.string,
-  roleFilter: PropTypes.string,
+  error: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  roleFilter: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  roleFilterDispatch: PropTypes.func,
-  roleFilterList: PropTypes.array,
-  roleList: PropTypes.array,
-  resetErrorDispatch: PropTypes.func,
-  setRoleFilterDispatch: PropTypes.func,
-  setErrorDispatch: PropTypes.func,
+  roleFilterList: PropTypes.array.isRequired,
+  roleList: PropTypes.array.isRequired,
+  resetErrorDispatch: PropTypes.func.isRequired,
+  setRoleFilterDispatch: PropTypes.func.isRequired,
+  setErrorDispatch: PropTypes.func.isRequired,
   contextUser: PropTypes.object.isRequired,
-  setMessageDispatch: PropTypes.func,
-  resetValidationErrorsDispatch: PropTypes.func,
-  setValidationErrorDispatch: PropTypes.func,
+  setMessageDispatch: PropTypes.func.isRequired,
+  resetValidationErrorsDispatch: PropTypes.func.isRequired,
+  setValidationErrorDispatch: PropTypes.func.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
+  user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
   contextUser: state.maintainRoles.contextUser,
   roleFilterList: state.maintainRoles.roleFilterList,
@@ -158,10 +161,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   setRoleFilterDispatch: filter => dispatch(setMaintainRolesRoleFilter(filter)),
   roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
-  roleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
   setMessageDispatch: message => dispatch(setMessage(message)),
   contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),

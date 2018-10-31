@@ -10,6 +10,9 @@ describe('Keyworker search component', () => {
         handleStatusFilterChange={jest.fn()}
         handleSearch={jest.fn()}
         displayBack={jest.fn()}
+        searchText=""
+        statusFilter=""
+        history={{}}
       />
     )
     expect(component.find('#search-text').length).toBe(1)
@@ -31,6 +34,9 @@ describe('Keyworker search component', () => {
         handleStatusFilterChange={jest.fn()}
         handleSearch={searchCallBack}
         displayBack={jest.fn()}
+        searchText=""
+        statusFilter=""
+        history={{}}
       />
     )
 
@@ -47,6 +53,9 @@ describe('Keyworker search component', () => {
         handleStatusFilterChange={jest.fn()}
         handleSearch={jest.fn()}
         displayBack={jest.fn()}
+        searchText=""
+        statusFilter=""
+        history={{}}
       />
     )
 
@@ -64,6 +73,9 @@ describe('Keyworker search component', () => {
         handleStatusFilterChange={callBack}
         handleSearch={jest.fn()}
         displayBack={jest.fn()}
+        searchText=""
+        statusFilter=""
+        history={{}}
       />
     )
 

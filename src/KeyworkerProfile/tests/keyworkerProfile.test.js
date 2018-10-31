@@ -148,6 +148,9 @@ const props = {
   config: {
     keyworkeProfileStatsEnabled: false,
   },
+  history: {},
+  message: '',
+  loaded: false,
 }
 const component = shallow(<KeyworkerProfile {...props} />)
 

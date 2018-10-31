@@ -82,15 +82,15 @@ PreviousNextNavigation.propTypes = {
 }
 
 GetPrevNavigationRegion.propTypes = {
-  totalPages: PropTypes.number,
-  pN: PropTypes.number,
-  pageAction: PropTypes.func,
+  totalPages: PropTypes.number.isRequired,
+  pN: PropTypes.number.isRequired,
+  pageAction: PropTypes.func.isRequired,
 }
 
 GetNextNavigationRegion.propTypes = {
-  totalPages: PropTypes.number,
-  pN: PropTypes.number,
-  pageAction: PropTypes.func,
+  totalPages: PropTypes.number.isRequired,
+  pN: PropTypes.number.isRequired,
+  pageAction: PropTypes.func.isRequired,
 }
 
 PreviousNextNavigation.defaultProps = {

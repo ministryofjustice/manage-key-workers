@@ -123,13 +123,13 @@ const KeyworkerProfileEditConfirm = ({
 }
 
 KeyworkerProfileEditConfirm.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.object.isRequired,
   handleSaveChanges: PropTypes.func.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
   handleDateChange: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  status: PropTypes.string,
-  validationErrors: PropTypes.object,
+  status: PropTypes.string.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 export default KeyworkerProfileEditConfirm

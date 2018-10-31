@@ -46,6 +46,10 @@ describe('Keyworker search result component', () => {
         user={{}}
         keyworkerSettings={{}}
         history={{}}
+        searchText=""
+        statusFilter=""
+        validationErrors={{}}
+        status=""
       />
     )
     expect(component.find('tr').length).toEqual(4) // includes header tr

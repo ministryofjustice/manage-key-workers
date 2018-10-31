@@ -6,6 +6,7 @@ import {
   setKeyworkerSearchText,
   setKeyworkerSearchResults,
   setLoaded,
+  setError,
   resetError,
   setKeyworkerStatusFilter,
   setSettings,
@@ -104,24 +105,24 @@ class KeyworkerSearchResultsContainer extends Component {
 }
 
 KeyworkerSearchResultsContainer.propTypes = {
-  error: PropTypes.string,
-  paramStaffId: PropTypes.string,
-  searchText: PropTypes.string,
-  statusFilter: PropTypes.string,
+  error: PropTypes.string.isRequired,
+  searchText: PropTypes.string.isRequired,
+  statusFilter: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  keyworkerSearchResultsDispatch: PropTypes.func,
-  keyworkerSearchTextDispatch: PropTypes.func,
-  keyworkerStatusFilterDispatch: PropTypes.func,
-  keyworkerSettingsDispatch: PropTypes.func,
-  setLoadedDispatch: PropTypes.func,
-  setErrorDispatch: PropTypes.func,
-  resetErrorDispatch: PropTypes.func,
+  keyworkerSearchResultsDispatch: PropTypes.func.isRequired,
+  keyworkerSearchTextDispatch: PropTypes.func.isRequired,
+  keyworkerStatusFilterDispatch: PropTypes.func.isRequired,
+  keyworkerSettingsDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  setErrorDispatch: PropTypes.func.isRequired,
+  resetErrorDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  keyworkerSettings: PropTypes.object,
-  loaded: PropTypes.bool,
+  keyworkerSettings: PropTypes.object.isRequired,
+  loaded: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
   searchText: state.keyworkerSearch.searchText,
   statusFilter: state.keyworkerSearch.statusFilter,
   agencyId: state.app.user.activeCaseLoadId,
@@ -135,6 +136,7 @@ const mapDispatchToProps = dispatch => ({
   keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
   keyworkerStatusFilterDispatch: status => dispatch(setKeyworkerStatusFilter(status)),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
+  setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
 })

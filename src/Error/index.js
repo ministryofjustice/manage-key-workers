@@ -22,4 +22,8 @@ Error.propTypes = {
   error: PropTypes.string,
 }
 
+Error.defaultProps = {
+  error: '',
+}
+
 export default Error

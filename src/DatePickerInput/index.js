@@ -25,10 +25,7 @@ const DatePickerInput = props => {
 }
 
 DatePickerInput.propTypes = {
-  history: PropTypes.object,
-  date: PropTypes.string,
-  dateId: PropTypes.string,
-  additionalClassName: PropTypes.string,
+  additionalClassName: PropTypes.string.isRequired,
   handleDateChange: PropTypes.func.isRequired,
 }
 export default DatePickerInput

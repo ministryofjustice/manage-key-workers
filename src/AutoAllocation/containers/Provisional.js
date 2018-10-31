@@ -52,13 +52,11 @@ class ProvisionalContainer extends Component {
   }
 
   async getAllocated() {
-    const { agencyId, fromDate, toDate } = this.props
+    const { agencyId } = this.props
     const response = await axios.get('/api/allocated', {
       params: {
         agencyId,
         allocationType: 'A',
-        fromDate,
-        toDate,
       },
     })
     return response.data
@@ -126,24 +124,24 @@ class ProvisionalContainer extends Component {
 }
 
 ProvisionalContainer.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  allocatedList: PropTypes.array,
-  allocatedKeyworkers: PropTypes.array,
+  allocatedList: PropTypes.array.isRequired,
+  allocatedKeyworkers: PropTypes.array.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
-  fromDate: PropTypes.string,
-  toDate: PropTypes.string,
   agencyId: PropTypes.string.isRequired,
   allocatedDetailsDispatch: PropTypes.func.isRequired,
   manualOverrideDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
-  loaded: PropTypes.bool,
+  loaded: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
+  user: state.app.user,
   allocatedList: state.allocated.allocatedList,
   keyworkerList: state.allocated.keyworkerList,
   allocatedKeyworkers: state.allocated.allocatedKeyworkers,

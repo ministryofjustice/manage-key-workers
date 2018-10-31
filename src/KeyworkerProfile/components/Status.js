@@ -40,4 +40,9 @@ Status.propTypes = {
   filter: PropTypes.bool,
 }
 
+Status.defaultProps = {
+  statusValue: '',
+  filter: false,
+}
+
 export default Status

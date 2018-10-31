@@ -23,6 +23,10 @@ describe('Staff role profile component', () => {
         displayBack={jest.fn()}
         handleRemove={jest.fn()}
         handleAdd={jest.fn()}
+        error=""
+        resetErrorDispatch={jest.fn()}
+        history={{}}
+        message=""
       />
     )
     expect(component.find('#add-button').text()).toEqual('Add role')
@@ -49,6 +53,10 @@ describe('Staff role profile component', () => {
         displayBack={jest.fn()}
         handleRemove={handleRemoveMock}
         handleAdd={handleAddMock}
+        error=""
+        resetErrorDispatch={jest.fn()}
+        history={{}}
+        message=""
       />
     )
     component.find('#add-button').simulate('click')

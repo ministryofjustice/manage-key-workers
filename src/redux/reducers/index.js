@@ -18,10 +18,12 @@ const appInitialState = {
   config: { mailTo: '' },
   user: { activeCaseLoadId: null },
   shouldShowTerms: false,
-  error: null,
-  message: null,
+  error: '',
+  message: '',
   loaded: false,
   menuOpen: false,
+  page: 0,
+  validationErrors: {},
 }
 
 const offenderSearchInitialState = {
@@ -29,6 +31,7 @@ const offenderSearchInitialState = {
   housingLocation: '',
   locations: [],
   allocationStatus: 'all',
+  offenderResults: {},
 }
 
 const keyworkerSearchInitialState = {
@@ -96,7 +99,7 @@ export function app(state = appInitialState, action) {
       })
     case ActionTypes.RESET_ERROR:
       return updateObject(state, {
-        error: null,
+        error: '',
       })
     case ActionTypes.SET_MESSAGE:
       return {
@@ -118,7 +121,7 @@ export function app(state = appInitialState, action) {
     case ActionTypes.RESET_VALIDATION_ERRORS:
       return {
         ...state,
-        validationErrors: null,
+        validationErrors: {},
       }
     case ActionTypes.SET_MENU_OPEN:
       return {

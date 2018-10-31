@@ -98,12 +98,14 @@ describe('app (global) reducer', () => {
   it('should return the initial state', () => {
     expect(app(undefined, {})).toEqual({
       config: { mailTo: '' },
-      user: { activeCaseLoadId: null },
-      shouldShowTerms: false,
-      error: null,
-      message: null,
+      error: '',
       loaded: false,
       menuOpen: false,
+      message: '',
+      page: 0,
+      shouldShowTerms: false,
+      user: { activeCaseLoadId: null },
+      validationErrors: {},
     })
   })
 
@@ -181,11 +183,7 @@ describe('app (global) reducer', () => {
       app(appWithErrorState, {
         type: types.RESET_ERROR,
       })
-    ).toEqual({
-      error: null,
-      message: null,
-      loaded: false,
-    })
+    ).toEqual({ error: '', loaded: false, message: null })
   })
 
   it('should handle SET_MESSAGE', () => {
@@ -250,7 +248,7 @@ describe('app (global) reducer', () => {
         type: types.RESET_VALIDATION_ERRORS,
       })
     ).toEqual({
-      validationErrors: null,
+      validationErrors: {},
     })
   })
 })
@@ -362,6 +360,7 @@ describe('offender search reducer', () => {
       allocationStatus: 'all',
       locations: [],
       housingLocation: '',
+      offenderResults: {},
     })
   })
   it('should handle SET_OFFENDER_SEARCH_TEXT', () => {

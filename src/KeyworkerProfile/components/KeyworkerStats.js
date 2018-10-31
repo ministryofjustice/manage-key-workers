@@ -17,7 +17,7 @@ const KeyworkerStats = ({ stats }) => (
 )
 
 KeyworkerStats.propTypes = {
-  stats: PropTypes.arrayOf(PropTypes.object),
+  stats: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default KeyworkerStats

@@ -83,14 +83,14 @@ const UserSearch = ({
 }
 
 UserSearch.propTypes = {
-  nameFilter: PropTypes.string,
-  roleFilter: PropTypes.string,
+  nameFilter: PropTypes.string.isRequired,
+  roleFilter: PropTypes.string.isRequired,
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.array,
+  roleFilterList: PropTypes.array.isRequired,
   displayBack: PropTypes.func.isRequired,
-  history: PropTypes.object,
+  history: PropTypes.object.isRequired,
 }
 
 const UserSearchWithRouter = withRouter(UserSearch)

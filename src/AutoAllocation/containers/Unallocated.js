@@ -62,19 +62,21 @@ class UnallocatedContainer extends Component {
 }
 
 UnallocatedContainer.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  unallocatedList: PropTypes.array,
+  unallocatedList: PropTypes.array.isRequired,
   agencyId: PropTypes.string.isRequired,
   unallocatedListDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  setLoadedDispatch: PropTypes.func,
-  loaded: PropTypes.bool,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  loaded: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
+  user: state.app.user,
+  error: state.app.error,
   unallocatedList: state.unallocated.unallocatedList,
   allocatedKeyworkers: state.allocated.allocatedKeyworkers,
   message: state.app.message,

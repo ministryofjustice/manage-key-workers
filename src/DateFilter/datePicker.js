@@ -54,9 +54,9 @@ class DatePicker extends Component {
 DatePicker.propTypes = {
   handleDateFilterChange: PropTypes.func.isRequired,
   shouldShowDay: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  name: PropTypes.string,
-  title: PropTypes.string,
+  className: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 export default DatePicker

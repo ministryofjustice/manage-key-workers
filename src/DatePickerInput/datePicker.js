@@ -42,10 +42,10 @@ class DatePicker extends Component {
 DatePicker.propTypes = {
   handleDateChange: PropTypes.func.isRequired,
   shouldShowDay: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  name: PropTypes.string,
-  title: PropTypes.string,
-  inputId: PropTypes.string,
+  className: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  inputId: PropTypes.string.isRequired,
 }
 
 export default DatePicker

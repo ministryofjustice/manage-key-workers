@@ -138,16 +138,16 @@ const OffenderSearch = ({
 }
 
 OffenderSearch.propTypes = {
-  locations: PropTypes.array,
-  searchText: PropTypes.string,
-  validationErrors: PropTypes.string,
-  housingLocation: PropTypes.string,
-  allocationStatus: PropTypes.string,
-  initialSearch: PropTypes.bool,
+  locations: PropTypes.array.isRequired,
+  searchText: PropTypes.string.isRequired,
+  validationErrors: PropTypes.object.isRequired,
+  housingLocation: PropTypes.string.isRequired,
+  allocationStatus: PropTypes.string.isRequired,
+  initialSearch: PropTypes.bool.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleSearchHousingLocationChange: PropTypes.func.isRequired,
   handleSearchAllocationStatusChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }
 

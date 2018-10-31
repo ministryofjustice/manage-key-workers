@@ -29,7 +29,9 @@ const mockBack = () => <a href="test">home</a>
 describe('Unallocated component', () => {
   it('should render list correctly', () => {
     links.notmEndpointUrl = 'http://my.testUrl/'
-    const component = shallow(<Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={() => {}} />)
+    const component = shallow(
+      <Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={() => {}} history={{}} />
+    )
 
     expect(component).toMatchSnapshot()
   })
@@ -37,21 +39,27 @@ describe('Unallocated component', () => {
   it('should handle click correctly', async () => {
     const callBack = jest.fn()
 
-    const component = shallow(<Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={callBack} />)
+    const component = shallow(
+      <Unallocated loaded unallocatedList={list} displayBack={mockBack} gotoNext={callBack} history={{}} />
+    )
 
     component.find('button').simulate('click')
     expect(callBack.mock.calls.length).toEqual(1)
   })
 
   it('should omit button and show message when no list 1', async () => {
-    const component = shallow(<Unallocated loaded displayBack={mockBack} gotoNext={jest.fn()} />)
+    const component = shallow(
+      <Unallocated loaded displayBack={mockBack} gotoNext={jest.fn()} history={{}} unallocatedList={[]} />
+    )
 
     expect(component.find('button')).toHaveLength(0)
     expect(component.find('.font-small').debug()).toMatch('No prisoners found')
   })
 
   it('should omit button and show message when no list 2', async () => {
-    const component = shallow(<Unallocated loaded unallocatedList={[]} displayBack={mockBack} gotoNext={jest.fn()} />)
+    const component = shallow(
+      <Unallocated loaded unallocatedList={[]} displayBack={mockBack} gotoNext={jest.fn()} history={{}} />
+    )
 
     expect(component.find('button')).toHaveLength(0)
     expect(component.find('.font-small').debug()).toMatch('No prisoners found')

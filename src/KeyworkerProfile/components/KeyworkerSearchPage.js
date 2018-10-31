@@ -53,9 +53,9 @@ const KeyworkerSearchPage = ({
 
 KeyworkerSearchPage.propTypes = {
   displayBack: PropTypes.func.isRequired,
-  searchText: PropTypes.string,
-  statusFilter: PropTypes.string,
-  history: PropTypes.object,
+  searchText: PropTypes.string.isRequired,
+  statusFilter: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
   handleSearch: PropTypes.func.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,

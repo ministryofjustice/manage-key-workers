@@ -133,25 +133,27 @@ class KeyworkerProfileEditContainer extends Component {
 }
 
 KeyworkerProfileEditContainer.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  keyworkerDispatch: PropTypes.func,
-  keyworker: PropTypes.object,
-  setMessageDispatch: PropTypes.func,
+  keyworkerDispatch: PropTypes.func.isRequired,
+  keyworker: PropTypes.object.isRequired,
+  setMessageDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  keyworkerStatusDispatch: PropTypes.func,
-  keyworkerCapacityDispatch: PropTypes.func,
+  keyworkerStatusDispatch: PropTypes.func.isRequired,
+  keyworkerCapacityDispatch: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  status: PropTypes.string,
-  capacity: PropTypes.string,
-  validationErrors: PropTypes.object,
-  setValidationErrorDispatch: PropTypes.func,
-  resetValidationErrorsDispatch: PropTypes.func,
+  status: PropTypes.string.isRequired,
+  capacity: PropTypes.number.isRequired,
+  validationErrors: PropTypes.object.isRequired,
+  setValidationErrorDispatch: PropTypes.func.isRequired,
+  resetValidationErrorsDispatch: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
+  error: state.app.error,
+  user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
   keyworker: state.keyworkerSearch.keyworker,
   capacity: state.keyworkerSearch.capacity,

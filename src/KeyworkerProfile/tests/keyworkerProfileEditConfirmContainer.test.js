@@ -18,6 +18,16 @@ const keyworkerActive = {
   capacity: 8,
 }
 
+const props = {
+  error: '',
+  capacity: '0',
+  behaviour: '',
+  annualLeaveReturnDate: '',
+  keyworkerDispatch: jest.fn(),
+  setMessageDispatch: jest.fn(),
+  validationErrors: {},
+}
+
 describe('Keyworker Profile Edit component', () => {
   it('should validate empty choices and date picker for unavailable_annual_leave status', async () => {
     const resetValidation = jest.fn()
@@ -37,6 +47,7 @@ describe('Keyworker Profile Edit component', () => {
         handleError={jest.fn()}
         handleOptionChange={jest.fn()}
         agencyId="LEI"
+        {...props}
       />
     )
     const instance = component.instance()
@@ -63,6 +74,7 @@ describe('Keyworker Profile Edit component', () => {
         handleError={jest.fn()}
         handleOptionChange={jest.fn()}
         agencyId="LEI"
+        {...props}
       />
     )
     const instance = component.instance()

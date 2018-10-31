@@ -24,6 +24,7 @@ describe('User search component', () => {
         handleRoleFilterChange={jest.fn()}
         handleNameFilterChange={jest.fn()}
         handleSearch={jest.fn()}
+        history={{}}
       />
     )
     expect(component.find('#page-title').text()).toEqual('Search for staff member')
@@ -48,6 +49,8 @@ describe('User search component', () => {
         handleRoleFilterChange={handleRoleSelectMock}
         handleNameFilterChange={handleNameFilterMock}
         handleSearch={handleSubmitMock}
+        history={{}}
+        roleFilterList={[]}
       />
     )
     component.find('button').simulate('click')

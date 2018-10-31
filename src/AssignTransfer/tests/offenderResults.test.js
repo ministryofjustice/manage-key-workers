@@ -87,6 +87,8 @@ describe('Offender results component', () => {
         postManualOverride={jest.fn()}
         onFinishAllocation={jest.fn()}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        message=""
       />
     )
     expect(component.find('tr').length).toEqual(4) // 3 plus table header tr
@@ -210,6 +212,8 @@ describe('Offender results component', () => {
         onFinishAllocation={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        message=""
       />
     )
     expect(component.find('tr').length).toEqual(21) // includes table header tr
@@ -230,6 +234,9 @@ describe('Offender results component', () => {
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
       />
     )
 
@@ -251,6 +258,9 @@ describe('Offender results component', () => {
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
       />
     )
 
@@ -270,6 +280,9 @@ describe('Offender results component', () => {
         history={{ push: jest.fn() }}
         displayBack={jest.fn()}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
       />
     )
 
@@ -297,6 +310,9 @@ describe('Offender results component', () => {
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
       />
     )
 
@@ -321,6 +337,9 @@ describe('Offender results component', () => {
         history={{ push: jest.fn() }}
         displayBack={jest.fn()}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
       />
     )
 
@@ -339,6 +358,9 @@ describe('Offender results component', () => {
         displayBack={jest.fn()}
         user={user}
         handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
       />
     )
 

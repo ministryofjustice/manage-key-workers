@@ -118,8 +118,8 @@ class AllocationHistory extends Component {
 }
 
 AllocationHistory.propTypes = {
-  allocationHistory: PropTypes.object,
-  loaded: PropTypes.bool,
+  allocationHistory: PropTypes.object.isRequired,
+  loaded: PropTypes.bool.isRequired,
 }
 
 export default AllocationHistory

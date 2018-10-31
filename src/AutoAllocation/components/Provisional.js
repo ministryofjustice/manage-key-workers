@@ -130,16 +130,13 @@ class Provisional extends Component {
 }
 
 Provisional.propTypes = {
-  displayDateFilter: PropTypes.bool,
-  allocatedList: PropTypes.array,
-  keyworkerList: PropTypes.array,
-  history: PropTypes.object,
-  allocatedKeyworkers: PropTypes.array,
+  allocatedList: PropTypes.array.isRequired,
+  keyworkerList: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
+  allocatedKeyworkers: PropTypes.array.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
-  fromDate: PropTypes.string,
-  toDate: PropTypes.string,
 }
 
 export { Provisional }

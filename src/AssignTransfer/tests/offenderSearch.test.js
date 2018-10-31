@@ -4,6 +4,14 @@ import { OffenderSearch } from '../components/OffenderSearch'
 
 const housingLocations = [{ id: 123, description: 'block 1' }, { id: 223, description: 'block 2' }]
 
+const props = {
+  searchText: '',
+  validationErrors: {},
+  housingLocation: '',
+  allocationStatus: '',
+  initialSearch: false,
+}
+
 describe('Offender search component', () => {
   it('should render initial offender search form correctly', async () => {
     const component = shallow(
@@ -14,6 +22,8 @@ describe('Offender search component', () => {
         handleSearchHousingLocationChange={() => {}}
         handleSearchAllocationStatusChange={() => {}}
         history={{}}
+        handleSubmit={jest.fn()}
+        {...props}
       />
     )
 
@@ -29,6 +39,8 @@ describe('Offender search component', () => {
         handleSearchHousingLocationChange={() => {}}
         handleSearchAllocationStatusChange={() => {}}
         history={{}}
+        handleSubmit={jest.fn()}
+        {...props}
       />
     )
     expect(component.find('#search-text').length).toBe(1)
@@ -46,6 +58,7 @@ describe('Offender search component', () => {
         setValidationErrorDispatch={() => {}}
         handleSubmit={handleSubmitMock}
         history={{}}
+        {...props}
       />
     )
 

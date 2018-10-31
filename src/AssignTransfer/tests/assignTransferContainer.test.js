@@ -4,10 +4,22 @@ import { AssignTransferContainer } from '../AssignTransferContainer'
 
 jest.mock('../../Spinner/index', () => '')
 
+const props = {
+  user: {},
+  error: '',
+  searchText: '',
+  allocationStatus: '',
+  housingLocation: '',
+  offenderSearchTextDispatch: jest.fn(),
+  offenderSearchAllocationStatusDispatch: jest.fn(),
+  offenderSearchHousingLocationDispatch: jest.fn(),
+  displayBack: jest.fn(),
+}
+
 describe('AssignTransferContainer', () => {
   it('should render initial Search correctly', async () => {
     const component = shallow(
-      <AssignTransferContainer initialSearch displayBack={jest.fn()} setErrorDispatch={() => {}} />
+      <AssignTransferContainer initialSearch setErrorDispatch={() => {}} user={{}} {...props} />
     )
     expect(
       component
@@ -18,7 +30,7 @@ describe('AssignTransferContainer', () => {
   })
 
   it('should render results correctly', async () => {
-    const component = shallow(<AssignTransferContainer setErrorDispatch={() => {}} />)
+    const component = shallow(<AssignTransferContainer setErrorDispatch={() => {}} {...props} />)
     const connect = component.find('Connect')
     expect(connect.text()).toContain('OffenderResultsContainer')
   })
