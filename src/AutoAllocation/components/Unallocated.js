@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { properCaseName, renderDate } from '../../stringUtils'
 import { getOffenderLink } from '../../links'
+import { unallocatedListType } from '../../types'
 
 class Unallocated extends Component {
   buildTableForRender() {
@@ -68,7 +69,7 @@ class Unallocated extends Component {
 }
 
 Unallocated.propTypes = {
-  unallocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  unallocatedList: unallocatedListType.isRequired,
   gotoNext: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
   history: ReactRouterPropTypes.history.isRequired,

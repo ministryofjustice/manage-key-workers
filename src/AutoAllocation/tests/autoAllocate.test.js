@@ -11,6 +11,17 @@ const AXIOS_CONFIG = 1
 jest.mock('../../Spinner/index', () => 'div id="spinner"')
 
 const user = {
+  activeCaseLoadId: 'TEST',
+  caseLoadOptions: [],
+  expiredFlag: false,
+  firstName: 'Test',
+  lastName: 'User',
+  lockedFlag: false,
+  maintainAccess: false,
+  maintainAccessAdmin: false,
+  migration: false,
+  staffId: 1,
+  username: 'TestUser',
   writeAccess: true,
 }
 
@@ -58,7 +69,7 @@ describe('Unallocated component', () => {
         setLoadedDispatch={jest.fn()}
         history={mockHistory}
         displayBack={jest.fn()}
-        user={{}}
+        user={user}
         error=""
         unallocatedList={[]}
         loaded={false}

@@ -5,7 +5,20 @@ import { AssignTransferContainer } from '../AssignTransferContainer'
 jest.mock('../../Spinner/index', () => '')
 
 const props = {
-  user: {},
+  user: {
+    activeCaseLoadId: '1',
+    caseLoadOptions: [],
+    expiredFlag: false,
+    firstName: 'Test',
+    lastName: 'User',
+    lockedFlag: false,
+    maintainAccess: false,
+    maintainAccessAdmin: false,
+    migration: false,
+    staffId: 1,
+    username: 'TestUser',
+    writeAccess: false,
+  },
   error: '',
   searchText: '',
   allocationStatus: '',

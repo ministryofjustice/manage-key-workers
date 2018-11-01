@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
+import { userType } from '../../types'
 
 const EnableNomis = ({ user, history, handleEnable, handleCancel }) => {
   const caseLoadOption = user.caseLoadOptions
@@ -58,7 +59,7 @@ EnableNomis.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   handleEnable: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
 }
 
 export default EnableNomis

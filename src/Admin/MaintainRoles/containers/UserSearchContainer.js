@@ -12,6 +12,7 @@ import {
 import Error from '../../../Error'
 
 import UserSearch from '../components/UserSearch'
+import { userType } from '../../../types'
 
 class UserSearchContainer extends Component {
   constructor(props) {
@@ -77,7 +78,7 @@ UserSearchContainer.propTypes = {
   nameFilter: PropTypes.string.isRequired,
   roleFilter: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func.isRequired,
   roleFilterDispatch: PropTypes.func.isRequired,

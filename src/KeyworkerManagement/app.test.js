@@ -5,13 +5,35 @@ import mockHistory from '../test/mockHistory'
 
 jest.mock('../Spinner/index', () => '')
 
+const config = {
+  maintainRolesEnabled: 'false',
+  keyworkeProfileStatsEnabled: 'false',
+  notmEndpointUrl: '/notm/endpoint',
+  mailTo: 'email@test.com',
+}
+
+const user = {
+  activeCaseLoadId: 'TEST',
+  caseLoadOptions: [],
+  expiredFlag: false,
+  firstName: 'Test',
+  lastName: 'User',
+  lockedFlag: false,
+  maintainAccess: false,
+  maintainAccessAdmin: false,
+  migration: false,
+  staffId: 1,
+  username: 'TestUser',
+  writeAccess: false,
+}
+
 describe('App component', () => {
   it('should handle session timeout error response and display alert', async () => {
     const component = shallow(
       <App
         switchCaseLoad={jest.fn()}
-        config={{}}
-        user={{}}
+        config={config}
+        user={user}
         history={mockHistory}
         setErrorDispatch={jest.fn()}
         userDetailsDispatch={jest.fn()}
@@ -55,8 +77,8 @@ describe('App component', () => {
     const component = shallow(
       <App
         switchCaseLoad={jest.fn()}
-        config={{}}
-        user={{}}
+        config={config}
+        user={user}
         history={mockHistory}
         setErrorDispatch={jest.fn()}
         userDetailsDispatch={jest.fn()}
@@ -95,8 +117,8 @@ describe('App component', () => {
       <App
         switchCaseLoad={jest.fn()}
         history={mockHistory}
-        config={{}}
-        user={{}}
+        config={config}
+        user={user}
         setErrorDispatch={jest.fn()}
         userDetailsDispatch={jest.fn()}
         switchAgencyDispatch={jest.fn()}

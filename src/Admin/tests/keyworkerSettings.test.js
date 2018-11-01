@@ -6,6 +6,16 @@ import mockHistory from '../../test/mockHistory'
 const user = {
   activeCaseLoadId: 'LEI',
   caseLoadOptions: [{ caseLoadId: 'LEI', description: 'LEEDS (HMP)', type: 'INST', caseloadFunction: 'GENERAL' }],
+  expiredFlag: false,
+  firstName: 'Test',
+  lastName: 'User',
+  lockedFlag: false,
+  maintainAccess: false,
+  maintainAccessAdmin: false,
+  migration: false,
+  staffId: 1,
+  username: 'TestUser',
+  writeAccess: false,
 }
 
 describe('Keyworker settings component', () => {

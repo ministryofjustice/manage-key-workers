@@ -91,20 +91,42 @@ const maintainRolesInitialState = {
   pageNumber: 0,
   pageSize: 10,
   totalRecords: 0,
-  contextUser: {},
+  contextUser: {
+    activeCaseLoadId: '',
+    agencyDescription: '',
+    expiredFlag: false,
+    firstName: '',
+    lastName: '',
+    lockedFlag: false,
+    staffId: 0,
+    username: '',
+  },
 }
 
 describe('app (global) reducer', () => {
   it('should return the initial state', () => {
     expect(app(undefined, {})).toEqual({
-      config: { mailTo: '' },
+      config: { mailTo: '', keyworkeProfileStatsEnabled: 'false', maintainRolesEnabled: 'false', notmEndpointUrl: '' },
+      user: {
+        activeCaseLoadId: '',
+        caseLoadOptions: [],
+        expiredFlag: false,
+        firstName: '',
+        lastName: '',
+        lockedFlag: false,
+        maintainAccess: false,
+        maintainAccessAdmin: false,
+        migration: false,
+        staffId: 0,
+        username: '',
+        writeAccess: false,
+      },
+      shouldShowTerms: false,
       error: '',
+      message: '',
       loaded: false,
       menuOpen: false,
-      message: '',
       page: 0,
-      shouldShowTerms: false,
-      user: { activeCaseLoadId: null },
       validationErrors: {},
     })
   })
@@ -360,7 +382,11 @@ describe('offender search reducer', () => {
       allocationStatus: 'all',
       locations: [],
       housingLocation: '',
-      offenderResults: {},
+      offenderResults: {
+        keyworkerResponse: [],
+        offenderResponse: [],
+        partialResults: false,
+      },
     })
   })
   it('should handle SET_OFFENDER_SEARCH_TEXT', () => {

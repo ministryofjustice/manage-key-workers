@@ -6,6 +6,7 @@ import { properCaseName, renderDate } from '../../stringUtils'
 import { getOffenderLink, getStaffLink, getKeyWorkerHistoryLink } from '../../links'
 import OffenderSearch from './OffenderSearch'
 import MessageBar from '../../MessageBar/index'
+import { userType, offenderResultsType, keyworkerListType, keyworkerChangeListType } from '../../types'
 
 class OffenderResults extends Component {
   getKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
@@ -186,16 +187,16 @@ class OffenderResults extends Component {
 }
 
 OffenderResults.propTypes = {
-  offenderResults: PropTypes.shape({}).isRequired,
-  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offenderResults: offenderResultsType.isRequired,
+  keyworkerList: keyworkerListType.isRequired,
+  keyworkerChangeList: keyworkerChangeListType.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
   displayBack: PropTypes.func.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
 }
 
 const OffenderResultsWithRouter = withRouter(OffenderResults)

@@ -12,6 +12,10 @@ const getTestData = () => [
     status: 'ACTIVE',
     numKeyWorkerSessions: 2,
     currentRole: 'Key worker2',
+    agencyId: '',
+    autoAllocationAllowed: false,
+    capacity: 1,
+    stats: [],
   },
   {
     staffId: 1,
@@ -21,6 +25,10 @@ const getTestData = () => [
     status: 'ACTIVE',
     numKeyWorkerSessions: 1,
     currentRole: 'Key worker',
+    agencyId: '',
+    autoAllocationAllowed: false,
+    capacity: 1,
+    stats: [],
   },
   {
     staffId: 3,
@@ -30,6 +38,10 @@ const getTestData = () => [
     numKeyWorkerSessions: 4,
     status: 'ACTIVE',
     currentRole: 'Key worker3',
+    agencyId: '',
+    autoAllocationAllowed: false,
+    capacity: 1,
+    stats: [],
   },
 ]
 

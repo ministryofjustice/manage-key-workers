@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { properCaseName, renderDate } from '../../stringUtils'
 import DateFilter from '../../DateFilter/index'
 import { getOffenderLink, getStaffLink } from '../../links'
+import { allocatedListType, keyworkerListType, allocatedKeyworkersType } from '../../types'
 
 class Provisional extends Component {
   getKeyworkerDisplay = (staffId, keyworkerDisplay, numberAllocated) => {
@@ -131,10 +132,10 @@ class Provisional extends Component {
 }
 
 Provisional.propTypes = {
-  allocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allocatedList: allocatedListType.isRequired,
+  keyworkerList: keyworkerListType.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
-  allocatedKeyworkers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allocatedKeyworkers: allocatedKeyworkersType.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   postManualOverride: PropTypes.func.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,

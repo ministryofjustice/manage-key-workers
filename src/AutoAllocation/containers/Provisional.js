@@ -10,6 +10,7 @@ import ErrorComponent from '../../Error/index'
 import Spinner from '../../Spinner'
 
 import '../../allocation.scss'
+import { userType, allocatedKeyworkersType, allocatedListType } from '../../types'
 
 class ProvisionalContainer extends Component {
   constructor(props) {
@@ -127,8 +128,8 @@ class ProvisionalContainer extends Component {
 ProvisionalContainer.propTypes = {
   error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  allocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  allocatedKeyworkers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allocatedList: allocatedListType.isRequired,
+  allocatedKeyworkers: allocatedKeyworkersType.isRequired,
   onFinishAllocation: PropTypes.func.isRequired,
   agencyId: PropTypes.string.isRequired,
   allocatedDetailsDispatch: PropTypes.func.isRequired,
@@ -136,7 +137,7 @@ ProvisionalContainer.propTypes = {
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }
 

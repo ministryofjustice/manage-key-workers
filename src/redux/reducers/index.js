@@ -15,8 +15,21 @@ const allocatedInitialState = {
 }
 
 const appInitialState = {
-  config: { mailTo: '' },
-  user: { activeCaseLoadId: null },
+  config: { mailTo: '', keyworkeProfileStatsEnabled: 'false', maintainRolesEnabled: 'false', notmEndpointUrl: '' },
+  user: {
+    activeCaseLoadId: '',
+    caseLoadOptions: [],
+    expiredFlag: false,
+    firstName: '',
+    lastName: '',
+    lockedFlag: false,
+    maintainAccess: false,
+    maintainAccessAdmin: false,
+    migration: false,
+    staffId: 0,
+    username: '',
+    writeAccess: false,
+  },
   shouldShowTerms: false,
   error: '',
   message: '',
@@ -31,15 +44,32 @@ const offenderSearchInitialState = {
   housingLocation: '',
   locations: [],
   allocationStatus: 'all',
-  offenderResults: {},
+  offenderResults: {
+    keyworkerResponse: [],
+    offenderResponse: [],
+    partialResults: false,
+  },
 }
 
 const keyworkerSearchInitialState = {
+  agencyId: '',
   searchText: '',
   statusFilter: '',
   keyworkerSearchResults: [],
   keyworkerAllocations: [],
-  keyworker: { key: 'value' },
+  keyworker: {
+    key: 'value',
+    agencyId: '',
+    agencyDescription: '',
+    autoAllocationAllowed: false,
+    capacity: 0,
+    firstName: '',
+    lastName: '',
+    numberAllocated: 0,
+    scheduleType: '',
+    staffId: 0,
+    status: '',
+  },
   keyworkerChangeList: [],
   keyworkerList: [],
   status: '',
@@ -70,7 +100,16 @@ const maintainRolesInitialState = {
   pageNumber: 0,
   pageSize: 10,
   totalRecords: 0,
-  contextUser: {},
+  contextUser: {
+    activeCaseLoadId: '',
+    agencyDescription: '',
+    expiredFlag: false,
+    firstName: '',
+    lastName: '',
+    lockedFlag: false,
+    staffId: 0,
+    username: '',
+  },
 }
 
 function updateObject(oldObject, newValues) {

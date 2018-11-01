@@ -10,6 +10,8 @@ const user = {
   lastName: 'BARTLET',
   lockedFlag: false,
   expiredFlag: false,
+  activeCaseLoadId: '',
+  agencyDescription: 'Agency description',
 }
 
 describe('User search component', () => {
@@ -17,8 +19,11 @@ describe('User search component', () => {
     const component = shallow(
       <AddRole
         contextUser={user}
-        roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }]}
-        roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 }]}
+        roleFilterList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
         handleRoleFilterChange={jest.fn()}
         agencyId="LEI"
         handleCancel={jest.fn()}
@@ -39,11 +44,14 @@ describe('User search component', () => {
     const component = shallow(
       <AddRole
         contextUser={user}
-        roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
         roleFilterList={[
-          { roleCode: 'ROLE_1', roleName: 'Role 1' },
-          { roleCode: 'ROLE_2', roleName: 'Role 2' },
-          { roleCode: 'ROLE_3', roleName: 'Role 3' },
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+          { roleCode: 'ROLE_3', roleName: 'Role 3', roleFunction: '', roleId: 3 },
         ]}
         agencyId="LEI"
         handleRoleFilterChange={jest.fn()}
@@ -64,8 +72,14 @@ describe('User search component', () => {
     const component = shallow(
       <AddRole
         contextUser={user}
-        roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
-        roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
+        roleFilterList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
         agencyId="LEI"
         handleRoleFilterChange={jest.fn()}
         handleCancel={jest.fn()}

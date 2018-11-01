@@ -11,6 +11,7 @@ import {
 import OffenderSearchContainer from './containers/OffenderSearchContainer'
 import OffenderResultsContainer from './containers/OffenderResultsContainer'
 import Error from '../Error'
+import { userType } from '../types'
 
 class AssignTransferContainer extends Component {
   handleSearchTextChange(event) {
@@ -64,7 +65,7 @@ class AssignTransferContainer extends Component {
 }
 
 AssignTransferContainer.propTypes = {
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   error: PropTypes.string.isRequired,
   searchText: PropTypes.string.isRequired,
   allocationStatus: PropTypes.string.isRequired,

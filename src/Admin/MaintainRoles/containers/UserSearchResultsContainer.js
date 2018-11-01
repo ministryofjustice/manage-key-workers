@@ -17,6 +17,7 @@ import {
 import Error from '../../../Error'
 import UserSearchResults from '../components/UserSearchResults'
 import Spinner from '../../../Spinner'
+import { userType, configType } from '../../../types'
 
 class UserSearchContainer extends Component {
   constructor(props) {
@@ -149,7 +150,7 @@ UserSearchContainer.propTypes = {
   pageSize: PropTypes.number.isRequired,
   totalRecords: PropTypes.number.isRequired,
   error: PropTypes.string.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   agencyId: PropTypes.string.isRequired,
   nameFilterDispatch: PropTypes.func.isRequired,
   roleFilterDispatch: PropTypes.func.isRequired,
@@ -158,7 +159,7 @@ UserSearchContainer.propTypes = {
   roleFilterListDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  config: PropTypes.shape({}).isRequired,
+  config: configType.isRequired,
 }
 
 const mapStateToProps = state => ({

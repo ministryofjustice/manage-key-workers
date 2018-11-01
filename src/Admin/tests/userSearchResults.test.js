@@ -35,12 +35,16 @@ describe('User search Results component', () => {
             username: 'HQA63K',
             firstName: 'MARTHA',
             lastName: 'HUNSTON',
+            expiredFlag: false,
+            lockedFlag: false,
           },
           {
             staffId: 485573,
             username: 'AKNIGHT_GEN',
             firstName: 'ANDREW',
             lastName: 'KNIGHT',
+            expiredFlag: false,
+            lockedFlag: false,
           },
         ]}
         agencyId="LEI"
@@ -92,12 +96,16 @@ describe('User search Results component', () => {
             username: 'HQA63K',
             firstName: 'MARTHA',
             lastName: 'HUNSTON',
+            expiredFlag: false,
+            lockedFlag: false,
           },
           {
             staffId: 485573,
             username: 'AKNIGHT_GEN',
             firstName: 'ANDREW',
             lastName: 'KNIGHT',
+            expiredFlag: false,
+            lockedFlag: false,
           },
         ]}
         agencyId="LEI"
