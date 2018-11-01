@@ -51,7 +51,7 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         assert statsMapArray[2].value == "0 %"
         assert statsMapArray[2].change == "no change since last month"
 
-        assert statsMapArray[3].description == "Total number of key worker case notes written"
+        assert statsMapArray[3].description == "Total number of key worker case notes written in the last month"
         assert statsMapArray[3].value == "20"
         assert statsMapArray[3].change == "no change since last month"
     }

@@ -14,7 +14,7 @@ const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) =
 
 const totalNumberOfEntryAndSessionCaseNoteWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfEntryAndSessionCaseNoteWritten',
-  heading: 'Total number of key worker case notes written',
+  heading: 'Total number of key worker case notes written in the last month',
   value: currentStats.caseNoteEntryCount + currentStats.caseNoteSessionCount,
   change: {
     value:
