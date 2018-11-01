@@ -10,7 +10,7 @@ const manualOverrideFactory = keyworkerApi => {
     const prisonId = req.query.agencyId
 
     const allocationPromises = allocateList
-      .filter(element => element.staffId)
+      .filter(element => element && element.staffId)
       .map(async ({ offenderNo, staffId, deallocate }) => {
         if (deallocate) {
           const response = await keyworkerApi.deallocate(res.locals, offenderNo, {
