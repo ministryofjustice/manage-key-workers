@@ -22,7 +22,7 @@ const elite2ApiFactory = client => {
   const caseNoteUsageList = (context, offenderNumbers, staffId) =>
     get(
       context,
-      `api/case-notes/usage?type=KA&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
+      `api/case-notes/usage?type=KA&subType=KS&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
     )
   const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
   const userCaseLoads = context => get(context, 'api/users/me/caseLoads')
