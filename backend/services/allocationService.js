@@ -24,6 +24,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       .map(d => d.latestCaseNote)
       .reduce((acc, cur) => (cur > acc ? cur : acc), '') || null
 
+  const findKeyworkerNumKeyWorkerSessions = (kwDates, offenderNo) =>
+    kwDates
+      .filter(d => d.offenderNo === offenderNo)
+      .map(d => d.numCaseNotes)
+      .reduce((acc, cur) => (cur > acc ? cur : acc), '') || null
+
   const unallocated = async (context, agencyId) => {
     const offenderWithLocationDtos = await keyworkerApi.unallocated(context, agencyId)
     log.debug({ data: offenderWithLocationDtos }, 'Response from unallocated offenders request')
@@ -203,7 +209,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allCsras = await elite2Api.csraList(context, offenderNumbers)
       log.debug({ data: allCsras }, 'Response from csraList request')
 
-      const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers)
+      const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers, staffId)
       log.debug({ data: kwDates }, 'Response from case note usage request')
 
       keyworkerAllocationDetailsDtos.forEach(keyworkerAllocation => {
@@ -211,6 +217,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         keyworkerAllocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
         keyworkerAllocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
         keyworkerAllocation.lastKeyWorkerSessionDate = findKeyworkerCaseNoteDate(kwDates, offenderNo)
+        keyworkerAllocation.numKeyWorkerSessions = findKeyworkerNumKeyWorkerSessions(kwDates, offenderNo)
       })
     }
 

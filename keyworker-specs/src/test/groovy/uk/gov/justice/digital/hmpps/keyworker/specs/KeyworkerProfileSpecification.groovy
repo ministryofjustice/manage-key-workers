@@ -44,6 +44,9 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         row5.find("a").text() == null
         row5.text() == 'Bowie, David'
 
+        table.find("tr", 2).find("td", 5).text() == '03/06/2018'
+        table.find("tr", 2).find("td", 6).text() == '3'
+
         when: "Back link is clicked"
         backLink.click()
 

@@ -10,7 +10,8 @@ const LOCATION_COLUMN = 2
 const CRD_COLUMN = 3
 const CSRA_COLUMN = 4
 const KW_ACTIVITY_COLUMN = 5
-const KEYWORKER_SELECT_COLUMN = 6
+const LAST_KW_SESSION_DATE_COLUMN = 6
+const KEYWORKER_SELECT_COLUMN = 7
 
 const keyworkerList = [
   {
@@ -95,6 +96,7 @@ const allocatedOffenders = [
     confirmedReleaseDate: '2019-10-20',
     crsaClassification: 'Standard',
     lastKeyWorkerSessionDate: '2018-05-01',
+    numKeyWorkerSessions: 5,
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 4,
     staffId: 123,
@@ -109,6 +111,7 @@ const allocatedOffenders = [
     confirmedReleaseDate: '2019-10-20',
     crsaClassification: 'High',
     lastKeyWorkerSessionDate: '2018-06-15',
+    numKeyWorkerSessions: 2,
     keyworkerDisplay: NO_DATA,
     staffId: 999,
     deallocOnly: false,
@@ -122,6 +125,7 @@ const allocatedOffenders = [
     confirmedReleaseDate: '2019-10-20',
     crsaClassification: NO_DATA,
     lastKeyWorkerSessionDate: '2018-06-01',
+    numKeyWorkerSessions: 3,
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 5,
     staffId: 123,
@@ -138,6 +142,7 @@ const allocatedOffendersWithDangling = [
     confirmedReleaseDate: '2019-10-20',
     crsaClassification: 'Standard',
     lastKeyWorkerSessionDate: '2018-05-01',
+    numKeyWorkerSessions: 6,
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 4,
     staffId: 123,
@@ -152,6 +157,7 @@ const allocatedOffendersWithDangling = [
     confirmedReleaseDate: '2019-10-20',
     crsaClassification: NO_DATA,
     lastKeyWorkerSessionDate: '2018-06-01',
+    numKeyWorkerSessions: 4,
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 5,
     staffId: 123,
@@ -166,6 +172,7 @@ const allocatedOffendersWithDangling = [
     confirmedReleaseDate: '2020-10-20',
     crsaClassification: NO_DATA,
     lastKeyWorkerSessionDate: '2018-04-01',
+    numKeyWorkerSessions: 3,
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 5,
     staffId: 123,
@@ -262,6 +269,14 @@ describe('Keyworker Profile component', () => {
         .at(KW_ACTIVITY_COLUMN)
         .text()
     ).toEqual('01/06/2018')
+    expect(
+      component
+        .find('tr')
+        .at(3)
+        .find('td')
+        .at(LAST_KW_SESSION_DATE_COLUMN)
+        .text()
+    ).toEqual('3')
     expect(component.find('#updateAllocationButton').length).toEqual(1)
     expect(component.find('#active-date').length).toEqual(0)
   })

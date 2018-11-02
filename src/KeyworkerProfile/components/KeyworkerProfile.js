@@ -76,6 +76,7 @@ class KeyworkerProfile extends Component {
           <td className="row-gutters">{renderDate(a.confirmedReleaseDate)}</td>
           <td className="row-gutters">{a.crsaClassification || '--'}</td>
           <td className="row-gutters">{renderDate(a.lastKeyWorkerSessionDate)}</td>
+          <td className="row-gutters">{a.numKeyWorkerSessions}</td>
           <td className="row-gutters">
             <select
               disabled={Boolean(!user || !user.writeAccess)}
@@ -125,9 +126,14 @@ class KeyworkerProfile extends Component {
                   <th>Release date</th>
                   <th>CSRA</th>
                   <th>
-                    Last key
+                    Last KW Session
                     <br />
-                    worker activity
+                    in last month
+                  </th>
+                  <th>
+                    No. KW Sessions
+                    <br />
+                    in last month
                   </th>
                   <th>
                     Change or deallocate <br />
