@@ -13,6 +13,10 @@ const list = [
     assignedLivingUnitDesc: 'L-1-1',
     confirmedReleaseDate: '2020-01-02',
     crsaClassification: 'High',
+    agencyId: '1',
+    assignedLivingUnitId: 1,
+    dateOfBirth: '1980-01-01',
+    facialImageId: 1,
   },
   {
     bookingId: 2,
@@ -21,7 +25,11 @@ const list = [
     offenderNo: 'ZZ125WX',
     assignedLivingUnitDesc: 'L-1-2',
     confirmedReleaseDate: null,
-    crsaClassification: null,
+    crsaClassification: 'Medium',
+    agencyId: '2',
+    assignedLivingUnitId: 2,
+    dateOfBirth: '1980-01-01',
+    facialImageId: 2,
   },
 ]
 

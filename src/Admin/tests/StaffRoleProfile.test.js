@@ -10,6 +10,13 @@ const user = {
   lastName: 'BARTLET',
   lockedFlag: false,
   expiredFlag: false,
+  activeCaseLoadId: 'TEST',
+  caseLoadOptions: [],
+  agencyDescription: 'Agency description',
+  maintainAccess: false,
+  maintainAccessAdmin: false,
+  migration: false,
+  writeAccess: false,
 }
 const ROLE_DESCRIPTION_COLUMN = 0
 
@@ -19,7 +26,10 @@ describe('Staff role profile component', () => {
       <StaffRoleProfile
         user={user}
         contextUser={user}
-        roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
         agencyId="LEI"
         displayBack={jest.fn()}
         handleRemove={jest.fn()}
@@ -49,7 +59,10 @@ describe('Staff role profile component', () => {
       <StaffRoleProfile
         user={user}
         contextUser={user}
-        roleList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
         agencyId="LEI"
         displayBack={jest.fn()}
         handleRemove={handleRemoveMock}

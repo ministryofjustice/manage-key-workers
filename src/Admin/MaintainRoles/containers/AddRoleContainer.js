@@ -19,6 +19,7 @@ import {
 import { AddRole } from '../components/AddRole'
 import { isBlank } from '../../../stringUtils'
 import Spinner from '../../../Spinner'
+import { roleFilterListType, roleListType, userType, contextUserType } from '../../../types'
 
 class AddRoleContainer extends Component {
   constructor(props) {
@@ -133,15 +134,15 @@ class AddRoleContainer extends Component {
 
 AddRoleContainer.propTypes = {
   error: PropTypes.string.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   roleFilter: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
-  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  roleList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roleFilterList: roleFilterListType.isRequired,
+  roleList: roleListType.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setRoleFilterDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  contextUser: PropTypes.shape({}).isRequired,
+  contextUser: contextUserType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   resetValidationErrorsDispatch: PropTypes.func.isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,

@@ -3,7 +3,10 @@ import { shallow } from 'enzyme'
 import { OffenderSearch } from '../components/OffenderSearch'
 import mockHistory from '../../test/mockHistory'
 
-const housingLocations = [{ id: 123, description: 'block 1' }, { id: 223, description: 'block 2' }]
+const housingLocations = [
+  { locationId: 123, description: 'block 1', agencyId: 'TEST1', locationPrefix: 'pre', locationType: 'type' },
+  { locationId: 223, description: 'block 2', agencyId: 'TEST2', locationPrefix: 'pre', locationType: 'type' },
+]
 
 const props = {
   searchText: '',

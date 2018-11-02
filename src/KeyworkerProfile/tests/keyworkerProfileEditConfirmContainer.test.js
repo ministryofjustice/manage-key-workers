@@ -9,6 +9,12 @@ const keyworkerAnnualLeave = {
   staffId: 123,
   status: 'UNAVAILABLE_ANNUAL_LEAVE',
   capacity: 8,
+  agencyDescription: '',
+  agencyId: 'TEST',
+  autoAllocationAllowed: false,
+  numberAllocated: 5,
+  scheduleType: '',
+  stats: [],
 }
 
 const keyworkerActive = {
@@ -17,6 +23,12 @@ const keyworkerActive = {
   staffId: 123,
   status: 'INACTIVE',
   capacity: 8,
+  agencyDescription: '',
+  agencyId: 'TEST',
+  autoAllocationAllowed: false,
+  numberAllocated: 5,
+  scheduleType: '',
+  stats: [],
 }
 
 const props = {

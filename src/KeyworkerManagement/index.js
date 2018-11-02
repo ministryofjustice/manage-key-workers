@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import MessageBar from '../MessageBar/index'
 import { getHomeLink } from '../links'
+import { userType, configType } from '../types'
 
 const HomePage = props => {
   const { allowAuto, user, config } = props
@@ -92,8 +93,8 @@ const HomePage = props => {
 
 HomePage.propTypes = {
   message: PropTypes.string.isRequired,
-  user: PropTypes.shape({}).isRequired,
-  config: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
+  config: configType.isRequired,
   allowAuto: PropTypes.bool.isRequired,
 }
 

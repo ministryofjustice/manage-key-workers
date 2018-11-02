@@ -15,7 +15,10 @@ describe('User search component', () => {
         user={user}
         nameFilter=""
         roleFilter=""
-        roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleFilterList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1', roleFunction: '', roleId: 1 },
+          { roleCode: 'ROLE_2', roleName: 'Role 2', roleFunction: '', roleId: 2 },
+        ]}
         agencyId="LEI"
         nameFilterDispatch={jest.fn()}
         displayBack={jest.fn()}

@@ -8,6 +8,7 @@ import OffenderResults from '../components/OffenderResults'
 import Spinner from '../../Spinner'
 
 import { resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from '../../redux/actions'
+import { keyworkerListType, keyworkerChangeListType, locationsType } from '../../types'
 
 class OffenderResultsContainer extends Component {
   constructor(props) {
@@ -134,9 +135,9 @@ OffenderResultsContainer.propTypes = {
   agencyId: PropTypes.string.isRequired,
   offenderSearchResultsDispatch: PropTypes.func.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
-  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  locations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerChangeList: keyworkerChangeListType.isRequired,
+  keyworkerList: keyworkerListType.isRequired,
+  locations: locationsType.isRequired,
   handleError: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
@@ -144,6 +145,7 @@ OffenderResultsContainer.propTypes = {
   loaded: PropTypes.bool.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   message: PropTypes.string.isRequired,
+  validationErrors: PropTypes.shape({}).isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -157,6 +159,7 @@ const mapStateToProps = state => ({
   locations: state.offenderSearch.locations,
   loaded: state.app.loaded,
   message: state.app.message,
+  validationErrors: state.app.validationErrors,
 })
 
 const mapDispatchToProps = dispatch => ({

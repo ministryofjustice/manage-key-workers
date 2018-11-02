@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import ValidationErrors from '../../ValidationError'
+import { locationsType } from '../../types'
 
 const OffenderSearch = ({
   locations,
@@ -139,7 +140,7 @@ const OffenderSearch = ({
 }
 
 OffenderSearch.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  locations: locationsType.isRequired,
   searchText: PropTypes.string.isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
   housingLocation: PropTypes.string.isRequired,

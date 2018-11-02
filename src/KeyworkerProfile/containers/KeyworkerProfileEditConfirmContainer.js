@@ -17,6 +17,7 @@ import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfi
 import Error from '../../Error'
 import * as behaviours from '../keyworkerStatusBehavour'
 import { switchToIsoDateFormat, isBlank } from '../../stringUtils'
+import { keyworkerType } from '../../types'
 
 class KeyworkerProfileEditConfirmContainer extends Component {
   constructor() {
@@ -156,12 +157,12 @@ class KeyworkerProfileEditConfirmContainer extends Component {
 KeyworkerProfileEditConfirmContainer.propTypes = {
   error: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  capacity: PropTypes.string.isRequired,
+  capacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   behaviour: PropTypes.string.isRequired,
   annualLeaveReturnDate: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerDispatch: PropTypes.func.isRequired,
-  keyworker: PropTypes.shape({}).isRequired,
+  keyworker: keyworkerType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   dateDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,

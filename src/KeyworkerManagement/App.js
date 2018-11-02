@@ -38,6 +38,7 @@ import {
   setMenuOpen,
   setSettings,
 } from '../redux/actions/index'
+import { configType, userType } from '../types'
 
 const axios = require('axios')
 
@@ -359,8 +360,8 @@ class App extends React.Component {
 
 App.propTypes = {
   error: PropTypes.string.isRequired,
-  config: PropTypes.shape({}).isRequired,
-  user: PropTypes.shape({}).isRequired,
+  config: configType.isRequired,
+  user: userType.isRequired,
   shouldShowTerms: PropTypes.bool.isRequired,
   configDispatch: PropTypes.func.isRequired,
   userDetailsDispatch: PropTypes.func.isRequired,

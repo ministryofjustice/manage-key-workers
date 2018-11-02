@@ -10,6 +10,7 @@ import ErrorComponent from '../../Error/index'
 import Spinner from '../../Spinner/index'
 
 import '../../allocation.scss'
+import { userType, unallocatedListType } from '../../types'
 
 class UnallocatedContainer extends Component {
   constructor(props) {
@@ -65,13 +66,13 @@ class UnallocatedContainer extends Component {
 UnallocatedContainer.propTypes = {
   error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  unallocatedList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  unallocatedList: unallocatedListType.isRequired,
   agencyId: PropTypes.string.isRequired,
   unallocatedListDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }
 

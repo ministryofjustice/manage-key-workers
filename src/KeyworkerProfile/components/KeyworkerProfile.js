@@ -6,6 +6,13 @@ import MessageBar from '../../MessageBar/index'
 import { getStatusStyle, getStatusDescription } from '../keyworkerStatus'
 import { getOffenderLink } from '../../links'
 import KeyworkerStats from './KeyworkerStats'
+import {
+  userType,
+  keyworkerType,
+  keyworkerListType,
+  keyworkerChangeListType,
+  keyworkerAllocationsType,
+} from '../../types'
 
 class KeyworkerProfile extends Component {
   getAllocationStyle = () => {
@@ -211,16 +218,16 @@ class KeyworkerProfile extends Component {
 
 KeyworkerProfile.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  keyworkerAllocations: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyworker: PropTypes.shape({}).isRequired,
-  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerAllocations: keyworkerAllocationsType.isRequired,
+  keyworker: keyworkerType.isRequired,
+  keyworkerList: keyworkerListType.isRequired,
+  keyworkerChangeList: keyworkerChangeListType.isRequired,
   handleAllocationChange: PropTypes.func.isRequired,
   handleKeyworkerChange: PropTypes.func.isRequired,
   handleEditProfileClick: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
 }
 
 export default KeyworkerProfile

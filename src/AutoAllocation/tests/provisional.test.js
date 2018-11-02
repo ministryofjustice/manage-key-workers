@@ -24,6 +24,11 @@ const allocatedList = [
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 4,
     staffId: 123,
+    agencyId: 'TEST',
+    allocationType: '',
+    assigned: '',
+    deallocOnly: false,
+    prisonId: 'Prison',
   },
   {
     bookingId: 2,
@@ -35,6 +40,12 @@ const allocatedList = [
     crsaClassification: 'High',
     keyworkerDisplay: NO_DATA,
     staffId: 999,
+    agencyId: 'TEST',
+    allocationType: '',
+    assigned: '',
+    deallocOnly: false,
+    numberAllocated: 5,
+    prisonId: 'Prison',
   },
   {
     bookingId: 3,
@@ -47,10 +58,32 @@ const allocatedList = [
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 5,
     staffId: 123,
+    agencyId: 'TEST',
+    allocationType: '',
+    assigned: '',
+    deallocOnly: false,
+    prisonId: 'Prison',
   },
 ]
 
-const allocatedLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i, offenderNo: i }))
+const allocatedLongList = new Array(20).fill({}).map((a, i) => ({
+  ...a,
+  bookingId: i,
+  offenderNo: `ABC${i}`,
+  lastName: 'Bennett',
+  firstName: 'Lucinda',
+  internalLocationDesc: 'L-2-2',
+  confirmedReleaseDate: '2019-10-20',
+  crsaClassification: NO_DATA,
+  keyworkerDisplay: 'Hanson, Sam',
+  numberAllocated: 5,
+  staffId: 123 + i,
+  agencyId: 'TEST',
+  allocationType: '',
+  assigned: '',
+  deallocOnly: false,
+  prisonId: 'Prison',
+}))
 
 const keyworkList = [
   {
@@ -58,12 +91,20 @@ const keyworkList = [
     firstName: 'Amy',
     lastName: 'Hanson',
     numberAllocated: 4,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    status: 'Active',
   },
   {
     staffId: 124,
     firstName: 'Sam',
     lastName: 'Hanson',
     numberAllocated: 6,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    status: 'Active',
   },
 ]
 
@@ -183,7 +224,7 @@ describe('ManualAllocation component', () => {
     const component = shallow(
       <Provisional
         allocatedKeyworkers={[]}
-        allocatedList={[]}
+        allocatedList={allocatedList}
         keyworkerList={[]}
         onFinishAllocation={cancelCallBack}
         handleKeyworkerChange={keyworkerChangeCallback}
@@ -204,7 +245,7 @@ describe('ManualAllocation component', () => {
     const component = shallow(
       <Provisional
         allocatedKeyworkers={[]}
-        allocatedList={[]}
+        allocatedList={allocatedList}
         keyworkerList={[]}
         handleKeyworkerChange={jest.fn()}
         onFinishAllocation={cancelCallBack}
@@ -271,7 +312,7 @@ describe('ManualAllocation component', () => {
         displayDateFilter
         toDate=""
         fromDate=""
-        allocatedList={[]}
+        allocatedList={allocatedList}
         keyworkerList={[]}
         onFinishAllocation={() => {}}
         handleKeyworkerChange={() => {}}
@@ -287,7 +328,7 @@ describe('ManualAllocation component', () => {
   it('should not display date filter if toggled off', async () => {
     const component = shallow(
       <Provisional
-        allocatedList={[]}
+        allocatedList={allocatedList}
         keyworkerList={[]}
         handleKeyworkerChange={() => {}}
         onFinishAllocation={() => {}}

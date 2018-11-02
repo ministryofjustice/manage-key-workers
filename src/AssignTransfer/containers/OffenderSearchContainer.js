@@ -9,6 +9,7 @@ import {
   setOffenderSearchLocations,
   setValidationError,
 } from '../../redux/actions'
+import { locationsType } from '../../types'
 
 class OffenderSearchContainer extends Component {
   componentWillMount() {
@@ -50,7 +51,7 @@ class OffenderSearchContainer extends Component {
 OffenderSearchContainer.propTypes = {
   error: PropTypes.string.isRequired,
   handleError: PropTypes.func.isRequired,
-  locations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  locations: locationsType.isRequired,
   offenderSearchLocationsDispatch: PropTypes.func.isRequired,
   offenderSearchHousingLocationDispatch: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,

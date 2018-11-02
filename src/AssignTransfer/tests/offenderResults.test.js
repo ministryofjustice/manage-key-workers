@@ -24,6 +24,14 @@ const offenderResponse = [
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 4,
     staffId: 123,
+    capacity: 10,
+    age: 21,
+    agencyId: 'TEST',
+    assignedLivingUnitId: 1,
+    bookingNo: '',
+    dateOfBirth: '1997-01-01',
+    facialImageId: 1,
+    rnum: 1,
   },
   {
     bookingId: 2,
@@ -34,7 +42,16 @@ const offenderResponse = [
     confirmedReleaseDate: '2019-10-20',
     crsaClassification: null,
     keyworkerDisplay: null,
+    numberAllocated: 5,
     staffId: 999,
+    capacity: 10,
+    age: 21,
+    agencyId: 'TEST',
+    assignedLivingUnitId: 1,
+    bookingNo: '',
+    dateOfBirth: '1997-01-01',
+    facialImageId: 1,
+    rnum: 1,
   },
   {
     bookingId: 3,
@@ -47,31 +64,78 @@ const offenderResponse = [
     keyworkerDisplay: 'Hanson, Sam',
     numberAllocated: 5,
     staffId: 123,
+    capacity: 10,
+    age: 21,
+    agencyId: 'TEST',
+    assignedLivingUnitId: 1,
+    bookingNo: '',
+    dateOfBirth: '1997-01-01',
+    facialImageId: 1,
+    rnum: 1,
   },
 ]
 
-const offenderResponseLongList = new Array(20).fill({}).map((a, i) => ({ ...a, bookingId: i, offenderNo: i }))
+const offenderResponseLongList = new Array(20).fill({}).map((a, i) => ({
+  ...a,
+  bookingId: i,
+  offenderNo: `ABC${i}`,
+  lastName: 'Rendell',
+  firstName: 'Steve',
+  assignedLivingUnitDesc: 'L-1-1',
+  confirmedReleaseDate: '2019-10-20',
+  crsaClassification: 'Standard',
+  keyworkerDisplay: 'Hanson, Sam',
+  numberAllocated: 4,
+  staffId: 123,
+  capacity: 10,
+  age: 21,
+  agencyId: 'TEST',
+  assignedLivingUnitId: 1,
+  bookingNo: '',
+  dateOfBirth: '1997-01-01',
+  facialImageId: 1,
+  rnum: 1,
+}))
 
 const keyworkerResponse = [
   {
     staffId: 123,
     firstName: 'Amy',
     lastName: 'Hanson',
-    // numberAllocated missing
+    numberAllocated: 0,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    status: 'Active',
   },
   {
     staffId: 124,
     firstName: 'Sam',
     lastName: 'Hanson',
     numberAllocated: 6,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    status: 'Active',
   },
 ]
 
-const results = { offenderResponse, keyworkerResponse }
+const results = { offenderResponse, keyworkerResponse, partialResults: false }
 
-const resultsLongList = { offenderResponse: offenderResponseLongList, keyworkerResponse }
+const resultsLongList = { offenderResponse: offenderResponseLongList, keyworkerResponse, partialResults: false }
 
 let user = {
+  activeCaseLoadId: 'TEST',
+  caseLoadOptions: [],
+  expiredFlag: false,
+  firstName: 'Test',
+  lastName: 'User',
+  lockedFlag: false,
+  maintainAccess: false,
+  maintainAccessAdmin: false,
+  migration: false,
+  staffId: 1,
+  username: 'TestUser',
   writeAccess: true,
 }
 
@@ -79,7 +143,7 @@ describe('Offender results component', () => {
   it('should render initial offender results form correctly', async () => {
     const component = shallow(
       <OffenderResults
-        user={{}}
+        user={user}
         loaded
         keyworkerList={keyworkerResponse}
         offenderResults={results}
@@ -270,37 +334,7 @@ describe('Offender results component', () => {
     expect(cancel).toHaveBeenCalled()
   })
 
-  it('should disable the assign new key worker drop down when the user has no write access', () => {
-    const component = shallow(
-      <OffenderResults
-        user={{}}
-        loaded
-        offenderResults={results}
-        postManualOverride={jest.fn()}
-        onFinishAllocation={jest.fn()}
-        history={mockHistory}
-        displayBack={jest.fn()}
-        handleKeyworkerChange={jest.fn()}
-        keyworkerChangeList={[]}
-        keyworkerList={[]}
-        message=""
-      />
-    )
-
-    const dropDown = component
-      .find('tr')
-      .at(1)
-      .find('td')
-      .at(KEYWORKER_SELECT_COLUMN)
-      .find('select')
-
-    expect(dropDown.props().disabled).toBe(true)
-  })
-
   it('should not disable the assign new key worker drop down when the user has write access', () => {
-    user = {
-      writeAccess: true,
-    }
     const component = shallow(
       <OffenderResults
         loaded
@@ -327,27 +361,6 @@ describe('Offender results component', () => {
     expect(dropDown.props().disabled).toBe(false)
   })
 
-  it('should hide the confirm and cancel buttons when the user does not have write access', () => {
-    const component = shallow(
-      <OffenderResults
-        user={{}}
-        loaded
-        offenderResults={results}
-        postManualOverride={jest.fn()}
-        onFinishAllocation={jest.fn()}
-        history={mockHistory}
-        displayBack={jest.fn()}
-        handleKeyworkerChange={jest.fn()}
-        keyworkerChangeList={[]}
-        keyworkerList={[]}
-        message=""
-      />
-    )
-
-    expect(component.find('.button-save').length).toBe(0)
-    expect(component.find('.button-cancel').length).toBe(0)
-  })
-
   it('should not hide the confirm and cancel buttons when the user has write access', () => {
     const component = shallow(
       <OffenderResults
@@ -367,5 +380,57 @@ describe('Offender results component', () => {
 
     expect(component.find('.button-save').length).toBe(1)
     expect(component.find('.button-cancel').length).toBe(1)
+  })
+
+  it('should disable the assign new key worker drop down when the user has no write access', () => {
+    user = {
+      ...user,
+      writeAccess: false,
+    }
+    const component = shallow(
+      <OffenderResults
+        user={user}
+        loaded
+        offenderResults={results}
+        postManualOverride={jest.fn()}
+        onFinishAllocation={jest.fn()}
+        history={mockHistory}
+        displayBack={jest.fn()}
+        handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
+      />
+    )
+
+    const dropDown = component
+      .find('tr')
+      .at(1)
+      .find('td')
+      .at(KEYWORKER_SELECT_COLUMN)
+      .find('select')
+
+    expect(dropDown.props().disabled).toBe(true)
+  })
+
+  it('should hide the confirm and cancel buttons when the user does not have write access', () => {
+    const component = shallow(
+      <OffenderResults
+        user={user}
+        loaded
+        offenderResults={results}
+        postManualOverride={jest.fn()}
+        onFinishAllocation={jest.fn()}
+        history={mockHistory}
+        displayBack={jest.fn()}
+        handleKeyworkerChange={jest.fn()}
+        keyworkerChangeList={[]}
+        keyworkerList={[]}
+        message=""
+      />
+    )
+
+    expect(component.find('.button-save').length).toBe(0)
+    expect(component.find('.button-cancel').length).toBe(0)
   })
 })

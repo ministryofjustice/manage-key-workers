@@ -29,19 +29,27 @@ ShallowWrapper {
     unallocatedList={
       Array [
         Object {
+          "agencyId": "1",
           "assignedLivingUnitDesc": "L-1-1",
+          "assignedLivingUnitId": 1,
           "bookingId": 1,
           "confirmedReleaseDate": "2020-01-02",
           "crsaClassification": "High",
+          "dateOfBirth": "1980-01-01",
+          "facialImageId": 1,
           "firstName": "Steve",
           "lastName": "Rendell",
           "offenderNo": "ZZ124WX",
         },
         Object {
+          "agencyId": "2",
           "assignedLivingUnitDesc": "L-1-2",
+          "assignedLivingUnitId": 2,
           "bookingId": 2,
           "confirmedReleaseDate": null,
-          "crsaClassification": null,
+          "crsaClassification": "Medium",
+          "dateOfBirth": "1980-01-01",
+          "facialImageId": 2,
           "firstName": "Steve2",
           "lastName": "Rendell2",
           "offenderNo": "ZZ125WX",
@@ -161,7 +169,7 @@ ShallowWrapper {
                 <td
                   className="row-gutters"
                 >
-                  --
+                  Medium
                 </td>
               </tr>
             </tbody>
@@ -282,7 +290,7 @@ ShallowWrapper {
                   <td
                     className="row-gutters"
                   >
-                    --
+                    Medium
                   </td>
                 </tr>
               </tbody>
@@ -408,7 +416,7 @@ ShallowWrapper {
                     <td
                       className="row-gutters"
                     >
-                      --
+                      Medium
                     </td>
                   </tr>
                 </tbody>,
@@ -596,7 +604,7 @@ ShallowWrapper {
                       <td
                         className="row-gutters"
                       >
-                        --
+                        Medium
                       </td>
                     </tr>,
                   ],
@@ -765,7 +773,7 @@ ShallowWrapper {
                         <td
                           className="row-gutters"
                         >
-                          --
+                          Medium
                         </td>,
                       ],
                     },
@@ -845,11 +853,11 @@ ShallowWrapper {
                         "key": undefined,
                         "nodeType": "host",
                         "props": Object {
-                          "children": "--",
+                          "children": "Medium",
                           "className": "row-gutters",
                         },
                         "ref": null,
-                        "rendered": "--",
+                        "rendered": "Medium",
                         "type": "td",
                       },
                     ],
@@ -1004,7 +1012,7 @@ ShallowWrapper {
                   <td
                     className="row-gutters"
                   >
-                    --
+                    Medium
                   </td>
                 </tr>
               </tbody>
@@ -1125,7 +1133,7 @@ ShallowWrapper {
                     <td
                       className="row-gutters"
                     >
-                      --
+                      Medium
                     </td>
                   </tr>
                 </tbody>
@@ -1251,7 +1259,7 @@ ShallowWrapper {
                       <td
                         className="row-gutters"
                       >
-                        --
+                        Medium
                       </td>
                     </tr>
                   </tbody>,
@@ -1439,7 +1447,7 @@ ShallowWrapper {
                         <td
                           className="row-gutters"
                         >
-                          --
+                          Medium
                         </td>
                       </tr>,
                     ],
@@ -1608,7 +1616,7 @@ ShallowWrapper {
                           <td
                             className="row-gutters"
                           >
-                            --
+                            Medium
                           </td>,
                         ],
                       },
@@ -1688,11 +1696,11 @@ ShallowWrapper {
                           "key": undefined,
                           "nodeType": "host",
                           "props": Object {
-                            "children": "--",
+                            "children": "Medium",
                             "className": "row-gutters",
                           },
                           "ref": null,
-                          "rendered": "--",
+                          "rendered": "Medium",
                           "type": "td",
                         },
                       ],

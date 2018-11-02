@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import { UserSearch } from './UserSearch'
 import { properCaseName } from '../../../stringUtils'
 import PreviousNextNavigation from '../../../PreviousNextNavigation'
+import { roleFilterListType, userListType } from '../../../types'
 
 const UserSearchResults = props => {
   const { pageSize, pageNumber, totalRecords, userList, handlePageAction, handleEdit, history } = props
@@ -84,8 +85,8 @@ UserSearchResults.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   handlePageAction: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  userList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roleFilterList: roleFilterListType.isRequired,
+  userList: userListType.isRequired,
   displayBack: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   pageNumber: PropTypes.number.isRequired,

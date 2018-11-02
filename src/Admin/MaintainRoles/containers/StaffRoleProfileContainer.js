@@ -16,6 +16,7 @@ import Error from '../../../Error'
 
 import { StaffRoleProfile } from '../components/StaffRoleProfile'
 import Spinner from '../../../Spinner'
+import { userType, contextUserType, roleListType } from '../../../types'
 
 class StaffRoleProfileContainer extends Component {
   constructor(props) {
@@ -104,13 +105,13 @@ class StaffRoleProfileContainer extends Component {
 
 StaffRoleProfileContainer.propTypes = {
   error: PropTypes.string.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   agencyId: PropTypes.string.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setRoleListDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
-  contextUser: PropTypes.shape({}).isRequired,
-  roleList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  contextUser: contextUserType.isRequired,
+  roleList: roleListType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
 }

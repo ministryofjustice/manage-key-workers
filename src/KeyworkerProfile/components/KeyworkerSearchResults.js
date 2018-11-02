@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { properCaseName } from '../../stringUtils'
 import { getStatusDescription } from '../keyworkerStatus'
 import Status from './Status'
+import { keyworkerListType } from '../../types'
 
 class KeyworkerSearchResults extends Component {
   buildTableForRender() {
@@ -126,7 +127,7 @@ class KeyworkerSearchResults extends Component {
 
 KeyworkerSearchResults.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  keyworkerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  keyworkerList: keyworkerListType.isRequired,
   searchText: PropTypes.string.isRequired,
   statusFilter: PropTypes.string.isRequired,
   handleSearchTextChange: PropTypes.func.isRequired,

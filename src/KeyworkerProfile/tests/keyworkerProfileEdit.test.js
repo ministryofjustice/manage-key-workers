@@ -11,6 +11,11 @@ const keyworker = {
   status: 'INACTIVE',
   statusDescription: 'Inactive',
   capacity: 8,
+  agencyId: '',
+  agencyDescription: 'Agency description',
+  autoAllocationAllowed: false,
+  numberAllocated: 1,
+  scheduleType: '',
 }
 
 describe('Keyworker Profile Edit component', () => {

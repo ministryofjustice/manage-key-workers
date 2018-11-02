@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
+import { roleFilterListType } from '../../../types'
 
 const UserSearch = ({
   roleFilterList,
@@ -89,7 +90,7 @@ UserSearch.propTypes = {
   handleRoleFilterChange: PropTypes.func.isRequired,
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  roleFilterList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roleFilterList: roleFilterListType.isRequired,
   displayBack: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }

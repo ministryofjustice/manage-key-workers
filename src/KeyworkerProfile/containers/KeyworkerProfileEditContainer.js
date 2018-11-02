@@ -15,6 +15,7 @@ import {
 import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit'
 import Error from '../../Error'
 import { stringIsInteger } from '../../stringUtils'
+import { userType, keyworkerType } from '../../types'
 
 class KeyworkerProfileEditContainer extends Component {
   componentDidMount() {
@@ -137,7 +138,7 @@ KeyworkerProfileEditContainer.propTypes = {
   error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerDispatch: PropTypes.func.isRequired,
-  keyworker: PropTypes.shape({}).isRequired,
+  keyworker: keyworkerType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func.isRequired,
@@ -145,11 +146,11 @@ KeyworkerProfileEditContainer.propTypes = {
   match: PropTypes.shape({}).isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   status: PropTypes.string.isRequired,
-  capacity: PropTypes.number.isRequired,
+  capacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,
   resetValidationErrorsDispatch: PropTypes.func.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
 }
 
 const mapStateToProps = state => ({

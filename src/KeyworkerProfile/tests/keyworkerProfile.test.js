@@ -17,16 +17,40 @@ const keyworkerList = [
     firstName: 'Frank',
     lastName: 'Butcher',
     staffId: 123,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    numberAllocated: 5,
+    status: 'Active',
+    agencyDescription: 'Agency description',
+    scheduleType: '',
+    stats: [],
   },
   {
     firstName: 'David',
     lastName: 'Loo',
     staffId: 143,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    numberAllocated: 5,
+    status: 'Active',
+    agencyDescription: 'Agency description',
+    scheduleType: '',
+    stats: [],
   },
   {
     firstName: 'Special',
     lastName: 'Baby',
     staffId: 211,
+    agencyId: 'TEST',
+    autoAllocationAllowed: false,
+    capacity: 10,
+    numberAllocated: 5,
+    status: 'Active',
+    agencyDescription: 'Agency description',
+    scheduleType: '',
+    stats: [],
   },
 ]
 
@@ -37,6 +61,12 @@ const keyworker = {
   status: 'INACTIVE',
   statusDescription: 'Inactive',
   capacity: 8,
+  agencyDescription: 'Agency Description',
+  agencyId: 'TEST',
+  autoAllocationAllowed: false,
+  numberAllocated: 5,
+  scheduleType: '',
+  stats: [],
 }
 
 const keyworkerWithActiveDate = {
@@ -47,6 +77,12 @@ const keyworkerWithActiveDate = {
   statusDescription: 'Inactive',
   capacity: 8,
   activeDate: '2018-06-28',
+  agencyDescription: 'Agency Description',
+  agencyId: 'TEST',
+  autoAllocationAllowed: false,
+  numberAllocated: 5,
+  scheduleType: '',
+  stats: [],
 }
 
 const allocatedOffenders = [
@@ -138,7 +174,20 @@ const allocatedOffendersWithDangling = [
 ]
 
 const props = {
-  user: { writeAccess: true },
+  user: {
+    writeAccess: true,
+    activeCaseLoadId: 'TEST',
+    caseLoadOptions: [],
+    expiredFlag: false,
+    firstName: 'Test',
+    lastName: 'User',
+    lockedFlag: false,
+    maintainAccess: false,
+    maintainAccessAdmin: false,
+    migration: false,
+    staffId: 1,
+    username: 'TestUser',
+  },
   keyworkerAllocations: allocatedOffenders,
   keyworkerChangeList: [],
   keyworkerList,
@@ -270,7 +319,7 @@ describe('Keyworker Profile component', () => {
 
   describe('when the user does not have write access', () => {
     it('should hide the edit profile and update buttons when the user does not have write access', () => {
-      component.setProps({ user: { writeAccess: false } })
+      component.setProps({ user: { ...props.user, writeAccess: false } })
       expect(component.find('#editProfileButton').length).toBe(0)
       expect(component.find('#updateAllocationButton').length).toBe(0)
     })

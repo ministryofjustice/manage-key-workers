@@ -20,6 +20,7 @@ import {
 } from '../../redux/actions'
 import Spinner from '../../Spinner'
 import { stringIsInteger } from '../../stringUtils'
+import { userType } from '../../types'
 
 class KeyworkerSettingsContainer extends Component {
   constructor() {
@@ -171,11 +172,11 @@ KeyworkerSettingsContainer.propTypes = {
   allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
   supported: PropTypes.bool.isRequired,
-  sequenceFrequency: PropTypes.string.isRequired,
-  capacity: PropTypes.string.isRequired,
-  extCapacity: PropTypes.string.isRequired,
+  sequenceFrequency: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  capacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  extCapacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   loaded: PropTypes.bool.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
   message: PropTypes.string.isRequired,
 }

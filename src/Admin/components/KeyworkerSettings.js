@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import '../index.scss'
 import MessageBar from '../../MessageBar/index'
 import ValidationErrors from '../../ValidationError'
+import { userType } from '../../types'
 
 const KeyworkerSettings = props => {
   const {
@@ -166,13 +167,13 @@ KeyworkerSettings.propTypes = {
   handleCapacityChange: PropTypes.func.isRequired,
   handleExtCapacityChange: PropTypes.func.isRequired,
   handleSequenceFrequency: PropTypes.func.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
   supported: PropTypes.bool.isRequired,
-  sequenceFrequency: PropTypes.number.isRequired,
-  capacity: PropTypes.number.isRequired,
-  extCapacity: PropTypes.number.isRequired,
+  sequenceFrequency: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  capacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  extCapacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
 }
 

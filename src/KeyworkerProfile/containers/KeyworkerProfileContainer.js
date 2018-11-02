@@ -19,6 +19,7 @@ import {
   setLoaded,
   setKeyworkerStats,
 } from '../../redux/actions/index'
+import { userType, keyworkerChangeListType, keyworkerType, configType } from '../../types'
 
 class KeyworkerProfileContainer extends Component {
   constructor(props) {
@@ -175,7 +176,7 @@ class KeyworkerProfileContainer extends Component {
 
 KeyworkerProfileContainer.propTypes = {
   error: PropTypes.string.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: userType.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerAllocationsDispatch: PropTypes.func.isRequired,
   keyworkerDispatch: PropTypes.func.isRequired,
@@ -183,14 +184,14 @@ KeyworkerProfileContainer.propTypes = {
   setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   match: PropTypes.shape({}).isRequired,
-  keyworkerChangeList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  keyworker: PropTypes.shape({}).isRequired,
+  keyworkerChangeList: keyworkerChangeListType.isRequired,
+  keyworker: keyworkerType.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
   availableKeyworkerListDispatch: PropTypes.func.isRequired,
   keyworkerCapacityDispatch: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func.isRequired,
   loaded: PropTypes.bool.isRequired,
-  config: PropTypes.shape({}).isRequired,
+  config: configType.isRequired,
   message: PropTypes.string.isRequired,
 }
 
