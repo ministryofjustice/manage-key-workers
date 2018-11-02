@@ -19,8 +19,11 @@ const elite2ApiFactory = client => {
 
   const del = (context, url, data) => client.del(context, url, data).then(processResponse(context))
 
-  const caseNoteUsageList = (context, offenderNumbers) =>
-    get(context, `api/case-notes/usage?type=KA&numMonths=6&${encodeOffenderNumbers(offenderNumbers)}`)
+  const caseNoteUsageList = (context, offenderNumbers, staffId) =>
+    get(
+      context,
+      `api/case-notes/usage?type=KA&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
+    )
   const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
   const userCaseLoads = context => get(context, 'api/users/me/caseLoads')
   const currentUser = context => get(context, 'api/users/me')

@@ -107,8 +107,7 @@ class KeyworkerSearchResults extends Component {
                     <th>
                       No. KW sessions
                       <br />
-                      (last {kwFrequency > 1 ? kwFrequency : ''} week
-                      {kwFrequency > 1 ? 's' : ''})
+                      in last month
                     </th>
                   </tr>
                 </thead>
