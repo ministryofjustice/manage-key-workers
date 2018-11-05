@@ -6,6 +6,9 @@ const telemetry = require('../azure-appinsights')
 // TODO: There's a lot of duplication in this module...
 
 const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
+  const getOffenderNumbers = offenderResults =>
+    offenderResults && offenderResults.length && offenderResults.map(row => row.offenderNo)
+
   const findCrsaForOffender = (csras, offenderNo) =>
     csras
       .filter(d => d.offenderNo === offenderNo)
@@ -30,11 +33,67 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       .map(d => d.numCaseNotes)
       .reduce((acc, cur) => (cur > acc ? cur : acc), '') || null
 
+  const reduceToKeyworkerMap = keyworkers =>
+    keyworkers.reduce((keyworkerMap, keyworker) => {
+      keyworkerMap.set(keyworker.staffId, keyworker)
+      return keyworkerMap
+    }, new Map())
+
+  const offendersWithKeyworkers = async (context, offenders, availableKeyworkers, getKeyworkerDetails) => {
+    const offenderNumbers = getOffenderNumbers(offenders)
+
+    const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
+    log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request')
+
+    const allCsras = await elite2Api.csraList(context, offenderNumbers)
+    log.debug({ data: allCsras }, 'Response from csraList request')
+
+    const keyworkerLookup = offenders
+      .filter(offender => !availableKeyworkers.find(keyworker => keyworker.staffId === offender.staffId))
+      .map(o => ({
+        staffId: o.staffId,
+        agencyId: o.agencyId,
+      }))
+
+    const extraKeyworkers = await Promise.all(
+      keyworkerLookup
+        .filter(lookup => lookup.staffId !== null)
+        .map(lookup => getKeyworkerDetails(context, lookup.staffId, lookup.agencyId))
+    )
+
+    const keyworkerMap = reduceToKeyworkerMap([...availableKeyworkers, ...extraKeyworkers])
+
+    const noAssignedKeyWorker = {
+      keyworkerDisplay: '--',
+      numberAllocated: 'n/a',
+    }
+
+    return offenders.map(offenderWithAllocatedKeyworker => {
+      const keyworkerDetails = keyworkerMap.get(offenderWithAllocatedKeyworker.staffId) || noAssignedKeyWorker
+
+      const keyworkerDisplay =
+        keyworkerDetails.keyworkerDisplay ||
+        `${properCaseName(keyworkerDetails.lastName)}, ${properCaseName(keyworkerDetails.firstName)}`
+
+      const { offenderNo } = offenderWithAllocatedKeyworker
+      const { numberAllocated } = keyworkerDetails
+
+      return {
+        ...offenderWithAllocatedKeyworker,
+        keyworkerDisplay,
+        numberAllocated,
+        crsaClassification: findCrsaForOffender(allCsras, offenderNo),
+        confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, offenderNo),
+      }
+    })
+  }
+
   const unallocated = async (context, agencyId) => {
     const offenderWithLocationDtos = await keyworkerApi.unallocated(context, agencyId)
     log.debug({ data: offenderWithLocationDtos }, 'Response from unallocated offenders request')
 
     const offenderNumbers = offenderWithLocationDtos.map(offenderWithLocation => offenderWithLocation.offenderNo)
+
     if (offenderNumbers.length > 0) {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
       log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request')
@@ -42,11 +101,11 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allCsras = await elite2Api.csraList(context, offenderNumbers)
       log.debug({ data: allCsras }, 'Response from csraList request')
 
-      offenderWithLocationDtos.forEach(offenderWithLocation => {
-        const { offenderNo } = offenderWithLocation
-        offenderWithLocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
-        offenderWithLocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-      })
+      return offenderWithLocationDtos.map(offenderWithLocation => ({
+        ...offenderWithLocation,
+        crsaClassification: findCrsaForOffender(allCsras, offenderWithLocation.offenderNo),
+        confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, offenderWithLocation.offenderNo),
+      }))
     }
     return offenderWithLocationDtos
   }
@@ -63,9 +122,6 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
     return null
   }
-
-  const getOffenderNumbers = offenderResults =>
-    offenderResults && offenderResults.length && offenderResults.map(row => row.offenderNo)
 
   const findKeyworkerStaffIdForOffender = (offenderKeyworkers, offenderNo) =>
     offenderKeyworkers
@@ -93,7 +149,11 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     log.debug(`After allocation status filter of ${allocationStatus} - new offender list is:`, {
       searchOffenders: offenderResults,
     })
-    return offenderResults
+
+    return offenderResults.map(offender => ({
+      ...offender,
+      staffId: findKeyworkerStaffIdForOffender(offenderKeyworkers, offender.offenderNo),
+    }))
   }
 
   /**
@@ -101,13 +161,16 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
    * @param context
    * @param staffId
    * @param agencyId
-   * @returns {Promise<{}>} of { keyworkerDisplay, numberAllocated }
+   * @returns {Promise<{}>} of { staffId, firstName, lastName, keyworkerDisplay, numberAllocated }
    */
   const getKeyworkerDetails = async (context, staffId, agencyId) => {
     try {
       const keyworkerData = await keyworkerApi.keyworker(context, staffId, agencyId)
       return keyworkerData
         ? {
+            staffId: keyworkerData.staffId,
+            firstName: keyworkerData.firstName,
+            lastName: keyworkerData.lastName,
             keyworkerDisplay: `${properCaseName(keyworkerData.lastName)}, ${properCaseName(keyworkerData.firstName)}`,
             numberAllocated: keyworkerData.numberAllocated,
           }
@@ -151,44 +214,17 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     if (telemetry) {
       telemetry.trackEvent({ name: 'Auto allocation' })
     }
-
-    const offenderNumbers = offenderWithAllocatedKeyworkerDtos.map(offender => offender.offenderNo)
-    if (offenderNumbers.length > 0) {
-      const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
-      log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request')
-
-      const allCsras = await elite2Api.csraList(context, offenderNumbers)
-      log.debug({ data: allCsras }, 'Response from csraList request')
-
-      const offenderKeyworkerPromises = offenderWithAllocatedKeyworkerDtos.map(async offenderWithAllocatedKeyworker => {
-        const keyworkerDetails = availableKeyworkers.find(
-          keyworker => keyworker.staffId === offenderWithAllocatedKeyworker.staffId
-        )
-        if (keyworkerDetails) {
-          offenderWithAllocatedKeyworker.keyworkerDisplay = `${properCaseName(
-            keyworkerDetails.lastName
-          )}, ${properCaseName(keyworkerDetails.firstName)}`
-          offenderWithAllocatedKeyworker.numberAllocated = keyworkerDetails.numberAllocated
-        } else {
-          const details = await getKeyworkerDetails(
-            context,
-            offenderWithAllocatedKeyworker.staffId,
-            offenderWithAllocatedKeyworker.agencyId
-          )
-
-          offenderWithAllocatedKeyworker.keyworkerDisplay = details.keyworkerDisplay
-          offenderWithAllocatedKeyworker.numberAllocated = details.numberAllocated
-        }
-        const { offenderNo } = offenderWithAllocatedKeyworker
-        offenderWithAllocatedKeyworker.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
-        offenderWithAllocatedKeyworker.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-      })
-
-      await Promise.all(offenderKeyworkerPromises)
-    }
     return {
       keyworkerResponse: availableKeyworkers,
-      allocatedResponse: offenderWithAllocatedKeyworkerDtos,
+      allocatedResponse:
+        offenderWithAllocatedKeyworkerDtos.length > 0
+          ? await offendersWithKeyworkers(
+              context,
+              offenderWithAllocatedKeyworkerDtos,
+              availableKeyworkers,
+              getKeyworkerDetails
+            )
+          : [],
       warning: insufficientKeyworkers,
     }
   }
@@ -212,13 +248,18 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers, staffId)
       log.debug({ data: kwDates }, 'Response from case note usage request')
 
-      keyworkerAllocationDetailsDtos.forEach(keyworkerAllocation => {
-        const { offenderNo } = keyworkerAllocation
-        keyworkerAllocation.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
-        keyworkerAllocation.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-        keyworkerAllocation.lastKeyWorkerSessionDate = findKeyworkerCaseNoteDate(kwDates, offenderNo)
-        keyworkerAllocation.numKeyWorkerSessions = findKeyworkerNumKeyWorkerSessions(kwDates, offenderNo)
-      })
+      const allocatedResponse = keyworkerAllocationDetailsDtos.map(keyworkerAllocation => ({
+        ...keyworkerAllocation,
+        crsaClassification: findCrsaForOffender(allCsras, keyworkerAllocation.offenderNo),
+        confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, keyworkerAllocation.offenderNo),
+        lastKeyWorkerSessionDate: findKeyworkerCaseNoteDate(kwDates, keyworkerAllocation.offenderNo),
+        numKeyWorkerSessions: findKeyworkerNumKeyWorkerSessions(kwDates, keyworkerAllocation.offenderNo),
+      }))
+
+      return {
+        allocatedResponse,
+        keyworkerResponse: keyworkers,
+      }
     }
 
     return {
@@ -254,42 +295,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       filteredOffenders.length = offenderSearchResultMax
     }
 
-    if (filteredOffenders.length > 0) {
-      const filteredOffenderNumbers = getOffenderNumbers(filteredOffenders)
-      const allReleaseDates = await elite2Api.sentenceDetailList(context, filteredOffenderNumbers)
-      log.debug({ data: allReleaseDates }, 'Response from sentenceDetailList request')
-
-      const allCsras = await elite2Api.csraList(context, filteredOffenderNumbers)
-      log.debug({ data: allCsras }, 'Response from csraList request')
-
-      const filteredOffendersPromises = filteredOffenders.map(async offender => {
-        const { offenderNo } = offender
-        const staffId = findKeyworkerStaffIdForOffender(offenderKeyworkers, offenderNo)
-
-        offender.staffId = staffId
-
-        if (staffId) {
-          const keyworkerDetails = availableKeyworkers.find(keyworker => keyworker.staffId === staffId)
-          if (keyworkerDetails) {
-            offender.keyworkerDisplay = `${properCaseName(keyworkerDetails.lastName)}, ${properCaseName(
-              keyworkerDetails.firstName
-            )}`
-            offender.numberAllocated = keyworkerDetails.numberAllocated
-          } else {
-            const details = await getKeyworkerDetails(context, staffId, offender.agencyId)
-            offender.keyworkerDisplay = details.keyworkerDisplay
-            offender.numberAllocated = details.numberAllocated
-          }
-        }
-        offender.crsaClassification = findCrsaForOffender(allCsras, offenderNo)
-        offender.confirmedReleaseDate = findReleaseDateForOffender(allReleaseDates, offenderNo)
-      })
-
-      await Promise.all(filteredOffendersPromises)
-    }
     return {
       keyworkerResponse: availableKeyworkers,
-      offenderResponse: filteredOffenders,
+      offenderResponse:
+        filteredOffenders.length > 0
+          ? await offendersWithKeyworkers(context, filteredOffenders, availableKeyworkers, getKeyworkerDetails)
+          : [],
       partialResults,
     }
   }

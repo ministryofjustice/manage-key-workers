@@ -59,8 +59,8 @@ const createSentenceDetailListResponse = () => [
 ]
 
 const createSearchOffendersResponse = () => [
-  { offenderNo: 'A1234AA', classification: 'High' },
-  { offenderNo: 'A1234AB', classification: 'High' },
+  { offenderNo: 'A1234AA', staffId: -3, classification: 'High' },
+  { offenderNo: 'A1234AB', staffId: -5, classification: 'High' },
   { offenderNo: 'A1234AF', classification: 'Low' },
   { offenderNo: 'A1234AC', classification: 'Silly' },
   { offenderNo: 'A1234AD', classification: 'Low' },

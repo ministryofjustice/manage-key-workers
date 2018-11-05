@@ -3,16 +3,21 @@ const contextProperties = require('../contextProperties')
 const addAuthorizationHeader = (context, config) => {
   const accessToken = contextProperties.getAccessToken(context)
   if (accessToken) {
-    config.headers = config.headers || {}
-    config.headers.authorization = `Bearer ${accessToken}`
+    return {
+      ...config,
+      headers: { ...config.headers, authorization: `Bearer ${accessToken}` },
+    }
   }
   return config
 }
 
-const addMediaHeaders = (context, config) => {
-  config.headers['Content-Type'] = 'application/json'
-  return config
-}
+const addMediaHeaders = (context, config) => ({
+  ...config,
+  headers: {
+    ...config.headers,
+    'Content-Type': 'application/json',
+  },
+})
 
 /**
  * Don't like this, but the pagination information is being passed around in headers. If that information were
@@ -23,9 +28,14 @@ const addMediaHeaders = (context, config) => {
  */
 const addPaginationHeaders = (context, config) => {
   const paginationHeaders = contextProperties.getRequestPagination(context)
-  config.headers = config.headers || {}
-  Object.assign(config.headers, paginationHeaders)
-  return config
+
+  return {
+    ...config,
+    headers: {
+      ...config.headers,
+      ...paginationHeaders,
+    },
+  }
 }
 
 module.exports = {
