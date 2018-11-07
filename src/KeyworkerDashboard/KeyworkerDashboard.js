@@ -24,7 +24,7 @@ class KeyworkerDashboard extends Component {
         {displayBack()} {/* To be addressed with global breadcrumbs and page container */}
         <Container>
           <Header level={1} size="LARGE">
-            Keyworker statistics - overall
+            Key worker statistics
           </Header>
           <hr />
           <GridRow>{keyworkerDashboardData.slice(0, 4).map(statistic => this.renderStatistic(statistic))}</GridRow>

@@ -55,8 +55,13 @@ const HomePage = props => {
           </div>
           {showKeyworkerDashboard && (
             <div className="pure-u-md-6-12">
-              <Link id="keyworker_dashboard_link" title="Keyworker dashboard" className="link" to="/keyworkerDashboard">
-                Keyworker dashboard
+              <Link
+                id="keyworker_dashboard_link"
+                title="Key worker dashboard"
+                className="link"
+                to="/keyworkerDashboard"
+              >
+                Key worker dashboard
               </Link>
               <div className="padding-right-large">View prison level keyworker information.</div>
             </div>
