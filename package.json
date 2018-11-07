@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "@govuk-react/constants": "^0.2.7",
-    "@govuk-react/grid-col": "^0.2.12",
-    "@govuk-react/grid-row": "^0.2.12",
+    "@govuk-react/grid-col": "^0.3.0",
+    "@govuk-react/grid-row": "^0.3.0",
+    "@govuk-react/header": "^0.3.0",
     "applicationinsights": "^1.0.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
@@ -108,8 +109,13 @@
     "verify": "yarn lint && yarn test"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}", "backend/**/*.{js,jsx,mjs}"],
-    "setupFiles": ["<rootDir>/config/polyfills.js"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}",
+      "backend/**/*.{js,jsx,mjs}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
@@ -128,8 +134,19 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
-    "moduleFileExtensions": ["web.js", "js", "json", "web.jsx", "jsx", "node", "mjs"],
-    "unmockedModulePathPatterns": ["node_modules/react/", "node_modules/enzyme/"]
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ],
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ]
   },
   "husky": {
     "hooks": {
@@ -138,8 +155,14 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js,json,css,md}": ["prettier --write", "eslint --fix", "git add"]
+      "*.{js,json,css,md}": [
+        "prettier --write",
+        "eslint --fix",
+        "git add"
+      ]
     },
-    "ignore": ["package.json"]
+    "ignore": [
+      "package.json"
+    ]
   }
 }

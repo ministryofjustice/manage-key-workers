@@ -22,11 +22,11 @@ import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchCon
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
 import AddRoleContainer from '../Admin/MaintainRoles/containers/AddRoleContainer'
+import KeyworkerDashboard from '../KeyworkerDashboard/KeyworkerDashboard'
 import Footer from '../Footer/index'
 import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
 import links from '../links'
-
 import {
   switchAgency,
   setTermsVisibility,
@@ -177,6 +177,12 @@ class App extends React.Component {
                 clearMessage={this.clearMessage}
               />
             )}
+          />
+
+          <Route
+            exact
+            path="/keyworkerDashboard"
+            render={() => <KeyworkerDashboard displayBack={this.displayBack} />}
           />
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
