@@ -6,7 +6,7 @@ const app = {
   offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
   maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || 'false',
   applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
-  keyworkeProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
+  keyworkerProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
   keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
 }
 
@@ -20,7 +20,7 @@ const setTestDefaults = () => {
     app.maintainRolesEnabled = 'true'
   }
 
-  app.keyworkeProfileStatsEnabled = 'true'
+  app.keyworkerProfileStatsEnabled = 'true'
 }
 
 const analytics = {

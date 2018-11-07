@@ -103,7 +103,7 @@ class KeyworkerProfile extends Component {
 
     renderContent = (
       <div>
-        {config.keyworkeProfileStatsEnabled === 'true' && (
+        {config.keyworkerProfileStatsEnabled === 'true' && (
           <Fragment>
             <KeyworkerStats stats={(keyworker && keyworker.stats) || []} />
             <hr />

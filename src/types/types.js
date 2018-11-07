@@ -45,7 +45,7 @@ export const contextUserType = shape({
 })
 
 export const configType = shape({
-  keyworkeProfileStatsEnabled: string.isRequired,
+  keyworkerProfileStatsEnabled: string.isRequired,
   keyworkerDashboardStatsEnabled: bool.isRequired,
   mailTo: string.isRequired,
   maintainRolesEnabled: string.isRequired,

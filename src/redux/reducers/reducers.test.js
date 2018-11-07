@@ -108,7 +108,7 @@ describe('app (global) reducer', () => {
     expect(app(undefined, {})).toEqual({
       config: {
         mailTo: '',
-        keyworkeProfileStatsEnabled: 'false',
+        keyworkerProfileStatsEnabled: 'false',
         keyworkerDashboardStatsEnabled: false,
         maintainRolesEnabled: 'false',
         notmEndpointUrl: '',
