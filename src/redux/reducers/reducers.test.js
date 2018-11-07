@@ -106,7 +106,13 @@ const maintainRolesInitialState = {
 describe('app (global) reducer', () => {
   it('should return the initial state', () => {
     expect(app(undefined, {})).toEqual({
-      config: { mailTo: '', keyworkeProfileStatsEnabled: 'false', maintainRolesEnabled: 'false', notmEndpointUrl: '' },
+      config: {
+        mailTo: '',
+        keyworkeProfileStatsEnabled: 'false',
+        keyworkerDashboardStatsEnabled: false,
+        maintainRolesEnabled: 'false',
+        notmEndpointUrl: '',
+      },
       user: {
         activeCaseLoadId: '',
         caseLoadOptions: [],

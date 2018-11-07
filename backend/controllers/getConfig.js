@@ -8,6 +8,7 @@ const getConfiguration = asyncMiddleware(async (req, res) =>
     googleAnalyticsId: config.analytics.googleAnalyticsId,
     maintainRolesEnabled: config.app.maintainRolesEnabled,
     keyworkeProfileStatsEnabled: config.app.keyworkeProfileStatsEnabled,
+    keyworkerDashboardStatsEnabled: config.app.keyworkerDashboardStatsEnabled,
   })
 )
 

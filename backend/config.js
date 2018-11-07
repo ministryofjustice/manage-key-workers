@@ -7,6 +7,7 @@ const app = {
   maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || 'false',
   applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
   keyworkeProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
+  keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
 }
 
 const setTestDefaults = () => {

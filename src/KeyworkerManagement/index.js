@@ -12,6 +12,7 @@ const HomePage = props => {
     config && config.maintainRolesEnabled === 'true' && user && (user.maintainAccess || user.maintainAccessAdmin)
   const showKeyworkerSettings = user && (user.maintainAccess || user.maintainAccessAdmin) && user.migration
   const showAdminSection = showEnableNewNomis || showKeyworkerSettings
+  const showKeyworkerDashboard = config && config.keyworkerDashboardStatsEnabled
   return (
     <div>
       <MessageBar {...props} />
@@ -52,12 +53,14 @@ const HomePage = props => {
             </Link>
             <div className="padding-right-large">Check a prisoner&apos;s key worker and allocate manually.</div>
           </div>
-          <div className="pure-u-md-6-12">
-            <Link id="keyworker_dashboard_link" title="Keyworker dashboard" className="link" to="/keyworkerDashboard">
-              Keyworker dashboard
-            </Link>
-            <div className="padding-right-large">View prison level keyworker information.</div>
-          </div>
+          {showKeyworkerDashboard && (
+            <div className="pure-u-md-6-12">
+              <Link id="keyworker_dashboard_link" title="Keyworker dashboard" className="link" to="/keyworkerDashboard">
+                Keyworker dashboard
+              </Link>
+              <div className="padding-right-large">View prison level keyworker information.</div>
+            </div>
+          )}
         </div>
         <div className="pure-u-md-8-12">
           {showAdminSection && (
