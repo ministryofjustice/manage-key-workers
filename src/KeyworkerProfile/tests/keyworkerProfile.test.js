@@ -203,7 +203,7 @@ const props = {
   handleAllocationChange: jest.fn(),
   handleEditProfileClick: jest.fn(),
   config: {
-    keyworkeProfileStatsEnabled: false,
+    keyworkerProfileStatsEnabled: false,
   },
   history: mockHistory,
   message: '',

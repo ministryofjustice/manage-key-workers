@@ -7,7 +7,8 @@ jest.mock('../Spinner/index', () => '')
 
 const config = {
   maintainRolesEnabled: 'false',
-  keyworkeProfileStatsEnabled: 'false',
+  keyworkerProfileStatsEnabled: 'false',
+  keyworkerDashboardStatsEnabled: false,
   notmEndpointUrl: '/notm/endpoint',
   mailTo: 'email@test.com',
 }

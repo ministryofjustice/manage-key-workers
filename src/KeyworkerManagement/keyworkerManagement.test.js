@@ -4,7 +4,8 @@ import HomePage from './index'
 
 const initialConfig = {
   maintainRolesEnabled: 'false',
-  keyworkeProfileStatsEnabled: 'false',
+  keyworkerProfileStatsEnabled: 'false',
+  keyworkerDashboardStatsEnabled: false,
   notmEndpointUrl: '/notm/endpoint',
   mailTo: 'email@test.com',
 }

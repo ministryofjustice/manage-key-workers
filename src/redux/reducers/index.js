@@ -15,7 +15,13 @@ const allocatedInitialState = {
 }
 
 const appInitialState = {
-  config: { mailTo: '', keyworkeProfileStatsEnabled: 'false', maintainRolesEnabled: 'false', notmEndpointUrl: '' },
+  config: {
+    mailTo: '',
+    keyworkerProfileStatsEnabled: 'false',
+    keyworkerDashboardStatsEnabled: false,
+    maintainRolesEnabled: 'false',
+    notmEndpointUrl: '',
+  },
   user: {
     activeCaseLoadId: '',
     caseLoadOptions: [],

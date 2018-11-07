@@ -153,27 +153,53 @@
   dependencies:
     govuk-colours "^1.0.3"
 
-"@govuk-react/grid-col@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@govuk-react/grid-col/-/grid-col-0.2.12.tgz#efd0ab7831c3ac22e4e124b4b44df6273c1e6cda"
-  integrity sha512-Xrtxt+qs0ragspoOhLEeBho0vOgXlUTIrAhDntfL1i/ovbIWZp6LBTdIxACQTlsqGyN0UXfeHcVULWWHWUCKXQ==
+"@govuk-react/grid-col@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/grid-col/-/grid-col-0.3.0.tgz#1bdbfed3636f8ee150090435fc496224c2824862"
+  integrity sha512-4zV5ppsVds0QWhqFn52v23Yo3C/Tuz6IH40sn3vhFegIb8QozNiZuKbtCjqEvTtR3OMwL7NJjVwpzbqsUGNGgw==
   dependencies:
     "@govuk-react/constants" "^0.2.7"
     govuk-colours "^1.0.3"
 
-"@govuk-react/grid-row@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@govuk-react/grid-row/-/grid-row-0.2.12.tgz#624bb535d4fcf36eea67ae986e3bad7bf3ce356e"
-  integrity sha512-gh13w1rwV/D7vtM8FfG2CadCqo3USSJug1qydy0n15WlB8TV/nMYmZn8FU91D2/4G4bTSE0Yjqb7WMfNjyhEmQ==
+"@govuk-react/grid-row@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/grid-row/-/grid-row-0.3.0.tgz#b11f543bbdf3d144e918bf5d81864803f381ca53"
+  integrity sha512-M+dNGqNxT9RvBiTQLXU5EJ8Xn0exw3eZvO/MkSUVt1MfgVXfbitxQs5bpjiTv2Cdazxat7OAbenD+0RLRgZDYA==
   dependencies:
     "@govuk-react/constants" "^0.2.7"
-    "@govuk-react/layout" "^0.2.12"
+    "@govuk-react/layout" "^0.3.0"
     govuk-colours "^1.0.3"
 
-"@govuk-react/layout@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@govuk-react/layout/-/layout-0.2.12.tgz#1106f7675f0ee0aa9322d79d8c21db68b5fb6d85"
-  integrity sha512-ExzEWYrLF8SoPPVNfBE87SY45QWz1TpDadItRFDEaaAZexGcMHqsHCS2SPU0Zr1GW6dtwxnc2oZEzf3X7KVzYQ==
+"@govuk-react/header@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/header/-/header-0.3.0.tgz#31b8ad1f5886d3488b63a71bba0396de126b117c"
+  integrity sha512-R1EY6GydxTKrf6Ao1OXU5eBnEwJf4Nis24mXnSqUdbbTuejvHcLXVhPBWvaoqY9b/S3+LWQb1OkyM77pjTxzyA==
+  dependencies:
+    "@govuk-react/constants" "^0.2.7"
+    "@govuk-react/hoc" "^0.3.0"
+    govuk-colours "^1.0.3"
+
+"@govuk-react/hoc@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/hoc/-/hoc-0.3.0.tgz#85968b4c2e14d46f1642166aa9f2f3a2e589ab4f"
+  integrity sha512-L4m6NhbRHd7qYrzfVmTQNd+zxooHf/YKHcKIx3EAUhIldsHd7Joa2DJIBgIOUcInu5Bc2zPJ8msVXaQhN8n1Gw==
+  dependencies:
+    "@govuk-react/constants" "^0.2.7"
+    "@govuk-react/icons" "^0.3.0"
+    govuk-colours "^1.0.3"
+
+"@govuk-react/icons@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/icons/-/icons-0.3.0.tgz#1206561c86423246987ae54b08efabc89acf57ec"
+  integrity sha512-YJDi8UzV7eF6IBJhGCAm2uCgNiNlvHtq4ecfviDu8ZHK7c3Bupt0m3RcPo+C3P5tsgToHpwqCQ3pmj4yvZ75hA==
+  dependencies:
+    "@govuk-react/constants" "^0.2.7"
+    govuk-colours "^1.0.3"
+
+"@govuk-react/layout@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/layout/-/layout-0.3.0.tgz#2a83d80b03d4b2f2386a0781a1dd5ce4b13ebf32"
+  integrity sha512-88caDoes33ixPblbF+AflMSPGLDy7O2pl0kFgdg007TamNG9eT07KvnQDGgOaoDx5If4VNmfQmrm9T4kpZ+0vw==
   dependencies:
     "@govuk-react/constants" "^0.2.7"
     govuk-colours "^1.0.3"
