@@ -33,7 +33,7 @@
     "jwt-decode": "^2.2.0",
     "moment": "2.16.0",
     "moment-timezone": "^0.5.21",
-    "new-nomis-shared-components": "^1.3.0",
+    "new-nomis-shared-components": "^1.7.1",
     "prop-types": "^15.5.8",
     "react": "^16.3.2",
     "react-datetime": "^2.14.0",
@@ -108,8 +108,13 @@
     "verify": "yarn lint && yarn test"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}", "backend/**/*.{js,jsx,mjs}"],
-    "setupFiles": ["<rootDir>/config/polyfills.js"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}",
+      "backend/**/*.{js,jsx,mjs}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
@@ -128,8 +133,19 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
-    "moduleFileExtensions": ["web.js", "js", "json", "web.jsx", "jsx", "node", "mjs"],
-    "unmockedModulePathPatterns": ["node_modules/react/", "node_modules/enzyme/"]
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ],
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/"
+    ]
   },
   "husky": {
     "hooks": {
@@ -138,8 +154,14 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js,json,css,md}": ["prettier --write", "eslint --fix", "git add"]
+      "*.{js,json,css,md}": [
+        "prettier --write",
+        "eslint --fix",
+        "git add"
+      ]
     },
-    "ignore": ["package.json"]
+    "ignore": [
+      "package.json"
+    ]
   }
 }
