@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { createValueString } from '../stringUtils'
 
-const StatisticChange = ({ change, percentage }) => {
+const StatisticChange = ({ change, type }) => {
   const { value, period } = change
   const changeType = value > 0 ? 'increase' : 'decrease'
 
   return (
     <Fragment>
       {changeType === 'increase' && '+'}
-      {value} {percentage && '%'}
+      {createValueString(value, type)}
       <img src={`/images/icon-${changeType}.png`} alt={changeType} height={20} width={20} />
       {period && `since last ${period}`}
     </Fragment>
@@ -20,7 +21,7 @@ StatisticChange.propTypes = {
     value: PropTypes.number,
     period: PropTypes.string,
   }).isRequired,
-  percentage: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default StatisticChange

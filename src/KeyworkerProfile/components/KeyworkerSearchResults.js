@@ -42,7 +42,6 @@ class KeyworkerSearchResults extends Component {
 
   render() {
     const {
-      keyworkerSettings,
       displayBack,
       statusFilter,
       handleStatusFilterChange,
@@ -52,7 +51,6 @@ class KeyworkerSearchResults extends Component {
       handleSearch,
     } = this.props
     const keyworkers = this.buildTableForRender()
-    const kwFrequency = keyworkerSettings ? keyworkerSettings.sequenceFrequency : 1
 
     return (
       <div>

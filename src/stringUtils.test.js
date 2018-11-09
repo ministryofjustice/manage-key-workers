@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { renderDate, switchToIsoDateFormat } from './stringUtils'
+import { renderDate, switchToIsoDateFormat, createQueryParamString, createValueString } from './stringUtils'
 
 describe('the renderDate function', () => {
   const notPresentString = '--'
@@ -58,5 +58,53 @@ describe('the renderDate function', () => {
 
   it('should allow empty strings when switching date format', () => {
     expect(switchToIsoDateFormat('')).toBeUndefined()
+  })
+})
+
+describe('createQueryParamString()', () => {
+  it('should create a query param string', () => {
+    const params = {
+      agencyId: 'LEI',
+      fromDate: '2018-10-10',
+      toDate: '2018-10-11',
+    }
+
+    expect(createQueryParamString(params)).toEqual('agencyId=LEI&fromDate=2018-10-10&toDate=2018-10-11')
+  })
+
+  it('should omit undefined', () => {
+    const params = {
+      agencyId: 'LEI',
+      fromDate: undefined,
+      toDate: undefined,
+    }
+
+    expect(createQueryParamString(params)).toEqual('agencyId=LEI')
+  })
+
+  it('should only accept objects', () => {
+    expect(createQueryParamString()).toBeNull()
+    expect(createQueryParamString(1)).toBeNull()
+    expect(createQueryParamString('test')).toBeNull()
+    expect(createQueryParamString(['test'])).toBeNull()
+  })
+})
+
+describe('createValueString()', () => {
+  it('should handle no type', () => {
+    expect(createValueString(1)).toEqual(1)
+  })
+
+  it('should handle percentages', () => {
+    expect(createValueString(50, 'percentage')).toEqual('50%')
+  })
+
+  it('should handle a singular day', () => {
+    expect(createValueString(1, 'day')).toEqual('1 day')
+  })
+
+  it('should handle plural days', () => {
+    expect(createValueString(0, 'day')).toEqual('0 days')
+    expect(createValueString(2, 'day')).toEqual('2 days')
   })
 })

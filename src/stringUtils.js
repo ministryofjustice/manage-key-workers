@@ -80,6 +80,20 @@ const stringIsInteger = input => {
   return !Number.isNaN(parsed)
 }
 
+const createQueryParamString = params => {
+  if (typeof params !== 'object' || Array.isArray(params)) return null
+  return Object.entries(params)
+    .filter(([, val]) => val)
+    .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
+    .join('&')
+}
+
+const createValueString = (value, type) => {
+  if (type === 'percentage') return `${value}%`
+  if (type === 'day') return `${value} ${value === 1 ? 'day' : 'days'}`
+  return value
+}
+
 module.exports = {
   properCase,
   properCaseName,
@@ -90,4 +104,6 @@ module.exports = {
   isBlank,
   stringIsInteger,
   formatDateToLongHand,
+  createQueryParamString,
+  createValueString,
 }

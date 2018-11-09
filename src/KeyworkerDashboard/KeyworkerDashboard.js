@@ -1,13 +1,31 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
 import PropTypes from 'prop-types'
-import Header from '@govuk-react/header'
 import GridRow from '@govuk-react/grid-row'
 import GridCol from '@govuk-react/grid-col'
 import Statistic from '../Statistic/Statistic'
-import keyworkerDashboardData from './keyworkerDashboardData'
-import { Container } from './KeyworkerDashboard.styles'
+import Page from '../Components/Page'
+import { setLoaded } from '../redux/actions/index'
 
 class KeyworkerDashboard extends Component {
+  constructor() {
+    super()
+    this.state = { data: [] }
+  }
+
+  async componentDidMount() {
+    const { agencyId, dispatch, handleError } = this.props
+    dispatch(setLoaded(false))
+    try {
+      const response = await axios.get('/api/keyworker-prison-stats', { params: { agencyId } })
+      this.setState({ data: response.data })
+    } catch (error) {
+      handleError(error)
+    }
+    dispatch(setLoaded(true))
+  }
+
   renderStatistic = statistic => (
     <Fragment key={statistic.heading}>
       <GridCol columnOneQuarter>
@@ -17,32 +35,33 @@ class KeyworkerDashboard extends Component {
   )
 
   render() {
-    const { displayBack } = this.props
+    const { data } = this.state
 
     return (
-      <Fragment>
-        {displayBack()} {/* To be addressed with global breadcrumbs and page container */}
-        <Container>
-          <Header level={1} size="LARGE">
-            Key worker statistics
-          </Header>
-          <hr />
-          <GridRow>{keyworkerDashboardData.slice(0, 4).map(statistic => this.renderStatistic(statistic))}</GridRow>
-          <hr />
-          {keyworkerDashboardData.length > 4 && (
-            <Fragment>
-              <GridRow>{keyworkerDashboardData.slice(4, 8).map(statistic => this.renderStatistic(statistic))}</GridRow>
-              <hr />
-            </Fragment>
-          )}
-        </Container>
-      </Fragment>
+      <Page title="Key worker statistics">
+        <hr />
+        {data.length === 0 && <p>No data to display</p>}
+        <GridRow>{data.slice(0, 4).map(statistic => this.renderStatistic(statistic))}</GridRow>
+        <hr />
+        {data.length > 4 && (
+          <Fragment>
+            <GridRow>{data.slice(4, 8).map(statistic => this.renderStatistic(statistic))}</GridRow>
+            <hr />
+          </Fragment>
+        )}
+      </Page>
     )
   }
 }
 
 KeyworkerDashboard.propTypes = {
+  agencyId: PropTypes.string.isRequired,
   displayBack: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
 }
 
-export default KeyworkerDashboard
+const mapStateToProps = state => ({
+  agencyId: state.app.user.activeCaseLoadId,
+})
+
+export default connect(mapStateToProps)(KeyworkerDashboard)

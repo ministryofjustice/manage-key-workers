@@ -38,6 +38,7 @@ const { userSearchFactory } = require('./controllers/userSearch')
 const { getConfiguration } = require('./controllers/getConfig')
 const { healthFactory } = require('./controllers/health')
 const { keyworkerStatsFactory } = require('./controllers/keyworkerStats')
+const { keyworkerPrisonStatsFactory } = require('./controllers/keyworkerPrisonStats')
 
 const sessionManagementRoutes = require('./sessionManagementRoutes')
 
@@ -192,6 +193,7 @@ app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole)
 app.use('/api/addRole', addRoleFactory(elite2Api).addRole)
 app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles)
 app.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
+app.use('/api/keyworker-prison-stats', keyworkerPrisonStatsFactory(keyworkerApi).getPrisonStats)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))

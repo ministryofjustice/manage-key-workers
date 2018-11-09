@@ -2,16 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Container, Heading, Value, Change } from './Statistic.styles'
 import StatisticChange from './StatisticChange'
+import { createValueString } from '../stringUtils'
 
-const Statistic = ({ heading, value, change, percentage }) => (
+const Statistic = ({ heading, value, change, type }) => (
   <Container data-qa="keyworker-stat">
     <Heading>{heading}</Heading>
-    <Value>
-      {value} {percentage && '%'}
-    </Value>
+    <Value>{createValueString(value, type)}</Value>
     <Change>
       {change.value === 0 && `no change since last ${change.period}`}
-      {change.value !== 0 && <StatisticChange change={change} percentage={percentage} />}
+      {change.value !== 0 && <StatisticChange change={change} type={type} />}
     </Change>
   </Container>
 )
@@ -23,7 +22,7 @@ Statistic.propTypes = {
     value: PropTypes.number,
     period: PropTypes.string,
   }),
-  percentage: PropTypes.bool,
+  type: PropTypes.string,
 }
 
 Statistic.defaultProps = {
@@ -33,7 +32,7 @@ Statistic.defaultProps = {
     value: 0,
     period: 'week',
   },
-  percentage: false,
+  type: '',
 }
 
 export default Statistic

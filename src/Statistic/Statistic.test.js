@@ -65,7 +65,7 @@ describe('<Statistic />', () => {
     const stateWithPercentageValue = {
       heading: 'A statistic with a percentage',
       value: 5,
-      percentage: true,
+      type: 'percentage',
       change: {
         value: 0,
         period: 'week',

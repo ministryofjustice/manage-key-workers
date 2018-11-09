@@ -6,7 +6,6 @@ export default [
       value: 4,
       period: 'week',
     },
-    percentage: false,
   },
   {
     heading: 'Percentage of prisoners with allocated key worker',
@@ -15,7 +14,7 @@ export default [
       value: 2,
       period: 'week',
     },
-    percentage: true,
+    type: 'percentage',
   },
   {
     heading: 'Average time from reception to allocation',
@@ -24,7 +23,7 @@ export default [
       value: 0,
       period: 'week',
     },
-    percentage: false,
+    type: 'day',
   },
   {
     heading: 'Average time from reception to first session',
@@ -33,7 +32,7 @@ export default [
       value: 1,
       period: 'week',
     },
-    percentage: false,
+    type: 'day',
   },
   {
     heading: 'Number of projected key worker sessions',
@@ -42,7 +41,6 @@ export default [
       value: 16,
       period: 'week',
     },
-    percentage: false,
   },
   {
     heading: 'Number of recorded key worker sessions',
@@ -51,7 +49,6 @@ export default [
       value: 2,
       period: 'week',
     },
-    percentage: false,
   },
   {
     heading: 'Compliance rate',
@@ -60,6 +57,6 @@ export default [
       value: 1.1,
       period: 'week',
     },
-    percentage: true,
+    type: 'percentage',
   },
 ]

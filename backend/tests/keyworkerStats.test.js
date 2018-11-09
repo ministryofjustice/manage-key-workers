@@ -188,6 +188,6 @@ describe('Key worker profile controller', async () => {
 
     const { complianceRate } = statsByName
 
-    expect(complianceRate.percentage).toBe(true)
+    expect(complianceRate.type).toEqual('percentage')
   })
 })

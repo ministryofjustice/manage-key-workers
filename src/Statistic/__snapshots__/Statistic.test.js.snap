@@ -14,7 +14,6 @@ exports[`<Statistic /> should match the default snapshot 1`] = `
     className="css-uyt74n"
   >
     0
-     
   </strong>
   <p
     className="css-1umua3x"
@@ -38,13 +37,11 @@ exports[`<Statistic /> with negative change value should match the negative chan
     className="css-uyt74n"
   >
     0
-     
   </strong>
   <p
     className="css-1umua3x"
   >
     -1
-     
     <img
       alt="decrease"
       height={20}
@@ -70,7 +67,6 @@ exports[`<Statistic /> with no change in value over the change period should mat
     className="css-uyt74n"
   >
     1
-     
   </strong>
   <p
     className="css-1umua3x"
@@ -93,9 +89,7 @@ exports[`<Statistic /> with percentages should decorate the value with a percent
   <strong
     className="css-uyt74n"
   >
-    5
-     
-    %
+    5%
   </strong>
   <p
     className="css-1umua3x"
@@ -119,14 +113,12 @@ exports[`<Statistic /> with positive change value should match the positive chan
     className="css-uyt74n"
   >
     2
-     
   </strong>
   <p
     className="css-1umua3x"
   >
     +
     1
-     
     <img
       alt="increase"
       height={20}
