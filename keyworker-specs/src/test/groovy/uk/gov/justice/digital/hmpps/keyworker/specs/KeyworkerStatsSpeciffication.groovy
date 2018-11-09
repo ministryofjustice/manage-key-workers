@@ -88,6 +88,24 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
                 .withQueryParam("toDate", WireMock.equalTo(toDate.toString())))
     }
 
+    def "should parse date correctly"() {
+
+        expect:
+        assert formatToLongDate(LocalDate.parse("2018-11-01")) == "1st November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-02")) == "2nd November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-03")) == "3rd November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-04")) == "4th November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-11")) == "11th November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-12")) == "12th November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-13")) == "13th November 2018"
+
+        assert formatToLongDate(LocalDate.parse("2018-11-21")) == "21st November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-22")) == "22nd November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-23")) == "23rd November 2018"
+
+        assert formatToLongDate(LocalDate.parse("2018-10-31")) == "31st October 2018"
+    }
+
     static statToMap(def stat) {
         String description  = stat.find('h2').text()
         String value = stat.find('strong').text()
@@ -105,8 +123,10 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
     }
 
     static String getOrdinalFor(int value) {
-        int tenRemainder = value % 10
-        switch (tenRemainder) {
+        if(value == 11 || value == 12 || value == 13) return "th"
+
+        int remainder = value % 10
+        switch (remainder) {
             case 1:
                 return "st"
             case 2:
