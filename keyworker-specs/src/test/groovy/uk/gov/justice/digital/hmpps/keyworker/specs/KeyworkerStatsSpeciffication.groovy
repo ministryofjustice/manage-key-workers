@@ -12,6 +12,7 @@ import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
@@ -39,19 +40,26 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
 
         def statsMapArray = stats.collect{stat -> statToMap(stat) }
 
-        assert statsMapArray[0].description == "Number of projected key worker sessions in the last month"
+        String toDate = formatToLongDate(LocalDate.now())
+
+        String fromDate = formatToLongDate(LocalDate.now()
+                .minus(1, ChronoUnit.MONTHS))
+
+        assert statsHeading[0].text() == String.format("Hpa-3 Auser statistics: %s to %s", fromDate, toDate)
+
+        assert statsMapArray[0].description == "Projected sessions"
         assert statsMapArray[0].value == "0"
         assert statsMapArray[0].change == "no change since last month"
 
-        assert statsMapArray[1].description == "Number of recorded key worker sessions in the last month"
+        assert statsMapArray[1].description == "Recorded sessions"
         assert statsMapArray[1].value == "10"
         assert statsMapArray[1].change == "no change since last month"
 
-        assert statsMapArray[2].description == "Compliance rate"
+        assert statsMapArray[2].description == "Session compliance"
         assert statsMapArray[2].value == "0 %"
         assert statsMapArray[2].change == "no change since last month"
 
-        assert statsMapArray[3].description == "Total number of key worker case notes written in the last month"
+        assert statsMapArray[3].description == "Case notes written"
         assert statsMapArray[3].value == "20"
         assert statsMapArray[3].change == "no change since last month"
     }
@@ -80,11 +88,53 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
                 .withQueryParam("toDate", WireMock.equalTo(toDate.toString())))
     }
 
+    def "should parse date correctly"() {
+
+        expect:
+        assert formatToLongDate(LocalDate.parse("2018-11-01")) == "1st November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-02")) == "2nd November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-03")) == "3rd November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-04")) == "4th November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-11")) == "11th November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-12")) == "12th November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-13")) == "13th November 2018"
+
+        assert formatToLongDate(LocalDate.parse("2018-11-21")) == "21st November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-22")) == "22nd November 2018"
+        assert formatToLongDate(LocalDate.parse("2018-11-23")) == "23rd November 2018"
+
+        assert formatToLongDate(LocalDate.parse("2018-10-31")) == "31st October 2018"
+    }
+
     static statToMap(def stat) {
         String description  = stat.find('h2').text()
         String value = stat.find('strong').text()
         String change = stat.find('p').text()
 
         return [description: description, value: value, change: change]
+    }
+
+    static formatToLongDate(LocalDate date) {
+        String ordinal = getOrdinalFor(date.dayOfMonth)
+        String datePattern = String.format("d'%s' MMMM yyyy", ordinal)
+
+        return date
+                .format(DateTimeFormatter.ofPattern(datePattern))
+    }
+
+    static String getOrdinalFor(int value) {
+        if(value == 11 || value == 12 || value == 13) return "th"
+
+        int remainder = value % 10
+        switch (remainder) {
+            case 1:
+                return "st"
+            case 2:
+                return "nd"
+            case 3:
+                return "rd"
+            default:
+                return "th"
+        }
     }
 }

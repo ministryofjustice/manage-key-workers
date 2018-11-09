@@ -279,7 +279,11 @@ export function keyworkerSearch(state = keyworkerSearchInitialState, action) {
         ...state,
         keyworker: {
           ...state.keyworker,
-          stats: action.stats,
+          stats: {
+            data: action.stats.data,
+            fromDate: action.stats.fromDate,
+            toDate: action.stats.toDate,
+          },
         },
       }
     case ActionTypes.SET_KEY_WORKER_CHANGE_LIST:

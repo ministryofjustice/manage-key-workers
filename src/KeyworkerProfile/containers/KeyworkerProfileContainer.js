@@ -77,7 +77,11 @@ class KeyworkerProfileContainer extends Component {
       },
     })
 
-    keyworkerStatsDispatch(response.data)
+    keyworkerStatsDispatch({
+      data: response.data,
+      fromDate,
+      toDate,
+    })
   }
 
   makeKeyworkerAllocationsCall = async (agencyId, staffId) => {

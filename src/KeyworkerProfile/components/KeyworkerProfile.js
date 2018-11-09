@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { properCaseName, renderDate } from '../../stringUtils'
+import { properCaseName, renderDate, formatDateToLongHand } from '../../stringUtils'
 import MessageBar from '../../MessageBar/index'
 import { getStatusStyle, getStatusDescription } from '../keyworkerStatus'
 import { getOffenderLink } from '../../links'
 import KeyworkerStats from './KeyworkerStats'
+
 import {
   userType,
   keyworkerType,
@@ -103,12 +104,19 @@ class KeyworkerProfile extends Component {
 
     renderContent = (
       <div>
-        {config.keyworkerProfileStatsEnabled === 'true' && (
-          <Fragment>
-            <KeyworkerStats stats={(keyworker && keyworker.stats) || []} />
-            <hr />
-          </Fragment>
-        )}
+        {config.keyworkerProfileStatsEnabled === 'true' &&
+          keyworker &&
+          keyworker.stats && (
+            <Fragment>
+              <h3 className="heading-medium" data-qa="keyworker-stat-heading">
+                {`${keyworkerDisplayName} statistics: ${formatDateToLongHand(
+                  keyworker.stats.fromDate
+                )} to ${formatDateToLongHand(keyworker.stats.toDate)}`}
+              </h3>
+              <KeyworkerStats stats={keyworker.stats.data || []} />
+              <hr />
+            </Fragment>
+          )}
         <div className="lede padding-top padding-bottom-large bold">
           Current allocations{' '}
           <div id="allocationCount" className={allocationCountStyle}>

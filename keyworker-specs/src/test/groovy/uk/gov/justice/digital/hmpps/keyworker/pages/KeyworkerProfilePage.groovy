@@ -30,6 +30,7 @@ public class KeyworkerProfilePage extends Page {
         messageBar(required: false) { $('div #messageBar')}
         backLink { $('a.backlink')}
         stats {  $("[data-qa='keyworker-stat']") }
+        statsHeading { $("[data-qa='keyworker-stat-heading']") }
     }
 
 
