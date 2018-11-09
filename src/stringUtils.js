@@ -50,6 +50,12 @@ const renderDate = date => {
   return notPresentString
 }
 
+const formatDateToLongHand = date => {
+  if (!date || typeof date !== 'string') throw new Error('date should not be null and be of type string')
+
+  return moment(date, iso8601DateFormat).format('Do MMMM YYYY')
+}
+
 const renderDateTime = date => {
   const screenFormat = 'DD/MM/YYYY HH:mm'
   const iso8601DateTimeFormat = 'YYYY-MM-DDTHH:mm:ss.SSS.'
@@ -83,4 +89,5 @@ module.exports = {
   switchToIsoDateFormat,
   isBlank,
   stringIsInteger,
+  formatDateToLongHand,
 }

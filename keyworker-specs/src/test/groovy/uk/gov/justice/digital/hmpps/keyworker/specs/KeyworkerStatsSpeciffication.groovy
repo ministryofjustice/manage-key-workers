@@ -12,6 +12,7 @@ import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
@@ -39,19 +40,27 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
 
         def statsMapArray = stats.collect{stat -> statToMap(stat) }
 
-        assert statsMapArray[0].description == "Number of projected key worker sessions in the last month"
+        String toDate = formatToLongDate(LocalDate.now())
+
+        String fromDate = formatToLongDate(LocalDate.now()
+                .minus(1, ChronoUnit.MONTHS))
+
+
+        assert statsHeading[0].text() == String.format("Hpa-3 Auser statistics: %s to %s", fromDate, toDate)
+
+        assert statsMapArray[0].description == "Projected sessions"
         assert statsMapArray[0].value == "0"
         assert statsMapArray[0].change == "no change since last month"
 
-        assert statsMapArray[1].description == "Number of recorded key worker sessions in the last month"
+        assert statsMapArray[1].description == "Recorded sessions"
         assert statsMapArray[1].value == "10"
         assert statsMapArray[1].change == "no change since last month"
 
-        assert statsMapArray[2].description == "Compliance rate"
+        assert statsMapArray[2].description == "Session compliance"
         assert statsMapArray[2].value == "0 %"
         assert statsMapArray[2].change == "no change since last month"
 
-        assert statsMapArray[3].description == "Total number of key worker case notes written in the last month"
+        assert statsMapArray[3].description == "Case notes written"
         assert statsMapArray[3].value == "20"
         assert statsMapArray[3].change == "no change since last month"
     }
@@ -86,5 +95,27 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         String change = stat.find('p').text()
 
         return [description: description, value: value, change: change]
+    }
+
+    static formatToLongDate(LocalDate date) {
+        String ordinal = getOrdinalFor(date.dayOfMonth)
+        String datePattern = String.format("d'%s' MMMM yyyy", ordinal)
+
+        return date
+                .format(DateTimeFormatter.ofPattern(datePattern))
+    }
+
+    static String getOrdinalFor(int value) {
+        int tenRemainder = value % 10
+        switch (tenRemainder) {
+            case 1:
+                return "st"
+            case 2:
+                return "nd"
+            case 3:
+                return "rd"
+            default:
+                return "th"
+        }
     }
 }

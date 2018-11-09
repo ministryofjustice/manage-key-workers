@@ -4,7 +4,7 @@ const log = require('../log')
 
 const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfSessionCaseNotesWritten',
-  heading: 'Number of recorded key worker sessions in the last month',
+  heading: 'Recorded sessions',
   value: currentStats.caseNoteSessionCount,
   change: {
     value: pastStats && currentStats.caseNoteSessionCount - pastStats.caseNoteSessionCount,
@@ -14,7 +14,7 @@ const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) =
 
 const totalNumberOfEntryAndSessionCaseNoteWritten = (currentStats, pastStats, period) => ({
   name: 'totalNumberOfEntryAndSessionCaseNoteWritten',
-  heading: 'Total number of key worker case notes written in the last month',
+  heading: 'Case notes written',
   value: currentStats.caseNoteEntryCount + currentStats.caseNoteSessionCount,
   change: {
     value:
@@ -28,7 +28,7 @@ const totalNumberOfEntryAndSessionCaseNoteWritten = (currentStats, pastStats, pe
 
 const complianceRate = (currentStats, pastStats, period) => ({
   name: 'complianceRate',
-  heading: 'Compliance rate',
+  heading: 'Session compliance',
   value: currentStats.complianceRate,
   percentage: true,
   change: {
@@ -39,7 +39,7 @@ const complianceRate = (currentStats, pastStats, period) => ({
 
 const numberOfProjectedKeyworkerSessions = (currentStats, pastStats, period) => ({
   name: 'numberOfProjectedKeyworkerSessions',
-  heading: 'Number of projected key worker sessions in the last month',
+  heading: 'Projected sessions',
   value: currentStats.projectedKeyworkerSessions,
   change: {
     value: pastStats && currentStats.projectedKeyworkerSessions - pastStats.projectedKeyworkerSessions,

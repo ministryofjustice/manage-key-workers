@@ -550,10 +550,12 @@ describe('key worker search reducer', () => {
   })
 
   it('should handle SET_KEY_WORKER_STATS', () => {
+    const fromDate = '2018-10-10'
+    const toDate = '2018-10-11'
     expect(
       keyworkerSearch(keyworkerSearchInitialState, {
         type: types.SET_KEY_WORKER_STATS,
-        stats: { hello: 'world' },
+        stats: { data: 'world', fromDate, toDate },
       })
     ).toEqual({
       searchText: '',
@@ -562,7 +564,13 @@ describe('key worker search reducer', () => {
       keyworkerAllocations: [],
       keyworkerChangeList: [],
       keyworkerList: [],
-      keyworker: { stats: { hello: 'world' } },
+      keyworker: {
+        stats: {
+          data: 'world',
+          fromDate,
+          toDate,
+        },
+      },
       status: '',
       capacity: '',
       statusChangeBehaviour: '',

@@ -102,7 +102,7 @@
     "start-prod": "NODE_ENV=production node backend/index.js",
     "build": "webpack --mode=production",
     "test": "jest --env=jsdom",
-    "test-watch": "jest --env=jsdom --watch",
+    "test-watch": "jest --env=jsdom --watchAll",
     "record-build-info": "node scripts/record-build-info",
     "plant-beanstalk": "node scripts/plant-beanstalk.js",
     "lint": "node node_modules/eslint/bin/eslint.js src backend",
