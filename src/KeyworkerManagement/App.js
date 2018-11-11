@@ -182,7 +182,7 @@ class App extends React.Component {
           <Route
             exact
             path="/keyworkerDashboard"
-            render={() => <KeyworkerDashboard displayBack={this.displayBack} />}
+            render={() => <KeyworkerDashboard displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route

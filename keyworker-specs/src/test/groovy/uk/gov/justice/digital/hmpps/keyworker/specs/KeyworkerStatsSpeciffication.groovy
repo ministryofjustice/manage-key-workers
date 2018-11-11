@@ -56,7 +56,7 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         assert statsMapArray[1].change == "no change since last month"
 
         assert statsMapArray[2].description == "Session compliance"
-        assert statsMapArray[2].value == "0 %"
+        assert statsMapArray[2].value == "0%"
         assert statsMapArray[2].change == "no change since last month"
 
         assert statsMapArray[3].description == "Case notes written"

@@ -1,4 +1,5 @@
 const contextProperties = require('../contextProperties')
+const { createQueryParamString } = require('../../src/stringUtils')
 
 const processError = error => {
   if (!error.response) throw error
@@ -153,6 +154,16 @@ const keyworkerApiFactory = client => {
   const stats = (context, agencyId, staffId, fromDate, toDate) =>
     get(context, `key-worker-stats/${staffId}/prison/${agencyId}?fromDate=${fromDate}&toDate=${toDate}`)
 
+  /**
+   * @param context
+   * @param prisonId
+   * @param fromDate
+   * @param toDate
+   * @returns an Object which contains summary and prisons
+   */
+  const prisonStats = (context, prisonId, fromDate, toDate) =>
+    get(context, `key-worker-stats?${createQueryParamString({ prisonId, fromDate, toDate })}`)
+
   return {
     allocate,
     allocated,
@@ -172,6 +183,7 @@ const keyworkerApiFactory = client => {
     enableAutoAllocationAndMigrate,
     enableManualAllocationAndMigrate,
     stats,
+    prisonStats,
   }
 }
 

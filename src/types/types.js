@@ -1,4 +1,4 @@
-import { shape, number, string, arrayOf, bool, object, oneOfType } from 'prop-types'
+import { shape, number, string, arrayOf, bool, object, oneOfType, node } from 'prop-types'
 
 const caseLoadOptions = shape({
   caseLoadId: string.isRequired,
@@ -213,3 +213,5 @@ export const offenderResultsType = shape({
   offenderResponse: offenderResponseType.isRequired,
   partialResults: bool.isRequired,
 })
+
+export const childrenType = oneOfType([arrayOf(node), node])

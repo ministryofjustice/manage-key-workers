@@ -30,7 +30,7 @@ const complianceRate = (currentStats, pastStats, period) => ({
   name: 'complianceRate',
   heading: 'Session compliance',
   value: currentStats.complianceRate,
-  percentage: true,
+  type: 'percentage',
   change: {
     value: pastStats && Number(parseFloat(currentStats.complianceRate - pastStats.complianceRate).toFixed(2)),
     period,
