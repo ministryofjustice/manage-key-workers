@@ -6,6 +6,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AllocatedRe
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AllocationsForKeyworkerResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AvailableKeyworkerResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerDetailResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerPrisonStatsResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerStatsResponse
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
@@ -128,6 +129,16 @@ class KeyworkerApi extends WireMockRule {
                 aResponse()
                     .withBody(KeyworkerSearchResponse.response)
                     .withStatus(200))
+        )
+    }
+
+    void stubKeyworkerPrisonStatsResponse(AgencyLocation agencyLocation) {
+        this.stubFor(
+                get("/key-worker-stats?prisonId=${agencyLocation.id}")
+                        .willReturn(
+                        aResponse()
+                                .withBody(KeyworkerPrisonStatsResponse.response)
+                                .withStatus(200))
         )
     }
 

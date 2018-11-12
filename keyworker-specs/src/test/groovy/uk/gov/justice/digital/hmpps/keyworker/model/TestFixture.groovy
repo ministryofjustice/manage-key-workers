@@ -4,6 +4,7 @@ import geb.Browser
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerDashboardPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
@@ -100,6 +101,10 @@ class TestFixture {
         keyworkerApi.stubError("/key-worker/-1/prison/LEI", 404) // staff id -1 doesnt exist
 
         browser.page.allocateButton.click()
+    }
+
+    def toKeyworkerDashboardPage() {
+        browser.go('/keyworkerDashboard')
     }
 
     def toKeyworkerProfilePage() {

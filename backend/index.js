@@ -131,7 +131,8 @@ const keyworkerApi = keyworkerApiFactory(
 )
 
 const controller = controllerFactory(
-  allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax)
+  allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax),
+  keyworkerPrisonStatsFactory(keyworkerApi)
 )
 
 const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
@@ -193,7 +194,7 @@ app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole)
 app.use('/api/addRole', addRoleFactory(elite2Api).addRole)
 app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles)
 app.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
-app.use('/api/keyworker-prison-stats', keyworkerPrisonStatsFactory(keyworkerApi).getPrisonStats)
+app.use('/api/keyworker-prison-stats', controller.getPrisonStats)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))

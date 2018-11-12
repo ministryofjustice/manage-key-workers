@@ -21,6 +21,7 @@ describe('<Statistic />', () => {
         value: 0,
         period: 'week',
       },
+      name: 'statWithNoChange',
     }
 
     it('should match the no change snapshot', () => {
@@ -37,6 +38,7 @@ describe('<Statistic />', () => {
         value: 1,
         period: 'week',
       },
+      name: 'statWithPositiveChange',
     }
 
     it('should match the positive change snapshot', () => {
@@ -53,6 +55,7 @@ describe('<Statistic />', () => {
         value: -1,
         period: 'week',
       },
+      name: 'statWithNegativeChange',
     }
 
     it('should match the negative change snapshot', () => {
@@ -70,6 +73,7 @@ describe('<Statistic />', () => {
         value: 0,
         period: 'week',
       },
+      name: 'stateWithPercentageValue',
     }
 
     it('should decorate the value with a percent', () => {

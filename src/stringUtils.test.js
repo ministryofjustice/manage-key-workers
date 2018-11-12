@@ -91,6 +91,14 @@ describe('createQueryParamString()', () => {
 })
 
 describe('createValueString()', () => {
+  it('should handle no value', () => {
+    expect(createValueString(null, 'day')).toEqual('-')
+  })
+
+  it('should handle 0 value with no type', () => {
+    expect(createValueString(0)).toEqual(0)
+  })
+
   it('should handle no type', () => {
     expect(createValueString(1)).toEqual(1)
   })
@@ -99,12 +107,15 @@ describe('createValueString()', () => {
     expect(createValueString(50, 'percentage')).toEqual('50%')
   })
 
+  it('should handle 0 days', () => {
+    expect(createValueString(0, 'day')).toEqual('0 days')
+  })
+
   it('should handle a singular day', () => {
     expect(createValueString(1, 'day')).toEqual('1 day')
   })
 
   it('should handle plural days', () => {
-    expect(createValueString(0, 'day')).toEqual('0 days')
     expect(createValueString(2, 'day')).toEqual('2 days')
   })
 })
