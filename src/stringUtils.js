@@ -89,6 +89,7 @@ const createQueryParamString = params => {
 }
 
 const createValueString = (value, type) => {
+  if (value === null) return '-'
   if (type === 'percentage') return `${value}%`
   if (type === 'day') return `${value} ${value === 1 ? 'day' : 'days'}`
   return value

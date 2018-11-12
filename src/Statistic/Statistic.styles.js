@@ -28,18 +28,3 @@ export const Value = styled('strong')`
     font-size: 36px;
   }
 `
-
-export const Change = styled('p')`
-  display: flex;
-  align-items: center;
-  margin: 0;
-  font-size: ${FONT_SIZE.SIZE_16};
-
-  img {
-    margin: -${SPACING.SCALE_1} ${SPACING.SCALE_1} 0;
-  }
-
-  @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
-    font-size: ${FONT_SIZE.SIZE_19};
-  }
-`

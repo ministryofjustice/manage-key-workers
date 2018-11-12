@@ -1,5 +1,7 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
-const log = require('../log')
+const formatNumber = (value, type) => {
+  if (type === 'percentage') return Number(parseFloat(value).toFixed(2))
+  return value
+}
 
 const keyworkerPrisonStatsFactory = keyworkerApi => {
   const createPayload = (current, previous) => {
@@ -24,23 +26,22 @@ const keyworkerPrisonStatsFactory = keyworkerApi => {
       heading: val.heading,
       value: current[key],
       change: {
-        value: current[key] - previous[key] || 0,
-        period: 'month',
+        value: previous ? formatNumber(current[key] - previous[key], val.type) : current[key],
+        period: 'period',
       },
-      type: val.type,
+      type: val.type || 'number',
     }))
   }
 
-  const getPrisonStats = asyncMiddleware(async (req, res) => {
-    const { agencyId } = req.query
-    const { locals } = res
+  const getPrisonStats = async (locals, agencyId) => {
     const prisonStats = await keyworkerApi.prisonStats(locals, agencyId)
-    const { current, previous } = prisonStats.summary
+    const {
+      summary: { current, previous },
+    } = prisonStats
+    const payload = createPayload(current, previous)
 
-    const data = await createPayload(current, previous)
-    log.debug({ data }, 'Response from keyworker prison stats request')
-    res.json(data)
-  })
+    return payload
+  }
 
   return {
     getPrisonStats,

@@ -13,12 +13,12 @@ exports[`<Statistic /> should match the default snapshot 1`] = `
   <strong
     className="css-uyt74n"
   >
-    0
+    -
   </strong>
   <p
     className="css-1umua3x"
   >
-    no change since last week
+    no change since last period
   </p>
 </div>
 `;

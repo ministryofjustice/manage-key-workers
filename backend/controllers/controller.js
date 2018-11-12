@@ -1,6 +1,6 @@
 const asyncMiddleware = require('../middleware/asyncHandler')
 
-const factory = allocationService => {
+const factory = (allocationService, statsService) => {
   const unallocated = asyncMiddleware(async (req, res) => {
     const { agencyId } = req.query
 
@@ -33,11 +33,18 @@ const factory = allocationService => {
     res.json(offenders)
   })
 
+  const getPrisonStats = asyncMiddleware(async (req, res) => {
+    const { agencyId } = req.query
+    const prisonStats = await statsService.getPrisonStats(res.locals, agencyId)
+    res.json(prisonStats)
+  })
+
   return {
     unallocated,
     allocated,
     keyworkerAllocations,
     searchOffenders,
+    getPrisonStats,
   }
 }
 
