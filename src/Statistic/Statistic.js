@@ -4,10 +4,10 @@ import { Container, Heading, Value } from './Statistic.styles'
 import StatisticChange from './StatisticChange'
 import { createValueString } from '../stringUtils'
 
-const Statistic = ({ heading, value, change, type }) => (
+const Statistic = ({ heading, value, change, type, name }) => (
   <Container data-qa="keyworker-stat">
     <Heading>{heading}</Heading>
-    <Value>{createValueString(value, type)}</Value>
+    <Value data-qa={`${name}-value`}>{createValueString(value, type)}</Value>
     <StatisticChange change={change} type={type} />
   </Container>
 )
@@ -20,6 +20,7 @@ Statistic.propTypes = {
     period: PropTypes.string,
   }),
   type: PropTypes.string,
+  name: PropTypes.string,
 }
 
 Statistic.defaultProps = {
@@ -30,6 +31,7 @@ Statistic.defaultProps = {
     period: 'period',
   },
   type: '',
+  name: '',
 }
 
 export default Statistic

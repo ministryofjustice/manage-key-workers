@@ -35,7 +35,7 @@ describe('Key worker prison stats', async () => {
     expect(keyworkerApi.prisonStats).toBeCalledWith({}, agencyId)
   })
 
-  describe('prison stats with no previous stats', async () => {
+  describe('prison stats with no previous stats', () => {
     it('should return the correct payload ', async () => {
       const getPrisonStatsWithNoPreviousPayload = [
         {
@@ -95,7 +95,7 @@ describe('Key worker prison stats', async () => {
     })
   })
 
-  describe('prison stats with previous stats', async () => {
+  describe('prison stats with previous stats', () => {
     it('should return the correct payload ', async () => {
       prisonStatsResponse.summary.previous = {
         dataRangeFrom: '2017-12-01',
