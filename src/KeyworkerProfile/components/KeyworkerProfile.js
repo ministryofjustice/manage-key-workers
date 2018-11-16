@@ -109,9 +109,10 @@ class KeyworkerProfile extends Component {
           keyworker.stats && (
             <Fragment>
               <h3 className="heading-medium" data-qa="keyworker-stat-heading">
-                {`Statistics for ${keyworkerDisplayName}:  ${formatDateToLongHand(
+                {`Statistics for period: `}
+                <span className="normal-weight">{` ${formatDateToLongHand(
                   keyworker.stats.fromDate
-                )} to ${formatDateToLongHand(keyworker.stats.toDate)}`}
+                )} to ${formatDateToLongHand(keyworker.stats.toDate)}`}</span>
               </h3>
               <KeyworkerStats stats={keyworker.stats.data || []} />
               <hr />
