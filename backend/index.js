@@ -139,7 +139,7 @@ app.use(
   cookieSession({
     name: config.hmppsCookie.name,
     domain: config.hmppsCookie.domain,
-    maxAge: config.hmppsCookie.expiryMinutes,
+    maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
     secure: config.app.production,
     httpOnly: true,
     signed: false,
