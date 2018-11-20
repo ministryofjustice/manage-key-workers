@@ -44,9 +44,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
     const { username, password } = req.body
 
     try {
-      await oauthApi.authenticate(res.locals, username, password)
-
-      hmppsCookieOperations.setCookie(res, res.locals)
+      await oauthApi.authenticate(req.session, username, password)
 
       res.redirect('/')
     } catch (error) {
@@ -70,7 +68,8 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
   }
 
   const logout = (req, res) => {
-    hmppsCookieOperations.clearCookie(res)
+    // eslint-disable-next-line no-param-reassign
+    req.session = null
     res.redirect(LOGIN_PATH)
   }
 
@@ -82,8 +81,7 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
    * @param next
    */
   const loginMiddleware = (req, res, next) => {
-    hmppsCookieOperations.extractCookieValues(req, res.locals)
-    if (contextProperties.hasTokens(res.locals)) {
+    if (contextProperties.hasTokens(req.session)) {
       // implies authenticated
       res.redirect('/')
       return
@@ -93,10 +91,8 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
 
   const hmppsCookieMiddleware = async (req, res, next) => {
     try {
-      hmppsCookieOperations.extractCookieValues(req, res.locals)
-      if (contextProperties.hasTokens(res.locals)) {
-        await tokenRefresher(res.locals)
-        hmppsCookieOperations.setCookie(res, res.locals)
+      if (contextProperties.hasTokens(req.session)) {
+        await tokenRefresher(req.session)
       }
       next()
     } catch (error) {
@@ -113,7 +109,8 @@ const configureRoutes = ({ app, healthApi, oauthApi, hmppsCookieOperations, toke
    * @param next
    */
   const requireLoginMiddleware = (req, res, next) => {
-    if (contextProperties.hasTokens(res.locals)) {
+    if (contextProperties.hasTokens(req.session)) {
+      contextProperties.setTokens(req.session, res.locals)
       next()
       return
     }
