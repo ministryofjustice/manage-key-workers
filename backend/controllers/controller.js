@@ -34,8 +34,8 @@ const factory = (allocationService, statsService) => {
   })
 
   const getPrisonStats = asyncMiddleware(async (req, res) => {
-    const { agencyId } = req.query
-    const prisonStats = await statsService.getPrisonStats(res.locals, agencyId)
+    const { agencyId, fromDate, toDate } = req.query
+    const prisonStats = await statsService.getPrisonStats(res.locals, agencyId, fromDate, toDate)
     res.json(prisonStats)
   })
 

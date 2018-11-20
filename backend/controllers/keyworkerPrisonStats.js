@@ -33,14 +33,20 @@ const keyworkerPrisonStatsFactory = keyworkerApi => {
     }))
   }
 
-  const getPrisonStats = async (locals, agencyId) => {
-    const prisonStats = await keyworkerApi.prisonStats(locals, agencyId)
+  const getPrisonStats = async (locals, agencyId, fromDate, toDate) => {
+    const prisonStats = await keyworkerApi.prisonStats(locals, agencyId, fromDate, toDate)
+    const { capacityTier1 } = await keyworkerApi.getPrisonMigrationStatus(locals, agencyId)
+
     const {
       summary: { current, previous },
     } = prisonStats
-    const payload = createPayload(current, previous)
 
-    return payload
+    const stats = createPayload(current, previous)
+
+    return {
+      stats,
+      prisonerToKeyWorkerRatio: capacityTier1,
+    }
   }
 
   return {

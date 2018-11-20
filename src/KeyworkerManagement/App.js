@@ -337,15 +337,24 @@ class App extends React.Component {
               if (config.googleAnalyticsId) {
                 ReactGA.pageview(props.location.pathname)
               }
+
               return (
                 <Header
                   logoText="HMPPS"
                   title="Prison-NOMIS"
                   homeLink={links.getHomeLink()}
-                  switchCaseLoad={this.switchCaseLoad}
+                  switchCaseLoad={newCaseload => {
+                    this.switchCaseLoad(newCaseload)
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/keyworkerDashboard']
+
+                    if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
+                      props.history.push('/')
+                    }
+                  }}
                   history={props.history}
                   resetError={this.resetError}
                   setMenuOpen={boundSetMenuOpen}
+                  caseChangeRedirect={false}
                   {...this.props}
                 />
               )

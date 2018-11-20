@@ -433,6 +433,21 @@ export function allocationHistory(state = allocationHistoryInitialState, action)
   }
 }
 
+export function prisonLevelKeyWorkerStatsDashboard(state = { data: [], prisonerToKeyWorkerRatio: 0 }, action) {
+  switch (action.type) {
+    case ActionTypes.SET_PRISON_LEVEL_KEY_WORKER_STATS:
+      return {
+        ...state,
+        data: action.data,
+        duration: action.duration,
+        period: action.period,
+        prisonerToKeyWorkerRatio: action.prisonerToKeyWorkerRatio,
+      }
+    default:
+      return state
+  }
+}
+
 const allocationApp = combineReducers({
   allocated,
   unallocated,
@@ -442,6 +457,7 @@ const allocationApp = combineReducers({
   allocationHistory,
   keyworkerSettings,
   maintainRoles,
+  prisonLevelKeyWorkerStatsDashboard,
 })
 
 export default allocationApp

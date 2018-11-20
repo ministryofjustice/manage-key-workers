@@ -4,6 +4,8 @@ describe('Key worker prison stats', async () => {
   const keyworkerApi = {}
   const controller = keyworkerPrisonStatsFactory(keyworkerApi)
   const agencyId = 'LEI'
+  const fromDate = '2018-10-10'
+  const toDate = '2018-10-10'
   const prisonStatsResponse = {
     summary: {
       requestedFromDate: '2018-01-01',
@@ -25,14 +27,32 @@ describe('Key worker prison stats', async () => {
     },
   }
 
+  const prisonInformation = {
+    prisonId: agencyId,
+    supported: true,
+    migrated: true,
+    autoAllocatedSupported: true,
+    capacityTier1: 6,
+    capacityTier2: 9,
+    kwSessionFrequencyInWeeks: 1,
+    migratedDateTime: '2018-10-02T01:12:55.000',
+  }
+
   beforeEach(() => {
     keyworkerApi.prisonStats = jest.fn().mockReturnValue(prisonStatsResponse)
+    keyworkerApi.getPrisonMigrationStatus = jest.fn().mockReturnValue(prisonInformation)
   })
 
   it('should make a call to get the stats for the correct prison', async () => {
-    await controller.getPrisonStats({}, agencyId)
+    await controller.getPrisonStats({}, agencyId, fromDate, toDate)
 
-    expect(keyworkerApi.prisonStats).toBeCalledWith({}, agencyId)
+    expect(keyworkerApi.prisonStats).toBeCalledWith({}, agencyId, fromDate, toDate)
+  })
+
+  it('should make a call to get the migration information for te correct prison', async () => {
+    await controller.getPrisonStats({}, agencyId, '2018-10-10', '2018-10-10')
+
+    expect(keyworkerApi.getPrisonMigrationStatus).toBeCalledWith({}, agencyId)
   })
 
   describe('prison stats with no previous stats', () => {
@@ -89,9 +109,17 @@ describe('Key worker prison stats', async () => {
         },
       ]
 
-      const payload = await controller.getPrisonStats({}, agencyId)
+      const { stats } = await controller.getPrisonStats({}, agencyId)
 
-      expect(payload).toEqual(getPrisonStatsWithNoPreviousPayload)
+      expect(stats).toEqual(getPrisonStatsWithNoPreviousPayload)
+    })
+  })
+
+  describe('prison staff to key worker ration', () => {
+    it('should return a prisons prisoner to key worker ratio', async () => {
+      const { prisonerToKeyWorkerRatio } = await controller.getPrisonStats({}, agencyId)
+
+      expect(prisonerToKeyWorkerRatio).toBe(6)
     })
   })
 
@@ -164,9 +192,8 @@ describe('Key worker prison stats', async () => {
         },
       ]
 
-      const payload = await controller.getPrisonStats({}, agencyId)
-
-      expect(payload).toEqual(getPrisonStatsWithPreviousPayload)
+      const { stats } = await controller.getPrisonStats({}, agencyId)
+      expect(stats).toEqual(getPrisonStatsWithPreviousPayload)
     })
   })
 })

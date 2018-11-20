@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Period /> should render the default duration and period 1`] = `
+<div>
+  <h3
+    className="e1vcssft0 css-l3100a-StyledHeader-StyledHoc e4u1u2g0"
+    size="SMALL"
+  >
+    Select period to view
+  </h3>
+  <div
+    className="css-1pw7kel"
+  >
+    <input
+      className="e1vcssft0 css-4n7f6s-StyledInput-StyledHoc e4u1u2g0"
+      name="duration"
+      onChange={[Function]}
+      type="text"
+      value={4}
+    />
+    <label
+      className="e1vcssft0 e1vcssft0 css-15b2i3k-StyledLabel-StyledHoc-StyledHoc e4u1u2g0"
+      name="period"
+    >
+      <span
+        className="e1vcssft0 css-3e01s4-StyledLabelText-StyledHoc e4u1u2g0"
+      />
+      <select
+        className="css-pvtrvx-StyledSelect e4u1u2g0"
+        onChange={[Function]}
+        value="week"
+      >
+        <option
+          value="week"
+        >
+          Weekly
+        </option>
+        <option
+          value="month"
+        >
+          Monthly
+        </option>
+        <option
+          value="year"
+        >
+          Yearly
+        </option>
+      </select>
+    </label>
+    <button
+      className="button greyButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Update
+    </button>
+  </div>
+</div>
+`;
