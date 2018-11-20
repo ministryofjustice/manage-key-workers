@@ -1,5 +1,6 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
+
 import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
@@ -22,8 +23,8 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
 
-    def"keyworker dashboard should display correctly"() {
-        keyworkerApi.stubKeyworkerPrisonStatsResponse(AgencyLocation.LEI)
+    def "keyworker dashboard should display correctly"() {
+        keyworkerApi.stubKeyworkerPrisonStatsResponse()
 
         given: "I am logged in"
         fixture.loginAs(UserAccount.ITAG_USER)
@@ -33,7 +34,7 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
 
         then: "Data should display as expected"
         at KeyworkerDashboardPage
-        headingText == 'Key worker statistics'
+        headingText == 'Key worker statistics - LEEDS (HMP)'
         numberOfActiveKeyworkers == '100'
         numberKeyWorkerSessions == '2400'
         percentagePrisonersWithKeyworker == '100%'
@@ -41,5 +42,8 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
         complianceRate == '100%'
         avgNumDaysFromReceptionToAllocationDays == '-'
         avgNumDaysFromReceptionToKeyWorkingSession == '-'
+
+        then: "Should see the prisoner to key worker ratio"
+        prisonerToKeyworkerRation == '3:1'
     }
 }

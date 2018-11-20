@@ -251,3 +251,11 @@ export const setSettings = settings => ({
   supported: settings.supported,
   sequenceFrequency: settings.sequenceFrequency,
 })
+
+export const setPrisonLevelKeyworkerStats = ({ data, prisonerToKeyWorkerRatio, duration, period }) => ({
+  type: ActionTypes.SET_PRISON_LEVEL_KEY_WORKER_STATS,
+  data,
+  period,
+  duration,
+  prisonerToKeyWorkerRatio,
+})

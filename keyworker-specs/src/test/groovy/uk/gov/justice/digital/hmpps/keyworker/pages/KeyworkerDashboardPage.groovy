@@ -19,5 +19,6 @@ class KeyworkerDashboardPage extends Page {
         complianceRate { $("[data-qa='complianceRate-value']").text() }
         avgNumDaysFromReceptionToAllocationDays { $("[data-qa='avgNumDaysFromReceptionToAllocationDays-value']").text() }
         avgNumDaysFromReceptionToKeyWorkingSession { $("[data-qa='avgNumDaysFromReceptionToKeyWorkingSession-value']").text() }
+        prisonerToKeyworkerRation {  $("[data-qa='prisonerToKeyworkerRation-value']").text() }
     }
 }

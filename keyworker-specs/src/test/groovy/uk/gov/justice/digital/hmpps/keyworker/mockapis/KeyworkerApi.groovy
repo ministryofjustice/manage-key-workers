@@ -1,24 +1,13 @@
 package uk.gov.justice.digital.hmpps.keyworker.mockapis
 
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AllocatedResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AllocationsForKeyworkerResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AvailableKeyworkerResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerDetailResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerPrisonStatsResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerSearchResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.KeyworkerStatsResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.OffenderSearchResponse
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.UnallocatedResponse
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.*
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.post
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 
 class KeyworkerApi extends WireMockRule {
     KeyworkerApi() {
@@ -132,9 +121,10 @@ class KeyworkerApi extends WireMockRule {
         )
     }
 
-    void stubKeyworkerPrisonStatsResponse(AgencyLocation agencyLocation) {
+    void stubKeyworkerPrisonStatsResponse() {
+
         this.stubFor(
-                get("/key-worker-stats?prisonId=${agencyLocation.id}")
+                get(urlPathEqualTo("/key-worker-stats"))
                         .willReturn(
                         aResponse()
                                 .withBody(KeyworkerPrisonStatsResponse.response)
