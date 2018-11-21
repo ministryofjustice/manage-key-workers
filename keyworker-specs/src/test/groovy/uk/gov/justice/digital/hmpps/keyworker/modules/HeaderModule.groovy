@@ -9,6 +9,7 @@ class HeaderModule extends Module {
         username   { $('.info-wrapper .user-name').text() }
         caseload   { $('.info-wrapper .case-load').text() }
         logoutLink { $('a', text: 'Log out' ) }
+        brixtonCaseLoad { $('#menu-option-BXI')}
     }
 
     def logout() {

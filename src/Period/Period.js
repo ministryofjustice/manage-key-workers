@@ -7,14 +7,20 @@ import Header from '@govuk-react/header'
 import FilterStyled from './Period.styles'
 
 const Period = ({ duration, period, onInputChange, onButtonClick }) => (
-  <div>
+  <form>
     <Header level={3} size="SMALL">
       Select period to view
     </Header>
     <FilterStyled>
-      <Input name="duration" value={duration} onChange={e => onInputChange({ period, duration: e.target.value })} />
+      <Input
+        name="duration"
+        data-qa="keyworker-dashboard-duration"
+        value={duration}
+        onChange={e => onInputChange({ period, duration: e.target.value })}
+      />
       <Select
         name="period"
+        data-qa="keyworker-dashboard-period"
         input={{
           value: period,
           onChange: e => onInputChange({ duration, period: e.target.value }),
@@ -25,11 +31,11 @@ const Period = ({ duration, period, onInputChange, onButtonClick }) => (
         <option value="year">Yearly</option>
       </Select>
 
-      <button type="button" className="button greyButton" onClick={() => onButtonClick({ duration, period })}>
+      <button type="submit" className="button greyButton" onClick={() => onButtonClick({ duration, period })}>
         Update
       </button>
     </FilterStyled>
-  </div>
+  </form>
 )
 Period.propTypes = {
   onButtonClick: PropTypes.func.isRequired,

@@ -456,4 +456,10 @@ class Elite2Api extends WireMockRule {
                         .withBody(json)
                         .withStatus(200)))
     }
+
+    void stubSetActiveCaseload() {
+        this.stubFor(
+                put(urlPathEqualTo("/api/users/me/activeCaseLoad"))
+                        .willReturn(aResponse().withStatus(200)))
+    }
 }
