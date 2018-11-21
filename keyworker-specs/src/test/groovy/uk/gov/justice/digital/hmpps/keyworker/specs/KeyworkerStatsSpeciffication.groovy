@@ -45,7 +45,7 @@ class KeyworkerStatsSpecification extends GebReportingSpec {
         String fromDate = formatToLongDate(LocalDate.now()
                 .minus(1, ChronoUnit.MONTHS))
 
-        assert statsHeading[0].text() == String.format("Hpa-3 Auser statistics: %s to %s", fromDate, toDate)
+        assert statsHeading[0].text() == String.format("Statistics for period: %s to %s", fromDate, toDate)
 
         assert statsMapArray[0].description == "Projected sessions"
         assert statsMapArray[0].value == "0"

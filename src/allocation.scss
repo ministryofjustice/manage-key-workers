@@ -137,6 +137,10 @@ select.widthAuto {
     font-weight: bold;
 }
 
+.normal-weight {
+    font-weight: normal;
+}
+
 .blueButton {
     @include button($govuk-blue);
     min-width: 7em;

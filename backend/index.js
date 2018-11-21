@@ -4,7 +4,7 @@ require('dotenv').config()
 require('./azure-appinsights')
 const path = require('path')
 const express = require('express')
-const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
 const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
@@ -42,7 +42,6 @@ const { keyworkerPrisonStatsFactory } = require('./controllers/keyworkerPrisonSt
 
 const sessionManagementRoutes = require('./sessionManagementRoutes')
 
-const { cookieOperationsFactory } = require('./hmppsCookie')
 const tokenRefresherFactory = require('./tokenRefresher').factory
 const controllerFactory = require('./controllers/controller').factory
 
@@ -91,8 +90,6 @@ if (config.app.production) {
   config.setTestDefaults()
 }
 
-app.use(cookieParser())
-
 // Don't cache dynamic resources
 app.use(helmet.noCache())
 
@@ -138,11 +135,24 @@ const controller = controllerFactory(
 const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
 const tokenRefresher = tokenRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
-const hmppsCookieOperations = cookieOperationsFactory({
-  name: config.hmppsCookie.name,
-  domain: config.hmppsCookie.domain,
-  cookieLifetimeInMinutes: config.hmppsCookie.expiryMinutes,
-  secure: config.app.production,
+app.use(
+  cookieSession({
+    name: config.hmppsCookie.name,
+    domain: config.hmppsCookie.domain,
+    maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
+    secure: config.app.production,
+    httpOnly: true,
+    signed: false,
+    overwrite: true,
+    sameSite: 'lax',
+  })
+)
+
+// Ensure cookie session is extended (once per minute) when user interacts with the server
+app.use((req, res, next) => {
+  // eslint-disable-next-line no-param-reassign
+  req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+  next()
 })
 
 /* login, logout, hmppsCookie management, token refresh etc */
@@ -150,7 +160,6 @@ sessionManagementRoutes.configureRoutes({
   app,
   healthApi,
   oauthApi,
-  hmppsCookieOperations,
   tokenRefresher,
   mailTo: config.app.mailTo,
   homeLink: config.app.notmEndpointUrl,
