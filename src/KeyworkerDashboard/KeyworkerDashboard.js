@@ -46,6 +46,11 @@ class KeyworkerDashboard extends Component {
     dispatchLoaded(true)
   }
 
+  updateDurationAndPeriod(duration, period) {
+    const { data, prisonerToKeyWorkerRatio, dispatchStats } = this.props
+    dispatchStats({ data, prisonerToKeyWorkerRatio, duration, period })
+  }
+
   renderStatistic = statistic => (
     <Fragment key={statistic.heading}>
       <GridCol columnOneQuarter>
@@ -62,8 +67,9 @@ class KeyworkerDashboard extends Component {
         <GridRow>
           <GridCol columnTwoThirds>
             <Period
-              defaultDuration={Number(duration) || 4}
-              defaultPeriod={period || 'week'}
+              period={period}
+              duration={duration}
+              onInputChange={props => this.updateDurationAndPeriod(props.duration, props.period)}
               onButtonClick={props => this.loadStatsForPeriod(props.duration, props.period)}
             />
           </GridCol>

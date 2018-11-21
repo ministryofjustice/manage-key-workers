@@ -5,10 +5,12 @@ import Period from './Period'
 
 describe('<Period />', () => {
   it('renders without crashing', () => {
-    shallow(<Period onButtonClick={jest.fn()} defaultDuration={4} defaultPeriod="week" />)
+    shallow(<Period onButtonClick={jest.fn()} onInputChange={jest.fn()} duration={4} period="week" />)
   })
   it('should render the default duration and period', () => {
-    const tree = renderer.create(<Period onButtonClick={jest.fn()} defaultDuration={4} defaultPeriod="week" />)
+    const tree = renderer.create(
+      <Period onButtonClick={jest.fn()} onInputChange={jest.fn()} duration={4} period="week" />
+    )
     expect(tree).toMatchSnapshot()
   })
 })
