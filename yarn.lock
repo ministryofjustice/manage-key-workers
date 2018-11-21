@@ -146,16 +146,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
   integrity sha512-rLu3wcBWH4P5q1CGoSSH/i9hrXs7SlbRLkoq9IGuoPYNGQvDJ3pt/wmOM+XgYjIDRMVIdkUWt0RsfzF50JfnCw==
 
-"@govuk-react/button@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@govuk-react/button/-/button-0.3.1.tgz#b2e357ea32c39a14dc78f6305aa69c60e3f838f3"
-  integrity sha512-Wpsr8vs1B388cJHouOfdXzO4aDFN2NPe6zugAd1vPIFomWdLa7HKqgABLShNI2XW03p06cviWQI8E+c7FXY/WQ==
-  dependencies:
-    "@govuk-react/constants" "^0.3.1"
-    "@govuk-react/hoc" "^0.3.1"
-    "@govuk-react/icons" "^0.3.1"
-    govuk-colours "^1.0.3"
-
 "@govuk-react/constants@^0.2.7":
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/@govuk-react/constants/-/constants-0.2.7.tgz#0be54d90a352dde8a96a82a20b6fe778b05807f1"
