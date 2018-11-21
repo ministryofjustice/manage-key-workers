@@ -36,9 +36,9 @@ const HomePage = props => {
             )}
           <div className="pure-u-md-6-12">
             <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworker/search">
-              Update key worker availability
+              Your key workers
             </Link>
-            <div>Update a key worker&apos;s availability. Assign prisoners to another key worker.</div>
+            <div>Update a key worker&apos;s availability, re-assign their prisoners and check their statistics.</div>
           </div>
         </div>
         <div className="pure-u-md-8-12">
@@ -61,9 +61,9 @@ const HomePage = props => {
                 className="link"
                 to="/keyworkerDashboard"
               >
-                Key worker dashboard
+                Prison statistics
               </Link>
-              <div className="padding-right-large">View prison level keyworker information.</div>
+              <div className="padding-right-large">Check the key worker statistics for your establishment.</div>
             </div>
           )}
         </div>
@@ -96,7 +96,7 @@ const HomePage = props => {
               <Link id="maintain_roles_link" title="maintain access roles" className="link" to="/maintainRoles/search">
                 Manage access roles
               </Link>
-              <div className="padding-right-large">Add and remove staff roles</div>
+              <div className="padding-right-large">Add and remove staff roles.</div>
             </div>
           )}
         </div>
