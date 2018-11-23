@@ -19,8 +19,9 @@ import {
   resetValidationErrors,
 } from '../../redux/actions'
 import Spinner from '../../Spinner'
-import { stringIsInteger } from '../../stringUtils'
 import { userType } from '../../types'
+
+const INTEGER_PATTERN = /^[0-9\b]+$/
 
 class KeyworkerSettingsContainer extends Component {
   constructor() {
@@ -85,14 +86,16 @@ class KeyworkerSettingsContainer extends Component {
 
   handleCapacityChange(event) {
     const { setSettingsCapacityDispatch } = this.props
-
-    setSettingsCapacityDispatch(event.target.value)
+    if (event.target.value === '' || INTEGER_PATTERN.test(event.target.value)) {
+      setSettingsCapacityDispatch(event.target.value)
+    }
   }
 
   handleExtCapacityChange(event) {
     const { setSettingsExtCapacityDispatch } = this.props
-
-    setSettingsExtCapacityDispatch(event.target.value)
+    if (event.target.value === '' || INTEGER_PATTERN.test(event.target.value)) {
+      setSettingsExtCapacityDispatch(event.target.value)
+    }
   }
 
   handleMigratedChange(event) {
@@ -118,15 +121,7 @@ class KeyworkerSettingsContainer extends Component {
     const { resetValidationErrorsDispatch, capacity, extCapacity, setValidationErrorDispatch } = this.props
 
     resetValidationErrorsDispatch()
-    if (!stringIsInteger(capacity)) {
-      setValidationErrorDispatch('capacity', 'Please enter a number')
-      return false
-    }
-    if (!stringIsInteger(extCapacity)) {
-      setValidationErrorDispatch('extCapacity', 'Please enter a number')
-      return false
-    }
-    if (capacity > extCapacity) {
+    if (Number.parseInt(capacity, 10) > Number.parseInt(extCapacity, 10)) {
       setValidationErrorDispatch('extCapacity', 'Capacity Tier 2 must be equal to or greater than Capacity Tier 1')
       return false
     }

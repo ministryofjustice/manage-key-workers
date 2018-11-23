@@ -29,10 +29,7 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
     }
 
     def "should allow an unsupported prison to be migrated"() {
-        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
-        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
-        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        setupRoles()
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the keyworker settings page"
@@ -51,10 +48,7 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
     }
 
     def "should allow an migrated prison's key worker settings to be updated"() {
-        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
-        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
-        def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        setupRoles()
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, false)
 
         given: "I have navigated to the keyworker settings page"
@@ -63,16 +57,48 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
 
         when: "I select the save settings"
         keyworkerApi.stubManualMigrateResponse(AgencyLocation.LEI, false, false, 2, 4, 4)
-        capacity.value('4')
-        extCapacity.value('5')
+        capacity.value('8')
+        extCapacity.value('10')
         sequenceOptionOnceAFortnight.click()
         saveButton.click()
 
         then: "I remain on the key worker settings page"
         at KeyworkerSettingsPage
         messageBar.text() == 'key worker settings updated'
-        capacity.value() == '4'
-        extCapacity.value() == '5'
+        capacity.value() == '8'
+        extCapacity.value() == '10'
         sequenceFrequencySelect.value() == '2'
+    }
+
+    def "should detect validation errors"() {
+        setupRoles()
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, false)
+
+        given: "I have navigated to the keyworker settings page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        keyworkerSettingsLink.click()
+
+        when: "I enter non-numeric capacities"
+        capacity.value('ert;"£$')
+        extCapacity.value('xcv<>^&*')
+
+        then: "values are ignored"
+        capacity.value() == '3'
+        extCapacity.value() == '6'
+
+        when: "I enter incompatible capacities"
+        capacity.value('6')
+        extCapacity.value('5')
+        saveButton.click()
+
+        then: "I see a validation error"
+        errorMessage.text() == 'Capacity Tier 2 must be equal to or greater than Capacity Tier 1'
+    }
+
+    private void setupRoles() {
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
+        def roles = [MaintainAccessRolesRole, KeyworkerMigrationRole]
+        elite2api.stubGetStaffAccessRoles(roles)
     }
 }

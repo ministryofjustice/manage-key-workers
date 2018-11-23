@@ -112,6 +112,7 @@ const KeyworkerSettings = props => {
             <ValidationErrors validationErrors={validationErrors} fieldName="capacity" />
             <input
               type="text"
+              maxLength="4"
               className="form-control capacityInput"
               id="capacity"
               name="capacity"
@@ -127,6 +128,7 @@ const KeyworkerSettings = props => {
             <ValidationErrors validationErrors={validationErrors} fieldName="extCapacity" />
             <input
               type="text"
+              maxLength="4"
               className="form-control capacityInput"
               id="extCapacity"
               name="extCapacity"
