@@ -84,9 +84,8 @@ class App extends React.Component {
     const user = await axios.get('/api/me')
     const caseloads = await axios.get('/api/usercaseloads')
     const keyworkerSettings = await axios.get('/api/keyworkerSettings')
-
-    userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data })
     keyworkerSettingsDispatch(keyworkerSettings.data)
+    userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data })
   }
 
   switchCaseLoad = async newCaseload => {
@@ -94,8 +93,8 @@ class App extends React.Component {
 
     try {
       await axios.put('/api/setactivecaseload', { caseLoadId: newCaseload })
-      switchAgencyDispatch(newCaseload)
       await this.loadUserAndCaseload()
+      switchAgencyDispatch(newCaseload)
     } catch (error) {
       setErrorDispatch(error.message)
     }
@@ -159,7 +158,7 @@ class App extends React.Component {
   )
 
   render() {
-    const { boundSetMenuOpen, config, shouldShowTerms, error, allowAuto, user, message } = this.props
+    const { boundSetMenuOpen, config, shouldShowTerms, error, allowAuto, user, message, migrated } = this.props
     let innerContent
     const routes = (
       // eslint-disable-next-line
@@ -171,6 +170,7 @@ class App extends React.Component {
             render={() => (
               <HomePage
                 allowAuto={allowAuto}
+                migrated={migrated}
                 user={user}
                 config={config}
                 message={message}
@@ -182,7 +182,9 @@ class App extends React.Component {
           <Route
             exact
             path="/keyworkerDashboard"
-            render={() => <KeyworkerDashboard displayBack={this.displayBack} handleError={this.handleError} />}
+            render={() => (
+              <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
+            )}
           />
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
@@ -388,6 +390,7 @@ App.propTypes = {
   setMessageDispatch: PropTypes.func.isRequired,
   boundSetMenuOpen: PropTypes.func.isRequired,
   allowAuto: PropTypes.bool.isRequired,
+  migrated: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
 }
 
@@ -399,6 +402,7 @@ const mapStateToProps = state => ({
   shouldShowTerms: state.app.shouldShowTerms,
   menuOpen: state.app.menuOpen,
   allowAuto: state.keyworkerSettings.allowAuto,
+  migrated: state.keyworkerSettings.migrated,
 })
 
 const mapDispatchToProps = dispatch => ({

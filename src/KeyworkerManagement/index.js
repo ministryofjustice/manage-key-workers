@@ -6,13 +6,13 @@ import { getHomeLink } from '../links'
 import { userType, configType } from '../types'
 
 const HomePage = props => {
-  const { allowAuto, user, config } = props
+  const { allowAuto, user, config, migrated } = props
   const showEnableNewNomis = user && (user.maintainAccess || user.maintainAccessAdmin)
   const showMaintainRoles =
     config && config.maintainRolesEnabled === 'true' && user && (user.maintainAccess || user.maintainAccessAdmin)
   const showKeyworkerSettings = user && (user.maintainAccess || user.maintainAccessAdmin) && user.migration
   const showAdminSection = showEnableNewNomis || showKeyworkerSettings
-  const showKeyworkerDashboard = config && config.keyworkerDashboardStatsEnabled
+  const showKeyworkerDashboard = config && config.keyworkerDashboardStatsEnabled && migrated
   return (
     <div>
       <MessageBar {...props} />
@@ -110,6 +110,7 @@ HomePage.propTypes = {
   user: userType.isRequired,
   config: configType.isRequired,
   allowAuto: PropTypes.bool.isRequired,
+  migrated: PropTypes.bool.isRequired,
 }
 
 export default HomePage

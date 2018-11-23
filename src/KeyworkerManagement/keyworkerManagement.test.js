@@ -5,7 +5,7 @@ import HomePage from './index'
 const initialConfig = {
   maintainRolesEnabled: 'false',
   keyworkerProfileStatsEnabled: 'false',
-  keyworkerDashboardStatsEnabled: false,
+  keyworkerDashboardStatsEnabled: 'false',
   notmEndpointUrl: '/notm/endpoint',
   mailTo: 'email@test.com',
 }
@@ -164,5 +164,69 @@ describe('HomePage component', () => {
       <HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto={false} config={updatedConfig} />
     )
     expect(component.find('#maintain_roles_link').length).toBe(1)
+  })
+
+  it('should show the keyworker dashboard link when feature toggle on (and prison is migrated)', () => {
+    const user = {
+      writeAccess: true,
+      maintainAccessAdmin: true,
+      activeCaseLoadId: '',
+      caseLoadOptions: [],
+      expiredFlag: false,
+      firstName: 'Test',
+      lastName: 'User',
+      lockedFlag: false,
+      maintainAccess: false,
+      migration: false,
+      staffId: 1,
+      username: 'TestUser',
+    }
+    const updatedConfig = {
+      ...initialConfig,
+      keyworkerDashboardStatsEnabled: 'true',
+    }
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        migrated
+        config={updatedConfig}
+      />
+    )
+    expect(component.find('#keyworker_dashboard_link').length).toBe(1)
+  })
+
+  it('should hide the keyworker dashboard link when feature toggle on and prison is NOT migrated', () => {
+    const user = {
+      writeAccess: true,
+      maintainAccessAdmin: true,
+      activeCaseLoadId: '',
+      caseLoadOptions: [],
+      expiredFlag: false,
+      firstName: 'Test',
+      lastName: 'User',
+      lockedFlag: false,
+      maintainAccess: false,
+      migration: false,
+      staffId: 1,
+      username: 'TestUser',
+    }
+    const updatedConfig = {
+      ...initialConfig,
+      keyworkerDashboardStatsEnabled: 'true',
+    }
+    const component = shallow(
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        migrated={false}
+        config={updatedConfig}
+      />
+    )
+    expect(component.find('#keyworker_dashboard_link').length).toBe(0)
   })
 })

@@ -6,6 +6,8 @@ import GridRow from '@govuk-react/grid-row'
 import GridCol from '@govuk-react/grid-col'
 import moment from 'moment'
 
+import ReactRouterPropTypes from 'react-router-prop-types'
+import { withRouter } from 'react-router'
 import Statistic from '../Statistic/Statistic'
 import Page from '../Components/Page'
 import Period from '../Period/Period'
@@ -27,23 +29,27 @@ class KeyworkerDashboard extends Component {
   }
 
   async loadStatsForPeriod(duration, period) {
-    const { agencyId, handleError, dispatchLoaded, dispatchStats } = this.props
-    dispatchLoaded(false)
-    try {
-      const format = 'YYYY-MM-DD'
-      const fromDate = moment()
-        .subtract(duration, period)
-        .format(format)
-      const toDate = moment().format(format)
+    const { agencyId, handleError, dispatchLoaded, dispatchStats, migrated, history } = this.props
+    if (!migrated) {
+      history.push('/')
+    } else {
+      dispatchLoaded(false)
+      try {
+        const format = 'YYYY-MM-DD'
+        const fromDate = moment()
+          .subtract(duration, period)
+          .format(format)
+        const toDate = moment().format(format)
 
-      const response = await axios.get('/api/keyworker-prison-stats', { params: { agencyId, fromDate, toDate } })
-      const { stats, prisonerToKeyWorkerRatio } = response.data
+        const response = await axios.get('/api/keyworker-prison-stats', { params: { agencyId, fromDate, toDate } })
+        const { stats, prisonerToKeyWorkerRatio } = response.data
 
-      dispatchStats({ data: stats, prisonerToKeyWorkerRatio, duration, period })
-    } catch (error) {
-      handleError(error)
+        dispatchStats({ data: stats, prisonerToKeyWorkerRatio, duration, period })
+      } catch (error) {
+        handleError(error)
+      }
+      dispatchLoaded(true)
     }
-    dispatchLoaded(true)
   }
 
   updateDurationAndPeriod(duration, period) {
@@ -101,6 +107,8 @@ KeyworkerDashboard.propTypes = {
   agencyId: PropTypes.string.isRequired,
   displayBack: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  migrated: PropTypes.bool.isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -117,9 +125,10 @@ const mapStateToProps = state => ({
   activeCaseLoad: state.app.user.caseLoadOptions.filter(
     caseLoad => caseLoad.caseLoadId === state.app.user.activeCaseLoadId
   )[0].description,
+  migrated: state.keyworkerSettings.migrated,
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(KeyworkerDashboard)
+)(withRouter(KeyworkerDashboard))
