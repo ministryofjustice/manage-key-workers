@@ -22,6 +22,7 @@ public class KeyworkerSettingsPage extends Page {
         sequenceFrequencySelect { $('#frequency-select')}
         sequenceOptionOnceAFortnight { $('#option_once_a_fortnight')}
         messageBar(required: false) { $('div #messageBar')}
+        errorMessage(required: false) { $('span.error-message')}
     }
 
 }
