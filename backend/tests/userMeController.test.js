@@ -47,6 +47,7 @@ describe('userMe controller', () => {
     expect(data).toEqual({
       ...staff1,
       writeAccess: false,
+      prisonMigrated: false,
     })
   })
   it('should have writeAccess when the user has the key worker admin role', async () => {
@@ -68,6 +69,7 @@ describe('userMe controller', () => {
     expect(data).toEqual({
       ...staff1,
       writeAccess: true,
+      prisonMigrated: true,
     })
   })
   it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
@@ -92,6 +94,7 @@ describe('userMe controller', () => {
     expect(data).toEqual({
       ...staff1,
       writeAccess: false,
+      prisonMigrated: false,
     })
   })
 })

@@ -23,6 +23,7 @@ const userMeFactory = (elite2Api, keyworkerApi) => {
       migration: hasKwMigrationRole,
       maintainAccess: hasMaintainAccessRolesRole,
       maintainAccessAdmin: hasMaintainAccessRolesAdminRole,
+      prisonMigrated: Boolean(prisonStatus.migrated),
     }
   }
   const userMe = asyncMiddleware(async (req, res) => {
