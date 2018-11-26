@@ -6,7 +6,7 @@ import uk.gov.justice.digital.hmpps.keyworker.modules.ErrorsModule
 
 class LoginPage extends Page {
 
-    static url = 'auth/login'
+    static url = 'login'
 
     static at = {
         title == 'Key worker mgt'
