@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Input from '@govuk-react/input'
-import Select from '@govuk-react/select'
+import { SelectInput } from '@govuk-react/select'
 import Header from '@govuk-react/header'
 
 import FilterStyled from './Period.styles'
@@ -18,7 +18,7 @@ const Period = ({ duration, period, onInputChange, onButtonClick }) => (
         value={duration}
         onChange={e => onInputChange({ period, duration: e.target.value })}
       />
-      <Select
+      <SelectInput
         name="period"
         data-qa="keyworker-dashboard-period"
         input={{
@@ -29,7 +29,7 @@ const Period = ({ duration, period, onInputChange, onButtonClick }) => (
         <option value="week">Weekly</option>
         <option value="month">Monthly</option>
         <option value="year">Yearly</option>
-      </Select>
+      </SelectInput>
 
       <button type="submit" className="button greyButton" onClick={() => onButtonClick({ duration, period })}>
         Update
