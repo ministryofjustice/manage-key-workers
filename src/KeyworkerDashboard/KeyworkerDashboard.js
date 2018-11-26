@@ -71,7 +71,7 @@ class KeyworkerDashboard extends Component {
       <Page title={`Key worker statistics - ${activeCaseLoad}`}>
         <hr />
         <GridRow>
-          <GridCol columnTwoThirds>
+          <GridCol>
             <Period
               period={period}
               duration={duration}
@@ -79,9 +79,7 @@ class KeyworkerDashboard extends Component {
               onButtonClick={props => this.loadStatsForPeriod(props.duration, props.period)}
             />
           </GridCol>
-          <GridCol />
-          <GridCol />
-          <GridCol>
+          <GridCol columnOneQuarter>
             <RatioHeader level={3} size="SMALL">
               Prisoner to key worker ratio
             </RatioHeader>

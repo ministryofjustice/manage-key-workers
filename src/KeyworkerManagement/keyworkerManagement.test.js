@@ -5,7 +5,7 @@ import HomePage from './index'
 const initialConfig = {
   maintainRolesEnabled: 'false',
   keyworkerProfileStatsEnabled: 'false',
-  keyworkerDashboardStatsEnabled: 'false',
+  keyworkerDashboardStatsEnabled: false,
   notmEndpointUrl: '/notm/endpoint',
   mailTo: 'email@test.com',
 }
@@ -27,7 +27,14 @@ describe('HomePage component', () => {
       username: 'TestUser',
     }
     const component = shallow(
-      <HomePage message="Hello!" config={initialConfig} clearMessage={jest.fn()} user={user} allowAuto />
+      <HomePage
+        message="Hello!"
+        config={initialConfig}
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto
+        migrated={false}
+      />
     )
     expect(component.find('#auto_allocate_link').length).toBe(1)
     expect(component.find('#keyworker_profile_link').length).toBe(1)
@@ -49,7 +56,14 @@ describe('HomePage component', () => {
       username: 'TestUser',
     }
     const component = shallow(
-      <HomePage message="Hello!" clearMessage={jest.fn()} config={initialConfig} user={user} allowAuto={false} />
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        config={initialConfig}
+        user={user}
+        allowAuto={false}
+        migrated={false}
+      />
     )
     expect(component.find('#auto_allocate_link').length).toBe(0)
   })
@@ -69,7 +83,14 @@ describe('HomePage component', () => {
       username: 'TestUser',
     }
     const component = shallow(
-      <HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto config={initialConfig} />
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto
+        config={initialConfig}
+        migrated={false}
+      />
     )
     expect(component.find('#auto_allocate_link').length).toBe(1)
   })
@@ -89,7 +110,14 @@ describe('HomePage component', () => {
       username: 'TestUser',
     }
     const component = shallow(
-      <HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto={false} config={initialConfig} />
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={initialConfig}
+        migrated={false}
+      />
     )
     expect(component.find('#auto_allocate_link').length).toBe(0)
   })
@@ -113,7 +141,14 @@ describe('HomePage component', () => {
       maintainRolesEnabled: 'false',
     }
     const component = shallow(
-      <HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto={false} config={updatedConfig} />
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={updatedConfig}
+        migrated={false}
+      />
     )
     expect(component.find('#maintain_roles_link').length).toBe(0)
   })
@@ -137,7 +172,14 @@ describe('HomePage component', () => {
       maintainRolesEnabled: 'true',
     }
     const component = shallow(
-      <HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto={false} config={updatedConfig} />
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={updatedConfig}
+        migrated={false}
+      />
     )
     expect(component.find('#maintain_roles_link').length).toBe(1)
   })
@@ -161,7 +203,14 @@ describe('HomePage component', () => {
       maintainRolesEnabled: 'true',
     }
     const component = shallow(
-      <HomePage message="Hello!" clearMessage={jest.fn()} user={user} allowAuto={false} config={updatedConfig} />
+      <HomePage
+        message="Hello!"
+        clearMessage={jest.fn()}
+        user={user}
+        allowAuto={false}
+        config={updatedConfig}
+        migrated={false}
+      />
     )
     expect(component.find('#maintain_roles_link').length).toBe(1)
   })
@@ -183,7 +232,7 @@ describe('HomePage component', () => {
     }
     const updatedConfig = {
       ...initialConfig,
-      keyworkerDashboardStatsEnabled: 'true',
+      keyworkerDashboardStatsEnabled: true,
     }
     const component = shallow(
       <HomePage
@@ -215,7 +264,7 @@ describe('HomePage component', () => {
     }
     const updatedConfig = {
       ...initialConfig,
-      keyworkerDashboardStatsEnabled: 'true',
+      keyworkerDashboardStatsEnabled: true,
     }
     const component = shallow(
       <HomePage
