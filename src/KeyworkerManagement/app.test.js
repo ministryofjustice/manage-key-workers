@@ -50,6 +50,7 @@ describe('App component', () => {
         keyworkerSettingsDispatch={jest.fn()}
         message=""
         allowAuto={false}
+        migrated={false}
       />
     )
     const appInstance = component.instance()
@@ -95,6 +96,7 @@ describe('App component', () => {
         keyworkerSettingsDispatch={jest.fn()}
         message=""
         allowAuto={false}
+        migrated={false}
       />
     )
     const appInstance = component.instance()
@@ -135,6 +137,7 @@ describe('App component', () => {
         keyworkerSettingsDispatch={jest.fn()}
         message=""
         allowAuto={false}
+        migrated={false}
       />
     )
 

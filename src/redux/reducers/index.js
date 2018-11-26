@@ -118,6 +118,13 @@ const maintainRolesInitialState = {
   },
 }
 
+const prisonLevelKeyWorkerStatsDashboardInitialState = {
+  data: [],
+  prisonerToKeyWorkerRatio: 0,
+  duration: 4,
+  period: 'week',
+}
+
 function updateObject(oldObject, newValues) {
   return Object.assign({}, oldObject, newValues)
 }
@@ -433,7 +440,7 @@ export function allocationHistory(state = allocationHistoryInitialState, action)
   }
 }
 
-export function prisonLevelKeyWorkerStatsDashboard(state = { data: [], prisonerToKeyWorkerRatio: 0 }, action) {
+export function prisonLevelKeyWorkerStatsDashboard(state = prisonLevelKeyWorkerStatsDashboardInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_PRISON_LEVEL_KEY_WORKER_STATS:
       return {
