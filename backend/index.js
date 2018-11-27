@@ -217,9 +217,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 
-const port = process.env.PORT || 3001
-
-app.listen(port, () => {
+app.listen(config.app.port, () => {
   // eslint-disable-next-line no-console
-  console.log('Backend running on port', port)
+  console.log('Backend running on port', config.app.port)
 })
