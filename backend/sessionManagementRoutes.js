@@ -1,6 +1,7 @@
 const passport = require('passport')
 const logger = require('./log')
 const contextProperties = require('./contextProperties')
+const config = require('./config')
 
 const isXHRRequest = req =>
   req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1) || (req.path && req.path.endsWith('.js'))
@@ -15,6 +16,10 @@ const isXHRRequest = req =>
  * @param homeLink The URL for the home page.
  */
 const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) => {
+  const authLogoutUrl = config.app.remoteAuthStrategy
+    ? `${config.apis.oauth2.ui_url}/logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
+    : '/login'
+
   const loginIndex = async (req, res) => {
     const isApiUp = await healthApi.isUp()
     logger.info(`loginIndex - health check called and isApiUp = ${isApiUp}`)
@@ -23,6 +28,8 @@ const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) =
     const authErrorText = (authError && errors[0]) || ''
     res.render('login', { authError, authErrorText, apiUp: isApiUp, mailTo, homeLink })
   }
+
+  const remoteLoginIndex = passport.authenticate('oauth2')
 
   const login = (req, res) =>
     passport.authenticate('local', {
@@ -35,7 +42,7 @@ const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) =
     req.logout()
     // eslint-disable-next-line no-param-reassign
     req.session = null
-    res.redirect('/login')
+    res.redirect(authLogoutUrl)
   }
 
   /**
@@ -96,8 +103,21 @@ const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) =
     res.redirect('/login')
   }
 
-  app.get('/login', loginMiddleware, loginIndex)
-  app.post('/login', login)
+  app.get('/login', loginMiddleware, config.app.remoteAuthStrategy ? remoteLoginIndex : loginIndex)
+  if (!config.app.remoteAuthStrategy) app.post('/login', login)
+  app.get(
+    '/login/callback',
+    passport.authenticate('oauth2', { successReturnToOrRedirect: '/', failureRedirect: '/autherror' })
+  )
+  app.get('/autherror', (req, res) => {
+    res.status(401)
+    return res.render('pages/autherror', {
+      authURL: authLogoutUrl,
+      mailTo,
+      homeLink,
+    })
+  })
+
   app.get('/auth/logout', logout)
   app.get('/logout', (req, res) => {
     res.redirect('/auth/logout')
