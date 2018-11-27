@@ -7,18 +7,18 @@ const keyworkerPrisonStatsFactory = keyworkerApi => {
   const createPayload = (current, previous) => {
     const items = {
       numberOfActiveKeyworkers: { heading: 'Total number of active key workers' },
-      numberKeyWorkerSessions: { heading: 'Number of recorded key worker sessions' },
       percentagePrisonersWithKeyworker: {
         heading: 'Percentage of prisoners with allocated key worker',
         type: 'percentage',
       },
-      numProjectedKeyworkerSessions: { heading: 'Number of projected key worker sessions' },
-      complianceRate: { heading: 'Compliance rate', type: 'percentage' },
       avgNumDaysFromReceptionToAllocationDays: { heading: 'Average time from reception to allocation', type: 'day' },
       avgNumDaysFromReceptionToKeyWorkingSession: {
         heading: 'Average time from reception to first session',
         type: 'day',
       },
+      numProjectedKeyworkerSessions: { heading: 'Number of projected key worker sessions' },
+      numberKeyWorkerSessions: { heading: 'Number of recorded key worker sessions' },
+      complianceRate: { heading: 'Compliance rate', type: 'percentage' },
     }
 
     return Object.entries(items).map(([key, val]) => ({
