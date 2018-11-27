@@ -147,7 +147,8 @@ app.use(
     maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
     secure: config.app.production,
     httpOnly: true,
-    signed: false,
+    signed: true,
+    keys: [config.hmppsCookie.sessionSecret],
     overwrite: true,
     sameSite: 'lax',
   })
