@@ -89,14 +89,14 @@ class App extends React.Component {
   }
 
   switchCaseLoad = async newCaseload => {
-    const { switchAgencyDispatch, setErrorDispatch } = this.props
+    const { switchAgencyDispatch } = this.props
 
     try {
       await axios.put('/api/setactivecaseload', { caseLoadId: newCaseload })
       await this.loadUserAndCaseload()
       switchAgencyDispatch(newCaseload)
     } catch (error) {
-      setErrorDispatch(error.message)
+      this.handleError(error)
     }
   }
 
