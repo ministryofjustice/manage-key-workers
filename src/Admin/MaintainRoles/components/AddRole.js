@@ -13,7 +13,7 @@ const AddRole = ({
   validationErrors,
   roleFilter,
   roleFilterList,
-  handleRoleFilterChange,
+  handleRoleAddChange,
   roleList,
   handleAdd,
 }) => {
@@ -40,7 +40,7 @@ const AddRole = ({
       name="role-select"
       className="widthAuto form-control"
       value={roleFilter}
-      onChange={handleRoleFilterChange}
+      onChange={handleRoleAddChange}
     >
       <option key="choose" value="--">
         -- Select --
@@ -110,7 +110,7 @@ const AddRole = ({
 
 AddRole.propTypes = {
   roleFilter: PropTypes.string.isRequired,
-  handleRoleFilterChange: PropTypes.func.isRequired,
+  handleRoleAddChange: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
   roleFilterList: roleFilterListType.isRequired,

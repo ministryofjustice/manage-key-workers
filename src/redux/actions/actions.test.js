@@ -402,6 +402,14 @@ describe('actions', () => {
     expect(actions.setMaintainRolesRoleFilter('aField')).toEqual(expectedAction)
   })
 
+  it('should create an action to save a maintain roles add role', () => {
+    const expectedAction = {
+      type: types.SET_USER_SEARCH_ROLE_ADD,
+      roleAdd: 'aField',
+    }
+    expect(actions.setMaintainRolesRoleAdd('aField')).toEqual(expectedAction)
+  })
+
   it('should create an action to set the keyworker stats', () => {
     const stats = {}
     const expectedAction = {

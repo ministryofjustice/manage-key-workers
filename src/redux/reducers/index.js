@@ -103,6 +103,7 @@ const maintainRolesInitialState = {
   userList: [],
   nameFilter: '',
   roleFilter: '',
+  roleAdd: '',
   pageNumber: 0,
   pageSize: 10,
   totalRecords: 0,
@@ -386,6 +387,11 @@ export function maintainRoles(state = maintainRolesInitialState, action) {
       return {
         ...state,
         roleFilter: action.roleFilter,
+      }
+    case ActionTypes.SET_USER_SEARCH_ROLE_ADD:
+      return {
+        ...state,
+        roleAdd: action.roleAdd,
       }
     case ActionTypes.SET_USER_SEARCH_RESULTS_LIST:
       return {
