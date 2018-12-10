@@ -222,6 +222,11 @@ export const setMaintainRolesRoleFilter = roleFilter => ({
   roleFilter,
 })
 
+export const setMaintainRolesRoleAdd = roleAdd => ({
+  type: ActionTypes.SET_USER_SEARCH_ROLE_ADD,
+  roleAdd,
+})
+
 export const setMaintainRolesUserPageNumber = pageNumber => ({
   type: ActionTypes.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
   pageNumber,

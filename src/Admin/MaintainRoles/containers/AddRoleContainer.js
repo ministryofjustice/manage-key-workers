@@ -8,7 +8,7 @@ import Error from '../../../Error'
 import {
   setError,
   resetError,
-  setMaintainRolesRoleFilter,
+  setMaintainRolesRoleAdd,
   setMessage,
   setMaintainRolesUserContextUser,
   setMaintainRolesRoleFilterList,
@@ -27,7 +27,7 @@ class AddRoleContainer extends Component {
     props.resetErrorDispatch()
     this.handleAdd = this.handleAdd.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
-    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this)
+    this.handleRoleAddChange = this.handleRoleAddChange.bind(this)
     props.resetValidationErrorsDispatch()
   }
 
@@ -55,10 +55,10 @@ class AddRoleContainer extends Component {
     }
   }
 
-  handleRoleFilterChange = event => {
-    const { setRoleFilterDispatch } = this.props
+  handleRoleAddChange = event => {
+    const { setRoleAddDispatch } = this.props
 
-    setRoleFilterDispatch(event.target.value)
+    setRoleAddDispatch(event.target.value)
   }
 
   handleCancel = (e, history) => {
@@ -68,7 +68,7 @@ class AddRoleContainer extends Component {
   }
 
   async handleAdd(event, history) {
-    const { contextUser, agencyId, roleFilter, setMessageDispatch, handleError } = this.props
+    const { contextUser, agencyId, roleAdd, setMessageDispatch, handleError } = this.props
 
     if (!this.validate()) return
 
@@ -77,7 +77,7 @@ class AddRoleContainer extends Component {
         params: {
           username: contextUser.username,
           agencyId,
-          roleCode: roleFilter,
+          roleCode: roleAdd,
         },
       })
       // await this.getUserRoles();
@@ -104,10 +104,10 @@ class AddRoleContainer extends Component {
   }
 
   validate() {
-    const { resetValidationErrorsDispatch, setValidationErrorDispatch, roleFilter } = this.props
+    const { resetValidationErrorsDispatch, setValidationErrorDispatch, roleAdd } = this.props
 
     resetValidationErrorsDispatch()
-    if (isBlank(roleFilter)) {
+    if (isBlank(roleAdd)) {
       setValidationErrorDispatch('role-select', 'Please select a role')
       return false
     }
@@ -124,7 +124,7 @@ class AddRoleContainer extends Component {
         <AddRole
           handleAdd={this.handleAdd}
           handleCancel={this.handleCancel}
-          handleRoleFilterChange={this.handleRoleFilterChange}
+          handleRoleAddChange={this.handleRoleAddChange}
           {...this.props}
         />
       )
@@ -135,12 +135,12 @@ class AddRoleContainer extends Component {
 AddRoleContainer.propTypes = {
   error: PropTypes.string.isRequired,
   user: userType.isRequired,
-  roleFilter: PropTypes.string.isRequired,
+  roleAdd: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   roleFilterList: roleFilterListType.isRequired,
   roleList: roleListType.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
-  setRoleFilterDispatch: PropTypes.func.isRequired,
+  setRoleAddDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   contextUser: contextUserType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
@@ -156,7 +156,7 @@ const mapStateToProps = state => ({
   contextUser: state.maintainRoles.contextUser,
   roleFilterList: state.maintainRoles.roleFilterList,
   roleList: state.maintainRoles.roleList,
-  roleFilter: state.maintainRoles.roleFilter,
+  roleAdd: state.maintainRoles.roleAdd,
   validationErrors: state.app.validationErrors,
   loaded: state.app.loaded,
 })
@@ -164,7 +164,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
-  setRoleFilterDispatch: filter => dispatch(setMaintainRolesRoleFilter(filter)),
+  setRoleAddDispatch: filter => dispatch(setMaintainRolesRoleAdd(filter)),
   roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
   setMessageDispatch: message => dispatch(setMessage(message)),
   contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),

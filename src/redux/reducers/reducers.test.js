@@ -88,6 +88,7 @@ const maintainRolesInitialState = {
   userList: [],
   nameFilter: '',
   roleFilter: '',
+  roleAdd: '',
   pageNumber: 0,
   pageSize: 10,
   totalRecords: 0,
@@ -841,6 +842,17 @@ describe('Maintain roles reducer', () => {
       maintainRoles(maintainRolesInitialState, {
         type: types.SET_USER_SEARCH_ROLE_FILTER,
         roleFilter: 'newRole',
+      })
+    ).toEqual(updatedMaintainRoles)
+  })
+
+  it('should handle SET_USER_SEARCH_ROLE_ADD', () => {
+    const updatedMaintainRoles = maintainRolesInitialState
+    updatedMaintainRoles.roleAdd = 'newRole'
+    expect(
+      maintainRoles(maintainRolesInitialState, {
+        type: types.SET_USER_SEARCH_ROLE_ADD,
+        roleAdd: 'newRole',
       })
     ).toEqual(updatedMaintainRoles)
   })
