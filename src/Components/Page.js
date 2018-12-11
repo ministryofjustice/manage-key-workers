@@ -7,6 +7,8 @@ import Error from '../Error'
 import Spinner from '../Spinner'
 import { Container, Breadcrumbs } from './Page.styles'
 import { childrenType } from '../types'
+// import BreadcrumbTrail from '../BreadcrumbTrail'
+import Breadcrumb from './Breadcrumb'
 
 const Page = ({ error, loaded, title, children }) => {
   if (error) return <Error error={error} />
@@ -14,11 +16,7 @@ const Page = ({ error, loaded, title, children }) => {
   if (loaded) {
     return (
       <Fragment>
-        <Breadcrumbs>
-          <Link id="back_to_menu_link" title="Back to menu link" className="link backlink" to="/">
-            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-          </Link>
-        </Breadcrumbs>
+        <Breadcrumb />
         <Container>
           <Header level={1} size="LARGE">
             {title}
