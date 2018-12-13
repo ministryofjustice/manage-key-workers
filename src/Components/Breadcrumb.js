@@ -6,13 +6,9 @@ import links from '../links'
 import { BreadcrumbContainer, BreadcrumbList, BreadcrumbListItem } from './Breadcrumb.styles'
 import { routeMatchType } from '../types'
 
-// breadcrumbs can be any type of component or string
-const UserBreadcrumb = ({ match }) => <span>{match.params.userId}</span> // use match param userId to fetch/display user name
-
-// define some custom breadcrumbs for certain routes (optional)
+// This needs to be put into a centralised route config that is also used in App.js
+// See: https://reacttraining.com/react-router/web/example/route-config
 const routes = [
-  { path: '/users/:userId', breadcrumb: UserBreadcrumb },
-  { path: '/example', breadcrumb: 'Custom Example' },
   { path: '/', breadcrumb: 'Manage key workers' },
   { path: '/unallocated', breadcrumb: 'Auto-allocate key workers' },
   { path: '/unallocated/provisional-allocation', breadcrumb: 'Suggested key worker allocation' },
@@ -52,10 +48,6 @@ const Breadcrumb = ({ breadcrumbs, match }) => (
     </BreadcrumbList>
   </BreadcrumbContainer>
 )
-
-UserBreadcrumb.propTypes = {
-  match: routeMatchType.isRequired,
-}
 
 Breadcrumb.propTypes = {
   breadcrumbs: PropTypes.arrayOf(PropTypes.object).isRequired,
