@@ -3,7 +3,7 @@ const links = {
   getOffenderLink: offenderNo => `${links.notmEndpointUrl}offenders/${offenderNo}/quick-look`,
   getHomeLink: () => `${links.notmEndpointUrl}`,
   getStaffLink: staffId => `/keyworker/${staffId}`,
-  getKeyWorkerHistoryLink: offenderNo => `/offender/${offenderNo}/history`,
+  getKeyWorkerHistoryLink: offenderNo => `/offender-history/${offenderNo}`,
 }
 
 module.exports = links

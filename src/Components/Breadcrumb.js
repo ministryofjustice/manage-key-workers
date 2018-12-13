@@ -19,7 +19,9 @@ const routes = [
   { path: '/keyworker-statistics', breadcrumb: 'Key worker statistics' },
   { path: '/keyworker-search', breadcrumb: 'Search for a key worker' },
   { path: '/keyworker', breadcrumb: null },
-  { path: '/keyworker/:userId', breadcrumb: 'Key worker profile' },
+  { path: '/keyworker/:staffId', breadcrumb: 'Key worker profile' },
+  { path: '/offender-history', breadcrumb: null },
+  { path: '/offender-history/:offenderId', breadcrumb: 'Offender key worker allocation history' },
 ]
 
 const Breadcrumb = ({ breadcrumbs, match }) => (

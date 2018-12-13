@@ -208,7 +208,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/offender/:offenderNo/history"
+            path="/offender-history/:offenderNo"
             render={() => (
               <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
             )}

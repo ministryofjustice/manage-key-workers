@@ -5,8 +5,7 @@ import { withRouter } from 'react-router'
 import axios from 'axios'
 import { setAllocationHistory, setLoaded } from '../../redux/actions'
 import AllocationHistory from '../components/AllocationHistory'
-import Error from '../../Error'
-import Spinner from '../../Spinner'
+import Page from '../../Components/Page'
 
 class AllocationHistoryContainer extends Component {
   constructor(props) {
@@ -37,13 +36,11 @@ class AllocationHistoryContainer extends Component {
   }
 
   render() {
-    const { error, loaded } = this.props
-
-    if (error) return <Error {...this.props} />
-
-    if (loaded) return <AllocationHistory {...this.props} />
-
-    return <Spinner />
+    return (
+      <Page title="Offender key worker allocation history">
+        <AllocationHistory {...this.props} />
+      </Page>
+    )
   }
 }
 

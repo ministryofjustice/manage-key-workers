@@ -84,9 +84,6 @@ class AllocationHistory extends Component {
       <div>
         <MessageBar {...this.props} />
         <div className="pure-g padding-top padding-bottom-large">
-          <div className="pure-u-md-8-12 padding-top">
-            <h1 className="heading-large margin-top">Key worker allocation history</h1>
-          </div>
           <div className="padding-top">
             <div className="pure-u-md-5-12">
               <div className="pure-u-md-5-12">
