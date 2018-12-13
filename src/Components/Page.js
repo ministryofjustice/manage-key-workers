@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Header from '@govuk-react/header'
@@ -8,23 +8,40 @@ import { Container } from './Page.styles'
 import { childrenType } from '../types'
 import Breadcrumb from './Breadcrumb'
 
-const Page = ({ error, loaded, title, children, alwaysRender }) => {
-  if (loaded || error) {
-    return (
-      <Fragment>
-        <Breadcrumb />
-        <Container>
-          <Header level={1} size="LARGE">
-            {title}
-          </Header>
-          {error && <Error error={error} />}
-          {(!error || alwaysRender) && <div>{children}</div>}
-        </Container>
-      </Fragment>
-    )
+class Page extends Component {
+  componentDidMount() {
+    const { title } = this.props
+    this.renderTitleString(title)
   }
 
-  return <Spinner />
+  componentWillUpdate(nextProps) {
+    this.renderTitleString(nextProps.title)
+  }
+
+  renderTitleString = title => {
+    document.title = `${title} | Key worker | Prison NOMIS`
+  }
+
+  render() {
+    const { error, loaded, title, children, alwaysRender } = this.props
+
+    if (loaded || error) {
+      return (
+        <Fragment>
+          <Breadcrumb />
+          <Container>
+            <Header level={1} size="LARGE">
+              {title}
+            </Header>
+            {error && <Error error={error} />}
+            {(!error || alwaysRender) && <div>{children}</div>}
+          </Container>
+        </Fragment>
+      )
+    }
+
+    return <Spinner />
+  }
 }
 
 Page.propTypes = {
