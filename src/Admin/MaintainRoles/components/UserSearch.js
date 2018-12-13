@@ -12,7 +12,6 @@ const UserSearch = ({
   handleNameFilterChange,
   history,
   handleSearch,
-  displayBack,
 }) => {
   const roleListOptions = roleFilterList
     ? roleFilterList.map(role => (
@@ -39,12 +38,8 @@ const UserSearch = ({
 
   return (
     <div className="padding-bottom-large">
-      {displayBack()}
       <div className="pure-g">
         <div className="pure-u-md-11-12 ">
-          <h1 className="heading-large margin-top" id="page-title">
-            Search for staff member
-          </h1>
           <div>
             <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
               <div className="pure-u-md-4-12">
@@ -91,7 +86,6 @@ UserSearch.propTypes = {
   handleNameFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   roleFilterList: roleFilterListType.isRequired,
-  displayBack: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }
 

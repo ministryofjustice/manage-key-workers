@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import axios from 'axios'
 import { withRouter } from 'react-router'
-import Error from '../../../Error'
 import {
   setError,
   resetError,
@@ -17,9 +16,9 @@ import {
   setLoaded,
 } from '../../../redux/actions/index'
 import { AddRole } from '../components/AddRole'
-import { isBlank } from '../../../stringUtils'
-import Spinner from '../../../Spinner'
+import { isBlank, properCaseName } from '../../../stringUtils'
 import { roleFilterListType, roleListType, userType, contextUserType } from '../../../types'
+import Page from '../../../Components/Page'
 
 class AddRoleContainer extends Component {
   constructor(props) {
@@ -115,20 +114,20 @@ class AddRoleContainer extends Component {
   }
 
   render() {
-    const { error, loaded } = this.props
+    const { contextUser } = this.props
+    const formattedName =
+      contextUser && `${properCaseName(contextUser.firstName)} ${properCaseName(contextUser.lastName)}`
 
-    if (error) return <Error {...this.props} />
-
-    if (loaded)
-      return (
+    return (
+      <Page title={`Add staff role: ${formattedName}`}>
         <AddRole
           handleAdd={this.handleAdd}
           handleCancel={this.handleCancel}
           handleRoleAddChange={this.handleRoleAddChange}
           {...this.props}
         />
-      )
-    return <Spinner />
+      </Page>
+    )
   }
 }
 

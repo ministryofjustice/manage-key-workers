@@ -14,10 +14,9 @@ import {
   setLoaded,
   setMaintainRolesUserPageNumber,
 } from '../../../redux/actions/index'
-import Error from '../../../Error'
 import UserSearchResults from '../components/UserSearchResults'
-import Spinner from '../../../Spinner'
 import { userType, configType } from '../../../types'
+import Page from '../../../Components/Page'
 
 class UserSearchContainer extends Component {
   constructor(props) {
@@ -119,16 +118,12 @@ class UserSearchContainer extends Component {
   async handleEdit(event, history) {
     const { userList } = this.props
     const chosenUser = userList[event.target.value]
-    history.push(`/maintainRoles/${chosenUser.username}/profile`)
+    history.push(`/maintain-roles/${chosenUser.username}/roles`)
   }
 
   render() {
-    const { error, loaded } = this.props
-
-    if (error) return <Error {...this.props} />
-
-    if (loaded)
-      return (
+    return (
+      <Page title="Search for staff member results">
         <UserSearchResults
           handleRoleFilterChange={this.handleRoleFilterChange}
           handleNameFilterChange={this.handleNameFilterChange}
@@ -137,9 +132,8 @@ class UserSearchContainer extends Component {
           handleEdit={this.handleEdit}
           {...this.props}
         />
-      )
-
-    return <Spinner />
+      </Page>
+    )
   }
 }
 

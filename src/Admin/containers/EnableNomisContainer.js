@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import EnableNomis from '../components/EnableNomis'
-import Error from '../../Error'
 import { setLoaded, setMessage } from '../../redux/actions'
-import Spinner from '../../Spinner'
+import Page from '../../Components/Page'
 
 class EnableNomisContainer extends Component {
   componentWillMount() {
@@ -42,13 +41,11 @@ class EnableNomisContainer extends Component {
   }
 
   render() {
-    const { error, loaded } = this.props
-
-    if (error) return <Error {...this.props} />
-
-    if (loaded) return <EnableNomis handleEnable={this.handleEnable} handleCancel={this.handleCancel} {...this.props} />
-
-    return <Spinner />
+    return (
+      <Page title="Give access to New NOMIS">
+        <EnableNomis handleEnable={this.handleEnable} handleCancel={this.handleCancel} {...this.props} />
+      </Page>
+    )
   }
 }
 

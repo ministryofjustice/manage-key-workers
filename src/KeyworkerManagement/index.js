@@ -75,7 +75,7 @@ class HomePage extends Component {
             )}
             {showEnableNewNomis && (
               <div className="pure-u-md-6-12">
-                <Link id="enable_new_nomis_link" title="Enable Nomis" className="link" to="/admin/nomis/access">
+                <Link id="enable_new_nomis_link" title="Enable Nomis" className="link" to="/give-nomis-access">
                   Give access to New NOMIS
                 </Link>
                 <div className="padding-right-large">Allow prisons to use New NOMIS. Add new prison staff.</div>
@@ -83,7 +83,12 @@ class HomePage extends Component {
             )}
             {showKeyworkerSettings && (
               <div className="pure-u-md-5-12">
-                <Link id="keyworker_settings_link" title="Key worker settings" className="link" to="/admin/settings">
+                <Link
+                  id="keyworker_settings_link"
+                  title="Key worker settings"
+                  className="link"
+                  to="/manage-keyworker-settings"
+                >
                   Manage key worker settings
                 </Link>
                 <div className="padding-right-large">
@@ -93,12 +98,7 @@ class HomePage extends Component {
             )}
             {showMaintainRoles && (
               <div className="pure-u-md-5-12">
-                <Link
-                  id="maintain_roles_link"
-                  title="maintain access roles"
-                  className="link"
-                  to="/maintainRoles/search"
-                >
+                <Link id="maintain_roles_link" title="Manage access roles" className="link" to="/maintain-roles">
                   Manage access roles
                 </Link>
                 <div className="padding-right-large">Add and remove staff roles.</div>

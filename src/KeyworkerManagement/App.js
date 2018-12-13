@@ -208,6 +208,18 @@ class App extends React.Component {
           />
           <Route
             exact
+            path="/offender-search/results"
+            render={() => (
+              <AssignTransferContainer
+                onFinishAllocation={this.onFinishAllocation}
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
+          <Route
+            exact
             path="/offender-history/:offenderNo"
             render={() => (
               <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
@@ -263,24 +275,12 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/offender-search/results"
-            render={() => (
-              <AssignTransferContainer
-                onFinishAllocation={this.onFinishAllocation}
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin/nomis/access"
+            path="/give-nomis-access"
             render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/admin/settings"
+            path="/manage-keyworker-settings"
             render={() => (
               <KeyworkerSettingsContainer
                 displayBack={this.displayBack}
@@ -291,7 +291,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/search"
+            path="/maintain-roles"
             render={() => (
               <UserSearchContainer
                 displayBack={this.displayBack}
@@ -302,7 +302,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/results"
+            path="/maintain-roles/search-results"
             render={() => (
               <UserSearchResultsContainer
                 displayBack={this.displayBack}
@@ -313,7 +313,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/:username/profile"
+            path="/maintain-roles/:username/roles"
             render={() => (
               <StaffRoleProfileContainer
                 displayBack={this.displayBack}
@@ -324,7 +324,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/:username/addRole"
+            path="/maintain-roles/:username/roles/add-role"
             render={() => (
               <AddRoleContainer
                 displayBack={this.displayBack}

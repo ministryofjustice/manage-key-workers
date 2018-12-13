@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
-import { properCaseName } from '../../../stringUtils'
 import ValidationErrors from '../../../ValidationError'
-import { roleFilterListType, roleListType, contextUserType } from '../../../types'
+import { roleFilterListType, roleListType } from '../../../types'
 
 const AddRole = ({
-  contextUser,
   history,
   handleCancel,
   validationErrors,
@@ -17,9 +15,6 @@ const AddRole = ({
   roleList,
   handleAdd,
 }) => {
-  const formattedName =
-    contextUser && `${properCaseName(contextUser.firstName)} ${properCaseName(contextUser.lastName)}`
-
   const roleListWithoutCurrentRoles = roleFilterList.filter(
     filteredRole => !roleList.some(currentRole => currentRole.roleCode === filteredRole.roleCode)
   )
@@ -52,30 +47,19 @@ const AddRole = ({
   return (
     <div>
       <div className="padding-bottom-large">
-        <div className="padding-top">
-          <a href="#back" title="Back link" className="link backlink" onClick={event => handleCancel(event, history)}>
-            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-          </a>
-        </div>
         <div className="pure-g">
           <div className="pure-u-md-11-12 ">
-            <h1 className="heading-large margin-top" id="page-title">
-              Add staff role: {formattedName}
-            </h1>
-
-            <div>
-              <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large">
-                {!rolesAvailable && <div className="pure-u-md-6-12 margin-left-15">No roles available</div>}
-                {rolesAvailable && (
-                  <div className="margin-left-15">
-                    <label className="form-label" htmlFor="role-select">
-                      Choose new role
-                    </label>
-                    <ValidationErrors validationErrors={validationErrors} fieldName="role-select" />
-                    {roleSelect}
-                  </div>
-                )}
-              </div>
+            <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large">
+              {!rolesAvailable && <div className="pure-u-md-6-12 margin-left-15">No roles available</div>}
+              {rolesAvailable && (
+                <div className="margin-left-15">
+                  <label className="form-label" htmlFor="role-select">
+                    Choose new role
+                  </label>
+                  <ValidationErrors validationErrors={validationErrors} fieldName="role-select" />
+                  {roleSelect}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -116,7 +100,6 @@ AddRole.propTypes = {
   roleFilterList: roleFilterListType.isRequired,
   roleList: roleListType.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
-  contextUser: contextUserType.isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
 }
 

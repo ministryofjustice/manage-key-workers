@@ -8,11 +8,11 @@ import {
   setMaintainRolesRoleFilter,
   setMaintainRolesUserPageNumber,
   resetError,
+  setLoaded,
 } from '../../../redux/actions/index'
-import Error from '../../../Error'
-
 import UserSearch from '../components/UserSearch'
 import { userType } from '../../../types'
+import Page from '../../../Components/Page'
 
 class UserSearchContainer extends Component {
   constructor(props) {
@@ -24,7 +24,9 @@ class UserSearchContainer extends Component {
   }
 
   async componentDidMount() {
+    const { dispatchLoaded } = this.props
     await this.getRoles()
+    dispatchLoaded(true)
   }
 
   getRoles = async () => {
@@ -49,7 +51,7 @@ class UserSearchContainer extends Component {
   }
 
   handleSearch = history => {
-    history.push('/maintainRoles/results')
+    history.push('/maintain-roles/search-results')
   }
 
   handleNameFilterChange = event => {
@@ -59,17 +61,15 @@ class UserSearchContainer extends Component {
   }
 
   render() {
-    const { error } = this.props
-
-    if (error) return <Error {...this.props} />
-
     return (
-      <UserSearch
-        handleRoleFilterChange={this.handleRoleFilterChange}
-        handleNameFilterChange={this.handleNameFilterChange}
-        handleSearch={this.handleSearch}
-        {...this.props}
-      />
+      <Page title="Search for staff member">
+        <UserSearch
+          handleRoleFilterChange={this.handleRoleFilterChange}
+          handleNameFilterChange={this.handleNameFilterChange}
+          handleSearch={this.handleSearch}
+          {...this.props}
+        />
+      </Page>
     )
   }
 }
@@ -85,6 +85,7 @@ UserSearchContainer.propTypes = {
   roleFilterListDispatch: PropTypes.func.isRequired,
   pageNumberDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
+  dispatchLoaded: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -102,6 +103,7 @@ const mapDispatchToProps = dispatch => ({
   roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
   pageNumberDispatch: list => dispatch(setMaintainRolesUserPageNumber(list)),
   resetErrorDispatch: () => dispatch(resetError()),
+  dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
 export default connect(

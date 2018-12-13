@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import KeyworkerSettings from '../components/KeyworkerSettings'
-import Error from '../../Error'
 import {
   setLoaded,
   setMessage,
@@ -18,8 +17,8 @@ import {
   setValidationError,
   resetValidationErrors,
 } from '../../redux/actions'
-import Spinner from '../../Spinner'
 import { userType } from '../../types'
+import Page from '../../Components/Page'
 
 const INTEGER_PATTERN = /^[0-9\b]+$/
 
@@ -129,12 +128,8 @@ class KeyworkerSettingsContainer extends Component {
   }
 
   render() {
-    const { error, loaded } = this.props
-
-    if (error) return <Error {...this.props} />
-
-    if (loaded)
-      return (
+    return (
+      <Page title="Manage key worker settings">
         <KeyworkerSettings
           handleUpdate={this.handleUpdate}
           handleAllowAutoChange={this.handleAllowAutoChange}
@@ -143,9 +138,8 @@ class KeyworkerSettingsContainer extends Component {
           handleSequenceFrequency={this.handleSequenceFrequency}
           {...this.props}
         />
-      )
-
-    return <Spinner />
+      </Page>
+    )
   }
 }
 

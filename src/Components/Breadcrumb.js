@@ -22,6 +22,10 @@ const routes = [
   { path: '/keyworker/:staffId', breadcrumb: 'Key worker profile' },
   { path: '/offender-history', breadcrumb: null },
   { path: '/offender-history/:offenderId', breadcrumb: 'Offender key worker allocation history' },
+  { path: '/give-nomis-access', breadcrumb: 'Give access to New NOMIS' },
+  { path: '/maintain-roles/:staffId/roles', breadcrumb: 'Current profile roles' },
+  { path: '/maintain-roles/search-results', breadcrumb: 'Search results' },
+  { path: '/maintain-roles/:staffId', breadcrumb: null },
 ]
 
 const Breadcrumb = ({ breadcrumbs, match }) => (
