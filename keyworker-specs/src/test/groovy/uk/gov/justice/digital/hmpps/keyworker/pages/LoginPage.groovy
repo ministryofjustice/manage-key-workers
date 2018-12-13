@@ -9,7 +9,7 @@ class LoginPage extends Page {
     static url = 'login'
 
     static at = {
-        title == 'Manage key workers  | Key worker | Prison NOMIS'
+        title == 'Manage key workers | Key worker | Prison NOMIS'
         headingText == 'Login'
     }
 
