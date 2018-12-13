@@ -12,7 +12,7 @@ public class UnallocatedPage extends Page {
     }
 
     static content =  {
-        headingText { $('h1.heading-large').text() }
+        headingText { $('h1').text() }
         table { $('table') }
         rows { $('table tbody tr') }
         allocateButton { $('button') }

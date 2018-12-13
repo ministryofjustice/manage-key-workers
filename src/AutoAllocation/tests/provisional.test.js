@@ -173,7 +173,6 @@ describe('ManualAllocation component', () => {
     ).toContain('Hanson, Sam')
     expect(component.find('.button-save').length).toEqual(1)
     expect(component.find('.button-cancel').length).toEqual(1)
-    expect(component.find('#back_link').length).toEqual(1)
   })
 
   it('should duplicate buttons when list is long', async () => {
@@ -304,40 +303,5 @@ describe('ManualAllocation component', () => {
         .at(5)
         .text()
     ).toMatch(/999 \(no details available\)/)
-  })
-
-  it('should display date filter if toggled on', async () => {
-    const component = shallow(
-      <Provisional
-        displayDateFilter
-        toDate=""
-        fromDate=""
-        allocatedList={allocatedList}
-        keyworkerList={[]}
-        onFinishAllocation={() => {}}
-        handleKeyworkerChange={() => {}}
-        postManualOverride={() => {}}
-        applyDateFilter={() => {}}
-        history={mockHistory}
-        allocatedKeyworkers={[]}
-      />
-    )
-    expect(component.find('DateFilter').exists()).toEqual(true)
-  })
-
-  it('should not display date filter if toggled off', async () => {
-    const component = shallow(
-      <Provisional
-        allocatedList={allocatedList}
-        keyworkerList={[]}
-        handleKeyworkerChange={() => {}}
-        onFinishAllocation={() => {}}
-        postManualOverride={() => {}}
-        applyDateFilter={() => {}}
-        history={mockHistory}
-        allocatedKeyworkers={[]}
-      />
-    )
-    expect(component.find('DateFilter').exists()).toEqual(false)
   })
 })

@@ -32,7 +32,6 @@ describe('Keyworker Profile Edit component', () => {
     expect(component.find('input').length).toEqual(0) // no options shown
     expect(component.find('#keyworker-status').hasClass('inactiveStatus')).toBe(true)
     expect(component.find('DatePickerInput').length).toEqual(0)
-    expect(component.find('a.backlink').length).toEqual(1)
   })
 
   it('should render component correctly with UNAVAILABLE_ANNUAL_LEAVE status', async () => {

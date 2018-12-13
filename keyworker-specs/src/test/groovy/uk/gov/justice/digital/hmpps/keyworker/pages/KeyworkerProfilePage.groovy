@@ -5,7 +5,7 @@ import geb.Page
 public class KeyworkerProfilePage extends Page {
 
 
-    static url = "/profile"
+    static url = "/"
 
     static test_offender_Z0024ZZ = "Z0024ZZ"
     static moved_offender = "Z0018ZT"
@@ -29,6 +29,7 @@ public class KeyworkerProfilePage extends Page {
         updateKeyworkerAllocationButton(required: false, to: KeyworkerManagementPage) { $('#updateAllocationButton') }
         messageBar(required: false) { $('div #messageBar')}
         backLink { $('a.backlink')}
+        parentPageLink { $("[data-qa='breadcrumb-parent-page-link']")}
         stats {  $("[data-qa='keyworker-stat']") }
         statsHeading { $("[data-qa='keyworker-stat-heading']") }
     }

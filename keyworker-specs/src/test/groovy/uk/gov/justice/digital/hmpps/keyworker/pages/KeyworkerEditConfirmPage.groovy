@@ -5,7 +5,7 @@ import geb.Page
 public class KeyworkerEditConfirmPage extends Page {
 
 
-    static url = "/profile/edit/confirm"
+    static url = "/edit/confirm"
 
     static at = {
         browser.currentUrl.contains(url)
@@ -23,5 +23,6 @@ public class KeyworkerEditConfirmPage extends Page {
         saveButtonValidationError{ $('.button-save') }
         cancelButton(to: KeyworkerEditPage) { $('.button-cancel') }
         backLink { $('a.backlink')}
+        parentPageLink { $("[data-qa='breadcrumb-parent-page-link']")}
     }
 }

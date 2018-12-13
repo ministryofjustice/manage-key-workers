@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import Provisional from '../components/Provisional'
 import { setAllocatedDetails, manualOverride, setMessage, setLoaded } from '../../redux/actions/index'
-import ErrorComponent from '../../Error/index'
-import Spinner from '../../Spinner'
+import Page from '../../Components/Page'
 
 import '../../allocation.scss'
 import { userType, allocatedKeyworkersType, allocatedListType } from '../../types'
@@ -105,23 +104,15 @@ class ProvisionalContainer extends Component {
   }
 
   render() {
-    const { loaded } = this.props
-
-    if (loaded) {
-      return (
-        <div>
-          <ErrorComponent {...this.props} />
-          {
-            <Provisional
-              handleKeyworkerChange={this.handleKeyworkerChange}
-              postManualOverride={this.postManualOverride}
-              {...this.props}
-            />
-          }
-        </div>
-      )
-    }
-    return <Spinner />
+    return (
+      <Page title="Suggested key worker allocation" alwaysRender>
+        <Provisional
+          handleKeyworkerChange={this.handleKeyworkerChange}
+          postManualOverride={this.postManualOverride}
+          {...this.props}
+        />
+      </Page>
+    )
   }
 }
 
@@ -142,7 +133,6 @@ ProvisionalContainer.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  error: state.app.error,
   user: state.app.user,
   allocatedList: state.allocated.allocatedList,
   keyworkerList: state.allocated.keyworkerList,

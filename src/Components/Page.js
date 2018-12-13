@@ -1,19 +1,15 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Header from '@govuk-react/header'
 import Error from '../Error'
 import Spinner from '../Spinner'
-import { Container, Breadcrumbs } from './Page.styles'
+import { Container } from './Page.styles'
 import { childrenType } from '../types'
-// import BreadcrumbTrail from '../BreadcrumbTrail'
 import Breadcrumb from './Breadcrumb'
 
-const Page = ({ error, loaded, title, children }) => {
-  if (error) return <Error error={error} />
-
-  if (loaded) {
+const Page = ({ error, loaded, title, children, alwaysRender }) => {
+  if (loaded || error) {
     return (
       <Fragment>
         <Breadcrumb />
@@ -21,7 +17,8 @@ const Page = ({ error, loaded, title, children }) => {
           <Header level={1} size="LARGE">
             {title}
           </Header>
-          <div>{children}</div>
+          {error && <Error error={error} />}
+          {(!error || alwaysRender) && <div>{children}</div>}
         </Container>
       </Fragment>
     )
@@ -35,6 +32,11 @@ Page.propTypes = {
   loaded: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   children: childrenType.isRequired,
+  alwaysRender: PropTypes.bool,
+}
+
+Page.defaultProps = {
+  alwaysRender: false,
 }
 
 const mapStateToProps = state => ({

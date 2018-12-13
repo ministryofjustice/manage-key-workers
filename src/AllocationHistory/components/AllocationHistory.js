@@ -27,7 +27,7 @@ class AllocationHistory extends Component {
       const lastModStaff = `${properCaseName(a.lastModifiedByUser.firstName)} ${properCaseName(
         a.lastModifiedByUser.lastName
       )}`
-      const keyworkerHref = `/keyworker/${a.staffId}/profile`
+      const keyworkerHref = `/keyworker/${a.staffId}`
       return (
         <tr key={a.offenderKeyworkerId}>
           <td className="row-gutters">

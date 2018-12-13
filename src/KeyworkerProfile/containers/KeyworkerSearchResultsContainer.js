@@ -12,9 +12,7 @@ import {
   setSettings,
 } from '../../redux/actions/index'
 import KeyworkerSearchResults from '../components/KeyworkerSearchResults'
-import Spinner from '../../Spinner'
-
-import Error from '../../Error'
+import Page from '../../Components/Page'
 
 class KeyworkerSearchResultsContainer extends Component {
   constructor(props) {
@@ -25,9 +23,9 @@ class KeyworkerSearchResultsContainer extends Component {
     this.performSearch = this.performSearch.bind(this)
   }
 
-  async componentDidMount() {
-    await this.getKeyworkerSettings()
-    await this.performSearch()
+  componentDidMount() {
+    this.getKeyworkerSettings()
+    this.performSearch()
   }
 
   async getKeyworkerSettings() {
@@ -80,26 +78,15 @@ class KeyworkerSearchResultsContainer extends Component {
   }
 
   render() {
-    let inner
-    const { loaded } = this.props
-
-    if (loaded) {
-      inner = (
+    return (
+      <Page title="Search results">
         <KeyworkerSearchResults
           {...this.props}
           handleSearchTextChange={this.handleSearchTextChange}
           handleStatusFilterChange={this.handleStatusFilterChange}
           handleSearch={this.performSearch}
         />
-      )
-    } else {
-      inner = <Spinner />
-    }
-
-    return (
-      <div>
-        <Error {...this.props} /> {inner}{' '}
-      </div>
+      </Page>
     )
   }
 }

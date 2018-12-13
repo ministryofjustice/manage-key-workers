@@ -10,7 +10,6 @@ import {
 } from '../redux/actions'
 import OffenderSearchContainer from './containers/OffenderSearchContainer'
 import OffenderResultsContainer from './containers/OffenderResultsContainer'
-import Error from '../Error'
 import { userType } from '../types'
 
 class AssignTransferContainer extends Component {
@@ -33,24 +32,17 @@ class AssignTransferContainer extends Component {
   }
 
   render() {
-    const { initialSearch, displayBack } = this.props
+    const { initialSearch } = this.props
 
     return (
       <div>
-        {initialSearch && displayBack()}
-        <Error {...this.props} />
         {initialSearch ? (
-          <div className="pure-g">
-            <div className="pure-u-md-8-12">
-              <h1 className="heading-large margin-top">Search for an offender</h1>
-              <OffenderSearchContainer
-                handleSearchTextChange={event => this.handleSearchTextChange(event)}
-                handleSearchAllocationStatusChange={event => this.handleSearchAllocationStatusChange(event)}
-                handleSearchHousingLocationChange={event => this.handleSearchHousingLocationChange(event)}
-                {...this.props}
-              />
-            </div>
-          </div>
+          <OffenderSearchContainer
+            handleSearchTextChange={event => this.handleSearchTextChange(event)}
+            handleSearchAllocationStatusChange={event => this.handleSearchAllocationStatusChange(event)}
+            handleSearchHousingLocationChange={event => this.handleSearchHousingLocationChange(event)}
+            {...this.props}
+          />
         ) : (
           <OffenderResultsContainer
             handleSearchTextChange={event => this.handleSearchTextChange(event)}

@@ -30,16 +30,12 @@ class Unallocated extends Component {
   }
 
   render() {
-    const { loaded, displayBack, history, gotoNext } = this.props
-
-    if (!loaded) return ''
-
+    const { history, gotoNext } = this.props
     const offenders = this.buildTableForRender()
+
     return (
       <div>
         <div className="pure-u-md-7-12 padding-bottom-40">
-          {displayBack()}
-          <h1 className="heading-large margin-top">Auto-allocate key workers</h1>
           <table>
             <thead>
               <tr>
@@ -71,9 +67,7 @@ class Unallocated extends Component {
 Unallocated.propTypes = {
   unallocatedList: unallocatedListType.isRequired,
   gotoNext: PropTypes.func.isRequired,
-  loaded: PropTypes.bool.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
-  displayBack: PropTypes.func.isRequired,
 }
 
 export default Unallocated

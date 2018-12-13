@@ -106,7 +106,7 @@ class OffenderResults extends Component {
   }
 
   render() {
-    const { offenderResults, loaded, displayBack } = this.props
+    const { offenderResults, loaded } = this.props
 
     if (!offenderResults || !loaded) return ''
 
@@ -129,10 +129,6 @@ class OffenderResults extends Component {
         <MessageBar {...this.props} />
 
         <div className="pure-g">
-          {displayBack()}
-          <div className="pure-u-md-7-12">
-            <h1 className="heading-large margin-top">Change key workers</h1>
-          </div>
           <div className="pure-u-md-11-12-12">
             <OffenderSearch {...this.props} />
           </div>

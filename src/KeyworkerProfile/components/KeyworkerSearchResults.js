@@ -17,7 +17,7 @@ class KeyworkerSearchResults extends Component {
 
     return keyworkerList.map(a => {
       const formattedName = `${properCaseName(a.lastName)}, ${properCaseName(a.firstName)}`
-      const keyworkerHref = `/keyworker/${a.staffId}/profile`
+      const keyworkerHref = `/keyworker/${a.staffId}`
       return (
         <tr key={a.staffId}>
           <td className="row-gutters">
@@ -42,7 +42,6 @@ class KeyworkerSearchResults extends Component {
 
   render() {
     const {
-      displayBack,
       statusFilter,
       handleStatusFilterChange,
       searchText,
@@ -55,9 +54,7 @@ class KeyworkerSearchResults extends Component {
     return (
       <div>
         <div className="pure-g padding-bottom-large">
-          {displayBack()}
           <div className="pure-u-md-12-12 ">
-            <h1 className="heading-large margin-top">Search results</h1>
             <div>
               <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
                 <div className="pure-u-md-4-12">
@@ -130,7 +127,6 @@ KeyworkerSearchResults.propTypes = {
   handleSearchTextChange: PropTypes.func.isRequired,
   handleStatusFilterChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  displayBack: PropTypes.func.isRequired,
   keyworkerSettings: PropTypes.shape({}).isRequired,
 }
 

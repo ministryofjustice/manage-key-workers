@@ -15,21 +15,34 @@ const routes = [
   { path: '/example', breadcrumb: 'Custom Example' },
   { path: '/', breadcrumb: 'Manage key workers' },
   { path: '/unallocated', breadcrumb: 'Auto-allocate key workers' },
-  { path: '/keyworkerDashboard', breadcrumb: 'Key worker statistics' },
+  { path: '/unallocated/provisional-allocation', breadcrumb: 'Suggested key worker allocation' },
+  { path: '/keyworker-statistics', breadcrumb: 'Key worker statistics' },
+  { path: '/keyworker-search', breadcrumb: 'Search for a key worker' },
+  { path: '/keyworker', breadcrumb: null },
+  { path: '/keyworker/:userId', breadcrumb: 'Key worker profile' },
 ]
 
 const Breadcrumb = ({ breadcrumbs, match }) => (
   <BreadcrumbContainer>
     <BreadcrumbList>
       <BreadcrumbListItem>
-        <a href={links.getHomeLink()}>Home</a>
+        <a data-qa="breadcrumb-home-page-link" href={links.getHomeLink()}>
+          Home
+        </a>
       </BreadcrumbListItem>
-      {breadcrumbs.map(breadcrumb => (
-        <BreadcrumbListItem key={breadcrumb.key}>
-          {match.url !== breadcrumb.props.match.url && <Link to={breadcrumb.props.match.url}>{breadcrumb}</Link>}
-          {match.url === breadcrumb.props.match.url && breadcrumb}
-        </BreadcrumbListItem>
-      ))}
+      {breadcrumbs.map((breadcrumb, i, arr) => {
+        const parentPageLink = arr.length - 2 === i ? 'breadcrumb-parent-page-link' : null
+        return (
+          <BreadcrumbListItem key={breadcrumb.key}>
+            {match.url !== breadcrumb.props.match.url && (
+              <Link to={breadcrumb.props.match.url} data-qa={parentPageLink}>
+                {breadcrumb}
+              </Link>
+            )}
+            {match.url === breadcrumb.props.match.url && breadcrumb}
+          </BreadcrumbListItem>
+        )
+      })}
     </BreadcrumbList>
   </BreadcrumbContainer>
 )

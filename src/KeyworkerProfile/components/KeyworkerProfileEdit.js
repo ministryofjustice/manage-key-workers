@@ -30,12 +30,6 @@ const KeyworkerProfileEdit = ({
   return (
     <div>
       <div className="pure-g">
-        <div className="pure-u-md-8-12 padding-top">
-          <a href="#back" title="Back link" className="link backlink" onClick={() => handleCancel(history)}>
-            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-          </a>
-          <h1 className="heading-large margin-top">Edit profile</h1>
-        </div>
         <div className="padding-top">
           <div className="pure-u-md-2-12">
             <span className="form-label">Name</span>

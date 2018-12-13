@@ -37,6 +37,7 @@ import {
   setMessage,
   setMenuOpen,
   setSettings,
+  setLoaded,
 } from '../redux/actions/index'
 import { configType, userType } from '../types'
 
@@ -158,7 +159,17 @@ class App extends React.Component {
   )
 
   render() {
-    const { boundSetMenuOpen, config, shouldShowTerms, error, allowAuto, user, message, migrated } = this.props
+    const {
+      boundSetMenuOpen,
+      config,
+      shouldShowTerms,
+      error,
+      allowAuto,
+      user,
+      message,
+      migrated,
+      dispatchLoaded,
+    } = this.props
     let innerContent
     const routes = (
       // eslint-disable-next-line
@@ -175,13 +186,14 @@ class App extends React.Component {
                 config={config}
                 message={message}
                 clearMessage={this.clearMessage}
+                dispatchLoaded={dispatchLoaded}
               />
             )}
           />
 
           <Route
             exact
-            path="/keyworkerDashboard"
+            path="/keyworker-statistics"
             render={() => (
               <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
             )}
@@ -189,7 +201,7 @@ class App extends React.Component {
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
             exact
-            path="/offender/search"
+            path="/offender-search"
             render={() => (
               <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
             )}
@@ -208,7 +220,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/provisionalAllocation"
+            path="/unallocated/provisional-allocation"
             render={() => (
               <ProvisionalAllocationContainer
                 handleError={this.handleError}
@@ -218,34 +230,40 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/keyworker/search"
-            render={() => <KeyworkerSearchContainer displayBack={this.displayBack} handleError={this.handleError} />}
+            path="/keyworker-search"
+            render={() => (
+              <KeyworkerSearchContainer
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                dispatchLoaded={dispatchLoaded}
+              />
+            )}
           />
           <Route
             exact
-            path="/keyworker/results"
+            path="/keyworker-search/results"
             render={() => (
               <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
-            path="/keyworker/:staffId/profile"
+            path="/keyworker/:staffId"
             render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
           />
           <Route
             exact
-            path="/keyworker/:staffId/profile/edit"
+            path="/keyworker/:staffId/edit"
             render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/keyworker/:staffId/profile/edit/confirm"
+            path="/keyworker/:staffId/edit/confirm"
             render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/offender/results"
+            path="/offender-search/results"
             render={() => (
               <AssignTransferContainer
                 onFinishAllocation={this.onFinishAllocation}
@@ -347,7 +365,7 @@ class App extends React.Component {
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
-                    const routesThatDontRedirectAfterCaseloadSwitch = ['/keyworkerDashboard']
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/keyworker-statistics']
 
                     if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
                       props.history.push('/')
@@ -392,6 +410,7 @@ App.propTypes = {
   allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
+  dispatchLoaded: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -415,6 +434,7 @@ const mapDispatchToProps = dispatch => ({
   setMessageDispatch: message => dispatch(setMessage(message)),
   boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
   keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
+  dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
 const AppContainer = connect(

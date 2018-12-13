@@ -9,6 +9,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.OffenderResultsPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
@@ -68,11 +69,11 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         then: "I am shown the key worker profile page"
         at KeyworkerProfilePage
 
-        when: "I click the back link"
-        backLink.click()
+        when: "Parent page link in breadcrumb is clicked"
+        parentPageLink.click()
 
-        then: "I am returned to the Offender Search page"
-        at SearchForOffenderPage
+        then: "We return to KW Management page"
+        at KeyworkerManagementPage
     }
 
     def "Assign and Transfer filtered by unallocated"() {
@@ -142,7 +143,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         !rows.isDisplayed()
     }
 
-    def "refreshing on offender result (or typing /offender/results in url) - should redirect to offender search"() {
+    def "refreshing on offender result (or typing /offender-search/results in url) - should redirect to offender search"() {
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)
 
