@@ -14,7 +14,7 @@ class StaffRoleProfile extends Component {
   }
 
   render() {
-    const { contextUser, roleList, history, handleAdd, handleRemove, user } = this.props
+    const { contextUser, roleList, history, handleAdd, handleRemove } = this.props
     const formattedName =
       contextUser && `${properCaseName(contextUser.firstName)} ${properCaseName(contextUser.lastName)}`
     const results = roleList.map(a => (
@@ -49,18 +49,6 @@ class StaffRoleProfile extends Component {
             <h1 className="heading-large margin-top" id="page-title">
               Staff roles: {formattedName}
             </h1>
-
-            {user.maintainAccessAdmin &&
-              contextUser.agencyDescription && (
-                <div className="pure-u-md-12-12" id="caseloadDiv">
-                  <div className="pure-u-md-2-12 padding-bottom">
-                    <div className="bold">Current caseload</div>
-                  </div>
-                  <div className="pure-u-md-7-12">
-                    <div>{contextUser.agencyDescription}</div>
-                  </div>
-                </div>
-              )}
 
             <div className="pure-u-md-7-12">
               <div className="padding-bottom-40">

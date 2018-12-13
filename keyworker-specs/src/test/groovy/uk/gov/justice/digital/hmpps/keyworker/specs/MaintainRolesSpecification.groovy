@@ -86,8 +86,6 @@ class MaintainRolesSpecification extends GebReportingSpec {
 
         then: "i am presented with the Staff profile page"
         at StaffRoleProfilePage
-        caseload.isDisplayed()
-        caseload.text().contains('Agency 1, Agency 2')
     }
 
     def "handles empty caseload on Staff role profile"() {
