@@ -31,6 +31,7 @@ describe('<Page />', () => {
     })
 
     it('should display the children prop', () => {
+      console.log(global.window.document.title)
       expect(wrapper.find('.page-content').contains(props.children)).toEqual(true)
     })
 
