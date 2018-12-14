@@ -13,7 +13,7 @@ import {
   setValidationError,
 } from '../../redux/actions'
 import KeyworkerProfileEdit from '../components/KeyworkerProfileEdit'
-import Error from '../../Error'
+import Page from '../../Components/Page'
 import { stringIsInteger } from '../../stringUtils'
 import { userType, keyworkerType } from '../../types'
 
@@ -26,7 +26,7 @@ class KeyworkerProfileEditContainer extends Component {
     }
     // invalid deeplink
     if (!keyworker.staffId) {
-      history.push(`/keyworker/${match.params.staffId}/profile`)
+      history.push(`/key-worker/${match.params.staffId}`)
     }
   }
 
@@ -41,7 +41,7 @@ class KeyworkerProfileEditContainer extends Component {
     try {
       if (this.formChange()) {
         if (statusChange && status !== 'ACTIVE') {
-          history.replace(`/keyworker/${keyworker.staffId}/profile/edit/confirm`)
+          history.replace(`/key-worker/${keyworker.staffId}/confirm-edit`)
         } else {
           await this.postKeyworkerUpdate()
           setMessageDispatch('Profile changed')
@@ -118,18 +118,16 @@ class KeyworkerProfileEditContainer extends Component {
   }
 
   render() {
-    const { error } = this.props
-
-    if (error) return <Error {...this.props} />
-
     return (
-      <KeyworkerProfileEdit
-        handleSaveChanges={this.handleSaveChanges}
-        handleCancel={this.handleCancel}
-        handleStatusChange={this.handleStatusChange}
-        handleCapacityChange={this.handleCapacityChange}
-        {...this.props}
-      />
+      <Page title="Edit profile">
+        <KeyworkerProfileEdit
+          handleSaveChanges={this.handleSaveChanges}
+          handleCancel={this.handleCancel}
+          handleStatusChange={this.handleStatusChange}
+          handleCapacityChange={this.handleCapacityChange}
+          {...this.props}
+        />
+      </Page>
     )
   }
 }

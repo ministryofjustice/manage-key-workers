@@ -31,7 +31,6 @@ describe('User search component', () => {
         history={mockHistory}
       />
     )
-    expect(component.find('#page-title').text()).toEqual('Search for staff member')
     expect(component.find('#search-button').text()).toEqual('Search')
   })
 

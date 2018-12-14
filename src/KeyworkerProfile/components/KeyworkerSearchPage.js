@@ -6,7 +6,6 @@ import Status from './Status'
 import '../index.scss'
 
 const KeyworkerSearchPage = ({
-  displayBack,
   handleSearch,
   history,
   searchText,
@@ -15,10 +14,8 @@ const KeyworkerSearchPage = ({
   handleStatusFilterChange,
 }) => (
   <div>
-    {displayBack()}
     <div className="pure-g">
       <div className="pure-u-md-8-12">
-        <h1 className="heading-large margin-top">Search for a key worker</h1>
         <div className="searchForm padding-top padding-left-30 padding-right padding-bottom-large">
           <label className="form-label" htmlFor="search-text">
             Key worker name
@@ -53,7 +50,6 @@ const KeyworkerSearchPage = ({
 )
 
 KeyworkerSearchPage.propTypes = {
-  displayBack: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
   statusFilter: PropTypes.string.isRequired,
   history: ReactRouterPropTypes.history.isRequired,

@@ -8,7 +8,7 @@ class KeyworkerManagementPage extends Page {
     static url = "/"
 
     static at = {
-        headingText == 'Manage Key workers'
+        headingText == 'Manage key workers'
         manualAssignLink.displayed
         keyworkerProfileLink.displayed
     }
@@ -25,5 +25,6 @@ class KeyworkerManagementPage extends Page {
         keyworkerProfileLink(to: SearchForKeyworkerPage) { $('#keyworker_profile_link') }
         messageBar(required: false) { $('div #messageBar')}
         homeLink { $('a.link', href: 'http://localhost:3000/') }
+        breadCrumbHomeLink { $('[data-qa="breadcrumb-home-page-link"]', href: 'http://localhost:3000/') }
     }
 }

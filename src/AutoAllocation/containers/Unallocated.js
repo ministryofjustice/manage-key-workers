@@ -4,10 +4,9 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import Page from '../../Components/Page'
 import Unallocated from '../components/Unallocated'
 import { setUnallocatedList, setMessage, setLoaded } from '../../redux/actions/index'
-import ErrorComponent from '../../Error/index'
-import Spinner from '../../Spinner/index'
 
 import '../../allocation.scss'
 import { userType, unallocatedListType } from '../../types'
@@ -45,21 +44,15 @@ class UnallocatedContainer extends Component {
   }
 
   gotoManualAllocation = async history => {
-    history.push(`/provisionalAllocation`)
+    history.push(`/unallocated/provisional-allocation`)
   }
 
   render() {
-    const { loaded } = this.props
-
-    if (loaded) {
-      return (
-        <div>
-          <ErrorComponent {...this.props} />
-          {<Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />}
-        </div>
-      )
-    }
-    return <Spinner />
+    return (
+      <Page title="Auto-allocate key workers">
+        <Unallocated gotoNext={this.gotoManualAllocation} {...this.props} />
+      </Page>
+    )
   }
 }
 

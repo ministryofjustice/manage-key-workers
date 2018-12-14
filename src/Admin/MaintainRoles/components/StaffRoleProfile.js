@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import MessageBar from '../../../MessageBar'
-import { properCaseName } from '../../../stringUtils'
 import { contextUserType, roleListType, userType } from '../../../types'
 
 class StaffRoleProfile extends Component {
@@ -14,9 +13,7 @@ class StaffRoleProfile extends Component {
   }
 
   render() {
-    const { contextUser, roleList, history, handleAdd, handleRemove } = this.props
-    const formattedName =
-      contextUser && `${properCaseName(contextUser.firstName)} ${properCaseName(contextUser.lastName)}`
+    const { roleList, history, handleAdd, handleRemove } = this.props
     const results = roleList.map(a => (
       <tr key={a.roleCode}>
         <td className="row-gutters">{a.roleName}</td>
@@ -39,17 +36,8 @@ class StaffRoleProfile extends Component {
     return (
       <div className="padding-bottom-large">
         <MessageBar {...this.props} />
-        <div className="padding-top">
-          <a href="#back" title="Back link" className="link backlink" onClick={event => this.goBack(event, history)}>
-            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-          </a>
-        </div>
         <div className="pure-g">
           <div className="pure-u-md-11-12 ">
-            <h1 className="heading-large margin-top" id="page-title">
-              Staff roles: {formattedName}
-            </h1>
-
             <div className="pure-u-md-7-12">
               <div className="padding-bottom-40">
                 <table>

@@ -5,7 +5,7 @@ import geb.Page
 public class KeyworkerSettingsPage extends Page {
 
 
-    static url = "/admin/settings"
+    static url = "/manage-key-worker-settings"
 
     static at = {
         browser.currentUrl.contains(url)

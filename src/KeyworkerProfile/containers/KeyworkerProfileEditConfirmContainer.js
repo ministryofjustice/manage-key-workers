@@ -14,7 +14,7 @@ import {
   setAnnualLeaveReturnDate,
 } from '../../redux/actions'
 import KeyworkerProfileEditConfirm from '../components/KeyworkerProfileEditConfirm'
-import Error from '../../Error'
+import Page from '../../Components/Page'
 import * as behaviours from '../keyworkerStatusBehavour'
 import { switchToIsoDateFormat, isBlank } from '../../stringUtils'
 import { keyworkerType } from '../../types'
@@ -32,7 +32,7 @@ class KeyworkerProfileEditConfirmContainer extends Component {
     const { status, history, match, setStatusChangeBehaviourDispatch, dateDispatch } = this.props
 
     if (!status || status === '') {
-      history.push(`/keyworker/${match.params.staffId}/profile`)
+      history.push(`/key-worker/${match.params.staffId}`)
     }
     if (status === 'INACTIVE') {
       setStatusChangeBehaviourDispatch('REMOVE_ALLOCATIONS_NO_AUTO')
@@ -120,7 +120,7 @@ class KeyworkerProfileEditConfirmContainer extends Component {
     const { keyworker } = this.props
 
     // Use replace to ensure the profile page remains the history 'parent'
-    history.replace(`/keyworker/${keyworker.staffId}/profile/edit`)
+    history.replace(`/key-worker/${keyworker.staffId}/edit`)
   }
 
   handleOptionChange(event) {
@@ -138,18 +138,16 @@ class KeyworkerProfileEditConfirmContainer extends Component {
   }
 
   render() {
-    const { error } = this.props
-
-    if (error) return <Error {...this.props} />
-
     return (
-      <KeyworkerProfileEditConfirm
-        handleSaveChanges={this.handleSaveChanges}
-        handleDateChange={this.handleDateChange}
-        handleCancel={this.handleCancel}
-        handleOptionChange={this.handleOptionChange}
-        {...this.props}
-      />
+      <Page title="Update status">
+        <KeyworkerProfileEditConfirm
+          handleSaveChanges={this.handleSaveChanges}
+          handleDateChange={this.handleDateChange}
+          handleCancel={this.handleCancel}
+          handleOptionChange={this.handleOptionChange}
+          {...this.props}
+        />
+      </Page>
     )
   }
 }

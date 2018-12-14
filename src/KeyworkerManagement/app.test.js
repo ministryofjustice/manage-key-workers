@@ -51,6 +51,7 @@ describe('App component', () => {
         message=""
         allowAuto={false}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     const appInstance = component.instance()
@@ -97,6 +98,7 @@ describe('App component', () => {
         message=""
         allowAuto={false}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     const appInstance = component.instance()
@@ -138,6 +140,7 @@ describe('App component', () => {
         message=""
         allowAuto={false}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
 

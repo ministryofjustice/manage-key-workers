@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import OffenderResults from '../components/OffenderResults'
-import Spinner from '../../Spinner'
+import Page from '../../Components/Page'
 
 import { resetError, setKeyworkerChangeList, setLoaded, setOffenderSearchResults } from '../../redux/actions'
 import { keyworkerListType, keyworkerChangeListType, locationsType } from '../../types'
@@ -25,7 +25,7 @@ class OffenderResultsContainer extends Component {
     /* if arriving from a page refresh - redirect to initial search */
     if (!locations || locations.length === 0) {
       history.push({
-        pathname: '/offender/search',
+        pathname: '/offender-search',
         state: { initialSearch: true },
       })
     } else {
@@ -110,10 +110,8 @@ class OffenderResultsContainer extends Component {
   }
 
   render() {
-    const { loaded } = this.props
-
-    if (loaded) {
-      return (
+    return (
+      <Page title="Change key workers" alwaysRender>
         <OffenderResults
           handleKeyworkerChange={this.handleKeyworkerChange}
           postManualOverride={this.postManualOverride}
@@ -121,9 +119,8 @@ class OffenderResultsContainer extends Component {
           handleSubmit={this.handleSubmit}
           {...this.props}
         />
-      )
-    }
-    return <Spinner />
+      </Page>
+    )
   }
 }
 

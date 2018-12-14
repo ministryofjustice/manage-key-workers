@@ -34,17 +34,11 @@ describe('AssignTransferContainer', () => {
     const component = shallow(
       <AssignTransferContainer initialSearch setErrorDispatch={() => {}} user={{}} {...props} />
     )
-    expect(
-      component
-        .find('div')
-        .at(1)
-        .text()
-    ).toContain('Search for an offender')
+    expect(component.find('Connect(OffenderSearchContainer)').exists()).toEqual(true)
   })
 
   it('should render results correctly', async () => {
     const component = shallow(<AssignTransferContainer setErrorDispatch={() => {}} {...props} />)
-    const connect = component.find('Connect')
-    expect(connect.text()).toContain('OffenderResultsContainer')
+    expect(component.find('Connect(withRouter(OffenderResultsContainer))').exists()).toEqual(true)
   })
 })

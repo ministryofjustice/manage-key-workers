@@ -12,11 +12,10 @@ import {
   setMaintainRolesUserContextUser,
   setLoaded,
 } from '../../../redux/actions/index'
-import Error from '../../../Error'
-
 import { StaffRoleProfile } from '../components/StaffRoleProfile'
-import Spinner from '../../../Spinner'
 import { userType, contextUserType, roleListType } from '../../../types'
+import { properCaseName } from '../../../stringUtils'
+import Page from '../../../Components/Page'
 
 class StaffRoleProfileContainer extends Component {
   constructor(props) {
@@ -89,17 +88,19 @@ class StaffRoleProfileContainer extends Component {
     const { setRoleFilterDispatch, contextUser } = this.props
 
     setRoleFilterDispatch('')
-    history.push(`/maintainRoles/${contextUser.username}/addRole`)
+    history.push(`/maintain-roles/${contextUser.username}/roles/add-role`)
   }
 
   render() {
-    const { error, loaded } = this.props
+    const { contextUser } = this.props
+    const formattedName =
+      contextUser && `${properCaseName(contextUser.firstName)} ${properCaseName(contextUser.lastName)}`
 
-    if (error) return <Error {...this.props} />
-
-    if (loaded) return <StaffRoleProfile handleRemove={this.handleRemove} handleAdd={this.handleAdd} {...this.props} />
-
-    return <Spinner />
+    return (
+      <Page title={`Staff roles: ${formattedName}`}>
+        <StaffRoleProfile handleRemove={this.handleRemove} handleAdd={this.handleAdd} {...this.props} />
+      </Page>
+    )
   }
 }
 

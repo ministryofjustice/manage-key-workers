@@ -5,7 +5,7 @@ import geb.Page
 public class UserSearchResultsPage extends Page {
 
 
-    static url = "/maintainRoles/results"
+    static url = "/maintain-roles/search-results"
 
     static at = {
         browser.currentUrl.contains(url)

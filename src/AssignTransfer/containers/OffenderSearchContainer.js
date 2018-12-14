@@ -8,8 +8,10 @@ import {
   setKeyworkerChangeList,
   setOffenderSearchLocations,
   setValidationError,
+  setLoaded,
 } from '../../redux/actions'
 import { locationsType } from '../../types'
+import Page from '../../Components/Page'
 
 class OffenderSearchContainer extends Component {
   componentWillMount() {
@@ -18,6 +20,11 @@ class OffenderSearchContainer extends Component {
     this.getLocations()
     offenderSearchTextDispatch('')
     offenderSearchAllocationStatusDispatch('all')
+  }
+
+  componentDidMount() {
+    const { dispatchLoaded } = this.props
+    dispatchLoaded(true)
   }
 
   getLocations = async () => {
@@ -40,11 +47,15 @@ class OffenderSearchContainer extends Component {
   }
 
   handleSubmit = history => {
-    history.push('/offender/results')
+    history.push('/offender-search/results')
   }
 
   render() {
-    return <OffenderSearch {...this.props} handleSubmit={this.handleSubmit} />
+    return (
+      <Page title="Search for an offender">
+        <OffenderSearch {...this.props} handleSubmit={this.handleSubmit} />
+      </Page>
+    )
   }
 }
 
@@ -62,6 +73,7 @@ OffenderSearchContainer.propTypes = {
   initialSearch: PropTypes.bool.isRequired,
   allocationStatus: PropTypes.string.isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
+  dispatchLoaded: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -76,6 +88,7 @@ const mapDispatchToProps = dispatch => ({
   keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
   resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
+  dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
 export default connect(

@@ -48,7 +48,7 @@ class KeyworkerProfile extends Component {
       config,
       handleEditProfileClick,
     } = this.props
-    const keyworkerDisplayName = `${properCaseName(keyworker.firstName)} ${properCaseName(keyworker.lastName)}`
+
     const statusStyle = getStatusStyle(keyworker.status)
     const keyworkerOptions = keyworkerList.map(kw => {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`
@@ -172,12 +172,6 @@ class KeyworkerProfile extends Component {
       <div>
         <MessageBar {...this.props} />
         <div className="pure-g padding-bottom-large">
-          <div className="pure-u-md-8-12 padding-top">
-            <a href="#back" title="Back link" className="link backlink" onClick={event => this.goBack(event, history)}>
-              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-            </a>
-            <h1 className="heading-large margin-top">Key worker: {keyworkerDisplayName}</h1>
-          </div>
           <div className="padding-top">
             <div className="pure-u-md-5-12">
               <div className="pure-u-md-5-12">

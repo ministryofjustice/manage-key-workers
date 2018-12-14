@@ -5,8 +5,8 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import KeyworkerProfile from '../components/KeyworkerProfile'
-import Error from '../../Error'
-import Spinner from '../../Spinner'
+import Page from '../../Components/Page'
+import { properCaseName } from '../../stringUtils'
 
 import {
   setKeyworkerAllocationList,
@@ -131,7 +131,7 @@ class KeyworkerProfileContainer extends Component {
     // initialise inputs with current capacity value
     keyworkerCapacityDispatch(keyworker.capacity.toString())
     keyworkerStatusDispatch(keyworker.status)
-    history.push(`/keyworker/${keyworker.staffId}/profile/edit`)
+    history.push(`/key-worker/${keyworker.staffId}/edit`)
   }
 
   postAllocationChange = async history => {
@@ -159,22 +159,18 @@ class KeyworkerProfileContainer extends Component {
   }
 
   render() {
-    const { error, loaded } = this.props
-
-    if (error) return <Error {...this.props} />
-
-    if (loaded) {
-      return (
+    const { keyworker } = this.props
+    const keyworkerDisplayName = `${properCaseName(keyworker.firstName)} ${properCaseName(keyworker.lastName)}`
+    return (
+      <Page title={`Key worker: ${keyworkerDisplayName}`}>
         <KeyworkerProfile
           handleKeyworkerChange={this.handleKeyworkerChange}
           handleAllocationChange={this.postAllocationChange}
           handleEditProfileClick={this.handleEditProfileClick}
           {...this.props}
         />
-      )
-    }
-
-    return <Spinner />
+      </Page>
+    )
   }
 }
 

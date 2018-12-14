@@ -74,7 +74,7 @@ const OffenderSearch = ({
   if (initialSearch) {
     return (
       <div>
-        <div className="pure-u-md-12-12 searchForm">
+        <div className="pure-u-md-8-12 searchForm">
           <div className="padding-top padding-left padding-right">
             <label className="form-label" htmlFor="search-text">
               Prisoner name or number

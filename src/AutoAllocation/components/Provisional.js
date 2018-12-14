@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
 import { properCaseName, renderDate } from '../../stringUtils'
-import DateFilter from '../../DateFilter/index'
 import { getOffenderLink, getStaffLink } from '../../links'
 import { allocatedListType, keyworkerListType, allocatedKeyworkersType } from '../../types'
 
@@ -66,7 +64,7 @@ class Provisional extends Component {
   }
 
   render() {
-    const { keyworkerList, postManualOverride, onFinishAllocation, history, displayDateFilter } = this.props
+    const { keyworkerList, postManualOverride, onFinishAllocation, history } = this.props
     const keyworkerOptions = keyworkerList.map(kw => {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`
       return (
@@ -95,19 +93,6 @@ class Provisional extends Component {
 
     return (
       <div>
-        <div className="pure-g">
-          <div className="pure-u-md-7-12">
-            <Link id="back_link" title="Back link" className="link backlink" to="/unallocated">
-              <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-            </Link>
-            <h1 className="heading-large">Suggested key worker allocation</h1>
-          </div>
-          {displayDateFilter && (
-            <div className="pure-u-md-5-12">
-              <DateFilter {...this.props} />
-            </div>
-          )}
-        </div>
         {offenders.length >= 20 && <div className="padding-top padding-bottom-large">{buttons}</div>}
         <div className="padding-bottom-40">
           <table className="row-gutters">

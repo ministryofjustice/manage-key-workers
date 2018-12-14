@@ -213,7 +213,6 @@ const component = shallow(<KeyworkerProfile {...props} />)
 
 describe('Keyworker Profile component', () => {
   it('should render component correctly', async () => {
-    expect(component.text()).toContain('Key worker: Frank Butcher')
     expect(
       component
         .find('#keyworker-status')
@@ -306,8 +305,6 @@ describe('Keyworker Profile component', () => {
 
   it('should render active date if status = annual leave', async () => {
     component.setProps({ keyworker: keyworkerWithActiveDate })
-
-    expect(component.text()).toContain('Key worker: Frank Butcher')
     expect(
       component
         .find('#active-date')
@@ -392,7 +389,6 @@ describe('Keyworker Profile component', () => {
 
   it('should hide save button if no allocations', async () => {
     component.setProps({ keyworkerAllocations: [] })
-    expect(component.text()).toContain('Key worker: Frank Butcher')
     expect(component.find('#updateAllocationButton').length).toEqual(0)
   })
 })

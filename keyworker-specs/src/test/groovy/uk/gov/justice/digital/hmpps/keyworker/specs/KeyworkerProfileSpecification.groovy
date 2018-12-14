@@ -47,11 +47,11 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         table.find("tr", 2).find("td", 5).text() == '03/06/2018'
         table.find("tr", 2).find("td", 6).text() == '3'
 
-        when: "Back link is clicked"
-        backLink.click()
+        when: "Parent page link in breadcrumb is clicked"
+        parentPageLink.click()
 
-        then: "We return to KW results page"
-        at KeyworkerResultsPage
+        then: "We return to KW Management page"
+        at KeyworkerManagementPage
     }
 
     def "key worker edit profile is displayed correctly"() {
@@ -63,8 +63,8 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         capacity.value() == '6'
         keyworkerStatusOptions.size() == 5
 
-        when: "Back link is clicked"
-        backLink.click()
+        when: "Parent page link in breadcrumb is clicked"
+        parentPageLink.click()
 
         then: "We return to KW profile page"
         at KeyworkerProfilePage
@@ -84,10 +84,10 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         status.text() == 'Inactive'
         inactiveWarning.isDisplayed()
 
-        when: "Back link is clicked"
-        backLink.click()
+        when: "Parent page link in breadcrumb is clicked"
+        parentPageLink.click()
 
-        then: "We return to KW profile page"
+        then: "We return to KW Profile page"
         at KeyworkerProfilePage
     }
 
@@ -151,11 +151,11 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         status.text() == 'Active'
         !messageBar.isDisplayed()
 
-        when: "Back link is clicked"
-        backLink.click()
+        when: "Parent page link in breadcrumb is clicked"
+        parentPageLink.click()
 
-        then: "We return to KW results page"
-        at KeyworkerResultsPage
+        then: "We return to KW Management page"
+        at KeyworkerManagementPage
     }
 
     def "key worker edit confirm - no allocations - should not display Prisoners removed message"() {

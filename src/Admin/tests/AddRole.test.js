@@ -31,6 +31,7 @@ describe('User search component', () => {
         history={mockHistory}
         roleFilter=""
         validationErrors={{}}
+        handleRoleAddChange={jest.fn()}
       />
     )
     expect(component.find('#add-button').text()).toEqual('Add role')
@@ -60,6 +61,7 @@ describe('User search component', () => {
         history={mockHistory}
         roleFilter=""
         validationErrors={{}}
+        handleRoleAddChange={jest.fn()}
       />
     )
     component.find('#add-button').simulate('click')
@@ -87,6 +89,7 @@ describe('User search component', () => {
         history={mockHistory}
         roleFilter=""
         validationErrors={{}}
+        handleRoleAddChange={jest.fn()}
       />
     )
     expect(component.find('#add-button').length).toEqual(0)

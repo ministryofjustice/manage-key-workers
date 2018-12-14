@@ -73,16 +73,6 @@ ShallowWrapper {
         <div
           className="pure-u-md-7-12 padding-bottom-40"
         >
-          <a
-            href="test"
-          >
-            home
-          </a>
-          <h1
-            className="heading-large margin-top"
-          >
-            Auto-allocate key workers
-          </h1>
           <table>
             <thead>
               <tr>
@@ -194,16 +184,6 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <a
-              href="test"
-            >
-              home
-            </a>,
-            <h1
-              className="heading-large margin-top"
-            >
-              Auto-allocate key workers
-            </h1>,
             <table>
               <thead>
                 <tr>
@@ -301,30 +281,6 @@ ShallowWrapper {
         },
         "ref": null,
         "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "home",
-              "href": "test",
-            },
-            "ref": null,
-            "rendered": "home",
-            "type": "a",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Auto-allocate key workers",
-              "className": "heading-large margin-top",
-            },
-            "ref": null,
-            "rendered": "Auto-allocate key workers",
-            "type": "h1",
-          },
           Object {
             "instance": null,
             "key": undefined,
@@ -916,16 +872,6 @@ ShallowWrapper {
           <div
             className="pure-u-md-7-12 padding-bottom-40"
           >
-            <a
-              href="test"
-            >
-              home
-            </a>
-            <h1
-              className="heading-large margin-top"
-            >
-              Auto-allocate key workers
-            </h1>
             <table>
               <thead>
                 <tr>
@@ -1037,16 +983,6 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <a
-                href="test"
-              >
-                home
-              </a>,
-              <h1
-                className="heading-large margin-top"
-              >
-                Auto-allocate key workers
-              </h1>,
               <table>
                 <thead>
                   <tr>
@@ -1144,30 +1080,6 @@ ShallowWrapper {
           },
           "ref": null,
           "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "home",
-                "href": "test",
-              },
-              "ref": null,
-              "rendered": "home",
-              "type": "a",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Auto-allocate key workers",
-                "className": "heading-large margin-top",
-              },
-              "ref": null,
-              "rendered": "Auto-allocate key workers",
-              "type": "h1",
-            },
             Object {
               "instance": null,
               "key": undefined,

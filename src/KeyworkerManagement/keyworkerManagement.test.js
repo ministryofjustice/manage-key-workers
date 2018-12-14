@@ -34,6 +34,7 @@ describe('HomePage component', () => {
         user={user}
         allowAuto
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#auto_allocate_link').length).toBe(1)
@@ -63,6 +64,7 @@ describe('HomePage component', () => {
         user={user}
         allowAuto={false}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#auto_allocate_link').length).toBe(0)
@@ -90,6 +92,7 @@ describe('HomePage component', () => {
         allowAuto
         config={initialConfig}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#auto_allocate_link').length).toBe(1)
@@ -117,6 +120,7 @@ describe('HomePage component', () => {
         allowAuto={false}
         config={initialConfig}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#auto_allocate_link').length).toBe(0)
@@ -148,6 +152,7 @@ describe('HomePage component', () => {
         allowAuto={false}
         config={updatedConfig}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#maintain_roles_link').length).toBe(0)
@@ -179,6 +184,7 @@ describe('HomePage component', () => {
         allowAuto={false}
         config={updatedConfig}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#maintain_roles_link').length).toBe(1)
@@ -210,6 +216,7 @@ describe('HomePage component', () => {
         allowAuto={false}
         config={updatedConfig}
         migrated={false}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#maintain_roles_link').length).toBe(1)
@@ -242,6 +249,7 @@ describe('HomePage component', () => {
         allowAuto={false}
         migrated
         config={updatedConfig}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#keyworker_dashboard_link').length).toBe(1)
@@ -274,6 +282,7 @@ describe('HomePage component', () => {
         allowAuto={false}
         migrated={false}
         config={updatedConfig}
+        dispatchLoaded={jest.fn()}
       />
     )
     expect(component.find('#keyworker_dashboard_link').length).toBe(0)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setKeyworkerSearchText, resetError, setKeyworkerStatusFilter } from '../../redux/actions'
-import Error from '../../Error'
+import Page from '../../Components/Page'
 import KeyworkerSearchPage from '../components/KeyworkerSearchPage'
 
 class KeyworkerSearchContainer extends Component {
@@ -14,6 +14,7 @@ class KeyworkerSearchContainer extends Component {
     props.resetErrorDispatch()
     props.keyworkerSearchTextDispatch('')
     props.keyworkerStatusFilterDispatch('')
+    props.dispatchLoaded(true)
   }
 
   handleSearchTextChange = event => {
@@ -29,28 +30,25 @@ class KeyworkerSearchContainer extends Component {
   }
 
   handleSearch = history => {
-    history.push('/keyworker/results')
+    history.push('/key-worker-search/results')
   }
 
   render() {
-    const { error } = this.props
-
-    if (error) return <Error {...this.props} />
-
     return (
-      <KeyworkerSearchPage
-        handleSearchTextChange={this.handleSearchTextChange}
-        handleStatusFilterChange={this.handleStatusFilterChange}
-        handleSearch={this.handleSearch}
-        {...this.props}
-      />
+      <Page title="Search for a key worker">
+        <KeyworkerSearchPage
+          handleSearchTextChange={this.handleSearchTextChange}
+          handleStatusFilterChange={this.handleStatusFilterChange}
+          handleSearch={this.handleSearch}
+          {...this.props}
+        />
+      </Page>
     )
   }
 }
 
 KeyworkerSearchContainer.propTypes = {
   searchText: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   keyworkerSearchTextDispatch: PropTypes.func.isRequired,
   keyworkerStatusFilterDispatch: PropTypes.func.isRequired,
@@ -58,7 +56,6 @@ KeyworkerSearchContainer.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  error: state.app.error,
   searchText: state.keyworkerSearch.searchText,
   statusFilter: state.keyworkerSearch.statusFilter,
   agencyId: state.app.user.activeCaseLoadId,

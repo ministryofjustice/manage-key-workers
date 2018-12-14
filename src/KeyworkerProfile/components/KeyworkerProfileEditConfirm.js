@@ -86,35 +86,27 @@ const KeyworkerProfileEditConfirm = ({
   return (
     <div>
       <div className="pure-g">
-        <div className="pure-u-md-8-12 padding-top">
-          <a href="#back" title="Back link" className="link backlink" onClick={history.goBack}>
-            <img className="back-triangle" src="/images/BackTriangle.png" alt="" width="6" height="10" /> Back
-          </a>
-          <h1 className="heading-large margin-top">Update status</h1>
-        </div>
-        <div className="pure-g">
-          <div className="pure-u-md-4-12">
-            <span className="form-label">Proposed new status:</span>
-            <div id="keyworker-status" name="keyworker-status" className={`${statusStyle}Status margin-top`}>
-              {getStatusDescription(status)}
-            </div>
+        <div className="pure-u-md-4-12">
+          <span className="form-label">Proposed new status:</span>
+          <div id="keyworker-status" name="keyworker-status" className={`${statusStyle}Status margin-top`}>
+            {getStatusDescription(status)}
           </div>
         </div>
-        <div className="pure-g padding-top form-group">
-          {innerContents}
+      </div>
+      <div className="pure-g padding-top form-group">
+        {innerContents}
 
-          <div className="pure-u-md-8-12 padding-top-large margin-top">
-            <div className="pure-u-md-10-12">
-              <div className="buttonGroup">
-                <button type="button" className="button button-save" onClick={() => handleSaveChanges(history)}>
-                  Save changes
-                </button>
-              </div>
-              <div className="buttonGroup">
-                <button type="button" className="button greyButton button-cancel" onClick={() => handleCancel(history)}>
-                  Cancel
-                </button>
-              </div>
+        <div className="pure-u-md-8-12 padding-top-large margin-top">
+          <div className="pure-u-md-10-12">
+            <div className="buttonGroup">
+              <button type="button" className="button button-save" onClick={() => handleSaveChanges(history)}>
+                Save changes
+              </button>
+            </div>
+            <div className="buttonGroup">
+              <button type="button" className="button greyButton button-cancel" onClick={() => handleCancel(history)}>
+                Cancel
+              </button>
             </div>
           </div>
         </div>

@@ -143,8 +143,6 @@ describe('Unallocated component', () => {
       expect(mockAxios.mock.calls.length).toBe(1)
       expect(mockAxios.mock.calls[0][AXIOS_URL]).toBe('/api/unallocated')
       // const usefulDump = component.debug();
-      expect(component.find('Error').exists()).toEqual(true)
-      expect(component.find('Error').exists()).toEqual(true)
       expect(errorDispatch.mock.calls[0][0].message).toBe('Request failed with status code 500,test error')
       done()
     }, 5)
@@ -182,7 +180,6 @@ describe('Unallocated component', () => {
       expect(errorDispatch.mock.calls.length).toBe(1)
       expect(mockAxios.mock.calls.length).toBe(1)
       expect(mockAxios.mock.calls[0][AXIOS_URL]).toBe('/api/allocated')
-      expect(component.find('Error').exists()).toEqual(true)
       expect(errorDispatch.mock.calls[0][0].message).toBe('Request failed with status code 500,test error')
       done()
     }, 5)

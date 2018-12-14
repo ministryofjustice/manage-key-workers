@@ -37,6 +37,7 @@ import {
   setMessage,
   setMenuOpen,
   setSettings,
+  setLoaded,
 } from '../redux/actions/index'
 import { configType, userType } from '../types'
 
@@ -158,7 +159,17 @@ class App extends React.Component {
   )
 
   render() {
-    const { boundSetMenuOpen, config, shouldShowTerms, error, allowAuto, user, message, migrated } = this.props
+    const {
+      boundSetMenuOpen,
+      config,
+      shouldShowTerms,
+      error,
+      allowAuto,
+      user,
+      message,
+      migrated,
+      dispatchLoaded,
+    } = this.props
     let innerContent
     const routes = (
       // eslint-disable-next-line
@@ -175,13 +186,14 @@ class App extends React.Component {
                 config={config}
                 message={message}
                 clearMessage={this.clearMessage}
+                dispatchLoaded={dispatchLoaded}
               />
             )}
           />
 
           <Route
             exact
-            path="/keyworkerDashboard"
+            path="/key-worker-statistics"
             render={() => (
               <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
             )}
@@ -189,63 +201,14 @@ class App extends React.Component {
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
             exact
-            path="/offender/search"
+            path="/offender-search"
             render={() => (
               <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
-            path="/offender/:offenderNo/history"
-            render={() => (
-              <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
-            )}
-          />
-          <Route
-            exact
-            path="/unallocated"
-            render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/provisionalAllocation"
-            render={() => (
-              <ProvisionalAllocationContainer
-                handleError={this.handleError}
-                onFinishAllocation={this.onFinishAllocation}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/keyworker/search"
-            render={() => <KeyworkerSearchContainer displayBack={this.displayBack} handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/keyworker/results"
-            render={() => (
-              <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
-            )}
-          />
-          <Route
-            exact
-            path="/keyworker/:staffId/profile"
-            render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
-          />
-          <Route
-            exact
-            path="/keyworker/:staffId/profile/edit"
-            render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/keyworker/:staffId/profile/edit/confirm"
-            render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/offender/results"
+            path="/offender-search/results"
             render={() => (
               <AssignTransferContainer
                 onFinishAllocation={this.onFinishAllocation}
@@ -257,12 +220,67 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/admin/nomis/access"
+            path="/offender-history/:offenderNo"
+            render={() => (
+              <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
+            )}
+          />
+          <Route
+            exact
+            path="/unallocated"
+            render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
+          />
+          <Route
+            exact
+            path="/unallocated/provisional-allocation"
+            render={() => (
+              <ProvisionalAllocationContainer
+                handleError={this.handleError}
+                onFinishAllocation={this.onFinishAllocation}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/key-worker-search"
+            render={() => (
+              <KeyworkerSearchContainer
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                dispatchLoaded={dispatchLoaded}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/key-worker-search/results"
+            render={() => (
+              <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
+            )}
+          />
+          <Route
+            exact
+            path="/key-worker/:staffId"
+            render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
+          />
+          <Route
+            exact
+            path="/key-worker/:staffId/edit"
+            render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
+          />
+          <Route
+            exact
+            path="/key-worker/:staffId/confirm-edit"
+            render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
+          />
+          <Route
+            exact
+            path="/give-nomis-access"
             render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/admin/settings"
+            path="/manage-key-worker-settings"
             render={() => (
               <KeyworkerSettingsContainer
                 displayBack={this.displayBack}
@@ -273,7 +291,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/search"
+            path="/maintain-roles"
             render={() => (
               <UserSearchContainer
                 displayBack={this.displayBack}
@@ -284,7 +302,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/results"
+            path="/maintain-roles/search-results"
             render={() => (
               <UserSearchResultsContainer
                 displayBack={this.displayBack}
@@ -295,7 +313,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/:username/profile"
+            path="/maintain-roles/:username/roles"
             render={() => (
               <StaffRoleProfileContainer
                 displayBack={this.displayBack}
@@ -306,7 +324,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintainRoles/:username/addRole"
+            path="/maintain-roles/:username/roles/add-role"
             render={() => (
               <AddRoleContainer
                 displayBack={this.displayBack}
@@ -347,7 +365,7 @@ class App extends React.Component {
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
-                    const routesThatDontRedirectAfterCaseloadSwitch = ['/keyworkerDashboard']
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/key-worker-statistics']
 
                     if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
                       props.history.push('/')
@@ -392,6 +410,7 @@ App.propTypes = {
   allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
+  dispatchLoaded: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -415,6 +434,7 @@ const mapDispatchToProps = dispatch => ({
   setMessageDispatch: message => dispatch(setMessage(message)),
   boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
   keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
+  dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
 const AppContainer = connect(
