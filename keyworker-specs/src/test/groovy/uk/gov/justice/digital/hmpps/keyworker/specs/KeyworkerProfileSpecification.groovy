@@ -87,8 +87,8 @@ class KeyworkerProfileSpecification extends GebReportingSpec {
         when: "Parent page link in breadcrumb is clicked"
         parentPageLink.click()
 
-        then: "We return to KW Profile Edit page"
-        at KeyworkerEditPage
+        then: "We return to KW Profile page"
+        at KeyworkerProfilePage
     }
 
     def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly"() {

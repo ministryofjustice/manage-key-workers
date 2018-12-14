@@ -197,7 +197,7 @@ class AccessSpecification extends GebReportingSpec {
         fixture.loginWithoutStaffRoles(ITAG_USER)
 
         when: "and then try to navigate directly to the profile page"
-        go "/keyworker/${ KeyworkerResultsPage.test_keyworker_staffId}/edit"
+        go "/key-worker/${ KeyworkerResultsPage.test_keyworker_staffId}/edit"
 
         then: "I should be redirected back to the landing page"
         at KeyworkerManagementPage

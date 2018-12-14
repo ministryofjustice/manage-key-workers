@@ -4,7 +4,7 @@ import geb.Page
 import uk.gov.justice.digital.hmpps.keyworker.modules.HeaderModule
 
 class KeyworkerDashboardPage extends Page {
-    static url = "/keyworker-statistics"
+    static url = "/key-worker-statistics"
 
     static at = {
         browser.currentUrl.contains(url)

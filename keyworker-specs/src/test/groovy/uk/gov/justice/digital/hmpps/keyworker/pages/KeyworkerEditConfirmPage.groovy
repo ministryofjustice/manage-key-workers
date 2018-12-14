@@ -5,7 +5,7 @@ import geb.Page
 public class KeyworkerEditConfirmPage extends Page {
 
 
-    static url = "/edit/confirm"
+    static url = "/confirm-edit"
 
     static at = {
         browser.currentUrl.contains(url)

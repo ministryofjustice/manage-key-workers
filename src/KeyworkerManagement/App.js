@@ -193,7 +193,7 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/keyworker-statistics"
+            path="/key-worker-statistics"
             render={() => (
               <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
             )}
@@ -242,7 +242,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/keyworker-search"
+            path="/key-worker-search"
             render={() => (
               <KeyworkerSearchContainer
                 displayBack={this.displayBack}
@@ -253,24 +253,24 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/keyworker-search/results"
+            path="/key-worker-search/results"
             render={() => (
               <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
-            path="/keyworker/:staffId"
+            path="/key-worker/:staffId"
             render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
           />
           <Route
             exact
-            path="/keyworker/:staffId/edit"
+            path="/key-worker/:staffId/edit"
             render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/keyworker/:staffId/edit/confirm"
+            path="/key-worker/:staffId/confirm-edit"
             render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
           />
           <Route
@@ -280,7 +280,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/manage-keyworker-settings"
+            path="/manage-key-worker-settings"
             render={() => (
               <KeyworkerSettingsContainer
                 displayBack={this.displayBack}
@@ -365,7 +365,7 @@ class App extends React.Component {
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
-                    const routesThatDontRedirectAfterCaseloadSwitch = ['/keyworker-statistics']
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/key-worker-statistics']
 
                     if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
                       props.history.push('/')

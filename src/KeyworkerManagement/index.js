@@ -35,7 +35,12 @@ class HomePage extends Component {
                 </div>
               )}
             <div className="pure-u-md-6-12">
-              <Link id="keyworker_profile_link" title="Key worker profile link" className="link" to="/keyworker-search">
+              <Link
+                id="keyworker_profile_link"
+                title="Key worker profile link"
+                className="link"
+                to="/key-worker-search"
+              >
                 Your key workers
               </Link>
               <div>Update a key worker&apos;s availability, re-assign their prisoners and check their statistics.</div>
@@ -59,7 +64,7 @@ class HomePage extends Component {
                   id="keyworker_dashboard_link"
                   title="Key worker dashboard"
                   className="link"
-                  to="/keyworker-statistics"
+                  to="/key-worker-statistics"
                 >
                   Prison statistics
                 </Link>
@@ -87,7 +92,7 @@ class HomePage extends Component {
                   id="keyworker_settings_link"
                   title="Key worker settings"
                   className="link"
-                  to="/manage-keyworker-settings"
+                  to="/manage-key-worker-settings"
                 >
                   Manage key worker settings
                 </Link>
