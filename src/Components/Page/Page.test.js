@@ -30,8 +30,11 @@ describe('<Page />', () => {
       )
     })
 
+    it('should update the document title', () => {
+      expect(global.window.document.title).toEqual('Page title | Key worker | Prison NOMIS')
+    })
+
     it('should display the children prop', () => {
-      console.log(global.window.document.title)
       expect(wrapper.find('.page-content').contains(props.children)).toEqual(true)
     })
 
