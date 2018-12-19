@@ -77,7 +77,7 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
    */
   const authenticate = (username, password) =>
     makeTokenRequest(
-      `username=${username.toUpperCase()}&password=${password}&grant_type=password`,
+      querystring.stringify({ username: username.toUpperCase(), password, grant_type: 'password' }),
       `authenticate: ${username}`
     )
 
@@ -85,7 +85,8 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
    * Perform OAuth token refresh, returning the tokens to the caller. See scopedStore.run.
    * @returns A Promise that resolves when token refresh has succeeded and the OAuth tokens have been returned.
    */
-  const refresh = refreshToken => makeTokenRequest(`refresh_token=${refreshToken}&grant_type=refresh_token`, 'refresh:')
+  const refresh = refreshToken =>
+    makeTokenRequest(querystring.stringify({ refresh_token: refreshToken, grant_type: 'refresh_token' }), 'refresh:')
 
   return {
     authenticate,
