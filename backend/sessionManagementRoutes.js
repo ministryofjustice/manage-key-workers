@@ -17,7 +17,7 @@ const isXHRRequest = req =>
  */
 const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) => {
   const authLogoutUrl = config.app.remoteAuthStrategy
-    ? `${config.apis.oauth2.ui_url}/logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
+    ? `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
     : '/login'
 
   const loginIndex = async (req, res) => {
