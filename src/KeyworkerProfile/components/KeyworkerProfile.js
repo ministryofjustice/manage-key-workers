@@ -161,7 +161,7 @@ class KeyworkerProfile extends Component {
                 className="button pure-u-md-5-24"
                 onClick={() => handleAllocationChange(history)}
               >
-                Update keyworker allocation
+                Update key worker allocation
               </button>
             )}
         </div>
