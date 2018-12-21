@@ -89,7 +89,7 @@ class KeyworkerSearchResults extends Component {
             </div>
           </div>
           <div>
-            <div className="lede padding-top-large padding-bottom-small bold">{keyworkers.length} Results:</div>
+            <div className="lede padding-top-large padding-bottom-small bold">{keyworkers.length} results:</div>
             <div className="pure-u-md-11-12">
               <table>
                 <thead>
@@ -109,7 +109,7 @@ class KeyworkerSearchResults extends Component {
                 <tbody>{keyworkers}</tbody>
               </table>
               {keyworkers.length === 0 && (
-                <div className="font-small padding-top-large padding-bottom padding-left">No Key workers found</div>
+                <div className="font-small padding-top-large padding-bottom padding-left">No key worker found</div>
               )}
             </div>
           </div>

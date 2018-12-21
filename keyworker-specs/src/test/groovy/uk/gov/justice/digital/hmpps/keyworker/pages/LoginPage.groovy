@@ -10,7 +10,7 @@ class LoginPage extends Page {
 
     static at = {
         title == 'Manage key workers - Key worker - Prison NOMIS'
-        headingText == 'Login'
+        headingText == 'Sign in'
     }
 
     static content = {
