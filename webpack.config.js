@@ -22,7 +22,6 @@ module.exports = {
     path: path.join(__dirname, 'build'),
     publicPath: process.env.PUBLIC_URL || '/',
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
