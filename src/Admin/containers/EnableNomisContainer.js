@@ -50,19 +50,15 @@ class EnableNomisContainer extends Component {
 }
 
 EnableNomisContainer.propTypes = {
-  error: PropTypes.string.isRequired,
   agencyId: PropTypes.string.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  loaded: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  error: state.app.error,
   user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
-  loaded: state.app.loaded,
 })
 
 const mapDispatchToProps = dispatch => ({

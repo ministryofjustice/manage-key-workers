@@ -51,7 +51,7 @@ class UserSearchContainer extends Component {
   }
 
   handleSearch = history => {
-    history.push('/maintain-roles/search-results')
+    history.push('/admin-utilities/maintain-roles/search-results')
   }
 
   handleNameFilterChange = event => {

@@ -143,7 +143,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         !rows.isDisplayed()
     }
 
-    def "refreshing on offender result (or typing /offender-search/results in url) - should redirect to offender search"() {
+    def "refreshing on offender result (or typing /manage-key-workers/offender-search/results in url) - should redirect to offender search"() {
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)
 

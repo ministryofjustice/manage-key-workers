@@ -44,7 +44,7 @@ class UnallocatedContainer extends Component {
   }
 
   gotoManualAllocation = async history => {
-    history.push(`/unallocated/provisional-allocation`)
+    history.push(`/manage-key-workers/unallocated/provisional-allocation`)
   }
 
   render() {

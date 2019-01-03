@@ -5,7 +5,7 @@ import geb.Page
 public class EnableNewNomisPage extends Page {
 
 
-    static url = "/give-nomis-access"
+    static url = "/admin-utilities/give-nomis-access"
 
     static at = {
         browser.currentUrl.contains(url)

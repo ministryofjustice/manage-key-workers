@@ -30,7 +30,7 @@ class KeyworkerSearchContainer extends Component {
   }
 
   handleSearch = history => {
-    history.push('/key-worker-search/results')
+    history.push('/manage-key-workers/key-worker-search/results')
   }
 
   render() {

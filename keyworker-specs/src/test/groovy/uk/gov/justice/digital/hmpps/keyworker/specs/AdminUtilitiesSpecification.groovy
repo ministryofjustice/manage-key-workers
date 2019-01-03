@@ -7,12 +7,12 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.pages.AdminUtilitiesPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerSettingsPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
-class KeyworkerSettingsSpecification extends GebReportingSpec {
-
+class AdminUtilitiesSpecification extends GebReportingSpec {
     @Rule
     OauthApi oauthApi = new OauthApi()
 
@@ -24,16 +24,13 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
 
-    def "should allow an unsupported prison's default settings to be displayed"() {
-        finish
-    }
-
     def "should allow an unsupported prison to be migrated"() {
         setupRoles()
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
-        given: "I have navigated to the keyworker settings page"
+        given: "I have navigated to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
         keyworkerSettingsLink.click()
 
         when: "I select the save settings and migrate"
@@ -51,8 +48,9 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
         setupRoles()
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, false)
 
-        given: "I have navigated to the keyworker settings page"
+        given: "I have navigated to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
         keyworkerSettingsLink.click()
 
         when: "I select the save settings"
@@ -74,8 +72,9 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
         setupRoles()
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, false)
 
-        given: "I have navigated to the keyworker settings page"
+        given: "I have navigated to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
         keyworkerSettingsLink.click()
 
         when: "I enter non-numeric capacities"
@@ -93,6 +92,56 @@ class KeyworkerSettingsSpecification extends GebReportingSpec {
 
         then: "I see a validation error"
         errorMessage.text() == 'Capacity Tier 2 must be equal to or greater than Capacity Tier 1'
+    }
+
+    def "should not see the auto allocation link when the current user is not a key worker admin"() {
+        elite2api.stubGetStaffAccessRoles([])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 1, true)
+
+        given: "I logged in and go to the admin and utilities page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
+
+        when: "I am on the admin and utilities page"
+
+        then: "I should not see the auto allocation link"
+        assert enableNewNomisLink.displayed == false
+    }
+
+    def "should see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
+        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
+
+        given: "I logged in and go to the admin and utilities page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
+
+        when: "I am on the admin and utilities page"
+
+        then: "I should see the enable new nomis link and not see the key worker settings link"
+        assert enableNewNomisLink.displayed == true
+        assert keyworkerSettingsLink.displayed == false
+    }
+
+    def "should see keyworker settings link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
+        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
+
+        given: "I logged in and go to the admin and utilities page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
+
+        when: "I am on the admin and utilities page"
+
+        then: "I should see the enable new nomis link and not see the key worker settings link"
+        assert enableNewNomisLink.displayed == true
+        assert keyworkerSettingsLink.displayed == false
     }
 
     private void setupRoles() {

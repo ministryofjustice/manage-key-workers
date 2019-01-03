@@ -131,7 +131,7 @@ class KeyworkerProfileContainer extends Component {
     // initialise inputs with current capacity value
     keyworkerCapacityDispatch(keyworker.capacity.toString())
     keyworkerStatusDispatch(keyworker.status)
-    history.push(`/key-worker/${keyworker.staffId}/edit`)
+    history.push(`/manage-key-workers/key-worker/${keyworker.staffId}/edit`)
   }
 
   postAllocationChange = async history => {
