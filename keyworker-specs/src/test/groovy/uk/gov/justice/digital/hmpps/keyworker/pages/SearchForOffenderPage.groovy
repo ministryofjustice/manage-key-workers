@@ -4,7 +4,7 @@ import geb.Page
 
 class SearchForOffenderPage extends Page {
 
-    static url = '/offender-search'
+    static url = '/manage-key-workers/offender-search'
 
     static at = {
         browser.currentUrl.contains(url)

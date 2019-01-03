@@ -32,7 +32,7 @@ class KeyworkerProfileEditConfirmContainer extends Component {
     const { status, history, match, setStatusChangeBehaviourDispatch, dateDispatch } = this.props
 
     if (!status || status === '') {
-      history.push(`/key-worker/${match.params.staffId}`)
+      history.push(`/manage-key-workers/key-worker/${match.params.staffId}`)
     }
     if (status === 'INACTIVE') {
       setStatusChangeBehaviourDispatch('REMOVE_ALLOCATIONS_NO_AUTO')
@@ -120,7 +120,7 @@ class KeyworkerProfileEditConfirmContainer extends Component {
     const { keyworker } = this.props
 
     // Use replace to ensure the profile page remains the history 'parent'
-    history.replace(`/key-worker/${keyworker.staffId}/edit`)
+    history.replace(`/manage-key-workers/key-worker/${keyworker.staffId}/edit`)
   }
 
   handleOptionChange(event) {

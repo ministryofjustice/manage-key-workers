@@ -83,7 +83,7 @@ describe('Unallocated component', () => {
   it('should get provisional allocation page correctly', async () => {
     const mockAxios = jest.fn()
     axios.get = mockAxios
-    // /unallocated
+    // /manage-key-workers/unallocated
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ['s1', 's2'], config: {} }))
     // /allocated
     mockAxios.mockImplementationOnce(() => Promise.resolve({ status: 200, data: ['s3', 's4'], config: {} }))
@@ -117,7 +117,7 @@ describe('Unallocated component', () => {
     const mockAxios = jest.fn() // v22+ .mockName('mockAxios');
     const errorDispatch = jest.fn()
     axios.get = mockAxios
-    // /unallocated
+    // /manage-key-workers/unallocated
     mockAxios.mockImplementationOnce(() => Promise.reject(new Error('Request failed with status code 500,test error')))
 
     const component = shallow(

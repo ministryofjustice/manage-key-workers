@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { Header } from 'new-nomis-shared-components'
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
@@ -177,8 +177,12 @@ class App extends React.Component {
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Route
+            path="(/)"
+            render={() => <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />}
+          />
+          <Route
             exact
-            path="/"
+            path="/manage-key-workers"
             render={() => (
               <HomePage
                 allowAuto={allowAuto}
@@ -194,7 +198,7 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/key-worker-statistics"
+            path="/manage-key-workers/key-worker-statistics"
             render={() => (
               <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
             )}
@@ -202,14 +206,14 @@ class App extends React.Component {
           <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
           <Route
             exact
-            path="/offender-search"
+            path="/manage-key-workers/offender-search"
             render={() => (
               <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
-            path="/offender-search/results"
+            path="/manage-key-workers/offender-search/results"
             render={() => (
               <AssignTransferContainer
                 onFinishAllocation={this.onFinishAllocation}
@@ -221,19 +225,19 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/offender-history/:offenderNo"
+            path="/manage-key-workers/offender-history/:offenderNo"
             render={() => (
               <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
             )}
           />
           <Route
             exact
-            path="/unallocated"
+            path="/manage-key-workers/unallocated"
             render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/unallocated/provisional-allocation"
+            path="/manage-key-workers/unallocated/provisional-allocation"
             render={() => (
               <ProvisionalAllocationContainer
                 handleError={this.handleError}
@@ -243,7 +247,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/key-worker-search"
+            path="/manage-key-workers/key-worker-search"
             render={() => (
               <KeyworkerSearchContainer
                 displayBack={this.displayBack}
@@ -254,24 +258,24 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/key-worker-search/results"
+            path="/manage-key-workers/key-worker-search/results"
             render={() => (
               <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
             )}
           />
           <Route
             exact
-            path="/key-worker/:staffId"
+            path="/manage-key-workers/key-worker/:staffId"
             render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
           />
           <Route
             exact
-            path="/key-worker/:staffId/edit"
+            path="/manage-key-workers/key-worker/:staffId/edit"
             render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/key-worker/:staffId/confirm-edit"
+            path="/manage-key-workers/key-worker/:staffId/confirm-edit"
             render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
           />
           <Route
@@ -371,7 +375,7 @@ class App extends React.Component {
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
-                    const routesThatDontRedirectAfterCaseloadSwitch = ['/key-worker-statistics']
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/manage-key-workers/key-worker-statistics']
 
                     if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
                       props.history.push('/')

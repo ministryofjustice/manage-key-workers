@@ -47,7 +47,7 @@ class OffenderSearchContainer extends Component {
   }
 
   handleSubmit = history => {
-    history.push('/offender-search/results')
+    history.push('/manage-key-workers/offender-search/results')
   }
 
   render() {

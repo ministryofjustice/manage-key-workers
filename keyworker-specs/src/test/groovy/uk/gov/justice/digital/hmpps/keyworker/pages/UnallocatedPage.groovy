@@ -4,7 +4,7 @@ import geb.Page
 
 public class UnallocatedPage extends Page {
 
-    static url ="/unallocated"
+    static url ="/manage-key-workers/unallocated"
 
     static at = {
         browser.currentUrl.contains(url)

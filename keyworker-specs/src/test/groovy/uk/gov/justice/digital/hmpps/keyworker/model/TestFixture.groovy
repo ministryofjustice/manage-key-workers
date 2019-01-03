@@ -104,7 +104,7 @@ class TestFixture {
     }
 
     def toKeyworkerDashboardPage() {
-        browser.go('/key-worker-statistics')
+        browser.go('/manage-key-workers/key-worker-statistics')
     }
 
     def toKeyworkerProfilePage() {
@@ -150,7 +150,7 @@ class TestFixture {
     }
 
     def toOffenderSearchResultsPageWithoutInitialSearch() {
-        browser.go '/offender-search/results'
+        browser.go '/manage-key-workers/offender-search/results'
     }
 
     def stubOffenderResultsPage(largeResult) {
