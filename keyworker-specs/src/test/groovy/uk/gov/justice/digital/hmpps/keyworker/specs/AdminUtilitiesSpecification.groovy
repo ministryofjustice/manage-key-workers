@@ -30,8 +30,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         given: "I have navigated to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         keyworkerSettingsLink.click()
 
         when: "I select the save settings and migrate"
@@ -51,8 +50,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         given: "I have navigated to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         keyworkerSettingsLink.click()
 
         when: "I select the save settings"
@@ -76,8 +74,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         given: "I have navigated to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         keyworkerSettingsLink.click()
 
         when: "I enter non-numeric capacities"
@@ -103,8 +100,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         given: "I logged in and go to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
 
         when: "I am on the admin and utilities page"
 
@@ -121,8 +117,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         given: "I logged in and go to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
 
         when: "I am on the admin and utilities page"
 
@@ -140,8 +135,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         given: "I logged in and go to the admin and utilities page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
 
         when: "I am on the admin and utilities page"
 

@@ -44,8 +44,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         given: "I have navigated to the Maintain roles - User search page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRoles()
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         maintainRolesLink.click()
 
         when: "i perform a search"
@@ -69,8 +68,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         given: "I have navigated to the Maintain roles - User search page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRolesIncludingAdminRoles()
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         maintainRolesLink.click()
 
         when: "i perform a global user search"
@@ -103,8 +101,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         given: "I have navigated to the Maintain roles - User search page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRolesIncludingAdminRoles()
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         maintainRolesLink.click()
 
         when: "i perform a global user search"
@@ -139,8 +136,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         given: "I have navigated to the Maintain roles - User search page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRoles()
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         maintainRolesLink.click()
 
         when: "i perform a search"
@@ -209,8 +205,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         given: "I have navigated to the Staff Profile page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRoles()
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         maintainRolesLink.click()
         elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI)
         searchButton.click()
@@ -244,8 +239,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         given: "I have navigated to the Staff Profile page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRoles()
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         maintainRolesLink.click()
         elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI)
         searchButton.click()

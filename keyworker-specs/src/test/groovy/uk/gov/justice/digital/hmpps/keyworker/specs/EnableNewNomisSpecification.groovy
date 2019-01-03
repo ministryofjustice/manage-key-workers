@@ -33,8 +33,7 @@ class EnableNewNomisSpecification extends GebReportingSpec {
 
         given: "I logged in and navigated to the enable new nomis page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
-        go AdminUtilitiesPage.url
-        at AdminUtilitiesPage
+        to AdminUtilitiesPage
         enableNewNomisLink.click()
 
         when: "I select the give access button"
