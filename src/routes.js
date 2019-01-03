@@ -11,8 +11,9 @@ export default [
   { path: '/key-worker/:staffId', breadcrumb: 'Key worker profile' },
   { path: '/offender-history', breadcrumb: null },
   { path: '/offender-history/:offenderId', breadcrumb: 'Offender key worker allocation history' },
-  { path: '/give-nomis-access', breadcrumb: 'Give access to New NOMIS' },
-  { path: '/maintain-roles/:staffId/roles', breadcrumb: 'Current profile roles' },
-  { path: '/maintain-roles/search-results', breadcrumb: 'Results' },
-  { path: '/maintain-roles/:staffId', breadcrumb: null },
+  { path: '/admin-utilities', breadcrumb: 'Admin and Utilities' },
+  { path: '/admin-utilities/give-nomis-access', breadcrumb: 'Give access to New NOMIS' },
+  { path: '/admin-utilities/maintain-roles/:staffId/roles', breadcrumb: 'Current profile roles' },
+  { path: '/admin-utilities/maintain-roles/search-results', breadcrumb: 'Results' },
+  { path: '/admin-utilities/maintain-roles/:staffId', breadcrumb: null },
 ]

@@ -18,6 +18,7 @@ import UnallocatedContainer from '../AutoAllocation/containers/Unallocated'
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional'
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
+import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
@@ -275,12 +276,17 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/give-nomis-access"
+            path="/admin-utilities"
+            render={() => <AdminUtilitiesContainer handleError={this.handleError} />}
+          />
+          <Route
+            exact
+            path="/admin-utilities/give-nomis-access"
             render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
           />
           <Route
             exact
-            path="/manage-key-worker-settings"
+            path="/admin-utilities/manage-key-worker-settings"
             render={() => (
               <KeyworkerSettingsContainer
                 displayBack={this.displayBack}
@@ -291,7 +297,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintain-roles"
+            path="/admin-utilities/maintain-roles"
             render={() => (
               <UserSearchContainer
                 displayBack={this.displayBack}
@@ -302,7 +308,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintain-roles/search-results"
+            path="/admin-utilities/maintain-roles/search-results"
             render={() => (
               <UserSearchResultsContainer
                 displayBack={this.displayBack}
@@ -313,7 +319,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintain-roles/:username/roles"
+            path="/admin-utilities/maintain-roles/:username/roles"
             render={() => (
               <StaffRoleProfileContainer
                 displayBack={this.displayBack}
@@ -324,7 +330,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/maintain-roles/:username/roles/add-role"
+            path="/admin-utilities/maintain-roles/:username/roles/add-role"
             render={() => (
               <AddRoleContainer
                 displayBack={this.displayBack}

@@ -118,7 +118,7 @@ class UserSearchContainer extends Component {
   async handleEdit(event, history) {
     const { userList } = this.props
     const chosenUser = userList[event.target.value]
-    history.push(`/maintain-roles/${chosenUser.username}/roles`)
+    history.push(`/admin-utilities/maintain-roles/${chosenUser.username}/roles`)
   }
 
   render() {

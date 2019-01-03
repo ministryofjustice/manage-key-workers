@@ -13,12 +13,8 @@ class HomePage extends Component {
 
   render() {
     const { allowAuto, user, config, migrated } = this.props
-    const showEnableNewNomis = user && (user.maintainAccess || user.maintainAccessAdmin)
-    const showMaintainRoles =
-      config && config.maintainRolesEnabled === 'true' && user && (user.maintainAccess || user.maintainAccessAdmin)
-    const showKeyworkerSettings = user && (user.maintainAccess || user.maintainAccessAdmin) && user.migration
-    const showAdminSection = showEnableNewNomis || showKeyworkerSettings
     const showKeyworkerDashboard = config && config.keyworkerDashboardStatsEnabled && migrated
+
     return (
       <Page title="Manage key workers">
         <MessageBar {...this.props} />
@@ -69,44 +65,6 @@ class HomePage extends Component {
                   Prison statistics
                 </Link>
                 <div className="padding-right-large">Check the key worker statistics for your establishment.</div>
-              </div>
-            )}
-          </div>
-          <div className="pure-u-md-8-12">
-            {showAdminSection && (
-              <h2 id="admin-task-header" className="padding-top-small heading-medium">
-                Admin tasks
-              </h2>
-            )}
-            {showEnableNewNomis && (
-              <div className="pure-u-md-6-12">
-                <Link id="enable_new_nomis_link" title="Enable Nomis" className="link" to="/give-nomis-access">
-                  Give access to New NOMIS
-                </Link>
-                <div className="padding-right-large">Allow prisons to use New NOMIS. Add new prison staff.</div>
-              </div>
-            )}
-            {showKeyworkerSettings && (
-              <div className="pure-u-md-5-12">
-                <Link
-                  id="keyworker_settings_link"
-                  title="Key worker settings"
-                  className="link"
-                  to="/manage-key-worker-settings"
-                >
-                  Manage key worker settings
-                </Link>
-                <div className="padding-right-large">
-                  Allow auto-allocation. Edit key worker capacity and session frequency.
-                </div>
-              </div>
-            )}
-            {showMaintainRoles && (
-              <div className="pure-u-md-5-12">
-                <Link id="maintain_roles_link" title="Manage access roles" className="link" to="/maintain-roles">
-                  Manage access roles
-                </Link>
-                <div className="padding-right-large">Add and remove staff roles.</div>
               </div>
             )}
           </div>
