@@ -43,7 +43,7 @@ jobs:
   integration_tests:
     working_directory: ~/app
     docker:
-      - image: circleci/openjdk:8u162-jdk-node-browsers
+      - image: circleci/openjdk:11-jdk-node-browsers-legacy
     steps:
       - checkout
       - attach_workspace:

@@ -9,9 +9,9 @@ ext {
 //                'chrome',
                 'chromeHeadless'
         ]
-        groovyVersion = '2.4.14'
-        gebVersion = '2.1'
-        seleniumVersion = '3.11.0'
+        groovyVersion = '2.5.5'
+        gebVersion = '2.2'
+        seleniumVersion = '3.12.0'
         chromeDriverVersion = '2.37'
     }
 }
@@ -20,8 +20,11 @@ repositories {
     mavenCentral()
 }
 
+project.sourceCompatibility = 11
+project.targetCompatibility = 11
+
 dependencies {
-    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
+    testCompile('org.spockframework:spock-core:1.2-groovy-2.5') {
         exclude group: "org.codehaus.groovy"
     }
 
@@ -30,7 +33,11 @@ dependencies {
     testCompile "org.gebish:geb-spock:$gebVersion"
     testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
-    testCompile 'io.github.http-builder-ng:http-builder-ng-apache:1.0.3'
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    testCompile "io.github.http-builder-ng:http-builder-ng-apache:1.0.3"
+
+    testCompile 'com.github.tomakehurst:wiremock-standalone:2.15.0'
+    testCompile 'com.github.tomjankes:wiremock-groovy:0.2.0'
 
     testCompile 'com.github.tomakehurst:wiremock-standalone:2.15.0'
     testCompile 'com.github.tomjankes:wiremock-groovy:0.2.0'
