@@ -281,7 +281,13 @@ class App extends React.Component {
           <Route
             exact
             path="/admin-utilities"
-            render={() => <AdminUtilitiesContainer handleError={this.handleError} />}
+            render={() => (
+              <AdminUtilitiesContainer
+                handleError={this.handleError}
+                message={message}
+                clearMessage={this.clearMessage}
+              />
+            )}
           />
           <Route
             exact

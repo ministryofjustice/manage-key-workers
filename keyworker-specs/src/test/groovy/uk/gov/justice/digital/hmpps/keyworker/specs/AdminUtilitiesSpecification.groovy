@@ -62,7 +62,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
 
         then: "I remain on the key worker settings page"
         at KeyworkerSettingsPage
-        messageBar.text() == 'key worker settings updated'
+        messageBar.text() == 'Key worker settings updated'
         capacity.value() == '8'
         extCapacity.value() == '10'
         sequenceFrequencySelect.value() == '2'

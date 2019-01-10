@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { setLoaded } from '../../redux/actions'
 import Page from '../../Components/Page'
 import { userType, configType } from '../../types'
+import MessageBar from '../../MessageBar'
 
 export class AdminUtilitiesContainer extends Component {
   componentWillMount() {
@@ -21,6 +22,7 @@ export class AdminUtilitiesContainer extends Component {
 
     return (
       <Page title="Admin and Utilities">
+        <MessageBar {...this.props} />
         <div className="pure-g">
           <div className="pure-u-md-8-12">
             {!hasMaintainRolesAccess &&
