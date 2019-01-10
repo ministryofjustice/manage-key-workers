@@ -40,8 +40,8 @@ class EnableNewNomisSpecification extends GebReportingSpec {
         elite2api.stubEnableNewNomisResponse(AgencyLocation.LEI)
         giveAccessButton.click()
 
-        then: "I am returned to the home page"
-        at KeyworkerManagementPage
-        messageBar.isDisplayed()
+        then: "I am returned to the admin utilities page"
+        at AdminUtilitiesPage
+        messageBar.text() == 'New NOMIS access updated'
     }
 }

@@ -76,7 +76,7 @@ class KeyworkerSettingsContainer extends Component {
       )
       setSettingsMigratedDispatch(response.data.migrated)
       setSettingsSupportedDispatch(response.data.supported)
-      setMessageDispatch('key worker settings updated')
+      setMessageDispatch('Key worker settings updated')
     } catch (error) {
       handleError(error)
     }

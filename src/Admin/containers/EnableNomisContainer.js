@@ -29,7 +29,7 @@ class EnableNomisContainer extends Component {
         }
       )
       setMessageDispatch('New NOMIS access updated')
-      history.push(`/`)
+      history.push(`/admin-utilities`)
     } catch (error) {
       handleError(error)
     }
@@ -37,7 +37,7 @@ class EnableNomisContainer extends Component {
   }
 
   handleCancel = history => {
-    history.push(`/`)
+    history.push(`/admin-utilities`)
   }
 
   render() {

@@ -25,6 +25,7 @@ const props = {
     maintainRolesEnabled: 'false',
     notmEndpointUrl: '//notm.url',
   },
+  message: '',
 }
 
 describe('<AdminUtilitiesContainer />', () => {
