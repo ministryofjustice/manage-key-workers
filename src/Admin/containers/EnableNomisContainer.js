@@ -37,7 +37,7 @@ class EnableNomisContainer extends Component {
   }
 
   handleCancel = history => {
-    history.push(`/`)
+    history.push(`/admin-utilities`)
   }
 
   render() {
