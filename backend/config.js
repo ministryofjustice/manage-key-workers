@@ -27,7 +27,7 @@ const setTestDefaults = () => {
 }
 
 const analytics = {
-  googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
+  googleTagManagerId: process.env.GOOGLE_TAG_MANAGER_ID,
 }
 
 const hmppsCookie = {
