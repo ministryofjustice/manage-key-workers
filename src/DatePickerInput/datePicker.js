@@ -17,7 +17,7 @@ class DatePicker extends Component {
         <label htmlFor={name} className="form-label">
           {title}
         </label>
-        <input id={inputId} className={className} name={name} {...props} readOnly />
+        <input id={inputId} className={className} name={name} {...props} />
       </Fragment>
     )
   }
