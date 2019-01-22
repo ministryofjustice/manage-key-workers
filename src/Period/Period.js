@@ -21,6 +21,7 @@ const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
           defaultValue={renderDate(fromDate)}
           inputId="keyWorkerStatsFromDate"
           customValidation={showPastDatesOnly}
+          className="from-date-picker"
         />
 
         <DatePickerInput
@@ -28,6 +29,7 @@ const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
           defaultValue={renderDate(toDate)}
           inputId="keyWorkerStatsToDate"
           customValidation={showPastDatesOnly}
+          className="to-date-picker"
         />
 
         <button type="submit" className="button greyButton" onClick={() => onButtonClick({ fromDate, toDate })}>

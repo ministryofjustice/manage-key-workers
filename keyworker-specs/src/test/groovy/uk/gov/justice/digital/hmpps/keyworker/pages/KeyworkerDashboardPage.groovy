@@ -15,9 +15,16 @@ class KeyworkerDashboardPage extends Page {
     static content = {
         headingText { $('h1').text() }
         header(required: false) { module(HeaderModule) }
-
-        durationInput { $('form input') }
-        periodSelect { $('form select') }
+        fromDateInput { $('#keyWorkerStatsFromDate') }
+        fromDateTopBar { $('.from-date-picker th.rdtSwitch') }
+        fromDateYearBox { value -> $('.from-date-picker  td', 'data-value': String.valueOf(value)) }
+        fromDateMonthBox { value -> $('.from-date-picker  td', 'data-value': String.valueOf(value-1)) } // text: String.valueOf(value)) }
+        fromDateDayBox { value -> $('.from-date-picker  td.rdtDay:not(.rdtOld):not(.rdtNew)', 'data-value': String.valueOf(value)) }
+        toDateInput { $('#keyWorkerStatsToDate') }
+        toDateTopBar { $('.to-date-picker th.rdtSwitch') }
+        toDateYearBox { value -> $('.to-date-picker  td', 'data-value': String.valueOf(value)) }
+        toDateMonthBox { value -> $('.to-date-picker  td', 'data-value': String.valueOf(value-1)) } // text: String.valueOf(value)) }
+        toDateDayBox { value -> $('.to-date-picker  td.rdtDay:not(.rdtOld):not(.rdtNew)', 'data-value': String.valueOf(value)) }
         formSubmit { $('form button') }
         keyworkerStats { $("[data-qa='percentagePrisonersWithKeyworker-value']")}
         numberOfActiveKeyworkers { $("[data-qa='numberOfActiveKeyworkers-value']").text() }
@@ -31,9 +38,20 @@ class KeyworkerDashboardPage extends Page {
 
     }
 
-    def fetchStatsFor(Integer duration, String period) {
-        durationInput = duration
-        periodSelect = period
+
+    def setDatePickers(def fromYear, def fromMonth, def fromDay, def toYear, def toMonth, def toDay) {
+        fromDateInput.click()
+        fromDateTopBar.click()
+        fromDateTopBar.click()
+        fromDateYearBox(fromYear).click()
+        fromDateMonthBox(fromMonth).click()
+        fromDateDayBox(fromDay).click()
+        toDateInput.click()
+        toDateTopBar.click()
+        toDateTopBar.click()
+        toDateYearBox(toYear).click()
+        toDateMonthBox(toMonth).click()
+        toDateDayBox(toDay).click()
         formSubmit.click()
     }
 }

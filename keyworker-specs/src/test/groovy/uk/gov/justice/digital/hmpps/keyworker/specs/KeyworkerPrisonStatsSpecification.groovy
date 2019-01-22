@@ -54,27 +54,7 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
         prisonerToKeyworkerRation == '3:1'
     }
 
-    def "should make a request for stats over the last four weeks by default"() {
-        given: "I am logged in"
-        fixture.loginAs(UserAccount.ITAG_USER)
-
-        when: "I navigate to the key worker prison stats dashboard page"
-        keyworkerApi.stubKeyworkerPrisonStatsResponse()
-        fixture.toKeyworkerDashboardPage()
-
-        then: "a request for stats over the last 4 weeks should be made"
-        at KeyworkerDashboardPage
-
-        LocalDate from = LocalDate.now().minusWeeks(4)
-        LocalDate to = LocalDate.now()
-
-        keyworkerApi.verify(WireMock.getRequestedFor(requestUrl)
-                .withQueryParam("prisonId", WireMock.equalTo("LEI"))
-                .withQueryParam("fromDate", WireMock.equalTo(from.toString()))
-                .withQueryParam("toDate", WireMock.equalTo(to.toString())))
-    }
-
-    def "should make a request for stats for the last 12 months"() {
+    def "should make a request for stats for the last full month by default"() {
         given: "I am logged in"
         fixture.loginAs(UserAccount.ITAG_USER)
 
@@ -84,12 +64,10 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
 
         then: "I set duration to 12 and period to monthly"
         at KeyworkerDashboardPage
-        fetchStatsFor(12, 'month')
 
-        at KeyworkerDashboardPage
-
-        LocalDate from = LocalDate.now().minusMonths(12)
-        LocalDate to = LocalDate.now()
+        LocalDate lastMonth = LocalDate.now().minusMonths(1)
+        LocalDate from = lastMonth.withDayOfMonth(1)
+        LocalDate to = lastMonth.withDayOfMonth(lastMonth.lengthOfMonth())
 
         keyworkerApi.verify(WireMock.getRequestedFor(requestUrl)
                 .withQueryParam("prisonId", WireMock.equalTo("LEI"))
@@ -97,7 +75,7 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
                 .withQueryParam("toDate", WireMock.equalTo(to.toString())))
     }
 
-    def "should make a request for stats for the previous year"() {
+    def "should load the dashboard then select the previous 7 days and make a request for stats"() {
         given: "I am logged in"
         fixture.loginAs(UserAccount.ITAG_USER)
 
@@ -105,19 +83,27 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
         keyworkerApi.stubKeyworkerPrisonStatsResponse()
         fixture.toKeyworkerDashboardPage()
 
-        then: "I set duration to 1 and period to yearly"
-        at KeyworkerDashboardPage
-        fetchStatsFor(1, 'year')
-
+        then: "I select the from and to dates"
         at KeyworkerDashboardPage
 
-        LocalDate from = LocalDate.now().minusYears(1)
-        LocalDate to = LocalDate.now()
+        LocalDate yesterday = LocalDate.now().minusDays((1))
+        LocalDate sevenDaysAgo = yesterday.minusDays((7))
+
+        setDatePickers(
+                sevenDaysAgo.getYear(),
+                sevenDaysAgo.getMonthValue(),
+                sevenDaysAgo.getDayOfMonth(),
+                yesterday.getYear(),
+                yesterday.getMonthValue(),
+                yesterday.getDayOfMonth()
+        )
+
+        at KeyworkerDashboardPage
 
         keyworkerApi.verify(WireMock.getRequestedFor(requestUrl)
                 .withQueryParam("prisonId", WireMock.equalTo("LEI"))
-                .withQueryParam("fromDate", WireMock.equalTo(from.toString()))
-                .withQueryParam("toDate", WireMock.equalTo(to.toString())))
+                .withQueryParam("fromDate", WireMock.equalTo(sevenDaysAgo.toString()))
+                .withQueryParam("toDate", WireMock.equalTo(yesterday.toString())))
     }
 
     def "should stay on the dashboard after a case load switch"() {
@@ -141,8 +127,9 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
         at KeyworkerDashboardPage
 
         then: "a call for Brixton stats should be made"
-        LocalDate from = LocalDate.now().minusWeeks(4)
-        LocalDate to = LocalDate.now()
+        LocalDate lastMonth = LocalDate.now().minusMonths(1)
+        LocalDate from = lastMonth.withDayOfMonth(1)
+        LocalDate to = lastMonth.withDayOfMonth(lastMonth.lengthOfMonth())
 
         keyworkerApi.verify(WireMock.getRequestedFor(requestUrl)
                 .withQueryParam("prisonId", WireMock.equalTo("BXI"))
