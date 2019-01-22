@@ -9,6 +9,7 @@ describe('<Page />', () => {
     error: '',
     loaded: false,
     children: 'Page content',
+    resetErrorDispatch: jest.fn(),
   }
 
   describe('when the page is loading', () => {
@@ -69,6 +70,15 @@ describe('<Page />', () => {
       expect(wrapper.find('Error').exists()).toBe(true)
       expect(wrapper.find('Error').prop('error')).toEqual(error)
       expect(wrapper.find('.page-content').contains(props.children)).toEqual(true)
+    })
+  })
+
+  describe('when component unmounts', () => {
+    it('reset any errors', () => {
+      const wrapper = shallow(<Page {...props} loaded />)
+
+      wrapper.unmount()
+      expect(props.resetErrorDispatch).toBeCalled()
     })
   })
 })

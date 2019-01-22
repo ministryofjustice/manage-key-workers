@@ -7,6 +7,7 @@ import Spinner from '../../Spinner'
 import { Container } from './Page.styles'
 import { childrenType } from '../../types'
 import Breadcrumb from '../Breadcrumb'
+import { resetError } from '../../redux/actions/index'
 
 export class Page extends Component {
   componentDidMount() {
@@ -16,6 +17,11 @@ export class Page extends Component {
 
   componentWillUpdate(nextProps) {
     this.renderTitleString(nextProps.title)
+  }
+
+  componentWillUnmount() {
+    const { resetErrorDispatch } = this.props
+    resetErrorDispatch()
   }
 
   renderTitleString = title => {
@@ -51,6 +57,7 @@ Page.propTypes = {
   children: childrenType.isRequired,
   alwaysRender: PropTypes.bool,
   showBreadcrumb: PropTypes.bool,
+  resetErrorDispatch: PropTypes.func.isRequired,
 }
 
 Page.defaultProps = {
@@ -63,4 +70,11 @@ const mapStateToProps = state => ({
   loaded: state.app.loaded,
 })
 
-export default connect(mapStateToProps)(Page)
+const mapDispatchToProps = dispatch => ({
+  resetErrorDispatch: () => dispatch(resetError()),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Page)
