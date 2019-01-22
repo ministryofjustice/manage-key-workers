@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Datetime from 'react-datetime'
 import 'react-datetime/css/react-datetime.css'
 import PropTypes from 'prop-types'
@@ -10,12 +10,15 @@ class DatePicker extends Component {
   }
 
   renderInput(props) {
-    const { inputId, className, name } = this.props
+    const { inputId, className, name, title } = this.props
 
     return (
-      <div>
+      <Fragment>
+        <label htmlFor={name} className="form-label">
+          {title}
+        </label>
         <input id={inputId} className={className} name={name} {...props} readOnly />
-      </div>
+      </Fragment>
     )
   }
 

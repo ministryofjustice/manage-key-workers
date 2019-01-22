@@ -4,7 +4,7 @@ import Header from '@govuk-react/header'
 import moment from 'moment'
 import { switchToIsoDateFormat, renderDate } from '../stringUtils'
 
-import FilterStyled from './Period.styles'
+import { FilterStyled, DefaultText } from './Period.styles'
 import DatePickerInput from '../DatePickerInput'
 
 const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
@@ -13,7 +13,7 @@ const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
   return (
     <form>
       <Header level={3} size="SMALL">
-        Select period to view
+        Select date range to view
       </Header>
       <FilterStyled>
         <DatePickerInput
@@ -22,6 +22,7 @@ const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
           inputId="keyWorkerStatsFromDate"
           customValidation={showPastDatesOnly}
           className="from-date-picker"
+          title="From"
         />
 
         <DatePickerInput
@@ -30,12 +31,14 @@ const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
           inputId="keyWorkerStatsToDate"
           customValidation={showPastDatesOnly}
           className="to-date-picker"
+          title="To"
         />
 
         <button type="submit" className="button greyButton" onClick={() => onButtonClick({ fromDate, toDate })}>
           Update
         </button>
       </FilterStyled>
+      <DefaultText>The default is the last calendar month.</DefaultText>
     </form>
   )
 }

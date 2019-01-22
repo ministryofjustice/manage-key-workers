@@ -1,16 +1,23 @@
 import styled from 'react-emotion'
-import { SPACING } from '@govuk-react/constants'
+import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants'
 
-const FilterStyled = styled('div')`
+export const FilterStyled = styled('div')`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  margin-bottom: ${SPACING.SCALE_3};
 
   input {
-    margin-top: 2px;
     margin-right: ${SPACING.SCALE_3};
     width: 120px;
     height: 38px;
   }
 `
 
-export default FilterStyled
+export const DefaultText = styled('p')`
+  font-size: ${FONT_SIZE.SIZE_16};
+
+  @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
+    margin-bottom: 0;
+    font-size: ${FONT_SIZE.SIZE_19};
+  }
+`
