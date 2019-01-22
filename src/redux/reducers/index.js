@@ -124,6 +124,8 @@ const prisonLevelKeyWorkerStatsDashboardInitialState = {
   prisonerToKeyWorkerRatio: 0,
   duration: 4,
   period: 'week',
+  fromDate: '',
+  toDate: '',
 }
 
 function updateObject(oldObject, newValues) {
@@ -452,8 +454,8 @@ export function prisonLevelKeyWorkerStatsDashboard(state = prisonLevelKeyWorkerS
       return {
         ...state,
         data: action.data,
-        duration: action.duration,
-        period: action.period,
+        fromDate: action.fromDate,
+        toDate: action.toDate,
         prisonerToKeyWorkerRatio: action.prisonerToKeyWorkerRatio,
       }
     default:

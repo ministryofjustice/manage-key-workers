@@ -1,47 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Input from '@govuk-react/input'
-import Select from '@govuk-react/select'
 import Header from '@govuk-react/header'
+import moment from 'moment'
+import { switchToIsoDateFormat, renderDate } from '../stringUtils'
 
 import FilterStyled from './Period.styles'
+import DatePickerInput from '../DatePickerInput'
 
-const Period = ({ duration, period, onInputChange, onButtonClick }) => (
-  <form>
-    <Header level={3} size="SMALL">
-      Select period to view
-    </Header>
-    <FilterStyled>
-      <Input
-        name="duration"
-        data-qa="keyworker-dashboard-duration"
-        value={duration}
-        onChange={e => onInputChange({ period, duration: e.target.value })}
-      />
-      <Select
-        name="period"
-        data-qa="keyworker-dashboard-period"
-        input={{
-          value: period,
-          onChange: e => onInputChange({ duration, period: e.target.value }),
-        }}
-      >
-        <option value="week">Weekly</option>
-        <option value="month">Monthly</option>
-        <option value="year">Yearly</option>
-      </Select>
+const Period = ({ fromDate, toDate, onInputChange, onButtonClick }) => {
+  const showPastDatesOnly = date => date && date.isBefore(moment().subtract(1, 'days'))
 
-      <button type="submit" className="button greyButton" onClick={() => onButtonClick({ duration, period })}>
-        Update
-      </button>
-    </FilterStyled>
-  </form>
-)
+  return (
+    <form>
+      <Header level={3} size="SMALL">
+        Select period to view
+      </Header>
+      <FilterStyled>
+        <DatePickerInput
+          handleDateChange={selectedDate => onInputChange({ fromDate: switchToIsoDateFormat(selectedDate), toDate })}
+          defaultValue={renderDate(fromDate)}
+          inputId="keyWorkerStatsFromDate"
+          customValidation={showPastDatesOnly}
+        />
+
+        <DatePickerInput
+          handleDateChange={selectedDate => onInputChange({ fromDate, toDate: switchToIsoDateFormat(selectedDate) })}
+          defaultValue={renderDate(toDate)}
+          inputId="keyWorkerStatsToDate"
+          customValidation={showPastDatesOnly}
+        />
+
+        <button type="submit" className="button greyButton" onClick={() => onButtonClick({ fromDate, toDate })}>
+          Update
+        </button>
+      </FilterStyled>
+    </form>
+  )
+}
+
 Period.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  duration: PropTypes.number.isRequired,
-  period: PropTypes.string.isRequired,
+  fromDate: PropTypes.string.isRequired,
+  toDate: PropTypes.string.isRequired,
 }
 
 export default Period
