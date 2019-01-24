@@ -15,7 +15,7 @@ class Date extends Component {
     return (
       <DateContainer error={errorText}>
         <LabelText>{title}</LabelText>
-        {errorText && <ErrorText>{errorText}</ErrorText>}
+        {errorText && <ErrorText data-qa={`${name}InputError`}>{errorText}</ErrorText>}
         <Datetime
           className={name}
           onChange={onChange}

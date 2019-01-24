@@ -20,6 +20,7 @@ class KeyworkerDashboardPage extends Page {
         fromDateYearBox { value -> $('.fromDate  td', 'data-value': String.valueOf(value)) }
         fromDateMonthBox { value -> $('.fromDate  td', 'data-value': String.valueOf(value-1)) } // text: String.valueOf(value)) }
         fromDateDayBox { value -> $('.fromDate  td.rdtDay:not(.rdtOld):not(.rdtNew)', 'data-value': String.valueOf(value)) }
+        fromDateError { $("[data-qa='fromDateInputError']").text() }
         toDateInput { $('#toDate') }
         toDateTopBar { $('.toDate th.rdtSwitch') }
         toDateYearBox { value -> $('.toDate  td', 'data-value': String.valueOf(value)) }
