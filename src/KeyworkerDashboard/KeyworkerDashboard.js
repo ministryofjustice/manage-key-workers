@@ -17,7 +17,7 @@ import { setPrisonLevelKeyworkerStats, setLoaded } from '../redux/actions'
 
 import { RatioHeader, Ratio } from './KeyworkerDashboard.styles'
 
-class KeyworkerDashboard extends Component {
+export class KeyworkerDashboard extends Component {
   async componentDidMount() {
     const { firstDay, lastDay } = this.getLastMonthsDates()
     await this.loadStatsForPeriod(firstDay, lastDay)
@@ -38,6 +38,11 @@ class KeyworkerDashboard extends Component {
     return { firstDay, lastDay }
   }
 
+  onSubmit = values => {
+    const { fromDate, toDate } = values
+    this.loadStatsForPeriod(switchToIsoDateFormat(fromDate), switchToIsoDateFormat(toDate))
+  }
+
   async loadStatsForPeriod(fromDate, toDate) {
     const { agencyId, handleError, dispatchLoaded, dispatchStats, migrated, history } = this.props
     if (!migrated) {
@@ -56,11 +61,6 @@ class KeyworkerDashboard extends Component {
     }
   }
 
-  updateSelectedDates(fromDate, toDate) {
-    const { data, prisonerToKeyWorkerRatio, dispatchStats } = this.props
-    dispatchStats({ data, prisonerToKeyWorkerRatio, fromDate, toDate })
-  }
-
   renderStatistic = statistic => (
     <Fragment key={statistic.heading}>
       <GridCol columnOneQuarter>
@@ -76,12 +76,7 @@ class KeyworkerDashboard extends Component {
         <hr />
         <GridRow>
           <GridCol>
-            <Period
-              fromDate={fromDate}
-              toDate={toDate}
-              onInputChange={props => this.updateSelectedDates(props.fromDate, props.toDate)}
-              onButtonClick={props => this.loadStatsForPeriod(props.fromDate, props.toDate)}
-            />
+            <Period fromDate={fromDate} toDate={toDate} onSubmit={this.onSubmit} />
           </GridCol>
           <GridCol columnOneQuarter>
             <RatioHeader level={3} size="SMALL">
@@ -113,6 +108,8 @@ KeyworkerDashboard.propTypes = {
   migrated: PropTypes.bool.isRequired,
   fromDate: PropTypes.string.isRequired,
   toDate: PropTypes.string.isRequired,
+  dispatchStats: PropTypes.func.isRequired,
+  dispatchLoaded: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({
