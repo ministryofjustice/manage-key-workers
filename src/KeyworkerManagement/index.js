@@ -20,21 +20,19 @@ class HomePage extends Component {
         <MessageBar {...this.props} />
         <div className="pure-g">
           <div className="pure-u-md-8-12 padding-bottom-large">
-            {user &&
-              user.writeAccess &&
-              allowAuto && (
-                <div className="pure-u-md-6-12">
-                  <Link
-                    id="auto_allocate_link"
-                    title="Auto allocate link"
-                    className="link"
-                    to="/manage-key-workers/unallocated"
-                  >
-                    Auto-allocate key workers
-                  </Link>
-                  <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
-                </div>
-              )}
+            {user && user.writeAccess && allowAuto && (
+              <div className="pure-u-md-6-12">
+                <Link
+                  id="auto_allocate_link"
+                  title="Auto allocate link"
+                  className="link"
+                  to="/manage-key-workers/unallocated"
+                >
+                  Auto-allocate key workers
+                </Link>
+                <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
+              </div>
+            )}
             <div className="pure-u-md-6-12">
               <Link
                 id="keyworker_profile_link"

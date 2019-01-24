@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { KeyworkerDashboard } from './KeyworkerDashboard'
 import mockHistory from '../test/mockHistory'
 
@@ -11,6 +11,7 @@ describe('<KeyworkerDashboard />', () => {
 
   const props = {
     agencyId: 'TEST',
+    activeCaseLoad: 'TEST',
     displayBack: jest.fn(),
     handleError: jest.fn(),
     history: mockHistory,
@@ -18,7 +19,7 @@ describe('<KeyworkerDashboard />', () => {
     dispatchStats: jest.fn(),
     dispatchLoaded: jest.fn(),
     data: [],
-    prisonerToKeyWorkerRatio: '6',
+    prisonerToKeyWorkerRatio: 6,
     ...dateValues,
   }
 

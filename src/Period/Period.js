@@ -7,6 +7,7 @@ import { Form, Field } from 'react-final-form'
 import { FilterStyled, DefaultText } from './Period.styles'
 import Date from '../Components/Date'
 import { switchToIsoDateFormat, renderDate } from '../stringUtils'
+import { formInputType, formMetaType } from '../types'
 
 const showPastDatesOnly = date => date && date.isBefore(moment().subtract(1, 'days'))
 
@@ -54,6 +55,11 @@ const Period = ({ fromDate, toDate, onSubmit }) => (
     )}
   />
 )
+
+DateAdapter.propTypes = {
+  input: formInputType.isRequired,
+  meta: formMetaType.isRequired,
+}
 
 Period.propTypes = {
   onSubmit: PropTypes.func.isRequired,

@@ -110,6 +110,9 @@ KeyworkerDashboard.propTypes = {
   toDate: PropTypes.string.isRequired,
   dispatchStats: PropTypes.func.isRequired,
   dispatchLoaded: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  prisonerToKeyWorkerRatio: PropTypes.number.isRequired,
+  activeCaseLoad: PropTypes.string.isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({

@@ -154,6 +154,10 @@ UserSearchContainer.propTypes = {
   resetErrorDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   config: configType.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  userListDispatch: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
+  userList: PropTypes.shape({}).isRequired,
 }
 
 const mapStateToProps = state => ({
