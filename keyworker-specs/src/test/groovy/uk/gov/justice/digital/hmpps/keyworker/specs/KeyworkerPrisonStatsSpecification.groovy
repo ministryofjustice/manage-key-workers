@@ -62,7 +62,7 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
         keyworkerApi.stubKeyworkerPrisonStatsResponse()
         fixture.toKeyworkerDashboardPage()
 
-        then: "I set duration to 12 and period to monthly"
+        then: "I set the from and to dates to cover the last full calendar month"
         at KeyworkerDashboardPage
 
         LocalDate lastMonth = LocalDate.now().minusMonths(1)
