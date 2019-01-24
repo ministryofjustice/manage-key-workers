@@ -42,7 +42,11 @@ Date.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
-  errorText: PropTypes.string.isRequired,
+  errorText: PropTypes.string,
+}
+
+Date.defaultProps = {
+  errorText: '',
 }
 
 export default Date

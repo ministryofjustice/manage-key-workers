@@ -19,7 +19,7 @@ const DateAdapter = ({ input, meta, ...rest }) => (
     onChange={value => input.onChange(value)}
     onBlur={event => input.onBlur(event)}
     meta={meta}
-    errorText={meta.error ? meta.error : ''}
+    errorText={meta.touched ? meta.error : ''}
   />
 )
 
@@ -28,7 +28,10 @@ const validate = values => {
   const fromDate = switchToIsoDateFormat(values.fromDate)
   const toDate = switchToIsoDateFormat(values.toDate)
 
-  if (moment(toDate).isBefore(fromDate)) errors.toDate = 'Date must be after From'
+  if (moment(toDate).isBefore(fromDate)) {
+    errors.fromDate = 'Date must be before To'
+    errors.toDate = 'Date must be after From'
+  }
 
   return errors
 }
