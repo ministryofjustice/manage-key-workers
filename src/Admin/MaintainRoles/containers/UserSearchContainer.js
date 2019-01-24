@@ -86,6 +86,7 @@ UserSearchContainer.propTypes = {
   pageNumberDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   dispatchLoaded: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

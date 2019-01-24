@@ -17,7 +17,7 @@ import {
 } from '../../../redux/actions/index'
 import { AddRole } from '../components/AddRole'
 import { isBlank, properCaseName } from '../../../stringUtils'
-import { roleFilterListType, roleListType, userType, contextUserType } from '../../../types'
+import { roleFilterListType, roleListType, userType, contextUserType, routeMatchType } from '../../../types'
 import Page from '../../../Components/Page'
 
 class AddRoleContainer extends Component {
@@ -141,11 +141,16 @@ AddRoleContainer.propTypes = {
   resetErrorDispatch: PropTypes.func.isRequired,
   setRoleAddDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  roleFilterListDispatch: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
+  contextUserDispatch: PropTypes.func.isRequired,
   contextUser: contextUserType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   resetValidationErrorsDispatch: PropTypes.func.isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
+  match: routeMatchType.isRequired,
 }
 
 const mapStateToProps = state => ({

@@ -13,6 +13,7 @@ import {
   keyworkerListType,
   keyworkerChangeListType,
   keyworkerAllocationsType,
+  configType,
 } from '../../types'
 
 class KeyworkerProfile extends Component {
@@ -104,20 +105,18 @@ class KeyworkerProfile extends Component {
 
     renderContent = (
       <div>
-        {config.keyworkerProfileStatsEnabled === 'true' &&
-          keyworker &&
-          keyworker.stats && (
-            <Fragment>
-              <h3 className="heading-medium" data-qa="keyworker-stat-heading">
-                {`Statistics for period: `}
-                <span className="normal-weight">{` ${formatDateToLongHand(
-                  keyworker.stats.fromDate
-                )} to ${formatDateToLongHand(keyworker.stats.toDate)}`}</span>
-              </h3>
-              <KeyworkerStats stats={keyworker.stats.data || []} />
-              <hr />
-            </Fragment>
-          )}
+        {config.keyworkerProfileStatsEnabled === 'true' && keyworker && keyworker.stats && (
+          <Fragment>
+            <h3 className="heading-medium" data-qa="keyworker-stat-heading">
+              {`Statistics for period: `}
+              <span className="normal-weight">{` ${formatDateToLongHand(
+                keyworker.stats.fromDate
+              )} to ${formatDateToLongHand(keyworker.stats.toDate)}`}</span>
+            </h3>
+            <KeyworkerStats stats={keyworker.stats.data || []} />
+            <hr />
+          </Fragment>
+        )}
         <div className="lede padding-top padding-bottom-large bold">
           Current allocations{' '}
           <div id="allocationCount" className={allocationCountStyle}>
@@ -153,17 +152,16 @@ class KeyworkerProfile extends Component {
               <tbody>{allocations}</tbody>
             </table>
           </div>
-          {keyworkerAllocations.length > 0 &&
-            (user && user.writeAccess) && (
-              <button
-                type="button"
-                id="updateAllocationButton"
-                className="button pure-u-md-5-24"
-                onClick={() => handleAllocationChange(history)}
-              >
-                Update key worker allocation
-              </button>
-            )}
+          {keyworkerAllocations.length > 0 && (user && user.writeAccess) && (
+            <button
+              type="button"
+              id="updateAllocationButton"
+              className="button pure-u-md-5-24"
+              onClick={() => handleAllocationChange(history)}
+            >
+              Update key worker allocation
+            </button>
+          )}
         </div>
       </div>
     )
@@ -202,19 +200,18 @@ class KeyworkerProfile extends Component {
                   </div>
                 </div>
               )}
-              {user &&
-                user.writeAccess && (
-                  <div className="pure-u-md-3-12 right-content">
-                    <button
-                      type="button"
-                      id="editProfileButton"
-                      className="button blueButton"
-                      onClick={() => handleEditProfileClick(history)}
-                    >
-                      Edit profile
-                    </button>
-                  </div>
-                )}
+              {user && user.writeAccess && (
+                <div className="pure-u-md-3-12 right-content">
+                  <button
+                    type="button"
+                    id="editProfileButton"
+                    className="button blueButton"
+                    onClick={() => handleEditProfileClick(history)}
+                  >
+                    Edit profile
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <hr />
@@ -237,6 +234,7 @@ KeyworkerProfile.propTypes = {
   message: PropTypes.string.isRequired,
   loaded: PropTypes.bool.isRequired,
   user: userType.isRequired,
+  config: configType.isRequired,
 }
 
 export default KeyworkerProfile

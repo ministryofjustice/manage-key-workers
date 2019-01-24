@@ -25,9 +25,9 @@ export class AdminUtilitiesContainer extends Component {
         <MessageBar {...this.props} />
         <div className="pure-g">
           <div className="pure-u-md-8-12">
-            {!hasMaintainRolesAccess &&
-              !showMaintainRoles &&
-              !showKeyworkerSettings && <p>There are no Admin or Utilities associated with your account.</p>}
+            {!hasMaintainRolesAccess && !showMaintainRoles && !showKeyworkerSettings && (
+              <p>There are no Admin or Utilities associated with your account.</p>
+            )}
 
             {hasMaintainRolesAccess && (
               <div className="pure-u-md-6-12">

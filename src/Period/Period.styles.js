@@ -1,27 +1,17 @@
 import styled from 'react-emotion'
-import { SPACING } from '@govuk-react/constants'
+import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants'
 
-const FilterStyled = styled('div')`
+export const FilterStyled = styled('div')`
   display: flex;
-  flow-direction: row;
-  align-items: center;
-
-  input {
-    margin-top: 2px;
-    margin-right: ${SPACING.SCALE_3};
-    width: 50px;
-    height: 38px;
-  }
-
-  label[name='period'] {
-    margin-bottom: 0;
-  }
-
-  select {
-    width: 122px;
-    margin-right: ${SPACING.SCALE_3};
-    height: 38px;
-  }
+  align-items: flex-end;
+  margin-bottom: ${SPACING.SCALE_4};
 `
 
-export default FilterStyled
+export const DefaultText = styled('p')`
+  font-size: ${FONT_SIZE.SIZE_16};
+
+  @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
+    margin-bottom: 0;
+    font-size: ${FONT_SIZE.SIZE_19};
+  }
+`
