@@ -7,7 +7,7 @@ import { DateContainer, DateInput } from './Date.styles'
 import 'react-datetime/css/react-datetime.css'
 
 class Date extends Component {
-  renderInput = props => <DateInput {...props} />
+  renderInput = props => <DateInput {...props} readOnly />
 
   render() {
     const { title, shouldShowDay, name, value, onChange, errorText, onBlur } = this.props
