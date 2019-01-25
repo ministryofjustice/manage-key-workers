@@ -8,7 +8,7 @@ export const Container = styled('div')`
 `
 
 export const Heading = styled('h2')`
-  flex: 1;
+  flex: 1 0 auto;
   margin: 0 0 ${SPACING.SCALE_3};
   font-size: ${FONT_SIZE.SIZE_16};
 
