@@ -4,6 +4,7 @@ import Input from '@govuk-react/input'
 import { SPACING } from '@govuk-react/constants'
 
 export const DateContainer = styled(Label)`
+  display: block;
   width: 135px;
 `
 

@@ -82,3 +82,11 @@ body {
   border-bottom: none;
 
 }
+
+/* react-datetime css override */
+.rdtPicker td,
+.rdtPicker th {
+  padding: 0 !important;
+  height: 40px !important;
+  vertical-align: middle !important;
+}
