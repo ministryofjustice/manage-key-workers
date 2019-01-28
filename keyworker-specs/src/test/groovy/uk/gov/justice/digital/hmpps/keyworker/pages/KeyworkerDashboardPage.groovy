@@ -9,7 +9,6 @@ class KeyworkerDashboardPage extends Page {
     static at = {
         browser.currentUrl.contains(url)
         headingText.contains('Key worker statistics')
-        keyworkerStats != null
     }
 
     static content = {
@@ -36,6 +35,7 @@ class KeyworkerDashboardPage extends Page {
         avgNumDaysFromReceptionToAllocationDays { $("[data-qa='avgNumDaysFromReceptionToAllocationDays-value']").text() }
         avgNumDaysFromReceptionToKeyWorkingSession { $("[data-qa='avgNumDaysFromReceptionToKeyWorkingSession-value']").text() }
         prisonerToKeyworkerRation {  $("[data-qa='prisonerToKeyworkerRation-value']").text() }
+        noDataMessage { $("[data-qa='no-data-message']").text() }
     }
 
 

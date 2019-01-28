@@ -87,7 +87,7 @@ export class KeyworkerDashboard extends Component {
       )
     }
 
-    return <NoDataMessage>There is no data for this period.</NoDataMessage>
+    return <NoDataMessage data-qa="no-data-message">There is no data for this period.</NoDataMessage>
   }
 
   render() {

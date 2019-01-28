@@ -30,6 +30,21 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
     UrlPattern requestUrl =
             WireMock.urlPathEqualTo("/key-worker-stats")
 
+    def "keyworker dashboard should display correct message if there is no data"() {
+        keyworkerApi.stubNoCurrentDataKeyworkerPrisonStatsResponse()
+
+        given: "I am logged in"
+        fixture.loginAs(UserAccount.ITAG_USER)
+
+        when: "I navigate to a key worker prison stats dashboard page"
+        fixture.toKeyworkerDashboardPage()
+
+        then: "No data message should display"
+        at KeyworkerDashboardPage
+        headingText == 'Key worker statistics - LEEDS (HMP)'
+        noDataMessage == 'There is no data for this period.'
+    }
+
     def "keyworker dashboard should display correctly"() {
         keyworkerApi.stubKeyworkerPrisonStatsResponse()
 
