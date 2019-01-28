@@ -41,7 +41,7 @@ const keyworkerPrisonStatsFactory = keyworkerApi => {
       summary: { current, previous },
     } = prisonStats
 
-    const stats = createPayload(current, previous)
+    const stats = current ? createPayload(current, previous) : []
 
     return {
       stats,

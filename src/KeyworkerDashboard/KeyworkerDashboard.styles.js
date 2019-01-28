@@ -18,4 +18,10 @@ const RatioHeader = styled(Header)`
   margin-bottom: ${SPACING.SCALE_3} !important;
 `
 
-export { Ratio, RatioHeader }
+const NoDataMessage = styled('p')`
+  font-weight: 700;
+`
+
+NoDataMessage.displayName = 'NoDataMessage'
+
+export { Ratio, RatioHeader, NoDataMessage }
