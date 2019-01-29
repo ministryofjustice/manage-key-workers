@@ -15,7 +15,7 @@ import { switchToIsoDateFormat } from '../stringUtils'
 
 import { setPrisonLevelKeyworkerStats, setLoaded } from '../redux/actions'
 
-import { RatioHeader, Ratio } from './KeyworkerDashboard.styles'
+import { RatioHeader, Ratio, NoDataMessage } from './KeyworkerDashboard.styles'
 
 export class KeyworkerDashboard extends Component {
   async componentDidMount() {
@@ -69,8 +69,29 @@ export class KeyworkerDashboard extends Component {
     </Fragment>
   )
 
+  renderData = () => {
+    const { data } = this.props
+
+    if (data.length > 0) {
+      return (
+        <Fragment>
+          <GridRow>{data.slice(0, 4).map(statistic => this.renderStatistic(statistic))}</GridRow>
+          {data.length > 4 && (
+            <Fragment>
+              <hr />
+              <GridRow>{data.slice(4, 8).map(statistic => this.renderStatistic(statistic))}</GridRow>
+              <hr />
+            </Fragment>
+          )}
+        </Fragment>
+      )
+    }
+
+    return <NoDataMessage data-qa="no-data-message">There is no data for this period.</NoDataMessage>
+  }
+
   render() {
-    const { data, prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad } = this.props
+    const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad } = this.props
     return (
       <Page title={`Key worker statistics - ${activeCaseLoad}`}>
         <hr />
@@ -86,15 +107,7 @@ export class KeyworkerDashboard extends Component {
           </GridCol>
         </GridRow>
         <hr />
-        {data.length === 0 && <p>No data to display</p>}
-        <GridRow>{data.slice(0, 4).map(statistic => this.renderStatistic(statistic))}</GridRow>
-        <hr />
-        {data.length > 4 && (
-          <Fragment>
-            <GridRow>{data.slice(4, 8).map(statistic => this.renderStatistic(statistic))}</GridRow>
-            <hr />
-          </Fragment>
-        )}
+        {this.renderData()}
       </Page>
     )
   }

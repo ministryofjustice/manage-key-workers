@@ -5,6 +5,8 @@ const formatNumber = (value, type) => {
 
 const keyworkerPrisonStatsFactory = keyworkerApi => {
   const createPayload = (current, previous) => {
+    if (!current) return []
+
     const items = {
       numberOfActiveKeyworkers: { heading: 'Total number of active key workers' },
       percentagePrisonersWithKeyworker: {
