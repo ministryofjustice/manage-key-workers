@@ -10,6 +10,8 @@ class UserSearchResponse {
         "username": "KBECK",
         "firstName": "KAREN",
         "lastName": "BECK",
+        "active": false,
+        "accountStatus": "MAT",
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -18,6 +20,8 @@ class UserSearchResponse {
         "username": "API_TEST_USER",
         "firstName": "ABS",
         "lastName": "DEY",
+        "active": false,
+        "accountStatus": "SICK",
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -26,6 +30,8 @@ class UserSearchResponse {
         "username": "JDUCKETT_GEN",
         "firstName": "JENNY",
         "lastName": "DUCKETT",
+        "active": true,
+        "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -34,6 +40,8 @@ class UserSearchResponse {
         "username": "CHANES",
         "firstName": "CHRIS",
         "lastName": "HANES",
+        "active": true,
+        "accountStatus": "ACTIVE",        
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -42,6 +50,8 @@ class UserSearchResponse {
         "username": "HQA63K",
         "firstName": "MARTHA",
         "lastName": "HUNSTON",
+        "active": true,
+        "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -50,6 +60,8 @@ class UserSearchResponse {
         "username": "AKNIGHT_GEN",
         "firstName": "ANDREW",
         "lastName": "KNIGHT",
+        "active": false,
+        "accountStatus": "SUS",      
         "lockedFlag": false,
         "expiredFlag": false
     }
@@ -65,6 +77,8 @@ class UserSearchResponse {
         "username": "user${page}",
         "firstName": "KAREN",
         "lastName": "BECK",
+        "active": true,
+        "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -73,6 +87,8 @@ class UserSearchResponse {
         "username": "ADEY",
         "firstName": "ABS",
         "lastName": "DEY",
+        "active": false,
+        "accountStatus": "INACT",
         "lockedFlag": false,
         "expiredFlag": false
     },
@@ -81,6 +97,8 @@ class UserSearchResponse {
         "username": "API_TEST_USER",
         "firstName": "ABS",
         "lastName": "DEY",
+        "active": true,
+        "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
     }
