@@ -3,7 +3,6 @@ const log = require('../log')
 
 const search = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
   eliteApi.userSearch(res.locals, {
-    agencyId,
     nameFilter,
     roleFilter: roleFilter || '',
   })
