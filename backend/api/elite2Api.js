@@ -31,12 +31,10 @@ const elite2ApiFactory = client => {
   const getUserAccessRoles = context => get(context, 'api/users/me/roles')
   const getAgencyDetails = (context, caseloadId) => get(context, `api/agencies/caseload/${caseloadId}`)
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
-  const userSearch = (context, { agencyId, nameFilter, roleFilter }) =>
+  const userSearch = (context, { nameFilter, roleFilter }) =>
     get(
       context,
-      `api/users/local-administrator/caseload/${agencyId}?nameFilter=${encodeQueryString(
-        nameFilter
-      )}&accessRole=${roleFilter}`
+      `api/users/local-administrator/available?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`
     )
   const userSearchAdmin = (context, { nameFilter, roleFilter }) =>
     get(context, `api/users?nameFilter=${encodeQueryString(nameFilter)}&accessRole=${roleFilter}`)
