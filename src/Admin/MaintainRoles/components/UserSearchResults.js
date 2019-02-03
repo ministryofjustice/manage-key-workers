@@ -16,6 +16,7 @@ const UserSearchResults = props => {
       <tr key={a.username}>
         <td className="row-gutters">{formattedName}</td>
         <td className="row-gutters width13em">{a.username}</td>
+        <td className="row-gutters width5em">{a.activeCaseLoadId}</td>
         <td className="row-gutters width5em">{a.active ? 'Yes' : 'No'}</td>
         <td className="row-gutters width5em">
           <button
@@ -44,6 +45,7 @@ const UserSearchResults = props => {
               <tr>
                 <th>Name</th>
                 <th>Username</th>
+                <th>Active Caseload</th>
                 <th>Active</th>
                 <th />
               </tr>

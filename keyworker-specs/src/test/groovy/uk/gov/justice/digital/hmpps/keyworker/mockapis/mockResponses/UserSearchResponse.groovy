@@ -11,6 +11,7 @@ class UserSearchResponse {
         "firstName": "KAREN",
         "lastName": "BECK",
         "active": false,
+        "activeCaseLoadId": "LEI",
         "accountStatus": "MAT",
         "lockedFlag": false,
         "expiredFlag": false
@@ -31,6 +32,7 @@ class UserSearchResponse {
         "firstName": "JENNY",
         "lastName": "DUCKETT",
         "active": true,
+        "activeCaseLoadId": "LEI",
         "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
@@ -41,6 +43,7 @@ class UserSearchResponse {
         "firstName": "CHRIS",
         "lastName": "HANES",
         "active": true,
+        "activeCaseLoadId": "LEI",
         "accountStatus": "ACTIVE",        
         "lockedFlag": false,
         "expiredFlag": false
@@ -51,6 +54,7 @@ class UserSearchResponse {
         "firstName": "MARTHA",
         "lastName": "HUNSTON",
         "active": true,
+        "activeCaseLoadId": "LEI",
         "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
@@ -61,6 +65,7 @@ class UserSearchResponse {
         "firstName": "ANDREW",
         "lastName": "KNIGHT",
         "active": false,
+        "activeCaseLoadId": "LEI",
         "accountStatus": "SUS",      
         "lockedFlag": false,
         "expiredFlag": false
@@ -78,6 +83,7 @@ class UserSearchResponse {
         "firstName": "KAREN",
         "lastName": "BECK",
         "active": true,
+        "activeCaseLoadId": "BXI",
         "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
@@ -98,6 +104,7 @@ class UserSearchResponse {
         "firstName": "ABS",
         "lastName": "DEY",
         "active": true,
+        "activeCaseLoadId": "LEI",
         "accountStatus": "ACTIVE",
         "lockedFlag": false,
         "expiredFlag": false
