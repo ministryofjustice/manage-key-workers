@@ -34,7 +34,7 @@ exports[`<Footer /> should match the default snapshot 1`] = `
           All content is available under the
            
           <a
-            className="css-1timic5"
+            className="css-15shojx"
             href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
             to={undefined}
           >
@@ -47,7 +47,7 @@ exports[`<Footer /> should match the default snapshot 1`] = `
         className="css-ua7yhj"
       >
         <a
-          className="css-1v1p8ig"
+          className="css-1ebvypn"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
         >
           © Crown copyright
@@ -102,7 +102,7 @@ exports[`<Footer /> should match the with children snapshot 1`] = `
           All content is available under the
            
           <a
-            className="css-1timic5"
+            className="css-15shojx"
             href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
             to={undefined}
           >
@@ -115,7 +115,7 @@ exports[`<Footer /> should match the with children snapshot 1`] = `
         className="css-ua7yhj"
       >
         <a
-          className="css-1v1p8ig"
+          className="css-1ebvypn"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
         >
           © Crown copyright
@@ -151,7 +151,7 @@ exports[`<Footer /> should match the with meta snapshot 1`] = `
         >
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/normal-link"
               to={undefined}
             >
@@ -160,7 +160,7 @@ exports[`<Footer /> should match the with meta snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/router-link"
               onClick={[Function]}
             >
@@ -169,7 +169,7 @@ exports[`<Footer /> should match the with meta snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href={undefined}
               onClick={[MockFunction]}
               onKeyDown={[Function]}
@@ -201,7 +201,7 @@ exports[`<Footer /> should match the with meta snapshot 1`] = `
           All content is available under the
            
           <a
-            className="css-1timic5"
+            className="css-15shojx"
             href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
             to={undefined}
           >
@@ -214,7 +214,7 @@ exports[`<Footer /> should match the with meta snapshot 1`] = `
         className="css-ua7yhj"
       >
         <a
-          className="css-1v1p8ig"
+          className="css-1ebvypn"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
         >
           © Crown copyright
@@ -250,7 +250,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
         >
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/benefits"
               to={undefined}
             >
@@ -259,7 +259,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/births-deaths"
               to={undefined}
             >
@@ -268,7 +268,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/business-self-employed"
               to={undefined}
             >
@@ -277,7 +277,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/childcare-parenting"
               to={undefined}
             >
@@ -286,7 +286,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/citizenship"
               to={undefined}
             >
@@ -295,7 +295,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/crime-justice"
               to={undefined}
             >
@@ -304,7 +304,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/disabled-people"
               to={undefined}
             >
@@ -313,7 +313,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/driving-transport"
               to={undefined}
             >
@@ -322,7 +322,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/education-learning"
               to={undefined}
             >
@@ -331,7 +331,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/employing-people"
               to={undefined}
             >
@@ -340,7 +340,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/environment-countryside"
               to={undefined}
             >
@@ -349,7 +349,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/housing-local"
               to={undefined}
             >
@@ -358,7 +358,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/money-tax"
               to={undefined}
             >
@@ -367,7 +367,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/passports-abroad"
               to={undefined}
             >
@@ -376,7 +376,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/visas-immigration"
               to={undefined}
             >
@@ -385,7 +385,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/working-pensions"
               to={undefined}
             >
@@ -408,7 +408,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
         >
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/how-gov-works"
               to={undefined}
             >
@@ -417,7 +417,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/departments"
               to={undefined}
             >
@@ -426,7 +426,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/worldwide"
               to={undefined}
             >
@@ -435,7 +435,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/policies"
               to={undefined}
             >
@@ -444,7 +444,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/publications"
               to={undefined}
             >
@@ -453,7 +453,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           </li>
           <li>
             <a
-              className="css-1timic5"
+              className="css-15shojx"
               href="/announcements"
               to={undefined}
             >
@@ -492,7 +492,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
           All content is available under the
            
           <a
-            className="css-1timic5"
+            className="css-15shojx"
             href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
             to={undefined}
           >
@@ -505,7 +505,7 @@ exports[`<Footer /> should match the with navigation snapshot 1`] = `
         className="css-ua7yhj"
       >
         <a
-          className="css-1v1p8ig"
+          className="css-1ebvypn"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
         >
           © Crown copyright
