@@ -24,7 +24,7 @@ import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSe
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
 import AddRoleContainer from '../Admin/MaintainRoles/containers/AddRoleContainer'
 import KeyworkerDashboard from '../KeyworkerDashboard/KeyworkerDashboard'
-import Footer from '../Footer/index'
+import Footer from '../Components/Footer'
 import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
 import links from '../links'
@@ -399,9 +399,12 @@ class App extends React.Component {
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
           <Footer
-            setMenuOpen={boundSetMenuOpen}
-            showTermsAndConditions={this.showTermsAndConditions}
-            mailTo={config.mailTo}
+            meta={{
+              items: [
+                { text: 'Contact us', href: `mailto:${config.mailTo}` },
+                { text: 'Terms and conditions', clickHandler: this.showTermsAndConditions },
+              ],
+            }}
           />
         </div>
       </Router>
