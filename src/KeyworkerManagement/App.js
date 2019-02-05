@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { Header } from 'new-nomis-shared-components'
+import { Header, Footer } from 'new-nomis-shared-components'
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -24,7 +24,6 @@ import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSe
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
 import AddRoleContainer from '../Admin/MaintainRoles/containers/AddRoleContainer'
 import KeyworkerDashboard from '../KeyworkerDashboard/KeyworkerDashboard'
-import Footer from '../Components/Footer'
 import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
 import links from '../links'
@@ -41,6 +40,7 @@ import {
   setLoaded,
 } from '../redux/actions/index'
 import { configType, userType } from '../types'
+import { linkOnClick } from '../helpers'
 
 const axios = require('axios')
 
@@ -402,7 +402,7 @@ class App extends React.Component {
             meta={{
               items: [
                 { text: 'Contact us', href: `mailto:${config.mailTo}` },
-                { text: 'Terms and conditions', clickHandler: this.showTermsAndConditions },
+                { text: 'Terms and conditions', ...linkOnClick(this.showTermsAndConditions) },
               ],
             }}
           />
