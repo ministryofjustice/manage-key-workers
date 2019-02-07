@@ -203,7 +203,11 @@ const props = {
   handleAllocationChange: jest.fn(),
   handleEditProfileClick: jest.fn(),
   config: {
-    keyworkerProfileStatsEnabled: false,
+    keyworkerProfileStatsEnabled: 'false',
+    keyworkerDashboardStatsEnabled: false,
+    mailTo: 'test@email.com',
+    maintainRolesEnabled: 'false',
+    notmEndpointUrl: 'http://notm.url',
   },
   history: mockHistory,
   message: '',

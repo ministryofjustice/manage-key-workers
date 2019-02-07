@@ -15,7 +15,7 @@ import {
   setMaintainRolesUserPageNumber,
 } from '../../../redux/actions/index'
 import UserSearchResults from '../components/UserSearchResults'
-import { userType, configType } from '../../../types'
+import { userType, configType, userListType } from '../../../types'
 import Page from '../../../Components/Page'
 
 class UserSearchContainer extends Component {
@@ -154,6 +154,10 @@ UserSearchContainer.propTypes = {
   resetErrorDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   config: configType.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  userListDispatch: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
+  userList: userListType.isRequired,
 }
 
 const mapStateToProps = state => ({

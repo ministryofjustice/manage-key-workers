@@ -1,4 +1,4 @@
-import { shape, number, string, arrayOf, bool, object, oneOfType, node } from 'prop-types'
+import { shape, number, string, arrayOf, bool, object, oneOfType, node, func } from 'prop-types'
 
 const caseLoadOptions = shape({
   caseLoadId: string.isRequired,
@@ -220,4 +220,30 @@ export const routeMatchType = shape({
   isExact: bool.isRequired,
   path: string.isRequired,
   url: string.isRequired,
+})
+
+export const formInputType = shape({
+  name: string.isRequired,
+  onBlur: func.isRequired,
+  onChange: func.isRequired,
+  onFocus: func.isRequired,
+  value: oneOfType([string, object]).isRequired,
+})
+
+export const formMetaType = shape({
+  active: bool,
+  data: shape({}),
+  dirty: bool.isRequired,
+  dirtySinceLastSubmit: bool.isRequired,
+  error: string,
+  initial: string,
+  invalid: bool.isRequired,
+  pristine: bool.isRequired,
+  submitError: string,
+  submitFailed: bool.isRequired,
+  submitSucceeded: bool.isRequired,
+  submitting: bool.isRequired,
+  touched: bool.isRequired,
+  valid: bool.isRequired,
+  visited: bool.isRequired,
 })

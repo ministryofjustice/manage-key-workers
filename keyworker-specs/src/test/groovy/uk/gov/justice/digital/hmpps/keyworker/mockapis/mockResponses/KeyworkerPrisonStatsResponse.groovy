@@ -21,4 +21,12 @@ class KeyworkerPrisonStatsResponse {
       }
     }
  '''
+    static def noCurrentDataResponse = '''
+    { 
+      "summary": {
+        "requestedFromDate": "2018-10-12",
+        "requestedToDate": "2018-11-12"
+      }
+    }
+ '''
 }

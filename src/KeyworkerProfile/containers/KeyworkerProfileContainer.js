@@ -193,6 +193,7 @@ KeyworkerProfileContainer.propTypes = {
   loaded: PropTypes.bool.isRequired,
   config: configType.isRequired,
   message: PropTypes.string.isRequired,
+  keyworkerStatsDispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

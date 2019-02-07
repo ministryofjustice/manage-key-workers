@@ -48,7 +48,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a search"
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI)
+        elite2api.stubUserLocalAdministratorSearch()
         searchButton.click()
 
         then: "the user search results page is displayed"
@@ -140,7 +140,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a search"
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI, 0)
+        elite2api.stubUserLocalAdministratorSearch(0)
         searchButton.click()
 
         then: "the user search results page is displayed"
@@ -151,7 +151,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         rows[0].find("td",1).text() == 'user0'
 
         and: "i click on the next page link"
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI, 1)
+        elite2api.stubUserLocalAdministratorSearch(1)
         nextPage.click()
 
         then:
@@ -162,7 +162,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         rows[0].find("td",1).text() == 'user1'
 
         and: "i click on the next page link"
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI, 2)
+        elite2api.stubUserLocalAdministratorSearch(2)
         nextPage.click()
 
         then:
@@ -173,7 +173,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         rows[0].find("td",1).text() == 'user2'
 
         and: "i click on the previous page link"
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI, 1)
+        elite2api.stubUserLocalAdministratorSearch(1)
         previousPage.click()
 
         then:
@@ -182,7 +182,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         previousPage.text() == "Previous\n1 of 3"
 
         and: "i click on the previous page link"
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI, 0)
+        elite2api.stubUserLocalAdministratorSearch(0)
         previousPage.click()
 
         then: "i'm back to the first page"
@@ -207,7 +207,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         elite2api.stubGetRoles()
         to AdminUtilitiesPage
         maintainRolesLink.click()
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI)
+        elite2api.stubUserLocalAdministratorSearch()
         searchButton.click()
         at UserSearchResultsPage
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)
@@ -241,7 +241,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         elite2api.stubGetRoles()
         to AdminUtilitiesPage
         maintainRolesLink.click()
-        elite2api.stubUserLocalAdministratorSearch(AgencyLocation.LEI)
+        elite2api.stubUserLocalAdministratorSearch()
         searchButton.click()
         at UserSearchResultsPage
         elite2api.stubGetUserDetails(UserAccount.API_TEST_USER)

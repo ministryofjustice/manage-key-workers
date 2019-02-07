@@ -9,15 +9,22 @@ class KeyworkerDashboardPage extends Page {
     static at = {
         browser.currentUrl.contains(url)
         headingText.contains('Key worker statistics')
-        keyworkerStats != null
     }
 
     static content = {
         headingText { $('h1').text() }
         header(required: false) { module(HeaderModule) }
-
-        durationInput { $('form input') }
-        periodSelect { $('form select') }
+        fromDateInput { $('#fromDate') }
+        fromDateTopBar { $('.fromDate th.rdtSwitch') }
+        fromDateYearBox { value -> $('.fromDate  td', 'data-value': String.valueOf(value)) }
+        fromDateMonthBox { value -> $('.fromDate  td', 'data-value': String.valueOf(value-1)) } // text: String.valueOf(value)) }
+        fromDateDayBox { value -> $('.fromDate  td.rdtDay:not(.rdtOld):not(.rdtNew)', 'data-value': String.valueOf(value)) }
+        fromDateError { $("[data-qa='fromDateInputError']").text() }
+        toDateInput { $('#toDate') }
+        toDateTopBar { $('.toDate th.rdtSwitch') }
+        toDateYearBox { value -> $('.toDate  td', 'data-value': String.valueOf(value)) }
+        toDateMonthBox { value -> $('.toDate  td', 'data-value': String.valueOf(value-1)) } // text: String.valueOf(value)) }
+        toDateDayBox { value -> $('.toDate  td.rdtDay:not(.rdtOld):not(.rdtNew)', 'data-value': String.valueOf(value)) }
         formSubmit { $('form button') }
         keyworkerStats { $("[data-qa='percentagePrisonersWithKeyworker-value']")}
         numberOfActiveKeyworkers { $("[data-qa='numberOfActiveKeyworkers-value']").text() }
@@ -28,12 +35,23 @@ class KeyworkerDashboardPage extends Page {
         avgNumDaysFromReceptionToAllocationDays { $("[data-qa='avgNumDaysFromReceptionToAllocationDays-value']").text() }
         avgNumDaysFromReceptionToKeyWorkingSession { $("[data-qa='avgNumDaysFromReceptionToKeyWorkingSession-value']").text() }
         prisonerToKeyworkerRation {  $("[data-qa='prisonerToKeyworkerRation-value']").text() }
-
+        noDataMessage { $("[data-qa='no-data-message']").text() }
     }
 
-    def fetchStatsFor(Integer duration, String period) {
-        durationInput = duration
-        periodSelect = period
+
+    def setDatePickers(def fromYear, def fromMonth, def fromDay, def toYear, def toMonth, def toDay) {
+        fromDateInput.click()
+        fromDateTopBar.click()
+        fromDateTopBar.click()
+        fromDateYearBox(fromYear).click()
+        fromDateMonthBox(fromMonth).click()
+        fromDateDayBox(fromDay).click()
+        toDateInput.click()
+        toDateTopBar.click()
+        toDateTopBar.click()
+        toDateYearBox(toYear).click()
+        toDateMonthBox(toMonth).click()
+        toDateDayBox(toDay).click()
         formSubmit.click()
     }
 }

@@ -13,7 +13,7 @@ import {
   setLoaded,
 } from '../../../redux/actions/index'
 import { StaffRoleProfile } from '../components/StaffRoleProfile'
-import { userType, contextUserType, roleListType } from '../../../types'
+import { userType, contextUserType, roleListType, routeMatchType } from '../../../types'
 import { properCaseName } from '../../../stringUtils'
 import Page from '../../../Components/Page'
 
@@ -115,6 +115,11 @@ StaffRoleProfileContainer.propTypes = {
   roleList: roleListType.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
+  setLoadedDispatch: PropTypes.func.isRequired,
+  match: routeMatchType.isRequired,
+  handleError: PropTypes.func.isRequired,
+  contextUserDispatch: PropTypes.func.isRequired,
+  setRoleFilterDispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

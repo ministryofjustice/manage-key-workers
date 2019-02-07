@@ -209,9 +209,9 @@ class Elite2Api extends WireMockRule {
                                 .withBody(UserSearchResponse.pagedResponse(page))))
     }
 
-    void stubUserLocalAdministratorSearch(AgencyLocation agencyLocation) {
+    void stubUserLocalAdministratorSearch() {
         this.stubFor(
-                get(urlPathEqualTo("/api/users/local-administrator/caseload/${agencyLocation.id}"))
+                get(urlPathEqualTo("/api/users/local-administrator/available"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
@@ -219,9 +219,9 @@ class Elite2Api extends WireMockRule {
                                 .withBody(UserSearchResponse.getResponse())))
     }
 
-    void stubUserLocalAdministratorSearch(AgencyLocation agencyLocation, Integer page) {
+    void stubUserLocalAdministratorSearch(Integer page) {
         this.stubFor(
-                get(urlPathEqualTo("/api/users/local-administrator/caseload/${agencyLocation.id}"))
+                get(urlPathEqualTo("/api/users/local-administrator/available"))
                         .withHeader('page-offset', equalTo((page * 10).toString()))
                         .willReturn(
                         aResponse()

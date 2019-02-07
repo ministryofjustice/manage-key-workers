@@ -40,7 +40,7 @@ const UserSearch = ({
     <div className="padding-bottom-large">
       <div className="pure-g">
         <div className="pure-u-md-11-12 ">
-          <div>
+          <form onSubmit={() => handleSearch(history)}>
             <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
               <div className="pure-u-md-4-12">
                 <label className="form-label" htmlFor="name-filter">
@@ -61,18 +61,11 @@ const UserSearch = ({
                 </label>
                 {roleSelect}
               </div>
-              <button
-                type="button"
-                className="button margin-left margin-top-large"
-                id="search-button"
-                onClick={() => {
-                  handleSearch(history)
-                }}
-              >
+              <button type="submit" className="button margin-left margin-top-large" id="search-button">
                 Search
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

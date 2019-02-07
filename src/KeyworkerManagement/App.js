@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { Header } from 'new-nomis-shared-components'
+import { Header, Footer } from 'new-nomis-shared-components'
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import ReactGA from 'react-ga'
 import HomePage from './index'
 import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer'
 import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer'
@@ -23,7 +24,6 @@ import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSe
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
 import AddRoleContainer from '../Admin/MaintainRoles/containers/AddRoleContainer'
 import KeyworkerDashboard from '../KeyworkerDashboard/KeyworkerDashboard'
-import Footer from '../Footer/index'
 import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
 import links from '../links'
@@ -40,6 +40,7 @@ import {
   setLoaded,
 } from '../redux/actions/index'
 import { configType, userType } from '../types'
+import { linkOnClick } from '../helpers'
 
 const axios = require('axios')
 
@@ -65,6 +66,10 @@ class App extends React.Component {
       await this.loadUserAndCaseload()
       const config = await axios.get('/api/config')
       links.notmEndpointUrl = config.data.notmEndpointUrl
+
+      if (config.data.googleAnalyticsId) {
+        ReactGA.initialize(config.data.googleAnalyticsId)
+      }
 
       configDispatch(config.data)
     } catch (error) {
@@ -364,33 +369,42 @@ class App extends React.Component {
       <Router>
         <div className="content">
           <Route
-            render={props => (
-              <Header
-                logoText="HMPPS"
-                title="Prison-NOMIS"
-                homeLink={links.getHomeLink()}
-                switchCaseLoad={newCaseload => {
-                  this.switchCaseLoad(newCaseload)
-                  const routesThatDontRedirectAfterCaseloadSwitch = ['/manage-key-workers/key-worker-statistics']
+            render={props => {
+              if (config.googleAnalyticsId) {
+                ReactGA.pageview(props.location.pathname)
+              }
 
-                  if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
-                    props.history.push('/')
-                  }
-                }}
-                history={props.history}
-                resetError={this.resetError}
-                setMenuOpen={boundSetMenuOpen}
-                caseChangeRedirect={false}
-                {...this.props}
-              />
-            )}
+              return (
+                <Header
+                  logoText="HMPPS"
+                  title="Prison-NOMIS"
+                  homeLink={links.getHomeLink()}
+                  switchCaseLoad={newCaseload => {
+                    this.switchCaseLoad(newCaseload)
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/manage-key-workers/key-worker-statistics']
+
+                    if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
+                      props.history.push('/')
+                    }
+                  }}
+                  history={props.history}
+                  resetError={this.resetError}
+                  setMenuOpen={boundSetMenuOpen}
+                  caseChangeRedirect={false}
+                  {...this.props}
+                />
+              )
+            }}
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
           <Footer
-            setMenuOpen={boundSetMenuOpen}
-            showTermsAndConditions={this.showTermsAndConditions}
-            mailTo={config.mailTo}
+            meta={{
+              items: [
+                { text: 'Contact us', href: `mailto:${config.mailTo}` },
+                { text: 'Terms and conditions', ...linkOnClick(this.showTermsAndConditions) },
+              ],
+            }}
           />
         </div>
       </Router>

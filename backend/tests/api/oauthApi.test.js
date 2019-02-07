@@ -65,7 +65,7 @@ describe('oathApi tests', () => {
         authenticateResponse.then(() => {
           expect(requestConfig.method).to.equal('post')
           expect(requestConfig.baseURL).to.equal(url)
-          expect(requestConfig.url).to.equal('/oauth/token')
+          expect(requestConfig.url).to.equal('http://localhost/oauth/token')
           expect(requestConfig.data).to.equal('username=NAME&password=password&grant_type=password')
           expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`)
           expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded')
@@ -196,7 +196,7 @@ describe('oathApi tests', () => {
       refreshResponse.then(response => {
         expect(requestConfig.method).to.equal('post')
         expect(requestConfig.baseURL).to.equal(url)
-        expect(requestConfig.url).to.equal('/oauth/token')
+        expect(requestConfig.url).to.equal('http://localhost/oauth/token')
         expect(requestConfig.data).to.equal('refresh_token=refreshToken&grant_type=refresh_token')
         expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`)
         expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded')

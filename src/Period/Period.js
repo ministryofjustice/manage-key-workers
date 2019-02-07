@@ -1,47 +1,73 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Input from '@govuk-react/input'
-import Select from '@govuk-react/select'
 import Header from '@govuk-react/header'
+import moment from 'moment'
+import { Form, Field } from 'react-final-form'
 
-import FilterStyled from './Period.styles'
+import { FilterStyled, DefaultText } from './Period.styles'
+import Date from '../Components/Date'
+import { switchToIsoDateFormat, renderDate } from '../stringUtils'
+import { formInputType, formMetaType } from '../types'
 
-const Period = ({ duration, period, onInputChange, onButtonClick }) => (
-  <form>
-    <Header level={3} size="SMALL">
-      Select period to view
-    </Header>
-    <FilterStyled>
-      <Input
-        name="duration"
-        data-qa="keyworker-dashboard-duration"
-        value={duration}
-        onChange={e => onInputChange({ period, duration: e.target.value })}
-      />
-      <Select
-        name="period"
-        data-qa="keyworker-dashboard-period"
-        input={{
-          value: period,
-          onChange: e => onInputChange({ duration, period: e.target.value }),
-        }}
-      >
-        <option value="week">Weekly</option>
-        <option value="month">Monthly</option>
-        <option value="year">Yearly</option>
-      </Select>
+const showPastDatesOnly = date => date && date.isBefore(moment().subtract(1, 'days'))
 
-      <button type="submit" className="button greyButton" onClick={() => onButtonClick({ duration, period })}>
-        Update
-      </button>
-    </FilterStyled>
-  </form>
+const DateAdapter = ({ input, meta, ...rest }) => (
+  <Date
+    {...input}
+    {...rest}
+    shouldShowDay={showPastDatesOnly}
+    onChange={value => input.onChange(value)}
+    onBlur={event => input.onBlur(event)}
+    meta={meta}
+    errorText={meta.touched ? meta.error : ''}
+  />
 )
+
+const validate = values => {
+  const errors = {}
+  const fromDate = switchToIsoDateFormat(values.fromDate)
+  const toDate = switchToIsoDateFormat(values.toDate)
+
+  if (moment(toDate).isBefore(fromDate)) {
+    errors.fromDate = 'Date must be before To'
+    errors.toDate = 'Date must be after From'
+  }
+
+  return errors
+}
+
+const Period = ({ fromDate, toDate, onSubmit }) => (
+  <Form
+    onSubmit={onSubmit}
+    initialValues={{ fromDate: renderDate(fromDate), toDate: renderDate(toDate) }}
+    validate={validate}
+    render={({ handleSubmit, pristine, invalid }) => (
+      <form onSubmit={handleSubmit}>
+        <Header level={3} size="SMALL">
+          Select date range to view
+        </Header>
+        <FilterStyled>
+          <Field name="fromDate" component={DateAdapter} title="From" />
+          <Field name="toDate" component={DateAdapter} title="To" />
+          <button type="submit" className="button greyButton" disabled={pristine || invalid}>
+            Update
+          </button>
+        </FilterStyled>
+        <DefaultText>The default is the last calendar month.</DefaultText>
+      </form>
+    )}
+  />
+)
+
+DateAdapter.propTypes = {
+  input: formInputType.isRequired,
+  meta: formMetaType.isRequired,
+}
+
 Period.propTypes = {
-  onButtonClick: PropTypes.func.isRequired,
-  onInputChange: PropTypes.func.isRequired,
-  duration: PropTypes.number.isRequired,
-  period: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  fromDate: PropTypes.string.isRequired,
+  toDate: PropTypes.string.isRequired,
 }
 
 export default Period

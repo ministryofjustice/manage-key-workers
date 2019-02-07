@@ -196,4 +196,13 @@ describe('Key worker prison stats', async () => {
       expect(stats).toEqual(getPrisonStatsWithPreviousPayload)
     })
   })
+
+  describe('prison stats with no current stats', () => {
+    it('should return no data ', async () => {
+      delete prisonStatsResponse.summary.current
+      const { stats } = await controller.getPrisonStats({}, agencyId)
+
+      expect(stats).toHaveLength(0)
+    })
+  })
 })

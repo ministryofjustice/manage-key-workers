@@ -257,10 +257,10 @@ export const setSettings = settings => ({
   sequenceFrequency: settings.sequenceFrequency,
 })
 
-export const setPrisonLevelKeyworkerStats = ({ data, prisonerToKeyWorkerRatio, duration, period }) => ({
+export const setPrisonLevelKeyworkerStats = ({ data, prisonerToKeyWorkerRatio, fromDate, toDate }) => ({
   type: ActionTypes.SET_PRISON_LEVEL_KEY_WORKER_STATS,
   data,
-  period,
-  duration,
+  fromDate,
+  toDate,
   prisonerToKeyWorkerRatio,
 })

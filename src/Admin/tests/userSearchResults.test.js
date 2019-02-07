@@ -122,7 +122,7 @@ describe('User search Results component', () => {
       />
     )
     const searchComponent = component.find('UserSearch').shallow()
-    searchComponent.find('button').simulate('click')
+    searchComponent.find('form').simulate('submit')
     expect(handleSubmitMock).toHaveBeenCalled()
     searchComponent.find('#name-filter').simulate('change', { target: { value: 'Hello' } })
     expect(handleNameFilterMock).toHaveBeenCalled()

@@ -132,6 +132,17 @@ class KeyworkerApi extends WireMockRule {
         )
     }
 
+    void stubNoCurrentDataKeyworkerPrisonStatsResponse() {
+
+        this.stubFor(
+                get(urlPathEqualTo("/key-worker-stats"))
+                        .willReturn(
+                        aResponse()
+                                .withBody(KeyworkerPrisonStatsResponse.noCurrentDataResponse)
+                                .withStatus(200))
+        )
+    }
+
     void stubKeyworkerDetailResponse(AgencyLocation agencyLocation, int staffId = KeyworkerResultsPage.test_keyworker_staffId) {
         this.stubFor(
             get("/key-worker/${staffId}/prison/${agencyLocation.id}")

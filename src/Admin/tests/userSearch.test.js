@@ -56,7 +56,7 @@ describe('User search component', () => {
         roleFilterList={[]}
       />
     )
-    component.find('button').simulate('click')
+    component.find('form').simulate('submit')
     expect(handleSubmitMock).toHaveBeenCalled()
     component.find('#name-filter').simulate('change', { target: { value: 'Hello' } })
     expect(handleNameFilterMock).toHaveBeenCalled()
