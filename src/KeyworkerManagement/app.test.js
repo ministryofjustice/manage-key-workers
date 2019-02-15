@@ -149,4 +149,34 @@ describe('App component', () => {
 
     expect(setMenuOpen).toHaveBeenCalledWith(false)
   })
+
+  it('should pass through correct props to the footer container', () => {
+    const wrapper = shallow(
+      <App
+        switchCaseLoad={jest.fn()}
+        history={mockHistory}
+        config={config}
+        user={user}
+        setErrorDispatch={jest.fn()}
+        userDetailsDispatch={jest.fn()}
+        switchAgencyDispatch={jest.fn()}
+        configDispatch={jest.fn()}
+        setMessageDispatch={jest.fn()}
+        menuOpen
+        boundSetMenuOpen={jest.fn()}
+        setTermsVisibilityDispatch={jest.fn()}
+        error=""
+        page={0}
+        shouldShowTerms={false}
+        resetErrorDispatch={jest.fn()}
+        keyworkerSettingsDispatch={jest.fn()}
+        message=""
+        allowAuto={false}
+        migrated={false}
+        dispatchLoaded={jest.fn()}
+      />
+    )
+
+    expect(wrapper.find({ feedbackEmail: config.mailTo }).prop('prisonStaffHubUrl')).toEqual(config.prisonStaffHubUrl)
+  })
 })
