@@ -10,6 +10,7 @@ const config = {
   keyworkerProfileStatsEnabled: 'false',
   keyworkerDashboardStatsEnabled: false,
   notmEndpointUrl: '/notm/endpoint',
+  prisonStaffHubUrl: '/prisonStaffHubUrl',
   mailTo: 'email@test.com',
 }
 

@@ -21,6 +21,7 @@ const appInitialState = {
     keyworkerDashboardStatsEnabled: false,
     maintainRolesEnabled: 'false',
     notmEndpointUrl: '',
+    prisonStaffHubUrl: '',
   },
   user: {
     activeCaseLoadId: '',

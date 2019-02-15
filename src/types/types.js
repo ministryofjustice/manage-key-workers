@@ -10,16 +10,16 @@ const caseLoadOptions = shape({
 export const userType = shape({
   activeCaseLoadId: string.isRequired,
   caseLoadOptions: arrayOf(caseLoadOptions).isRequired,
-  expiredFlag: bool.isRequired,
+  expiredFlag: bool,
   firstName: string.isRequired,
   lastName: string.isRequired,
-  lockedFlag: bool.isRequired,
-  maintainAccess: bool.isRequired,
-  maintainAccessAdmin: bool.isRequired,
-  migration: bool.isRequired,
+  lockedFlag: bool,
+  maintainAccess: bool,
+  maintainAccessAdmin: bool,
+  migration: bool,
   staffId: number.isRequired,
   username: string.isRequired,
-  writeAccess: bool.isRequired,
+  writeAccess: bool,
 })
 
 export const userListType = arrayOf(
@@ -50,6 +50,7 @@ export const configType = shape({
   mailTo: string.isRequired,
   maintainRolesEnabled: string.isRequired,
   notmEndpointUrl: string.isRequired,
+  prisonStaffHubUrl: string.isRequired,
 })
 
 export const keyworkerType = shape({

@@ -208,6 +208,7 @@ const props = {
     mailTo: 'test@email.com',
     maintainRolesEnabled: 'false',
     notmEndpointUrl: 'http://notm.url',
+    prisonStaffHubUrl: 'http://psh.url',
   },
   history: mockHistory,
   message: '',

@@ -24,6 +24,7 @@ const props = {
     mailTo: 'email@test.com',
     maintainRolesEnabled: 'false',
     notmEndpointUrl: '//notm.url',
+    prisonStaffHubUrl: '//psh.url',
   },
   message: '',
 }
