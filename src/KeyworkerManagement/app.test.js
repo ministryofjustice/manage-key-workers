@@ -29,32 +29,32 @@ const user = {
   writeAccess: false,
 }
 
+const props = {
+  switchCaseLoad: jest.fn(),
+  config,
+  user,
+  history: mockHistory,
+  setErrorDispatch: jest.fn(),
+  userDetailsDispatch: jest.fn(),
+  switchAgencyDispatch: jest.fn(),
+  configDispatch: jest.fn(),
+  setMessageDispatch: jest.fn(),
+  boundSetMenuOpen: jest.fn(),
+  setTermsVisibilityDispatch: jest.fn(),
+  error: '',
+  page: 0,
+  shouldShowTerms: false,
+  resetErrorDispatch: jest.fn(),
+  keyworkerSettingsDispatch: jest.fn(),
+  message: '',
+  allowAuto: false,
+  migrated: false,
+  dispatchLoaded: jest.fn(),
+}
+
 describe('App component', () => {
   it('should handle session timeout error response and display alert', async () => {
-    const component = shallow(
-      <App
-        switchCaseLoad={jest.fn()}
-        config={config}
-        user={user}
-        history={mockHistory}
-        setErrorDispatch={jest.fn()}
-        userDetailsDispatch={jest.fn()}
-        switchAgencyDispatch={jest.fn()}
-        configDispatch={jest.fn()}
-        setMessageDispatch={jest.fn()}
-        boundSetMenuOpen={jest.fn()}
-        setTermsVisibilityDispatch={jest.fn()}
-        error=""
-        page={0}
-        shouldShowTerms={false}
-        resetErrorDispatch={jest.fn()}
-        keyworkerSettingsDispatch={jest.fn()}
-        message=""
-        allowAuto={false}
-        migrated={false}
-        dispatchLoaded={jest.fn()}
-      />
-    )
+    const component = shallow(<App {...props} />)
     const appInstance = component.instance()
     appInstance.displayAlertAndLogout = jest.fn()
     appInstance.handleError({
@@ -78,30 +78,7 @@ describe('App component', () => {
   })
 
   it('should handle non-session timout error responses without the session timeout alert', async () => {
-    const component = shallow(
-      <App
-        switchCaseLoad={jest.fn()}
-        config={config}
-        user={user}
-        history={mockHistory}
-        setErrorDispatch={jest.fn()}
-        userDetailsDispatch={jest.fn()}
-        switchAgencyDispatch={jest.fn()}
-        configDispatch={jest.fn()}
-        setMessageDispatch={jest.fn()}
-        boundSetMenuOpen={jest.fn()}
-        setTermsVisibilityDispatch={jest.fn()}
-        error=""
-        page={0}
-        shouldShowTerms={false}
-        resetErrorDispatch={jest.fn()}
-        keyworkerSettingsDispatch={jest.fn()}
-        message=""
-        allowAuto={false}
-        migrated={false}
-        dispatchLoaded={jest.fn()}
-      />
-    )
+    const component = shallow(<App {...props} />)
     const appInstance = component.instance()
     appInstance.displayAlertAndLogout = jest.fn()
     appInstance.handleError({ response: { status: 401, data: { message: 'another 401' } } })
@@ -118,32 +95,9 @@ describe('App component', () => {
 
   it('should close the menu when the content is clicked', () => {
     const setMenuOpen = jest.fn()
+    props.boundSetMenuOpen = setMenuOpen
 
-    const component = shallow(
-      <App
-        switchCaseLoad={jest.fn()}
-        history={mockHistory}
-        config={config}
-        user={user}
-        setErrorDispatch={jest.fn()}
-        userDetailsDispatch={jest.fn()}
-        switchAgencyDispatch={jest.fn()}
-        configDispatch={jest.fn()}
-        setMessageDispatch={jest.fn()}
-        menuOpen
-        boundSetMenuOpen={setMenuOpen}
-        setTermsVisibilityDispatch={jest.fn()}
-        error=""
-        page={0}
-        shouldShowTerms={false}
-        resetErrorDispatch={jest.fn()}
-        keyworkerSettingsDispatch={jest.fn()}
-        message=""
-        allowAuto={false}
-        migrated={false}
-        dispatchLoaded={jest.fn()}
-      />
-    )
+    const component = shallow(<App {...props} />)
 
     component.find('.inner-content').simulate('click')
 
@@ -151,32 +105,8 @@ describe('App component', () => {
   })
 
   it('should pass through correct props to the footer container', () => {
-    const wrapper = shallow(
-      <App
-        switchCaseLoad={jest.fn()}
-        history={mockHistory}
-        config={config}
-        user={user}
-        setErrorDispatch={jest.fn()}
-        userDetailsDispatch={jest.fn()}
-        switchAgencyDispatch={jest.fn()}
-        configDispatch={jest.fn()}
-        setMessageDispatch={jest.fn()}
-        menuOpen
-        boundSetMenuOpen={jest.fn()}
-        setTermsVisibilityDispatch={jest.fn()}
-        error=""
-        page={0}
-        shouldShowTerms={false}
-        resetErrorDispatch={jest.fn()}
-        keyworkerSettingsDispatch={jest.fn()}
-        message=""
-        allowAuto={false}
-        migrated={false}
-        dispatchLoaded={jest.fn()}
-      />
-    )
+    const component = shallow(<App {...props} />)
 
-    expect(wrapper.find({ feedbackEmail: config.mailTo }).prop('prisonStaffHubUrl')).toEqual(config.prisonStaffHubUrl)
+    expect(component.find({ feedbackEmail: config.mailTo }).prop('prisonStaffHubUrl')).toEqual(config.prisonStaffHubUrl)
   })
 })
