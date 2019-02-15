@@ -113,6 +113,7 @@ describe('app (global) reducer', () => {
         keyworkerDashboardStatsEnabled: false,
         maintainRolesEnabled: 'false',
         notmEndpointUrl: '',
+        prisonStaffHubUrl: '',
       },
       user: {
         activeCaseLoadId: '',
