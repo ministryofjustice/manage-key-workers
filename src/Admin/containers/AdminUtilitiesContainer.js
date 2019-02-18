@@ -16,6 +16,7 @@ export class AdminUtilitiesContainer extends Component {
 
   render() {
     const { user, config } = this.props
+    const hasMaintainRolesAdminAccess = user && user.maintainAccessAdmin
     const hasMaintainRolesAccess = user && (user.maintainAccess || user.maintainAccessAdmin)
     const showMaintainRoles = config && config.maintainRolesEnabled === 'true' && hasMaintainRolesAccess
     const showKeyworkerSettings = hasMaintainRolesAccess && user.migration
@@ -29,7 +30,7 @@ export class AdminUtilitiesContainer extends Component {
               <p>There are no Admin or Utilities associated with your account.</p>
             )}
 
-            {hasMaintainRolesAccess && (
+            {hasMaintainRolesAdminAccess && (
               <div className="pure-u-md-6-12">
                 <Link
                   id="enable_new_nomis_link"

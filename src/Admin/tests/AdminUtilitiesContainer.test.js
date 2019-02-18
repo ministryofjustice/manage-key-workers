@@ -36,8 +36,9 @@ describe('<AdminUtilitiesContainer />', () => {
     expect(wrapper.find('p').text()).toEqual('There are no Admin or Utilities associated with your account.')
   })
 
-  it('should render a Link to the Give access to New NOMIS Admin section if user has maintainAccess role', () => {
-    props.user.maintainAccess = true
+  it('should render a Link to the Give access to New NOMIS Admin section if user has maintainAccessAdmin role', () => {
+    props.user.maintainAccessAdmin = true
+    props.user.maintainAccess = false
     const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
 
     expect(wrapper.find('Link').prop('children')).toEqual('Give access to New NOMIS')
