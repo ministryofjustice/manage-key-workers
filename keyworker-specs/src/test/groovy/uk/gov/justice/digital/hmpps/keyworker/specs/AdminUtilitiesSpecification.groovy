@@ -108,9 +108,9 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         assert enableNewNomisLink.displayed == false
     }
 
-    def "should see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
+    def "should see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES_ADMIN role"() {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
         elite2api.stubGetStaffAccessRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
@@ -126,9 +126,26 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         assert keyworkerSettingsLink.displayed == false
     }
 
-    def "should see keyworker settings link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
+    def "should not see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
+        elite2api.stubGetStaffAccessRoles(roles)
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
+
+        given: "I logged in and go to the admin and utilities page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
+
+        when: "I am on the admin and utilities page"
+
+        then: "I should not see the enable new nomis link and not see the key worker settings link"
+        assert enableNewNomisLink.displayed == false
+    }
+
+    def "should see keyworker settings link if the user has the the MAINTAIN_ACCESS_ROLES_ADMIN role"() {
+        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
         elite2api.stubGetStaffAccessRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)

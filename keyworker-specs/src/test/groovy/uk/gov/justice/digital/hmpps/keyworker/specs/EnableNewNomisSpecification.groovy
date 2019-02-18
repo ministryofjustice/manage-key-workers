@@ -26,7 +26,7 @@ class EnableNewNomisSpecification extends GebReportingSpec {
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
 
     def "should allow current prison's new nomis access to be updated"() {
-        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
+        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def roles = [MaintainAccessRolesRole]
         elite2api.stubGetStaffAccessRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
