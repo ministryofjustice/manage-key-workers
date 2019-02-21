@@ -8,7 +8,7 @@ class HeaderModule extends Module {
         dropDown   { $('.info-wrapper') }
         username   { $('.info-wrapper .user-name').text() }
         caseload   { $('.info-wrapper .case-load').text() }
-        logoutLink { $('a', text: 'Log out' ) }
+        logoutLink { $('a', text: 'Sign out' ) }
         brixtonCaseLoad { $('#menu-option-BXI')}
     }
 
