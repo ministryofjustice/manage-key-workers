@@ -168,7 +168,6 @@ app.use(flash())
 /* login, logout, token refresh etc */
 sessionManagementRoutes.configureRoutes({
   app,
-  healthApi,
   tokenRefresher,
   mailTo: config.app.mailTo,
   homeLink: config.app.notmEndpointUrl,

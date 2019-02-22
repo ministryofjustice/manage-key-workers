@@ -10,7 +10,6 @@ const app = {
   applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
   keyworkerProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
   keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
-  remoteAuthStrategy: Boolean(process.env.REMOTE_AUTH_STRATEGY),
   url: process.env.OMIC_UI_URL || `http://localhost:${process.env.PORT || 3001}`,
 }
 

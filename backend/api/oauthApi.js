@@ -68,19 +68,6 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
       })
 
   /**
-   * Perform OAuth authentication
-   * @param username
-   * @param password
-   * @returns a Promise that is fulfilled when authentication has succeeded and the OAuth tokens have been returned. A
-   * fulfilled promise has no result, but a rejected promise contains an axios response
-   */
-  const authenticate = (username, password) =>
-    makeTokenRequest(
-      querystring.stringify({ username: username.toUpperCase(), password, grant_type: 'password' }),
-      `authenticate: ${username}`
-    )
-
-  /**
    * Perform OAuth token refresh, returning the tokens to the caller. See scopedStore.run.
    * @returns A Promise that resolves when token refresh has succeeded and the OAuth tokens have been returned.
    */
@@ -88,7 +75,6 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
     makeTokenRequest(querystring.stringify({ refresh_token: refreshToken, grant_type: 'refresh_token' }), 'refresh:')
 
   return {
-    authenticate,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,

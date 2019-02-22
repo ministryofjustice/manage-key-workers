@@ -10,33 +10,16 @@ const isXHRRequest = req =>
  * Add session management related routes to an express 'app'.
  * These handle login, logout, and middleware to handle the JWT token cookie. (hmppsCookie).
  * @param app an Express instance.
- * @param healthApi a configured healthApi instance.
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  * @param homeLink The URL for the home page.
  */
-const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) => {
-  const authLogoutUrl = config.app.remoteAuthStrategy
-    ? `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
-    : '/login'
-
-  const loginIndex = async (req, res) => {
-    const isApiUp = await healthApi.isUp()
-    logger.info(`loginIndex - health check called and isApiUp = ${isApiUp}`)
-    const errors = req.flash('error')
-    const authError = Boolean(errors && errors.length > 0)
-    const authErrorText = (authError && errors[0]) || ''
-    res.render('login', { authError, authErrorText, apiUp: isApiUp, mailTo, homeLink })
-  }
+const configureRoutes = ({ app, tokenRefresher, mailTo, homeLink }) => {
+  const authLogoutUrl = `${config.apis.oauth2.ui_url}logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${
+    config.app.url
+  }`
 
   const remoteLoginIndex = passport.authenticate('oauth2')
-
-  const login = (req, res) =>
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/login',
-      failureFlash: true,
-    })(req, res)
 
   const logout = (req, res) => {
     req.logout()
@@ -103,9 +86,7 @@ const configureRoutes = ({ app, healthApi, tokenRefresher, mailTo, homeLink }) =
     res.redirect('/login')
   }
 
-  app.get('/login', loginMiddleware, config.app.remoteAuthStrategy ? remoteLoginIndex : loginIndex)
-  if (!config.app.remoteAuthStrategy) app.post('/login', login)
-
+  app.get('/login', loginMiddleware, remoteLoginIndex)
   app.get('/login/callback', (req, res, next) => {
     passport.authenticate('oauth2', (err, user, info) => {
       if (err) {
