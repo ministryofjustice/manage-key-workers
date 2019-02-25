@@ -10,7 +10,6 @@ const app = {
   applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
   keyworkerProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
   keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
-  remoteAuthStrategy: Boolean(process.env.REMOTE_AUTH_STRATEGY),
   url: process.env.OMIC_UI_URL || `http://localhost:${process.env.PORT || 3001}`,
 }
 
@@ -40,12 +39,8 @@ const hmppsCookie = {
 
 const apis = {
   oauth2: {
-    url: process.env.OAUTH_ENDPOINT_URL || process.env.API_ENDPOINT_URL || 'http://localhost:9090/auth/',
-    ui_url:
-      process.env.OAUTH_ENDPOINT_UI_URL ||
-      process.env.OAUTH_ENDPOINT_URL ||
-      process.env.API_ENDPOINT_URL ||
-      'http://localhost:9090/auth/',
+    url: process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth/',
+    ui_url: process.env.OAUTH_ENDPOINT_UI_URL || process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth/',
     timeoutSeconds: process.env.OAUTH_ENDPOINT_TIMEOUT_SECONDS || 10,
     clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
     clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
