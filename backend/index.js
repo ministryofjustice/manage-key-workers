@@ -51,7 +51,7 @@ const controllerFactory = require('./controllers/controller').factory
 
 const clientFactory = require('./api/oauthEnabledClient')
 const { healthApiFactory } = require('./api/healthApi')
-const eliteApiFactory = require('./api/elite2Api').elite2ApiFactory
+const { elite2ApiFactory } = require('./api/elite2Api')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { oauthApiFactory } = require('./api/oauthApi')
 
@@ -117,7 +117,7 @@ const healthApi = healthApiFactory(
   })
 )
 
-const elite2Api = eliteApiFactory(
+const elite2Api = elite2ApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
     timeout: 1000 * config.apis.elite2.timeoutSeconds,
@@ -136,7 +136,13 @@ const controller = controllerFactory(
   keyworkerPrisonStatsFactory(keyworkerApi)
 )
 
-const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
+const oauthApi = oauthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.oauth2.url,
+    timeout: config.apis.oauth2.timeoutSeconds * 1000,
+  }),
+  { ...config.apis.oauth2 }
+)
 auth.init(oauthApi)
 const tokenRefresher = tokenRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
@@ -186,7 +192,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 
 app.use('/api/config', getConfiguration)
-app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe)
+app.use('/api/me', userMeFactory(oauthApi, elite2Api, keyworkerApi).userMe)
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
 app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
 app.use('/api/unallocated', controller.unallocated)

@@ -1,12 +1,14 @@
 const asyncMiddleware = require('../middleware/asyncHandler')
 
-const userMeFactory = (elite2Api, keyworkerApi) => {
+const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
   const userMeService = async context => {
-    const user = await elite2Api.currentUser(context)
-    const { activeCaseLoadId } = user
+    const user = await oauthApi.currentUser(context)
+    const caseloads = await elite2Api.userCaseLoads(context)
+    const activeCaseLoad = caseloads.find(cl => cl.currentlyActive)
+    const activeCaseLoadId = activeCaseLoad ? activeCaseLoad.caseLoadId : null
 
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(context, activeCaseLoadId)
-    const roles = await elite2Api.getUserAccessRoles(context)
+    const roles = await oauthApi.userRoles(context)
 
     const isKeyWorkerAdmin = roles.filter(role => role.roleCode === 'OMIC_ADMIN').length > 0
 
@@ -19,6 +21,7 @@ const userMeFactory = (elite2Api, keyworkerApi) => {
 
     return {
       ...user,
+      activeCaseLoadId,
       writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin),
       migration: hasKwMigrationRole,
       maintainAccess: hasMaintainAccessRolesRole,

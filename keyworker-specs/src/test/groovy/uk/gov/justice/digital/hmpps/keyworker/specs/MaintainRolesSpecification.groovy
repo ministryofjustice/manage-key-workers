@@ -38,7 +38,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the Maintain roles - User search page"
@@ -62,7 +62,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the Maintain roles - User search page"
@@ -95,7 +95,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the Maintain roles - User search page"
@@ -130,7 +130,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the Maintain roles - User search page"
@@ -199,7 +199,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the Staff Profile page"
@@ -233,7 +233,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole,KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
         given: "I have navigated to the Staff Profile page"
@@ -251,7 +251,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         at StaffRoleProfilePage
 
         and: "I select add a role"
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         addButton.click()
 
         when: "I select a new role and submit"

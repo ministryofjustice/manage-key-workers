@@ -16,7 +16,7 @@ describe('Test clients built by oauthEnabledClient', () => {
     const mock = new MockAdapter(client.axiosInstance)
 
     beforeEach(() => {
-      mock.onGet('/api/users/me').reply(200, {})
+      mock.onGet('/api/user/me').reply(200, {})
     })
 
     afterEach(() => {
@@ -27,14 +27,14 @@ describe('Test clients built by oauthEnabledClient', () => {
       const context = {}
       contextProperties.setTokens({ access_token: 'a', refresh_token: 'b' }, context)
 
-      const response = await client.get(context, '/api/users/me')
+      const response = await client.get(context, '/api/user/me')
 
       expect(response.status).to.equal(200)
       expect(response.config.headers.authorization).to.equal('Bearer a')
     })
 
     it('Should succeed when there are no authorization headers', async () => {
-      const response = await client.get({}, '/api/users/me')
+      const response = await client.get({}, '/api/user/me')
       // eslint-disable-next-line
       expect(response.config.headers.authorization).to.be.undefined
     })

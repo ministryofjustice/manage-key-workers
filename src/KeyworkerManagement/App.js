@@ -147,7 +147,7 @@ class App extends React.Component {
 
   shouldDisplayInnerContent = () => {
     const { shouldShowTerms, user } = this.props
-    return !shouldShowTerms && (user && user.activeCaseLoadId)
+    return !shouldShowTerms && (user && user.username)
   }
 
   displayBack = () => (

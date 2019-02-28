@@ -25,10 +25,8 @@ const elite2ApiFactory = client => {
       `api/case-notes/usage?type=KA&subType=KS&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
     )
   const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
-  const userCaseLoads = context => get(context, 'api/users/me/caseLoads')
-  const currentUser = context => get(context, 'api/users/me')
-  const userLocations = context => get(context, 'api/users/me/locations')
-  const getUserAccessRoles = context => get(context, 'api/users/me/roles')
+  const userCaseLoads = context => (context.authSource !== 'auth' ? get(context, 'api/users/me/caseLoads') : [])
+  const userLocations = context => (context.authSource !== 'auth' ? get(context, 'api/users/me/locations') : [])
   const getAgencyDetails = (context, caseloadId) => get(context, `api/agencies/caseload/${caseloadId}`)
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
   const userSearch = (context, { nameFilter, roleFilter }) =>
@@ -88,19 +86,16 @@ const elite2ApiFactory = client => {
   // NB. This function expects a caseload object.
   // The object *must* have non-blank caseLoadId,  description and type properties.
   // However, only 'caseLoadId' has meaning.  The other two properties can take *any* non-blank value and these will be ignored.
-  // TODO: Tech Debt: This might be better expressed as a PUT of the desired active caseload id to users/me/activeCaseloadId
   const setActiveCaseload = (context, caseload) => put(context, 'api/users/me/activeCaseLoad', caseload)
 
   return {
     caseNoteUsageList,
-    currentUser,
     csraList,
     userCaseLoads,
     userLocations,
     searchOffenders,
     sentenceDetailList,
     setActiveCaseload,
-    getUserAccessRoles,
     enableNewNomis,
     userSearch,
     getRoles,

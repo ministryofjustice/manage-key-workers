@@ -2,10 +2,10 @@ const { userMeFactory } = require('../controllers/userMe')
 
 const context = {}
 const staffRoles = [{ roleId: -201, roleCode: 'OMIC_ADMIN', roleName: 'Omic Admin', caseloadId: 'NWEB' }]
+const caseloads = [{ caseLoadId: 'LEI', currentlyActive: true }]
 const staff1 = {
   staffId: 1,
   username: 'staff1',
-  activeCaseLoadId: 'LEI',
   maintainAccess: false,
   maintainAccessAdmin: false,
   migration: false,
@@ -13,26 +13,31 @@ const staff1 = {
 
 describe('userMe controller', () => {
   const elite2Api = {
+    userCaseLoads: () => {},
+  }
+  const oauthApi = {
     currentUser: () => {},
-    getStaffRoles: () => {},
+    userRoles: () => {},
   }
   const keyworkerApi = {
     getPrisonMigrationStatus: () => {},
   }
 
   beforeEach(() => {
-    elite2Api.currentUser = jest.fn()
-    elite2Api.getUserAccessRoles = jest.fn()
+    elite2Api.userCaseLoads = jest.fn()
+    oauthApi.currentUser = jest.fn()
+    oauthApi.userRoles = jest.fn()
     keyworkerApi.getPrisonMigrationStatus = jest.fn()
 
-    elite2Api.currentUser.mockImplementation(() => staff1)
+    oauthApi.currentUser.mockImplementation(() => staff1)
+    elite2Api.userCaseLoads.mockImplementation(() => caseloads)
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
     }))
   })
 
   it('should not have writeAccess when the user does not have the key worker admin role', async () => {
-    elite2Api.getUserAccessRoles.mockImplementation(() => [])
+    oauthApi.userRoles.mockImplementation(() => [])
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: false,
       supported: false,
@@ -41,17 +46,18 @@ describe('userMe controller', () => {
       capacityTier1: 1,
       capacityTier2: 2,
     }))
-    const { userMeService } = userMeFactory(elite2Api, keyworkerApi)
+    const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
     const data = await userMeService()
 
     expect(data).toEqual({
       ...staff1,
+      activeCaseLoadId: 'LEI',
       writeAccess: false,
       prisonMigrated: false,
     })
   })
   it('should have writeAccess when the user has the key worker admin role', async () => {
-    elite2Api.getUserAccessRoles.mockImplementation(() => staffRoles)
+    oauthApi.userRoles.mockImplementation(() => staffRoles)
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
       supported: true,
@@ -60,20 +66,21 @@ describe('userMe controller', () => {
       capacityTier1: 1,
       capacityTier2: 2,
     }))
-    const { userMeService } = userMeFactory(elite2Api, keyworkerApi)
+    const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
     const data = await userMeService(context)
 
-    expect(elite2Api.currentUser).toHaveBeenCalled()
-    expect(elite2Api.getUserAccessRoles).toHaveBeenCalledWith(context)
+    expect(oauthApi.currentUser).toHaveBeenCalled()
+    expect(oauthApi.userRoles).toHaveBeenCalledWith(context)
 
     expect(data).toEqual({
       ...staff1,
+      activeCaseLoadId: 'LEI',
       writeAccess: true,
       prisonMigrated: true,
     })
   })
   it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
-    elite2Api.getUserAccessRoles.mockImplementation(() => staffRoles)
+    oauthApi.userRoles.mockImplementation(() => staffRoles)
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: false,
       supported: false,
@@ -83,16 +90,17 @@ describe('userMe controller', () => {
       capacityTier2: 2,
     }))
 
-    const { userMeService } = userMeFactory(elite2Api, keyworkerApi)
+    const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
 
     const data = await userMeService(context)
 
-    expect(elite2Api.currentUser).toHaveBeenCalled()
-    expect(elite2Api.getUserAccessRoles).toHaveBeenCalledWith(context)
-    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith(context, staff1.activeCaseLoadId)
+    expect(oauthApi.currentUser).toHaveBeenCalled()
+    expect(oauthApi.userRoles).toHaveBeenCalledWith(context)
+    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith(context, 'LEI')
 
     expect(data).toEqual({
       ...staff1,
+      activeCaseLoadId: 'LEI',
       writeAccess: false,
       prisonMigrated: false,
     })
