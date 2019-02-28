@@ -5,6 +5,8 @@ const encodeOffenderNumbers = offenderNumbers => offenderNumbers.map(offenderNo 
 
 const encodeQueryString = input => encodeURIComponent(input)
 
+const isNomisUser = context => context.authSource !== 'auth'
+
 const elite2ApiFactory = client => {
   const processResponse = context => response => {
     contextProperties.setResponsePagination(context, response.headers)
@@ -25,8 +27,8 @@ const elite2ApiFactory = client => {
       `api/case-notes/usage?type=KA&subType=KS&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
     )
   const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
-  const userCaseLoads = context => (context.authSource !== 'auth' ? get(context, 'api/users/me/caseLoads') : [])
-  const userLocations = context => (context.authSource !== 'auth' ? get(context, 'api/users/me/locations') : [])
+  const userCaseLoads = context => (isNomisUser(context) ? get(context, 'api/users/me/caseLoads') : [])
+  const userLocations = context => (isNomisUser(context) ? get(context, 'api/users/me/locations') : [])
   const getAgencyDetails = (context, caseloadId) => get(context, `api/agencies/caseload/${caseloadId}`)
   const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
   const userSearch = (context, { nameFilter, roleFilter }) =>
