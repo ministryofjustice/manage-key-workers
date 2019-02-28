@@ -1,6 +1,6 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
-import com.github.tomakehurst.wiremock.client.WireMock
+
 import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
@@ -12,7 +12,6 @@ import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
-import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.NOT_KNOWN
 
 class LoginSpecification extends GebReportingSpec {
 
@@ -29,8 +28,7 @@ class LoginSpecification extends GebReportingSpec {
 
     def "The login page is present"() {
         given:
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
+        oauthApi.stubAuthorizeRequest()
 
         when: 'I go to the login page'
         to LoginPage
@@ -41,8 +39,7 @@ class LoginSpecification extends GebReportingSpec {
 
     def "Default URI redirects to Login page"() {
         given:
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
+        oauthApi.stubAuthorizeRequest()
 
         when: "I go to the website URL using an empty path"
         go '/'
@@ -53,14 +50,12 @@ class LoginSpecification extends GebReportingSpec {
 
     def "Log in with valid credentials"() {
         given: 'I am on the Login page'
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
         elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
+        oauthApi.stubValidOAuthTokenRequest()
         to LoginPage
 
-        oauthApi.stubValidOAuthTokenRequest(ITAG_USER)
-        elite2api.stubGetMyDetails(ITAG_USER)
+        elite2api.stubGetMyDetails ITAG_USER
         elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
         when: "I login using valid credentials"
@@ -72,101 +67,12 @@ class LoginSpecification extends GebReportingSpec {
         breadCrumbHomeLink.size() == 1
     }
 
-    def "Login page displays service unavilable message if health returns unhealthy"() {
-        when: 'I am on the Login page'
-        keyworkerApi.stubHealth()
-        elite2api.stubHealthError()
-        to LoginPage
-
-        then: 'Service is unavailable message is displayed on login page'
-        at LoginPage
-        errors.message == 'Service unavailable. Please try again later.'
-    }
-
-    def "Log in attempt displays service unavailable message if health returns unhealthy"() {
-        given: 'I am on the Login page'
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
-        to LoginPage
-
-        WireMock.reset()
-
-        when: "I login using valid credentials"
-        keyworkerApi.stubHealthError()
-        elite2api.stubHealth()
-        oauthApi.stubPostError('/auth/oauth/token', 503)
-        elite2api.stubGetMyDetails(ITAG_USER)
-        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
-        loginAs ITAG_USER, 'password'
-
-        then: 'user remains on login page with service unavailable message displayed'
-        at LoginPage
-        errors.message == 'Service unavailable. Please try again later.'
-    }
-
-    def "Log in attempt with long delay on oauth server"() {
-
-        given: 'I am on the Login page'
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
-        elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 2, true)
-        to LoginPage
-
-        and: 'The OAuth server responds with a long delay'
-        oauthApi.stubValidOAuthTokenRequest(ITAG_USER, true)
-        elite2api.stubGetMyDetails(ITAG_USER)
-        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
-
-        when: "I attempt to log in using valid credentials"
-        loginAs ITAG_USER, 'password'
-
-        then: 'My credentials are accepted and I am shown the Key worker management page'
-        at KeyworkerManagementPage
-    }
-
-    def "Unknown user is rejected"() {
-
-        given: 'I am on the Login page'
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
-        oauthApi.stubInvalidOAuthTokenRequest(NOT_KNOWN)
-        to LoginPage
-
-        when: 'I login using an unknown username'
-        loginAs NOT_KNOWN, 'password'
-
-        then: 'I remain on the login page'
-        at LoginPage
-
-        and: 'I am told why I couldn\'t log in'
-        errors.message == 'The username or password you have entered is invalid.'
-    }
-
-    def "Unknown password is rejected"() {
-        given: 'I am on the Login page'
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
-        oauthApi.stubInvalidOAuthTokenRequest(ITAG_USER, true)
-        to LoginPage
-
-        when: 'I login using an unknown username'
-        loginAs ITAG_USER, 'wildGuess'
-
-        then: 'I remain on the login page'
-        at LoginPage
-
-        and: 'I am told why I couldn\'t log in'
-        errors.message == 'The username or password you have entered is invalid.'
-    }
-
     def "Log out"() {
         given: "I have logged in"
-        fixture.loginAs(ITAG_USER)
+        fixture.loginAs ITAG_USER
 
         when: "I log out"
-        keyworkerApi.stubHealth()
-        elite2api.stubHealth()
+        oauthApi.stubLogout()
         header.logout()
 
         then: "I am returned to the Login page."

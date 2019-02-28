@@ -4,14 +4,7 @@ import geb.Browser
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerDashboardPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerProfilePage
-import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.UnallocatedPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.*
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
@@ -38,10 +31,8 @@ class TestFixture {
 
     def loginAs(UserAccount user, int kwFrequency) {
         currentUser = user
-        keyworkerApi.stubHealth()
-        elite2Api.stubHealth()
+        oauthApi.stubValidOAuthTokenRequest()
         browser.to LoginPage
-        oauthApi.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
@@ -54,10 +45,8 @@ class TestFixture {
 
     def loginWithoutStaffRoles(UserAccount user) {
         currentUser = user
-        keyworkerApi.stubHealth()
-        elite2Api.stubHealth()
+        oauthApi.stubValidOAuthTokenRequest()
         browser.to LoginPage
-        oauthApi.stubValidOAuthTokenRequest currentUser
         elite2Api.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 

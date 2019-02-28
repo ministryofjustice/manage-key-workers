@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { Header, Footer } from 'new-nomis-shared-components'
+import { Header, FooterContainer } from 'new-nomis-shared-components'
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -40,7 +40,6 @@ import {
   setLoaded,
 } from '../redux/actions/index'
 import { configType, userType } from '../types'
-import { linkOnClick } from '../helpers'
 
 const axios = require('axios')
 
@@ -365,6 +364,7 @@ class App extends React.Component {
         </div>
       )
     }
+
     return (
       <Router>
         <div className="content">
@@ -398,14 +398,7 @@ class App extends React.Component {
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <Footer
-            meta={{
-              items: [
-                { text: 'Contact us', href: `mailto:${config.mailTo}` },
-                { text: 'Terms and conditions', ...linkOnClick(this.showTermsAndConditions) },
-              ],
-            }}
-          />
+          <FooterContainer feedbackEmail={config.mailTo} prisonStaffHubUrl={config.prisonStaffHubUrl} />
         </div>
       </Router>
     )

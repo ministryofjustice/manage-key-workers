@@ -44,7 +44,7 @@ const UserSearch = ({
             <div className="pure-u-md-11-12 searchForm padding-top padding-bottom-large padding-left-30">
               <div className="pure-u-md-4-12">
                 <label className="form-label" htmlFor="name-filter">
-                  Name or staff NOMIS ID
+                  Name or staff User ID
                 </label>
                 <input
                   type="text"
