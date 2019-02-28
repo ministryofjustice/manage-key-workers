@@ -28,7 +28,7 @@ class EnableNewNomisSpecification extends GebReportingSpec {
     def "should allow current prison's new nomis access to be updated"() {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def roles = [MaintainAccessRolesRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
 
         given: "I logged in and navigated to the enable new nomis page"

@@ -1,7 +1,6 @@
 const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
 const OAuth2Strategy = require('passport-oauth2').Strategy
-const { AuthClientErrorName, apiClientCredentials } = require('./api/oauthApi')
+const { apiClientCredentials } = require('./api/oauthApi')
 const config = require('./config')
 
 passport.serializeUser((user, done) => {
@@ -14,7 +13,7 @@ passport.deserializeUser((user, done) => {
   done(null, user)
 })
 
-const init = oauthApi => {
+const init = () => {
   passport.use(
     new OAuth2Strategy(
       {
@@ -28,8 +27,8 @@ const init = oauthApi => {
           Authorization: `Basic ${apiClientCredentials(config.apis.oauth2.clientId, config.apis.oauth2.clientSecret)}`,
         },
       },
-      (accessToken, refreshToken, profile, done) =>
-        done(null, { access_token: accessToken, refresh_token: refreshToken })
+      (accessToken, refreshToken, params, profile, done) =>
+        done(null, { access_token: accessToken, refresh_token: refreshToken, authSource: params.auth_source })
     )
   )
 }

@@ -50,12 +50,12 @@ class LoginSpecification extends GebReportingSpec {
 
     def "Log in with valid credentials"() {
         given: 'I am on the Login page'
-        elite2api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
+        oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
         oauthApi.stubValidOAuthTokenRequest()
         to LoginPage
 
-        elite2api.stubGetMyDetails ITAG_USER
+        oauthApi.stubGetMyDetails ITAG_USER
         elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
         when: "I login using valid credentials"

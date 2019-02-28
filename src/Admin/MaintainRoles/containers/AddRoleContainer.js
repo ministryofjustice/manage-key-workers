@@ -79,7 +79,6 @@ class AddRoleContainer extends Component {
           roleCode: roleAdd,
         },
       })
-      // await this.getUserRoles();
       setMessageDispatch('Role successfully added')
       history.goBack()
     } catch (error) {

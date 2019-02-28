@@ -95,7 +95,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
     }
 
     def "should not see the auto allocation link when the current user is not a key worker admin"() {
-        elite2api.stubGetStaffAccessRoles([])
+        oauthApi.stubGetMyRoles([])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 1, true)
 
         given: "I logged in and go to the admin and utilities page"
@@ -112,7 +112,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
 
         given: "I logged in and go to the admin and utilities page"
@@ -130,7 +130,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
 
         given: "I logged in and go to the admin and utilities page"
@@ -147,7 +147,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
         def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
 
         given: "I logged in and go to the admin and utilities page"
@@ -165,6 +165,6 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
         def KeyworkerMigrationRole = [roleId: -1, roleCode: 'KW_MIGRATION']
         def roles = [MaintainAccessRolesRole, KeyworkerMigrationRole]
-        elite2api.stubGetStaffAccessRoles(roles)
+        oauthApi.stubGetMyRoles(roles)
     }
 }

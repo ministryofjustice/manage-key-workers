@@ -137,9 +137,7 @@ const mapStateToProps = state => ({
   agencyId: state.app.user.activeCaseLoadId,
   data: state.prisonLevelKeyWorkerStatsDashboard.data,
   prisonerToKeyWorkerRatio: state.prisonLevelKeyWorkerStatsDashboard.prisonerToKeyWorkerRatio,
-  activeCaseLoad: state.app.user.caseLoadOptions.filter(
-    caseLoad => caseLoad.caseLoadId === state.app.user.activeCaseLoadId
-  )[0].description,
+  activeCaseLoad: state.app.user.caseLoadOptions.filter(caseLoad => caseLoad.currentlyActive)[0].description,
   migrated: state.keyworkerSettings.migrated,
   fromDate: state.prisonLevelKeyWorkerStatsDashboard.fromDate,
   toDate: state.prisonLevelKeyWorkerStatsDashboard.toDate,

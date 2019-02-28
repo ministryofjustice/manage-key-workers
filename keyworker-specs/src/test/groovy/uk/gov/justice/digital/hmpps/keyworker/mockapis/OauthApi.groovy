@@ -38,6 +38,32 @@ class OauthApi extends WireMockRule {
                         .willReturn(aResponse().withBody("favicon")))
     }
 
+    void stubGetMyDetails(UserAccount user) {
+        this.stubFor(
+                get('/auth/api/user/me')
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(JsonOutput.toJson([
+                                staffId         : user.staffMember.id,
+                                username        : user.username,
+                                firstName       : user.staffMember.firstName,
+                                lastName        : user.staffMember.lastName,
+                                email           : 'itaguser@syscon.net',
+                                activeCaseLoadId: 'LEI'
+                        ]))))
+    }
+
+    void stubGetMyRoles(def roles) {
+        def json = JsonOutput.toJson(roles)
+        this.stubFor(
+                get(urlPathEqualTo("/auth/api/user/me/roles"))
+                        .willReturn(aResponse()
+                        .withBody(json)
+                        .withStatus(200)))
+    }
+
     void stubLogout() {
         this.stubFor(
                 get(urlPathEqualTo('/auth/logout'))

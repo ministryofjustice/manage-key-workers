@@ -29,3 +29,7 @@ driver = {
 baseUrl = "http://localhost:3001/"
 
 reportsDir = "build/geb-reports"
+
+
+// Close browser on shutdown - uncomment to enable
+// quitCachedDriverOnShutdown = false

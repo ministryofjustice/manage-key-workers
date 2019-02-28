@@ -33,10 +33,10 @@ class TestFixture {
         currentUser = user
         oauthApi.stubValidOAuthTokenRequest()
         browser.to LoginPage
-        elite2Api.stubGetMyDetails currentUser
+        oauthApi.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
-        elite2Api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
+        oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, kwFrequency, true)
 
         browser.page.loginAs currentUser, 'password'
@@ -47,7 +47,7 @@ class TestFixture {
         currentUser = user
         oauthApi.stubValidOAuthTokenRequest()
         browser.to LoginPage
-        elite2Api.stubGetMyDetails currentUser
+        oauthApi.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
         browser.page.loginAs currentUser, 'password'
