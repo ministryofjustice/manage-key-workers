@@ -1,4 +1,4 @@
 export default {
   customerName: 'HMPPS',
-  serviceName: 'Prison-NOMIS',
+  serviceName: 'Digital Prison Services',
 }
