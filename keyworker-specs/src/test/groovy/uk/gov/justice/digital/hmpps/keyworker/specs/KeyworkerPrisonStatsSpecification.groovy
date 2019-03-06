@@ -14,6 +14,7 @@ import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerDashboardPage
 import java.time.LocalDate
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation.BXI
+import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
 class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
     @Rule
@@ -167,6 +168,7 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
 
         header.dropDown.click()
         header.brixtonCaseLoad.click()
+        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads, BXI.id)
 
         then: "I still be on the dashboard"
         at KeyworkerDashboardPage

@@ -377,7 +377,7 @@ class App extends React.Component {
               return (
                 <Header
                   logoText="HMPPS"
-                  title="Prison-NOMIS"
+                  title="Digital Prison Services"
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
