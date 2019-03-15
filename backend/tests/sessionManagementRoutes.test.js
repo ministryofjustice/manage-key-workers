@@ -76,12 +76,19 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     return agent
       .get('/')
       .expect(302)
-      .expect('location', '/login')
+      .expect('location', '/login?returnTo=%2F')
+  })
+
+  it('GET "/some-page" with no cookie (not authenticated) redirects to /login?returnTo=some-page', () => {
+    tokenRefresher.resolves()
+
+    return agent
+      .get('/some-page')
+      .expect(302)
+      .expect('location', '/login?returnTo=%2Fsome-page')
   })
 
   it('GET "/login" when not authenticated returns login page', () => agent.get('/login').expect(302))
-
-  it('GET "/" with cookie serves content', () => agent.get('/').expect(302))
 
   it('GET "/heart-beat"', () =>
     agent
@@ -110,6 +117,6 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
     agent
       .get('/')
       .expect(302)
-      .expect('location', '/login')
+      .expect('location', '/login?returnTo=%2F')
       .expect(hasCookies([])))
 })

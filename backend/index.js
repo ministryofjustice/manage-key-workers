@@ -50,7 +50,6 @@ const tokenRefresherFactory = require('./tokenRefresher').factory
 const controllerFactory = require('./controllers/controller').factory
 
 const clientFactory = require('./api/oauthEnabledClient')
-const { healthApiFactory } = require('./api/healthApi')
 const { elite2ApiFactory } = require('./api/elite2Api')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { oauthApiFactory } = require('./api/oauthApi')
@@ -105,17 +104,6 @@ app.use(express.static(path.join(__dirname, '../build/static')))
 app.get('/terms', async (req, res) => {
   res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl })
 })
-
-const healthApi = healthApiFactory(
-  clientFactory({
-    baseUrl: config.apis.elite2.url,
-    timeout: 2000,
-  }),
-  clientFactory({
-    baseUrl: config.apis.keyworker.url,
-    timeout: 2000,
-  })
-)
 
 const elite2Api = elite2ApiFactory(
   clientFactory({
