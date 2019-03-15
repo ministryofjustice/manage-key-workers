@@ -8,6 +8,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.pages.AdminUtilitiesPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
 
@@ -19,12 +20,12 @@ class LoginSpecification extends GebReportingSpec {
     OauthApi oauthApi = new OauthApi()
 
     @Rule
-    Elite2Api elite2api = new Elite2Api()
+    Elite2Api elite2Api = new Elite2Api()
 
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
+    TestFixture fixture = new TestFixture(browser, elite2Api, keyworkerApi, oauthApi)
 
     def "The login page is present"() {
         given:
@@ -56,7 +57,7 @@ class LoginSpecification extends GebReportingSpec {
         to LoginPage
 
         oauthApi.stubGetMyDetails ITAG_USER
-        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads)
+        elite2Api.stubGetMyCaseloads(ITAG_USER.caseloads)
 
         when: "I login using valid credentials"
         loginAs ITAG_USER, 'password'
@@ -65,6 +66,24 @@ class LoginSpecification extends GebReportingSpec {
         at KeyworkerManagementPage
         homeLink.size() == 1
         breadCrumbHomeLink.size() == 1
+    }
+
+    def "User login takes user back to requested page"() {
+        given: "I would like to go to the admin utilities page"
+        oauthApi.stubValidOAuthTokenRequest()
+        oauthApi.stubGetMyDetails ITAG_USER
+        elite2Api.stubGetMyCaseloads ITAG_USER.caseloads
+        oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
+
+        browser.go('/admin-utilities')
+
+        when: "I have logged in"
+        at LoginPage
+        loginAs ITAG_USER, 'password'
+
+        then: "I am taken to the admin utilities page"
+        at AdminUtilitiesPage
     }
 
     def "Log out"() {
