@@ -6,6 +6,7 @@ const errorStatusCode = require('../error-status-code')
 const AuthClientErrorName = 'AuthClientError'
 const AuthClientError = message => ({ name: AuthClientErrorName, message, stack: new Error().stack })
 
+const encodeQueryString = input => encodeURIComponent(input)
 const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
 /**
@@ -20,6 +21,8 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const get = (context, path) => client.get(context, path).then(response => response.data)
   const currentUser = context => get(context, 'api/user/me')
   const userRoles = context => get(context, 'api/user/me/roles')
+  const getUser = (context, { nameFilter }) => get(context, `api/authuser/${encodeQueryString(nameFilter)}`)
+  const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
 
   const oauthAxios = axios.create({
     baseURL: url,
@@ -82,6 +85,8 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   return {
     currentUser,
     userRoles,
+    getUser,
+    userSearch,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,
