@@ -1,4 +1,4 @@
-const { userMeFactory } = require('../controllers/userMe')
+const { userMeFactory } = require('./userMe')
 
 const context = {}
 const staffRoles = [{ roleId: -201, roleCode: 'OMIC_ADMIN', roleName: 'Omic Admin', caseloadId: 'NWEB' }]

@@ -1,4 +1,4 @@
-const { keyworkerStatsFactory } = require('../controllers/keyworkerStats')
+const { keyworkerStatsFactory } = require('./keyworkerStats')
 
 const getStatsByName = stats => stats.reduce((acc, current) => ({ ...acc, [current.name]: current }), {})
 
