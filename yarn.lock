@@ -862,6 +862,14 @@
     "@govuk-react/hoc" "^0.7.0"
     "@govuk-react/lib" "^0.7.0"
 
+"@govuk-react/heading@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/heading/-/heading-0.7.0.tgz#9d4e0ce950d422219a8a5b43221ecf1dca506e68"
+  integrity sha512-0e+4jQnclwG3EgSjQn9aOrY9afsp6Vzx7mQcof39nS2mr+OLPJfJGPuMt5tyhdK42TJVt5JmtelDeARa/Xw86g==
+  dependencies:
+    "@govuk-react/constants" "^0.7.0"
+    "@govuk-react/lib" "^0.7.0"
+
 "@govuk-react/hint-text@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@govuk-react/hint-text/-/hint-text-0.7.0.tgz#e41dcdd1d58834e0ac2d20e50fe63a1041ab86e3"
@@ -941,6 +949,15 @@
   resolved "https://registry.yarnpkg.com/@govuk-react/link/-/link-0.7.0.tgz#f38823e9756946f94f2426e4f2dc7dc17ab4e5b6"
   integrity sha512-M1S3ZhbHMsrwtYM/6zYKBnbb8wRtgR94kHlAdyfPx8g25/YqnyRAZ64f3ivDFhWnxKbmyTWz0/jqBRPpxq+2fQ==
   dependencies:
+    "@govuk-react/lib" "^0.7.0"
+    govuk-colours "^1.0.3"
+
+"@govuk-react/table@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@govuk-react/table/-/table-0.7.0.tgz#8198b325607c3050e57f7dd1403c20c163f37779"
+  integrity sha512-codRMEjkj5iWhu5YocAikKKWBrsODskPBmxjZCmLY1xk55C3cjNF3mnYeWaTgABIOwU6B56N3AeZpXWgkRStfg==
+  dependencies:
+    "@govuk-react/constants" "^0.7.0"
     "@govuk-react/lib" "^0.7.0"
     govuk-colours "^1.0.3"
 
@@ -8227,6 +8244,14 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
+query-string@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.4.0.tgz#1566c0cec3a2da2d82c222ed3f9e2a921dba5e6a"
+  integrity sha512-Werid2I41/tJTqOGPJ3cC3vwrIh/8ZupBQbp7BSsqXzr+pTin3aMJ/EZb8UEuk7ZO3VqQFvq2qck/ihc6wqIdw==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    strict-uri-encode "^2.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -9459,6 +9484,11 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   integrity sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
+  integrity sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
 
 string-argv@^0.0.2:
   version "0.0.2"
