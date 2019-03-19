@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Header from '@govuk-react/header'
+import { H1 } from '@govuk-react/heading'
 import Error from '../../Error'
 import Spinner from '../../Spinner'
 import { Container } from './Page.styles'
@@ -36,9 +36,7 @@ export class Page extends Component {
         <Fragment>
           {showBreadcrumb && <Breadcrumb />}
           <Container>
-            <Header level={1} size="LARGE">
-              {title}
-            </Header>
+            <H1>{title}</H1>
             {error && <Error error={error} />}
             {(!error || alwaysRender) && <div className="page-content">{children}</div>}
           </Container>
