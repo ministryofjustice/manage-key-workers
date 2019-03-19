@@ -25,7 +25,7 @@ export class Page extends Component {
   }
 
   renderTitleString = title => {
-    document.title = `${title} - Key worker - Digital Prison Services`
+    document.title = `${title} - Key worker - Prison NOMIS`
   }
 
   render() {
