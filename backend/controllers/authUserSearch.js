@@ -8,7 +8,7 @@ const authUserSearchFactory = oauthApi => {
 
     if (!nameFilter) {
       const error = new Error('Missing name filter on search')
-      error.response = { data: { status: 400, error_description: 'Missing name filter' } }
+      error.response = { data: { status: 400, error_description: 'Enter a username or email address' } }
       throw error
     }
 

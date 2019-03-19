@@ -35,7 +35,7 @@ describe('Auth user search controller', () => {
   it('should return 400 if missing query', async () => {
     await authUserSearch({ query: {} }, res)
 
-    expect(res.json).toBeCalledWith('Missing name filter')
+    expect(res.json).toBeCalledWith('Enter a username or email address')
     expect(res.status).toBeCalledWith(400)
   })
 })
