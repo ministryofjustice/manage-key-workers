@@ -162,18 +162,18 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
 
         at KeyworkerDashboardPage
 
-        and: "I switch caseloads"
+        then: "I switch caseloads"
         elite2api.stubSetActiveCaseload()
         keyworkerApi.stubPrisonMigrationStatus(BXI, true, true, 0, true)
-        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads, BXI.id)
 
         header.dropDown.click()
         header.brixtonCaseLoad.click()
+        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads, BXI.id)
 
-        then: "I should still be on the dashboard"
+        then: "I still be on the dashboard"
         at KeyworkerDashboardPage
 
-        and: "a call for Brixton stats should be made"
+        then: "a call for Brixton stats should be made"
         LocalDate lastMonth = LocalDate.now().minusMonths(1)
         LocalDate from = lastMonth.withDayOfMonth(1)
         LocalDate to = lastMonth.withDayOfMonth(lastMonth.lengthOfMonth())
