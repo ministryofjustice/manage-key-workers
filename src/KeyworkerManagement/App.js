@@ -19,6 +19,8 @@ import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisi
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
 import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
+import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
+import AuthUserSearchResultsContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchResultsContainer'
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
@@ -342,6 +344,28 @@ class App extends React.Component {
             path="/admin-utilities/maintain-roles/:username/roles/add-role"
             render={() => (
               <AddRoleContainer
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/admin-utilities/maintain-auth-users"
+            render={() => (
+              <AuthUserSearchContainer
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/admin-utilities/maintain-auth-users/search-results"
+            render={() => (
+              <AuthUserSearchResultsContainer
                 displayBack={this.displayBack}
                 handleError={this.handleError}
                 clearMessage={this.clearMessage}

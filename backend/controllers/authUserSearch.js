@@ -16,6 +16,12 @@ const authUserSearchFactory = oauthApi => {
       ? await oauthApi.userSearch(res.locals, { nameFilter })
       : [await oauthApi.getUser(res.locals, { nameFilter })]
 
+    if (!response) {
+      const error = new Error('No results returned from search')
+      error.response = { data: { status: 404, error_description: `No accounts for email address ${nameFilter} found` } }
+      throw error
+    }
+
     res.json(response)
   })
 
