@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { BREAKPOINTS, FONT_SIZE, SPACING } from '@govuk-react/constants'
 import Heading from '@govuk-react/heading'
 
