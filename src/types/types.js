@@ -33,6 +33,17 @@ export const userListType = arrayOf(
   })
 )
 
+export const authUserListType = arrayOf(
+  shape({
+    username: string.isRequired,
+    email: string.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    locked: bool.isRequired,
+    enabled: bool.isRequired,
+  })
+)
+
 export const contextUserType = shape({
   activeCaseLoadId: string.isRequired,
   agencyDescription: string.isRequired,

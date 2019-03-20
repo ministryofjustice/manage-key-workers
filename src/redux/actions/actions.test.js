@@ -266,148 +266,151 @@ describe('actions', () => {
     expect(actions.resetValidationErrors()).toEqual(expectedAction)
   })
 
-  it('should create an action to save key worker setting -  capacity', () => {
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS_CAPACITY,
-      capacity: 8,
-    }
-    expect(actions.setSettingsCapacity(8)).toEqual(expectedAction)
+  describe('key worker settings', () => {
+    it('should create an action to save key worker setting -  capacity', () => {
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS_CAPACITY,
+        capacity: 8,
+      }
+      expect(actions.setSettingsCapacity(8)).toEqual(expectedAction)
+    })
+
+    it('should create an action to save key worker setting -  ext capacity', () => {
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
+        extCapacity: 10,
+      }
+      expect(actions.setSettingsExtCapacity(10)).toEqual(expectedAction)
+    })
+
+    it('should create an action to save key worker setting -  sequence frequency', () => {
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
+        sequenceFrequency: 1,
+      }
+      expect(actions.setSettingsSequenceFrequency(1)).toEqual(expectedAction)
+    })
+
+    it('should create an action to save key worker setting -  allow auto allocation', () => {
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
+        allowAuto: true,
+      }
+      expect(actions.setSettingsAllowAutoAllocation(true)).toEqual(expectedAction)
+    })
+
+    it('should create an action to save key worker setting -  supported', () => {
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS_SUPPORTED,
+        supported: true,
+      }
+      expect(actions.setSettingsSupported(true)).toEqual(expectedAction)
+    })
+
+    it('should create an action to save key worker setting -  migrated', () => {
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS_MIGRATED,
+        migrated: true,
+      }
+      expect(actions.setSettingsMigrated(true)).toEqual(expectedAction)
+    })
+
+    it('should create an action to save key worker settings', () => {
+      const settings = {
+        migrated: true,
+        capacity: 5,
+        extCapacity: 6,
+        allowAuto: false,
+        supported: false,
+        sequenceFrequency: 2,
+      }
+      const expectedAction = {
+        type: types.SET_KEYWORKER_SETTINGS,
+        migrated: true,
+        allowAuto: false,
+        capacity: 5,
+        extCapacity: 6,
+        sequenceFrequency: 2,
+        supported: false,
+      }
+      expect(actions.setSettings(settings)).toEqual(expectedAction)
+    })
   })
 
-  it('should create an action to save key worker setting -  ext capacity', () => {
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
-      extCapacity: 10,
-    }
-    expect(actions.setSettingsExtCapacity(10)).toEqual(expectedAction)
-  })
+  describe('maintain roles', () => {
+    it('should create an action to save maintain roles user list', () => {
+      const list = [{ firstName: 'Jack', surname: 'Brown' }]
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_RESULTS_LIST,
+        userList: list,
+      }
+      expect(actions.setMaintainRolesUserList(list)).toEqual(expectedAction)
+    })
 
-  it('should create an action to save key worker setting -  sequence frequency', () => {
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
-      sequenceFrequency: 1,
-    }
-    expect(actions.setSettingsSequenceFrequency(1)).toEqual(expectedAction)
-  })
+    it('should create an action to save maintain roles role list', () => {
+      const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }]
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_ROLE_LIST,
+        roleList: list,
+      }
+      expect(actions.setMaintainRolesRoleList(list)).toEqual(expectedAction)
+    })
 
-  it('should create an action to save key worker setting -  allow auto allocation', () => {
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
-      allowAuto: true,
-    }
-    expect(actions.setSettingsAllowAutoAllocation(true)).toEqual(expectedAction)
-  })
+    it('should create an action to save maintain roles role filter list', () => {
+      const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }]
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_ROLE_FILTER_LIST,
+        roleFilterList: list,
+      }
+      expect(actions.setMaintainRolesRoleFilterList(list)).toEqual(expectedAction)
+    })
 
-  it('should create an action to save key worker setting -  supported', () => {
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS_SUPPORTED,
-      supported: true,
-    }
-    expect(actions.setSettingsSupported(true)).toEqual(expectedAction)
-  })
+    it('should create an action to save a maintain roles name filter', () => {
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_NAME_FILTER,
+        nameFilter: 'aField',
+      }
+      expect(actions.setMaintainRolesNameFilter('aField')).toEqual(expectedAction)
+    })
 
-  it('should create an action to save key worker setting -  migrated', () => {
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS_MIGRATED,
-      migrated: true,
-    }
-    expect(actions.setSettingsMigrated(true)).toEqual(expectedAction)
-  })
+    it('should create an action to save a maintain roles role filter', () => {
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_ROLE_FILTER,
+        roleFilter: 'aField',
+      }
+      expect(actions.setMaintainRolesRoleFilter('aField')).toEqual(expectedAction)
+    })
 
-  it('should create an action to save key worker settings', () => {
-    const settings = {
-      migrated: true,
-      capacity: 5,
-      extCapacity: 6,
-      allowAuto: false,
-      supported: false,
-      sequenceFrequency: 2,
-    }
-    const expectedAction = {
-      type: types.SET_KEYWORKER_SETTINGS,
-      migrated: true,
-      allowAuto: false,
-      capacity: 5,
-      extCapacity: 6,
-      sequenceFrequency: 2,
-      supported: false,
-    }
-    expect(actions.setSettings(settings)).toEqual(expectedAction)
-  })
+    it('should create an action to save a maintain roles add role', () => {
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_ROLE_ADD,
+        roleAdd: 'aField',
+      }
+      expect(actions.setMaintainRolesRoleAdd('aField')).toEqual(expectedAction)
+    })
+    it('should create an action to save user search page size', () => {
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
+        pageSize: 4,
+      }
+      expect(actions.setMaintainRolesUserPageSize(4)).toEqual(expectedAction)
+    })
 
-  it('should create an action to save maintain roles user list', () => {
-    const list = [{ firstName: 'Jack', surname: 'Brown' }]
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_RESULTS_LIST,
-      userList: list,
-    }
-    expect(actions.setMaintainRolesUserList(list)).toEqual(expectedAction)
-  })
+    it('should create an action to save user search page number', () => {
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
+        pageNumber: 6,
+      }
+      expect(actions.setMaintainRolesUserPageNumber(6)).toEqual(expectedAction)
+    })
 
-  it('should create an action to save maintain roles role list', () => {
-    const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }]
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_ROLE_LIST,
-      roleList: list,
-    }
-    expect(actions.setMaintainRolesRoleList(list)).toEqual(expectedAction)
-  })
-
-  it('should create an action to save maintain roles role filter list', () => {
-    const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }]
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_ROLE_FILTER_LIST,
-      roleFilterList: list,
-    }
-    expect(actions.setMaintainRolesRoleFilterList(list)).toEqual(expectedAction)
-  })
-
-  it('should create an action to save user search page size', () => {
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
-      pageSize: 4,
-    }
-    expect(actions.setMaintainRolesUserPageSize(4)).toEqual(expectedAction)
-  })
-
-  it('should create an action to save user search page number', () => {
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
-      pageNumber: 6,
-    }
-    expect(actions.setMaintainRolesUserPageNumber(6)).toEqual(expectedAction)
-  })
-
-  it('should create an action to save user search total records', () => {
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
-      totalRecords: 6,
-    }
-    expect(actions.setMaintainRolesUserTotalRecords(6)).toEqual(expectedAction)
-  })
-
-  it('should create an action to save a maintain roles name filter', () => {
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_NAME_FILTER,
-      nameFilter: 'aField',
-    }
-    expect(actions.setMaintainRolesNameFilter('aField')).toEqual(expectedAction)
-  })
-
-  it('should create an action to save a maintain roles role filter', () => {
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_ROLE_FILTER,
-      roleFilter: 'aField',
-    }
-    expect(actions.setMaintainRolesRoleFilter('aField')).toEqual(expectedAction)
-  })
-
-  it('should create an action to save a maintain roles add role', () => {
-    const expectedAction = {
-      type: types.SET_USER_SEARCH_ROLE_ADD,
-      roleAdd: 'aField',
-    }
-    expect(actions.setMaintainRolesRoleAdd('aField')).toEqual(expectedAction)
+    it('should create an action to save user search total records', () => {
+      const expectedAction = {
+        type: types.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
+        totalRecords: 6,
+      }
+      expect(actions.setMaintainRolesUserTotalRecords(6)).toEqual(expectedAction)
+    })
   })
 
   it('should create an action to set the keyworker stats', () => {
@@ -417,5 +420,16 @@ describe('actions', () => {
       stats,
     }
     expect(actions.setKeyworkerStats(stats)).toEqual(expectedAction)
+  })
+
+  describe('maintain auth users', () => {
+    it('should create an action to maintain auth users', () => {
+      const someList = [{ username: 'username' }]
+      const expectedAction = {
+        type: types.SET_AUTH_USER_SEARCH_RESULTS_LIST,
+        userList: someList,
+      }
+      expect(actions.setMaintainAuthUsersList(someList)).toEqual(expectedAction)
+    })
   })
 })

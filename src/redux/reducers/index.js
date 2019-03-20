@@ -120,6 +120,10 @@ const maintainRolesInitialState = {
   },
 }
 
+const maintainAuthUsersInitialState = {
+  userList: [],
+}
+
 const prisonLevelKeyWorkerStatsDashboardInitialState = {
   data: [],
   prisonerToKeyWorkerRatio: 0,
@@ -436,6 +440,18 @@ export function maintainRoles(state = maintainRolesInitialState, action) {
   }
 }
 
+export function maintainAuthUsers(state = maintainAuthUsersInitialState, action) {
+  switch (action.type) {
+    case ActionTypes.SET_AUTH_USER_SEARCH_RESULTS_LIST:
+      return {
+        ...state,
+        userList: action.userList,
+      }
+    default:
+      return state
+  }
+}
+
 export function allocationHistory(state = allocationHistoryInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_ALLOCATION_HISTORY:
@@ -473,6 +489,7 @@ const allocationApp = combineReducers({
   allocationHistory,
   keyworkerSettings,
   maintainRoles,
+  maintainAuthUsers,
   prisonLevelKeyWorkerStatsDashboard,
 })
 
