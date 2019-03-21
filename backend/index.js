@@ -182,7 +182,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 
 app.use('/api/config', getConfiguration)
-app.use('/api/me', asyncMiddleware(userMeFactory(oauthApi, elite2Api, keyworkerApi).userMe))
+app.use('/api/me', asyncMiddleware(userMeFactory(oauthApi, elite2Api, keyworkerApi).userMeService))
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
 app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
 app.use('/api/unallocated', controller.unallocated)
