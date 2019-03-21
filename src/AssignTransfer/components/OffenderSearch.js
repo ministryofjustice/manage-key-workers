@@ -3,8 +3,11 @@ import '../index.scss'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
 import ValidationErrors from '../../ValidationError'
 import { locationsType } from '../../types'
+import FormPanel from '../../Components/FormPanel'
 
 const OffenderSearch = ({
   locations,
@@ -73,45 +76,44 @@ const OffenderSearch = ({
 
   if (initialSearch) {
     return (
-      <div>
-        <div className="pure-u-md-8-12 searchForm">
-          <div className="padding-top padding-left padding-right">
-            <label className="form-label" htmlFor="search-text">
-              Prisoner name or number
-            </label>
-            <ValidationErrors validationErrors={validationErrors} fieldName="searchText" />
-            <input
-              type="text"
-              className="form-control width70 margin-bottom"
-              id="search-text"
-              name="searchText"
-              maxLength="30"
-              value={searchText}
-              onChange={handleSearchTextChange}
-            />
-            <button
-              type="button"
-              id="searchButton"
-              className="button margin-left"
-              onClick={() => handleSubmit(history)}
-            >
-              Search
-            </button>
-          </div>
-          <div className="padding-top padding-left padding-right padding-bottom-large">
-            <div className="pure-u-md-7-12">{locationSelect}</div>
-          </div>
-          <div className="padding-top padding-left padding-right padding-bottom-large">
-            <div className="pure-u-md-5-12">{allocationStatusSelect}</div>
-          </div>
-        </div>
-      </div>
+      <GridRow>
+        <GridCol setWidth="two-thirds">
+          <FormPanel>
+            <form onSubmit={event => handleSubmit(event, history)}>
+              <div className="padding-bottom-large">
+                <label className="form-label" htmlFor="search-text">
+                  Prisoner name or number
+                </label>
+                <ValidationErrors validationErrors={validationErrors} fieldName="searchText" />
+                <input
+                  type="text"
+                  className="form-control width70"
+                  id="search-text"
+                  name="searchText"
+                  maxLength="30"
+                  value={searchText}
+                  onChange={handleSearchTextChange}
+                />
+                <button type="submit" id="searchButton" className="button margin-left">
+                  Search
+                </button>
+              </div>
+              <div className="padding-bottom-large">
+                <div className="pure-u-md-7-12">{locationSelect}</div>
+              </div>
+              <div>
+                <div className="pure-u-md-5-12">{allocationStatusSelect}</div>
+              </div>
+            </form>
+          </FormPanel>
+        </GridCol>
+      </GridRow>
     )
   }
   return (
-    <div>
-      <div className="pure-u-md-12-12 searchForm padding-bottom">
-        <div className="pure-u-md-4-12 padding-top padding-left">
+    <FormPanel>
+      <form onSubmit={event => handleSubmit(event, history)}>
+        <div className="pure-u-md-4-12">
           <label className="form-label" htmlFor="search-text">
             Prisoner name or number
           </label>
@@ -126,16 +128,16 @@ const OffenderSearch = ({
             onChange={handleSearchTextChange}
           />
         </div>
-        <div className="pure-u-md-3-12 padding-top padding-left">{locationSelect}</div>
-        <div className="pure-u-md-2-12 padding-top padding-left">{allocationStatusSelect}</div>
-        <div className="pure-u-md-2-12 padding-top padding-left">
+        <div className="pure-u-md-3-12 padding-left">{locationSelect}</div>
+        <div className="pure-u-md-2-12 padding-left">{allocationStatusSelect}</div>
+        <div className="pure-u-md-2-12 padding-left">
           <span className="form-label">&nbsp;</span>
-          <button type="button" id="searchButton" className="button" onClick={() => handleSubmit(history)}>
+          <button type="submit" id="searchButton" className="button">
             Search again
           </button>
         </div>
-      </div>
-    </div>
+      </form>
+    </FormPanel>
   )
 }
 

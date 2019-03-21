@@ -64,7 +64,7 @@ describe('Offender search component', () => {
       />
     )
 
-    component.find('button').simulate('click')
+    component.find('form').simulate('submit')
     expect(handleSubmitMock).toHaveBeenCalled()
   })
 })

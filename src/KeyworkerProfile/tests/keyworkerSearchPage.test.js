@@ -41,7 +41,7 @@ describe('Keyworker search component', () => {
       />
     )
 
-    component.find('button').simulate('click')
+    component.find('form').simulate('submit')
     expect(searchCallBack.mock.calls.length).toEqual(1)
   })
 

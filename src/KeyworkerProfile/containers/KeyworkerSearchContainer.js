@@ -29,7 +29,8 @@ class KeyworkerSearchContainer extends Component {
     keyworkerStatusFilterDispatch(event.target.value)
   }
 
-  handleSearch = history => {
+  handleSearch = (event, history) => {
+    event.preventDefault()
     history.push('/manage-key-workers/key-worker-search/results')
   }
 
