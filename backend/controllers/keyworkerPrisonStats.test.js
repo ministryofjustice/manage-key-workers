@@ -1,4 +1,4 @@
-import { keyworkerPrisonStatsFactory } from '../controllers/keyworkerPrisonStats'
+import { keyworkerPrisonStatsFactory } from './keyworkerPrisonStats'
 
 describe('Key worker prison stats', async () => {
   const keyworkerApi = {}
