@@ -32,7 +32,7 @@ describe('<Page />', () => {
     })
 
     it('should update the document title', () => {
-      expect(global.window.document.title).toEqual('Page title - Key worker - Digital Prison Services')
+      expect(global.window.document.title).toEqual('Page title - Key worker - Prison NOMIS')
     })
 
     it('should display the children prop', () => {
