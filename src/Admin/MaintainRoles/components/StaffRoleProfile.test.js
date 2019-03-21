@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { StaffRoleProfile } from '../MaintainRoles/components/StaffRoleProfile'
-import mockHistory from '../../test/mockHistory'
+import { StaffRoleProfile } from './StaffRoleProfile'
+import mockHistory from '../../../test/mockHistory'
 
 const user = {
   staffId: 485576,
