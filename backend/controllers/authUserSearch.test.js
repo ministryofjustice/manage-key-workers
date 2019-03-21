@@ -32,10 +32,15 @@ describe('Auth user search controller', () => {
     expect(res.json).toBeCalledWith(response)
   })
 
-  it('should return 400 if missing query', async () => {
-    await authUserSearch({ query: {} }, res)
+  it('should throw error if no results', async () => {
+    oauthApi.userSearch.mockReturnValue('')
 
-    expect(res.json).toBeCalledWith('Enter a username or email address')
-    expect(res.status).toBeCalledWith(400)
+    await expect(authUserSearch({ query: { nameFilter: 'bob@joe.com' } }, res)).rejects.toThrow(
+      new Error('No results returned from search')
+    )
+  })
+
+  it('should return 400 if missing query', async () => {
+    await expect(authUserSearch({ query: {} }, res)).rejects.toThrow(new Error('Missing name filter on search'))
   })
 })

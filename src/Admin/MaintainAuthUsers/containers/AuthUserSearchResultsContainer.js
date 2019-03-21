@@ -44,9 +44,18 @@ class AuthUserSearchResultsContainer extends Component {
       handleError,
     } = this.props
 
+    const { user } = qs.parse(search)
+
+    if (!user) {
+      const error = new Error('Some error here')
+      error.response = { data: 'Enter a username or email address' }
+      handleError(error)
+      return
+    }
+
     setLoadedDispatch(false)
+
     try {
-      const { user } = qs.parse(search)
       const users = await axios.get('/api/auth-user-search', {
         params: {
           nameFilter: user,

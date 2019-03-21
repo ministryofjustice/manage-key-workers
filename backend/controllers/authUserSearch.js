@@ -1,8 +1,7 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
 const authUserSearchFactory = oauthApi => {
-  const authUserSearch = asyncMiddleware(async (req, res) => {
+  const authUserSearch = async (req, res) => {
     const { nameFilter } = req.query
     log.debug('Performing auth user search')
 
@@ -23,7 +22,7 @@ const authUserSearchFactory = oauthApi => {
     }
 
     res.json(response)
-  })
+  }
 
   return { authUserSearch }
 }

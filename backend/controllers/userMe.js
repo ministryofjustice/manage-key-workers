@@ -1,7 +1,6 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
-
 const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
-  const userMeService = async context => {
+  const userMeService = async (req, res) => {
+    const context = res.locals
     const user = await oauthApi.currentUser(context)
     const caseloads = await elite2Api.userCaseLoads(context)
     const activeCaseLoad = caseloads.find(cl => cl.currentlyActive)
@@ -19,7 +18,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
 
     const hasKwMigrationRole = roles.filter(role => role.roleCode === 'KW_MIGRATION').length > 0
 
-    return {
+    const response = {
       ...user,
       activeCaseLoadId,
       writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin),
@@ -28,18 +27,10 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
       maintainAccessAdmin: hasMaintainAccessRolesAdminRole,
       prisonMigrated: Boolean(prisonStatus.migrated),
     }
+    res.json(response)
   }
-  const userMe = asyncMiddleware(async (req, res) => {
-    const data = await userMeService(res.locals)
-    res.json(data)
-  })
 
-  return {
-    userMe,
-    userMeService,
-  }
+  return { userMeService }
 }
 
-module.exports = {
-  userMeFactory,
-}
+module.exports = { userMeFactory }
