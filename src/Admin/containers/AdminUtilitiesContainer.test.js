@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AdminUtilitiesContainer } from '../containers/AdminUtilitiesContainer'
+import { AdminUtilitiesContainer } from './AdminUtilitiesContainer'
 
 const props = {
   setLoadedDispatch: jest.fn(),
