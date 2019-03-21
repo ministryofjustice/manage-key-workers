@@ -7,9 +7,10 @@ import qs from 'query-string'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import { setError, resetError, setLoaded, setMaintainAuthUsersList } from '../../../redux/actions/index'
-import AuthUserSearchResults from '../components/AuthUserSearchResults'
 import { authUserListType } from '../../../types'
 import Page from '../../../Components/Page'
+import AuthUserSearchResults from '../components/AuthUserSearchResults'
+import validateSearch from './AuthUserSearchValidation'
 
 class AuthUserSearchResultsContainer extends Component {
   constructor(props) {
@@ -44,9 +45,11 @@ class AuthUserSearchResultsContainer extends Component {
       handleError,
     } = this.props
 
+    const { user } = qs.parse(search)
+    if (!validateSearch(user, handleError)) return
+
     setLoadedDispatch(false)
     try {
-      const { user } = qs.parse(search)
       const users = await axios.get('/api/auth-user-search', {
         params: {
           nameFilter: user,
