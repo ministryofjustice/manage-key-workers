@@ -1,6 +1,5 @@
 const { userMeFactory } = require('./userMe')
 
-const context = {}
 const staffRoles = [{ roleId: -201, roleCode: 'OMIC_ADMIN', roleName: 'Omic Admin', caseloadId: 'NWEB' }]
 const caseloads = [{ caseLoadId: 'LEI', currentlyActive: true }]
 const staff1 = {
@@ -22,6 +21,8 @@ describe('userMe controller', () => {
   const keyworkerApi = {
     getPrisonMigrationStatus: () => {},
   }
+  const req = {}
+  const res = { locals: {} }
 
   beforeEach(() => {
     elite2Api.userCaseLoads = jest.fn()
@@ -34,6 +35,7 @@ describe('userMe controller', () => {
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
     }))
+    res.json = jest.fn()
   })
 
   it('should not have writeAccess when the user does not have the key worker admin role', async () => {
@@ -47,9 +49,9 @@ describe('userMe controller', () => {
       capacityTier2: 2,
     }))
     const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
-    const data = await userMeService()
+    await userMeService(req, res)
 
-    expect(data).toEqual({
+    expect(res.json).toBeCalledWith({
       ...staff1,
       activeCaseLoadId: 'LEI',
       writeAccess: false,
@@ -67,12 +69,12 @@ describe('userMe controller', () => {
       capacityTier2: 2,
     }))
     const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
-    const data = await userMeService(context)
+    await userMeService(req, res)
 
     expect(oauthApi.currentUser).toHaveBeenCalled()
-    expect(oauthApi.userRoles).toHaveBeenCalledWith(context)
+    expect(oauthApi.userRoles).toHaveBeenCalledWith(res.locals)
 
-    expect(data).toEqual({
+    expect(res.json).toBeCalledWith({
       ...staff1,
       activeCaseLoadId: 'LEI',
       writeAccess: true,
@@ -92,13 +94,13 @@ describe('userMe controller', () => {
 
     const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
 
-    const data = await userMeService(context)
+    await userMeService(req, res)
 
     expect(oauthApi.currentUser).toHaveBeenCalled()
-    expect(oauthApi.userRoles).toHaveBeenCalledWith(context)
-    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith(context, 'LEI')
+    expect(oauthApi.userRoles).toHaveBeenCalledWith(res.locals)
+    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith(res.locals, 'LEI')
 
-    expect(data).toEqual({
+    expect(res.json).toHaveBeenCalledWith({
       ...staff1,
       activeCaseLoadId: 'LEI',
       writeAccess: false,
