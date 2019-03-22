@@ -3,6 +3,7 @@ package uk.gov.justice.digital.hmpps.keyworker.mockapis
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import groovy.json.JsonOutput
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.mockResponses.AuthUserSearchResponse
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*
@@ -126,5 +127,25 @@ class OauthApi extends WireMockRule {
                         .willReturn(
                         aResponse()
                                 .withStatus(status)))
+    }
+
+    void stubAuthUsernameSearch() {
+        this.stubFor(
+                get(urlPathMatching("/auth/api/authuser/.*"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(AuthUserSearchResponse.getUsernameResponse())))
+    }
+
+    void stubAuthEmailSearch() {
+        this.stubFor(
+                get(urlPathMatching("/auth/api/authuser"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(AuthUserSearchResponse.getEmailResponse())))
     }
 }

@@ -46,7 +46,10 @@ class AuthUserSearchResultsContainer extends Component {
     } = this.props
 
     const { user } = qs.parse(search)
-    if (!validateSearch(user, handleError)) return
+    if (!validateSearch(user, handleError)) {
+      userListDispatch([])
+      return
+    }
 
     setLoadedDispatch(false)
     try {
