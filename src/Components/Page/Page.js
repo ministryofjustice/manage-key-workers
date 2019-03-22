@@ -9,10 +9,7 @@ import { Container } from './Page.styles'
 import { childrenType, errorType } from '../../types'
 import Breadcrumb from '../Breadcrumb'
 import { resetError } from '../../redux/actions/index'
-
-const onHandleErrorClick = targetName => {
-  document.getElementsByName(targetName)[0].focus()
-}
+import { onHandleErrorClick } from '../../govuk-helpers'
 
 export class Page extends Component {
   componentDidMount() {
