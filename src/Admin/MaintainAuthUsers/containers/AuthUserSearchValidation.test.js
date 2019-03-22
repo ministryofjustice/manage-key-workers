@@ -8,12 +8,16 @@ describe('Auth search validation', () => {
 
   it('should return error if no user specified', () => {
     expect(validateSearch('', handleError)).toBe(false)
-    expect(handleError).toBeCalledWith({ response: { data: 'Enter a username or email address' } })
+    expect(handleError).toBeCalledWith({
+      response: { data: [{ targetName: 'user', text: 'Enter a username or email address' }] },
+    })
   })
 
   it('should return error if blank user specified', () => {
     expect(validateSearch('           ', handleError)).toBe(false)
-    expect(handleError).toBeCalledWith({ response: { data: 'Enter a username or email address' } })
+    expect(handleError).toBeCalledWith({
+      response: { data: [{ targetName: 'user', text: 'Enter a username or email address' }] },
+    })
   })
 
   it('should success if user specified', () => {

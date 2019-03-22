@@ -11,6 +11,7 @@
     "@babel/polyfill": "^7.2.5",
     "@govuk-react/button": "^0.7.0",
     "@govuk-react/constants": "^0.7.0",
+    "@govuk-react/error-summary": "^0.7.0",
     "@govuk-react/error-text": "^0.7.0",
     "@govuk-react/grid-col": "^0.7.0",
     "@govuk-react/grid-row": "^0.7.0",
@@ -127,7 +128,7 @@
     "test-watch": "jest --env=jsdom --watchAll",
     "record-build-info": "node scripts/record-build-info",
     "plant-beanstalk": "node scripts/plant-beanstalk.js",
-    "lint": "node node_modules/eslint/bin/eslint.js src backend",
+    "lint": "node node_modules/eslint/bin/eslint.js --max-warnings 0 src backend",
     "verify": "yarn lint && yarn test",
     "view-bundle-stats": "yarn build && webpack-bundle-analyzer build/stats.json"
   },
@@ -140,7 +141,7 @@
     "linters": {
       "*.{js,json,css,md}": [
         "prettier --write",
-        "eslint --fix",
+        "eslint --fix --max-warnings 0",
         "git add"
       ]
     },

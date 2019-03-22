@@ -259,3 +259,13 @@ export const formMetaType = shape({
   valid: bool.isRequired,
   visited: bool.isRequired,
 })
+
+export const errorType = oneOfType([
+  string,
+  arrayOf(
+    shape({
+      targetName: string,
+      text: string,
+    })
+  ),
+])

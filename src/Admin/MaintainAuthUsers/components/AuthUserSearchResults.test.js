@@ -7,7 +7,7 @@ describe('Auth search results form', () => {
   const stubFunc = () => {}
   describe('no results', () => {
     const wrapper = renderer.create(
-      <AuthUserSearchResults handleChange={stubFunc} handleSearch={stubFunc} user="" userList={[]} />
+      <AuthUserSearchResults handleChange={stubFunc} handleSearch={stubFunc} user="" userList={[]} error={[]} />
     )
     it('should render correctly with no user and no results', () => {
       expect(wrapper.toJSON()).toMatchSnapshot()
@@ -36,7 +36,13 @@ describe('Auth search results form', () => {
       },
     ]
     const wrapper = renderer.create(
-      <AuthUserSearchResults handleChange={stubFunc} handleSearch={stubFunc} user="someuser" userList={userList} />
+      <AuthUserSearchResults
+        handleChange={stubFunc}
+        handleSearch={stubFunc}
+        user="someuser"
+        userList={userList}
+        error=""
+      />
     )
 
     it('should render correctly with user and results', () => {

@@ -4,12 +4,15 @@ import InputField from '@govuk-react/input-field'
 import Button from '@govuk-react/button'
 import GridRow from '@govuk-react/grid-row'
 import GridCol from '@govuk-react/grid-col'
+import { lookupMeta } from '../../../govuk-helpers'
+import { errorType } from '../../../types'
 
-const AuthUserSearch = ({ user, handleChange, handleSearch }) => (
+const AuthUserSearch = ({ user, handleChange, handleSearch, error }) => (
   <GridRow>
     <GridCol setWidth="two-thirds">
       <form onSubmit={handleSearch}>
         <InputField
+          meta={lookupMeta('user', error)}
           htmlFor="user"
           mb={6}
           input={{ id: 'user', name: 'user', defaultValue: user, onChange: handleChange }}
@@ -25,13 +28,14 @@ const AuthUserSearch = ({ user, handleChange, handleSearch }) => (
 )
 
 AuthUserSearch.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
+  error: errorType,
 }
 
 AuthUserSearch.defaultProps = {
-  user: '',
+  error: [],
 }
 
 export default AuthUserSearch

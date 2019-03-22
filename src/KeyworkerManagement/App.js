@@ -41,7 +41,7 @@ import {
   setSettings,
   setLoaded,
 } from '../redux/actions/index'
-import { configType, userType } from '../types'
+import { configType, userType, errorType } from '../types'
 
 const axios = require('axios')
 
@@ -430,7 +430,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: errorType.isRequired,
   config: configType.isRequired,
   user: userType.isRequired,
   shouldShowTerms: PropTypes.bool.isRequired,
