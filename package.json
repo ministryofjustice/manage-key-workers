@@ -128,7 +128,7 @@
     "test-watch": "jest --env=jsdom --watchAll",
     "record-build-info": "node scripts/record-build-info",
     "plant-beanstalk": "node scripts/plant-beanstalk.js",
-    "lint": "node node_modules/eslint/bin/eslint.js src backend",
+    "lint": "node node_modules/eslint/bin/eslint.js --max-warnings 0 src backend",
     "verify": "yarn lint && yarn test",
     "view-bundle-stats": "yarn build && webpack-bundle-analyzer build/stats.json"
   },
@@ -141,7 +141,7 @@
     "linters": {
       "*.{js,json,css,md}": [
         "prettier --write",
-        "eslint --fix",
+        "eslint --fix --max-warnings 0",
         "git add"
       ]
     },
