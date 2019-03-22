@@ -2,12 +2,17 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { H1 } from '@govuk-react/heading'
+import ErrorSummary from '@govuk-react/error-summary'
 import Error from '../../Error'
 import Spinner from '../../Spinner'
 import { Container } from './Page.styles'
-import { childrenType } from '../../types'
+import { childrenType, errorType } from '../../types'
 import Breadcrumb from '../Breadcrumb'
 import { resetError } from '../../redux/actions/index'
+
+const onHandleErrorClick = targetName => {
+  document.getElementsByName(targetName)[0].focus()
+}
 
 export class Page extends Component {
   componentDidMount() {
@@ -36,8 +41,11 @@ export class Page extends Component {
         <Fragment>
           {showBreadcrumb && <Breadcrumb />}
           <Container>
+            {error &&
+              ((typeof error === 'string' && <Error error={error} />) || (
+                <ErrorSummary heading="There is a problem" errors={error} onHandleErrorClick={onHandleErrorClick} />
+              ))}
             <H1>{title}</H1>
-            {error && <Error error={error} />}
             {(!error || alwaysRender) && <div className="page-content">{children}</div>}
           </Container>
         </Fragment>
@@ -49,7 +57,7 @@ export class Page extends Component {
 }
 
 Page.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: errorType.isRequired,
   loaded: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   children: childrenType.isRequired,

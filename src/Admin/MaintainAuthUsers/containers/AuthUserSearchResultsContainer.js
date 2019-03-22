@@ -7,7 +7,7 @@ import qs from 'query-string'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
 import { setError, resetError, setLoaded, setMaintainAuthUsersList } from '../../../redux/actions/index'
-import { authUserListType } from '../../../types'
+import { authUserListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import AuthUserSearchResults from '../components/AuthUserSearchResults'
 import validateSearch from './AuthUserSearchValidation'
@@ -77,6 +77,7 @@ class AuthUserSearchResultsContainer extends Component {
     const {
       location: { search },
       userList,
+      error,
     } = this.props
     const { user } = qs.parse(search)
     return (
@@ -86,6 +87,7 @@ class AuthUserSearchResultsContainer extends Component {
           handleSearch={this.handleSearch}
           user={user}
           userList={userList}
+          error={error}
         />
       </Page>
     )
@@ -100,6 +102,7 @@ AuthUserSearchResultsContainer.propTypes = {
   userListDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   userList: authUserListType.isRequired,
+  error: errorType.isRequired,
 }
 
 const mapStateToProps = state => ({
