@@ -40,7 +40,12 @@ export class Page extends Component {
           <Container>
             {error &&
               ((typeof error === 'string' && <Error error={error} />) || (
-                <ErrorSummary heading="There is a problem" errors={error} onHandleErrorClick={onHandleErrorClick} />
+                <ErrorSummary
+                  id="error-summary"
+                  heading="There is a problem"
+                  errors={error}
+                  onHandleErrorClick={onHandleErrorClick}
+                />
               ))}
             <H1>{title}</H1>
             {(!error || alwaysRender) && <div className="page-content">{children}</div>}
