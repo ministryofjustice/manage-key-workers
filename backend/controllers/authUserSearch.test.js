@@ -32,15 +32,63 @@ describe('Auth user search controller', () => {
     expect(res.json).toBeCalledWith(response)
   })
 
-  it('should throw error if no results', async () => {
-    oauthApi.userSearch.mockReturnValue('')
+  describe('no results', () => {
+    beforeEach(async () => {
+      oauthApi.userSearch.mockReturnValue('')
+      await authUserSearch({ query: { nameFilter: 'bob@joe.com' } }, res)
+    })
 
-    await expect(authUserSearch({ query: { nameFilter: 'bob@joe.com' } }, res)).rejects.toThrow(
-      new Error('No results returned from search')
-    )
+    it('should return json error if no results', async () => {
+      expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'No accounts for email address bob@joe.com found' }])
+    })
+    it('show return not found status', () => {
+      expect(res.status).toBeCalledWith(404)
+    })
   })
 
-  it('should return 400 if missing query', async () => {
-    await expect(authUserSearch({ query: {} }, res)).rejects.toThrow(new Error('Missing name filter on search'))
+  describe('missing query', () => {
+    beforeEach(async () => {
+      await authUserSearch({ query: {} }, res)
+    })
+
+    it('should return 400 if missing query', async () => {
+      expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Enter a username or email address' }])
+    })
+    it('show return not found status', () => {
+      expect(res.status).toBeCalledWith(400)
+    })
+  })
+
+  describe('known issue', () => {
+    const response = { status: 419, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+    beforeEach(async () => {
+      oauthApi.getUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await authUserSearch({ query: { nameFilter: 'joe' } }, res)
+    })
+    it('should pass error through if known issue occurs', async () => {
+      expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
+    })
+    it('show pass through status', () => {
+      expect(res.status).toBeCalledWith(419)
+    })
+  })
+
+  it('should throw error through if unknown issue occurs', async () => {
+    const response = { status: 500, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+    const e = new Error('something went wrong')
+    oauthApi.getUser.mockImplementation(() => {
+      const error = new Error('something went wrong')
+      error.response = response
+      throw error
+    })
+
+    await expect(authUserSearch({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
   })
 })

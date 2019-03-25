@@ -6,22 +6,31 @@ const authUserSearchFactory = oauthApi => {
     log.debug('Performing auth user search')
 
     if (!nameFilter) {
-      const error = new Error('Missing name filter on search')
-      error.response = { data: { status: 400, error_description: 'Enter a username or email address' } }
-      throw error
+      res.status(400)
+      res.json([{ targetName: 'user', text: 'Enter a username or email address' }])
+      return
     }
 
-    const response = nameFilter.includes('@')
-      ? await oauthApi.userSearch(res.locals, { nameFilter })
-      : [await oauthApi.getUser(res.locals, { nameFilter })]
+    try {
+      const response = nameFilter.includes('@')
+        ? await oauthApi.userSearch(res.locals, { nameFilter })
+        : [await oauthApi.getUser(res.locals, { nameFilter })]
 
-    if (!response) {
-      const error = new Error('No results returned from search')
-      error.response = { data: { status: 404, error_description: `No accounts for email address ${nameFilter} found` } }
-      throw error
+      if (!response) {
+        res.status(404)
+        res.json([{ targetName: 'user', text: `No accounts for email address ${nameFilter} found` }])
+        return
+      }
+
+      res.json(response)
+    } catch (e) {
+      if (e.response && e.response.status < 500) {
+        res.status(e.response.status)
+        res.json([{ targetName: 'user', text: e.response.data.error_description }])
+      } else {
+        throw e
+      }
     }
-
-    res.json(response)
   }
 
   return { authUserSearch }
