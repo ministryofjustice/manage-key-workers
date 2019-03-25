@@ -24,7 +24,7 @@ const authUserSearchFactory = oauthApi => {
 
       res.json(response)
     } catch (e) {
-      if (e.response && e.response.status && e.response.data) {
+      if (e.response && e.response.status < 500) {
         res.status(e.response.status)
         res.json([{ targetName: 'user', text: e.response.data.error_description }])
       } else {

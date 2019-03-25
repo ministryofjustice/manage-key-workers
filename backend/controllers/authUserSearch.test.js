@@ -80,9 +80,13 @@ describe('Auth user search controller', () => {
   })
 
   it('should throw error through if unknown issue occurs', async () => {
+    const response = { status: 500, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
     const e = new Error('something went wrong')
     oauthApi.getUser.mockImplementation(() => {
-      throw e
+      const error = new Error('something went wrong')
+      error.response = response
+      throw error
     })
 
     await expect(authUserSearch({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
