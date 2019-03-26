@@ -39,6 +39,16 @@ class OauthApi extends WireMockRule {
                         .willReturn(aResponse().withBody("favicon")))
     }
 
+    void stubAuthorizeLogin() {
+        this.stubFor(
+                get(urlPathEqualTo('/auth/oauth/authorize'))
+                        .willReturn(temporaryRedirect("http://localhost:3001/login/callback?code=code&state={{request.requestLine.query.state}}")))
+
+        this.stubFor(
+                get('/favicon.ico')
+                        .willReturn(aResponse().withBody("favicon")))
+    }
+
     void stubGetMyDetails(UserAccount user) {
         this.stubFor(
                 get('/auth/api/user/me')
@@ -71,6 +81,34 @@ class OauthApi extends WireMockRule {
                         .willReturn(aResponse().withBody('<head><title>Digital Prison Services</title></head>' +
                         '<body><h1>Sign in</h1>This is a stubbed logout page</body>')
                 ))
+    }
+
+
+    void stubValidOAuthTokenLogin(Boolean delayOAuthResponse = false) {
+        stubAuthorizeLogin()
+
+        final response = aResponse()
+                .withStatus(200)
+                .withHeader('Content-Type', 'application/json;charset=UTF-8')
+                .withBody(JsonOutput.toJson([
+                access_token : JwtFactory.token(),
+                token_type   : 'bearer',
+                refresh_token: JwtFactory.token(),
+                expires_in   : 599,
+                scope        : 'read write',
+                internalUser : true
+        ]))
+
+        if (delayOAuthResponse) {
+            response.withFixedDelay(5000)
+        }
+
+        this.stubFor(
+                post('/auth/oauth/token')
+                        .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
+                        .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
+                        .withRequestBody(equalTo("grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2Flogin%2Fcallback&client_id=elite2apiclient&client_secret=clientsecret&code=code"))
+                        .willReturn(response))
     }
 
     void stubValidOAuthTokenRequest(Boolean delayOAuthResponse = false) {

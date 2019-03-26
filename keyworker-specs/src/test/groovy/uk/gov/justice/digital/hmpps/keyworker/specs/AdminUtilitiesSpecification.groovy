@@ -105,7 +105,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         when: "I am on the admin and utilities page"
 
         then: "I should not see the auto allocation link"
-        assert enableNewNomisLink.displayed == false
+        assert !enableNewNomisLink.displayed
     }
 
     def "should see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES_ADMIN role"() {
@@ -122,8 +122,8 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         when: "I am on the admin and utilities page"
 
         then: "I should see the enable new nomis link and not see the key worker settings link"
-        assert enableNewNomisLink.displayed == true
-        assert keyworkerSettingsLink.displayed == false
+        assert enableNewNomisLink.displayed
+        assert !keyworkerSettingsLink.displayed
     }
 
     def "should not see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
@@ -140,7 +140,7 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         when: "I am on the admin and utilities page"
 
         then: "I should not see the enable new nomis link and not see the key worker settings link"
-        assert enableNewNomisLink.displayed == false
+        assert !enableNewNomisLink.displayed
     }
 
     def "should see keyworker settings link if the user has the the MAINTAIN_ACCESS_ROLES_ADMIN role"() {
@@ -157,8 +157,23 @@ class AdminUtilitiesSpecification extends GebReportingSpec {
         when: "I am on the admin and utilities page"
 
         then: "I should see the enable new nomis link and not see the key worker settings link"
-        assert enableNewNomisLink.displayed == true
-        assert keyworkerSettingsLink.displayed == false
+        assert enableNewNomisLink.displayed
+        assert !keyworkerSettingsLink.displayed
+    }
+
+    def "should see maintain auth users link if the user has the the MAINTAIN_OAUTH_USERS role"() {
+        def maintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([maintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
+
+        given: "I logged in and go to the admin and utilities page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
+
+        when: "I am on the admin and utilities page"
+
+        then: "I should see the maintain auth users link"
+        assert maintainAuthUsersLink.displayed
     }
 
     private void setupRoles() {
