@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AdminUtilitiesContainer /> should render the admin and utilities page 1`] = `
+Array [
+  <div
+    className="sc-dnqmqq ekasAr"
+  >
+    <ul
+      className="sc-iwsKbI bhpoyq"
+    >
+      <li
+        className="sc-gZMcBi gYqZNj"
+      >
+        <a
+          data-qa="breadcrumb-home-page-link"
+          href=""
+        >
+          Home
+        </a>
+      </li>
+    </ul>
+  </div>,
+  <div
+    className="sc-htoDjs bCKyuL"
+  >
+    
+    <h1
+      className="sc-bdVaJa csGwYH"
+      size="XLARGE"
+    >
+      Admin and Utilities
+    </h1>
+    <div
+      className="page-content"
+    >
+      <div
+        className="pure-g"
+      >
+        <div
+          className="pure-u-md-8-12"
+        >
+          <div
+            className="pure-u-md-6-12 margin-bottom"
+          >
+            <a
+              className="link"
+              href="/admin-utilities/give-nomis-access"
+              id="enable_new_nomis_link"
+              onClick={[Function]}
+              title="Enable Nomis"
+            >
+              Give access to New NOMIS
+            </a>
+            <div
+              className="padding-right-large"
+            >
+              Allow prisons to use New NOMIS. Add new prison staff.
+            </div>
+          </div>
+          <div
+            className="pure-u-md-5-12 margin-bottom"
+          >
+            <a
+              className="link"
+              href="/admin-utilities/manage-key-worker-settings"
+              id="keyworker_settings_link"
+              onClick={[Function]}
+              title="Key worker settings"
+            >
+              Manage key worker settings
+            </a>
+            <div
+              className="padding-right-large"
+            >
+              Allow auto-allocation. Edit key worker capacity and session frequency.
+            </div>
+          </div>
+          <div
+            className="pure-u-md-5-12 margin-bottom"
+          >
+            <a
+              className="link"
+              href="/admin-utilities/maintain-roles"
+              id="maintain_roles_link"
+              onClick={[Function]}
+              title="Manage access roles"
+            >
+              Manage access roles
+            </a>
+            <div
+              className="padding-right-large"
+            >
+              Add and remove staff roles.
+            </div>
+          </div>
+          <div
+            className="pure-u-md-5-12 margin-bottom"
+          >
+            <a
+              className="link"
+              href="/admin-utilities/maintain-auth-users"
+              id="maintain_auth_users_link"
+              onClick={[Function]}
+              title="Manage auth users"
+            >
+              Manage auth users
+            </a>
+            <div
+              className="padding-right-large"
+            >
+              Maintain users that do not exist in NOMIS, only in auth.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

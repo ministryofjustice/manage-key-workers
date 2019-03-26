@@ -1,13 +1,9 @@
 const { userMeFactory } = require('./userMe')
 
-const staffRoles = [{ roleId: -201, roleCode: 'OMIC_ADMIN', roleName: 'Omic Admin', caseloadId: 'NWEB' }]
 const caseloads = [{ caseLoadId: 'LEI', currentlyActive: true }]
 const staff1 = {
   staffId: 1,
   username: 'staff1',
-  maintainAccess: false,
-  maintainAccessAdmin: false,
-  migration: false,
 }
 
 describe('userMe controller', () => {
@@ -21,6 +17,7 @@ describe('userMe controller', () => {
   const keyworkerApi = {
     getPrisonMigrationStatus: () => {},
   }
+  const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
   const req = {}
   const res = { locals: {} }
 
@@ -31,6 +28,7 @@ describe('userMe controller', () => {
     keyworkerApi.getPrisonMigrationStatus = jest.fn()
 
     oauthApi.currentUser.mockImplementation(() => staff1)
+    oauthApi.userRoles.mockImplementation(() => [])
     elite2Api.userCaseLoads.mockImplementation(() => caseloads)
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
@@ -38,28 +36,105 @@ describe('userMe controller', () => {
     res.json = jest.fn()
   })
 
-  it('should not have writeAccess when the user does not have the key worker admin role', async () => {
-    oauthApi.userRoles.mockImplementation(() => [])
-    keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
-      migrated: false,
-      supported: false,
-      autoAllocatedSupported: false,
-      kwSessionFrequencyInWeeks: 1,
-      capacityTier1: 1,
-      capacityTier2: 2,
-    }))
-    const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
-    await userMeService(req, res)
-
-    expect(res.json).toBeCalledWith({
+  describe('access checks', () => {
+    const defaultUserMe = {
       ...staff1,
       activeCaseLoadId: 'LEI',
+      prisonMigrated: true,
+      maintainAccess: false,
+      maintainAccessAdmin: false,
+      migration: false,
       writeAccess: false,
-      prisonMigrated: false,
+      maintainAuthUsers: false,
+    }
+
+    it('should default to no access if user has no roles', async () => {
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+      })
+    })
+    it('should have writeAccess when the user has the key worker admin role', async () => {
+      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        writeAccess: true,
+      })
+    })
+    it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
+      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
+      keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
+        migrated: false,
+      }))
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        writeAccess: false,
+        prisonMigrated: false,
+      })
+    })
+    it('should have migration when the user has the keyworker migration role', async () => {
+      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'KW_MIGRATION' }])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        migration: true,
+      })
+    })
+    it('should have maintainAccess when the user has the maintain access roles role', async () => {
+      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_ACCESS_ROLES' }])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        maintainAccess: true,
+      })
+    })
+    it('should have maintainAccessAdmin when the user has the maintain access roles admin role', async () => {
+      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN' }])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        maintainAccessAdmin: true,
+      })
+    })
+    it('should have maintainAuthUsers when the user has the maintain auth users role', async () => {
+      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_OAUTH_USERS' }])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        maintainAuthUsers: true,
+      })
+    })
+    it('should give full access when user has all roles', async () => {
+      oauthApi.userRoles.mockImplementation(() => [
+        { roleCode: 'MAINTAIN_OAUTH_USERS' },
+        { roleCode: 'MAINTAIN_ACCESS_ROLES' },
+        { roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN' },
+        { roleCode: 'KW_MIGRATION' },
+        { roleCode: 'OMIC_ADMIN' },
+      ])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        maintainAccess: true,
+        maintainAccessAdmin: true,
+        migration: true,
+        writeAccess: true,
+        maintainAuthUsers: true,
+      })
     })
   })
-  it('should have writeAccess when the user has the key worker admin role', async () => {
-    oauthApi.userRoles.mockImplementation(() => staffRoles)
+  it('should call services and return expected data', async () => {
+    oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
       supported: true,
@@ -68,7 +143,6 @@ describe('userMe controller', () => {
       capacityTier1: 1,
       capacityTier2: 2,
     }))
-    const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
     await userMeService(req, res)
 
     expect(oauthApi.currentUser).toHaveBeenCalled()
@@ -79,32 +153,10 @@ describe('userMe controller', () => {
       activeCaseLoadId: 'LEI',
       writeAccess: true,
       prisonMigrated: true,
-    })
-  })
-  it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
-    oauthApi.userRoles.mockImplementation(() => staffRoles)
-    keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
-      migrated: false,
-      supported: false,
-      autoAllocatedSupported: false,
-      kwSessionFrequencyInWeeks: 1,
-      capacityTier1: 1,
-      capacityTier2: 2,
-    }))
-
-    const { userMeService } = userMeFactory(oauthApi, elite2Api, keyworkerApi)
-
-    await userMeService(req, res)
-
-    expect(oauthApi.currentUser).toHaveBeenCalled()
-    expect(oauthApi.userRoles).toHaveBeenCalledWith(res.locals)
-    expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith(res.locals, 'LEI')
-
-    expect(res.json).toHaveBeenCalledWith({
-      ...staff1,
-      activeCaseLoadId: 'LEI',
-      writeAccess: false,
-      prisonMigrated: false,
+      maintainAccess: false,
+      maintainAccessAdmin: false,
+      migration: false,
+      maintainAuthUsers: false,
     })
   })
 })
