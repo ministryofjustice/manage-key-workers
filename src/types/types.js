@@ -59,7 +59,6 @@ export const configType = shape({
   keyworkerProfileStatsEnabled: string.isRequired,
   keyworkerDashboardStatsEnabled: bool.isRequired,
   mailTo: string.isRequired,
-  maintainRolesEnabled: string.isRequired,
   notmEndpointUrl: string.isRequired,
   prisonStaffHubUrl: string.isRequired,
 })

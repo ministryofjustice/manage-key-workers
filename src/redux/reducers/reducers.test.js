@@ -124,7 +124,6 @@ describe('app (global) reducer', () => {
         mailTo: '',
         keyworkerProfileStatsEnabled: 'false',
         keyworkerDashboardStatsEnabled: false,
-        maintainRolesEnabled: 'false',
         notmEndpointUrl: '',
         prisonStaffHubUrl: '',
       },

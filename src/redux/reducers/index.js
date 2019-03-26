@@ -19,7 +19,6 @@ const appInitialState = {
     mailTo: '',
     keyworkerProfileStatsEnabled: 'false',
     keyworkerDashboardStatsEnabled: false,
-    maintainRolesEnabled: 'false',
     notmEndpointUrl: '',
     prisonStaffHubUrl: '',
   },

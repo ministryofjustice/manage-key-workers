@@ -22,7 +22,6 @@ const props = {
     keyworkerDashboardStatsEnabled: false,
     keyworkerProfileStatsEnabled: 'false',
     mailTo: 'email@test.com',
-    maintainRolesEnabled: 'false',
     notmEndpointUrl: '//notm.url',
     prisonStaffHubUrl: '//psh.url',
   },
@@ -40,8 +39,9 @@ describe('<AdminUtilitiesContainer />', () => {
     props.user.maintainAccessAdmin = true
     props.user.maintainAccess = false
     const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
+    const giveAccessLink = wrapper.find('Link').find({ to: '/admin-utilities/give-nomis-access' })
 
-    expect(wrapper.find('Link').prop('children')).toEqual('Give access to New NOMIS')
+    expect(giveAccessLink.prop('children')).toEqual('Give access to New NOMIS')
   })
 
   it('should render a Link to the Give access to New NOMIS Admin section maintainAccessAdmin role', () => {
@@ -55,7 +55,6 @@ describe('<AdminUtilitiesContainer />', () => {
 
   it('should render a Link to Maintain Roles Admin section maintainAccessAdmin role', () => {
     props.user.maintainAccess = true
-    props.config.maintainRolesEnabled = 'true'
     const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
     const manageRolesLink = wrapper.find('Link').find({ to: '/admin-utilities/maintain-roles' })
 

@@ -15,10 +15,9 @@ export class AdminUtilitiesContainer extends Component {
   }
 
   render() {
-    const { user, config } = this.props
+    const { user } = this.props
     const hasMaintainRolesAdminAccess = user && user.maintainAccessAdmin
     const hasMaintainRolesAccess = user && (user.maintainAccess || user.maintainAccessAdmin)
-    const showMaintainRoles = config && config.maintainRolesEnabled === 'true' && hasMaintainRolesAccess
     const showKeyworkerSettings = hasMaintainRolesAccess && user.migration
 
     return (
@@ -26,7 +25,7 @@ export class AdminUtilitiesContainer extends Component {
         <MessageBar {...this.props} />
         <div className="pure-g">
           <div className="pure-u-md-8-12">
-            {!hasMaintainRolesAccess && !showMaintainRoles && !showKeyworkerSettings && (
+            {!hasMaintainRolesAccess && !hasMaintainRolesAccess && !showKeyworkerSettings && (
               <p>There are no Admin or Utilities associated with your account.</p>
             )}
 
@@ -58,7 +57,7 @@ export class AdminUtilitiesContainer extends Component {
                 </div>
               </div>
             )}
-            {showMaintainRoles && (
+            {hasMaintainRolesAccess && (
               <div className="pure-u-md-5-12">
                 <Link
                   id="maintain_roles_link"
