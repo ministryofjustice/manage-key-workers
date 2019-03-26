@@ -1,15 +1,18 @@
 import styled from 'styled-components'
-import { BREAKPOINTS } from '@govuk-react/constants'
+import { MEDIA_QUERIES, GUTTER_HALF } from '@govuk-react/constants'
 
 export const AdminUtilities = styled('div')`
-  display: flex;
-  flex-wrap: wrap;
+  ${MEDIA_QUERIES.TABLET} {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -${GUTTER_HALF};
+  }
 `
 
 export const AdminUtility = styled('div')`
-  padding-bottom: 15px;
-  @media (min-width: ${BREAKPOINTS.TABLET}) {
+  padding-bottom: ${GUTTER_HALF};
+  ${MEDIA_QUERIES.TABLET} {
     width: 33.3333%;
-    padding-left: 10px;
+    padding-left: ${GUTTER_HALF};
   }
 `
