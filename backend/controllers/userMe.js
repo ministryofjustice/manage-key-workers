@@ -9,14 +9,11 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(context, activeCaseLoadId)
     const roles = await oauthApi.userRoles(context)
 
-    const isKeyWorkerAdmin = roles.filter(role => role.roleCode === 'OMIC_ADMIN').length > 0
-
-    const hasMaintainAccessRolesRole = roles.filter(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES').length > 0
-
-    const hasMaintainAccessRolesAdminRole =
-      roles.filter(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN').length > 0
-
-    const hasKwMigrationRole = roles.filter(role => role.roleCode === 'KW_MIGRATION').length > 0
+    const isKeyWorkerAdmin = roles.some(role => role.roleCode === 'OMIC_ADMIN')
+    const hasMaintainAccessRolesRole = roles.some(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES')
+    const hasMaintainAccessRolesAdminRole = roles.some(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN')
+    const hasKwMigrationRole = roles.some(role => role.roleCode === 'KW_MIGRATION')
+    const hasMaintainAuthUsersRole = roles.some(role => role.roleCode === 'MAINTAIN_OAUTH_USERS')
 
     const response = {
       ...user,
@@ -25,6 +22,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
       migration: hasKwMigrationRole,
       maintainAccess: hasMaintainAccessRolesRole,
       maintainAccessAdmin: hasMaintainAccessRolesAdminRole,
+      maintainAuthUsers: hasMaintainAuthUsersRole,
       prisonMigrated: Boolean(prisonStatus.migrated),
     }
     res.json(response)
