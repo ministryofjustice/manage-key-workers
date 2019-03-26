@@ -6,7 +6,6 @@ const app = {
   mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
   tokenRefreshThresholdSeconds: process.env.TOKEN_REFRESH_THRESHOLD_SECONDS || 60,
   offenderSearchResultMax: process.env.OFFENDER_SEARCH_RESULT_MAX || 200,
-  maintainRolesEnabled: process.env.MAINTAIN_ROLES_ENABLED || 'false',
   applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
   keyworkerProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
   keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
@@ -18,9 +17,6 @@ const setTestDefaults = () => {
   // .env file still overrides.
   if (!process.env.OFFENDER_SEARCH_RESULT_MAX) {
     app.offenderSearchResultMax = 50
-  }
-  if (!process.env.MAINTAIN_ROLES_ENABLED) {
-    app.maintainRolesEnabled = 'true'
   }
 
   app.keyworkerProfileStatsEnabled = 'true'

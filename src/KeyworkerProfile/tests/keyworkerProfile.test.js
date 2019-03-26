@@ -206,7 +206,6 @@ const props = {
     keyworkerProfileStatsEnabled: 'false',
     keyworkerDashboardStatsEnabled: false,
     mailTo: 'test@email.com',
-    maintainRolesEnabled: 'false',
     notmEndpointUrl: 'http://notm.url',
     prisonStaffHubUrl: 'http://psh.url',
   },
