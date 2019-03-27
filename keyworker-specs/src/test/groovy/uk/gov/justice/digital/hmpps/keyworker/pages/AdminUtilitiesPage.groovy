@@ -6,7 +6,7 @@ class AdminUtilitiesPage extends Page {
     static url = "/admin-utilities"
 
     static at = {
-        headingText == 'Admin and Utilities'
+        headingText == 'Admin and utilities'
     }
 
     static content = {
