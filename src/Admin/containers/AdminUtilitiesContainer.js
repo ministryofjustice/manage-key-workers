@@ -23,7 +23,7 @@ export class AdminUtilitiesContainer extends Component {
     const hasMaintainAuthUsers = user && user.maintainAuthUsers
 
     return (
-      <Page title="Admin and Utilities">
+      <Page title="Admin and utilities">
         <MessageBar {...this.props} />
         <AdminUtilities>
           {!hasMaintainRolesAccess && !hasMaintainRolesAccess && !showKeyworkerSettings && !hasMaintainAuthUsers && (
