@@ -230,7 +230,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
 
         then: "The new role list is displayed"
         at StaffRoleProfilePage
-        messageBar.isDisplayed()
+        waitFor { messageBar.isDisplayed() }
         rows.size() == 1
     }
 
