@@ -1,9 +1,9 @@
-const { authUserSearchFactory } = require('./authUserSearch')
+const authUserMaintenanceFactory = require('./authUserMaintenance')
 
-describe('Auth user search controller', () => {
+describe('Auth user maintenance controller', () => {
   const oauthApi = {}
   const res = { locals: {} }
-  const { authUserSearch } = authUserSearchFactory(oauthApi)
+  const { search } = authUserMaintenanceFactory(oauthApi)
 
   beforeEach(() => {
     oauthApi.getUser = jest.fn()
@@ -17,7 +17,7 @@ describe('Auth user search controller', () => {
 
     oauthApi.getUser.mockReturnValueOnce(response)
 
-    await authUserSearch({ query: { nameFilter: 'bob' } }, res)
+    await search({ query: { nameFilter: 'bob' } }, res)
 
     expect(res.json).toBeCalledWith([response])
   })
@@ -27,7 +27,7 @@ describe('Auth user search controller', () => {
 
     oauthApi.userSearch.mockReturnValueOnce(response)
 
-    await authUserSearch({ query: { nameFilter: 'bob@joe.com' } }, res)
+    await search({ query: { nameFilter: 'bob@joe.com' } }, res)
 
     expect(res.json).toBeCalledWith(response)
   })
@@ -35,7 +35,7 @@ describe('Auth user search controller', () => {
   describe('no results', () => {
     beforeEach(async () => {
       oauthApi.userSearch.mockReturnValue('')
-      await authUserSearch({ query: { nameFilter: 'bob@joe.com' } }, res)
+      await search({ query: { nameFilter: 'bob@joe.com' } }, res)
     })
 
     it('should return json error if no results', async () => {
@@ -48,7 +48,7 @@ describe('Auth user search controller', () => {
 
   describe('missing query', () => {
     beforeEach(async () => {
-      await authUserSearch({ query: {} }, res)
+      await search({ query: {} }, res)
     })
 
     it('should return 400 if missing query', async () => {
@@ -69,7 +69,7 @@ describe('Auth user search controller', () => {
         throw error
       })
 
-      await authUserSearch({ query: { nameFilter: 'joe' } }, res)
+      await search({ query: { nameFilter: 'joe' } }, res)
     })
     it('should pass error through if known issue occurs', async () => {
       expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
@@ -89,6 +89,6 @@ describe('Auth user search controller', () => {
       throw error
     })
 
-    await expect(authUserSearch({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
+    await expect(search({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
   })
 })

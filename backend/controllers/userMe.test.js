@@ -12,7 +12,7 @@ describe('userMe controller', () => {
   }
   const oauthApi = {
     currentUser: () => {},
-    userRoles: () => {},
+    currentRoles: () => {},
   }
   const keyworkerApi = {
     getPrisonMigrationStatus: () => {},
@@ -24,11 +24,11 @@ describe('userMe controller', () => {
   beforeEach(() => {
     elite2Api.userCaseLoads = jest.fn()
     oauthApi.currentUser = jest.fn()
-    oauthApi.userRoles = jest.fn()
+    oauthApi.currentRoles = jest.fn()
     keyworkerApi.getPrisonMigrationStatus = jest.fn()
 
     oauthApi.currentUser.mockImplementation(() => staff1)
-    oauthApi.userRoles.mockImplementation(() => [])
+    oauthApi.currentRoles.mockImplementation(() => [])
     elite2Api.userCaseLoads.mockImplementation(() => caseloads)
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
@@ -56,7 +56,7 @@ describe('userMe controller', () => {
       })
     })
     it('should have writeAccess when the user has the key worker admin role', async () => {
-      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
       await userMeService(req, res)
 
       expect(res.json.mock.calls[0][0]).toEqual({
@@ -65,7 +65,7 @@ describe('userMe controller', () => {
       })
     })
     it('should not have writeAccess when the prison has not been migrated regardless of roles', async () => {
-      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
       keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
         migrated: false,
       }))
@@ -78,7 +78,7 @@ describe('userMe controller', () => {
       })
     })
     it('should have migration when the user has the keyworker migration role', async () => {
-      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'KW_MIGRATION' }])
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'KW_MIGRATION' }])
       await userMeService(req, res)
 
       expect(res.json.mock.calls[0][0]).toEqual({
@@ -87,7 +87,7 @@ describe('userMe controller', () => {
       })
     })
     it('should have maintainAccess when the user has the maintain access roles role', async () => {
-      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_ACCESS_ROLES' }])
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_ACCESS_ROLES' }])
       await userMeService(req, res)
 
       expect(res.json.mock.calls[0][0]).toEqual({
@@ -96,7 +96,7 @@ describe('userMe controller', () => {
       })
     })
     it('should have maintainAccessAdmin when the user has the maintain access roles admin role', async () => {
-      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN' }])
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN' }])
       await userMeService(req, res)
 
       expect(res.json.mock.calls[0][0]).toEqual({
@@ -105,7 +105,7 @@ describe('userMe controller', () => {
       })
     })
     it('should have maintainAuthUsers when the user has the maintain auth users role', async () => {
-      oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_OAUTH_USERS' }])
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'MAINTAIN_OAUTH_USERS' }])
       await userMeService(req, res)
 
       expect(res.json.mock.calls[0][0]).toEqual({
@@ -114,7 +114,7 @@ describe('userMe controller', () => {
       })
     })
     it('should give full access when user has all roles', async () => {
-      oauthApi.userRoles.mockImplementation(() => [
+      oauthApi.currentRoles.mockImplementation(() => [
         { roleCode: 'MAINTAIN_OAUTH_USERS' },
         { roleCode: 'MAINTAIN_ACCESS_ROLES' },
         { roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN' },
@@ -134,7 +134,7 @@ describe('userMe controller', () => {
     })
   })
   it('should call services and return expected data', async () => {
-    oauthApi.userRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
+    oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'OMIC_ADMIN' }])
     keyworkerApi.getPrisonMigrationStatus.mockImplementation(() => ({
       migrated: true,
       supported: true,
@@ -146,7 +146,7 @@ describe('userMe controller', () => {
     await userMeService(req, res)
 
     expect(oauthApi.currentUser).toHaveBeenCalled()
-    expect(oauthApi.userRoles).toHaveBeenCalledWith(res.locals)
+    expect(oauthApi.currentRoles).toHaveBeenCalledWith(res.locals)
 
     expect(res.json).toBeCalledWith({
       ...staff1,
