@@ -7,7 +7,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
     const activeCaseLoadId = activeCaseLoad ? activeCaseLoad.caseLoadId : null
 
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(context, activeCaseLoadId)
-    const roles = await oauthApi.userRoles(context)
+    const roles = await oauthApi.currentRoles(context)
 
     const isKeyWorkerAdmin = roles.some(role => role.roleCode === 'OMIC_ADMIN')
     const hasMaintainAccessRolesRole = roles.some(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES')
