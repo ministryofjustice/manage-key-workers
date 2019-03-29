@@ -12,6 +12,7 @@ import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.AddRolePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AdminUtilitiesPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.StaffRoleProfilePage
+import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchResultsPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -48,6 +49,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a search"
+        at UserSearchPage
         elite2api.stubUserLocalAdministratorSearch()
         searchButton.click()
 
@@ -72,6 +74,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a global user search"
+        at UserSearchPage
         elite2api.stubUserSearchAdmin(0)
         searchButton.click()
 
@@ -105,6 +108,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a global user search"
+        at UserSearchPage
         elite2api.stubUserSearchAdmin(0)
         searchButton.click()
 
@@ -140,6 +144,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         maintainRolesLink.click()
 
         when: "i perform a search"
+        at UserSearchPage
         elite2api.stubUserLocalAdministratorSearch(0)
         searchButton.click()
 
@@ -157,7 +162,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         then:
         at UserSearchResultsPage
         rows.size() == 3
-        nextPage.text() == "Next\n3 of 3"
+        waitFor { nextPage.text() == "Next\n3 of 3" }
         previousPage.text() == "Previous\n1 of 3"
         rows[0].find("td",1).text() == 'user1'
 
@@ -168,7 +173,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         then:
         at UserSearchResultsPage
         rows.size() == 3
-        !nextPage.isDisplayed()
+        waitFor { !nextPage.isDisplayed() }
         previousPage.text() == "Previous\n2 of 3"
         rows[0].find("td",1).text() == 'user2'
 
@@ -179,7 +184,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         then:
         at UserSearchResultsPage
         rows.size() == 3
-        previousPage.text() == "Previous\n1 of 3"
+        waitFor { previousPage.text() == "Previous\n1 of 3" }
 
         and: "i click on the previous page link"
         elite2api.stubUserLocalAdministratorSearch(0)
@@ -188,10 +193,9 @@ class MaintainRolesSpecification extends GebReportingSpec {
         then: "i'm back to the first page"
         at UserSearchResultsPage
         rows.size() == 3
-        nextPage.text() == "Next\n2 of 3"
+        waitFor { nextPage.text() == "Next\n2 of 3" }
         !previousPage.isDisplayed()
         rows[0].find("td",1).text() == 'user0'
-
     }
 
 
@@ -207,6 +211,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         elite2api.stubGetRoles()
         to AdminUtilitiesPage
         maintainRolesLink.click()
+        at UserSearchPage
         elite2api.stubUserLocalAdministratorSearch()
         searchButton.click()
         at UserSearchResultsPage
@@ -241,6 +246,7 @@ class MaintainRolesSpecification extends GebReportingSpec {
         elite2api.stubGetRoles()
         to AdminUtilitiesPage
         maintainRolesLink.click()
+        at UserSearchPage
         elite2api.stubUserLocalAdministratorSearch()
         searchButton.click()
         at UserSearchResultsPage
