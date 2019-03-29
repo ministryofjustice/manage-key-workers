@@ -19,11 +19,15 @@ const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId
  */
 const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const get = (context, path) => client.get(context, path).then(response => response.data)
+  const put = (context, path) => client.put(context, path).then(response => response.data)
+  const del = (context, path) => client.del(context, path).then(response => response.data)
   const currentUser = context => get(context, 'api/user/me')
   const currentRoles = context => get(context, 'api/user/me/roles')
   const getUser = (context, { username }) => get(context, `api/authuser/${username}`)
   const userRoles = (context, { username }) => get(context, `api/authuser/${username}/roles`)
   const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
+  const addUserRole = (context, { username, role }) => put(context, `api/authuser/${username}/roles/${role}`)
+  const removeUserRole = (context, { username, role }) => del(context, `api/authuser/${username}/roles/${role}`)
 
   const oauthAxios = axios.create({
     baseURL: url,
@@ -89,6 +93,8 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     getUser,
     userSearch,
     userRoles,
+    addUserRole,
+    removeUserRole,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,

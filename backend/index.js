@@ -203,6 +203,8 @@ app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2A
 app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch)
 app.use('/api/auth-user-search', asyncMiddleware(authUserMaintenanceFactory(oauthApi).search))
 app.use('/api/auth-user-roles', asyncMiddleware(authUserMaintenanceFactory(oauthApi).roles))
+app.use('/api/auth-user-roles-add', asyncMiddleware(authUserMaintenanceFactory(oauthApi).addRole))
+app.use('/api/auth-user-roles-remove', asyncMiddleware(authUserMaintenanceFactory(oauthApi).removeRole))
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles)
 app.use('/api/getUser', getUserFactory(elite2Api).getUser)
 app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole)
