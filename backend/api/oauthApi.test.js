@@ -167,4 +167,40 @@ describe('oathApi tests', () => {
       expect(client.get).to.have.been.calledWith(context, "api/authuser?email=joe'fred%40bananas%25.com")
     })
   })
+  describe('addUserRole', () => {
+    const errorResponse = { field: 'hello' }
+    let actual
+
+    beforeEach(() => {
+      client.put = sinon.stub().returns({
+        then: () => errorResponse,
+      })
+      actual = oauthApi.addUserRole(context, { username: 'bob', role: 'maintain' })
+    })
+
+    it('should return any error from endpoint', () => {
+      expect(actual).to.equal(errorResponse)
+    })
+    it('should call user endpoint', () => {
+      expect(client.put).to.have.been.calledWith(context, 'api/authuser/bob/roles/maintain')
+    })
+  })
+  describe('removeUserRole', () => {
+    const errorResponse = { field: 'hello' }
+    let actual
+
+    beforeEach(() => {
+      client.del = sinon.stub().returns({
+        then: () => errorResponse,
+      })
+      actual = oauthApi.removeUserRole(context, { username: 'bob', role: 'maintain' })
+    })
+
+    it('should return any error from endpoint', () => {
+      expect(actual).to.equal(errorResponse)
+    })
+    it('should call user endpoint', () => {
+      expect(client.del).to.have.been.calledWith(context, 'api/authuser/bob/roles/maintain')
+    })
+  })
 })
