@@ -15,6 +15,7 @@ const middleware = require('webpack-dev-middleware')
 const hrm = require('webpack-hot-middleware')
 const flash = require('connect-flash')
 
+const asyncMiddleware = require('./middleware/asyncHandler')
 const ensureHttps = require('./middleware/ensureHttps')
 const requestForwarding = require('./request-forwarding')
 const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory
@@ -38,6 +39,7 @@ const { removeRoleFactory } = require('./controllers/removeRole')
 const { addRoleFactory } = require('./controllers/addRole')
 const { contextUserRolesFactory } = require('./controllers/contextUserRoles')
 const { userSearchFactory } = require('./controllers/userSearch')
+const authUserMaintenanceFactory = require('./controllers/authUserMaintenance')
 const { getConfiguration } = require('./controllers/getConfig')
 const { healthFactory } = require('./controllers/health')
 const { keyworkerStatsFactory } = require('./controllers/keyworkerStats')
@@ -50,8 +52,7 @@ const tokenRefresherFactory = require('./tokenRefresher').factory
 const controllerFactory = require('./controllers/controller').factory
 
 const clientFactory = require('./api/oauthEnabledClient')
-const { healthApiFactory } = require('./api/healthApi')
-const eliteApiFactory = require('./api/elite2Api').elite2ApiFactory
+const { elite2ApiFactory } = require('./api/elite2Api')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { oauthApiFactory } = require('./api/oauthApi')
 
@@ -106,18 +107,7 @@ app.get('/terms', async (req, res) => {
   res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl })
 })
 
-const healthApi = healthApiFactory(
-  clientFactory({
-    baseUrl: config.apis.elite2.url,
-    timeout: 2000,
-  }),
-  clientFactory({
-    baseUrl: config.apis.keyworker.url,
-    timeout: 2000,
-  })
-)
-
-const elite2Api = eliteApiFactory(
+const elite2Api = elite2ApiFactory(
   clientFactory({
     baseUrl: config.apis.elite2.url,
     timeout: 1000 * config.apis.elite2.timeoutSeconds,
@@ -136,7 +126,13 @@ const controller = controllerFactory(
   keyworkerPrisonStatsFactory(keyworkerApi)
 )
 
-const oauthApi = oauthApiFactory({ ...config.apis.oauth2 })
+const oauthApi = oauthApiFactory(
+  clientFactory({
+    baseUrl: config.apis.oauth2.url,
+    timeout: config.apis.oauth2.timeoutSeconds * 1000,
+  }),
+  { ...config.apis.oauth2 }
+)
 auth.init(oauthApi)
 const tokenRefresher = tokenRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
@@ -186,7 +182,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 
 app.use('/api/config', getConfiguration)
-app.use('/api/me', userMeFactory(elite2Api, keyworkerApi).userMe)
+app.use('/api/me', asyncMiddleware(userMeFactory(oauthApi, elite2Api, keyworkerApi).userMeService))
 app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
 app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
 app.use('/api/unallocated', controller.unallocated)
@@ -205,6 +201,10 @@ app.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi
 app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate)
 app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings)
 app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch)
+app.use('/api/auth-user-search', asyncMiddleware(authUserMaintenanceFactory(oauthApi).search))
+app.use('/api/auth-user-roles', asyncMiddleware(authUserMaintenanceFactory(oauthApi).roles))
+app.use('/api/auth-user-roles-add', asyncMiddleware(authUserMaintenanceFactory(oauthApi).addRole))
+app.use('/api/auth-user-roles-remove', asyncMiddleware(authUserMaintenanceFactory(oauthApi).removeRole))
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles)
 app.use('/api/getUser', getUserFactory(elite2Api).getUser)
 app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole)

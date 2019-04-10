@@ -1,5 +1,14 @@
 import moment from 'moment'
-import { unallocated, allocated, app, offenderSearch, keyworkerSearch, keyworkerSettings, maintainRoles } from './index'
+import {
+  unallocated,
+  allocated,
+  app,
+  offenderSearch,
+  keyworkerSearch,
+  keyworkerSettings,
+  maintainRoles,
+  maintainAuthUsers,
+} from './index'
 import { setMenuOpen } from '../actions'
 import * as types from '../actions/actionTypes'
 
@@ -104,6 +113,10 @@ const maintainRolesInitialState = {
   },
 }
 
+const maintainAuthUsersInitialState = {
+  userList: [],
+}
+
 describe('app (global) reducer', () => {
   it('should return the initial state', () => {
     expect(app(undefined, {})).toEqual({
@@ -111,7 +124,6 @@ describe('app (global) reducer', () => {
         mailTo: '',
         keyworkerProfileStatsEnabled: 'false',
         keyworkerDashboardStatsEnabled: false,
-        maintainRolesEnabled: 'false',
         notmEndpointUrl: '',
         prisonStaffHubUrl: '',
       },
@@ -948,5 +960,22 @@ describe('Maintain roles reducer', () => {
         contextUser: user,
       })
     ).toEqual(updatedMaintainRoles)
+  })
+})
+
+describe('maintain auth users', () => {
+  it('should return the initial state', () => {
+    expect(maintainAuthUsers(undefined, {})).toEqual(maintainAuthUsersInitialState)
+  })
+
+  it('should handle SET_USER_SEARCH_ROLE_FILTER', () => {
+    const updatedMaintainAuthUsers = maintainAuthUsersInitialState
+    updatedMaintainAuthUsers.userList = [{ username: 'someuser' }]
+    expect(
+      maintainAuthUsers(maintainAuthUsersInitialState, {
+        type: types.SET_AUTH_USER_SEARCH_RESULTS_LIST,
+        userList: [{ username: 'someuser' }],
+      })
+    ).toEqual(updatedMaintainAuthUsers)
   })
 })

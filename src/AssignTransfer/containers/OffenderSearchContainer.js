@@ -46,7 +46,8 @@ class OffenderSearchContainer extends Component {
     }
   }
 
-  handleSubmit = history => {
+  handleSubmit = (event, history) => {
+    event.preventDefault()
     history.push('/manage-key-workers/offender-search/results')
   }
 

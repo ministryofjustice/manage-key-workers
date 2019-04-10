@@ -17,23 +17,6 @@ class Elite2Api extends WireMockRule {
         super(8080)
     }
 
-    void stubGetMyDetails(UserAccount user) {
-        this.stubFor(
-                get('/api/users/me')
-                        .willReturn(
-                        aResponse()
-                                .withStatus(200)
-                                .withHeader('Content-Type', 'application/json')
-                                .withBody(JsonOutput.toJson([
-                                staffId         : user.staffMember.id,
-                                username        : user.username,
-                                firstName       : user.staffMember.firstName,
-                                lastName        : user.staffMember.lastName,
-                                email           : 'itaguser@syscon.net',
-                                activeCaseLoadId: 'LEI'
-                        ]))))
-    }
-
     void stubGetUserDetails(UserAccount user) {
         this.stubFor(
                 get(urlPathEqualTo("/api/users/${user.username}"))
@@ -50,7 +33,6 @@ class Elite2Api extends WireMockRule {
                                 activeCaseLoadId: 'LEI'
                         ]))))
     }
-
 
     void stubGetAgencyDetails(Caseload caseload) {
         this.stubFor(
@@ -272,13 +254,19 @@ class Elite2Api extends WireMockRule {
     }
 
 
+
     void stubGetMyCaseloads(List<Caseload> caseloads) {
+        stubGetMyCaseloads(caseloads, Caseload.LEI.id)
+    }
+
+    void stubGetMyCaseloads(List<Caseload> caseloads, caseload) {
         def json = new JsonBuilder()
-        json caseloads, { caseload ->
-            caseLoadId caseload.id
-            description caseload.description
-            type caseload.type
+        json caseloads, { cl ->
+            caseLoadId cl.id
+            description cl.description
+            type cl.type
             caseloadFunction 'DUMMY'
+            currentlyActive cl.id == caseload
         }
 
         this.stubFor(
@@ -444,17 +432,6 @@ class Elite2Api extends WireMockRule {
                                 .withBody(JsonOutput.toJson([
                                     status         : status,
                                     userMessage        : message]))))
-    }
-
-    void stubGetStaffAccessRoles(def roles) {
-
-        def json = JsonOutput.toJson(roles)
-
-        this.stubFor(
-                get(urlPathEqualTo("/api/users/me/roles"))
-                        .willReturn(aResponse()
-                        .withBody(json)
-                        .withStatus(200)))
     }
 
     void stubSetActiveCaseload() {

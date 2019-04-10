@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 atCheckWaiting = true
 
 waiting {
-    timeout = 2
+    timeout = 10
 }
 
 environments {
@@ -29,3 +29,8 @@ driver = {
 baseUrl = "http://localhost:3001/"
 
 reportsDir = "build/geb-reports"
+reportOnTestFailureOnly=true
+
+
+// Close browser on shutdown - uncomment to enable
+// quitCachedDriverOnShutdown = false

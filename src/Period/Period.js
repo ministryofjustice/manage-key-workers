@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Header from '@govuk-react/header'
+import { H3 } from '@govuk-react/heading'
 import moment from 'moment'
 import { Form, Field } from 'react-final-form'
 
@@ -43,9 +43,7 @@ const Period = ({ fromDate, toDate, onSubmit }) => (
     validate={validate}
     render={({ handleSubmit, pristine, invalid }) => (
       <form onSubmit={handleSubmit}>
-        <Header level={3} size="SMALL">
-          Select date range to view
-        </Header>
+        <H3 size="SMALL">Select date range to view</H3>
         <FilterStyled>
           <Field name="fromDate" component={DateAdapter} title="From" />
           <Field name="toDate" component={DateAdapter} title="To" />

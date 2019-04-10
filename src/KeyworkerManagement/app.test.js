@@ -6,7 +6,6 @@ import mockHistory from '../test/mockHistory'
 jest.mock('../Spinner/index', () => '')
 
 const config = {
-  maintainRolesEnabled: 'false',
   keyworkerProfileStatsEnabled: 'false',
   keyworkerDashboardStatsEnabled: false,
   notmEndpointUrl: '/notm/endpoint',

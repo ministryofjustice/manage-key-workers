@@ -31,29 +31,24 @@ class TestFixture {
 
     def loginAs(UserAccount user, int kwFrequency) {
         currentUser = user
-        oauthApi.stubValidOAuthTokenRequest()
-        browser.to LoginPage
-        elite2Api.stubGetMyDetails currentUser
+        oauthApi.stubValidOAuthTokenLogin()
+        oauthApi.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
-        elite2Api.stubGetStaffAccessRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
+        oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, kwFrequency, true)
 
-        browser.page.loginAs currentUser, 'password'
-        browser.at KeyworkerManagementPage
+        browser.to KeyworkerManagementPage
     }
 
     def loginWithoutStaffRoles(UserAccount user) {
         currentUser = user
-        oauthApi.stubValidOAuthTokenRequest()
-        browser.to LoginPage
-        elite2Api.stubGetMyDetails currentUser
+        oauthApi.stubValidOAuthTokenLogin()
+        oauthApi.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
 
-        browser.page.loginAs currentUser, 'password'
-        browser.at KeyworkerManagementPage
+        browser.to KeyworkerManagementPage
     }
-
 
     def toUnallocatedPage() {
         elite2Api.stubGetMyLocations(locationsForCaseload(currentUser.workingCaseload))

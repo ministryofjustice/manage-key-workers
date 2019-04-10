@@ -19,6 +19,8 @@ import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisi
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
 import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
+import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
+import AuthUserSearchResultsContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchResultsContainer'
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
 import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
@@ -39,7 +41,7 @@ import {
   setSettings,
   setLoaded,
 } from '../redux/actions/index'
-import { configType, userType } from '../types'
+import { configType, userType, errorType } from '../types'
 
 const axios = require('axios')
 
@@ -147,7 +149,7 @@ class App extends React.Component {
 
   shouldDisplayInnerContent = () => {
     const { shouldShowTerms, user } = this.props
-    return !shouldShowTerms && (user && user.activeCaseLoadId)
+    return !shouldShowTerms && (user && user.username)
   }
 
   displayBack = () => (
@@ -348,6 +350,28 @@ class App extends React.Component {
               />
             )}
           />
+          <Route
+            exact
+            path="/admin-utilities/maintain-auth-users"
+            render={() => (
+              <AuthUserSearchContainer
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/admin-utilities/maintain-auth-users/search-results"
+            render={() => (
+              <AuthUserSearchResultsContainer
+                displayBack={this.displayBack}
+                handleError={this.handleError}
+                clearMessage={this.clearMessage}
+              />
+            )}
+          />
         </div>
       </div>
     )
@@ -377,7 +401,7 @@ class App extends React.Component {
               return (
                 <Header
                   logoText="HMPPS"
-                  title="Prison-NOMIS"
+                  title="Digital Prison Services"
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
@@ -406,7 +430,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: errorType.isRequired,
   config: configType.isRequired,
   user: userType.isRequired,
   shouldShowTerms: PropTypes.bool.isRequired,

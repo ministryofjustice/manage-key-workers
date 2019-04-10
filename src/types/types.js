@@ -33,6 +33,17 @@ export const userListType = arrayOf(
   })
 )
 
+export const authUserListType = arrayOf(
+  shape({
+    username: string.isRequired,
+    email: string.isRequired,
+    firstName: string.isRequired,
+    lastName: string.isRequired,
+    locked: bool.isRequired,
+    enabled: bool.isRequired,
+  })
+)
+
 export const contextUserType = shape({
   activeCaseLoadId: string.isRequired,
   agencyDescription: string.isRequired,
@@ -48,7 +59,6 @@ export const configType = shape({
   keyworkerProfileStatsEnabled: string.isRequired,
   keyworkerDashboardStatsEnabled: bool.isRequired,
   mailTo: string.isRequired,
-  maintainRolesEnabled: string.isRequired,
   notmEndpointUrl: string.isRequired,
   prisonStaffHubUrl: string.isRequired,
 })
@@ -248,3 +258,13 @@ export const formMetaType = shape({
   valid: bool.isRequired,
   visited: bool.isRequired,
 })
+
+export const errorType = oneOfType([
+  string,
+  arrayOf(
+    shape({
+      targetName: string,
+      text: string,
+    })
+  ),
+])

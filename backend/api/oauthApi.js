@@ -6,16 +6,29 @@ const errorStatusCode = require('../error-status-code')
 const AuthClientErrorName = 'AuthClientError'
 const AuthClientError = message => ({ name: AuthClientErrorName, message, stack: new Error().stack })
 
+const encodeQueryString = input => encodeURIComponent(input)
 const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
 /**
  * Return an oauthApi built using the supplied configuration.
+ * @param client
  * @param clientId
  * @param clientSecret
  * @param url
  * @returns a configured oauthApi instance
  */
-const oauthApiFactory = ({ clientId, clientSecret, url }) => {
+const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
+  const get = (context, path) => client.get(context, path).then(response => response.data)
+  const put = (context, path) => client.put(context, path).then(response => response.data)
+  const del = (context, path) => client.del(context, path).then(response => response.data)
+  const currentUser = context => get(context, 'api/user/me')
+  const currentRoles = context => get(context, 'api/user/me/roles')
+  const getUser = (context, { username }) => get(context, `api/authuser/${username}`)
+  const userRoles = (context, { username }) => get(context, `api/authuser/${username}/roles`)
+  const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
+  const addUserRole = (context, { username, role }) => put(context, `api/authuser/${username}/roles/${role}`)
+  const removeUserRole = (context, { username, role }) => del(context, `api/authuser/${username}/roles/${role}`)
+
   const oauthAxios = axios.create({
     baseURL: url,
     url: 'oauth/token',
@@ -75,6 +88,13 @@ const oauthApiFactory = ({ clientId, clientSecret, url }) => {
     makeTokenRequest(querystring.stringify({ refresh_token: refreshToken, grant_type: 'refresh_token' }), 'refresh:')
 
   return {
+    currentUser,
+    currentRoles,
+    getUser,
+    userSearch,
+    userRoles,
+    addUserRole,
+    removeUserRole,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,

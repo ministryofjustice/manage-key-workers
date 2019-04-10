@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import KeyworkerSettings from '../components/KeyworkerSettings'
+import KeyworkerSettings from './KeyworkerSettings'
 import mockHistory from '../../test/mockHistory'
 
 const user = {

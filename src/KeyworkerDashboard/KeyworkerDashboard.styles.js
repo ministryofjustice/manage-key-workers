@@ -1,6 +1,6 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { BREAKPOINTS, FONT_SIZE, SPACING } from '@govuk-react/constants'
-import Header from '@govuk-react/header'
+import Heading from '@govuk-react/heading'
 
 const Ratio = styled('strong')`
   margin: 0;
@@ -12,7 +12,7 @@ const Ratio = styled('strong')`
   }
 `
 
-const RatioHeader = styled(Header)`
+const RatioHeader = styled(Heading)`
   font-weight: 200;
   margin-right: ${SPACING.SCALE_3};
   margin-bottom: ${SPACING.SCALE_3} !important;

@@ -1,4 +1,4 @@
-import styled from 'react-emotion'
+import styled from 'styled-components'
 import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants'
 
 export const FilterStyled = styled('div')`

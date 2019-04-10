@@ -32,7 +32,7 @@ describe('<Page />', () => {
     })
 
     it('should update the document title', () => {
-      expect(global.window.document.title).toEqual('Page title - Key worker - Prison NOMIS')
+      expect(global.window.document.title).toEqual('Page title - Key worker - Digital Prison Services')
     })
 
     it('should display the children prop', () => {
@@ -56,12 +56,20 @@ describe('<Page />', () => {
 
   describe('when there is an error', () => {
     const error = 'Error message'
+    const errors = [{ targetName: 'user', text: 'some text' }]
 
-    it('should an error message', () => {
+    it('should display a string error message as Error', () => {
       const wrapper = shallow(<Page {...props} loaded error={error} />)
 
       expect(wrapper.find('Error').exists()).toBe(true)
       expect(wrapper.find('Error').prop('error')).toEqual(error)
+    })
+
+    it('should display an array error message as ErrorSummary', () => {
+      const wrapper = shallow(<Page {...props} loaded error={errors} />)
+
+      expect(wrapper.find('ErrorSummary').exists()).toBe(true)
+      expect(wrapper.find('ErrorSummary').prop('errors')).toEqual(errors)
     })
 
     it('should display an error message and page content if alwaysRender is specified', () => {

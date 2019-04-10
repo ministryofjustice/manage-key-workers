@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import HomePage from './index'
 
 const initialConfig = {
-  maintainRolesEnabled: 'false',
   keyworkerProfileStatsEnabled: 'false',
   keyworkerDashboardStatsEnabled: false,
   notmEndpointUrl: '/notm/endpoint',
@@ -126,39 +125,6 @@ describe('HomePage component', () => {
     )
     expect(component.find('#auto_allocate_link').length).toBe(0)
   })
-  it('should hide the maintain roles link when feature toggle off', () => {
-    const user = {
-      writeAccess: true,
-      maintainAccess: true,
-      activeCaseLoadId: '',
-      caseLoadOptions: [],
-      expiredFlag: false,
-      firstName: 'Test',
-      lastName: 'User',
-      lockedFlag: false,
-      maintainAccessAdmin: false,
-      migration: false,
-      staffId: 1,
-      username: 'TestUser',
-    }
-    const updatedConfig = {
-      ...initialConfig,
-      maintainRolesEnabled: 'false',
-    }
-    const component = shallow(
-      <HomePage
-        message="Hello!"
-        clearMessage={jest.fn()}
-        user={user}
-        allowAuto={false}
-        config={updatedConfig}
-        migrated={false}
-        dispatchLoaded={jest.fn()}
-      />
-    )
-    expect(component.find('#maintain_roles_link').length).toBe(0)
-  })
-
   it('should show the keyworker dashboard link when feature toggle on (and prison is migrated)', () => {
     const user = {
       writeAccess: true,

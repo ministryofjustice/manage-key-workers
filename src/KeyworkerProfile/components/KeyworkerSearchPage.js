@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
 import Status from './Status'
+import FormPanel from '../../Components/FormPanel'
 import '../index.scss'
 
 const KeyworkerSearchPage = ({
@@ -13,10 +16,10 @@ const KeyworkerSearchPage = ({
   statusFilter,
   handleStatusFilterChange,
 }) => (
-  <div>
-    <div className="pure-g">
-      <div className="pure-u-md-8-12">
-        <div className="searchForm padding-top padding-left-30 padding-right padding-bottom-large">
+  <GridRow>
+    <GridCol setWidth="two-thirds">
+      <FormPanel>
+        <form onSubmit={event => handleSearch(event, history)}>
           <label className="form-label" htmlFor="search-text">
             Key worker name
           </label>
@@ -28,13 +31,7 @@ const KeyworkerSearchPage = ({
             value={searchText}
             onChange={handleSearchTextChange}
           />
-          <button
-            type="button"
-            className="button margin-left"
-            onClick={() => {
-              handleSearch(history)
-            }}
-          >
+          <button type="submit" className="button margin-left">
             Search
           </button>
           <div className="pure-u-md-4-12 margin-top" style={{ display: 'block' }}>
@@ -43,10 +40,10 @@ const KeyworkerSearchPage = ({
             </label>
             <Status filter statusValue={statusFilter} handleStatusChange={handleStatusFilterChange} />
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </form>
+      </FormPanel>
+    </GridCol>
+  </GridRow>
 )
 
 KeyworkerSearchPage.propTypes = {

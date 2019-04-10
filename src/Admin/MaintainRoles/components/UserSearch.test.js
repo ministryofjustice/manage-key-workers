@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { UserSearch } from '../MaintainRoles/components/UserSearch'
-import mockHistory from '../../test/mockHistory'
+import { UserSearch } from './UserSearch'
+import mockHistory from '../../../test/mockHistory'
 
 const user = {
   activeCaseLoadId: 'LEI',

@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth search form Form should render correctly with a user 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="user"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Username or email address
+        </span>
+        <input
+          className="sc-ifAKCX hTyiys"
+          defaultValue="someuser"
+          id="user"
+          name="user"
+          onChange={[Function]}
+          type="text"
+        />
+      </label>
+      <button
+        className="sc-EHOje hEaLol"
+        disabled={false}
+        id="search-button"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Auth search form Form should render correctly with no user 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="user"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Username or email address
+        </span>
+        <input
+          className="sc-ifAKCX hTyiys"
+          defaultValue=""
+          id="user"
+          name="user"
+          onChange={[Function]}
+          type="text"
+        />
+      </label>
+      <button
+        className="sc-EHOje hEaLol"
+        disabled={false}
+        id="search-button"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+`;
