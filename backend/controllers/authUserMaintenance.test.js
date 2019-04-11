@@ -3,7 +3,7 @@ const authUserMaintenanceFactory = require('./authUserMaintenance')
 describe('Auth user maintenance controller', () => {
   const oauthApi = {}
   const res = { locals: {} }
-  const { search, roles, addRole, removeRole } = authUserMaintenanceFactory(oauthApi)
+  const { search, roles, addRole, removeRole, getUser } = authUserMaintenanceFactory(oauthApi)
 
   beforeEach(() => {
     oauthApi.getUser = jest.fn()
@@ -76,6 +76,51 @@ describe('Auth user maintenance controller', () => {
         })
 
         await search({ query: { nameFilter: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(419)
+      })
+    })
+
+    it('should throw error through if unknown issue occurs', async () => {
+      const response = { status: 500, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      const e = new Error('something went wrong')
+      oauthApi.getUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await expect(search({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
+    })
+  })
+
+  describe('getUser', () => {
+    it('should call getUser', async () => {
+      const response = { username: 'bob' }
+
+      oauthApi.getUser.mockReturnValueOnce(response)
+
+      await getUser({ query: { username: 'bob' } }, res)
+
+      expect(res.json).toBeCalledWith(response)
+    })
+
+    describe('known issue', () => {
+      const response = { status: 419, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      beforeEach(async () => {
+        oauthApi.getUser.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await getUser({ query: { username: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
         expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])

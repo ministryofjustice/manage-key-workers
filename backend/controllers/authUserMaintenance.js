@@ -14,6 +14,20 @@ const handleClientError = async (apiCall, field, res) => {
 }
 
 const authUserMaintenanceFactory = oauthApi => {
+  const getUser = async (req, res) => {
+    const { username } = req.query
+    log.debug('Performing get auth user')
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.getUser(res.locals, { username })
+        res.json(response)
+      },
+      'user',
+      res
+    )
+  }
+
   const search = async (req, res) => {
     const { nameFilter } = req.query
     log.debug('Performing auth user search')
@@ -102,7 +116,7 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  return { search, roles, addRole, removeRole }
+  return { getUser, search, roles, addRole, removeRole }
 }
 
 module.exports = authUserMaintenanceFactory
