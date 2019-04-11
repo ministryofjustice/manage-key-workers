@@ -16,6 +16,7 @@ class AuthUserSearchResultsContainer extends Component {
   constructor(props) {
     super()
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
     props.resetErrorDispatch()
   }
 
@@ -76,6 +77,14 @@ class AuthUserSearchResultsContainer extends Component {
     history.push({ pathname: '/admin-utilities/maintain-auth-users/search-results', search: userQuery })
   }
 
+  async handleEdit(event) {
+    const { userList, history } = this.props
+    const chosenUser = userList[event.target.value]
+
+    event.preventDefault()
+    history.push(`/admin-utilities/maintain-auth-users/${chosenUser.username}`)
+  }
+
   render() {
     const {
       location: { search },
@@ -88,6 +97,7 @@ class AuthUserSearchResultsContainer extends Component {
         <AuthUserSearchResults
           handleChange={this.handleChange}
           handleSearch={this.handleSearch}
+          handleEdit={this.handleEdit}
           user={user}
           userList={userList}
           error={error}

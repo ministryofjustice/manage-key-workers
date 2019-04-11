@@ -33,17 +33,6 @@ export const userListType = arrayOf(
   })
 )
 
-export const authUserListType = arrayOf(
-  shape({
-    username: string.isRequired,
-    email: string.isRequired,
-    firstName: string.isRequired,
-    lastName: string.isRequired,
-    locked: bool.isRequired,
-    enabled: bool.isRequired,
-  })
-)
-
 export const contextUserType = shape({
   activeCaseLoadId: string.isRequired,
   agencyDescription: string.isRequired,
@@ -54,6 +43,23 @@ export const contextUserType = shape({
   staffId: number.isRequired,
   username: string.isRequired,
 })
+
+export const contextAuthUserType = shape({
+  username: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  locked: bool,
+  enabled: bool,
+})
+
+const authRoleType = shape({
+  roleCode: string.isRequired,
+  roleName: string.isRequired,
+})
+
+export const authRoleListType = arrayOf(authRoleType)
+export const authUserListType = arrayOf(contextAuthUserType)
 
 export const configType = shape({
   keyworkerProfileStatsEnabled: string.isRequired,

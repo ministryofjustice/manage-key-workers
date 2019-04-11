@@ -247,10 +247,9 @@ export const setMaintainRolesUserContextUser = contextUser => ({
   contextUser,
 })
 
-export const setMaintainAuthUsersList = userList => ({
-  type: ActionTypes.SET_AUTH_USER_SEARCH_RESULTS_LIST,
-  userList,
-})
+export const setMaintainAuthUsersList = userList => ({ type: ActionTypes.SET_AUTH_USER_SEARCH_RESULTS_LIST, userList })
+export const setMaintainAuthRoleList = roleList => ({ type: ActionTypes.SET_AUTH_USER_ROLE_LIST, roleList })
+export const setMaintainAuthContextUser = contextUser => ({ type: ActionTypes.SET_AUTH_USER_CONTEXT_USER, contextUser })
 
 export const setSettings = settings => ({
   type: ActionTypes.SET_KEYWORKER_SETTINGS,

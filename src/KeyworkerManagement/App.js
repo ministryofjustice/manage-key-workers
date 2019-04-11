@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { Header, FooterContainer } from 'new-nomis-shared-components'
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Redirect, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
@@ -20,6 +20,7 @@ import AllocationHistoryContainer from '../AllocationHistory/containers/Allocati
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
 import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
 import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
+import AuthUserContainer from '../Admin/MaintainAuthUsers/containers/AuthUserContainer'
 import AuthUserSearchResultsContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchResultsContainer'
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
@@ -177,201 +178,213 @@ class App extends React.Component {
       // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
-          <Route
-            path="(/)"
-            render={() => <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />}
-          />
-          <Route
-            exact
-            path="/manage-key-workers"
-            render={() => (
-              <HomePage
-                allowAuto={allowAuto}
-                migrated={migrated}
-                user={user}
-                config={config}
-                message={message}
-                clearMessage={this.clearMessage}
-                dispatchLoaded={dispatchLoaded}
-              />
-            )}
-          />
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />
+            <Route
+              exact
+              path="/manage-key-workers"
+              render={() => (
+                <HomePage
+                  allowAuto={allowAuto}
+                  migrated={migrated}
+                  user={user}
+                  config={config}
+                  message={message}
+                  clearMessage={this.clearMessage}
+                  dispatchLoaded={dispatchLoaded}
+                />
+              )}
+            />
 
-          <Route
-            exact
-            path="/manage-key-workers/key-worker-statistics"
-            render={() => (
-              <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
-            )}
-          />
-          <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
-          <Route
-            exact
-            path="/manage-key-workers/offender-search"
-            render={() => (
-              <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
-            )}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/offender-search/results"
-            render={() => (
-              <AssignTransferContainer
-                onFinishAllocation={this.onFinishAllocation}
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/offender-history/:offenderNo"
-            render={() => (
-              <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
-            )}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/unallocated"
-            render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/unallocated/provisional-allocation"
-            render={() => (
-              <ProvisionalAllocationContainer
-                handleError={this.handleError}
-                onFinishAllocation={this.onFinishAllocation}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/key-worker-search"
-            render={() => (
-              <KeyworkerSearchContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                dispatchLoaded={dispatchLoaded}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/key-worker-search/results"
-            render={() => (
-              <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
-            )}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/key-worker/:staffId"
-            render={() => <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/key-worker/:staffId/edit"
-            render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/manage-key-workers/key-worker/:staffId/confirm-edit"
-            render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/admin-utilities"
-            render={() => (
-              <AdminUtilitiesContainer
-                handleError={this.handleError}
-                message={message}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/give-nomis-access"
-            render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
-          />
-          <Route
-            exact
-            path="/admin-utilities/manage-key-worker-settings"
-            render={() => (
-              <KeyworkerSettingsContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/maintain-roles"
-            render={() => (
-              <UserSearchContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/maintain-roles/search-results"
-            render={() => (
-              <UserSearchResultsContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/maintain-roles/:username/roles"
-            render={() => (
-              <StaffRoleProfileContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/maintain-roles/:username/roles/add-role"
-            render={() => (
-              <AddRoleContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/maintain-auth-users"
-            render={() => (
-              <AuthUserSearchContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/admin-utilities/maintain-auth-users/search-results"
-            render={() => (
-              <AuthUserSearchResultsContainer
-                displayBack={this.displayBack}
-                handleError={this.handleError}
-                clearMessage={this.clearMessage}
-              />
-            )}
-          />
+            <Route
+              exact
+              path="/manage-key-workers/key-worker-statistics"
+              render={() => (
+                <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
+              )}
+            />
+            <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
+            <Route
+              exact
+              path="/manage-key-workers/offender-search"
+              render={() => (
+                <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/offender-search/results"
+              render={() => (
+                <AssignTransferContainer
+                  onFinishAllocation={this.onFinishAllocation}
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/offender-history/:offenderNo"
+              render={() => (
+                <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/unallocated"
+              render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/unallocated/provisional-allocation"
+              render={() => (
+                <ProvisionalAllocationContainer
+                  handleError={this.handleError}
+                  onFinishAllocation={this.onFinishAllocation}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/key-worker-search"
+              render={() => (
+                <KeyworkerSearchContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  dispatchLoaded={dispatchLoaded}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/key-worker-search/results"
+              render={() => (
+                <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/key-worker/:staffId"
+              render={() => (
+                <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />
+              )}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/key-worker/:staffId/edit"
+              render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
+            />
+            <Route
+              exact
+              path="/manage-key-workers/key-worker/:staffId/confirm-edit"
+              render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
+            />
+            <Route
+              exact
+              path="/admin-utilities"
+              render={() => (
+                <AdminUtilitiesContainer
+                  handleError={this.handleError}
+                  message={message}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/give-nomis-access"
+              render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
+            />
+            <Route
+              exact
+              path="/admin-utilities/manage-key-worker-settings"
+              render={() => (
+                <KeyworkerSettingsContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-roles"
+              render={() => (
+                <UserSearchContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-roles/search-results"
+              render={() => (
+                <UserSearchResultsContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-roles/:username/roles"
+              render={() => (
+                <StaffRoleProfileContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-roles/:username/roles/add-role"
+              render={() => (
+                <AddRoleContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-auth-users"
+              render={() => (
+                <AuthUserSearchContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-auth-users/search-results"
+              render={() => (
+                <AuthUserSearchResultsContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-auth-users/:username"
+              render={() => (
+                <AuthUserContainer
+                  displayBack={this.displayBack}
+                  handleError={this.handleError}
+                  clearMessage={this.clearMessage}
+                />
+              )}
+            />
+          </Switch>
         </div>
       </div>
     )

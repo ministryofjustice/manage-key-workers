@@ -1,5 +1,7 @@
 // This needs to be put into a centralised route config that is also used in App.js
 // See: https://reacttraining.com/react-router/web/example/route-config
+import AuthUserBreadcrumb from './Components/Breadcrumb/AuthUserBreadcrumb'
+
 export default [
   { path: '/', breadcrumb: null },
   { path: '/manage-key-workers/unallocated', breadcrumb: 'Auto-allocate key workers' },
@@ -14,6 +16,7 @@ export default [
   { path: '/admin-utilities', breadcrumb: 'Admin and utilities' },
   { path: '/admin-utilities/give-nomis-access', breadcrumb: 'Give access to New NOMIS' },
   { path: '/admin-utilities/maintain-auth-users/search-results', breadcrumb: 'Results' },
+  { path: '/admin-utilities/maintain-auth-users/:username', breadcrumb: AuthUserBreadcrumb },
   { path: '/admin-utilities/maintain-roles/:staffId/roles', breadcrumb: 'Current profile roles' },
   { path: '/admin-utilities/maintain-roles/search-results', breadcrumb: 'Results' },
   { path: '/admin-utilities/maintain-roles/:staffId', breadcrumb: null },
