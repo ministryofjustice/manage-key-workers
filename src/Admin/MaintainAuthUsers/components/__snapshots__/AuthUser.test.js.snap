@@ -3,7 +3,7 @@
 exports[`Auth search results form no roles should render correctly with user and no roles 1`] = `
 <div>
   <div
-    className="sc-bZQynM eXvviO"
+    className="sc-bZQynM gYfOhL"
   >
     <div
       className="sc-gzVnrw hGCwOi"
@@ -90,7 +90,6 @@ exports[`Auth search results form no roles should render correctly with user and
       </table>
     </div>
   </div>
-  <br />
   <div
     className="sc-bZQynM eXvviO"
   >
@@ -141,7 +140,7 @@ exports[`Auth search results form no roles should render correctly with user and
 exports[`Auth search results form should render correctly with user and roles 1`] = `
 <div>
   <div
-    className="sc-bZQynM eXvviO"
+    className="sc-bZQynM gYfOhL"
   >
     <div
       className="sc-gzVnrw hGCwOi"
@@ -228,7 +227,6 @@ exports[`Auth search results form should render correctly with user and roles 1`
       </table>
     </div>
   </div>
-  <br />
   <div
     className="sc-bZQynM eXvviO"
   >

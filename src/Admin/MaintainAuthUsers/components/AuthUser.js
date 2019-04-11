@@ -34,7 +34,7 @@ const AuthUser = props => {
   return (
     <div>
       <MessageBar {...props} />
-      <GridRow>
+      <GridRow mb={5}>
         <GridCol setWidth="two-thirds">
           <Table>
             <Table.Row>
@@ -62,7 +62,7 @@ const AuthUser = props => {
           </Table>
         </GridCol>
       </GridRow>
-      <br />
+
       <GridRow>
         <GridCol setWidth="one-half">
           <Table>
