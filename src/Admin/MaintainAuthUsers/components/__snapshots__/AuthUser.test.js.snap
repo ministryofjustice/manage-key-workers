@@ -1,0 +1,307 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth search results form no roles should render correctly with user and no roles 1`] = `
+<div>
+  <div
+    className="sc-bZQynM eXvviO"
+  >
+    <div
+      className="sc-gzVnrw hGCwOi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Username
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              joesmith
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Name
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Joe
+               
+              Smith
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Email
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              joe.smith@justice.gov.uk
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Locked
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Enabled
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Yes
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div
+    className="sc-bZQynM eXvviO"
+  >
+    <div
+      className="sc-gzVnrw doLCDi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Current roles
+            </th>
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No roles found
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Auth search results form should render correctly with user and roles 1`] = `
+<div>
+  <div
+    className="sc-bZQynM eXvviO"
+  >
+    <div
+      className="sc-gzVnrw hGCwOi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Username
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              joesmith
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Name
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Joe
+               
+              Smith
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Email
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              joe.smith@justice.gov.uk
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Locked
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Enabled
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Yes
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div
+    className="sc-bZQynM eXvviO"
+  >
+    <div
+      className="sc-gzVnrw doLCDi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Current roles
+            </th>
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Role A
+            </td>
+            <td
+              className="sc-bxivhb eFpOLU"
+            >
+              <button
+                className="sc-htoDjs kiMCan"
+                disabled={false}
+                id="remove-button-roleA"
+                onClick={[Function]}
+                value="roleA"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Role B
+            </td>
+            <td
+              className="sc-bxivhb eFpOLU"
+            >
+              <button
+                className="sc-htoDjs kiMCan"
+                disabled={false}
+                id="remove-button-roleB"
+                onClick={[Function]}
+                value="roleB"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
