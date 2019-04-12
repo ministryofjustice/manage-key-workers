@@ -49,7 +49,14 @@ const loadComponent = WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent {...this.props} getUserRoles={this.getUserRoles} />
+      return (
+        <WrappedComponent
+          {...this.props}
+          getUserRoles={username => {
+            this.getUserRoles(username)
+          }}
+        />
+      )
     }
   }
 

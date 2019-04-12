@@ -16,11 +16,10 @@ class AuthUserContainer extends Component {
     props.resetErrorDispatch()
     this.handleRemove = this.handleRemove.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
-    this.getUserRoles = props.getUserRoles.bind(this)
   }
 
   async handleRemove(event) {
-    const { contextUser, setMessageDispatch, handleError, roleList } = this.props
+    const { contextUser, setMessageDispatch, handleError, roleList, getUserRoles } = this.props
 
     const selectedRole = roleList.find(r => r.roleCode === event.target.value)
 
@@ -33,7 +32,7 @@ class AuthUserContainer extends Component {
         },
       })
       setMessageDispatch(`Role ${selectedRole.roleName} removed`)
-      this.getUserRoles(contextUser.username)
+      getUserRoles(contextUser.username)
     } catch (error) {
       handleError(error)
     }
