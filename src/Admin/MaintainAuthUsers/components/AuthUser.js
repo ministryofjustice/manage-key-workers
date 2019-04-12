@@ -21,9 +21,7 @@ const AuthUser = props => {
           mb={0}
           id={`remove-button-${a.roleCode}`}
           value={a.roleCode}
-          onClick={event => {
-            handleRemove(event)
-          }}
+          onClick={handleRemove}
         >
           Remove
         </Button>
@@ -36,7 +34,7 @@ const AuthUser = props => {
       <MessageBar {...props} />
       <GridRow mb={5}>
         <GridCol setWidth="two-thirds">
-          <Table>
+          <Table id="user-details">
             <Table.Row>
               <Table.CellHeader>Username</Table.CellHeader>
               <Table.Cell>{contextUser.username}</Table.Cell>
@@ -65,7 +63,7 @@ const AuthUser = props => {
 
       <GridRow>
         <GridCol setWidth="one-half">
-          <Table>
+          <Table id="user-roles">
             <Table.Row>
               <Table.CellHeader>Current roles</Table.CellHeader>
               <Table.CellHeader>&nbsp;</Table.CellHeader>

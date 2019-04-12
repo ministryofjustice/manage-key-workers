@@ -49,18 +49,20 @@ class AuthUserContainer extends Component {
   }
 
   async handleRemove(event) {
-    const { contextUser, setMessageDispatch, handleError } = this.props
+    const { contextUser, setMessageDispatch, handleError, roleList } = this.props
+
+    const selectedRole = roleList.find(r => r.roleCode === event.target.value)
 
     event.preventDefault()
     try {
       await axios.get('/api/auth-user-roles-remove', {
         params: {
           username: contextUser.username,
-          role: event.target.value,
+          role: selectedRole.roleCode,
         },
       })
       await this.getUserRoles(contextUser.username)
-      setMessageDispatch('Role list updated')
+      setMessageDispatch(`Role ${selectedRole.roleName} removed`)
     } catch (error) {
       handleError(error)
     }

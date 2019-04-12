@@ -24,9 +24,7 @@ const AuthUserSearchResults = props => {
           mb={0}
           id={`edit-button-${a.username}`}
           value={index}
-          onClick={event => {
-            handleEdit(event)
-          }}
+          onClick={handleEdit}
         >
           Edit
         </Button>
