@@ -115,6 +115,8 @@ const maintainRolesInitialState = {
 
 const maintainAuthUsersInitialState = {
   userList: [],
+  roleList: [],
+  contextUser: {},
 }
 
 describe('app (global) reducer', () => {
@@ -968,13 +970,35 @@ describe('maintain auth users', () => {
     expect(maintainAuthUsers(undefined, {})).toEqual(maintainAuthUsersInitialState)
   })
 
-  it('should handle SET_USER_SEARCH_ROLE_FILTER', () => {
+  it('should handle SET_AUTH_USER_SEARCH_RESULTS_LIST', () => {
     const updatedMaintainAuthUsers = maintainAuthUsersInitialState
     updatedMaintainAuthUsers.userList = [{ username: 'someuser' }]
     expect(
       maintainAuthUsers(maintainAuthUsersInitialState, {
         type: types.SET_AUTH_USER_SEARCH_RESULTS_LIST,
         userList: [{ username: 'someuser' }],
+      })
+    ).toEqual(updatedMaintainAuthUsers)
+  })
+
+  it('should handle SET_AUTH_USER_ROLE_LIST', () => {
+    const updatedMaintainAuthUsers = maintainAuthUsersInitialState
+    updatedMaintainAuthUsers.roleList = [{ username: 'someuser' }]
+    expect(
+      maintainAuthUsers(maintainAuthUsersInitialState, {
+        type: types.SET_AUTH_USER_ROLE_LIST,
+        roleList: [{ username: 'someuser' }],
+      })
+    ).toEqual(updatedMaintainAuthUsers)
+  })
+
+  it('should handle SET_AUTH_USER_CONTEXT_USER', () => {
+    const updatedMaintainAuthUsers = maintainAuthUsersInitialState
+    updatedMaintainAuthUsers.contextUser = { username: 'someuser' }
+    expect(
+      maintainAuthUsers(maintainAuthUsersInitialState, {
+        type: types.SET_AUTH_USER_CONTEXT_USER,
+        contextUser: { username: 'someuser' },
       })
     ).toEqual(updatedMaintainAuthUsers)
   })

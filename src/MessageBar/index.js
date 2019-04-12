@@ -31,7 +31,11 @@ class MessageBar extends Component {
 }
 
 MessageBar.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
+}
+
+MessageBar.defaultProps = {
+  message: '',
 }
 
 export default MessageBar

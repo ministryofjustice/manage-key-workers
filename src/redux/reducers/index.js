@@ -121,6 +121,8 @@ const maintainRolesInitialState = {
 
 const maintainAuthUsersInitialState = {
   userList: [],
+  roleList: [],
+  contextUser: {},
 }
 
 const prisonLevelKeyWorkerStatsDashboardInitialState = {
@@ -442,10 +444,11 @@ export function maintainRoles(state = maintainRolesInitialState, action) {
 export function maintainAuthUsers(state = maintainAuthUsersInitialState, action) {
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER_SEARCH_RESULTS_LIST:
-      return {
-        ...state,
-        userList: action.userList,
-      }
+      return { ...state, userList: action.userList }
+    case ActionTypes.SET_AUTH_USER_ROLE_LIST:
+      return { ...state, roleList: action.roleList }
+    case ActionTypes.SET_AUTH_USER_CONTEXT_USER:
+      return { ...state, contextUser: action.contextUser }
     default:
       return state
   }

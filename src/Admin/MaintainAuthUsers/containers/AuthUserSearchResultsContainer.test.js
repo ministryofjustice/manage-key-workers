@@ -16,10 +16,13 @@ describe('Auth search results container', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  describe('handle functions', () => {
+  describe('handle change and search', () => {
     const event = { target: { name: 'user', value: 'usersearched' }, preventDefault: jest.fn() }
     const store = { subscribe: jest.fn(), dispatch: jest.fn(), getState: jest.fn(), setState: jest.fn() }
-    store.getState.mockReturnValue({ app: { error: '', loaded: true }, maintainAuthUsers: { userList: [] } })
+    store.getState.mockReturnValue({
+      app: { error: '', loaded: true },
+      maintainAuthUsers: { userList: [] },
+    })
 
     const wrapper = mount(
       <Provider store={store}>
@@ -50,6 +53,56 @@ describe('Auth search results container', () => {
       wrapper.find('form').simulate('submit', submitEvent)
 
       expect(submitEvent.preventDefault).toBeCalled()
+    })
+  })
+
+  describe('handle edit', () => {
+    // value of the event is 1, which is the second recond in the user list
+    const event = { target: { name: 'user', value: 1 }, preventDefault: jest.fn() }
+    const store = { subscribe: jest.fn(), dispatch: jest.fn(), getState: jest.fn(), setState: jest.fn() }
+    store.getState.mockReturnValue({
+      app: { error: '', loaded: true },
+      maintainAuthUsers: {
+        userList: [
+          {
+            firstName: 'Bob',
+            lastName: 'Builder',
+            username: 'bobthebuilder',
+            email: 'a@b.com',
+            locked: false,
+            enabled: true,
+          },
+          {
+            firstName: 'Farmer',
+            lastName: 'Pickles',
+            username: 'farmerpickles',
+            email: 'a@c.com',
+            locked: false,
+            enabled: true,
+          },
+        ],
+      },
+    })
+
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <AuthUserSearchResultsContainer handleError={jest.fn()} />
+        </MemoryRouter>
+      </Provider>
+    )
+    wrapper.find('button#edit-button-bobthebuilder').simulate('click', event)
+
+    it('should set history when form submitted', () => {
+      const {
+        location: { pathname },
+      } = wrapper.find('AuthUserSearchResultsContainer').props()
+
+      expect(pathname).toEqual('/admin-utilities/maintain-auth-users/farmerpickles')
+    })
+
+    it('should prevent default on the form submission', () => {
+      expect(event.preventDefault).toBeCalled()
     })
   })
 })

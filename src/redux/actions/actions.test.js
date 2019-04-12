@@ -431,5 +431,21 @@ describe('actions', () => {
       }
       expect(actions.setMaintainAuthUsersList(someList)).toEqual(expectedAction)
     })
+    it('should create an action to set auth roles', () => {
+      const someList = [{ username: 'username' }]
+      const expectedAction = {
+        type: types.SET_AUTH_USER_ROLE_LIST,
+        roleList: someList,
+      }
+      expect(actions.setMaintainAuthRoleList(someList)).toEqual(expectedAction)
+    })
+    it('should create an action to update auth context user', () => {
+      const some = { username: 'username' }
+      const expectedAction = {
+        type: types.SET_AUTH_USER_CONTEXT_USER,
+        contextUser: some,
+      }
+      expect(actions.setMaintainAuthContextUser(some)).toEqual(expectedAction)
+    })
   })
 })
