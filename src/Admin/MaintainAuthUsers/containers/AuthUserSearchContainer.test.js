@@ -32,7 +32,7 @@ describe('Auth search container', () => {
     wrapper.find('input#user').simulate('change', event)
 
     it('should set the user input on the state', () => {
-      expect(wrapper.find('AuthUserSearchContainer').state().user).toEqual('usersearched')
+      expect(wrapper.find('AuthUserSearchHoc').state().user).toEqual('usersearched')
     })
 
     it('should set history when form submitted', () => {
