@@ -167,6 +167,16 @@ class OauthApi extends WireMockRule {
                                 .withStatus(status)))
     }
 
+    void stubAuthUserRoles() {
+        this.stubFor(
+                get(urlPathMatching("/auth/api/authuser/.*/roles"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')
+                                .withBody(AuthUserSearchResponse.getRolesResponse())))
+    }
+
     void stubAuthUsernameSearch() {
         this.stubFor(
                 get(urlPathMatching("/auth/api/authuser/.*"))
@@ -185,5 +195,14 @@ class OauthApi extends WireMockRule {
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
                                 .withBody(AuthUserSearchResponse.getEmailResponse())))
+    }
+
+    void stubAuthRemoveRole() {
+        this.stubFor(
+                delete(urlPathMatching("/auth/api/authuser/.*/roles/.*"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')))
     }
 }

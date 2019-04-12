@@ -10,6 +10,7 @@ exports[`Auth search results form no roles should render correctly with user and
     >
       <table
         className="sc-EHOje kCMYgv"
+        id="user-details"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -98,6 +99,7 @@ exports[`Auth search results form no roles should render correctly with user and
     >
       <table
         className="sc-EHOje kCMYgv"
+        id="user-roles"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -147,6 +149,7 @@ exports[`Auth search results form should render correctly with user and roles 1`
     >
       <table
         className="sc-EHOje kCMYgv"
+        id="user-details"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -235,6 +238,7 @@ exports[`Auth search results form should render correctly with user and roles 1`
     >
       <table
         className="sc-EHOje kCMYgv"
+        id="user-roles"
       >
         <tbody
           className="sc-bwzfXH uTxCW"

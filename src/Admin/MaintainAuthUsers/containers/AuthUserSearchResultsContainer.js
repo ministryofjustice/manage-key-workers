@@ -6,7 +6,7 @@ import axios from 'axios/index'
 import qs from 'query-string'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
-import { setError, resetError, setLoaded, setMaintainAuthUsersList } from '../../../redux/actions/index'
+import { resetError, setLoaded, setMaintainAuthUsersList } from '../../../redux/actions/index'
 import { authUserListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import AuthUserSearchResults from '../components/AuthUserSearchResults'
@@ -69,7 +69,7 @@ class AuthUserSearchResultsContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  async handleSearch(event) {
+  handleSearch(event) {
     const { history } = this.props
     const userQuery = qs.stringify(this.state)
 
@@ -77,7 +77,7 @@ class AuthUserSearchResultsContainer extends Component {
     history.push({ pathname: '/admin-utilities/maintain-auth-users/search-results', search: userQuery })
   }
 
-  async handleEdit(event) {
+  handleEdit(event) {
     const { userList, history } = this.props
     const chosenUser = userList[event.target.value]
 
@@ -127,7 +127,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   userListDispatch: list => dispatch(setMaintainAuthUsersList(list)),
-  setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
 })
