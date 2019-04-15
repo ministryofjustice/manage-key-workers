@@ -6,11 +6,12 @@ import axios from 'axios/index'
 import qs from 'query-string'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
-import { resetError, setLoaded, setMaintainAuthUsersList } from '../../../redux/actions/index'
+import { resetError, setLoaded } from '../../../redux/actions/index'
 import { authUserListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import AuthUserSearchResults from '../components/AuthUserSearchResults'
 import validateSearch from './AuthUserSearchValidation'
+import { setMaintainAuthUsersList } from '../../../redux/actions/maintainAuthUserActions'
 
 class AuthUserSearchResultsContainer extends Component {
   constructor(props) {
