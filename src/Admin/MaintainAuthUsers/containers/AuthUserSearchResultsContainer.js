@@ -11,12 +11,12 @@ import { authUserListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import AuthUserSearchResults from '../components/AuthUserSearchResults'
 import validateSearch from './AuthUserSearchValidation'
+import searchComponent from './AuthUserSearchHoc'
 import { setMaintainAuthUsersList } from '../../../redux/actions/maintainAuthUserActions'
 
 class AuthUserSearchResultsContainer extends Component {
   constructor(props) {
     super()
-    this.handleSearch = this.handleSearch.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     props.resetErrorDispatch()
   }
@@ -31,11 +31,6 @@ class AuthUserSearchResultsContainer extends Component {
     if (prevProps.location.search !== location.search) {
       await this.performSearch()
     }
-  }
-
-  handleChange = event => {
-    const { name, value } = event.target
-    this.setState({ [name]: value })
   }
 
   async performSearch() {
@@ -70,14 +65,6 @@ class AuthUserSearchResultsContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  handleSearch(event) {
-    const { history } = this.props
-    const userQuery = qs.stringify(this.state)
-
-    event.preventDefault()
-    history.push({ pathname: '/admin-utilities/maintain-auth-users/search-results', search: userQuery })
-  }
-
   handleEdit(event) {
     const { userList, history } = this.props
     const chosenUser = userList[event.target.value]
@@ -91,13 +78,15 @@ class AuthUserSearchResultsContainer extends Component {
       location: { search },
       userList,
       error,
+      handleSearch,
+      handleChange,
     } = this.props
     const { user } = qs.parse(search)
     return (
       <Page title="Search for auth user results" alwaysRender>
         <AuthUserSearchResults
-          handleChange={this.handleChange}
-          handleSearch={this.handleSearch}
+          handleChange={handleChange}
+          handleSearch={handleSearch}
           handleEdit={this.handleEdit}
           user={user}
           userList={userList}
@@ -115,6 +104,8 @@ AuthUserSearchResultsContainer.propTypes = {
   setLoadedDispatch: PropTypes.func.isRequired,
   userListDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   userList: authUserListType.isRequired,
   error: errorType.isRequired,
 }
@@ -133,8 +124,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AuthUserSearchResultsContainer)
+  searchComponent(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(AuthUserSearchResultsContainer)
+  )
 )
