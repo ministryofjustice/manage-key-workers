@@ -27,7 +27,7 @@ describe('Auth search results container', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <AuthUserSearchResultsContainer handleError={jest.fn()} />
+          <AuthUserSearchResultsContainer />
         </MemoryRouter>
       </Provider>
     )
@@ -87,7 +87,7 @@ describe('Auth search results container', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <AuthUserSearchResultsContainer handleError={jest.fn()} />
+          <AuthUserSearchResultsContainer />
         </MemoryRouter>
       </Provider>
     )

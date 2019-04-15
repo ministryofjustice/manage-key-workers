@@ -32,7 +32,7 @@ class AuthUserContainer extends Component {
     const { contextUser, history } = this.props
 
     event.preventDefault()
-    history.push(`/admin-utilities/maintain-auth-roles/${contextUser.username}/add-role`)
+    history.push(`/admin-utilities/maintain-auth-users/${contextUser.username}/add-role`)
   }
 
   render() {

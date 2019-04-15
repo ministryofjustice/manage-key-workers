@@ -3,7 +3,7 @@ const authUserMaintenanceFactory = require('./authUserMaintenance')
 describe('Auth user maintenance controller', () => {
   const oauthApi = {}
   const res = { locals: {} }
-  const { search, roles, addRole, removeRole, getUser } = authUserMaintenanceFactory(oauthApi)
+  const { search, roles, addRole, removeRole, getUser, allRoles } = authUserMaintenanceFactory(oauthApi)
 
   beforeEach(() => {
     oauthApi.getUser = jest.fn()
@@ -11,6 +11,7 @@ describe('Auth user maintenance controller', () => {
     oauthApi.userRoles = jest.fn()
     oauthApi.addUserRole = jest.fn()
     oauthApi.removeUserRole = jest.fn()
+    oauthApi.allRoles = jest.fn()
     res.json = jest.fn()
     res.status = jest.fn()
   })
@@ -272,6 +273,38 @@ describe('Auth user maintenance controller', () => {
       })
       it('should pass error through if known issue occurs', async () => {
         expect(res.json).toBeCalledWith([{ targetName: 'role', text: 'Some problem occurred' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(404)
+      })
+    })
+  })
+
+  describe('allRoles', () => {
+    it('should call roles', async () => {
+      const response = [{ roleCode: 'bob' }, { roleCode: 'joe' }]
+
+      oauthApi.allRoles.mockReturnValueOnce(response)
+
+      await allRoles({}, res)
+
+      expect(res.json).toBeCalledWith(response)
+    })
+
+    describe('known issue', () => {
+      const response = { status: 404, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      beforeEach(async () => {
+        oauthApi.allRoles.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await allRoles({ query: { username: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(404)

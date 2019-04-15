@@ -206,6 +206,7 @@ app.use('/api/auth-user-search', asyncMiddleware(authUserMaintenanceFactory(oaut
 app.use('/api/auth-user-roles', asyncMiddleware(authUserMaintenanceFactory(oauthApi).roles))
 app.use('/api/auth-user-roles-add', asyncMiddleware(authUserMaintenanceFactory(oauthApi).addRole))
 app.use('/api/auth-user-roles-remove', asyncMiddleware(authUserMaintenanceFactory(oauthApi).removeRole))
+app.use('/api/auth-roles', asyncMiddleware(authUserMaintenanceFactory(oauthApi).allRoles))
 app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles)
 app.use('/api/getUser', getUserFactory(elite2Api).getUser)
 app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole)
