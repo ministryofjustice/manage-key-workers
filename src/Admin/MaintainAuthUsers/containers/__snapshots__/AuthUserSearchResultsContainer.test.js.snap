@@ -3,7 +3,7 @@
 exports[`Auth search results container should render correctly with search location 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <withRouter(Connect(AuthUserSearchResultsContainer))
+  Symbol(enzyme.__unrendered__): <withRouter(AuthUserSearchHoc)
     location={
       Object {
         "search": Object {
@@ -67,7 +67,7 @@ ShallowWrapper {
 exports[`Auth search results container should render correctly without existing location 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <withRouter(Connect(AuthUserSearchResultsContainer))
+  Symbol(enzyme.__unrendered__): <withRouter(AuthUserSearchHoc)
     location={
       Object {
         "search": Object {},

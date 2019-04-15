@@ -7,6 +7,7 @@ import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
+import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerDashboardPage
@@ -16,7 +17,7 @@ import java.time.LocalDate
 import static uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation.BXI
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
-class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
+class KeyworkerPrisonStatsSpecification extends GebReportingSpec {
     @Rule
     OauthApi oauthApi = new OauthApi()
 
@@ -167,11 +168,14 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
         keyworkerApi.stubPrisonMigrationStatus(BXI, true, true, 0, true)
 
         header.dropDown.click()
-        header.brixtonCaseLoad.click()
-        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads, BXI.id)
+        assert waitFor { header.brixtonCaseLoad.displayed }
 
-        then: "I still be on the dashboard"
+        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads, BXI.id)
+        header.brixtonCaseLoad.click()
+
+        then: "I will still be on the dashboard"
         at KeyworkerDashboardPage
+        assert waitFor { header.caseload == Caseload.BXI.description }
 
         then: "a call for Brixton stats should be made"
         LocalDate lastMonth = LocalDate.now().minusMonths(1)
@@ -182,6 +186,5 @@ class KeyworkerPrisonStatsSpecification extends GebReportingSpec{
                 .withQueryParam("prisonId", WireMock.equalTo("BXI"))
                 .withQueryParam("fromDate", WireMock.equalTo(from.toString()))
                 .withQueryParam("toDate", WireMock.equalTo(to.toString())))
-
     }
 }
