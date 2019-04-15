@@ -376,13 +376,7 @@ class App extends React.Component {
             <Route
               exact
               path="/admin-utilities/maintain-auth-users/:username"
-              render={() => (
-                <AuthUserContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
+              render={() => <AuthUserContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />}
             />
           </Switch>
         </div>

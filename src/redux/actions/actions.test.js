@@ -1,10 +1,58 @@
 import * as actions from './index'
-import * as types from './actionTypes'
+import {
+  RESET_ERROR,
+  RESET_VALIDATION_ERRORS,
+  SET_ALLOCATED_DETAILS,
+  SET_ANNUAL_LEAVE_RETURN_DATE,
+  SET_AVAILABLE_KEY_WORKER_LIST,
+  SET_CONFIG,
+  SET_ERROR,
+  SET_KEY_WORKER,
+  SET_KEY_WORKER_ALLOCATION_LIST,
+  SET_KEY_WORKER_CAPACITY,
+  SET_KEY_WORKER_CHANGE_LIST,
+  SET_KEY_WORKER_SEARCH_RESULTS_LIST,
+  SET_KEY_WORKER_SEARCH_TEXT,
+  SET_KEYWORKER_SETTINGS,
+  SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
+  SET_KEYWORKER_SETTINGS_CAPACITY,
+  SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
+  SET_KEYWORKER_SETTINGS_MIGRATED,
+  SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
+  SET_KEYWORKER_SETTINGS_SUPPORTED,
+  SET_KEY_WORKER_STATS,
+  SET_KEY_WORKER_STATUS,
+  SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
+  SET_KEY_WORKER_STATUS_FILTER,
+  SET_LOADED,
+  SET_MANUAL_OVERRIDE_DATE_FILTER,
+  SET_MANUAL_OVERRIDE_LIST,
+  SET_MESSAGE,
+  SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
+  SET_OFFENDER_SEARCH_HOUSING_LOCATION,
+  SET_OFFENDER_SEARCH_LOCATIONS,
+  SET_OFFENDER_SEARCH_RESULTS,
+  SET_OFFENDER_SEARCH_TEXT,
+  SET_TERMS_VISIBILITY,
+  SET_UNALLOCATED_LIST,
+  SET_USER_DETAILS,
+  SET_USER_SEARCH_NAME_FILTER,
+  SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
+  SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
+  SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
+  SET_USER_SEARCH_RESULTS_LIST,
+  SET_USER_SEARCH_ROLE_ADD,
+  SET_USER_SEARCH_ROLE_FILTER,
+  SET_USER_SEARCH_ROLE_FILTER_LIST,
+  SET_USER_SEARCH_ROLE_LIST,
+  SET_VALIDATION_ERROR,
+  SWITCH_AGENCY,
+} from './actionTypes'
 
 describe('actions', () => {
   it('should create an action to update the config', () => {
     const expectedAction = {
-      type: types.SET_CONFIG,
+      type: SET_CONFIG,
       config: {
         mailTo: 'a@b.com',
       },
@@ -15,7 +63,7 @@ describe('actions', () => {
   it('should create an action to setup login details', () => {
     const user = { field: 'user' }
     const expectedAction = {
-      type: types.SET_USER_DETAILS,
+      type: SET_USER_DETAILS,
       user,
     }
     expect(actions.setUserDetails(user)).toEqual(expectedAction)
@@ -24,7 +72,7 @@ describe('actions', () => {
   it('should create an action to switch current Agency', () => {
     const activeCaseLoadId = 'LEI'
     const expectedAction = {
-      type: types.SWITCH_AGENCY,
+      type: SWITCH_AGENCY,
       activeCaseLoadId,
     }
     expect(actions.switchAgency(activeCaseLoadId)).toEqual(expectedAction)
@@ -33,7 +81,7 @@ describe('actions', () => {
   it('should create an action to toggle ts and cs', () => {
     const shouldShowTerms = true
     const expectedAction = {
-      type: types.SET_TERMS_VISIBILITY,
+      type: SET_TERMS_VISIBILITY,
       shouldShowTerms,
     }
     expect(actions.setTermsVisibility(shouldShowTerms)).toEqual(expectedAction)
@@ -42,7 +90,7 @@ describe('actions', () => {
   it('should create an action to update the manual override List', () => {
     const keyworkerAllocations = ['keyworker allocation']
     const expectedAction = {
-      type: types.SET_MANUAL_OVERRIDE_LIST,
+      type: SET_MANUAL_OVERRIDE_LIST,
       allocatedKeyworkers: keyworkerAllocations,
     }
     expect(actions.manualOverride(keyworkerAllocations)).toEqual(expectedAction)
@@ -51,7 +99,7 @@ describe('actions', () => {
   it('should create an action to update the unallocated List', () => {
     const list = [{ name: 'Jack', keyworker: 'Jill' }]
     const expectedAction = {
-      type: types.SET_UNALLOCATED_LIST,
+      type: SET_UNALLOCATED_LIST,
       unallocatedList: list,
     }
     expect(actions.setUnallocatedList(list)).toEqual(expectedAction)
@@ -61,7 +109,7 @@ describe('actions', () => {
     const allocated = [{ name: 'Jack', keyworker: 'Jill' }]
     const keyWorkers = [{ name: 'Amy', staffId: 123 }]
     const expectedAction = {
-      type: types.SET_ALLOCATED_DETAILS,
+      type: SET_ALLOCATED_DETAILS,
       allocatedList: allocated,
       keyworkerList: keyWorkers,
       allocatedKeyworkers: [],
@@ -72,7 +120,7 @@ describe('actions', () => {
   it('should create an action to update the manual override List', () => {
     const keyworkerAllocations = ['keyworker allocation']
     const expectedAction = {
-      type: types.SET_MANUAL_OVERRIDE_LIST,
+      type: SET_MANUAL_OVERRIDE_LIST,
       allocatedKeyworkers: keyworkerAllocations,
     }
     expect(actions.manualOverride(keyworkerAllocations)).toEqual(expectedAction)
@@ -80,7 +128,7 @@ describe('actions', () => {
 
   it('should create an action to update the manual override date filter', () => {
     const expectedAction = {
-      type: types.SET_MANUAL_OVERRIDE_DATE_FILTER,
+      type: SET_MANUAL_OVERRIDE_DATE_FILTER,
       date: '24/01/2018',
       dateName: 'fromDate',
     }
@@ -89,7 +137,7 @@ describe('actions', () => {
 
   it('should create an action to store an error', () => {
     const expectedAction = {
-      type: types.SET_ERROR,
+      type: SET_ERROR,
       error: 'Something went wrong',
     }
     expect(actions.setError('Something went wrong')).toEqual(expectedAction)
@@ -97,14 +145,14 @@ describe('actions', () => {
 
   it('should create an action to reset the global error state', () => {
     const expectedAction = {
-      type: types.RESET_ERROR,
+      type: RESET_ERROR,
     }
     expect(actions.resetError()).toEqual(expectedAction)
   })
 
   it('should create an action to store an info message', () => {
     const expectedAction = {
-      type: types.SET_MESSAGE,
+      type: SET_MESSAGE,
       message: 'Your stuff was saved.',
     }
     expect(actions.setMessage('Your stuff was saved.')).toEqual(expectedAction)
@@ -112,7 +160,7 @@ describe('actions', () => {
 
   it('should create an action to update a loaded flag for rendering', () => {
     const expectedAction = {
-      type: types.SET_LOADED,
+      type: SET_LOADED,
       loaded: true,
     }
     expect(actions.setLoaded(true)).toEqual(expectedAction)
@@ -120,7 +168,7 @@ describe('actions', () => {
 
   it('should create an action to save offender search criteria - text', () => {
     const expectedAction = {
-      type: types.SET_OFFENDER_SEARCH_TEXT,
+      type: SET_OFFENDER_SEARCH_TEXT,
       searchText: 'James,Troy',
     }
     expect(actions.setOffenderSearchText('James,Troy')).toEqual(expectedAction)
@@ -128,7 +176,7 @@ describe('actions', () => {
 
   it('should create an action to save offender search criteria - housing location', () => {
     const expectedAction = {
-      type: types.SET_OFFENDER_SEARCH_HOUSING_LOCATION,
+      type: SET_OFFENDER_SEARCH_HOUSING_LOCATION,
       housingLocation: 'Block B',
     }
     expect(actions.setOffenderSearchHousingLocation('Block B')).toEqual(expectedAction)
@@ -136,7 +184,7 @@ describe('actions', () => {
 
   it('should create an action to save offender search criteria - allocation status', () => {
     const expectedAction = {
-      type: types.SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
+      type: SET_OFFENDER_SEARCH_ALLOCATION_STATUS,
       allocationStatus: 'unallocated',
     }
     expect(actions.setOffenderSearchAllocationStatus('unallocated')).toEqual(expectedAction)
@@ -144,7 +192,7 @@ describe('actions', () => {
 
   it('should create an action to set offender search locations', () => {
     const expectedAction = {
-      type: types.SET_OFFENDER_SEARCH_LOCATIONS,
+      type: SET_OFFENDER_SEARCH_LOCATIONS,
       locations: ['loc1', 'loc2'],
     }
     expect(actions.setOffenderSearchLocations(['loc1', 'loc2'])).toEqual(expectedAction)
@@ -152,7 +200,7 @@ describe('actions', () => {
 
   it('should create an action to save offender search results', () => {
     const expectedAction = {
-      type: types.SET_OFFENDER_SEARCH_RESULTS,
+      type: SET_OFFENDER_SEARCH_RESULTS,
       offenderResults: [{ data: 'data1' }, { data: 'data2' }],
     }
     expect(actions.setOffenderSearchResults([{ data: 'data1' }, { data: 'data2' }])).toEqual(expectedAction)
@@ -160,7 +208,7 @@ describe('actions', () => {
 
   it('should create an action to save key worker search criteria - text', () => {
     const expectedAction = {
-      type: types.SET_KEY_WORKER_SEARCH_TEXT,
+      type: SET_KEY_WORKER_SEARCH_TEXT,
       searchText: 'James,Troy',
     }
     expect(actions.setKeyworkerSearchText('James,Troy')).toEqual(expectedAction)
@@ -168,7 +216,7 @@ describe('actions', () => {
 
   it('should create an action to save key worker search criteria - status', () => {
     const expectedAction = {
-      type: types.SET_KEY_WORKER_STATUS_FILTER,
+      type: SET_KEY_WORKER_STATUS_FILTER,
       statusFilter: 'ACTIVE',
     }
     expect(actions.setKeyworkerStatusFilter('ACTIVE')).toEqual(expectedAction)
@@ -177,7 +225,7 @@ describe('actions', () => {
   it('should create an action to save key worker search results', () => {
     const list = [{ firstName: 'Jack', surname: 'Brown' }]
     const expectedAction = {
-      type: types.SET_KEY_WORKER_SEARCH_RESULTS_LIST,
+      type: SET_KEY_WORKER_SEARCH_RESULTS_LIST,
       keyworkerSearchResults: list,
     }
     expect(actions.setKeyworkerSearchResults(list)).toEqual(expectedAction)
@@ -186,7 +234,7 @@ describe('actions', () => {
   it('should create an action to save key worker allocations list', () => {
     const list = [{ firstName: 'Jack', surname: 'Brown' }]
     const expectedAction = {
-      type: types.SET_KEY_WORKER_ALLOCATION_LIST,
+      type: SET_KEY_WORKER_ALLOCATION_LIST,
       keyworkerAllocations: list,
     }
     expect(actions.setKeyworkerAllocationList(list)).toEqual(expectedAction)
@@ -194,7 +242,7 @@ describe('actions', () => {
 
   it('should create an action to save context key worker', () => {
     const expectedAction = {
-      type: types.SET_KEY_WORKER,
+      type: SET_KEY_WORKER,
       keyworker: { key: 'value' },
     }
     expect(actions.setKeyworker({ key: 'value' })).toEqual(expectedAction)
@@ -203,7 +251,7 @@ describe('actions', () => {
   it('should create an action to save key worker allocation changes', () => {
     const list = [{ firstName: 'Jack', surname: 'Brown' }]
     const expectedAction = {
-      type: types.SET_KEY_WORKER_CHANGE_LIST,
+      type: SET_KEY_WORKER_CHANGE_LIST,
       keyworkerChangeList: list,
     }
     expect(actions.setKeyworkerChangeList(list)).toEqual(expectedAction)
@@ -212,7 +260,7 @@ describe('actions', () => {
   it('should create an action to save the available key worker list', () => {
     const list = [{ firstName: 'Jack', surname: 'Brown' }]
     const expectedAction = {
-      type: types.SET_AVAILABLE_KEY_WORKER_LIST,
+      type: SET_AVAILABLE_KEY_WORKER_LIST,
       keyworkerList: list,
     }
     expect(actions.setAvailableKeyworkerList(list)).toEqual(expectedAction)
@@ -220,7 +268,7 @@ describe('actions', () => {
 
   it('should create an action to save key worker status', () => {
     const expectedAction = {
-      type: types.SET_KEY_WORKER_STATUS,
+      type: SET_KEY_WORKER_STATUS,
       status: 'Inactive',
     }
     expect(actions.setKeyworkerStatus('Inactive')).toEqual(expectedAction)
@@ -228,7 +276,7 @@ describe('actions', () => {
 
   it('should create an action to save key worker capacity', () => {
     const expectedAction = {
-      type: types.SET_KEY_WORKER_CAPACITY,
+      type: SET_KEY_WORKER_CAPACITY,
       capacity: 8,
     }
     expect(actions.setKeyworkerCapacity(8)).toEqual(expectedAction)
@@ -236,7 +284,7 @@ describe('actions', () => {
 
   it('should create an action to save key worker status change behaviour', () => {
     const expectedAction = {
-      type: types.SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
+      type: SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
       statusChangeBehaviour: 'keepAllocated',
     }
     expect(actions.setKeyworkerStatusChangeBehaviour('keepAllocated')).toEqual(expectedAction)
@@ -244,7 +292,7 @@ describe('actions', () => {
 
   it('should create an action to save annual leave return date', () => {
     const expectedAction = {
-      type: types.SET_ANNUAL_LEAVE_RETURN_DATE,
+      type: SET_ANNUAL_LEAVE_RETURN_DATE,
       annualLeaveReturnDate: '23/4/2005',
     }
     expect(actions.setAnnualLeaveReturnDate('23/4/2005')).toEqual(expectedAction)
@@ -252,7 +300,7 @@ describe('actions', () => {
 
   it('should create a validation error', () => {
     const expectedAction = {
-      type: types.SET_VALIDATION_ERROR,
+      type: SET_VALIDATION_ERROR,
       fieldName: 'aField',
       message: 'a message',
     }
@@ -261,7 +309,7 @@ describe('actions', () => {
 
   it('should clear all validation errors', () => {
     const expectedAction = {
-      type: types.RESET_VALIDATION_ERRORS,
+      type: RESET_VALIDATION_ERRORS,
     }
     expect(actions.resetValidationErrors()).toEqual(expectedAction)
   })
@@ -269,7 +317,7 @@ describe('actions', () => {
   describe('key worker settings', () => {
     it('should create an action to save key worker setting -  capacity', () => {
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS_CAPACITY,
+        type: SET_KEYWORKER_SETTINGS_CAPACITY,
         capacity: 8,
       }
       expect(actions.setSettingsCapacity(8)).toEqual(expectedAction)
@@ -277,7 +325,7 @@ describe('actions', () => {
 
     it('should create an action to save key worker setting -  ext capacity', () => {
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
+        type: SET_KEYWORKER_SETTINGS_EXT_CAPACITY,
         extCapacity: 10,
       }
       expect(actions.setSettingsExtCapacity(10)).toEqual(expectedAction)
@@ -285,7 +333,7 @@ describe('actions', () => {
 
     it('should create an action to save key worker setting -  sequence frequency', () => {
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
+        type: SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
         sequenceFrequency: 1,
       }
       expect(actions.setSettingsSequenceFrequency(1)).toEqual(expectedAction)
@@ -293,7 +341,7 @@ describe('actions', () => {
 
     it('should create an action to save key worker setting -  allow auto allocation', () => {
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
+        type: SET_KEYWORKER_SETTINGS_ALLOW_AUTO_ALLOCATION,
         allowAuto: true,
       }
       expect(actions.setSettingsAllowAutoAllocation(true)).toEqual(expectedAction)
@@ -301,7 +349,7 @@ describe('actions', () => {
 
     it('should create an action to save key worker setting -  supported', () => {
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS_SUPPORTED,
+        type: SET_KEYWORKER_SETTINGS_SUPPORTED,
         supported: true,
       }
       expect(actions.setSettingsSupported(true)).toEqual(expectedAction)
@@ -309,7 +357,7 @@ describe('actions', () => {
 
     it('should create an action to save key worker setting -  migrated', () => {
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS_MIGRATED,
+        type: SET_KEYWORKER_SETTINGS_MIGRATED,
         migrated: true,
       }
       expect(actions.setSettingsMigrated(true)).toEqual(expectedAction)
@@ -325,7 +373,7 @@ describe('actions', () => {
         sequenceFrequency: 2,
       }
       const expectedAction = {
-        type: types.SET_KEYWORKER_SETTINGS,
+        type: SET_KEYWORKER_SETTINGS,
         migrated: true,
         allowAuto: false,
         capacity: 5,
@@ -341,7 +389,7 @@ describe('actions', () => {
     it('should create an action to save maintain roles user list', () => {
       const list = [{ firstName: 'Jack', surname: 'Brown' }]
       const expectedAction = {
-        type: types.SET_USER_SEARCH_RESULTS_LIST,
+        type: SET_USER_SEARCH_RESULTS_LIST,
         userList: list,
       }
       expect(actions.setMaintainRolesUserList(list)).toEqual(expectedAction)
@@ -350,7 +398,7 @@ describe('actions', () => {
     it('should create an action to save maintain roles role list', () => {
       const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }]
       const expectedAction = {
-        type: types.SET_USER_SEARCH_ROLE_LIST,
+        type: SET_USER_SEARCH_ROLE_LIST,
         roleList: list,
       }
       expect(actions.setMaintainRolesRoleList(list)).toEqual(expectedAction)
@@ -359,7 +407,7 @@ describe('actions', () => {
     it('should create an action to save maintain roles role filter list', () => {
       const list = [{ roleCode: 'Jack' }, { roleCode: 'Jill' }]
       const expectedAction = {
-        type: types.SET_USER_SEARCH_ROLE_FILTER_LIST,
+        type: SET_USER_SEARCH_ROLE_FILTER_LIST,
         roleFilterList: list,
       }
       expect(actions.setMaintainRolesRoleFilterList(list)).toEqual(expectedAction)
@@ -367,7 +415,7 @@ describe('actions', () => {
 
     it('should create an action to save a maintain roles name filter', () => {
       const expectedAction = {
-        type: types.SET_USER_SEARCH_NAME_FILTER,
+        type: SET_USER_SEARCH_NAME_FILTER,
         nameFilter: 'aField',
       }
       expect(actions.setMaintainRolesNameFilter('aField')).toEqual(expectedAction)
@@ -375,7 +423,7 @@ describe('actions', () => {
 
     it('should create an action to save a maintain roles role filter', () => {
       const expectedAction = {
-        type: types.SET_USER_SEARCH_ROLE_FILTER,
+        type: SET_USER_SEARCH_ROLE_FILTER,
         roleFilter: 'aField',
       }
       expect(actions.setMaintainRolesRoleFilter('aField')).toEqual(expectedAction)
@@ -383,14 +431,14 @@ describe('actions', () => {
 
     it('should create an action to save a maintain roles add role', () => {
       const expectedAction = {
-        type: types.SET_USER_SEARCH_ROLE_ADD,
+        type: SET_USER_SEARCH_ROLE_ADD,
         roleAdd: 'aField',
       }
       expect(actions.setMaintainRolesRoleAdd('aField')).toEqual(expectedAction)
     })
     it('should create an action to save user search page size', () => {
       const expectedAction = {
-        type: types.SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
+        type: SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
         pageSize: 4,
       }
       expect(actions.setMaintainRolesUserPageSize(4)).toEqual(expectedAction)
@@ -398,7 +446,7 @@ describe('actions', () => {
 
     it('should create an action to save user search page number', () => {
       const expectedAction = {
-        type: types.SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
+        type: SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
         pageNumber: 6,
       }
       expect(actions.setMaintainRolesUserPageNumber(6)).toEqual(expectedAction)
@@ -406,7 +454,7 @@ describe('actions', () => {
 
     it('should create an action to save user search total records', () => {
       const expectedAction = {
-        type: types.SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
+        type: SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
         totalRecords: 6,
       }
       expect(actions.setMaintainRolesUserTotalRecords(6)).toEqual(expectedAction)
@@ -416,36 +464,9 @@ describe('actions', () => {
   it('should create an action to set the keyworker stats', () => {
     const stats = {}
     const expectedAction = {
-      type: types.SET_KEY_WORKER_STATS,
+      type: SET_KEY_WORKER_STATS,
       stats,
     }
     expect(actions.setKeyworkerStats(stats)).toEqual(expectedAction)
-  })
-
-  describe('maintain auth users', () => {
-    it('should create an action to maintain auth users', () => {
-      const someList = [{ username: 'username' }]
-      const expectedAction = {
-        type: types.SET_AUTH_USER_SEARCH_RESULTS_LIST,
-        userList: someList,
-      }
-      expect(actions.setMaintainAuthUsersList(someList)).toEqual(expectedAction)
-    })
-    it('should create an action to set auth roles', () => {
-      const someList = [{ username: 'username' }]
-      const expectedAction = {
-        type: types.SET_AUTH_USER_ROLE_LIST,
-        roleList: someList,
-      }
-      expect(actions.setMaintainAuthRoleList(someList)).toEqual(expectedAction)
-    })
-    it('should create an action to update auth context user', () => {
-      const some = { username: 'username' }
-      const expectedAction = {
-        type: types.SET_AUTH_USER_CONTEXT_USER,
-        contextUser: some,
-      }
-      expect(actions.setMaintainAuthContextUser(some)).toEqual(expectedAction)
-    })
   })
 })

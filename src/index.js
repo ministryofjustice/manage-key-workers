@@ -4,13 +4,14 @@ import ReactDOM from 'react-dom'
 import './index.scss'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import logger from 'redux-logger'
 import allocationApp from './redux/reducers'
 
 // Logger with default options
 import { AppContainer } from './KeyworkerManagement/App'
 
-const store = createStore(allocationApp, applyMiddleware(logger))
+const store = createStore(allocationApp, applyMiddleware(thunkMiddleware, logger))
 
 ReactDOM.render(
   <Provider store={store}>

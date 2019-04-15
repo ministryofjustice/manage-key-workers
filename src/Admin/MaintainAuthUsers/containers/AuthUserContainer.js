@@ -1,86 +1,31 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { withRouter } from 'react-router'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import {
-  setError,
-  resetError,
-  setMessage,
-  setLoaded,
-  setMaintainAuthRoleList,
-  setMaintainAuthContextUser,
-} from '../../../redux/actions/index'
+import { loadAuthUserAndRoles, removeAuthRole } from '../../../redux/actions/maintainAuthUserActions'
 import AuthUser from '../components/AuthUser'
 import { routeMatchType, contextAuthUserType, authRoleListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 
 class AuthUserContainer extends Component {
-  constructor(props) {
+  constructor() {
     super()
-    props.resetErrorDispatch()
     this.handleRemove = this.handleRemove.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
   }
 
   async componentDidMount() {
-    const { setLoadedDispatch, match } = this.props
+    const { loadAuthUserAndRolesDispatch, match } = this.props
 
-    setLoadedDispatch(false)
-    await this.loadUser(match.params.username)
-    await this.getUserRoles(match.params.username)
-    setLoadedDispatch(true)
-  }
-
-  async getUserRoles(username) {
-    const { setRoleListDispatch, handleError } = this.props
-
-    try {
-      const roles = await axios.get('/api/auth-user-roles', {
-        params: {
-          username,
-        },
-      })
-      setRoleListDispatch(roles.data)
-    } catch (error) {
-      handleError(error)
-    }
+    loadAuthUserAndRolesDispatch(match.params.username)
   }
 
   async handleRemove(event) {
-    const { contextUser, setMessageDispatch, handleError, roleList } = this.props
-
-    const selectedRole = roleList.find(r => r.roleCode === event.target.value)
+    const { removeAuthRoleDispatch } = this.props
 
     event.preventDefault()
-    try {
-      await axios.get('/api/auth-user-roles-remove', {
-        params: {
-          username: contextUser.username,
-          role: selectedRole.roleCode,
-        },
-      })
-      await this.getUserRoles(contextUser.username)
-      setMessageDispatch(`Role ${selectedRole.roleName} removed`)
-    } catch (error) {
-      handleError(error)
-    }
-  }
-
-  async loadUser(username) {
-    const { contextUserDispatch, handleError } = this.props
-
-    try {
-      const user = await axios.get('/api/auth-user-get', {
-        params: {
-          username,
-        },
-      })
-      contextUserDispatch(user.data)
-    } catch (error) {
-      handleError(error)
-    }
+    removeAuthRoleDispatch(event.target.value)
   }
 
   handleAdd(event) {
@@ -113,17 +58,12 @@ class AuthUserContainer extends Component {
 
 AuthUserContainer.propTypes = {
   error: errorType.isRequired,
-  resetErrorDispatch: PropTypes.func.isRequired,
-  setRoleListDispatch: PropTypes.func.isRequired,
-  setErrorDispatch: PropTypes.func.isRequired,
   contextUser: contextAuthUserType,
   roleList: authRoleListType,
-  setMessageDispatch: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
-  setLoadedDispatch: PropTypes.func.isRequired,
   match: routeMatchType.isRequired,
-  handleError: PropTypes.func.isRequired,
-  contextUserDispatch: PropTypes.func.isRequired,
+  loadAuthUserAndRolesDispatch: PropTypes.func.isRequired,
+  removeAuthRoleDispatch: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }
 
@@ -141,13 +81,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setErrorDispatch: error => dispatch(setError(error)),
-  resetErrorDispatch: () => dispatch(resetError()),
-  setRoleListDispatch: list => dispatch(setMaintainAuthRoleList(list)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  contextUserDispatch: user => dispatch(setMaintainAuthContextUser(user)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
+  loadAuthUserAndRolesDispatch: username => dispatch(loadAuthUserAndRoles(username)),
+  removeAuthRoleDispatch: role => dispatch(removeAuthRole(role)),
 })
+
+export { AuthUserContainer }
 
 export default connect(
   mapStateToProps,
