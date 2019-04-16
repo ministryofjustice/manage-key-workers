@@ -79,16 +79,31 @@ describe('Auth user container', () => {
       </Provider>
     )
 
-    it('should call axios to remove role when remove button clicked', () => {
-      wrapper.find('#remove-button-roleA button').simulate('click')
+    describe('handleRemove', () => {
+      it('should call axios to remove role when remove button clicked', () => {
+        wrapper.find('#remove-button-roleA button').simulate('click')
 
-      expect(removeAuthRoleDispatch).toBeCalledWith('roleA')
+        expect(removeAuthRoleDispatch).toBeCalledWith('roleA')
+      })
+
+      it('should prevent default on the form submission', () => {
+        wrapper.find('#remove-button-roleA button').simulate('click', event)
+
+        expect(event.preventDefault).toBeCalled()
+      })
     })
+    describe('handleAdd', () => {
+      it('should set history when add button clicked', () => {
+        wrapper.find('#add-button button').simulate('click')
 
-    it('should prevent default on the form submission', () => {
-      wrapper.find('#remove-button-roleA button').simulate('click', event)
+        expect(mockHistory.push).toBeCalledWith('/admin-utilities/maintain-auth-users/joesmith/add-role')
+      })
 
-      expect(event.preventDefault).toBeCalled()
+      it('should prevent default on the form submission', () => {
+        wrapper.find('#add-button button').simulate('click', event)
+
+        expect(event.preventDefault).toBeCalled()
+      })
     })
   })
 })

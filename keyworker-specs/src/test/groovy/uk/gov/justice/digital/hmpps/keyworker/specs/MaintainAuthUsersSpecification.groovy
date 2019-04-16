@@ -7,6 +7,7 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
+import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserAddRolePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserSearchPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserSearchResultsPage
@@ -68,7 +69,7 @@ class MaintainAuthUsersSpecification extends GebReportingSpec {
         !errorSummary.displayed
     }
 
-    def "should remove a role from a user"() {
+    def "should add and remove a role from a user"() {
         def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
         oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
@@ -98,6 +99,25 @@ class MaintainAuthUsersSpecification extends GebReportingSpec {
 
         roleRows.size() == 3
         roleRows[1].find("td", 0).text() == 'Global Search'
+
+        oauthApi.stubAuthAllRoles()
+
+        when: 'I navigate to the add role page'
+        addButton.click()
+
+        at AuthUserAddRolePage
+
+        then: 'I am on the add role page'
+        assert waitFor { headingText == 'Add Role: Auth Adm'}
+        oauthApi.stubAuthAddRole()
+
+        when: 'I select to add the vary role to the user'
+        choose('Licence Vary')
+
+        then: 'I receive a role added message'
+        at AuthUserPage
+        assert waitFor { messageBar.text() == 'Role Licence Vary added' }
+
         oauthApi.stubAuthRemoveRole()
         roleRows[1].find("#remove-button-GLOBAL_SEARCH").click()
 

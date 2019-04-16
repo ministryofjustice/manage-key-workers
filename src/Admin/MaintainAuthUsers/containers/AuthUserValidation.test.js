@@ -1,4 +1,4 @@
-import validateSearch from './AuthUserSearchValidation'
+import { validateSearch, validateAdd } from './AuthUserValidation'
 
 describe('Auth search validation', () => {
   let setError
@@ -43,6 +43,26 @@ describe('Auth search validation', () => {
 
   it('should success if user specified', () => {
     expect(validateSearch('    someuser  ', setError)).toBe(true)
+    expect(setError).not.toBeCalled()
+  })
+})
+
+describe('Auth add validation', () => {
+  let setError
+  beforeEach(() => {
+    setError = jest.fn()
+  })
+
+  describe('missing role', () => {
+    const missingResponse = [{ targetName: 'role', text: 'Select a role' }]
+    it('should return error if no role specified', () => {
+      expect(validateAdd(undefined, setError)).toBe(false)
+      expect(setError).toBeCalledWith(missingResponse)
+    })
+  })
+
+  it('should success if role specified', () => {
+    expect(validateAdd({ roleCode: 'roleA' }, setError)).toBe(true)
     expect(setError).not.toBeCalled()
   })
 })

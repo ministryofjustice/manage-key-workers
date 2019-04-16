@@ -10,4 +10,12 @@ const validateSearch = (user, setError) => {
   return true
 }
 
-export default validateSearch
+const validateAdd = (role, setError) => {
+  if (!role) {
+    setError([{ targetName: 'role', text: 'Select a role' }])
+    return false
+  }
+  return true
+}
+
+export { validateSearch, validateAdd }

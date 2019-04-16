@@ -9,7 +9,7 @@ import MessageBar from '../../../MessageBar'
 import { authRoleListType, contextAuthUserType } from '../../../types'
 
 const AuthUser = props => {
-  const { roleList, handleRemove, contextUser } = props
+  const { roleList, handleRemove, handleAdd, contextUser } = props
 
   const results = roleList.map(a => (
     <Table.Row key={a.roleCode}>
@@ -79,6 +79,12 @@ const AuthUser = props => {
           </Table>
         </GridCol>
       </GridRow>
+
+      <div>
+        <Button id="add-button" onClick={handleAdd}>
+          Add role
+        </Button>
+      </div>
     </div>
   )
 }

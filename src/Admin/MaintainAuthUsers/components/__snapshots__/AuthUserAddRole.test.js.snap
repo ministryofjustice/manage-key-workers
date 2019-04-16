@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth user add roles errors should render an error on the select if error occurred 1`] = `
+<div>
+  <label
+    className="sc-bdVaJa gDsdZv"
+    htmlFor="role"
+  >
+    <span
+      className="sc-bwzfXH lbxcXc"
+    >
+      Choose new role
+    </span>
+    <span
+      className="sc-htpNat lbiKAP"
+    >
+      something went wrong
+    </span>
+    <select
+      className="sc-ifAKCX iaVBIO"
+      id="role"
+      name="role"
+      onChange={[MockFunction]}
+    >
+      <option
+        value="--"
+      >
+        -- Select --
+      </option>
+      <option
+        id="ROLE_1_option"
+        value="ROLE_1"
+      >
+        Role 1
+      </option>
+      <option
+        id="ROLE_3_option"
+        value="ROLE_3"
+      >
+        Role 3
+      </option>
+    </select>
+  </label>
+  <button
+    className="sc-EHOje hEaLol"
+    disabled={false}
+    id="add-button"
+    onClick={[MockFunction]}
+  >
+    Add role
+  </button>
+</div>
+`;
+
+exports[`Auth user add roles no roles should render correctly with user and no roles 1`] = `
+<div>
+  <div
+    id="no-roles"
+  >
+    No roles available
+  </div>
+</div>
+`;
+
+exports[`Auth user add roles should render the add role page with a filtered list of roles 1`] = `
+<div>
+  <label
+    className="sc-bdVaJa cmpKXw"
+    htmlFor="role"
+  >
+    <span
+      className="sc-bwzfXH lbxcXc"
+    >
+      Choose new role
+    </span>
+    <select
+      className="sc-ifAKCX kDzsBS"
+      id="role"
+      name="role"
+      onChange={[MockFunction]}
+    >
+      <option
+        value="--"
+      >
+        -- Select --
+      </option>
+      <option
+        id="ROLE_1_option"
+        value="ROLE_1"
+      >
+        Role 1
+      </option>
+      <option
+        id="ROLE_3_option"
+        value="ROLE_3"
+      >
+        Role 3
+      </option>
+    </select>
+  </label>
+  <button
+    className="sc-EHOje hEaLol"
+    disabled={false}
+    id="add-button"
+    onClick={[MockFunction]}
+  >
+    Add role
+  </button>
+</div>
+`;
