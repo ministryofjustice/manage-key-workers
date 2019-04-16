@@ -83,7 +83,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         when: "I click the search button"
         fixture.stubOffenderResultsPage(false)
-        allocationStatusSelect="Unallocated"
+        allocationStatusSelect = "Unallocated"
         searchButton.click()
 
         then: "I am shown the Offender Search results page"
@@ -100,7 +100,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         when: "I click the search button"
         fixture.stubOffenderResultsPage(true)
-        allocationStatusSelect="Unallocated"
+        allocationStatusSelect = "Unallocated"
         searchButton.click()
 
         then: "I am shown the Offender Search results page"
@@ -117,7 +117,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         when: "I click the search button"
         fixture.stubOffenderResultsPage()
-        allocationStatusSelect="Allocated"
+        allocationStatusSelect = "Allocated"
         searchButton.click()
 
         then: "I am shown the Offender Search results page"
@@ -209,7 +209,7 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
         then: "I remain on the Offender results page and a success message bar is displayed"
         at OffenderResultsPage
-        messageBar.text() == 'Key workers successfully updated.'
+        assert waitFor { messageBar.text() == 'Key workers successfully updated.' }
     }
 
     def stubEmptyOffenderResultsPage() {
@@ -219,14 +219,14 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
 
     def stubErrorResponseFromSearch(status) {
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
-        elite2api.stubErrorWithMessage("/api/locations/description/${AgencyLocation.LEI.id}/inmates", status, "Something went wrong with the search" )
+        elite2api.stubErrorWithMessage("/api/locations/description/${AgencyLocation.LEI.id}/inmates", status, "Something went wrong with the search")
     }
 
     def toOffenderSearchPage() {
         List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
         elite2api.stubGetMyLocations(locations)
         browser.page.manualAssignLink.click()
-        assert browser.page instanceof SearchForOffenderPage
+        at SearchForOffenderPage
     }
 
     def toOffenderResultsPage() {

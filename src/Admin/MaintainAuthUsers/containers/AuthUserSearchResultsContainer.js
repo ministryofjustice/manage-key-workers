@@ -6,7 +6,7 @@ import axios from 'axios/index'
 import qs from 'query-string'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
-import { resetError, setLoaded } from '../../../redux/actions/index'
+import { handleAxiosError, resetError, setError, setLoaded } from '../../../redux/actions/index'
 import { authUserListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import AuthUserSearchResults from '../components/AuthUserSearchResults'
@@ -39,11 +39,12 @@ class AuthUserSearchResultsContainer extends Component {
       userListDispatch,
       setLoadedDispatch,
       resetErrorDispatch,
-      handleError,
+      setErrorDispatch,
+      handleAxiosErrorDispatch,
     } = this.props
 
     const { user } = qs.parse(search)
-    if (!validateSearch(user, handleError)) {
+    if (!validateSearch(user, setErrorDispatch)) {
       userListDispatch([])
       return
     }
@@ -59,7 +60,7 @@ class AuthUserSearchResultsContainer extends Component {
       resetErrorDispatch()
     } catch (error) {
       userListDispatch([])
-      handleError(error)
+      handleAxiosErrorDispatch(error)
     }
 
     setLoadedDispatch(true)
@@ -101,13 +102,14 @@ AuthUserSearchResultsContainer.propTypes = {
   location: ReactRouterPropTypes.location.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
+  setErrorDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   userListDispatch: PropTypes.func.isRequired,
-  handleError: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   userList: authUserListType.isRequired,
   error: errorType.isRequired,
+  handleAxiosErrorDispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -120,7 +122,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userListDispatch: list => dispatch(setMaintainAuthUsersList(list)),
   resetErrorDispatch: () => dispatch(resetError()),
+  setErrorDispatch: error => dispatch(setError(error)),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
+  handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
 })
 
 export default withRouter(

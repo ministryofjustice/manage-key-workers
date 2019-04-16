@@ -116,7 +116,20 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  return { getUser, search, roles, addRole, removeRole }
+  const allRoles = async (req, res) => {
+    log.debug('Performing auth roles ')
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.allRoles(res.locals)
+        res.json(response)
+      },
+      'user',
+      res
+    )
+  }
+
+  return { getUser, search, roles, addRole, removeRole, allRoles }
 }
 
 module.exports = authUserMaintenanceFactory

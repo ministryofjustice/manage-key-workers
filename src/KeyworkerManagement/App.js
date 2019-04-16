@@ -195,7 +195,6 @@ class App extends React.Component {
                 />
               )}
             />
-
             <Route
               exact
               path="/manage-key-workers/key-worker-statistics"
@@ -354,23 +353,13 @@ class App extends React.Component {
             <Route
               exact
               path="/admin-utilities/maintain-auth-users"
-              render={() => (
-                <AuthUserSearchContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
+              render={() => <AuthUserSearchContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />}
             />
             <Route
               exact
               path="/admin-utilities/maintain-auth-users/search-results"
               render={() => (
-                <AuthUserSearchResultsContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
+                <AuthUserSearchResultsContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />
               )}
             />
             <Route

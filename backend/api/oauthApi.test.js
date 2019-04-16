@@ -203,4 +203,23 @@ describe('oathApi tests', () => {
       expect(client.del).to.have.been.calledWith(context, 'api/authuser/bob/roles/maintain')
     })
   })
+
+  describe('allRoles', () => {
+    const roles = { bob: 'hello there' }
+    let actual
+
+    beforeEach(() => {
+      client.get = sinon.stub().returns({
+        then: () => roles,
+      })
+      actual = oauthApi.allRoles(context)
+    })
+
+    it('should return roles from endpoint', () => {
+      expect(actual).to.equal(roles)
+    })
+    it('should call user endpoint', () => {
+      expect(client.get).to.have.been.calledWith(context, 'api/authroles')
+    })
+  })
 })
