@@ -43,6 +43,7 @@ import {
   setLoaded,
 } from '../redux/actions/index'
 import { configType, userType, errorType } from '../types'
+import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
 
 const axios = require('axios')
 
@@ -350,11 +351,7 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route
-              exact
-              path="/admin-utilities/maintain-auth-users"
-              render={() => <AuthUserSearchContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />}
-            />
+            <Route exact path="/admin-utilities/maintain-auth-users" render={() => <AuthUserSearchContainer />} />
             <Route
               exact
               path="/admin-utilities/maintain-auth-users/search-results"
@@ -366,6 +363,13 @@ class App extends React.Component {
               exact
               path="/admin-utilities/maintain-auth-users/:username"
               render={() => <AuthUserContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-auth-users/:username/add-role"
+              render={() => (
+                <AuthUserAddRoleContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />
+              )}
             />
           </Switch>
         </div>

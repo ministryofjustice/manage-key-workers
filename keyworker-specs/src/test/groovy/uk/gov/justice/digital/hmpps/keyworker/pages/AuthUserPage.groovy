@@ -14,5 +14,6 @@ public class AuthUserPage extends AuthUserSearchPage {
         roleRows(required: false) { $('#user-roles tbody tr') }
         errorSummary(required: false) { $('#error-summary') }
         messageBar(required: false) { $('div #messageBar') }
+        addButton { $('#add-button')}
     }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Auth search results form no roles should render correctly with user and no roles 1`] = `
+exports[`Auth user display no roles should render correctly with user and no roles 1`] = `
 <div>
   <div
     className="sc-bZQynM gYfOhL"
@@ -136,10 +136,20 @@ exports[`Auth search results form no roles should render correctly with user and
       </table>
     </div>
   </div>
+  <div>
+    <button
+      className="sc-htoDjs gxKpuV"
+      disabled={false}
+      id="add-button"
+      onClick={[Function]}
+    >
+      Add role
+    </button>
+  </div>
 </div>
 `;
 
-exports[`Auth search results form should render correctly with user and roles 1`] = `
+exports[`Auth user display should render correctly with user and roles 1`] = `
 <div>
   <div
     className="sc-bZQynM gYfOhL"
@@ -304,6 +314,16 @@ exports[`Auth search results form should render correctly with user and roles 1`
         </tbody>
       </table>
     </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs gxKpuV"
+      disabled={false}
+      id="add-button"
+      onClick={[Function]}
+    >
+      Add role
+    </button>
   </div>
 </div>
 `;

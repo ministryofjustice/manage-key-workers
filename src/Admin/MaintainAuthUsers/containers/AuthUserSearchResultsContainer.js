@@ -10,7 +10,7 @@ import { handleAxiosError, resetError, setError, setLoaded } from '../../../redu
 import { authUserListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import AuthUserSearchResults from '../components/AuthUserSearchResults'
-import validateSearch from './AuthUserSearchValidation'
+import { validateSearch } from './AuthUserValidation'
 import searchComponent from './AuthUserSearchHoc'
 import { setMaintainAuthUsersList } from '../../../redux/actions/maintainAuthUserActions'
 

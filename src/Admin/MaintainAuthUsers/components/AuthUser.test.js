@@ -12,7 +12,7 @@ const user = {
   email: 'joe.smith@justice.gov.uk',
 }
 
-describe('Auth search results form', () => {
+describe('Auth user display', () => {
   const stubFunc = () => {}
 
   describe('no roles', () => {
