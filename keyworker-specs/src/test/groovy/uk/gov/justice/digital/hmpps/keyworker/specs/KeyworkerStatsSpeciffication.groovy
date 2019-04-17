@@ -2,7 +2,6 @@ package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.matching.UrlPattern
-import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
@@ -17,7 +16,7 @@ import java.time.temporal.ChronoUnit
 
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 
-class KeyworkerStatsSpecification extends GebReportingSpec {
+class KeyworkerStatsSpecification extends BrowserReportingSpec {
     @Rule
     OauthApi oauthApi = new OauthApi()
 

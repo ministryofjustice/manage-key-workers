@@ -11,7 +11,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*
 
 class KeyworkerApi extends WireMockRule {
     KeyworkerApi() {
-        super(8081)
+        super(18081)
     }
 
     void stubEmptyListResponse(url) {

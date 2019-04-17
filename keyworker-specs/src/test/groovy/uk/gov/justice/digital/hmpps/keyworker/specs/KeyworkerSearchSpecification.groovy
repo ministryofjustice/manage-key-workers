@@ -1,6 +1,6 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
-import geb.spock.GebReportingSpec
+
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
@@ -13,7 +13,7 @@ import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
-class KeyworkerSearchSpecification extends GebReportingSpec {
+class KeyworkerSearchSpecification extends BrowserReportingSpec {
 
     @Rule
     OauthApi oauthApi = new OauthApi()

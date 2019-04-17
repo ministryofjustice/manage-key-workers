@@ -15,7 +15,6 @@
     "@govuk-react/error-text": "^0.7.0",
     "@govuk-react/grid-col": "^0.7.0",
     "@govuk-react/grid-row": "^0.7.0",
-    "@govuk-react/header": "^0.7.0",
     "@govuk-react/heading": "^0.7.0",
     "@govuk-react/hoc": "^0.7.0",
     "@govuk-react/input": "^0.7.0",
@@ -125,6 +124,7 @@
   },
   "scripts": {
     "start": "node $NODE_DEBUG_OPTION backend/index.js",
+    "start-feature": "PORT=3005 OAUTH_ENDPOINT_URL=http://localhost:19090/auth/ API_ENDPOINT_URL=http://localhost:18080/ KEYWORKER_API_URL=http://localhost:18081/ node $NODE_DEBUG_OPTION backend/index.js",
     "start-prod": "NODE_ENV=production node backend/index.js",
     "build": "webpack --mode=production",
     "test": "jest --env=jsdom",
@@ -142,7 +142,7 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js,json,css,md}": [
+      "*.{js,json,css}": [
         "prettier --write",
         "eslint --fix --max-warnings 0",
         "git add"

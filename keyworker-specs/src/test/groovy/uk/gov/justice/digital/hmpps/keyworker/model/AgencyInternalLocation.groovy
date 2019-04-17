@@ -7,7 +7,7 @@ import static uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation.*
 @TupleConstructor
 enum AgencyInternalLocation {
 
-LEI_A(-1, 'A', 'WING', LEI, 'LEI-A', null, 'Block A'),
+LEI_A(1, 'A', 'WING', LEI, 'LEI-A', null, 'Block A'),
 LEI_A_1(-2, '1', 'LAND', LEI, 'LEI-A-1', LEI_A, 'Landing A/1'),
 LEI_A_1_1(-3, '1', 'CELL', LEI, 'LEI-A-1-1', LEI_A_1, null),
 LEI_A_1_2(-4, '2', 'CELL', LEI, 'LEI-A-1-2', LEI_A_1, null),
