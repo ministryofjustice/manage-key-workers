@@ -1,11 +1,12 @@
 const log = require('../log')
 
-const handleClientError = async (apiCall, field, res) => {
+const handleClientError = async (apiCall, defaultField, res) => {
   try {
     await apiCall()
   } catch (e) {
     if (e.response && e.response.status < 500) {
       res.status(e.response.status)
+      const field = e.response.data.field ? e.response.data.field : defaultField
       res.json([{ targetName: field, text: e.response.data.error_description }])
     } else {
       throw e
@@ -129,7 +130,21 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  return { getUser, search, roles, addRole, removeRole, allRoles }
+  const createUser = async (req, res) => {
+    const { username } = req.query
+    log.debug('Performing create auth user')
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.createUser(res.locals, username, req.body)
+        res.json(response)
+      },
+      'username',
+      res
+    )
+  }
+
+  return { getUser, search, roles, addRole, removeRole, allRoles, createUser }
 }
 
 module.exports = authUserMaintenanceFactory
