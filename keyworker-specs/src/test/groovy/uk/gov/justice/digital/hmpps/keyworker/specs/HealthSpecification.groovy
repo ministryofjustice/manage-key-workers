@@ -4,8 +4,8 @@ import groovyx.net.http.HttpBuilder
 import groovyx.net.http.HttpException
 import org.junit.Rule
 import spock.lang.Specification
-import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 
 import static groovyx.net.http.HttpBuilder.configure
 
@@ -21,7 +21,7 @@ class HealthSpecification extends Specification {
 
     def setup() {
         http = configure {
-            request.uri = 'http://localhost:3001/health'
+            request.uri = 'http://localhost:3005/health'
         }
     }
 

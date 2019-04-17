@@ -1,6 +1,6 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
-import geb.spock.GebReportingSpec
+
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
@@ -9,15 +9,11 @@ import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
-import uk.gov.justice.digital.hmpps.keyworker.pages.AddRolePage
-import uk.gov.justice.digital.hmpps.keyworker.pages.AdminUtilitiesPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.StaffRoleProfilePage
-import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.UserSearchResultsPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.*
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
-class MaintainRolesSpecification extends GebReportingSpec {
+class MaintainRolesSpecification extends BrowserReportingSpec {
 
     @Rule
     OauthApi oauthApi = new OauthApi()

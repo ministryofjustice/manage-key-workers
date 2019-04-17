@@ -1,7 +1,6 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import com.github.tomakehurst.wiremock.client.WireMock
-import geb.spock.GebReportingSpec
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
@@ -16,7 +15,7 @@ import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForOffenderPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
-class ManualAssignAndTransferSpecification extends GebReportingSpec {
+class ManualAssignAndTransferSpecification extends BrowserReportingSpec {
 
     @Rule
     OauthApi oauthApi = new OauthApi()
@@ -150,11 +149,11 @@ class ManualAssignAndTransferSpecification extends GebReportingSpec {
         when: "I go direct to results page"
         List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
         elite2api.stubGetMyLocations(locations)
-        fixture.toOffenderSearchResultsPageWithoutInitialSearch()
+
+        browser.go '/manage-key-workers/offender-search/results'
 
         then: "I am redirected to the Offender Search page"
         at SearchForOffenderPage
-
     }
 
     def "error returned from api call is rendered"() {

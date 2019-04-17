@@ -133,10 +133,6 @@ class TestFixture {
         keyworkerApi.stubKeyworkerStats()
     }
 
-    def toOffenderSearchResultsPageWithoutInitialSearch() {
-        browser.go '/manage-key-workers/offender-search/results'
-    }
-
     def stubOffenderResultsPage(largeResult) {
         List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
         elite2Api.stubGetMyLocations(locations)

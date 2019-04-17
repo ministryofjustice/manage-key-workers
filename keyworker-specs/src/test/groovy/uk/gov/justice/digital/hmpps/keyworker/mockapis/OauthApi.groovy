@@ -12,7 +12,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 class OauthApi extends WireMockRule {
 
     OauthApi() {
-        super(wireMockConfig().port(9090).extensions(new ResponseTemplateTransformer(true)))
+        super(wireMockConfig().port(19090).extensions(new ResponseTemplateTransformer(true)))
     }
 
     void stubAuthorizeRequest() {
@@ -32,7 +32,7 @@ class OauthApi extends WireMockRule {
 
         this.stubFor(
                 post(urlPathEqualTo('/auth/login'))
-                        .willReturn(temporaryRedirect("http://localhost:3001/login/callback?code=code&state={{request.requestLine.query.state}}")))
+                        .willReturn(temporaryRedirect("http://localhost:3005/login/callback?code=code&state={{request.requestLine.query.state}}")))
 
         this.stubFor(
                 get('/favicon.ico')
@@ -42,7 +42,7 @@ class OauthApi extends WireMockRule {
     void stubAuthorizeLogin() {
         this.stubFor(
                 get(urlPathEqualTo('/auth/oauth/authorize'))
-                        .willReturn(temporaryRedirect("http://localhost:3001/login/callback?code=code&state={{request.requestLine.query.state}}")))
+                        .willReturn(temporaryRedirect("http://localhost:3005/login/callback?code=code&state={{request.requestLine.query.state}}")))
 
         this.stubFor(
                 get('/favicon.ico')
@@ -107,7 +107,7 @@ class OauthApi extends WireMockRule {
                 post('/auth/oauth/token')
                         .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
                         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                        .withRequestBody(equalTo("grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2Flogin%2Fcallback&client_id=elite2apiclient&client_secret=clientsecret&code=code"))
+                        .withRequestBody(equalTo("grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2Flogin%2Fcallback&client_id=elite2apiclient&client_secret=clientsecret&code=code"))
                         .willReturn(response))
     }
 
@@ -136,7 +136,7 @@ class OauthApi extends WireMockRule {
                 post('/auth/oauth/token')
                         .withHeader('authorization', equalTo('Basic ZWxpdGUyYXBpY2xpZW50OmNsaWVudHNlY3JldA=='))
                         .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                        .withRequestBody(equalTo("grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2Flogin%2Fcallback&client_id=elite2apiclient&client_secret=clientsecret&code=code"))
+                        .withRequestBody(equalTo("grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2Flogin%2Fcallback&client_id=elite2apiclient&client_secret=clientsecret&code=code"))
                         .willReturn(response))
     }
 
