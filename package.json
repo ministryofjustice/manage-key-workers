@@ -142,7 +142,7 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js,json,css,md}": [
+      "*.{js,json,css}": [
         "prettier --write",
         "eslint --fix --max-warnings 0",
         "git add"
