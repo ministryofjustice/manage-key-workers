@@ -222,4 +222,19 @@ describe('oathApi tests', () => {
       expect(client.get).to.have.been.calledWith(context, 'api/authroles')
     })
   })
+
+  describe('createUser', () => {
+    const user = { user: { firstName: 'joe', lastName: 'smith' } }
+
+    beforeEach(() => {
+      client.put = sinon.stub().returns({
+        then: () => {},
+      })
+      oauthApi.createUser(context, 'joe', user)
+    })
+
+    it('should call auth user endpoint', () => {
+      expect(client.put).to.have.been.calledWith(context, 'api/authuser/joe', user)
+    })
+  })
 })

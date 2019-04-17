@@ -19,11 +19,12 @@ const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId
  */
 const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const get = (context, path) => client.get(context, path).then(response => response.data)
-  const put = (context, path) => client.put(context, path).then(response => response.data)
+  const put = (context, path, body) => client.put(context, path, body).then(response => response.data)
   const del = (context, path) => client.del(context, path).then(response => response.data)
   const currentUser = context => get(context, 'api/user/me')
   const currentRoles = context => get(context, 'api/user/me/roles')
   const getUser = (context, { username }) => get(context, `api/authuser/${username}`)
+  const createUser = (context, username, user) => put(context, `api/authuser/${username}`, user)
   const userRoles = (context, { username }) => get(context, `api/authuser/${username}/roles`)
   const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
   const addUserRole = (context, { username, role }) => put(context, `api/authuser/${username}/roles/${role}`)
@@ -92,6 +93,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     currentUser,
     currentRoles,
     getUser,
+    createUser,
     userSearch,
     userRoles,
     addUserRole,
