@@ -105,7 +105,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
         .expect(302)
         .expect(
           'location',
-          'http://localhost:9090/auth/logout?client_id=elite2apiclient&redirect_uri=http://localhost:3001'
+          'http://localhost:9090/auth/logout?client_id=elite2apiclient&redirect_uri=http://localhost:3001/'
         )
         // The server sends a set cookie header to clear the cookie.
         // The next test shows that the cookie was cleared because of the redirect to '/'
