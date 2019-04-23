@@ -3,7 +3,6 @@
 Application can be built with for dev mode
 
 ```bash
-yarn build
 yarn
 yarn start
 ```
