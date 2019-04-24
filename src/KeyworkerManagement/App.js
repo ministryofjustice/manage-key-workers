@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { Header, FooterContainer } from 'new-nomis-shared-components'
-import { BrowserRouter as Router, Link, Route, Redirect, Switch } from 'react-router-dom'
+import { FooterContainer, Header } from 'new-nomis-shared-components'
+import { BrowserRouter as Router, Link, Redirect, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
@@ -19,8 +19,10 @@ import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisi
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
 import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
-import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
+import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
 import AuthUserContainer from '../Admin/MaintainAuthUsers/containers/AuthUserContainer'
+import AuthUserCreateContainer from '../Admin/MaintainAuthUsers/containers/AuthUserCreateContainer'
+import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
 import AuthUserSearchResultsContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchResultsContainer'
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
 import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
@@ -31,19 +33,18 @@ import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
 import links from '../links'
 import {
-  switchAgency,
-  setTermsVisibility,
-  setError,
   resetError,
   setConfig,
-  setUserDetails,
-  setMessage,
-  setMenuOpen,
-  setSettings,
+  setError,
   setLoaded,
+  setMenuOpen,
+  setMessage,
+  setSettings,
+  setTermsVisibility,
+  setUserDetails,
+  switchAgency,
 } from '../redux/actions/index'
-import { configType, userType, errorType } from '../types'
-import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
+import { configType, errorType, userType } from '../types'
 
 const axios = require('axios')
 
@@ -355,22 +356,15 @@ class App extends React.Component {
             <Route
               exact
               path="/admin-utilities/maintain-auth-users/search-results"
-              render={() => (
-                <AuthUserSearchResultsContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />
-              )}
+              render={() => <AuthUserSearchResultsContainer />}
             />
-            <Route
-              exact
-              path="/admin-utilities/maintain-auth-users/:username"
-              render={() => <AuthUserContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />}
-            />
+            <Route exact path="/admin-utilities/maintain-auth-users/:username" render={() => <AuthUserContainer />} />
             <Route
               exact
               path="/admin-utilities/maintain-auth-users/:username/add-role"
-              render={() => (
-                <AuthUserAddRoleContainer displayBack={this.displayBack} clearMessage={this.clearMessage} />
-              )}
+              render={() => <AuthUserAddRoleContainer />}
             />
+            <Route exact path="/admin-utilities/create-auth-user" render={() => <AuthUserCreateContainer />} />
           </Switch>
         </div>
       </div>

@@ -18,4 +18,55 @@ const validateAdd = (role, setError) => {
   return true
 }
 
-export { validateSearch, validateAdd }
+const validateCreate = ({ username, email, firstName, lastName }, setError) => {
+  const errors = []
+  if (!username) {
+    errors.push({ targetName: 'username', text: 'Enter a username' })
+  }
+  if (!email) {
+    errors.push({ targetName: 'email', text: 'Enter an email address' })
+  }
+  if (!firstName) {
+    errors.push({ targetName: 'firstName', text: 'Enter a first name' })
+  }
+  if (!lastName) {
+    errors.push({ targetName: 'lastName', text: 'Enter a last name' })
+  }
+  if (errors.length > 0) {
+    setError(errors)
+    return false
+  }
+
+  if (username.length < 6) {
+    errors.push({ targetName: 'username', text: 'Username must be 6 characters or more' })
+  }
+  if (!username.match(/^[a-zA-Z0-9_]*$/)) {
+    errors.push({ targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' })
+  }
+  if (firstName.length < 2) {
+    errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
+  }
+  if (lastName.length < 2) {
+    errors.push({ targetName: 'lastName', text: 'Last name must be 2 characters or more' })
+  }
+  if (!email.match(/.*@.*\..*/)) {
+    errors.push({
+      targetName: 'email',
+      text: 'Enter an email address in the correct format, like first.last@justice.gov.uk',
+    })
+  }
+  if (!email.match(/[0-9A-Za-z@.'_\-+]*/)) {
+    errors.push({
+      targetName: 'email',
+      text: "Email address can only contain 0-9, a-z, @, ', _ and . characters",
+    })
+  }
+
+  if (errors.length > 0) {
+    setError(errors)
+    return false
+  }
+  return true
+}
+
+export { validateSearch, validateAdd, validateCreate }
