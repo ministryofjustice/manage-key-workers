@@ -43,23 +43,23 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   if (!username.match(/^[a-zA-Z0-9_]*$/)) {
     errors.push({ targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' })
   }
-  if (firstName.length < 2) {
-    errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
-  }
-  if (lastName.length < 2) {
-    errors.push({ targetName: 'lastName', text: 'Last name must be 2 characters or more' })
-  }
   if (!email.match(/.*@.*\..*/)) {
     errors.push({
       targetName: 'email',
       text: 'Enter an email address in the correct format, like first.last@justice.gov.uk',
     })
   }
-  if (!email.match(/[0-9A-Za-z@.'_\-+]*/)) {
+  if (!email.match(/^[0-9A-Za-z@.'_\-+]*$/)) {
     errors.push({
       targetName: 'email',
       text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters",
     })
+  }
+  if (firstName.length < 2) {
+    errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
+  }
+  if (lastName.length < 2) {
+    errors.push({ targetName: 'lastName', text: 'Last name must be 2 characters or more' })
   }
 
   if (errors.length > 0) {

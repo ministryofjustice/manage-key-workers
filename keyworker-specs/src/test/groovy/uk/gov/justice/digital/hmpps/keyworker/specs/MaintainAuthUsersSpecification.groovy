@@ -1,21 +1,14 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
 import com.github.tomakehurst.wiremock.client.WireMock
-import com.github.tomakehurst.wiremock.matching.UrlPattern
-import org.codehaus.groovy.util.StringUtil
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
-import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserAddRolePage
-import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserCreatePage
-import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserSearchPage
-import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserSearchResultsPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.*
 import wiremock.org.apache.commons.lang3.RandomStringUtils
-import wiremock.org.apache.commons.lang3.StringUtils
 
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
