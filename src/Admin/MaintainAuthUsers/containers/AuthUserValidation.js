@@ -58,7 +58,7 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   if (!email.match(/[0-9A-Za-z@.'_\-+]*/)) {
     errors.push({
       targetName: 'email',
-      text: "Email address can only contain 0-9, a-z, @, ', _ and . characters",
+      text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters",
     })
   }
 

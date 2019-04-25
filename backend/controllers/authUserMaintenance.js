@@ -6,10 +6,8 @@ const handleClientError = async (apiCall, defaultField, res, errorMapping) => {
   } catch (e) {
     if (e.response && e.response.data && e.response.status < 500) {
       res.status(e.response.status)
-      // eslint-disable-next-line camelcase
-      const { field, error, error_description } = e.response.data
-      // eslint-disable-next-line camelcase
-      const description = (errorMapping && errorMapping[error]) || error_description
+      const { field, error, error_description: errorDescription } = e.response.data
+      const description = (errorMapping && errorMapping[error]) || errorDescription
       res.json([{ targetName: field || defaultField, text: description, error }])
     } else {
       throw e

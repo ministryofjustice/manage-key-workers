@@ -101,7 +101,7 @@ describe('Auth create validation', () => {
   })
   it('should pass validation', () => {
     expect(
-      validateCreate({ username: 'joejoe', email: 'joe@joe.com', firstName: 'joe', lastName: 'joe' }, setError)
+      validateCreate({ username: 'joejoe', email: 'joe+bloggs@joe.com', firstName: 'joe', lastName: 'joe' }, setError)
     ).toBe(true)
     expect(setError).not.toBeCalled()
   })
