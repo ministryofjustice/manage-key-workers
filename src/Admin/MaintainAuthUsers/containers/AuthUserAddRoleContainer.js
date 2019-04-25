@@ -16,7 +16,6 @@ class AuthUserAddRoleContainer extends Component {
   constructor(props) {
     super()
     props.resetErrorDispatch()
-    this.handleAdd = this.handleAdd.bind(this)
     this.state = {}
   }
 
@@ -43,7 +42,7 @@ class AuthUserAddRoleContainer extends Component {
     this.setState(state => ({ ...state, [name]: value }))
   }
 
-  async handleAdd(event) {
+  handleAdd = async event => {
     const { contextUser, setMessageDispatch, handleAxiosErrorDispatch, setErrorDispatch, history } = this.props
     const { roles, role } = this.state
 

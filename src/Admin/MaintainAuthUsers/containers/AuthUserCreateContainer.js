@@ -14,8 +14,6 @@ class AuthUserCreateContainer extends Component {
   constructor(props) {
     super(props)
     props.resetErrorDispatch()
-    this.handleChange = this.handleChange.bind(this)
-    this.handleCreate = this.handleCreate.bind(this)
     this.state = {}
   }
 
@@ -24,12 +22,12 @@ class AuthUserCreateContainer extends Component {
     dispatchLoaded(true)
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const { name, value } = event.target
     this.setState({ [name]: value })
   }
 
-  async handleCreate(event) {
+  handleCreate = async event => {
     const { history, setErrorDispatch, resetErrorDispatch, handleAxiosErrorDispatch } = this.props
     const { username } = this.state
 

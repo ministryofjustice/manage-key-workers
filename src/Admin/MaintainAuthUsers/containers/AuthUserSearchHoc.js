@@ -4,18 +4,12 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 
 const searchComponent = WrappedComponent => {
   class AuthUserSearchHoc extends Component {
-    constructor(props) {
-      super(props)
-      this.handleSearch = this.handleSearch.bind(this)
-      this.handleChange = this.handleChange.bind(this)
-    }
-
-    handleChange(event) {
+    handleChange = event => {
       const { name, value } = event.target
       this.setState({ [name]: value })
     }
 
-    handleSearch(event) {
+    handleSearch = event => {
       const { history } = this.props
       const userQuery = qs.stringify(this.state)
 

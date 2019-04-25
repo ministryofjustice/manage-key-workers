@@ -24,9 +24,6 @@ class AddRoleContainer extends Component {
   constructor(props) {
     super()
     props.resetErrorDispatch()
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleCancel = this.handleCancel.bind(this)
-    this.handleRoleAddChange = this.handleRoleAddChange.bind(this)
     props.resetValidationErrorsDispatch()
   }
 
@@ -66,7 +63,7 @@ class AddRoleContainer extends Component {
     history.goBack()
   }
 
-  async handleAdd(event, history) {
+  handleAdd = async (event, history) => {
     const { contextUser, agencyId, roleAdd, setMessageDispatch, handleError } = this.props
 
     if (!this.validate()) return

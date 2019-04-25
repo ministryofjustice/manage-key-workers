@@ -17,7 +17,6 @@ import { setMaintainAuthUsersList } from '../../../redux/actions/maintainAuthUse
 class AuthUserSearchResultsContainer extends Component {
   constructor(props) {
     super()
-    this.handleEdit = this.handleEdit.bind(this)
     props.resetErrorDispatch()
   }
 
@@ -31,6 +30,14 @@ class AuthUserSearchResultsContainer extends Component {
     if (prevProps.location.search !== location.search) {
       await this.performSearch()
     }
+  }
+
+  handleEdit = event => {
+    const { userList, history } = this.props
+    const chosenUser = userList[event.target.value]
+
+    event.preventDefault()
+    history.push(`/admin-utilities/maintain-auth-users/${chosenUser.username}`)
   }
 
   async performSearch() {
@@ -64,14 +71,6 @@ class AuthUserSearchResultsContainer extends Component {
     }
 
     setLoadedDispatch(true)
-  }
-
-  handleEdit(event) {
-    const { userList, history } = this.props
-    const chosenUser = userList[event.target.value]
-
-    event.preventDefault()
-    history.push(`/admin-utilities/maintain-auth-users/${chosenUser.username}`)
   }
 
   render() {
