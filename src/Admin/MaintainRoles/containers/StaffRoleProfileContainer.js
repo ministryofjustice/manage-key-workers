@@ -21,8 +21,6 @@ class StaffRoleProfileContainer extends Component {
   constructor(props) {
     super()
     props.resetErrorDispatch()
-    this.handleRemove = this.handleRemove.bind(this)
-    this.handleAdd = this.handleAdd.bind(this)
   }
 
   async componentDidMount() {
@@ -51,7 +49,7 @@ class StaffRoleProfileContainer extends Component {
     }
   }
 
-  async handleRemove(event) {
+  handleRemove = async event => {
     const { contextUser, agencyId, setMessageDispatch, handleError } = this.props
 
     try {
@@ -69,6 +67,13 @@ class StaffRoleProfileContainer extends Component {
     }
   }
 
+  handleAdd = (event, history) => {
+    const { setRoleFilterDispatch, contextUser } = this.props
+
+    setRoleFilterDispatch('')
+    history.push(`/admin-utilities/maintain-roles/${contextUser.username}/roles/add-role`)
+  }
+
   async loadUser(username) {
     const { contextUserDispatch, handleError } = this.props
 
@@ -82,13 +87,6 @@ class StaffRoleProfileContainer extends Component {
     } catch (error) {
       handleError(error)
     }
-  }
-
-  handleAdd(event, history) {
-    const { setRoleFilterDispatch, contextUser } = this.props
-
-    setRoleFilterDispatch('')
-    history.push(`/admin-utilities/maintain-roles/${contextUser.username}/roles/add-role`)
   }
 
   render() {

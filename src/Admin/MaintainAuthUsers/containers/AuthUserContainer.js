@@ -9,26 +9,20 @@ import { routeMatchType, contextAuthUserType, authRoleListType, errorType } from
 import Page from '../../../Components/Page'
 
 class AuthUserContainer extends Component {
-  constructor() {
-    super()
-    this.handleRemove = this.handleRemove.bind(this)
-    this.handleAdd = this.handleAdd.bind(this)
-  }
-
   async componentDidMount() {
     const { loadAuthUserAndRolesDispatch, match } = this.props
 
     loadAuthUserAndRolesDispatch(match.params.username)
   }
 
-  async handleRemove(event) {
+  handleRemove = async event => {
     const { removeAuthRoleDispatch } = this.props
 
     event.preventDefault()
     removeAuthRoleDispatch(event.target.value)
   }
 
-  handleAdd(event) {
+  handleAdd = event => {
     const { contextUser, history } = this.props
 
     event.preventDefault()

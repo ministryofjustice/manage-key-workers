@@ -21,11 +21,6 @@ import Page from '../../../Components/Page'
 class UserSearchContainer extends Component {
   constructor(props) {
     super()
-    this.handleRoleFilterChange = this.handleRoleFilterChange.bind(this)
-    this.handleNameFilterChange = this.handleNameFilterChange.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.handlePageAction = this.handlePageAction.bind(this)
     props.resetErrorDispatch()
   }
 
@@ -51,6 +46,38 @@ class UserSearchContainer extends Component {
     } catch (error) {
       setErrorDispatch(error.message)
     }
+  }
+
+  handleRoleFilterChange = event => {
+    const { pageNumberDispatch, roleFilterDispatch } = this.props
+
+    pageNumberDispatch(0)
+    roleFilterDispatch(event.target.value)
+  }
+
+  handleNameFilterChange = event => {
+    const { pageNumberDispatch, nameFilterDispatch } = this.props
+
+    pageNumberDispatch(0)
+    nameFilterDispatch(event.target.value)
+  }
+
+  handleSearch = async () => {
+    const { setLoadedDispatch } = this.props
+
+    setLoadedDispatch(false)
+    await this.performSearch()
+    setLoadedDispatch(true)
+  }
+
+  handlePageAction = async pageNumber => {
+    await this.performSearch(pageNumber)
+  }
+
+  handleEdit = async (event, history) => {
+    const { userList } = this.props
+    const chosenUser = userList[event.target.value]
+    history.push(`/admin-utilities/maintain-roles/${chosenUser.username}/roles`)
   }
 
   async performSearch(page) {
@@ -87,38 +114,6 @@ class UserSearchContainer extends Component {
     } catch (error) {
       handleError(error)
     }
-  }
-
-  handleRoleFilterChange(event) {
-    const { pageNumberDispatch, roleFilterDispatch } = this.props
-
-    pageNumberDispatch(0)
-    roleFilterDispatch(event.target.value)
-  }
-
-  handleNameFilterChange(event) {
-    const { pageNumberDispatch, nameFilterDispatch } = this.props
-
-    pageNumberDispatch(0)
-    nameFilterDispatch(event.target.value)
-  }
-
-  async handleSearch() {
-    const { setLoadedDispatch } = this.props
-
-    setLoadedDispatch(false)
-    await this.performSearch()
-    setLoadedDispatch(true)
-  }
-
-  async handlePageAction(pageNumber) {
-    await this.performSearch(pageNumber)
-  }
-
-  async handleEdit(event, history) {
-    const { userList } = this.props
-    const chosenUser = userList[event.target.value]
-    history.push(`/admin-utilities/maintain-roles/${chosenUser.username}/roles`)
   }
 
   render() {
