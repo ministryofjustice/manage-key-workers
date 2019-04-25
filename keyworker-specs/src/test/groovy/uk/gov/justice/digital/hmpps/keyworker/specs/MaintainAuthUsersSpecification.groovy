@@ -1,6 +1,8 @@
 package uk.gov.justice.digital.hmpps.keyworker.specs
 
-
+import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.matching.UrlPattern
+import org.codehaus.groovy.util.StringUtil
 import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
@@ -8,10 +10,14 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserAddRolePage
+import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserCreatePage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserSearchPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.AuthUserSearchResultsPage
+import wiremock.org.apache.commons.lang3.RandomStringUtils
+import wiremock.org.apache.commons.lang3.StringUtils
 
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
 class MaintainAuthUsersSpecification extends BrowserReportingSpec {
@@ -108,7 +114,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         at AuthUserAddRolePage
 
         then: 'I am on the add role page'
-        assert waitFor { headingText == 'Add Role: Auth Adm'}
+        assert waitFor { headingText == 'Add Role: Auth Adm' }
         oauthApi.stubAuthAddRole()
 
         when: 'I select to add the vary role to the user'
@@ -122,5 +128,40 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         roleRows[1].find("#remove-button-GLOBAL_SEARCH").click()
 
         assert waitFor { messageBar.text() == 'Role Global Search removed' }
+    }
+
+    def "should create a user"() {
+        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Create Auth User page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        to AuthUserCreatePage
+
+        when: "I create a user"
+        createUser('user', 'email@joe', 'first', 'last')
+
+        then: "I am shown validation errors"
+        at AuthUserCreatePage
+        waitFor { errors == 'There is a problem\nUsername must be 6 characters or more\nEnter an email address in the correct format, like first.last@justice.gov.uk'}
+
+        when: "I have another go at creating a user"
+        def username = RandomStringUtils.randomAlphanumeric(6)
+        def email = "${RandomStringUtils.randomAlphanumeric(6)}.noone@justice.gov.uk"
+
+        oauthApi.stubAuthCreateUser()
+        oauthApi.stubAuthUsernameSearch()
+        oauthApi.stubAuthUserRoles()
+        createUser(username, email, 'first', 'last')
+
+        then: "My user is created"
+        at AuthUserPage
+
+        userRows[1].find("td", 0).text() == 'Auth Adm'
+        userRows[2].find("td", 0).text() == 'auth_test2@digital.justice.gov.uk'
+
+        oauthApi.verify(WireMock.getRequestedFor(urlPathEqualTo("/auth/api/authuser/$username")));
     }
 }

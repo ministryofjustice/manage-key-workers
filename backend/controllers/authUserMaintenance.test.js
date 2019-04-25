@@ -80,7 +80,7 @@ describe('Auth user maintenance controller', () => {
         await search({ query: { nameFilter: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(419)
@@ -125,7 +125,7 @@ describe('Auth user maintenance controller', () => {
         await getUser({ query: { username: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(419)
@@ -183,7 +183,7 @@ describe('Auth user maintenance controller', () => {
         await roles({ query: { username: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(404)
@@ -228,7 +228,7 @@ describe('Auth user maintenance controller', () => {
         await addRole({ query: { username: 'joe', role: 'role' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'role', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'role', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(404)
@@ -273,7 +273,7 @@ describe('Auth user maintenance controller', () => {
         await removeRole({ query: { username: 'joe', role: 'role' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'role', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'role', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(404)
@@ -305,7 +305,7 @@ describe('Auth user maintenance controller', () => {
         await allRoles({ query: { username: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(404)
@@ -341,7 +341,7 @@ describe('Auth user maintenance controller', () => {
         await createUser({ query: { username: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
-        expect(res.json).toBeCalledWith([{ targetName: 'email', text: 'Some problem occurred' }])
+        expect(res.json).toBeCalledWith([{ targetName: 'email', text: 'Some problem occurred', error: 'Not Found' }])
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(419)
@@ -359,6 +359,29 @@ describe('Auth user maintenance controller', () => {
       })
 
       await expect(createUser({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
+    })
+
+    it('should map known error conditions', async () => {
+      const response = {
+        status: 400,
+        data: { error: 'email.domain', field: 'email', error_description: 'Some problem occurred' },
+      }
+
+      oauthApi.createUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await createUser({ query: { nameFilter: 'joe' } }, res)
+
+      expect(res.json).toBeCalledWith([
+        {
+          targetName: 'email',
+          text: 'The email domain is not allowed.  Enter a work email address',
+          error: 'email.domain',
+        },
+      ])
     })
   })
 })

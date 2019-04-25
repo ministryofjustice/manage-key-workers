@@ -1,13 +1,14 @@
 const log = require('../log')
 
-const handleClientError = async (apiCall, defaultField, res) => {
+const handleClientError = async (apiCall, defaultField, res, errorMapping) => {
   try {
     await apiCall()
   } catch (e) {
-    if (e.response && e.response.status < 500) {
+    if (e.response && e.response.data && e.response.status < 500) {
       res.status(e.response.status)
-      const field = e.response.data.field ? e.response.data.field : defaultField
-      res.json([{ targetName: field, text: e.response.data.error_description }])
+      const { field, error, error_description: errorDescription } = e.response.data
+      const description = (errorMapping && errorMapping[error]) || errorDescription
+      res.json([{ targetName: field || defaultField, text: description, error }])
     } else {
       throw e
     }
@@ -140,7 +141,8 @@ const authUserMaintenanceFactory = oauthApi => {
         res.json(response)
       },
       'username',
-      res
+      res,
+      { 'email.domain': 'The email domain is not allowed.  Enter a work email address' }
     )
   }
 

@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Create form Form should render correctly 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="username"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Username
+        </span>
+        <input
+          autoComplete="create-username"
+          className="sc-ifAKCX hTyiys"
+          id="username"
+          name="username"
+          onChange={[Function]}
+          type="text"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="email"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Email address
+        </span>
+        <input
+          autoComplete="create-email"
+          className="sc-ifAKCX hTyiys"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          type="email"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="firstName"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          First name
+        </span>
+        <input
+          className="sc-ifAKCX hTyiys"
+          id="firstName"
+          name="firstName"
+          onChange={[Function]}
+          type="text"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="lastName"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Last name
+        </span>
+        <input
+          className="sc-ifAKCX hTyiys"
+          id="lastName"
+          name="lastName"
+          onChange={[Function]}
+          type="text"
+        />
+      </label>
+      <button
+        className="sc-EHOje hEaLol"
+        disabled={false}
+        id="create-button"
+        type="submit"
+      >
+        Create
+      </button>
+    </form>
+  </div>
+</div>
+`;
