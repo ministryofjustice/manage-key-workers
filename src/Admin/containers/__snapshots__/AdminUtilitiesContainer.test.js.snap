@@ -100,6 +100,22 @@ Array [
             Maintain users that do not exist in NOMIS, only in auth.
           </div>
         </div>
+        <div
+          className="sc-VigVT dUvdCr"
+        >
+          <a
+            className="link"
+            href="/admin-utilities/create-auth-user"
+            id="create_auth_user_link"
+            onClick={[Function]}
+            title="Create auth user"
+          >
+            Create auth user
+          </a>
+          <div>
+            Create Licence Responsible User in auth (not in NOMIS).
+          </div>
+        </div>
       </div>
     </div>
   </div>,

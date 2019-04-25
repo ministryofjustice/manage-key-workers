@@ -86,17 +86,17 @@ describe('Auth create validation', () => {
     expect(validateCreate({ username: 'a', email: 'b', firstName: 'c', lastName: 'd' }, setError)).toBe(false)
     expect(setError).toBeCalledWith([
       { targetName: 'username', text: 'Username must be 6 characters or more' },
+      { targetName: 'email', text: 'Enter an email address in the correct format, like first.last@justice.gov.uk' },
       { targetName: 'firstName', text: 'First name must be 2 characters or more' },
       { targetName: 'lastName', text: 'Last name must be 2 characters or more' },
-      { targetName: 'email', text: 'Enter an email address in the correct format, like first.last@justice.gov.uk' },
     ])
   })
   it('should validate specific characters allowed', () => {
-    expect(validateCreate({ username: '"', email: 'b@c,d', firstName: 'ca', lastName: 'de' }, setError)).toBe(false)
+    expect(validateCreate({ username: '"', email: 'b@c,d.com', firstName: 'ca', lastName: 'de' }, setError)).toBe(false)
     expect(setError).toBeCalledWith([
       { targetName: 'username', text: 'Username must be 6 characters or more' },
       { targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' },
-      { targetName: 'email', text: 'Enter an email address in the correct format, like first.last@justice.gov.uk' },
+      { targetName: 'email', text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters" },
     ])
   })
   it('should pass validation', () => {

@@ -10,7 +10,7 @@ import { errorType } from '../../../types'
 const AuthUserCreate = ({ handleChange, handleCreate, error }) => (
   <GridRow>
     <GridCol setWidth="two-thirds">
-      <form onSubmit={handleCreate}>
+      <form onSubmit={handleCreate} noValidate>
         <InputField
           meta={lookupMeta('username', error)}
           htmlFor="username"
@@ -20,7 +20,7 @@ const AuthUserCreate = ({ handleChange, handleCreate, error }) => (
             name: 'username',
             onChange: handleChange,
             autoComplete: 'create-username',
-            spellcheck: false,
+            spellCheck: false,
           }}
         >
           Username
@@ -35,7 +35,7 @@ const AuthUserCreate = ({ handleChange, handleCreate, error }) => (
             onChange: handleChange,
             autoComplete: 'create-email',
             type: 'email',
-            spellcheck: false,
+            spellCheck: false,
           }}
         >
           Email address
@@ -44,7 +44,7 @@ const AuthUserCreate = ({ handleChange, handleCreate, error }) => (
           meta={lookupMeta('firstName', error)}
           htmlFor="firstName"
           mb={6}
-          input={{ id: 'firstName', name: 'firstName', onChange: handleChange, spellcheck: false }}
+          input={{ id: 'firstName', name: 'firstName', onChange: handleChange, spellCheck: false }}
         >
           First name
         </InputField>
@@ -52,7 +52,7 @@ const AuthUserCreate = ({ handleChange, handleCreate, error }) => (
           meta={lookupMeta('lastName', error)}
           htmlFor="lastName"
           mb={6}
-          input={{ id: 'lastName', name: 'lastName', onChange: handleChange, spellcheck: false }}
+          input={{ id: 'lastName', name: 'lastName', onChange: handleChange, spellCheck: false }}
         >
           Last name
         </InputField>

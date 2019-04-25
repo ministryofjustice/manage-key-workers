@@ -8,6 +8,7 @@ exports[`Auth Create form Form should render correctly 1`] = `
     className="sc-htoDjs iFTIaU"
   >
     <form
+      noValidate={true}
       onSubmit={[Function]}
     >
       <label
@@ -25,6 +26,7 @@ exports[`Auth Create form Form should render correctly 1`] = `
           id="username"
           name="username"
           onChange={[Function]}
+          spellCheck={false}
           type="text"
         />
       </label>
@@ -43,6 +45,7 @@ exports[`Auth Create form Form should render correctly 1`] = `
           id="email"
           name="email"
           onChange={[Function]}
+          spellCheck={false}
           type="email"
         />
       </label>
@@ -60,6 +63,7 @@ exports[`Auth Create form Form should render correctly 1`] = `
           id="firstName"
           name="firstName"
           onChange={[Function]}
+          spellCheck={false}
           type="text"
         />
       </label>
@@ -77,6 +81,7 @@ exports[`Auth Create form Form should render correctly 1`] = `
           id="lastName"
           name="lastName"
           onChange={[Function]}
+          spellCheck={false}
           type="text"
         />
       </label>

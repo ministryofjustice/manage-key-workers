@@ -72,6 +72,14 @@ describe('<AdminUtilitiesContainer />', () => {
 
       expect(keyworkerSettingsLink.prop('children')).toEqual('Manage auth users')
     })
+
+    it('should render a Link to create auth users if user has maintain auth user roles', () => {
+      props.user.maintainAuthUsers = true
+      const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
+      const keyworkerSettingsLink = wrapper.find('Link').find({ to: '/admin-utilities/create-auth-user' })
+
+      expect(keyworkerSettingsLink.prop('children')).toEqual('Create auth user')
+    })
   })
 
   it('should render the admin and utilities page', () => {
