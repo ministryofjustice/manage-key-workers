@@ -4,6 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+const isAnalyse = process.env.BUNDLE_ANALYSE !== undefined
+
 const developmentEntries =
   process.env.NODE_ENV === 'development'
     ? [
@@ -13,6 +16,23 @@ const developmentEntries =
         'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
       ]
     : []
+
+const plugins = [
+  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
+  new CopyWebpackPlugin([
+    {
+      from: 'static',
+      to: 'static',
+    },
+  ]),
+  new HtmlWebpackPlugin({
+    template: 'html-template/index.html',
+    publicUrl: process.env.PUBLIC_URL,
+  }),
+]
+
+if (isDevelopment) plugins.push(new webpack.HotModuleReplacementPlugin())
+if (isAnalyse) plugins.push(new BundleAnalyzerPlugin())
 
 module.exports = {
   mode: 'development',
@@ -109,22 +129,5 @@ module.exports = {
       // Make sure to add the new loader(s) before the "file" loader.
     ],
   },
-  plugins: [
-    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new BundleAnalyzerPlugin({
-      generateStatsFile: true,
-      analyzerMode: 'disabled',
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: 'static',
-        to: 'static',
-      },
-    ]),
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'html-template/index.html',
-      publicUrl: process.env.PUBLIC_URL,
-    }),
-  ],
+  plugins,
 }
