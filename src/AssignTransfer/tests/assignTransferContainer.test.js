@@ -2,6 +2,23 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { AssignTransferContainer } from '../AssignTransferContainer'
 
+/**
+ * Workaround for Enzyme 3.9.0 not working with React-Redux hooks-based connect()
+ * https://github.com/airbnb/enzyme/issues/2107
+ */
+jest.mock('react-redux', () => ({
+  connect(/* mapStateToProps, mapDispatchToProps */) {
+    return function fakeConnect(WrappedComponent) {
+      function FakeConnect() {
+        return <WrappedComponent />
+      }
+      const name = WrappedComponent.displayName || WrappedComponent.name || 'Component'
+      FakeConnect.displayName = `Connect(${name})`
+      return FakeConnect
+    }
+  },
+}))
+
 jest.mock('../../Spinner/index', () => '')
 
 const props = {

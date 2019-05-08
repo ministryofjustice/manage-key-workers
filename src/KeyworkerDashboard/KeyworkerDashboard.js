@@ -63,7 +63,7 @@ export class KeyworkerDashboard extends Component {
 
   renderStatistic = statistic => (
     <Fragment key={statistic.heading}>
-      <GridCol columnOneQuarter>
+      <GridCol setWidth="one-quarter">
         <Statistic {...statistic} />
       </GridCol>
     </Fragment>
@@ -99,7 +99,7 @@ export class KeyworkerDashboard extends Component {
           <GridCol>
             <Period fromDate={fromDate} toDate={toDate} onSubmit={this.onSubmit} />
           </GridCol>
-          <GridCol columnOneQuarter>
+          <GridCol setWidth="one-quarter">
             <RatioHeader level={3} size="SMALL">
               Prisoner to key worker ratio
             </RatioHeader>
