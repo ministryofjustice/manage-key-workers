@@ -91,7 +91,7 @@ describe('<AdminUtilitiesContainer />', () => {
 
     const rendered = renderer.create(
       <Provider store={store}>
-        <MemoryRouter>
+        <MemoryRouter initialEntries={['/admin-utilities']}>
           <AdminUtilitiesContainer {...props} />
         </MemoryRouter>
       </Provider>

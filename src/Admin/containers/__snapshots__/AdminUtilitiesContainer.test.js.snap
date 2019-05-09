@@ -18,6 +18,13 @@ Array [
           Home
         </a>
       </li>
+      <li
+        className="sc-gZMcBi gYqZNj"
+      >
+        <span>
+          Admin and utilities
+        </span>
+      </li>
     </ul>
   </div>,
   <div

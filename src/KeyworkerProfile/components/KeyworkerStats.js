@@ -8,7 +8,7 @@ const KeyworkerStats = ({ stats }) => (
   <GridRow>
     {stats.map(stat => (
       <Fragment key={stat.name}>
-        <GridCol columnOneQuarter>
+        <GridCol setWidth="one-quarter">
           <Statistic {...stat} />
         </GridCol>
       </Fragment>
