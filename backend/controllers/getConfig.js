@@ -1,7 +1,6 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
 const config = require('../config')
 
-const getConfiguration = asyncMiddleware(async (req, res) =>
+const getConfiguration = async (req, res) =>
   res.json({
     notmEndpointUrl: config.app.notmEndpointUrl,
     prisonStaffHubUrl: config.app.prisonStaffHubUrl,
@@ -10,7 +9,6 @@ const getConfiguration = asyncMiddleware(async (req, res) =>
     keyworkerProfileStatsEnabled: config.app.keyworkerProfileStatsEnabled,
     keyworkerDashboardStatsEnabled: config.app.keyworkerDashboardStatsEnabled,
   })
-)
 
 module.exports = {
   getConfiguration,

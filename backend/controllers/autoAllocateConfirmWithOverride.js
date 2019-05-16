@@ -1,8 +1,7 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
 const factory = keyworkerApi => {
-  const autoAllocate = asyncMiddleware(async (req, res) => {
+  const autoAllocate = async (req, res) => {
     const { agencyId } = req.query
 
     await keyworkerApi.autoAllocateConfirm(res.locals, agencyId)
@@ -12,7 +11,7 @@ const factory = keyworkerApi => {
     log.debug({ allocateList: allocatedKeyworkers }, 'Manual override contents')
 
     const allocationPromises = allocatedKeyworkers
-      .filter(item => item.staffId)
+      .filter(item => Boolean(item) && item.staffId)
       .map(async allocatedKeyworker => {
         const data = {
           offenderNo: allocatedKeyworker.offenderNo,
@@ -29,7 +28,7 @@ const factory = keyworkerApi => {
 
     await Promise.all(allocationPromises)
     res.json({})
-  })
+  }
 
   return {
     autoAllocate,

@@ -1,4 +1,3 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
 const search = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
@@ -14,7 +13,7 @@ const adminSearch = (eliteApi, res, agencyId, nameFilter, roleFilter) =>
   })
 
 const userSearchFactory = eliteApi => {
-  const userSearch = asyncMiddleware(async (req, res) => {
+  const userSearch = async (req, res) => {
     const { agencyId, nameFilter, roleFilter, hasAdminRole } = req.query
     log.debug(`Performing user search.  Admin role=${hasAdminRole}`)
     const response =
@@ -23,7 +22,7 @@ const userSearchFactory = eliteApi => {
         : await search(eliteApi, res, agencyId, nameFilter, roleFilter)
     res.set(res.locals.responseHeaders)
     res.json(response)
-  })
+  }
 
   return {
     userSearch,

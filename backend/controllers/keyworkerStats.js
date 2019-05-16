@@ -1,5 +1,4 @@
 const moment = require('moment')
-const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
 const totalNumberOfSessionCaseNotesWritten = (currentStats, pastStats, period) => ({
@@ -75,12 +74,12 @@ const keyworkerStatsFactory = keyworkerApi => {
     )
   }
 
-  const getStatsForStaffRoute = asyncMiddleware(async (req, res) => {
+  const getStatsForStaffRoute = async (req, res) => {
     const { agencyId, staffId, fromDate, toDate, period } = req.query
     const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period })
     log.debug({ data: stats }, 'Response from keyworker stats request')
     res.json(stats)
-  })
+  }
 
   return {
     getStatsForStaffRoute,

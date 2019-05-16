@@ -1,5 +1,3 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
-
 const keyworkerSettingsFactory = (keyworkerApi, elite2Api) => {
   const keyworkerSettingsService = async context => {
     const caseloads = await elite2Api.userCaseLoads(context)
@@ -17,10 +15,10 @@ const keyworkerSettingsFactory = (keyworkerApi, elite2Api) => {
       allowAuto: prisonStatus.autoAllocatedSupported,
     }
   }
-  const keyworkerSettings = asyncMiddleware(async (req, res) => {
+  const keyworkerSettings = async (req, res) => {
     const data = await keyworkerSettingsService(res.locals)
     res.json(data)
-  })
+  }
 
   return {
     keyworkerSettings,

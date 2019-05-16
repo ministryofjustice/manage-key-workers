@@ -15,46 +15,22 @@ const middleware = require('webpack-dev-middleware')
 const hrm = require('webpack-hot-middleware')
 const flash = require('connect-flash')
 
-const asyncMiddleware = require('./middleware/asyncHandler')
 const ensureHttps = require('./middleware/ensureHttps')
 const requestForwarding = require('./request-forwarding')
-const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory
-const setActiveCaseLoadFactory = require('./controllers/setactivecaseload').activeCaseloadFactory
-const allocationServiceFactory = require('./services/allocationService').serviceFactory
-const { userLocationsFactory } = require('./controllers/userLocations')
-const { allocationHistoryFactory } = require('./controllers/allocationHistory')
-const { manualOverrideFactory } = require('./controllers/manualoverride')
-const autoAllocateFactory = require('./controllers/autoAllocateConfirmWithOverride').factory
-const { keyworkerSearchFactory } = require('./controllers/keyworkerSearch')
-const { keyworkerProfileFactory } = require('./controllers/keyworkerProfile')
-const { keyworkerUpdateFactory } = require('./controllers/keyworkerUpdate')
-const { userMeFactory } = require('./controllers/userMe')
-const { enableNewNomisFactory } = require('./controllers/enableNewNomis')
-const { autoAllocationAndMigrateFactory } = require('./controllers/autoAllocationMigrate')
-const { manualAllocationAndMigrateFactory } = require('./controllers/manualAllocationMigrate')
-const { keyworkerSettingsFactory } = require('./controllers/keyworkerSettings')
-const { getRolesFactory } = require('./controllers/getRoles')
-const { getUserFactory } = require('./controllers/getUser')
-const { removeRoleFactory } = require('./controllers/removeRole')
-const { addRoleFactory } = require('./controllers/addRole')
-const { contextUserRolesFactory } = require('./controllers/contextUserRoles')
-const { userSearchFactory } = require('./controllers/userSearch')
-const authUserMaintenanceFactory = require('./controllers/authUserMaintenance')
-const { getConfiguration } = require('./controllers/getConfig')
+
 const { healthFactory } = require('./controllers/health')
-const { keyworkerStatsFactory } = require('./controllers/keyworkerStats')
-const { keyworkerPrisonStatsFactory } = require('./controllers/keyworkerPrisonStats')
 
 const sessionManagementRoutes = require('./sessionManagementRoutes')
 const auth = require('./auth')
 
 const tokenRefresherFactory = require('./tokenRefresher').factory
-const controllerFactory = require('./controllers/controller').factory
 
 const clientFactory = require('./api/oauthEnabledClient')
 const { elite2ApiFactory } = require('./api/elite2Api')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { oauthApiFactory } = require('./api/oauthApi')
+
+const configureRoutes = require('./routes')
 
 const log = require('./log')
 const config = require('./config')
@@ -120,12 +96,6 @@ const keyworkerApi = keyworkerApiFactory(
     timeout: 1000 * config.apis.keyworker.timeoutSeconds,
   })
 )
-
-const controller = controllerFactory(
-  allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax),
-  keyworkerPrisonStatsFactory(keyworkerApi)
-)
-
 const oauthApi = oauthApiFactory(
   clientFactory({
     baseUrl: config.apis.oauth2.url,
@@ -181,40 +151,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 // Extract pagination header information from requests and set on the 'context'
 app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 
-app.use('/api/config', getConfiguration)
-app.use('/api/me', asyncMiddleware(userMeFactory(oauthApi, elite2Api, keyworkerApi).userMeService))
-app.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
-app.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
-app.use('/api/unallocated', controller.unallocated)
-app.use('/api/allocated', controller.allocated)
-app.use('/api/keyworkerAllocations', controller.keyworkerAllocations)
-app.use('/api/searchOffenders', controller.searchOffenders)
-app.use('/api/userLocations', userLocationsFactory(elite2Api).userLocations)
-app.use('/api/allocationHistory', allocationHistoryFactory(keyworkerApi).allocationHistory)
-app.use('/api/keyworker', keyworkerProfileFactory(keyworkerApi).keyworkerProfile)
-app.use('/api/manualoverride', manualOverrideFactory(keyworkerApi).manualOverride)
-app.use('/api/keyworkerSearch', keyworkerSearchFactory(keyworkerApi).keyworkerSearch)
-app.use('/api/autoAllocateConfirmWithOverride', autoAllocateFactory(keyworkerApi).autoAllocate)
-app.use('/api/keyworkerUpdate', keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate)
-app.use('/api/enableNewNomis', enableNewNomisFactory(elite2Api).enableNewNomis)
-app.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate)
-app.use('/api/manualAllocateMigrate', manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate)
-app.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings)
-app.use('/api/userSearch', userSearchFactory(elite2Api).userSearch)
-app.use('/api/auth-user-get', asyncMiddleware(authUserMaintenanceFactory(oauthApi).getUser))
-app.use('/api/auth-user-create', asyncMiddleware(authUserMaintenanceFactory(oauthApi).createUser))
-app.use('/api/auth-user-search', asyncMiddleware(authUserMaintenanceFactory(oauthApi).search))
-app.use('/api/auth-user-roles', asyncMiddleware(authUserMaintenanceFactory(oauthApi).roles))
-app.use('/api/auth-user-roles-add', asyncMiddleware(authUserMaintenanceFactory(oauthApi).addRole))
-app.use('/api/auth-user-roles-remove', asyncMiddleware(authUserMaintenanceFactory(oauthApi).removeRole))
-app.use('/api/auth-roles', asyncMiddleware(authUserMaintenanceFactory(oauthApi).allRoles))
-app.use('/api/getRoles', getRolesFactory(elite2Api).getRoles)
-app.use('/api/getUser', getUserFactory(elite2Api).getUser)
-app.use('/api/removeRole', removeRoleFactory(elite2Api).removeRole)
-app.use('/api/addRole', addRoleFactory(elite2Api).addRole)
-app.use('/api/contextUserRoles', contextUserRolesFactory(elite2Api).contextUserRoles)
-app.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
-app.use('/api/keyworker-prison-stats', controller.getPrisonStats)
+app.use(configureRoutes({ oauthApi, elite2Api, keyworkerApi }))
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'))
