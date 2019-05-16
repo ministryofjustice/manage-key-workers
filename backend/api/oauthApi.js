@@ -29,6 +29,8 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
   const addUserRole = (context, { username, role }) => put(context, `api/authuser/${username}/roles/${role}`)
   const removeUserRole = (context, { username, role }) => del(context, `api/authuser/${username}/roles/${role}`)
+  const enableUser = (context, { username }) => put(context, `api/authuser/${username}/enable`)
+  const disableUser = (context, { username }) => put(context, `api/authuser/${username}/disable`)
   const allRoles = context => get(context, `api/authroles`)
 
   const oauthAxios = axios.create({
@@ -102,6 +104,8 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,
+    enableUser,
+    disableUser,
   }
 }
 
