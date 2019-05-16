@@ -3,7 +3,17 @@ const authUserMaintenanceFactory = require('./authUserMaintenance')
 describe('Auth user maintenance controller', () => {
   const oauthApi = {}
   const res = { locals: {} }
-  const { search, roles, addRole, removeRole, getUser, allRoles, createUser } = authUserMaintenanceFactory(oauthApi)
+  const {
+    search,
+    roles,
+    addRole,
+    removeRole,
+    getUser,
+    allRoles,
+    createUser,
+    enableUser,
+    disableUser,
+  } = authUserMaintenanceFactory(oauthApi)
 
   beforeEach(() => {
     oauthApi.getUser = jest.fn()
@@ -13,6 +23,8 @@ describe('Auth user maintenance controller', () => {
     oauthApi.removeUserRole = jest.fn()
     oauthApi.allRoles = jest.fn()
     oauthApi.createUser = jest.fn()
+    oauthApi.disableUser = jest.fn()
+    oauthApi.enableUser = jest.fn()
     res.json = jest.fn()
     res.status = jest.fn()
   })
@@ -382,6 +394,102 @@ describe('Auth user maintenance controller', () => {
           error: 'email.domain',
         },
       ])
+    })
+  })
+
+  describe('enableUser', () => {
+    it('should call enableUser', async () => {
+      const response = {}
+
+      oauthApi.enableUser.mockReturnValueOnce(response)
+
+      await enableUser({ query: { username: 'bob' } }, res)
+
+      expect(oauthApi.enableUser).toBeCalledWith({}, { username: 'bob' })
+    })
+
+    describe('known issue', () => {
+      const response = {
+        status: 419,
+        data: { error: 'Not Found', field: 'email', error_description: 'Some problem occurred' },
+      }
+
+      beforeEach(async () => {
+        oauthApi.enableUser.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await enableUser({ query: { username: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'email', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(419)
+      })
+    })
+
+    it('should throw error through if unknown issue occurs', async () => {
+      const response = { status: 500, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      const e = new Error('something went wrong')
+      oauthApi.enableUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await expect(enableUser({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
+    })
+  })
+
+  describe('disableUser', () => {
+    it('should call disableUser', async () => {
+      const response = {}
+
+      oauthApi.disableUser.mockReturnValueOnce(response)
+
+      await disableUser({ query: { username: 'bob' } }, res)
+
+      expect(oauthApi.disableUser).toBeCalledWith({}, { username: 'bob' })
+    })
+
+    describe('known issue', () => {
+      const response = {
+        status: 419,
+        data: { error: 'Not Found', field: 'email', error_description: 'Some problem occurred' },
+      }
+
+      beforeEach(async () => {
+        oauthApi.disableUser.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await disableUser({ query: { username: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'email', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(419)
+      })
+    })
+
+    it('should throw error through if unknown issue occurs', async () => {
+      const response = { status: 500, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      const e = new Error('something went wrong')
+      oauthApi.disableUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await expect(disableUser({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
     })
   })
 })

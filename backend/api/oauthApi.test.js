@@ -1,10 +1,3 @@
-const chai = require('chai')
-const sinon = require('sinon')
-const sinonChai = require('sinon-chai')
-
-chai.use(sinonChai)
-const { expect } = chai
-
 const MockAdapter = require('axios-mock-adapter')
 const querystring = require('querystring')
 const { oauthApiFactory } = require('./oauthApi')
@@ -54,23 +47,23 @@ describe('oathApi tests', () => {
     describe('should save tokens', () => {
       it('should save access token', () =>
         refreshResponse.then(response => {
-          expect(response.access_token).to.equal('newAccessToken')
+          expect(response.access_token).toEqual('newAccessToken')
         }))
 
       it('should save refresh token', () =>
         refreshResponse.then(response => {
-          expect(response.refresh_token).to.equal('newRefreshToken')
+          expect(response.refresh_token).toEqual('newRefreshToken')
         }))
     })
 
     it('should have set correct request configuration', () =>
       refreshResponse.then(response => {
-        expect(requestConfig.method).to.equal('post')
-        expect(requestConfig.baseURL).to.equal(url)
-        expect(requestConfig.url).to.equal('http://localhost/oauth/token')
-        expect(requestConfig.data).to.equal('refresh_token=refreshToken&grant_type=refresh_token')
-        expect(requestConfig.headers.authorization).to.equal(`Basic ${encodeClientCredentials()}`)
-        expect(requestConfig.headers['Content-Type']).to.equal('application/x-www-form-urlencoded')
+        expect(requestConfig.method).toEqual('post')
+        expect(requestConfig.baseURL).toEqual(url)
+        expect(requestConfig.url).toEqual('http://localhost/oauth/token')
+        expect(requestConfig.data).toEqual('refresh_token=refreshToken&grant_type=refresh_token')
+        expect(requestConfig.headers.authorization).toEqual(`Basic ${encodeClientCredentials()}`)
+        expect(requestConfig.headers['Content-Type']).toEqual('application/x-www-form-urlencoded')
       }))
   })
 
@@ -79,17 +72,17 @@ describe('oathApi tests', () => {
     let actual
 
     beforeEach(() => {
-      client.get = sinon.stub().returns({
+      client.get = jest.fn().mockReturnValue({
         then: () => roles,
       })
       actual = oauthApi.userRoles(context, { username: 'joe' })
     })
 
     it('should return roles from endpoint', () => {
-      expect(actual).to.equal(roles)
+      expect(actual).toEqual(roles)
     })
     it('should call auth roles endpoint', () => {
-      expect(client.get).to.have.been.calledWith(context, 'api/authuser/joe/roles')
+      expect(client.get).toBeCalledWith(context, 'api/authuser/joe/roles')
     })
   })
 
@@ -98,17 +91,17 @@ describe('oathApi tests', () => {
     let actual
 
     beforeEach(() => {
-      client.get = sinon.stub().returns({
+      client.get = jest.fn().mockReturnValue({
         then: () => userDetails,
       })
       actual = oauthApi.getUser(context, { username: 'joe' })
     })
 
     it('should return roles from endpoint', () => {
-      expect(actual).to.equal(userDetails)
+      expect(actual).toEqual(userDetails)
     })
     it('should call auth user endpoint', () => {
-      expect(client.get).to.have.been.calledWith(context, 'api/authuser/joe')
+      expect(client.get).toBeCalledWith(context, 'api/authuser/joe')
     })
   })
 
@@ -117,17 +110,17 @@ describe('oathApi tests', () => {
     let actual
 
     beforeEach(() => {
-      client.get = sinon.stub().returns({
+      client.get = jest.fn().mockReturnValue({
         then: () => userDetails,
       })
       actual = oauthApi.currentUser(context, { username: 'joe' })
     })
 
     it('should return user details from endpoint', () => {
-      expect(actual).to.equal(userDetails)
+      expect(actual).toEqual(userDetails)
     })
     it('should call user endpoint', () => {
-      expect(client.get).to.have.been.calledWith(context, 'api/user/me')
+      expect(client.get).toBeCalledWith(context, 'api/user/me')
     })
   })
 
@@ -136,17 +129,17 @@ describe('oathApi tests', () => {
     let actual
 
     beforeEach(() => {
-      client.get = sinon.stub().returns({
+      client.get = jest.fn().mockReturnValue({
         then: () => roles,
       })
       actual = oauthApi.currentRoles(context, { username: 'joe' })
     })
 
     it('should return roles from endpoint', () => {
-      expect(actual).to.equal(roles)
+      expect(actual).toEqual(roles)
     })
     it('should call user endpoint', () => {
-      expect(client.get).to.have.been.calledWith(context, 'api/user/me/roles')
+      expect(client.get).toBeCalledWith(context, 'api/user/me/roles')
     })
   })
   describe('userSearch', () => {
@@ -154,53 +147,55 @@ describe('oathApi tests', () => {
     let actual
 
     beforeEach(() => {
-      client.get = sinon.stub().returns({
+      client.get = jest.fn().mockReturnValue({
         then: () => userDetails,
       })
       actual = oauthApi.userSearch(context, { nameFilter: "joe'fred@bananas%.com" })
     })
 
     it('should return roles from endpoint', () => {
-      expect(actual).to.equal(userDetails)
+      expect(actual).toEqual(userDetails)
     })
     it('should call user endpoint', () => {
-      expect(client.get).to.have.been.calledWith(context, "api/authuser?email=joe'fred%40bananas%25.com")
+      expect(client.get).toBeCalledWith(context, "api/authuser?email=joe'fred%40bananas%25.com")
     })
   })
+
   describe('addUserRole', () => {
     const errorResponse = { field: 'hello' }
     let actual
 
     beforeEach(() => {
-      client.put = sinon.stub().returns({
+      client.put = jest.fn().mockReturnValue({
         then: () => errorResponse,
       })
       actual = oauthApi.addUserRole(context, { username: 'bob', role: 'maintain' })
     })
 
     it('should return any error from endpoint', () => {
-      expect(actual).to.equal(errorResponse)
+      expect(actual).toEqual(errorResponse)
     })
     it('should call user endpoint', () => {
-      expect(client.put).to.have.been.calledWith(context, 'api/authuser/bob/roles/maintain')
+      expect(client.put).toBeCalledWith(context, 'api/authuser/bob/roles/maintain', undefined)
     })
   })
+
   describe('removeUserRole', () => {
     const errorResponse = { field: 'hello' }
     let actual
 
     beforeEach(() => {
-      client.del = sinon.stub().returns({
+      client.del = jest.fn().mockReturnValue({
         then: () => errorResponse,
       })
       actual = oauthApi.removeUserRole(context, { username: 'bob', role: 'maintain' })
     })
 
     it('should return any error from endpoint', () => {
-      expect(actual).to.equal(errorResponse)
+      expect(actual).toEqual(errorResponse)
     })
     it('should call user endpoint', () => {
-      expect(client.del).to.have.been.calledWith(context, 'api/authuser/bob/roles/maintain')
+      expect(client.del).toBeCalledWith(context, 'api/authuser/bob/roles/maintain')
     })
   })
 
@@ -209,17 +204,17 @@ describe('oathApi tests', () => {
     let actual
 
     beforeEach(() => {
-      client.get = sinon.stub().returns({
+      client.get = jest.fn().mockReturnValue({
         then: () => roles,
       })
       actual = oauthApi.allRoles(context)
     })
 
     it('should return roles from endpoint', () => {
-      expect(actual).to.equal(roles)
+      expect(actual).toEqual(roles)
     })
     it('should call user endpoint', () => {
-      expect(client.get).to.have.been.calledWith(context, 'api/authroles')
+      expect(client.get).toBeCalledWith(context, 'api/authroles')
     })
   })
 
@@ -227,14 +222,52 @@ describe('oathApi tests', () => {
     const user = { user: { firstName: 'joe', lastName: 'smith' } }
 
     beforeEach(() => {
-      client.put = sinon.stub().returns({
+      client.put = jest.fn().mockReturnValue({
         then: () => {},
       })
       oauthApi.createUser(context, 'joe', user)
     })
 
     it('should call auth user endpoint', () => {
-      expect(client.put).to.have.been.calledWith(context, 'api/authuser/joe', user)
+      expect(client.put).toBeCalledWith(context, 'api/authuser/joe', user)
+    })
+  })
+
+  describe('enableUser', () => {
+    const errorResponse = { field: 'hello' }
+    let actual
+
+    beforeEach(() => {
+      client.put = jest.fn().mockReturnValue({
+        then: () => errorResponse,
+      })
+      actual = oauthApi.enableUser(context, { username: 'bob' })
+    })
+
+    it('should return any error from endpoint', () => {
+      expect(actual).toEqual(errorResponse)
+    })
+    it('should call user endpoint', () => {
+      expect(client.put).toBeCalledWith(context, 'api/authuser/bob/enable', undefined)
+    })
+  })
+
+  describe('disableUser', () => {
+    const errorResponse = { field: 'hello' }
+    let actual
+
+    beforeEach(() => {
+      client.put = jest.fn().mockReturnValue({
+        then: () => errorResponse,
+      })
+      actual = oauthApi.disableUser(context, { username: 'bob' })
+    })
+
+    it('should return any error from endpoint', () => {
+      expect(actual).toEqual(errorResponse)
+    })
+    it('should call user endpoint', () => {
+      expect(client.put).toBeCalledWith(context, 'api/authuser/bob/disable', undefined)
     })
   })
 })

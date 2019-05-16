@@ -146,7 +146,35 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  return { getUser, search, roles, addRole, removeRole, allRoles, createUser }
+  const enableUser = async (req, res) => {
+    const { username } = req.query
+    log.debug(`Enabling auth user ${username}`)
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.enableUser(res.locals, { username })
+        res.json(response)
+      },
+      'username',
+      res
+    )
+  }
+
+  const disableUser = async (req, res) => {
+    const { username } = req.query
+    log.debug(`Disabling auth user ${username}`)
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.disableUser(res.locals, { username })
+        res.json(response)
+      },
+      'username',
+      res
+    )
+  }
+
+  return { getUser, search, roles, addRole, removeRole, allRoles, createUser, enableUser, disableUser }
 }
 
 module.exports = authUserMaintenanceFactory
