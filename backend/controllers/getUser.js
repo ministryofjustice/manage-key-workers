@@ -1,7 +1,5 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
-
 const getUserFactory = elite2Api => {
-  const getUser = asyncMiddleware(async (req, res) => {
+  const getUser = async (req, res) => {
     const { username } = req.query
     const data = await elite2Api.getUser(res.locals, username)
 
@@ -19,7 +17,7 @@ const getUserFactory = elite2Api => {
     }
 
     res.json(data)
-  })
+  }
 
   return {
     getUser,

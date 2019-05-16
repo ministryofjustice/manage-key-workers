@@ -1,5 +1,4 @@
 const axios = require('axios')
-const asyncMiddleware = require('../middleware/asyncHandler')
 const applicationVersion = require('../application-version')
 
 const { packageData, buildNumber } = applicationVersion
@@ -59,11 +58,11 @@ const healthFactory = (keyworkerApiUrl, elite2ApiUrl) => {
     }
   }
 
-  const health = asyncMiddleware(async (req, res) => {
+  const health = async (req, res) => {
     const response = await healthResult()
     res.status(response.status)
     res.json(response.appInfo)
-  })
+  }
 
   return {
     health,

@@ -1,8 +1,7 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
 const log = require('../log')
 
 const manualOverrideFactory = keyworkerApi => {
-  const manualOverride = asyncMiddleware(async (req, res) => {
+  const manualOverride = async (req, res) => {
     const allocateList = req.body.allocatedKeyworkers
 
     log.debug({ allocateList }, 'Manual override contents')
@@ -35,7 +34,7 @@ const manualOverrideFactory = keyworkerApi => {
 
     await Promise.all(allocationPromises)
     res.json({})
-  })
+  }
 
   return {
     manualOverride,

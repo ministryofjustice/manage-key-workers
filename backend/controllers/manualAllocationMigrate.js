@@ -1,7 +1,5 @@
-const asyncMiddleware = require('../middleware/asyncHandler')
-
 const manualAllocationAndMigrateFactory = keyworkerApi => {
-  const enableManualAllocationAndMigrate = asyncMiddleware(async (req, res) => {
+  const enableManualAllocationAndMigrate = async (req, res) => {
     const { agencyId } = req.query
     const update = req.body
     const response = await keyworkerApi.enableManualAllocationAndMigrate(
@@ -12,7 +10,7 @@ const manualAllocationAndMigrateFactory = keyworkerApi => {
       update.frequency
     )
     res.json(response)
-  })
+  }
 
   return {
     enableManualAllocationAndMigrate,
