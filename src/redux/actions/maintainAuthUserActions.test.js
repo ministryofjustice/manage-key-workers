@@ -14,6 +14,8 @@ import {
 import {
   loadAuthUserAndRoles,
   removeAuthRole,
+  enableUser,
+  disableUser,
   setMaintainAuthContextUser,
   setMaintainAuthRoleList,
   setMaintainAuthUsersList,
@@ -61,7 +63,7 @@ describe('maintain auth users', () => {
 
         const store = mockStore({
           maintainAuthUsers: {
-            contextUser: 'username',
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
             roleList: [{ roleCode: 'roleA', roleName: 'Role A' }, roleB],
           },
         })
@@ -82,7 +84,7 @@ describe('maintain auth users', () => {
 
         const store = mockStore({
           maintainAuthUsers: {
-            contextUser: 'username',
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
             roleList: [{ roleCode: 'roleA', roleName: 'Role A' }, roleB],
           },
         })
@@ -106,7 +108,7 @@ describe('maintain auth users', () => {
 
         const store = mockStore({
           maintainAuthUsers: {
-            contextUser: 'username',
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
             roleList: [{ roleCode: 'roleA', roleName: 'Role A' }, roleB],
           },
         })
@@ -124,11 +126,84 @@ describe('maintain auth users', () => {
 
         const store = mockStore({
           maintainAuthUsers: {
-            contextUser: 'username',
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
             roleList: [{ roleCode: 'roleA', roleName: 'Role A' }, roleB],
           },
         })
         await store.dispatch(removeAuthRole('roleA'))
+
+        expect(store.getActions()).toEqual([{ error: 'Something went wrong: Error: User not found', type: SET_ERROR }])
+      })
+    })
+
+    describe('enableUser', () => {
+      it('should create an action to enable a user', async () => {
+        axios.get = jest.fn()
+        axios.get.mockImplementationOnce(() => Promise.resolve({ status: 200, config: {} }))
+        axios.get.mockImplementationOnce(() =>
+          Promise.resolve({ status: 200, data: { username: 'fetcheduser' }, config: {} })
+        )
+
+        const store = mockStore({
+          maintainAuthUsers: {
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
+          },
+        })
+        await store.dispatch(enableUser())
+
+        expect(store.getActions()).toEqual([
+          {
+            contextUser: { username: 'fetcheduser' },
+            type: 'SET_AUTH_USER_CONTEXT_USER',
+          },
+          { message: 'User Auth User enabled', type: SET_MESSAGE },
+        ])
+      })
+      it('should handle axios errors', async () => {
+        axios.get = jest.fn()
+        axios.get.mockImplementationOnce(() => throw new Error('User not found'))
+
+        const store = mockStore({
+          maintainAuthUsers: {
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
+          },
+        })
+        await store.dispatch(enableUser())
+
+        expect(store.getActions()).toEqual([{ error: 'Something went wrong: Error: User not found', type: SET_ERROR }])
+      })
+    })
+
+    describe('disableUser', () => {
+      it('should create an action to disable a user', async () => {
+        axios.get = jest.fn()
+        axios.get.mockImplementationOnce(() => Promise.resolve({ status: 200, config: {} }))
+        axios.get.mockImplementationOnce(() =>
+          Promise.resolve({ status: 200, data: { username: 'fetcheduser' }, config: {} })
+        )
+
+        const store = mockStore({
+          maintainAuthUsers: {
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
+          },
+        })
+        await store.dispatch(disableUser())
+
+        expect(store.getActions()).toEqual([
+          { contextUser: { username: 'fetcheduser' }, type: 'SET_AUTH_USER_CONTEXT_USER' },
+          { message: 'User Auth User disabled', type: SET_MESSAGE },
+        ])
+      })
+      it('should handle axios errors', async () => {
+        axios.get = jest.fn()
+        axios.get.mockImplementationOnce(() => throw new Error('User not found'))
+
+        const store = mockStore({
+          maintainAuthUsers: {
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
+          },
+        })
+        await store.dispatch(disableUser())
 
         expect(store.getActions()).toEqual([{ error: 'Something went wrong: Error: User not found', type: SET_ERROR }])
       })

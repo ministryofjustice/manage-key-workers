@@ -177,14 +177,14 @@ class OauthApi extends WireMockRule {
                                 .withBody(AuthUserSearchResponse.getRolesResponse())))
     }
 
-    void stubAuthUsernameSearch() {
+    void stubAuthUsernameSearch(enabled = true) {
         this.stubFor(
                 get(urlPathMatching("/auth/api/authuser/.*"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
-                                .withBody(AuthUserSearchResponse.getUsernameResponse())))
+                                .withBody(AuthUserSearchResponse.getUsernameResponse(enabled))))
     }
 
     void stubAuthEmailSearch() {
@@ -196,6 +196,25 @@ class OauthApi extends WireMockRule {
                                 .withHeader('Content-Type', 'application/json')
                                 .withBody(AuthUserSearchResponse.getEmailResponse())))
     }
+
+    void stubAuthUserEnable() {
+        this.stubFor(
+                put(urlPathMatching("/auth/api/authuser/.*/enable"))
+                        .willReturn(
+                                aResponse()
+                                        .withStatus(200)
+                                        .withHeader('Content-Type', 'application/json')))
+    }
+
+    void stubAuthUserDisable() {
+        this.stubFor(
+                put(urlPathMatching("/auth/api/authuser/.*/disable"))
+                        .willReturn(
+                                aResponse()
+                                        .withStatus(200)
+                                        .withHeader('Content-Type', 'application/json')))
+    }
+
 
     void stubAuthRemoveRole() {
         this.stubFor(
@@ -233,4 +252,5 @@ class OauthApi extends WireMockRule {
                                         .withHeader('Content-Type', 'application/json')
                                         .withBody(AuthUserSearchResponse.getAllRolesResponse())))
     }
+
 }

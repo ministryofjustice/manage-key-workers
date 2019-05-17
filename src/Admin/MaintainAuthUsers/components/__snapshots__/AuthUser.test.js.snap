@@ -10,7 +10,7 @@ exports[`Auth user display no roles should render correctly with user and no rol
     >
       <table
         className="sc-EHOje kCMYgv"
-        id="user-details"
+        data-qa="user-details"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -28,6 +28,11 @@ exports[`Auth user display no roles should render correctly with user and no rol
             >
               joesmith
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -44,6 +49,11 @@ exports[`Auth user display no roles should render correctly with user and no rol
                
               Smith
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -57,6 +67,11 @@ exports[`Auth user display no roles should render correctly with user and no rol
               className="sc-bxivhb jMmQxS"
             >
               joe.smith@justice.gov.uk
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
             </td>
           </tr>
           <tr
@@ -72,6 +87,11 @@ exports[`Auth user display no roles should render correctly with user and no rol
             >
               No
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -86,6 +106,19 @@ exports[`Auth user display no roles should render correctly with user and no rol
             >
               Yes
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              <button
+                className="sc-htoDjs kiMCan"
+                data-qa="enable-button"
+                disabled={false}
+                onClick={[Function]}
+                value="joesmith"
+              >
+                Disable
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -99,7 +132,7 @@ exports[`Auth user display no roles should render correctly with user and no rol
     >
       <table
         className="sc-EHOje kCMYgv"
-        id="user-roles"
+        data-qa="user-roles"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -139,8 +172,8 @@ exports[`Auth user display no roles should render correctly with user and no rol
   <div>
     <button
       className="sc-htoDjs gxKpuV"
+      data-qa="add-button"
       disabled={false}
-      id="add-button"
       onClick={[Function]}
     >
       Add role
@@ -159,7 +192,7 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
     >
       <table
         className="sc-EHOje kCMYgv"
-        id="user-details"
+        data-qa="user-details"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -177,6 +210,11 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             >
               joesmith
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -193,6 +231,11 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
                
               Smith
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -206,6 +249,11 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
               className="sc-bxivhb jMmQxS"
             >
               joe.smith@justice.gov.uk
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
             </td>
           </tr>
           <tr
@@ -221,6 +269,11 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             >
               No
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -235,6 +288,19 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             >
               Yes
             </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              <button
+                className="sc-htoDjs kiMCan"
+                data-qa="enable-button"
+                disabled={false}
+                onClick={[Function]}
+                value="joesmith"
+              >
+                Disable
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -248,7 +314,7 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
     >
       <table
         className="sc-EHOje kCMYgv"
-        id="user-roles"
+        data-qa="user-roles"
       >
         <tbody
           className="sc-bwzfXH uTxCW"
@@ -280,8 +346,8 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             >
               <button
                 className="sc-htoDjs kiMCan"
+                data-qa="remove-button-roleA"
                 disabled={false}
-                id="remove-button-roleA"
                 onClick={[Function]}
                 value="roleA"
               >
@@ -302,8 +368,8 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             >
               <button
                 className="sc-htoDjs kiMCan"
+                data-qa="remove-button-roleB"
                 disabled={false}
-                id="remove-button-roleB"
                 onClick={[Function]}
                 value="roleB"
               >
@@ -318,8 +384,8 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
   <div>
     <button
       className="sc-htoDjs gxKpuV"
+      data-qa="add-button"
       disabled={false}
-      id="add-button"
       onClick={[Function]}
     >
       Add role
