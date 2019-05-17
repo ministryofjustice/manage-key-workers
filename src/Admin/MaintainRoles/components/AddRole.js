@@ -78,7 +78,7 @@ const AddRole = ({
           )}
           <button
             type="button"
-            className="button margin-left-15 margin-top-large"
+            className="button greyButtonNoMinWidth margin-left-15 margin-top-large"
             id="cancel-button"
             onClick={event => {
               handleCancel(event, history)
