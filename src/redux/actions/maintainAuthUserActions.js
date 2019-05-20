@@ -63,3 +63,35 @@ export const removeAuthRole = roleCode => async (dispatch, getState) => {
     dispatch(handleAxiosError(error))
   }
 }
+
+export const enableUser = () => async (dispatch, getState) => {
+  const { username, firstName, lastName } = getState().maintainAuthUsers.contextUser
+
+  try {
+    await axios.get('/api/auth-user-enable', {
+      params: {
+        username,
+      },
+    })
+    await loadUser(dispatch, username)
+    dispatch(setMessage(`User ${firstName} ${lastName} enabled`))
+  } catch (error) {
+    dispatch(handleAxiosError(error))
+  }
+}
+
+export const disableUser = () => async (dispatch, getState) => {
+  const { username, firstName, lastName } = getState().maintainAuthUsers.contextUser
+
+  try {
+    await axios.get('/api/auth-user-disable', {
+      params: {
+        username,
+      },
+    })
+    await loadUser(dispatch, username)
+    dispatch(setMessage(`User ${firstName} ${lastName} disabled`))
+  } catch (error) {
+    dispatch(handleAxiosError(error))
+  }
+}

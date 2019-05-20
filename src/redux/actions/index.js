@@ -89,6 +89,7 @@ export const handleAxiosError = error => dispatch => {
 }
 
 export const setMessage = message => ({ type: SET_MESSAGE, message })
+export const clearMessage = () => ({ type: SET_MESSAGE, message: '' })
 
 export const setLoaded = loaded => ({ type: SET_LOADED, loaded })
 

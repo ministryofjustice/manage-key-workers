@@ -118,7 +118,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         assert waitFor { messageBar.text() == 'Role Licence Vary added' }
 
         oauthApi.stubAuthRemoveRole()
-        roleRows[1].find("#remove-button-GLOBAL_SEARCH").click()
+        roleRows[1].find("[data-qa='remove-button-GLOBAL_SEARCH']").click()
 
         assert waitFor { messageBar.text() == 'Role Global Search removed' }
     }
@@ -157,4 +157,35 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
 
         oauthApi.verify(WireMock.getRequestedFor(urlPathEqualTo("/auth/api/authuser/$username")));
     }
+
+    def "should enable and disable a user"() {
+        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Maintain Auth User search page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        oauthApi.stubAuthUsernameSearch()
+        oauthApi.stubAuthUserRoles()
+
+        when:
+        browser.go('/admin-utilities/maintain-auth-users/AUTH_TEST')
+        at AuthUserPage
+        userRows[4].find("td", 0).text() == 'Yes'
+        oauthApi.stubAuthUserDisable()
+        oauthApi.stubAuthUsernameSearch(false)
+        enableButton.click()
+
+        then:
+        at AuthUserPage
+        assert waitFor { messageBar.text() == 'User Auth Adm disabled' }
+
+        userRows[4].find("td", 0).text() == 'No'
+        oauthApi.stubAuthUserEnable()
+        enableButton.click()
+
+        assert waitFor { messageBar.text() == 'User Auth Adm enabled' }
+    }
+
 }

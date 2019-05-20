@@ -95,7 +95,8 @@ describe('Routes', () => {
         .get(`/api/${route}`)
         .query(query)
         .set('Accept', 'application/json')
-        .expect(500))
+        .expect(500)
+        .expect('"Test error"'))
   )
 
   it('POST api/manualoverride should go through error handler', () =>

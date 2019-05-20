@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { loadAuthUserAndRoles, removeAuthRole } from '../../../redux/actions/maintainAuthUserActions'
+import {
+  loadAuthUserAndRoles,
+  removeAuthRole,
+  enableUser,
+  disableUser,
+} from '../../../redux/actions/maintainAuthUserActions'
+import { clearMessage } from '../../../redux/actions'
 import AuthUser from '../components/AuthUser'
 import { routeMatchType, contextAuthUserType, authRoleListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
@@ -20,6 +26,20 @@ class AuthUserContainer extends Component {
 
     event.preventDefault()
     removeAuthRoleDispatch(event.target.value)
+  }
+
+  handleEnable = async event => {
+    const { enableDispatch } = this.props
+
+    event.preventDefault()
+    enableDispatch(event.target.value)
+  }
+
+  handleDisable = async event => {
+    const { disableDispatch } = this.props
+
+    event.preventDefault()
+    disableDispatch(event.target.value)
   }
 
   handleAdd = event => {
@@ -44,7 +64,13 @@ class AuthUserContainer extends Component {
 
     return (
       <Page title={`Auth User: ${firstName} ${lastName}`} alwaysRender>
-        <AuthUser handleRemove={this.handleRemove} handleAdd={this.handleAdd} {...this.props} />
+        <AuthUser
+          handleRemove={this.handleRemove}
+          handleAdd={this.handleAdd}
+          handleEnable={this.handleEnable}
+          handleDisable={this.handleDisable}
+          {...this.props}
+        />
       </Page>
     )
   }
@@ -58,6 +84,9 @@ AuthUserContainer.propTypes = {
   match: routeMatchType.isRequired,
   loadAuthUserAndRolesDispatch: PropTypes.func.isRequired,
   removeAuthRoleDispatch: PropTypes.func.isRequired,
+  enableDispatch: PropTypes.func.isRequired,
+  disableDispatch: PropTypes.func.isRequired,
+  clearMessage: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }
 
@@ -77,6 +106,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadAuthUserAndRolesDispatch: username => dispatch(loadAuthUserAndRoles(username)),
   removeAuthRoleDispatch: role => dispatch(removeAuthRole(role)),
+  enableDispatch: () => dispatch(enableUser()),
+  disableDispatch: () => dispatch(disableUser()),
+  clearMessage: () => dispatch(clearMessage()),
 })
 
 export { AuthUserContainer }

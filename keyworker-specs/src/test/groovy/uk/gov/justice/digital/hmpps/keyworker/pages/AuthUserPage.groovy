@@ -10,10 +10,11 @@ public class AuthUserPage extends AuthUserSearchPage {
 
     static content = {
         headingText { $('h1').text() }
-        userRows(required: false) { $('#user-details tbody tr') }
-        roleRows(required: false) { $('#user-roles tbody tr') }
+        userRows(required: false) { $('[data-qa="user-details"] tbody tr') }
+        roleRows(required: false) { $('[data-qa="user-roles"] tbody tr') }
         errorSummary(required: false) { $('#error-summary') }
         messageBar(required: false) { $('div #messageBar') }
-        addButton { $('#add-button')}
+        addButton { $('[data-qa="add-button"]')}
+        enableButton { $('[data-qa="enable-button"]')}
     }
 }

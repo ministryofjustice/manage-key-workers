@@ -56,51 +56,98 @@ describe('Auth user container', () => {
   })
 
   describe('handle functions', () => {
-    const event = { target: { name: 'user', value: 'usersearched' }, preventDefault: jest.fn() }
+    const event = { target: { name: 'user', value: 'usersearched' } }
     const roleList = [{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
-    const removeAuthRoleDispatch = jest.fn()
-    const loadAuthUserAndRolesDispatch = jest.fn()
 
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthUserContainer
-            removeAuthRoleDispatch={removeAuthRoleDispatch}
-            loadAuthUserAndRolesDispatch={loadAuthUserAndRolesDispatch}
-            contextUser={user}
-            roleList={roleList}
-            error=""
-            message=""
-            match={mockMatch({ username: 'joebook' })}
-            history={mockHistory}
-          />
-        </MemoryRouter>
-      </Provider>
-    )
+    const props = {
+      contextUser: user,
+      roleList,
+      error: '',
+      message: '',
+      match: mockMatch({ username: 'joebook' }),
+      history: mockHistory,
+    }
+    let wrapper
+
+    beforeEach(() => {
+      event.preventDefault = jest.fn()
+
+      props.removeAuthRoleDispatch = jest.fn()
+      props.enableDispatch = jest.fn()
+      props.disableDispatch = jest.fn()
+      props.clearMessage = jest.fn()
+      props.loadAuthUserAndRolesDispatch = jest.fn()
+
+      wrapper = mount(
+        <Provider store={store}>
+          <MemoryRouter>
+            <AuthUserContainer {...props} />
+          </MemoryRouter>
+        </Provider>
+      )
+    })
 
     describe('handleRemove', () => {
       it('should call axios to remove role when remove button clicked', () => {
-        wrapper.find('#remove-button-roleA button').simulate('click')
+        wrapper.find('[data-qa="remove-button-roleA"] button').simulate('click')
 
-        expect(removeAuthRoleDispatch).toBeCalledWith('roleA')
+        expect(props.removeAuthRoleDispatch).toBeCalledWith('roleA')
       })
 
       it('should prevent default on the form submission', () => {
-        wrapper.find('#remove-button-roleA button').simulate('click', event)
+        wrapper.find('[data-qa="remove-button-roleA"] button').simulate('click', event)
 
         expect(event.preventDefault).toBeCalled()
       })
     })
+
     describe('handleAdd', () => {
       it('should set history when add button clicked', () => {
-        wrapper.find('#add-button button').simulate('click')
+        wrapper.find('[data-qa="add-button"] button').simulate('click')
 
         expect(mockHistory.push).toBeCalledWith('/admin-utilities/maintain-auth-users/joesmith/add-role')
       })
 
       it('should prevent default on the form submission', () => {
-        wrapper.find('#add-button button').simulate('click', event)
+        wrapper.find('[data-qa="add-button"] button').simulate('click', event)
+
+        expect(event.preventDefault).toBeCalled()
+      })
+    })
+
+    describe('handleDisable', () => {
+      it('should call axios to disable user when button clicked', () => {
+        wrapper.find('[data-qa="enable-button"] button').simulate('click')
+
+        expect(props.disableDispatch).toBeCalled()
+      })
+
+      it('should prevent default on the form submission', () => {
+        wrapper.find('[data-qa="enable-button"] button').simulate('click', event)
+
+        expect(event.preventDefault).toBeCalled()
+      })
+    })
+
+    describe('handleEnable', () => {
+      it('should call axios to enable user when button clicked', () => {
+        user.enabled = false
+        wrapper = mount(
+          <Provider store={store}>
+            <MemoryRouter>
+              <AuthUserContainer {...props} />
+            </MemoryRouter>
+          </Provider>
+        )
+
+        wrapper.find('[data-qa="enable-button"] button').simulate('click')
+
+        expect(props.enableDispatch).toBeCalled()
+      })
+
+      it('should prevent default on the form submission', () => {
+        wrapper.find('[data-qa="enable-button"] button').simulate('click', event)
 
         expect(event.preventDefault).toBeCalled()
       })

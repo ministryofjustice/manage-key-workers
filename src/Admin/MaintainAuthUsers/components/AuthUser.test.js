@@ -17,7 +17,14 @@ describe('Auth user display', () => {
 
   describe('no roles', () => {
     const wrapper = renderer.create(
-      <AuthUser contextUser={user} roleList={[]} handleAdd={stubFunc} handleRemove={stubFunc} />
+      <AuthUser
+        contextUser={user}
+        roleList={[]}
+        handleAdd={stubFunc}
+        handleRemove={stubFunc}
+        handleEnable={stubFunc}
+        handleDisable={stubFunc}
+      />
     )
     it('should render correctly with user and no roles', () => {
       expect(wrapper.toJSON()).toMatchSnapshot()
@@ -37,6 +44,8 @@ describe('Auth user display', () => {
         roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
         handleAdd={stubFunc}
         handleRemove={stubFunc}
+        handleEnable={stubFunc}
+        handleDisable={stubFunc}
       />
     )
 
