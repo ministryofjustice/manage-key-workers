@@ -174,7 +174,22 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  return { getUser, search, roles, addRole, removeRole, allRoles, createUser, enableUser, disableUser }
+  const amendUser = async (req, res) => {
+    const { username } = req.query
+    log.debug(`Amending auth user ${username}`)
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.amendUser(res.locals, username, req.body)
+        res.json(response)
+      },
+      'username',
+      res,
+      { 'email.domain': 'The email domain is not allowed.  Enter a work email address' }
+    )
+  }
+
+  return { getUser, search, roles, addRole, removeRole, allRoles, createUser, enableUser, disableUser, amendUser }
 }
 
 module.exports = authUserMaintenanceFactory

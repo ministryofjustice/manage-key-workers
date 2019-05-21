@@ -74,6 +74,8 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
   router.use('/api/auth-user-enable', withErrorHandler(authUserMaintenanceFactory(oauthApi).enableUser))
   router.use('/api/auth-user-disable', withErrorHandler(authUserMaintenanceFactory(oauthApi).disableUser))
   router.use('/api/auth-roles', withErrorHandler(authUserMaintenanceFactory(oauthApi).allRoles))
+  router.use('/api/auth-user-create', withErrorHandler(authUserMaintenanceFactory(oauthApi).createUser))
+  router.use('/api/auth-user-amend', withErrorHandler(authUserMaintenanceFactory(oauthApi).amendUser))
   router.use('/api/getRoles', withErrorHandler(getRolesFactory(elite2Api).getRoles))
   router.use('/api/getUser', withErrorHandler(getUserFactory(elite2Api).getUser))
   router.use('/api/removeRole', withErrorHandler(removeRoleFactory(elite2Api).removeRole))

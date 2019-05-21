@@ -32,6 +32,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const enableUser = (context, { username }) => put(context, `api/authuser/${username}/enable`)
   const disableUser = (context, { username }) => put(context, `api/authuser/${username}/disable`)
   const allRoles = context => get(context, `api/authroles`)
+  const amendUser = (context, username, email) => get(context, `api/authuser/${username}`, email)
 
   const oauthAxios = axios.create({
     baseURL: url,
@@ -106,6 +107,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     oauthAxios,
     enableUser,
     disableUser,
+    amendUser,
   }
 }
 
