@@ -107,7 +107,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         at AuthUserAddRolePage
 
         then: 'I am on the add role page'
-        assert waitFor { headingText == 'Add Role: Auth Adm' }
+        assert waitFor { headingText == 'Add role: Auth Adm' }
         oauthApi.stubAuthAddRole()
 
         when: 'I select to add the vary role to the user'

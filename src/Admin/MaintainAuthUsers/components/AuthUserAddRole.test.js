@@ -19,6 +19,7 @@ describe('Auth user add roles', () => {
         roleFilterList={[]}
         handleRoleAddChange={stubFunc}
         handleAdd={stubFunc}
+        handleCancel={stubFunc}
         error=""
       />
     )
@@ -27,7 +28,7 @@ describe('Auth user add roles', () => {
     })
 
     it('should display message about no roles to add', () => {
-      const noRowsMessage = wrapper.root.findByProps({ id: 'no-roles' })
+      const noRowsMessage = wrapper.root.findByProps({ 'data-qa': 'no-roles' })
       // last table row should have message
       expect(noRowsMessage.props.children).toEqual('No roles available')
     })
@@ -39,6 +40,7 @@ describe('Auth user add roles', () => {
         roleList={[{ roleCode: 'ROLE_2', roleName: 'Role 2' }]}
         roleFilterList={roles}
         handleAdd={jest.fn()}
+        handleCancel={jest.fn()}
         handleRoleAddChange={jest.fn()}
         error=""
       />
@@ -52,6 +54,7 @@ describe('Auth user add roles', () => {
         roleList={[{ roleCode: 'ROLE_2', roleName: 'Role 2' }]}
         roleFilterList={roles}
         handleAdd={jest.fn()}
+        handleCancel={jest.fn()}
         handleRoleAddChange={jest.fn()}
         error={[{ targetName: 'role', text: 'something went wrong' }]}
       />

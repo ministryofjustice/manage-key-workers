@@ -56,14 +56,14 @@ class AuthUserContainer extends Component {
 
     if (!firstName && !lastName) {
       return (
-        <Page title="Auth User:" alwaysRender>
+        <Page title="Auth user:" alwaysRender>
           <div>User not found</div>
         </Page>
       )
     }
 
     return (
-      <Page title={`Auth User: ${firstName} ${lastName}`} alwaysRender>
+      <Page title={`Auth user: ${firstName} ${lastName}`} alwaysRender>
         <AuthUser
           handleRemove={this.handleRemove}
           handleAdd={this.handleAdd}

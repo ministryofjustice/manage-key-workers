@@ -66,6 +66,12 @@ class AuthUserAddRoleContainer extends Component {
     }
   }
 
+  handleCancel = e => {
+    const { history } = this.props
+    e.preventDefault()
+    history.goBack()
+  }
+
   render() {
     const {
       contextUser: { firstName, lastName },
@@ -74,16 +80,17 @@ class AuthUserAddRoleContainer extends Component {
 
     if ((!firstName && !lastName) || !roles) {
       return (
-        <Page title="not found Role:" alwaysRender>
+        <Page title="not found role:" alwaysRender>
           <div>User not found</div>
         </Page>
       )
     }
 
     return (
-      <Page title={`Add Role: ${firstName} ${lastName}`} alwaysRender>
+      <Page title={`Add role: ${firstName} ${lastName}`} alwaysRender>
         <AuthUserAddRole
           handleAdd={this.handleAdd}
+          handleCancel={this.handleCancel}
           handleRoleAddChange={this.handleChange}
           roleFilterList={roles}
           {...this.props}
