@@ -64,6 +64,7 @@ describe('Routes', () => {
     'auth-user-enable',
     'auth-user-disable',
     'auth-roles',
+    'auth-user-amend',
     'getRoles',
     'getUser',
     'removeRole',

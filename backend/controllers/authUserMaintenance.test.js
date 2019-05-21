@@ -13,6 +13,7 @@ describe('Auth user maintenance controller', () => {
     createUser,
     enableUser,
     disableUser,
+    amendUser,
   } = authUserMaintenanceFactory(oauthApi)
 
   beforeEach(() => {
@@ -25,6 +26,7 @@ describe('Auth user maintenance controller', () => {
     oauthApi.createUser = jest.fn()
     oauthApi.disableUser = jest.fn()
     oauthApi.enableUser = jest.fn()
+    oauthApi.amendUser = jest.fn()
     res.json = jest.fn()
     res.status = jest.fn()
   })
@@ -490,6 +492,78 @@ describe('Auth user maintenance controller', () => {
       })
 
       await expect(disableUser({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
+    })
+  })
+
+  describe('amendUser', () => {
+    it('should call amendUser', async () => {
+      const response = {}
+      const user = { email: 'bob@joe.com' }
+
+      oauthApi.amendUser.mockReturnValueOnce(response)
+
+      await amendUser({ query: { username: 'bob' }, body: user }, res)
+
+      expect(oauthApi.amendUser).toBeCalledWith({}, 'bob', user)
+    })
+
+    describe('known issue', () => {
+      const response = {
+        status: 419,
+        data: { error: 'Not Found', field: 'email', error_description: 'Some problem occurred' },
+      }
+
+      beforeEach(async () => {
+        oauthApi.amendUser.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await amendUser({ query: { username: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'email', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(419)
+      })
+    })
+
+    it('should throw error through if unknown issue occurs', async () => {
+      const response = { status: 500, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      const e = new Error('something went wrong')
+      oauthApi.amendUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await expect(amendUser({ query: { nameFilter: 'joe' } }, res)).rejects.toThrow(e)
+    })
+
+    it('should map known error conditions', async () => {
+      const response = {
+        status: 400,
+        data: { error: 'email.domain', field: 'email', error_description: 'Some problem occurred' },
+      }
+
+      oauthApi.amendUser.mockImplementation(() => {
+        const error = new Error('something went wrong')
+        error.response = response
+        throw error
+      })
+
+      await amendUser({ query: { nameFilter: 'joe' } }, res)
+
+      expect(res.json).toBeCalledWith([
+        {
+          targetName: 'email',
+          text: 'The email domain is not allowed.  Enter a work email address',
+          error: 'email.domain',
+        },
+      ])
     })
   })
 })
