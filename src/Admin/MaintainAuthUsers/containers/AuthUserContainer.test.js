@@ -51,7 +51,7 @@ describe('Auth user container', () => {
           </MemoryRouter>
         </Provider>
       )
-      expect(wrapper.find('Page').props().title).toEqual('Auth User: Joe Smith')
+      expect(wrapper.find('Page').props().title).toEqual('Auth user: Joe Smith')
     })
   })
 

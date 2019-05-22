@@ -19,9 +19,12 @@ export default [
   { path: '/admin-utilities/maintain-roles', breadcrumb: 'Manage access roles' },
   { path: '/admin-utilities/manage-key-worker-settings', breadcrumb: 'Manage key worker settings' },
   { path: '/admin-utilities/give-nomis-access', breadcrumb: 'Give access to New NOMIS' },
+  { path: '/admin-utilities/maintain-auth-users', breadcrumb: 'Maintain auth users' },
   { path: '/admin-utilities/maintain-auth-users/search-results', breadcrumb: 'Results' },
   { path: '/admin-utilities/maintain-auth-users/:username', breadcrumb: AuthUserBreadcrumb },
+  { path: '/admin-utilities/maintain-auth-users/:username/add-role', breadcrumb: 'Add role' },
   { path: '/admin-utilities/maintain-roles/:staffId/roles', breadcrumb: 'Current profile roles' },
+  { path: '/admin-utilities/maintain-roles/:staffId/roles/add-role', breadcrumb: 'Add role' },
   { path: '/admin-utilities/maintain-roles/search-results', breadcrumb: 'Results' },
   { path: '/admin-utilities/maintain-roles/:staffId', breadcrumb: null },
 ]

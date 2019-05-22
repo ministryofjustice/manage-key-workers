@@ -7,17 +7,17 @@ public class AuthUserAddRolePage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText.contains('Add Role: ')
+        headingText.contains('Add role: ')
     }
 
     static content = {
         headingText { $('h1').text() }
-        addRole { $('#add-button') }
-        selectOption { $('#role') }
+        addRole { $('[data-qa="add-button"]') }
+        selectOption { $('[data-qa="role"]') }
     }
 
     void choose(String role) {
-        def option = selectOption { $("${role}_option") }
+        def option = selectOption { $("[data-qa='${role}_option']") }
         selectOption.find("option").find { it.text() == role }.click()
         addRole.click()
     }
