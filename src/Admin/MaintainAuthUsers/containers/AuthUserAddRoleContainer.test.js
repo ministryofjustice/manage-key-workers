@@ -117,8 +117,8 @@ describe('Auth user add role container', async () => {
     })
 
     describe('handleAdd', async () => {
-      it('should require role to be selected when add button clicked', () => {
-        wrapper.find('[data-qa="add-button"] button').simulate('click')
+      it('should require role to be selected when form submitted', () => {
+        wrapper.find('form').simulate('submit', event)
 
         expect(dispatchFns.setErrorDispatch).toBeCalledWith([{ targetName: 'role', text: 'Select a role' }])
       })
@@ -128,7 +128,7 @@ describe('Auth user add role container', async () => {
         axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: roles, config: {} }))
 
         wrapper.find('[data-qa="role"] select').simulate('change', event)
-        wrapper.find('[data-qa="add-button"] button').simulate('click')
+        wrapper.find('form').simulate('submit', event)
 
         expect(dispatchFns.setErrorDispatch).toHaveBeenCalledTimes(0)
         expect(axios.get).toHaveBeenCalledWith('/api/auth-user-roles-add', {
@@ -137,7 +137,7 @@ describe('Auth user add role container', async () => {
       })
 
       it('should prevent default on the form submission', () => {
-        wrapper.find('[data-qa="add-button"] button').simulate('click', event)
+        wrapper.find('form').simulate('submit', event)
 
         expect(event.preventDefault).toBeCalled()
       })

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Select from '@govuk-react/select'
 import Button from '@govuk-react/button'
+import GridRow from '@govuk-react/grid-row'
+import GridCol from '@govuk-react/grid-col'
 import { BLACK, GREY_3 } from 'govuk-colours'
 import { SPACING } from '@govuk-react/constants'
 import { authRoleListType, errorType } from '../../../types'
@@ -32,33 +34,43 @@ const AuthUserAddRole = ({ roleFilterList, handleRoleAddChange, roleList, handle
   const rolesAvailable = roleListOptions && roleListOptions.length > 0
 
   return (
-    <div>
-      {!rolesAvailable && <div data-qa="no-roles">No roles available</div>}
-      {rolesAvailable && (
-        <Select
-          label="Choose new role"
-          mb={6}
-          meta={lookupMeta('role', error)}
-          htmlFor="role"
-          input={{ 'data-qa': 'role', name: 'role', onChange: handleRoleAddChange }}
-        >
-          <option key="choose" value="--">
-            -- Select --
-          </option>
-          {roleListOptions}
-        </Select>
-      )}
-      <ButtonContainer>
-        {rolesAvailable && (
-          <Button data-qa="add-button" onClick={handleAdd}>
-            Add role
-          </Button>
-        )}
-        <Button data-qa="cancel-button" onClick={handleCancel} buttonColour={GREY_3} buttonTextColour={BLACK}>
-          Cancel
-        </Button>
-      </ButtonContainer>
-    </div>
+    <GridRow>
+      <GridCol setWidth="two-thirds">
+        <form onSubmit={handleAdd}>
+          {!rolesAvailable && <div data-qa="no-roles">No roles available</div>}
+          {rolesAvailable && (
+            <Select
+              label="Choose new role"
+              mb={6}
+              meta={lookupMeta('role', error)}
+              htmlFor="role"
+              input={{ 'data-qa': 'role', name: 'role', onChange: handleRoleAddChange }}
+            >
+              <option key="choose" value="--">
+                -- Select --
+              </option>
+              {roleListOptions}
+            </Select>
+          )}
+          <ButtonContainer>
+            {rolesAvailable && (
+              <Button type="submit" data-qa="add-button">
+                Add role
+              </Button>
+            )}
+            <Button
+              type="button"
+              data-qa="cancel-button"
+              onClick={handleCancel}
+              buttonColour={GREY_3}
+              buttonTextColour={BLACK}
+            >
+              Cancel
+            </Button>
+          </ButtonContainer>
+        </form>
+      </GridCol>
+    </GridRow>
   )
 }
 
