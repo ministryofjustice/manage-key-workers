@@ -47,7 +47,7 @@ export class Page extends Component {
                   onHandleErrorClick={onHandleErrorClick}
                 />
               ))}
-            <H1>{title}</H1>
+            <H1 size={36}>{title}</H1>
             {(!error || alwaysRender) && <div className="page-content">{children}</div>}
           </Container>
         </Fragment>
