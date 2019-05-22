@@ -32,8 +32,8 @@ Array [
   >
     
     <h1
-      className="sc-bdVaJa csGwYH"
-      size="XLARGE"
+      className="sc-bdVaJa eLwxMn"
+      size={36}
     >
       Admin and utilities
     </h1>
