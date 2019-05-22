@@ -4,6 +4,8 @@ import GridRow from '@govuk-react/grid-row'
 import GridCol from '@govuk-react/grid-col'
 import Button from '@govuk-react/button'
 import Table from '@govuk-react/table'
+import Link from '@govuk-react/link'
+import { Link as RouterLink } from 'react-router-dom'
 import { BLACK, GREY_3 } from 'govuk-colours'
 import MessageBar from '../../../MessageBar'
 import { authRoleListType, contextAuthUserType } from '../../../types'
@@ -50,7 +52,15 @@ const AuthUser = props => {
             <Table.Row>
               <Table.CellHeader>Email</Table.CellHeader>
               <Table.Cell>{contextUser.email}</Table.Cell>
-              <Table.Cell>&nbsp;</Table.Cell>
+              <Table.Cell>
+                <Link
+                  data-qa="amend-link"
+                  as={RouterLink}
+                  to={`/admin-utilities/maintain-auth-users/${contextUser.username}/amend`}
+                >
+                  Change
+                </Link>
+              </Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.CellHeader>Locked</Table.CellHeader>

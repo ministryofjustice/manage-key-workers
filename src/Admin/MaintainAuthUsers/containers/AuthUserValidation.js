@@ -18,6 +18,24 @@ const validateAdd = (role, setError) => {
   return true
 }
 
+const validateEmailFormat = (email, errors) => {
+  if (!email.match(/.*@.*\..*/)) {
+    errors.push({
+      targetName: 'email',
+      text: 'Enter an email address in the correct format, like first.last@justice.gov.uk',
+    })
+  }
+  if (!email.match(/^[0-9A-Za-z@.'_\-+]*$/)) {
+    errors.push({
+      targetName: 'email',
+      text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters",
+    })
+  }
+  if (email.length > 240) {
+    errors.push({ targetName: 'email', text: 'Email address must be 240 characters or less' })
+  }
+}
+
 const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   const errors = []
   if (!username) {
@@ -43,18 +61,7 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   if (!username.match(/^[a-zA-Z0-9_]*$/)) {
     errors.push({ targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' })
   }
-  if (!email.match(/.*@.*\..*/)) {
-    errors.push({
-      targetName: 'email',
-      text: 'Enter an email address in the correct format, like first.last@justice.gov.uk',
-    })
-  }
-  if (!email.match(/^[0-9A-Za-z@.'_\-+]*$/)) {
-    errors.push({
-      targetName: 'email',
-      text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters",
-    })
-  }
+  validateEmailFormat(email, errors)
   if (firstName.length < 2) {
     errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
   }
@@ -69,4 +76,23 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   return true
 }
 
-export { validateSearch, validateAdd, validateCreate }
+const validateAmend = ({ email }, setError) => {
+  const errors = []
+  if (!email) {
+    errors.push({ targetName: 'email', text: 'Enter an email address' })
+  }
+  if (errors.length > 0) {
+    setError(errors)
+    return false
+  }
+
+  validateEmailFormat(email, errors)
+
+  if (errors.length > 0) {
+    setError(errors)
+    return false
+  }
+  return true
+}
+
+export { validateSearch, validateAdd, validateCreate, validateAmend }
