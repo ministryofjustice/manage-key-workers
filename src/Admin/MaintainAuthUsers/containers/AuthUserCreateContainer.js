@@ -33,20 +33,16 @@ class AuthUserCreateContainer extends Component {
 
     event.preventDefault()
 
-    if (!validateCreate(this.state, setErrorDispatch)) {
+    const errors = validateCreate(this.state)
+    if (errors.length) {
+      setErrorDispatch(errors)
       return
     }
 
     try {
-      await axios.post(
-        '/api/auth-user-create',
-        {
-          ...this.state,
-        },
-        {
-          params: { username },
-        }
-      )
+      await axios.post('/api/auth-user-create', this.state, {
+        params: { username },
+      })
       resetErrorDispatch()
       history.push(`/admin-utilities/maintain-auth-users/${username}`)
     } catch (error) {

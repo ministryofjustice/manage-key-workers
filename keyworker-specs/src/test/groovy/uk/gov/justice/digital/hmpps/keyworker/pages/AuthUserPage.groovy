@@ -16,5 +16,6 @@ public class AuthUserPage extends AuthUserSearchPage {
         messageBar(required: false) { $('div #messageBar') }
         addButton { $('[data-qa="add-button"]')}
         enableButton { $('[data-qa="enable-button"]')}
+        amendLink(required: false) { $('[data-qa="amend-link"]')}
     }
 }

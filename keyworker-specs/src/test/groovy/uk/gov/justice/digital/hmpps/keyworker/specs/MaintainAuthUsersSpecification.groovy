@@ -188,4 +188,39 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         assert waitFor { messageBar.text() == 'User Auth Adm enabled' }
     }
 
+    def "should amend a user"() {
+        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Maintain Auth User search page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        oauthApi.stubAuthUsernameSearch()
+        oauthApi.stubAuthUserRoles()
+
+        when:
+        browser.go('/admin-utilities/maintain-auth-users/AUTH_TEST')
+        at AuthUserPage
+        userRows[4].find("td", 0).text() == 'Yes'
+        amendLink.click()
+
+        then:
+        at AuthUserAmendPage
+
+        when: "I enter an invalid email address"
+        amendUser('invalid_email@somewhere')
+
+        then: "The error message is displayed"
+        at AuthUserAmendPage
+        assert waitFor { errorSummary.text() == 'There is a problem\nEnter an email address in the correct format, like first.last@justice.gov.uk' }
+
+        when: "I enter a new email address"
+        oauthApi.stubAuthUsernameAmend()
+        amendUser('some.where@a.place.com')
+
+        then: "The email address is amended and user is taken back to the user page"
+        at AuthUserPage
+        assert waitFor { messageBar.text() == 'User email amended' }
+    }
 }

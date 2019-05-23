@@ -69,6 +69,7 @@ describe('Auth amend container', () => {
         setErrorDispatch: jest.fn(),
         handleAxiosErrorDispatch: jest.fn(),
         loadAuthUserAndRolesDispatch: jest.fn(),
+        setMessageDispatch: jest.fn(),
       }
       wrapper = mount(
         <Provider store={store}>
@@ -126,6 +127,19 @@ describe('Auth amend container', () => {
         { params: { username: 'joesmith' } }
       )
       expect(mockHistory.push).toBeCalledWith('/admin-utilities/maintain-auth-users/joesmith')
+    })
+
+    it('should call message dispatch when form submitted', async () => {
+      wrapper
+        .find('input#email')
+        .simulate('change', { target: { name: 'email', value: 'user@amendd.com' }, preventDefault: jest.fn() })
+      axios.post = jest.fn()
+      axios.post.mockImplementation(() => Promise.resolve({ status: 200, data: {}, config: {} }))
+
+      const submitEvent = { target: { value: 'amend' }, preventDefault: jest.fn() }
+      await wrapper.find('form').simulate('submit', submitEvent)
+
+      expect(dispatchFns.setMessageDispatch).toBeCalledWith('User email amended')
     })
 
     it('should prevent default on the form submission', () => {
