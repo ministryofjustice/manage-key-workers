@@ -71,7 +71,17 @@ exports[`Auth user display no roles should render correctly with user and no rol
             <td
               className="sc-bxivhb jMmQxS"
             >
-               
+              <a
+                className="sc-iwsKbI cVTNNJ"
+                data-qa="amend-link"
+                href="/admin-utilities/maintain-auth-users/joesmith/amend"
+                muted={false}
+                noVisitedState={false}
+                onClick={[Function]}
+                textColour={false}
+              >
+                Change
+              </a>
             </td>
           </tr>
           <tr
@@ -253,7 +263,17 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             <td
               className="sc-bxivhb jMmQxS"
             >
-               
+              <a
+                className="sc-iwsKbI cVTNNJ"
+                data-qa="amend-link"
+                href="/admin-utilities/maintain-auth-users/joesmith/amend"
+                muted={false}
+                noVisitedState={false}
+                onClick={[Function]}
+                textColour={false}
+              >
+                Change
+              </a>
             </td>
           </tr>
           <tr

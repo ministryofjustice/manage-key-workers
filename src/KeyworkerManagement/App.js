@@ -22,6 +22,7 @@ import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer
 import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
 import AuthUserContainer from '../Admin/MaintainAuthUsers/containers/AuthUserContainer'
 import AuthUserCreateContainer from '../Admin/MaintainAuthUsers/containers/AuthUserCreateContainer'
+import AuthUserAmendContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAmendContainer'
 import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
 import AuthUserSearchResultsContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchResultsContainer'
 import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
@@ -363,6 +364,11 @@ class App extends React.Component {
               exact
               path="/admin-utilities/maintain-auth-users/:username/add-role"
               render={() => <AuthUserAddRoleContainer />}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-auth-users/:username/amend"
+              render={() => <AuthUserAmendContainer />}
             />
             <Route exact path="/admin-utilities/create-auth-user" render={() => <AuthUserCreateContainer />} />
           </Switch>

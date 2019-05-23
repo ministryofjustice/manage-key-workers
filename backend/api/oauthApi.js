@@ -20,6 +20,7 @@ const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId
 const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const get = (context, path) => client.get(context, path).then(response => response.data)
   const put = (context, path, body) => client.put(context, path, body).then(response => response.data)
+  const post = (context, path, body) => client.post(context, path, body).then(response => response.data)
   const del = (context, path) => client.del(context, path).then(response => response.data)
   const currentUser = context => get(context, 'api/user/me')
   const currentRoles = context => get(context, 'api/user/me/roles')
@@ -32,7 +33,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const enableUser = (context, { username }) => put(context, `api/authuser/${username}/enable`)
   const disableUser = (context, { username }) => put(context, `api/authuser/${username}/disable`)
   const allRoles = context => get(context, `api/authroles`)
-  const amendUser = (context, username, email) => get(context, `api/authuser/${username}`, email)
+  const amendUser = (context, username, email) => post(context, `api/authuser/${username}`, email)
 
   const oauthAxios = axios.create({
     baseURL: url,

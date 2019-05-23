@@ -185,7 +185,11 @@ const authUserMaintenanceFactory = oauthApi => {
       },
       'username',
       res,
-      { 'email.domain': 'The email domain is not allowed.  Enter a work email address' }
+      {
+        'email.domain': 'The email domain is not allowed.  Enter a work email address',
+        'email.notinitial':
+          'The user has verified their email address or set a password.  Their email address cannot be modified.',
+      }
     )
   }
 

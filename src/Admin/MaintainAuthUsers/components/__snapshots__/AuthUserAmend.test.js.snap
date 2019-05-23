@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Amend form Form should render correctly 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="email"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Email address
+        </span>
+        <input
+          autoComplete="alter-email"
+          className="sc-ifAKCX hTyiys"
+          defaultValue="john.smith"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          spellCheck={false}
+          type="email"
+        />
+      </label>
+      <div
+        className="sc-dnqmqq hyCbor"
+      >
+        <button
+          className="sc-EHOje hEaLol"
+          data-qa="amend-button"
+          disabled={false}
+          type="submit"
+        >
+          Amend
+        </button>
+        <button
+          className="sc-EHOje eIzgdI"
+          data-qa="cancel-button"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

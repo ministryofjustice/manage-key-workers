@@ -1,4 +1,4 @@
-import { validateSearch, validateAdd, validateCreate } from './AuthUserValidation'
+import { validateSearch, validateAdd, validateCreate, validateAmend } from './AuthUserValidation'
 
 describe('Auth search validation', () => {
   let setError
@@ -103,6 +103,41 @@ describe('Auth create validation', () => {
     expect(
       validateCreate({ username: 'joejoe', email: 'joe+bloggs@joe.com', firstName: 'joe', lastName: 'joe' }, setError)
     ).toBe(true)
+    expect(setError).not.toBeCalled()
+  })
+})
+
+describe('Auth amend validation', () => {
+  let setError
+  beforeEach(() => {
+    setError = jest.fn()
+  })
+
+  it('should return errors if no fields specified', () => {
+    expect(validateAmend({}, setError)).toBe(false)
+    expect(setError).toBeCalledWith([{ targetName: 'email', text: 'Enter an email address' }])
+  })
+  it('should disallow fields in wrong format', () => {
+    expect(validateAmend({ email: 'b' }, setError)).toBe(false)
+    expect(setError).toBeCalledWith([
+      { targetName: 'email', text: 'Enter an email address in the correct format, like first.last@justice.gov.uk' },
+    ])
+  })
+  it('should disallow fields that are too long', () => {
+    expect(validateAmend({ email: 'b'.repeat(241) }, setError)).toBe(false)
+    expect(setError).toBeCalledWith([
+      { targetName: 'email', text: 'Enter an email address in the correct format, like first.last@justice.gov.uk' },
+      { targetName: 'email', text: 'Email address must be 240 characters or less' },
+    ])
+  })
+  it('should validate specific characters allowed', () => {
+    expect(validateAmend({ email: 'b@c,d.com' }, setError)).toBe(false)
+    expect(setError).toBeCalledWith([
+      { targetName: 'email', text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters" },
+    ])
+  })
+  it('should pass validation', () => {
+    expect(validateAmend({ email: 'joe+bloggs@joe.com' }, setError)).toBe(true)
     expect(setError).not.toBeCalled()
   })
 })
