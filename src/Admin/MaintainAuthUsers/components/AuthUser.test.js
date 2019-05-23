@@ -41,10 +41,11 @@ describe('Auth user display', () => {
   })
 
   it('should render correctly with user and roles', () => {
+    const verifiedUser = { verified: true, ...user }
     const wrapper = renderer.create(
       <MemoryRouter>
         <AuthUser
-          contextUser={user}
+          contextUser={verifiedUser}
           roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
           handleAdd={stubFunc}
           handleRemove={stubFunc}

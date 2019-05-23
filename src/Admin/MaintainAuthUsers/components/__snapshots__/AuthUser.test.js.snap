@@ -130,6 +130,25 @@ exports[`Auth user display no roles should render correctly with user and no rol
               </button>
             </td>
           </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Verified
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -262,19 +281,7 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             </td>
             <td
               className="sc-bxivhb jMmQxS"
-            >
-              <a
-                className="sc-iwsKbI cVTNNJ"
-                data-qa="amend-link"
-                href="/admin-utilities/maintain-auth-users/joesmith/amend"
-                muted={false}
-                noVisitedState={false}
-                onClick={[Function]}
-                textColour={false}
-              >
-                Change
-              </a>
-            </td>
+            />
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -320,6 +327,25 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
               >
                 Disable
               </button>
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Verified
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Yes
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
             </td>
           </tr>
         </tbody>
