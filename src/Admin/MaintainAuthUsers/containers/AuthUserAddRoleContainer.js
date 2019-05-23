@@ -50,7 +50,11 @@ class AuthUserAddRoleContainer extends Component {
 
     const selectedRole = roles.find(r => r.roleCode === role)
 
-    if (!validateAdd(selectedRole, setErrorDispatch)) return
+    const errors = validateAdd(selectedRole)
+    if (errors.length) {
+      setErrorDispatch(errors)
+      return
+    }
 
     try {
       await axios.get('/api/auth-user-roles-add', {

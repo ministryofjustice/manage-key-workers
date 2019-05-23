@@ -1,24 +1,17 @@
-const validateSearch = (user, setError) => {
+const validateSearch = user => {
   if (!user || !user.trim()) {
-    setError([{ targetName: 'user', text: 'Enter a username or email address' }])
-    return false
+    return [{ targetName: 'user', text: 'Enter a username or email address' }]
   }
   if (!user.includes('@') && !/^[a-zA-Z0-9_]*$/.test(user.trim())) {
-    setError([{ targetName: 'user', text: 'Username can only include letters, numbers and _' }])
-    return false
+    return [{ targetName: 'user', text: 'Username can only include letters, numbers and _' }]
   }
-  return true
+  return []
 }
 
-const validateAdd = (role, setError) => {
-  if (!role) {
-    setError([{ targetName: 'role', text: 'Select a role' }])
-    return false
-  }
-  return true
-}
+const validateAdd = role => (!role ? [{ targetName: 'role', text: 'Select a role' }] : [])
 
-const validateEmailFormat = (email, errors) => {
+const validateEmailFormat = email => {
+  const errors = []
   if (!email.match(/.*@.*\..*/)) {
     errors.push({
       targetName: 'email',
@@ -34,9 +27,10 @@ const validateEmailFormat = (email, errors) => {
   if (email.length > 240) {
     errors.push({ targetName: 'email', text: 'Email address must be 240 characters or less' })
   }
+  return errors
 }
 
-const validateCreate = ({ username, email, firstName, lastName }, setError) => {
+const validateCreate = ({ username, email, firstName, lastName }) => {
   const errors = []
   if (!username) {
     errors.push({ targetName: 'username', text: 'Enter a username' })
@@ -50,10 +44,7 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   if (!lastName) {
     errors.push({ targetName: 'lastName', text: 'Enter a last name' })
   }
-  if (errors.length > 0) {
-    setError(errors)
-    return false
-  }
+  if (errors.length) return errors
 
   if (username.length < 6) {
     errors.push({ targetName: 'username', text: 'Username must be 6 characters or more' })
@@ -61,7 +52,7 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
   if (!username.match(/^[a-zA-Z0-9_]*$/)) {
     errors.push({ targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' })
   }
-  validateEmailFormat(email, errors)
+  errors.push(...validateEmailFormat(email))
   if (firstName.length < 2) {
     errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
   }
@@ -69,30 +60,13 @@ const validateCreate = ({ username, email, firstName, lastName }, setError) => {
     errors.push({ targetName: 'lastName', text: 'Last name must be 2 characters or more' })
   }
 
-  if (errors.length > 0) {
-    setError(errors)
-    return false
-  }
-  return true
+  return errors
 }
 
-const validateAmend = ({ email }, setError) => {
-  const errors = []
-  if (!email) {
-    errors.push({ targetName: 'email', text: 'Enter an email address' })
-  }
-  if (errors.length > 0) {
-    setError(errors)
-    return false
-  }
+const validateAmend = ({ email }) => {
+  if (!email) return [{ targetName: 'email', text: 'Enter an email address' }]
 
-  validateEmailFormat(email, errors)
-
-  if (errors.length > 0) {
-    setError(errors)
-    return false
-  }
-  return true
+  return validateEmailFormat(email)
 }
 
 export { validateSearch, validateAdd, validateCreate, validateAmend }
