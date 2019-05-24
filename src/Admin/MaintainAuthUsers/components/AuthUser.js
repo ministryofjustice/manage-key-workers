@@ -53,13 +53,15 @@ const AuthUser = props => {
               <Table.CellHeader>Email</Table.CellHeader>
               <Table.Cell>{contextUser.email}</Table.Cell>
               <Table.Cell>
-                <Link
-                  data-qa="amend-link"
-                  as={RouterLink}
-                  to={`/admin-utilities/maintain-auth-users/${contextUser.username}/amend`}
-                >
-                  Change
-                </Link>
+                {!contextUser.verified && (
+                  <Link
+                    data-qa="amend-link"
+                    as={RouterLink}
+                    to={`/admin-utilities/maintain-auth-users/${contextUser.username}/amend`}
+                  >
+                    Change
+                  </Link>
+                )}
               </Table.Cell>
             </Table.Row>
             <Table.Row>
@@ -82,6 +84,11 @@ const AuthUser = props => {
                   {contextUser.enabled ? 'Disable' : 'Enable'}
                 </Button>
               </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.CellHeader>Verified</Table.CellHeader>
+              <Table.Cell>{contextUser.verified ? 'Yes' : 'No'}</Table.Cell>
+              <Table.Cell>&nbsp;</Table.Cell>
             </Table.Row>
           </Table>
         </GridCol>
