@@ -3,8 +3,8 @@ const clientFactory = require('./oauthEnabledClient')
 const { healthApiFactory } = require('./healthApi')
 
 describe('healthApi', () => {
-  const client1 = clientFactory({})
-  const client2 = clientFactory({})
+  const client1 = clientFactory({ baseUrl: 'http://localhost:12345' })
+  const client2 = clientFactory({ baseUrl: 'http://localhost:12345' })
 
   const mock1 = new MockAdapter(client1.axiosInstance)
   const mock2 = new MockAdapter(client2.axiosInstance)

@@ -25,6 +25,7 @@
     "@govuk-react/link": "^0.7.0",
     "@govuk-react/select": "^0.7.0",
     "@govuk-react/table": "^0.7.0",
+    "agentkeepalive": "^4.0.2",
     "applicationinsights": "^1.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",

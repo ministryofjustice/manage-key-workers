@@ -4,12 +4,12 @@ const contextProperties = require('../contextProperties')
 
 describe('Test clients built by oauthEnabledClient', () => {
   it('should build something', () => {
-    const client = clientFactory('http://localhost:8080', 2000)
+    const client = clientFactory({ baseUrl: 'http://localhost:8080', timeout: 2000 })
     expect(client).not.toBeNull()
   })
 
   describe('Assert client behaviour', () => {
-    const client = clientFactory('http://localhost:8080', 2000)
+    const client = clientFactory({ baseUrl: 'http://localhost:8080', timeout: 2000 })
 
     const mock = new MockAdapter(client.axiosInstance)
 
