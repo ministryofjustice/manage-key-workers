@@ -120,7 +120,7 @@ Array [
             Create auth user
           </a>
           <div>
-            Create Licence Responsible User in auth (not in NOMIS).
+            Create user in auth (not in NOMIS).
           </div>
         </div>
       </div>
