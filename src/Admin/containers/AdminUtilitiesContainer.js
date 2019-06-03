@@ -94,7 +94,7 @@ export class AdminUtilitiesContainer extends Component {
               >
                 Create auth user
               </Link>
-              <div>Create Licence Responsible User in auth (not in NOMIS).</div>
+              <div>Create user in auth (not in NOMIS).</div>
             </AdminUtility>
           )}
         </AdminUtilities>
