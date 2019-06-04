@@ -9,7 +9,7 @@ public class AuthUserPage extends AuthUserSearchPage {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         userRows(required: false) { $('[data-qa="user-details"] tbody tr') }
         roleRows(required: false) { $('[data-qa="user-roles"] tbody tr') }
         errorSummary(required: false) { $('#error-summary') }

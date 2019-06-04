@@ -10,7 +10,7 @@ class AdminUtilitiesPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         keyworkerSettingsLink(required: false, to: KeyworkerSettingsPage) { $('#keyworker_settings_link') }
         enableNewNomisLink(required: false, to: EnableNewNomisPage) { $('#enable_new_nomis_link') }
         maintainRolesLink(required: false, to: UserSearchPage) { $('#maintain_roles_link') }

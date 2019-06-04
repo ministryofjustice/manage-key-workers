@@ -13,7 +13,7 @@ class SearchForKeyworkerPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         searchField { $('#search-text') }
         keyworkerStatusOptions { $('#status-select option')}
         keyworkerSearchButton(to: KeyworkerResultsPage) { $('button') }

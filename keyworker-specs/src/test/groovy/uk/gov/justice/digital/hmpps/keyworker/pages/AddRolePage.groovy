@@ -13,7 +13,7 @@ public class AddRolePage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         backLink { $('a.backlink')}
         addButton { $('#add-button')}
         messageBar(required: false) { $('div #messageBar')}

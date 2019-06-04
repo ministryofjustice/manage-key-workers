@@ -11,7 +11,7 @@ public class AuthUserAddRolePage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         addRole { $('[data-qa="add-button"]') }
         selectOption { $('[data-qa="role"]') }
     }

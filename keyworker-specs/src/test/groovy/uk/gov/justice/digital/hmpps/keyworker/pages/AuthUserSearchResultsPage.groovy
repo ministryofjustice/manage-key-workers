@@ -11,7 +11,7 @@ public class AuthUserSearchResultsPage extends AuthUserSearchPage {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         searchButton { $('#search-button') }
         user { $('#user') }
         rows(required: false) { $('table tbody tr') }

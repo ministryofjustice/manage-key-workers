@@ -13,7 +13,7 @@ class SearchForOffenderPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         searchField { $('#search-text') }
         allocationStatusSelect { $('#allocation-status-select') }
         searchButton { $('#searchButton') }
