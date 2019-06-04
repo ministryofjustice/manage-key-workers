@@ -17,7 +17,7 @@ public class OffenderResultsPage extends Page {
     }
 
     static content =  {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         table { $('table') }
         rows (required: false) { $('table tbody tr') }
         message (required: false) { $('.error-summary').text() }

@@ -13,7 +13,7 @@ public class StaffRoleProfilePage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         removeButtons { $('.removeButton') }
         backLink { $('a.backlink')}
         addButton { $('#add-button')}

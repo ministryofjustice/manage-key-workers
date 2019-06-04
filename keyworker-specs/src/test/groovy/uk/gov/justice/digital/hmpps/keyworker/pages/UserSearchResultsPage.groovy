@@ -13,7 +13,7 @@ public class UserSearchResultsPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         searchButton { $('#search-button') }
         nextPage (required: false){ $('#next-page') }
         previousPage (required: false){ $('#previous-page') }

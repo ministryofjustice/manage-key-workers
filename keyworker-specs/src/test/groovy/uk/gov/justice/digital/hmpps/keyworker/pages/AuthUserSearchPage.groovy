@@ -12,7 +12,7 @@ public class AuthUserSearchPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         searchButton { $('#search-button') }
     }
 

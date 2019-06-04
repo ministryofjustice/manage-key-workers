@@ -13,7 +13,7 @@ public class KeyworkerEditPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         capacity { $('#capacity')}
         keyworkerStatusOptions { $('#status-select option')}
         selectedOption { $('#status-select option:selected')}

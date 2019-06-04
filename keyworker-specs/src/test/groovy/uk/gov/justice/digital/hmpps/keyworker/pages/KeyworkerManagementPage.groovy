@@ -14,7 +14,7 @@ class KeyworkerManagementPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         header(required: false) { module(HeaderModule) }
         autoAllocateLink(required: false, to: UnallocatedPage) { $('#auto_allocate_link') }
         manualAssignLink(to: SearchForOffenderPage) { $('#assign_transfer_link') }

@@ -12,7 +12,7 @@ class KeyworkerDashboardPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         header(required: false) { module(HeaderModule) }
         fromDateInput { $('#fromDate') }
         fromDateTopBar { $('.fromDate th.rdtSwitch') }

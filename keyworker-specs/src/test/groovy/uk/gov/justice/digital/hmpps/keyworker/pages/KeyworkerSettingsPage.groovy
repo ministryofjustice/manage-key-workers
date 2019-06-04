@@ -13,7 +13,7 @@ public class KeyworkerSettingsPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         saveButton { $('#save-button') }
         backLink { $('a.backlink')}
         capacity { $('#capacity')}

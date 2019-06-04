@@ -16,7 +16,7 @@ public class KeyworkerProfilePage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         table { $('table') }
         rows { $('table tbody tr') }
         status { $('#keyworker-status')}

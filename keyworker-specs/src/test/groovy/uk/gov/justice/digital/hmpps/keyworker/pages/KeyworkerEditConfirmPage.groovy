@@ -13,7 +13,7 @@ public class KeyworkerEditConfirmPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         status { $('#keyworker-status')}
         inactiveWarning (required: false) {$('#inactiveWarning')}
         errorMessage (required: false) {$('.error-message')}

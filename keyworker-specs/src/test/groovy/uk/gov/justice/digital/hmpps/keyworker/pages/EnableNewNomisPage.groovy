@@ -13,7 +13,7 @@ public class EnableNewNomisPage extends Page {
     }
 
     static content = {
-        headingText { $('h1').text() }
+        headingText { $('h1').first().text() }
         giveAccessButton { $('#giveAccessButton') }
         backLink { $('a.backlink')}
     }
