@@ -24,6 +24,7 @@ const setTestDefaults = () => {
 
 const analytics = {
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
+  appInsightsKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY || '',
 }
 
 const hmppsCookie = {
