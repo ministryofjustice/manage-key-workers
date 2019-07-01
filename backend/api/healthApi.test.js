@@ -17,32 +17,32 @@ describe('healthApi', () => {
   })
 
   it('should return true if both apis are up', async () => {
-    mock1.onGet('/health').reply(200, {})
-    mock2.onGet('/health').reply(200, {})
+    mock1.onGet('/ping').reply(200, {})
+    mock2.onGet('/ping').reply(200, {})
     expect(await healthApi.isUp()).toBe(true)
   })
 
   it('should return false if first api is unreachable', async () => {
-    mock1.onGet('/health').networkError()
-    mock2.onGet('/health').reply(200, {})
+    mock1.onGet('/ping').networkError()
+    mock2.onGet('/ping').reply(200, {})
     expect(await healthApi.isUp()).toBe(false)
   })
 
   it('should return false if second api is unreachable', async () => {
-    mock1.onGet('/health').reply(200, {})
-    mock2.onGet('/health').networkError()
+    mock1.onGet('/ping').reply(200, {})
+    mock2.onGet('/ping').networkError()
     expect(await healthApi.isUp()).toBe(false)
   })
 
   it('should return false if first api times out', async () => {
-    mock1.onGet('/health').timeout()
-    mock2.onGet('/health').reply(200, {})
+    mock1.onGet('/ping').timeout()
+    mock2.onGet('/ping').reply(200, {})
     expect(await healthApi.isUp()).toBe(false)
   })
 
   it('should return false if first api returns 500', async () => {
-    mock1.onGet('/health').reply(500, {})
-    mock2.onGet('/health').reply(200, {})
+    mock1.onGet('/ping').reply(500, {})
+    mock2.onGet('/ping').reply(200, {})
     expect(await healthApi.isUp()).toBe(false)
   })
 })

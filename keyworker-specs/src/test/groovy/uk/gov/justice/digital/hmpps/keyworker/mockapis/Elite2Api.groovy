@@ -302,7 +302,6 @@ class Elite2Api extends WireMockRule {
         ))
     }
 
-
     void stubOffenderSentenceResponse(AgencyLocation agencyLocation) {
         this.stubFor(
                 post(urlPathEqualTo("/api/offender-sentences"))
@@ -368,58 +367,12 @@ class Elite2Api extends WireMockRule {
 
     void stubHealth() {
         this.stubFor(
-            get('/health')
+            get('/ping')
                 .willReturn(
                 aResponse()
                     .withStatus(200)
-                    .withHeader('Content-Type', 'application/json')
-                    .withBody('''
-                {
-                    "status": "UP",
-                    "healthInfo": {
-                        "status": "UP",
-                        "version": "version not available"
-                    },
-                    "diskSpace": {
-                        "status": "UP",
-                        "total": 510923390976,
-                        "free": 143828922368,
-                        "threshold": 10485760
-                    },
-                    "db": {
-                        "status": "UP",
-                        "database": "HSQL Database Engine",
-                        "hello": 1
-                    }
-                }'''.stripIndent())
-        ))
-    }
-
-    void stubHealthError() {
-        this.stubFor(
-                get('/health')
-                        .willReturn(
-                        aResponse()
-                                .withStatus(500)
-                                .withHeader('Content-Type', 'application/json')
-                                .withBody('''
-                        {
-                              "status": "DOWN",
-                              "healthInfo": {
-                                "status": "UP",
-                                "version": "2018-05-04"
-                              },
-                              "diskSpace": {
-                                "status": "UP",
-                                "total": 121123069952,
-                                "free": 30912241664,
-                                "threshold": 10485760
-                              },
-                              "db": {
-                                "status": "DOWN",
-                                "error": "org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: Elite2-CP - Connection is not available, request timed out after 1010ms."
-                              }
-                            }'''.stripIndent())))
+                    .withHeader('Content-Type', 'plain/text')
+                    .withBody("pong")))
     }
 
     void stubErrorWithMessage(url, status, message) {

@@ -6,7 +6,7 @@ const { packageData, buildNumber } = applicationVersion
 const healthFactory = (keyworkerApiUrl, elite2ApiUrl) => {
   const serviceUris = [keyworkerApiUrl, elite2ApiUrl]
 
-  const getHealth = uri => axios.get(`${uri}health`, { timeout: 2000 })
+  const getHealth = uri => axios.get(`${uri}ping`, { timeout: 2000 })
 
   const reflect = promise =>
     promise.then(

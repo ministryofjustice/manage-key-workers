@@ -37,35 +37,14 @@ class HealthSpecification extends Specification {
         response.uptime > 0.0
         response.name == "omic-ui"
         !response.version.isEmpty()
-        response.api.keyworkerApi.status == 'UP'
-        response.api.keyworkerApi.db.status == 'UP'
-        response.api.elite2Api.status == 'UP'
-        response.api.elite2Api.db.status == 'UP'
-    }
-
-    def "Health page reports API unhealthy"() {
-
-        given:
-        keyworkerApi.stubHealthError()
-        elite2Api.stubHealth()
-
-        when:
-        def response
-        try {
-            response = http.get()
-        } catch (HttpException e) {
-            response = e.body
-        }
-
-        then:
-        response.uptime > 0.0
-        response.api.keyworkerApi.status == "DOWN"
+        response.api.keyworkerApi == 'pong'
+        response.api.elite2Api == 'pong'
     }
 
     def "Health page reports API down"() {
 
         given:
-        keyworkerApi.stubDelayedError('/health', 500)
+        keyworkerApi.stubDelayedError('/ping', 500)
         elite2Api.stubHealth()
 
         when:
