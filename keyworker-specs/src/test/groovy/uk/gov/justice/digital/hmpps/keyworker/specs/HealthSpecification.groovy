@@ -6,6 +6,7 @@ import org.junit.Rule
 import spock.lang.Specification
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 
 import static groovyx.net.http.HttpBuilder.configure
 
@@ -16,6 +17,9 @@ class HealthSpecification extends Specification {
 
     @Rule
     Elite2Api elite2Api = new Elite2Api()
+
+    @Rule
+    OauthApi oauthApi = new OauthApi()
 
     HttpBuilder http
 
@@ -30,6 +34,7 @@ class HealthSpecification extends Specification {
         given:
         keyworkerApi.stubHealth()
         elite2Api.stubHealth()
+        oauthApi.stubHealth()
 
         when:
         def response = this.http.get()
@@ -37,8 +42,9 @@ class HealthSpecification extends Specification {
         response.uptime > 0.0
         response.name == "omic-ui"
         !response.version.isEmpty()
-        response.api.keyworkerApi == 'pong'
-        response.api.elite2Api == 'pong'
+        response.api.keyworkerApi == 'OK'
+        response.api.elite2Api == 'OK'
+        response.api.oauthApi == 'OK'
     }
 
     def "Health page reports API down"() {
@@ -46,6 +52,7 @@ class HealthSpecification extends Specification {
         given:
         keyworkerApi.stubDelayedError('/ping', 500)
         elite2Api.stubHealth()
+        oauthApi.stubHealth()
 
         when:
         def response

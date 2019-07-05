@@ -263,4 +263,14 @@ class OauthApi extends WireMockRule {
                                         .withBody(AuthUserSearchResponse.getAllRolesResponse())))
     }
 
+    void stubHealth() {
+        this.stubFor(
+                get('/auth/ping')
+                        .willReturn(
+                                aResponse()
+                                        .withStatus(200)
+                                        .withHeader('Content-Type', 'plain/text')
+                                        .withBody("pong")))
+    }
+
 }
