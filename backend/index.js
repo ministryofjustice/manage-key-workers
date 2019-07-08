@@ -67,14 +67,13 @@ app.get('/health', (req, res, next) => {
     if (err) {
       return next(err)
     }
-    if (!result.healthy) {
+    if (!(result.status === 'UP')) {
       res.status(503)
     }
     res.json(result)
     return result
   })
 })
-app.use('/info', health)
 
 if (config.app.production) {
   app.use(ensureHttps)

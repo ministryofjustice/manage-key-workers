@@ -42,9 +42,7 @@ class HealthSpecification extends Specification {
         response.uptime > 0.0
         response.name == "omic-ui"
         !response.version.isEmpty()
-        response.api.keyworkerApi == 'OK'
-        response.api.elite2Api == 'OK'
-        response.api.oauthApi == 'OK'
+        response.api == [auth:'UP', elite2:'UP', keyworker:'UP']
     }
 
     def "Health page reports API down"() {
@@ -63,6 +61,8 @@ class HealthSpecification extends Specification {
         }
 
         then:
-        response.api.keyworkerApi == "timeout of 2000ms exceeded"
+        response.name == "omic-ui"
+        !response.version.isEmpty()
+        response.api == [auth:'UP', elite2:'UP', keyworker:[timeout:1000, code:'ECONNABORTED', errno:'ETIMEDOUT', retries:2]]
     }
 }

@@ -24,7 +24,7 @@ const addAppInfo = result => {
   const buildInfo = {
     uptime: process.uptime(),
     build: buildInformation,
-    version: buildInformation && buildInformation.buildNumber,
+    version: (buildInformation && buildInformation.buildNumber) || 'Not available',
   }
 
   return Object.assign({}, result, buildInfo)

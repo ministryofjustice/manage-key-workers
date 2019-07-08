@@ -60,7 +60,7 @@ class KeyworkerApi extends WireMockRule {
             .willReturn(
                 aResponse()
                         .withStatus(200)
-                        .withHeader('Content-Type', 'plain/text')
+                        .withHeader('Content-Type', 'text/plain')
                         .withBody("pong")))
     }
 
