@@ -6,6 +6,7 @@ import org.junit.Rule
 import spock.lang.Specification
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 
 import static groovyx.net.http.HttpBuilder.configure
 
@@ -16,6 +17,9 @@ class HealthSpecification extends Specification {
 
     @Rule
     Elite2Api elite2Api = new Elite2Api()
+
+    @Rule
+    OauthApi oauthApi = new OauthApi()
 
     HttpBuilder http
 
@@ -30,6 +34,7 @@ class HealthSpecification extends Specification {
         given:
         keyworkerApi.stubHealth()
         elite2Api.stubHealth()
+        oauthApi.stubHealth()
 
         when:
         def response = this.http.get()
@@ -37,36 +42,15 @@ class HealthSpecification extends Specification {
         response.uptime > 0.0
         response.name == "omic-ui"
         !response.version.isEmpty()
-        response.api.keyworkerApi.status == 'UP'
-        response.api.keyworkerApi.db.status == 'UP'
-        response.api.elite2Api.status == 'UP'
-        response.api.elite2Api.db.status == 'UP'
-    }
-
-    def "Health page reports API unhealthy"() {
-
-        given:
-        keyworkerApi.stubHealthError()
-        elite2Api.stubHealth()
-
-        when:
-        def response
-        try {
-            response = http.get()
-        } catch (HttpException e) {
-            response = e.body
-        }
-
-        then:
-        response.uptime > 0.0
-        response.api.keyworkerApi.status == "DOWN"
+        response.api == [auth:'UP', elite2:'UP', keyworker:'UP']
     }
 
     def "Health page reports API down"() {
 
         given:
-        keyworkerApi.stubDelayedError('/health', 500)
+        keyworkerApi.stubDelayedError('/ping', 500)
         elite2Api.stubHealth()
+        oauthApi.stubHealth()
 
         when:
         def response
@@ -77,6 +61,8 @@ class HealthSpecification extends Specification {
         }
 
         then:
-        response.api.keyworkerApi == "timeout of 2000ms exceeded"
+        response.name == "omic-ui"
+        !response.version.isEmpty()
+        response.api == [auth:'UP', elite2:'UP', keyworker:[timeout:1000, code:'ECONNABORTED', errno:'ETIMEDOUT', retries:2]]
     }
 }

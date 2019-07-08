@@ -18,7 +18,7 @@ const flash = require('connect-flash')
 const ensureHttps = require('./middleware/ensureHttps')
 const requestForwarding = require('./request-forwarding')
 
-const { healthFactory } = require('./controllers/health')
+const healthFactory = require('./services/healthCheck')
 
 const sessionManagementRoutes = require('./sessionManagementRoutes')
 const auth = require('./auth')
@@ -60,10 +60,20 @@ app.use(
   })
 )
 
-const { health } = healthFactory(config.apis.keyworker.url, config.apis.elite2.url)
+const health = healthFactory(config.apis.oauth2.url, config.apis.elite2.url, config.apis.keyworker.url)
 
-app.use('/health', health)
-app.use('/info', health)
+app.get('/health', (req, res, next) => {
+  health((err, result) => {
+    if (err) {
+      return next(err)
+    }
+    if (!(result.status === 'UP')) {
+      res.status(503)
+    }
+    res.json(result)
+    return result
+  })
+})
 
 if (config.app.production) {
   app.use(ensureHttps)
