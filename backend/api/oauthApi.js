@@ -27,9 +27,13 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const getUser = (context, { username }) => get(context, `api/authuser/${username}`)
   const createUser = (context, username, user) => put(context, `api/authuser/${username}`, user)
   const userRoles = (context, { username }) => get(context, `api/authuser/${username}/roles`)
+  const userGroups = (context, { username }) => get(context, `api/authuser/${username}/groups`)
   const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
   const addUserRole = (context, { username, role }) => put(context, `api/authuser/${username}/roles/${role}`)
   const removeUserRole = (context, { username, role }) => del(context, `api/authuser/${username}/roles/${role}`)
+  const addUserGroup = (context, { username, group }) => put(context, `api/authuser/${username}/groups/${group}`)
+  const removeUserGroup = (context, { username, group }) => del(context, `api/authuser/${username}/groups/${group}`)
+  const assignableGroups = context => get(context, 'api/authuser/me/assignable-groups')
   const enableUser = (context, { username }) => put(context, `api/authuser/${username}/enable`)
   const disableUser = (context, { username }) => put(context, `api/authuser/${username}/disable`)
   const allRoles = context => get(context, `api/authroles`)
@@ -100,8 +104,11 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     createUser,
     userSearch,
     userRoles,
+    userGroups,
     addUserRole,
     removeUserRole,
+    addUserGroup,
+    removeUserGroup,
     allRoles,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
@@ -109,6 +116,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     enableUser,
     disableUser,
     amendUser,
+    assignableGroups,
   }
 }
 

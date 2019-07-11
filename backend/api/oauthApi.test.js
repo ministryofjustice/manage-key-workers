@@ -86,6 +86,25 @@ describe('oathApi tests', () => {
     })
   })
 
+  describe('userGroups', () => {
+    const groups = { bob: 'hello there' }
+    let actual
+
+    beforeEach(() => {
+      client.get = jest.fn().mockReturnValue({
+        then: () => groups,
+      })
+      actual = oauthApi.userGroups(context, { username: 'joe' })
+    })
+
+    it('should return groups from endpoint', () => {
+      expect(actual).toEqual(groups)
+    })
+    it('should call auth groups endpoint', () => {
+      expect(client.get).toBeCalledWith(context, 'api/authuser/joe/groups')
+    })
+  })
+
   describe('getUser', () => {
     const userDetails = { bob: 'hello there' }
     let actual
@@ -199,6 +218,44 @@ describe('oathApi tests', () => {
     })
   })
 
+  describe('addUserGroup', () => {
+    const errorResponse = { field: 'hello' }
+    let actual
+
+    beforeEach(() => {
+      client.put = jest.fn().mockReturnValue({
+        then: () => errorResponse,
+      })
+      actual = oauthApi.addUserGroup(context, { username: 'bob', group: 'maintain' })
+    })
+
+    it('should return any error from endpoint', () => {
+      expect(actual).toEqual(errorResponse)
+    })
+    it('should call user endpoint', () => {
+      expect(client.put).toBeCalledWith(context, 'api/authuser/bob/groups/maintain', undefined)
+    })
+  })
+
+  describe('removeUserGroup', () => {
+    const errorResponse = { field: 'hello' }
+    let actual
+
+    beforeEach(() => {
+      client.del = jest.fn().mockReturnValue({
+        then: () => errorResponse,
+      })
+      actual = oauthApi.removeUserGroup(context, { username: 'bob', group: 'maintain' })
+    })
+
+    it('should return any error from endpoint', () => {
+      expect(actual).toEqual(errorResponse)
+    })
+    it('should call user endpoint', () => {
+      expect(client.del).toBeCalledWith(context, 'api/authuser/bob/groups/maintain')
+    })
+  })
+
   describe('allRoles', () => {
     const roles = { bob: 'hello there' }
     let actual
@@ -215,6 +272,25 @@ describe('oathApi tests', () => {
     })
     it('should call user endpoint', () => {
       expect(client.get).toBeCalledWith(context, 'api/authroles')
+    })
+  })
+
+  describe('assignableGroups', () => {
+    const groups = { bob: 'hello there' }
+    let actual
+
+    beforeEach(() => {
+      client.get = jest.fn().mockReturnValue({
+        then: () => groups,
+      })
+      actual = oauthApi.assignableGroups(context)
+    })
+
+    it('should return groups from endpoint', () => {
+      expect(actual).toEqual(groups)
+    })
+    it('should call user endpoint', () => {
+      expect(client.get).toBeCalledWith(context, 'api/authuser/me/assignable-groups')
     })
   })
 
