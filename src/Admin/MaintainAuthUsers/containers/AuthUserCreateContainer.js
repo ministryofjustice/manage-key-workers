@@ -14,12 +14,25 @@ class AuthUserCreateContainer extends Component {
   constructor(props) {
     super(props)
     props.resetErrorDispatch()
-    this.state = {}
+    this.state = { groups: [] }
   }
 
   async componentDidMount() {
     const { dispatchLoaded } = this.props
+
+    this.getAssignableGroups()
     dispatchLoaded(true)
+  }
+
+  async getAssignableGroups() {
+    const { handleAxiosErrorDispatch } = this.props
+
+    try {
+      const { data } = await axios.get('/api/auth-groups')
+      this.setState(state => ({ ...state, groups: data }))
+    } catch (error) {
+      handleAxiosErrorDispatch(error)
+    }
   }
 
   handleChange = event => {
@@ -52,9 +65,16 @@ class AuthUserCreateContainer extends Component {
 
   render() {
     const { error } = this.props
+    const { groups } = this.state
+
     return (
       <Page title="Create auth user" alwaysRender>
-        <AuthUserCreate handleCreate={this.handleCreate} handleChange={this.handleChange} error={error} />
+        <AuthUserCreate
+          handleCreate={this.handleCreate}
+          handleChange={this.handleChange}
+          groupList={groups}
+          error={error}
+        />
       </Page>
     )
   }

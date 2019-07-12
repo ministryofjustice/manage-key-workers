@@ -500,6 +500,23 @@ describe('Auth user maintenance controller', () => {
         expect(res.status).toBeCalledWith(404)
       })
     })
+
+    describe('unknown issue but client error', () => {
+      const response = { status: 403, data: { error: 'Not Found' } }
+
+      beforeEach(async () => {
+        oauthApi.assignableGroups.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+      })
+      it('should pass error through if known issue occurs', async () => {
+        await expect(assignableGroups({ query: { username: 'joe' } }, res)).rejects.toThrow(
+          new Error('something went wrong')
+        )
+      })
+    })
   })
 
   describe('createUser', () => {

@@ -2,10 +2,16 @@ import axios from 'axios'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
-import { shallow, mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import mockHistory from '../../../test/mockHistory'
 
 import ConnectedAuthUserCreateContainer, { AuthUserCreateContainer } from './AuthUserCreateContainer'
+
+const groups = [
+  { groupCode: 'GROUP_1', groupName: 'Group 1' },
+  { groupCode: 'GROUP_2', groupName: 'Group 2' },
+  { groupCode: 'GROUP_3', groupName: 'Group 3' },
+]
 
 describe('Auth create container', () => {
   it('should render correctly', () => {
@@ -15,8 +21,10 @@ describe('Auth create container', () => {
 
   describe('handle functions', () => {
     const store = { subscribe: jest.fn(), dispatch: jest.fn(), getState: jest.fn(), setState: jest.fn() }
-    const state = { app: { error: '', loaded: true } }
+    const state = { app: { error: '', loaded: true }, groups }
     store.getState.mockReturnValue(state)
+    axios.get = jest.fn()
+    axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: groups }))
 
     let wrapper
     let dispatchFns
@@ -36,6 +44,9 @@ describe('Auth create container', () => {
       )
     })
     describe('state changes', () => {
+      it('should call axios to load the groups', () => {
+        expect(axios.get).toBeCalled()
+      })
       it('should set the user input on username changes', () => {
         wrapper
           .find('input#username')
@@ -59,6 +70,13 @@ describe('Auth create container', () => {
           .find('input#lastName')
           .simulate('change', { target: { name: 'lastName', value: 'usercreated' }, preventDefault: jest.fn() })
         expect(wrapper.find('AuthUserCreateContainer').state().lastName).toEqual('usercreated')
+      })
+      it('should set the user select on group changes', () => {
+        wrapper.update()
+        wrapper
+          .find('select#groupCode')
+          .simulate('change', { target: { name: 'groupCode', value: 'GROUP_1' }, preventDefault: jest.fn() })
+        expect(wrapper.find('AuthUserCreateContainer').state().groupCode).toEqual('GROUP_1')
       })
     })
 
@@ -109,7 +127,7 @@ describe('Auth create container', () => {
       expect(dispatchFns.setErrorDispatch).toHaveBeenCalledTimes(0)
       expect(axios.post).toBeCalledWith(
         '/api/auth-user-create',
-        { email: 'user@created.com', firstName: 'first', lastName: 'last', username: 'userme' },
+        { email: 'user@created.com', firstName: 'first', lastName: 'last', username: 'userme', groups },
         { params: { username: 'userme' } }
       )
       expect(mockHistory.push).toBeCalledWith('/admin-utilities/maintain-auth-users/userme')

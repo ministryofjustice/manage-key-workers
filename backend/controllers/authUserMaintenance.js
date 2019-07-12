@@ -8,7 +8,8 @@ const handleClientError = async (apiCall, defaultField, res, errorMapping) => {
       res.status(e.response.status)
       const { field, error, error_description: errorDescription } = e.response.data
       const description = (errorMapping && errorMapping[error]) || errorDescription
-      res.json([{ targetName: field || defaultField, text: description, error }])
+      if (!field && !description) throw e
+      else res.json([{ targetName: field || defaultField, text: description, error }])
     } else {
       throw e
     }
