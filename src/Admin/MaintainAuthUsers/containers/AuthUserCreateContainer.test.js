@@ -13,6 +13,8 @@ const groups = [
   { groupCode: 'GROUP_3', groupName: 'Group 3' },
 ]
 
+const adminUser = { firstName: 'Bob', lastName: 'Baggins', username: 'WERWEW', groupManager: false }
+
 describe('Auth create container', () => {
   it('should render correctly', () => {
     const wrapper = shallow(<ConnectedAuthUserCreateContainer />)
@@ -38,7 +40,7 @@ describe('Auth create container', () => {
       wrapper = mount(
         <Provider store={store}>
           <MemoryRouter>
-            <AuthUserCreateContainer {...dispatchFns} history={mockHistory} error="" />
+            <AuthUserCreateContainer {...dispatchFns} history={mockHistory} error="" user={adminUser} />
           </MemoryRouter>
         </Provider>
       )
@@ -71,7 +73,7 @@ describe('Auth create container', () => {
           .simulate('change', { target: { name: 'lastName', value: 'usercreated' }, preventDefault: jest.fn() })
         expect(wrapper.find('AuthUserCreateContainer').state().lastName).toEqual('usercreated')
       })
-      it('should set the user select on group changes', () => {
+      it('should set the group select on group changes', () => {
         wrapper.update()
         wrapper
           .find('select#groupCode')

@@ -20,7 +20,7 @@ export class AdminUtilitiesContainer extends Component {
     const hasMaintainRolesAdminAccess = user && user.maintainAccessAdmin
     const hasMaintainRolesAccess = user && (user.maintainAccess || user.maintainAccessAdmin)
     const showKeyworkerSettings = hasMaintainRolesAccess && user.migration
-    const hasMaintainAuthUsers = user && user.maintainAuthUsers
+    const hasMaintainAuthUsers = user && (user.maintainAuthUsers || user.groupManager)
 
     return (
       <Page title="Admin and utilities">
@@ -28,7 +28,7 @@ export class AdminUtilitiesContainer extends Component {
         <AdminUtilities>
           {!hasMaintainRolesAccess && !hasMaintainRolesAccess && !showKeyworkerSettings && !hasMaintainAuthUsers && (
             <div>
-              <p>There are no Admin or Utilities associated with your account.</p>
+              <p>There are no admin or utility functions associated with your account.</p>
             </div>
           )}
 

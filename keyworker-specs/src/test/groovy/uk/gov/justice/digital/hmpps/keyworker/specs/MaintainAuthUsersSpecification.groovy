@@ -160,7 +160,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
     }
 
     def "should create a user and assign to a group"() {
-        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'AUTH_GROUP_MANAGER']
         oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
 
@@ -171,6 +171,13 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         to AuthUserCreatePage
 
         when: "I create a user"
+        createUser('userdwdw', 'email@digital.justice.gov.uk', 'first', 'last', '--')
+
+        then: "I am shown validation errors"
+        at AuthUserCreatePage
+        waitFor { errors == 'There is a problem\nSelect a group'}
+
+        when: "I have another go at creating a user"
         def username = RandomStringUtils.randomAlphanumeric(6)
         def email = "${RandomStringUtils.randomAlphanumeric(6)}.noone@justice.gov.uk"
 

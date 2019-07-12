@@ -46,6 +46,7 @@ describe('userMe controller', () => {
       migration: false,
       writeAccess: false,
       maintainAuthUsers: false,
+      groupManager: false,
     }
 
     it('should default to no access if user has no roles', async () => {
@@ -113,6 +114,15 @@ describe('userMe controller', () => {
         maintainAuthUsers: true,
       })
     })
+    it('should have groupManager when the user has the group manager role', async () => {
+      oauthApi.currentRoles.mockImplementation(() => [{ roleCode: 'AUTH_GROUP_MANAGER' }])
+      await userMeService(req, res)
+
+      expect(res.json.mock.calls[0][0]).toEqual({
+        ...defaultUserMe,
+        groupManager: true,
+      })
+    })
     it('should give full access when user has all roles', async () => {
       oauthApi.currentRoles.mockImplementation(() => [
         { roleCode: 'MAINTAIN_OAUTH_USERS' },
@@ -157,6 +167,7 @@ describe('userMe controller', () => {
       maintainAccessAdmin: false,
       migration: false,
       maintainAuthUsers: false,
+      groupManager: false,
     })
   })
 })
