@@ -26,7 +26,7 @@ exports[`Auth user add roles errors should render an error on the select if erro
         </span>
         <select
           className="sc-ifAKCX iaVBIO"
-          data-qa="role"
+          id="role"
           name="role"
           onChange={[MockFunction]}
         >
@@ -129,7 +129,7 @@ exports[`Auth user add roles should render the add role page with a filtered lis
         </span>
         <select
           className="sc-ifAKCX kDzsBS"
-          data-qa="role"
+          id="role"
           name="role"
           onChange={[MockFunction]}
         >

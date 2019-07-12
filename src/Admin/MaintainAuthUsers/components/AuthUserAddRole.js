@@ -44,7 +44,7 @@ const AuthUserAddRole = ({ roleFilterList, handleRoleAddChange, roleList, handle
               mb={6}
               meta={lookupMeta('role', error)}
               htmlFor="role"
-              input={{ 'data-qa': 'role', name: 'role', onChange: handleRoleAddChange }}
+              input={{ id: 'role', name: 'role', onChange: handleRoleAddChange }}
             >
               <option key="choose" value="--">
                 -- Select --

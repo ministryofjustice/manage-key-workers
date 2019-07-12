@@ -127,7 +127,7 @@ describe('Auth user add role container', async () => {
         axios.get = jest.fn()
         axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: roles, config: {} }))
 
-        wrapper.find('[data-qa="role"] select').simulate('change', event)
+        wrapper.find('#role select').simulate('change', event)
         wrapper.find('form').simulate('submit', event)
 
         expect(dispatchFns.setErrorDispatch).toHaveBeenCalledTimes(0)
