@@ -131,10 +131,11 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         given: "I have navigated to the Create Auth User page"
         fixture.loginWithoutStaffRoles(ITAG_USER)
         elite2api.stubGetRoles()
+        oauthApi.stubAuthAllGroups()
         to AuthUserCreatePage
 
         when: "I create a user"
-        createUser('user', 'email@joe', 'first', 'last')
+        createUser('user', 'email@joe', 'first', 'last', '--')
 
         then: "I am shown validation errors"
         at AuthUserCreatePage
@@ -147,7 +148,36 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         oauthApi.stubAuthCreateUser()
         oauthApi.stubAuthUsernameSearch()
         oauthApi.stubAuthUserRoles()
-        createUser(username, email, 'first', 'last')
+        createUser(username, email, 'first', 'last', '--')
+
+        then: "My user is created"
+        at AuthUserPage
+
+        userRows[1].find("td", 0).text() == 'Auth Adm'
+        userRows[2].find("td", 0).text() == 'auth_test2@digital.justice.gov.uk'
+
+        oauthApi.verify(WireMock.getRequestedFor(urlPathEqualTo("/auth/api/authuser/$username")));
+    }
+
+    def "should create a user and assign to a group"() {
+        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Create Auth User page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        oauthApi.stubAuthAllGroups()
+        to AuthUserCreatePage
+
+        when: "I create a user"
+        def username = RandomStringUtils.randomAlphanumeric(6)
+        def email = "${RandomStringUtils.randomAlphanumeric(6)}.noone@justice.gov.uk"
+
+        oauthApi.stubAuthCreateUser()
+        oauthApi.stubAuthUsernameSearch()
+        oauthApi.stubAuthUserRoles()
+        createUser(username, email, 'first', 'last', 'GROUP_1')
 
         then: "My user is created"
         at AuthUserPage
