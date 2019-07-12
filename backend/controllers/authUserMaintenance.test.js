@@ -6,10 +6,14 @@ describe('Auth user maintenance controller', () => {
   const {
     search,
     roles,
+    groups,
     addRole,
     removeRole,
+    addGroup,
+    removeGroup,
     getUser,
     allRoles,
+    assignableGroups,
     createUser,
     enableUser,
     disableUser,
@@ -20,9 +24,13 @@ describe('Auth user maintenance controller', () => {
     oauthApi.getUser = jest.fn()
     oauthApi.userSearch = jest.fn()
     oauthApi.userRoles = jest.fn()
+    oauthApi.userGroups = jest.fn()
     oauthApi.addUserRole = jest.fn()
     oauthApi.removeUserRole = jest.fn()
+    oauthApi.addUserGroup = jest.fn()
+    oauthApi.removeUserGroup = jest.fn()
     oauthApi.allRoles = jest.fn()
+    oauthApi.assignableGroups = jest.fn()
     oauthApi.createUser = jest.fn()
     oauthApi.disableUser = jest.fn()
     oauthApi.enableUser = jest.fn()
@@ -205,6 +213,51 @@ describe('Auth user maintenance controller', () => {
     })
   })
 
+  describe('groups', () => {
+    it('should call groups', async () => {
+      const response = [{ groupCode: 'bob' }, { groupCode: 'joe' }]
+
+      oauthApi.userGroups.mockReturnValueOnce(response)
+
+      await groups({ query: { username: 'joe' } }, res)
+
+      expect(res.json).toBeCalledWith(response)
+    })
+
+    describe('missing query', () => {
+      beforeEach(async () => {
+        await groups({ query: {} }, res)
+      })
+
+      it('should return 400 if missing query', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Enter a username' }])
+      })
+      it('show return not found status', () => {
+        expect(res.status).toBeCalledWith(400)
+      })
+    })
+
+    describe('known issue', () => {
+      const response = { status: 404, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      beforeEach(async () => {
+        oauthApi.userGroups.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await groups({ query: { username: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(404)
+      })
+    })
+  })
+
   describe('addRole', () => {
     it('should call addRole', async () => {
       const response = {}
@@ -295,6 +348,96 @@ describe('Auth user maintenance controller', () => {
     })
   })
 
+  describe('addGroup', () => {
+    it('should call addGroup', async () => {
+      const response = {}
+
+      oauthApi.addUserGroup.mockReturnValueOnce(response)
+
+      await addGroup({ query: { username: 'joe', group: 'maintain' } }, res)
+
+      expect(res.json).toBeCalledWith(response)
+    })
+
+    describe('missing query', () => {
+      beforeEach(async () => {
+        await addGroup({ query: { username: 'joe' } }, res)
+      })
+
+      it('should return 400 if missing query', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'group', text: 'Select a group' }])
+      })
+      it('show return not found status', () => {
+        expect(res.status).toBeCalledWith(400)
+      })
+    })
+
+    describe('known issue', () => {
+      const response = { status: 404, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      beforeEach(async () => {
+        oauthApi.addUserGroup.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await addGroup({ query: { username: 'joe', group: 'group' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'group', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(404)
+      })
+    })
+  })
+
+  describe('removeGroup', () => {
+    it('should call removeGroup', async () => {
+      const response = {}
+
+      oauthApi.removeUserGroup.mockReturnValueOnce(response)
+
+      await removeGroup({ query: { username: 'joe', group: 'maintain' } }, res)
+
+      expect(res.json).toBeCalledWith(response)
+    })
+
+    describe('missing query', () => {
+      beforeEach(async () => {
+        await removeGroup({ query: { username: 'joe' } }, res)
+      })
+
+      it('should return 400 if missing query', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'group', text: 'Select a group to remove' }])
+      })
+      it('show return not found status', () => {
+        expect(res.status).toBeCalledWith(400)
+      })
+    })
+
+    describe('known issue', () => {
+      const response = { status: 404, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      beforeEach(async () => {
+        oauthApi.removeUserGroup.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await removeGroup({ query: { username: 'joe', group: 'group' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'group', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(404)
+      })
+    })
+  })
+
   describe('allRoles', () => {
     it('should call roles', async () => {
       const response = [{ roleCode: 'bob' }, { roleCode: 'joe' }]
@@ -323,6 +466,55 @@ describe('Auth user maintenance controller', () => {
       })
       it('show pass through status', () => {
         expect(res.status).toBeCalledWith(404)
+      })
+    })
+  })
+
+  describe('assignableGroups', () => {
+    it('should call assignableGroups', async () => {
+      const response = [{ groupCode: 'bob' }, { groupCode: 'joe' }]
+
+      oauthApi.assignableGroups.mockReturnValueOnce(response)
+
+      await assignableGroups({}, res)
+
+      expect(res.json).toBeCalledWith(response)
+    })
+
+    describe('known issue', () => {
+      const response = { status: 404, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
+
+      beforeEach(async () => {
+        oauthApi.assignableGroups.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+
+        await assignableGroups({ query: { username: 'joe' } }, res)
+      })
+      it('should pass error through if known issue occurs', async () => {
+        expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])
+      })
+      it('show pass through status', () => {
+        expect(res.status).toBeCalledWith(404)
+      })
+    })
+
+    describe('unknown issue but client error', () => {
+      const response = { status: 403, data: { error: 'Not Found' } }
+
+      beforeEach(async () => {
+        oauthApi.assignableGroups.mockImplementation(() => {
+          const error = new Error('something went wrong')
+          error.response = response
+          throw error
+        })
+      })
+      it('should pass error through if known issue occurs', async () => {
+        await expect(assignableGroups({ query: { username: 'joe' } }, res)).rejects.toThrow(
+          new Error('something went wrong')
+        )
       })
     })
   })

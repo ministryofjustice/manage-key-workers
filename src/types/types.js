@@ -1,4 +1,4 @@
-import { shape, number, string, arrayOf, bool, object, oneOfType, node, func } from 'prop-types'
+import { arrayOf, bool, func, node, number, object, oneOfType, shape, string } from 'prop-types'
 
 const caseLoadOptions = shape({
   caseLoadId: string.isRequired,
@@ -60,6 +60,13 @@ const authRoleType = shape({
 
 export const authRoleListType = arrayOf(authRoleType)
 export const authUserListType = arrayOf(contextAuthUserType)
+
+const authGroupType = shape({
+  groupCode: string.isRequired,
+  groupName: string.isRequired,
+})
+
+export const authGroupListType = arrayOf(authGroupType)
 
 export const configType = shape({
   keyworkerProfileStatsEnabled: string.isRequired,

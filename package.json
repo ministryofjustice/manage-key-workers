@@ -127,8 +127,8 @@
     "webpack-cli": "^3.1.1"
   },
   "scripts": {
-    "start": "node $NODE_DEBUG_OPTION backend/index.js",
-    "start-feature": "PORT=3005 OAUTH_ENDPOINT_URL=http://localhost:19090/auth/ API_ENDPOINT_URL=http://localhost:18080/ KEYWORKER_API_URL=http://localhost:18081/ node $NODE_DEBUG_OPTION backend/index.js",
+    "start": "node backend/index.js",
+    "start-feature": "PORT=3005 OAUTH_ENDPOINT_URL=http://localhost:19090/auth/ API_ENDPOINT_URL=http://localhost:18080/ KEYWORKER_API_URL=http://localhost:18081/ node backend/index.js",
     "start-prod": "NODE_ENV=production node backend/index.js",
     "build": "webpack --mode=production",
     "build:analyse": "BUNDLE_ANALYSE=true yarn build",

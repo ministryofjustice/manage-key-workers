@@ -97,3 +97,141 @@ exports[`Auth Create form Form should render correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`Auth Create form Form should render correctly with groups 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="username"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Username
+        </span>
+        <input
+          autoComplete="create-username"
+          className="sc-ifAKCX hTyiys"
+          id="username"
+          name="username"
+          onChange={[Function]}
+          spellCheck={false}
+          type="text"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="email"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Email address
+        </span>
+        <input
+          autoComplete="create-email"
+          className="sc-ifAKCX hTyiys"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          spellCheck={false}
+          type="email"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="firstName"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          First name
+        </span>
+        <input
+          className="sc-ifAKCX hTyiys"
+          id="firstName"
+          name="firstName"
+          onChange={[Function]}
+          spellCheck={false}
+          type="text"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="lastName"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Last name
+        </span>
+        <input
+          className="sc-ifAKCX hTyiys"
+          id="lastName"
+          name="lastName"
+          onChange={[Function]}
+          spellCheck={false}
+          type="text"
+        />
+      </label>
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="groupCode"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Select group
+        </span>
+        <select
+          className="sc-dnqmqq fIVGzI"
+          id="groupCode"
+          name="groupCode"
+          onChange={[Function]}
+        >
+          <option
+            value="--"
+          >
+            -- Select --
+          </option>
+          <option
+            data-qa="GROUP_1_option"
+            value="GROUP_1"
+          >
+            Group 1
+          </option>
+          <option
+            data-qa="GROUP_2_option"
+            value="GROUP_2"
+          >
+            Group 2
+          </option>
+          <option
+            data-qa="GROUP_3_option"
+            value="GROUP_3"
+          >
+            Group 3
+          </option>
+        </select>
+      </label>
+      <button
+        className="sc-EHOje hEaLol"
+        disabled={false}
+        id="create-button"
+        type="submit"
+      >
+        Create
+      </button>
+    </form>
+  </div>
+</div>
+`;

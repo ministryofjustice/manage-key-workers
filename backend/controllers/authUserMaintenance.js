@@ -8,7 +8,8 @@ const handleClientError = async (apiCall, defaultField, res, errorMapping) => {
       res.status(e.response.status)
       const { field, error, error_description: errorDescription } = e.response.data
       const description = (errorMapping && errorMapping[error]) || errorDescription
-      res.json([{ targetName: field || defaultField, text: description, error }])
+      if (!field && !description) throw e
+      else res.json([{ targetName: field || defaultField, text: description, error }])
     } else {
       throw e
     }
@@ -78,6 +79,26 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
+  const groups = async (req, res) => {
+    const { username } = req.query
+    log.debug('Performing auth user groups query')
+
+    if (!username) {
+      res.status(400)
+      res.json([{ targetName: 'user', text: 'Enter a username' }])
+      return
+    }
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.userGroups(res.locals, { username })
+        res.json(response)
+      },
+      'user',
+      res
+    )
+  }
+
   const addRole = async (req, res) => {
     const { username, role } = req.query
     log.debug(`Adding role ${role} to user ${username}`)
@@ -118,12 +139,65 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
+  const addGroup = async (req, res) => {
+    const { username, group } = req.query
+    log.debug(`Adding group ${group} to user ${username}`)
+
+    if (!group) {
+      res.status(400)
+      res.json([{ targetName: 'group', text: 'Select a group' }])
+      return
+    }
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.addUserGroup(res.locals, { username, group })
+        res.json(response)
+      },
+      'group',
+      res
+    )
+  }
+
+  const removeGroup = async (req, res) => {
+    const { username, group } = req.query
+    log.debug(`Removing group ${group} from user ${username}`)
+
+    if (!group) {
+      res.status(400)
+      res.json([{ targetName: 'group', text: 'Select a group to remove' }])
+      return
+    }
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.removeUserGroup(res.locals, { username, group })
+        res.json(response)
+      },
+      'group',
+      res
+    )
+  }
+
   const allRoles = async (req, res) => {
     log.debug('Performing auth roles ')
 
     await handleClientError(
       async () => {
         const response = await oauthApi.allRoles(res.locals)
+        res.json(response)
+      },
+      'user',
+      res
+    )
+  }
+
+  const assignableGroups = async (req, res) => {
+    log.debug('Performing auth user assignable groups')
+
+    await handleClientError(
+      async () => {
+        const response = await oauthApi.assignableGroups(res.locals)
         res.json(response)
       },
       'user',
@@ -193,7 +267,22 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  return { getUser, search, roles, addRole, removeRole, allRoles, createUser, enableUser, disableUser, amendUser }
+  return {
+    getUser,
+    search,
+    roles,
+    groups,
+    addRole,
+    removeRole,
+    addGroup,
+    removeGroup,
+    allRoles,
+    assignableGroups,
+    createUser,
+    enableUser,
+    disableUser,
+    amendUser,
+  }
 }
 
 module.exports = authUserMaintenanceFactory

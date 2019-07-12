@@ -23,4 +23,10 @@ class AuthUserSearchResponse {
         {"roleCode": "LICENCE_RO", "roleName": "Licence Responsible Officer"},
         {"roleCode": "LICENCE_VARY", "roleName": "Licence Vary"}
 ]"""
+
+    static allGroupsResponse = """[
+        {"groupCode": "GROUP_1", "groupName": "Site 1 - Group 1"},
+        {"groupCode": "GROUP_2", "groupName": "Site 1 - Group 2"},
+        {"groupCode": "GROUP_3", "groupName": "Site 1 - Group 3"}
+]"""
 }

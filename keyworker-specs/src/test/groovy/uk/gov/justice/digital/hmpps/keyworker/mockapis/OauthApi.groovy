@@ -167,7 +167,18 @@ class OauthApi extends WireMockRule {
                                 .withStatus(status)))
     }
 
+
     void stubAuthUserRoles() {
+        this.stubFor(
+                get(urlPathMatching("/auth/api/authuser/.*/roles"))
+                        .willReturn(
+                                aResponse()
+                                        .withStatus(200)
+                                        .withHeader('Content-Type', 'application/json')
+                                        .withBody(AuthUserSearchResponse.getRolesResponse())))
+    }
+
+    void stubAuthUserGroups() {
         this.stubFor(
                 get(urlPathMatching("/auth/api/authuser/.*/roles"))
                         .willReturn(
@@ -261,6 +272,16 @@ class OauthApi extends WireMockRule {
                                         .withStatus(200)
                                         .withHeader('Content-Type', 'application/json')
                                         .withBody(AuthUserSearchResponse.getAllRolesResponse())))
+    }
+
+    void stubAuthAllGroups() {
+        this.stubFor(
+                get(urlPathMatching("/auth/api/authuser/me/assignable-groups"))
+                        .willReturn(
+                                aResponse()
+                                        .withStatus(200)
+                                        .withHeader('Content-Type', 'application/json')
+                                        .withBody(AuthUserSearchResponse.getAllGroupsResponse())))
     }
 
     void stubHealth() {

@@ -17,11 +17,12 @@ public class AuthUserCreatePage extends Page {
         errors { $('#error-summary').text() }
     }
 
-    void createUser(String username, String email, String firstName, String lastName) {
+    void createUser(String username, String email, String firstName, String lastName, String groupCode) {
         $('form').username = username
         $('form').email = email
         $('form').firstName = firstName
         $('form').lastName = lastName
+        $('form').groupCode = groupCode
         assert createButton.text() == 'Create'
         createButton.click()
     }
