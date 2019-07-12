@@ -14,6 +14,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
     const hasMaintainAccessRolesAdminRole = roles.some(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN')
     const hasKwMigrationRole = roles.some(role => role.roleCode === 'KW_MIGRATION')
     const hasMaintainAuthUsersRole = roles.some(role => role.roleCode === 'MAINTAIN_OAUTH_USERS')
+    const hasGroupManagerRole = roles.some(role => role.roleCode === 'AUTH_GROUP_MANAGER')
 
     const response = {
       ...user,
@@ -23,6 +24,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
       maintainAccess: hasMaintainAccessRolesRole,
       maintainAccessAdmin: hasMaintainAccessRolesAdminRole,
       maintainAuthUsers: hasMaintainAuthUsersRole,
+      groupManager: hasGroupManagerRole,
       prisonMigrated: Boolean(prisonStatus.migrated),
     }
     res.json(response)

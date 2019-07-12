@@ -161,8 +161,23 @@ class AdminUtilitiesSpecification extends BrowserReportingSpec {
         assert !keyworkerSettingsLink.displayed
     }
 
-    def "should see maintain auth users link if the user has the the MAINTAIN_OAUTH_USERS role"() {
+    def "should see maintain auth users link if the user has the MAINTAIN_OAUTH_USERS role"() {
         def maintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([maintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
+
+        given: "I logged in and go to the admin and utilities page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        to AdminUtilitiesPage
+
+        when: "I am on the admin and utilities page"
+
+        then: "I should see the maintain auth users link"
+        assert maintainAuthUsersLink.displayed
+    }
+
+    def "should see maintain auth users link if the user has the group manager role"() {
+        def maintainAuthUsersRole = [roleId: -1, roleCode: 'AUTH_GROUP_MANAGER']
         oauthApi.stubGetMyRoles([maintainAuthUsersRole])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
 

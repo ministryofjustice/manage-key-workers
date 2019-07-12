@@ -35,7 +35,7 @@ describe('<AdminUtilitiesContainer />', () => {
   it('render with a message if there are no admin rights', () => {
     const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
 
-    expect(wrapper.find('p').text()).toEqual('There are no Admin or Utilities associated with your account.')
+    expect(wrapper.find('p').text()).toEqual('There are no admin or utility functions associated with your account.')
   })
 
   describe('render links', () => {
@@ -67,6 +67,14 @@ describe('<AdminUtilitiesContainer />', () => {
 
     it('should render a Link to Maintain auth users if user has maintain auth user roles', () => {
       props.user.maintainAuthUsers = true
+      const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
+      const keyworkerSettingsLink = wrapper.find('Link').find({ to: '/admin-utilities/maintain-auth-users' })
+
+      expect(keyworkerSettingsLink.prop('children')).toEqual('Manage auth users')
+    })
+
+    it('should render a Link to Maintain auth users if user has group manager role', () => {
+      props.user.groupManager = true
       const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
       const keyworkerSettingsLink = wrapper.find('Link').find({ to: '/admin-utilities/maintain-auth-users' })
 
