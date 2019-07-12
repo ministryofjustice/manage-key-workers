@@ -8,7 +8,7 @@ import { handleAxiosError, resetError, setError, setLoaded } from '../../../redu
 import AuthUserCreate from '../components/AuthUserCreate'
 import Page from '../../../Components/Page'
 import { validateCreate } from './AuthUserValidation'
-import { errorType } from '../../../types'
+import { errorType, userType } from '../../../types'
 
 class AuthUserCreateContainer extends Component {
   constructor(props) {
@@ -41,12 +41,12 @@ class AuthUserCreateContainer extends Component {
   }
 
   handleCreate = async event => {
-    const { history, setErrorDispatch, resetErrorDispatch, handleAxiosErrorDispatch } = this.props
+    const { history, setErrorDispatch, resetErrorDispatch, handleAxiosErrorDispatch, user } = this.props
     const { username } = this.state
 
     event.preventDefault()
 
-    const errors = validateCreate(this.state)
+    const errors = validateCreate(this.state, user.groupManager)
     if (errors.length) {
       setErrorDispatch(errors)
       return
@@ -87,6 +87,7 @@ AuthUserCreateContainer.propTypes = {
   dispatchLoaded: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   error: errorType.isRequired,
+  user: userType.isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -98,6 +99,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   error: state.app.error,
+  user: state.app.user,
 })
 
 export { AuthUserCreateContainer }

@@ -30,7 +30,7 @@ const validateEmailFormat = email => {
   return errors
 }
 
-const validateCreate = ({ username, email, firstName, lastName }) => {
+const validateCreate = ({ username, email, firstName, lastName, groupCode }, groupManager) => {
   const errors = []
   if (!username) {
     errors.push({ targetName: 'username', text: 'Enter a username' })
@@ -43,6 +43,10 @@ const validateCreate = ({ username, email, firstName, lastName }) => {
   }
   if (!lastName) {
     errors.push({ targetName: 'lastName', text: 'Enter a last name' })
+  }
+  // group code required for group managers
+  if (groupManager && (!groupCode || groupCode === '--')) {
+    errors.push({ targetName: 'groupCode', text: 'Select a group' })
   }
   if (errors.length) return errors
 

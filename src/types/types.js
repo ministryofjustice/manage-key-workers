@@ -8,8 +8,8 @@ const caseLoadOptions = shape({
 })
 
 export const userType = shape({
-  activeCaseLoadId: string.isRequired,
-  caseLoadOptions: arrayOf(caseLoadOptions).isRequired,
+  activeCaseLoadId: string,
+  caseLoadOptions: arrayOf(caseLoadOptions),
   expiredFlag: bool,
   firstName: string.isRequired,
   lastName: string.isRequired,
@@ -17,7 +17,7 @@ export const userType = shape({
   maintainAccess: bool,
   maintainAccessAdmin: bool,
   migration: bool,
-  staffId: number.isRequired,
+  staffId: number,
   username: string.isRequired,
   writeAccess: bool,
 })
