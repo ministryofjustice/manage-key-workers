@@ -115,6 +115,7 @@ describe('maintain auth users', () => {
         await store.dispatch(removeAuthRole('roleA'))
 
         expect(store.getActions()).toEqual([
+          { type: 'RESET_ERROR' },
           { roleList: [roleB], type: SET_AUTH_USER_ROLE_LIST },
           { message: 'Role Role A removed', type: SET_MESSAGE },
         ])
@@ -132,7 +133,10 @@ describe('maintain auth users', () => {
         })
         await store.dispatch(removeAuthRole('roleA'))
 
-        expect(store.getActions()).toEqual([{ error: 'Something went wrong: Error: User not found', type: SET_ERROR }])
+        expect(store.getActions()).toEqual([
+          { type: 'RESET_ERROR' },
+          { error: 'Something went wrong: Error: User not found', type: SET_ERROR },
+        ])
       })
     })
 

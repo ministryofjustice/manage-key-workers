@@ -36,7 +36,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const assignableGroups = context => get(context, 'api/authuser/me/assignable-groups')
   const enableUser = (context, { username }) => put(context, `api/authuser/${username}/enable`)
   const disableUser = (context, { username }) => put(context, `api/authuser/${username}/disable`)
-  const allRoles = context => get(context, `api/authroles`)
+  const assignableRoles = (context, { username }) => get(context, `api/authuser/${username}/assignable-roles`)
   const amendUser = (context, username, email) => post(context, `api/authuser/${username}`, email)
 
   const oauthAxios = axios.create({
@@ -109,7 +109,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     removeUserRole,
     addUserGroup,
     removeUserGroup,
-    allRoles,
+    assignableRoles,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,

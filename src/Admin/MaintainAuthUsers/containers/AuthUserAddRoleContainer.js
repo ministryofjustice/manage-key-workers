@@ -22,15 +22,19 @@ class AuthUserAddRoleContainer extends Component {
   async componentDidMount() {
     const { loadAuthUserAndRolesDispatch, match } = this.props
 
-    this.getRoles()
+    this.getRoles(match.params.username)
     loadAuthUserAndRolesDispatch(match.params.username)
   }
 
-  async getRoles() {
+  async getRoles(username) {
     const { handleAxiosErrorDispatch } = this.props
 
     try {
-      const { data } = await axios.get('/api/auth-roles')
+      const { data } = await axios.get('/api/auth-roles', {
+        params: {
+          username,
+        },
+      })
       this.setState(state => ({ ...state, roles: data }))
     } catch (error) {
       handleAxiosErrorDispatch(error)
