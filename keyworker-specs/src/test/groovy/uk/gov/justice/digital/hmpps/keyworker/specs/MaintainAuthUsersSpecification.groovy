@@ -99,7 +99,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         roleRows.size() == 3
         roleRows[1].find("td", 0).text() == 'Global Search'
 
-        oauthApi.stubAuthAllRoles()
+        oauthApi.stubAuthAssignableRoles()
 
         when: 'I navigate to the add role page'
         addButton.click()

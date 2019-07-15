@@ -18,7 +18,7 @@ class AuthUserSearchResponse {
         {"roleCode": "LICENCE_RO", "roleName": "Licence Responsible Officer"}
 ]"""
 
-    static allRolesResponse = """[
+    static assignableRolesResponse = """[
         {"roleCode": "GLOBAL_SEARCH", "roleName": "Global Search"},
         {"roleCode": "LICENCE_RO", "roleName": "Licence Responsible Officer"},
         {"roleCode": "LICENCE_VARY", "roleName": "Licence Vary"}
