@@ -115,7 +115,8 @@ const authUserMaintenanceFactory = oauthApi => {
         res.json(response)
       },
       'role',
-      res
+      res,
+      { 'role.noaccess': `User ${username} isn't in one of your groups.` }
     )
   }
 
@@ -135,7 +136,11 @@ const authUserMaintenanceFactory = oauthApi => {
         res.json(response)
       },
       'role',
-      res
+      res,
+      {
+        'role.noaccess': `User ${username} isn't in one of your groups.`,
+        'role.invalid': `The ${role} role isn't one of the roles assigned to the user's groups so cannot be removed.`,
+      }
     )
   }
 
@@ -179,12 +184,13 @@ const authUserMaintenanceFactory = oauthApi => {
     )
   }
 
-  const allRoles = async (req, res) => {
-    log.debug('Performing auth roles ')
+  const assignableRoles = async (req, res) => {
+    const { username } = req.query
+    log.debug(`Performing auth assignable roles for user ${username}`)
 
     await handleClientError(
       async () => {
-        const response = await oauthApi.allRoles(res.locals)
+        const response = await oauthApi.assignableRoles(res.locals, { username })
         res.json(response)
       },
       'user',
@@ -276,7 +282,7 @@ const authUserMaintenanceFactory = oauthApi => {
     removeRole,
     addGroup,
     removeGroup,
-    allRoles,
+    assignableRoles,
     assignableGroups,
     createUser,
     enableUser,

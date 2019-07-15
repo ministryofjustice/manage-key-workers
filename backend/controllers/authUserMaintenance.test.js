@@ -12,7 +12,7 @@ describe('Auth user maintenance controller', () => {
     addGroup,
     removeGroup,
     getUser,
-    allRoles,
+    assignableRoles,
     assignableGroups,
     createUser,
     enableUser,
@@ -29,7 +29,7 @@ describe('Auth user maintenance controller', () => {
     oauthApi.removeUserRole = jest.fn()
     oauthApi.addUserGroup = jest.fn()
     oauthApi.removeUserGroup = jest.fn()
-    oauthApi.allRoles = jest.fn()
+    oauthApi.assignableRoles = jest.fn()
     oauthApi.assignableGroups = jest.fn()
     oauthApi.createUser = jest.fn()
     oauthApi.disableUser = jest.fn()
@@ -438,13 +438,13 @@ describe('Auth user maintenance controller', () => {
     })
   })
 
-  describe('allRoles', () => {
+  describe('assignableRoles', () => {
     it('should call roles', async () => {
       const response = [{ roleCode: 'bob' }, { roleCode: 'joe' }]
 
-      oauthApi.allRoles.mockReturnValueOnce(response)
+      oauthApi.assignableRoles.mockReturnValueOnce(response)
 
-      await allRoles({}, res)
+      await assignableRoles({ query: { username: 'fred' } }, res)
 
       expect(res.json).toBeCalledWith(response)
     })
@@ -453,13 +453,13 @@ describe('Auth user maintenance controller', () => {
       const response = { status: 404, data: { error: 'Not Found', error_description: 'Some problem occurred' } }
 
       beforeEach(async () => {
-        oauthApi.allRoles.mockImplementation(() => {
+        oauthApi.assignableRoles.mockImplementation(() => {
           const error = new Error('something went wrong')
           error.response = response
           throw error
         })
 
-        await allRoles({ query: { username: 'joe' } }, res)
+        await assignableRoles({ query: { username: 'joe' } }, res)
       })
       it('should pass error through if known issue occurs', async () => {
         expect(res.json).toBeCalledWith([{ targetName: 'user', text: 'Some problem occurred', error: 'Not Found' }])

@@ -43,6 +43,7 @@ export const loadAuthUserAndRoles = username => dispatch => {
 }
 
 export const removeAuthRole = roleCode => async (dispatch, getState) => {
+  dispatch(resetError())
   const {
     contextUser: { username },
     roleList,

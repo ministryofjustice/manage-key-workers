@@ -77,7 +77,7 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
   router.use('/api/auth-user-groups-remove', withErrorHandler(authUserMaintenance.removeGroup))
   router.use('/api/auth-user-enable', withErrorHandler(authUserMaintenance.enableUser))
   router.use('/api/auth-user-disable', withErrorHandler(authUserMaintenance.disableUser))
-  router.use('/api/auth-roles', withErrorHandler(authUserMaintenance.allRoles))
+  router.use('/api/auth-roles', withErrorHandler(authUserMaintenance.assignableRoles))
   router.use('/api/auth-groups', withErrorHandler(authUserMaintenance.assignableGroups))
   router.use('/api/auth-user-create', withErrorHandler(authUserMaintenance.createUser))
   router.use('/api/auth-user-amend', withErrorHandler(authUserMaintenance.amendUser))

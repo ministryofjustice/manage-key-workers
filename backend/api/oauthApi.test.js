@@ -256,7 +256,7 @@ describe('oathApi tests', () => {
     })
   })
 
-  describe('allRoles', () => {
+  describe('assignableRoles', () => {
     const roles = { bob: 'hello there' }
     let actual
 
@@ -264,14 +264,14 @@ describe('oathApi tests', () => {
       client.get = jest.fn().mockReturnValue({
         then: () => roles,
       })
-      actual = oauthApi.allRoles(context)
+      actual = oauthApi.assignableRoles(context, { username: 'bob' })
     })
 
     it('should return roles from endpoint', () => {
       expect(actual).toEqual(roles)
     })
     it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, 'api/authroles')
+      expect(client.get).toBeCalledWith(context, 'api/authuser/bob/assignable-roles')
     })
   })
 
