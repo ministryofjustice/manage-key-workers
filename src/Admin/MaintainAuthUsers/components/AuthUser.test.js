@@ -62,7 +62,33 @@ describe('Auth user display', () => {
     })
   })
 
-  describe('no groups', () => {
+  describe('no groups - add groups not available for Group Manager', () => {
+    const wrapper = renderer.create(
+      <MemoryRouter>
+        <AuthUser
+          user={adminUser}
+          contextUser={user}
+          roleList={[]}
+          groupList={[]}
+          handleRoleAdd={stubFunc}
+          handleRoleRemove={stubFunc}
+          handleEnable={stubFunc}
+          handleDisable={stubFunc}
+        />
+      </MemoryRouter>
+    )
+    it('should render correctly with user and no groups', () => {
+      expect(wrapper.toJSON()).toMatchSnapshot()
+    })
+
+    it('should display message about no groups found', () => {
+      const tableRows = wrapper.root.findAllByType(Table.Row)
+      // last table row should have message
+      expect(tableRows[tableRows.length - 1].props.children[0].props.children).toEqual('No groups found')
+    })
+  })
+
+  describe('no groups - add groups available for admin user', () => {
     const wrapper = renderer.create(
       <MemoryRouter>
         <AuthUser

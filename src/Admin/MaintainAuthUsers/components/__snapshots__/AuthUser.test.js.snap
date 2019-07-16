@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Auth user display no groups should render correctly with user and no groups 1`] = `
+exports[`Auth user display no groups - add groups available for admin user should render correctly with user and no groups 1`] = `
 <div>
   <div
     className="sc-bZQynM gYfOhL"
@@ -259,6 +259,272 @@ exports[`Auth user display no groups should render correctly with user and no gr
       data-qa="add-group-button"
       disabled={false}
       onClick={[Function]}
+    >
+      Add group
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Auth user display no groups - add groups not available for Group Manager should render correctly with user and no groups 1`] = `
+<div>
+  <div
+    className="sc-bZQynM gYfOhL"
+  >
+    <div
+      className="sc-gzVnrw hGCwOi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+        data-qa="user-details"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Username
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              joesmith
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Name
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Joe
+               
+              Smith
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Email
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              joe.smith@justice.gov.uk
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              <a
+                className="sc-iwsKbI cVTNNJ"
+                data-qa="amend-link"
+                href="/admin-utilities/maintain-auth-users/joesmith/amend"
+                muted={false}
+                noVisitedState={false}
+                onClick={[Function]}
+                textColour={false}
+              >
+                Change
+              </a>
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Locked
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Enabled
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              Yes
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              <button
+                className="sc-htoDjs kiMCan"
+                data-qa="enable-button"
+                disabled={false}
+                onClick={[Function]}
+                value="joesmith"
+              >
+                Disable
+              </button>
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Verified
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    className="sc-bZQynM eXvviO"
+  >
+    <div
+      className="sc-gzVnrw doLCDi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+        data-qa="user-roles"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Current roles
+            </th>
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No roles found
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs gxKpuV"
+      data-qa="add-role-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Add role
+    </button>
+  </div>
+  <div
+    className="sc-bZQynM eXvviO"
+  >
+    <div
+      className="sc-gzVnrw doLCDi"
+    >
+      <table
+        className="sc-EHOje kCMYgv"
+        data-qa="user-groups"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Current groups
+            </th>
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              No groups found
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs gxKpuV"
+      data-qa="add-group-button"
+      disabled={false}
+      onClick={undefined}
     >
       Add group
     </button>
