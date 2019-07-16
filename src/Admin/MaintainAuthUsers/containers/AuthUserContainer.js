@@ -4,28 +4,36 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import {
-  loadAuthUserAndRoles,
+  loadAuthUserRolesAndGroups,
   removeAuthRole,
+  removeAuthGroup,
   enableUser,
   disableUser,
 } from '../../../redux/actions/maintainAuthUserActions'
 import { clearMessage } from '../../../redux/actions'
 import AuthUser from '../components/AuthUser'
-import { routeMatchType, contextAuthUserType, authRoleListType, errorType } from '../../../types'
+import { routeMatchType, contextAuthUserType, authRoleListType, authGroupListType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 
 class AuthUserContainer extends Component {
   async componentDidMount() {
-    const { loadAuthUserAndRolesDispatch, match } = this.props
+    const { loadAuthUserRolesAndGroupsDispatch, match } = this.props
 
-    loadAuthUserAndRolesDispatch(match.params.username)
+    loadAuthUserRolesAndGroupsDispatch(match.params.username)
   }
 
-  handleRemove = async event => {
+  handleRoleRemove = async event => {
     const { removeAuthRoleDispatch } = this.props
 
     event.preventDefault()
     removeAuthRoleDispatch(event.target.value)
+  }
+
+  handleGroupRemove = async event => {
+    const { removeAuthGroupDispatch } = this.props
+
+    event.preventDefault()
+    removeAuthGroupDispatch(event.target.value)
   }
 
   handleEnable = async event => {
@@ -42,11 +50,18 @@ class AuthUserContainer extends Component {
     disableDispatch(event.target.value)
   }
 
-  handleAdd = event => {
+  handleRoleAdd = event => {
     const { contextUser, history } = this.props
 
     event.preventDefault()
     history.push(`/admin-utilities/maintain-auth-users/${contextUser.username}/add-role`)
+  }
+
+  handleGroupAdd = event => {
+    const { contextUser, history } = this.props
+
+    event.preventDefault()
+    history.push(`/admin-utilities/maintain-auth-users/${contextUser.username}/add-group`)
   }
 
   render() {
@@ -65,8 +80,10 @@ class AuthUserContainer extends Component {
     return (
       <Page title={`Auth user: ${firstName} ${lastName}`} alwaysRender>
         <AuthUser
-          handleRemove={this.handleRemove}
-          handleAdd={this.handleAdd}
+          handleRoleRemove={this.handleRoleRemove}
+          handleGroupRemove={this.handleGroupRemove}
+          handleRoleAdd={this.handleRoleAdd}
+          handleGroupAdd={this.handleGroupAdd}
           handleEnable={this.handleEnable}
           handleDisable={this.handleDisable}
           {...this.props}
@@ -80,10 +97,12 @@ AuthUserContainer.propTypes = {
   error: errorType.isRequired,
   contextUser: contextAuthUserType,
   roleList: authRoleListType,
+  groupList: authGroupListType,
   message: PropTypes.string.isRequired,
   match: routeMatchType.isRequired,
-  loadAuthUserAndRolesDispatch: PropTypes.func.isRequired,
+  loadAuthUserRolesAndGroupsDispatch: PropTypes.func.isRequired,
   removeAuthRoleDispatch: PropTypes.func.isRequired,
+  removeAuthGroupDispatch: PropTypes.func.isRequired,
   enableDispatch: PropTypes.func.isRequired,
   disableDispatch: PropTypes.func.isRequired,
   clearMessage: PropTypes.func.isRequired,
@@ -93,19 +112,22 @@ AuthUserContainer.propTypes = {
 AuthUserContainer.defaultProps = {
   contextUser: {},
   roleList: [],
+  groupList: [],
 }
 
 const mapStateToProps = state => ({
   error: state.app.error,
   contextUser: state.maintainAuthUsers.contextUser,
   roleList: state.maintainAuthUsers.roleList,
+  groupList: state.maintainAuthUsers.groupList,
   loaded: state.app.loaded,
   message: state.app.message,
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadAuthUserAndRolesDispatch: username => dispatch(loadAuthUserAndRoles(username)),
+  loadAuthUserRolesAndGroupsDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
   removeAuthRoleDispatch: role => dispatch(removeAuthRole(role)),
+  removeAuthGroupDispatch: group => dispatch(removeAuthGroup(group)),
   enableDispatch: () => dispatch(enableUser()),
   disableDispatch: () => dispatch(disableUser()),
   clearMessage: () => dispatch(clearMessage()),

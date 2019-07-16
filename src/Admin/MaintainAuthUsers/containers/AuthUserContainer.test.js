@@ -58,11 +58,13 @@ describe('Auth user container', () => {
   describe('handle functions', () => {
     const event = { target: { name: 'user', value: 'usersearched' } }
     const roleList = [{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]
+    const groupList = [{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
 
     const props = {
       contextUser: user,
       roleList,
+      groupList,
       error: '',
       message: '',
       match: mockMatch({ username: 'joebook' }),
@@ -74,10 +76,11 @@ describe('Auth user container', () => {
       event.preventDefault = jest.fn()
 
       props.removeAuthRoleDispatch = jest.fn()
+      props.removeAuthGroupDispatch = jest.fn()
       props.enableDispatch = jest.fn()
       props.disableDispatch = jest.fn()
       props.clearMessage = jest.fn()
-      props.loadAuthUserAndRolesDispatch = jest.fn()
+      props.loadAuthUserRolesAndGroupsDispatch = jest.fn()
 
       wrapper = mount(
         <Provider store={store}>
@@ -88,7 +91,7 @@ describe('Auth user container', () => {
       )
     })
 
-    describe('handleRemove', () => {
+    describe('handleRoleRemove', () => {
       it('should call axios to remove role when remove button clicked', () => {
         wrapper.find('[data-qa="remove-button-roleA"] button').simulate('click')
 
@@ -102,15 +105,43 @@ describe('Auth user container', () => {
       })
     })
 
-    describe('handleAdd', () => {
+    describe('handleRoleAdd', () => {
       it('should set history when add button clicked', () => {
-        wrapper.find('[data-qa="add-button"] button').simulate('click')
+        wrapper.find('[data-qa="add-role-button"] button').simulate('click')
 
         expect(mockHistory.push).toBeCalledWith('/admin-utilities/maintain-auth-users/joesmith/add-role')
       })
 
       it('should prevent default on the form submission', () => {
-        wrapper.find('[data-qa="add-button"] button').simulate('click', event)
+        wrapper.find('[data-qa="add-role-button"] button').simulate('click', event)
+
+        expect(event.preventDefault).toBeCalled()
+      })
+    })
+
+    describe('handleGroupRemove', () => {
+      it('should call axios to remove group when remove button clicked', () => {
+        wrapper.find('[data-qa="remove-button-group1"] button').simulate('click')
+
+        expect(props.removeAuthGroupDispatch).toBeCalledWith('group1')
+      })
+
+      it('should prevent default on the form submission', () => {
+        wrapper.find('[data-qa="remove-button-group1"] button').simulate('click', event)
+
+        expect(event.preventDefault).toBeCalled()
+      })
+    })
+
+    describe('handleGroupAdd', () => {
+      it('should set history when add button clicked', () => {
+        wrapper.find('[data-qa="add-group-button"] button').simulate('click')
+
+        expect(mockHistory.push).toBeCalledWith('/admin-utilities/maintain-auth-users/joesmith/add-group')
+      })
+
+      it('should prevent default on the form submission', () => {
+        wrapper.find('[data-qa="add-group-button"] button').simulate('click', event)
 
         expect(event.preventDefault).toBeCalled()
       })

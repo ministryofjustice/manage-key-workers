@@ -18,6 +18,11 @@ class AuthUserSearchResponse {
         {"roleCode": "LICENCE_RO", "roleName": "Licence Responsible Officer"}
 ]"""
 
+    static groupsResponse = """[
+        {"groupCode": "SITE_1_GROUP_1", "groupName": "Site 1 - Group 1"},
+        {"groupCode": "SITE_1_GROUP_2", "groupName": "Site 1 - Group 2"}
+]"""
+
     static assignableRolesResponse = """[
         {"roleCode": "GLOBAL_SEARCH", "roleName": "Global Search"},
         {"roleCode": "LICENCE_RO", "roleName": "Licence Responsible Officer"},

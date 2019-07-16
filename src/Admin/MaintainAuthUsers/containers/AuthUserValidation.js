@@ -8,7 +8,9 @@ const validateSearch = user => {
   return []
 }
 
-const validateAdd = role => (!role ? [{ targetName: 'role', text: 'Select a role' }] : [])
+const validateAddRole = role => (!role ? [{ targetName: 'role', text: 'Select a role' }] : [])
+
+const validateAddGroup = group => (!group ? [{ targetName: 'group', text: 'Select a group' }] : [])
 
 const validateEmailFormat = email => {
   const errors = []
@@ -73,4 +75,4 @@ const validateAmend = ({ email }) => {
   return validateEmailFormat(email)
 }
 
-export { validateSearch, validateAdd, validateCreate, validateAmend }
+export { validateSearch, validateAddRole, validateAddGroup, validateCreate, validateAmend }

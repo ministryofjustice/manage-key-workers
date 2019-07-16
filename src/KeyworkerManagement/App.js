@@ -20,6 +20,7 @@ import AllocationHistoryContainer from '../AllocationHistory/containers/Allocati
 import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
 import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
 import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
+import AuthUserAddGroupContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddGroupContainer'
 import AuthUserContainer from '../Admin/MaintainAuthUsers/containers/AuthUserContainer'
 import AuthUserCreateContainer from '../Admin/MaintainAuthUsers/containers/AuthUserCreateContainer'
 import AuthUserAmendContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAmendContainer'
@@ -364,6 +365,11 @@ class App extends React.Component {
               exact
               path="/admin-utilities/maintain-auth-users/:username/add-role"
               render={() => <AuthUserAddRoleContainer />}
+            />
+            <Route
+              exact
+              path="/admin-utilities/maintain-auth-users/:username/add-group"
+              render={() => <AuthUserAddGroupContainer />}
             />
             <Route
               exact

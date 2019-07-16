@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Auth user add roles errors should render an error on the select if error occurred 1`] = `
+exports[`Auth user add groups errors should render an error on the select if error occurred 1`] = `
 <div
   className="sc-gzVnrw kFjkBp"
 >
@@ -12,12 +12,12 @@ exports[`Auth user add roles errors should render an error on the select if erro
     >
       <label
         className="sc-bdVaJa bWEely"
-        htmlFor="role"
+        htmlFor="group"
       >
         <span
           className="sc-bwzfXH eLZbP"
         >
-          Choose new role
+          Choose new group
         </span>
         <span
           className="sc-htpNat khZZM"
@@ -26,8 +26,8 @@ exports[`Auth user add roles errors should render an error on the select if erro
         </span>
         <select
           className="sc-ifAKCX fVlzkY"
-          id="role"
-          name="role"
+          id="group"
+          name="group"
           onChange={[MockFunction]}
         >
           <option
@@ -39,13 +39,19 @@ exports[`Auth user add roles errors should render an error on the select if erro
             data-qa="ROLE_1_option"
             value="ROLE_1"
           >
-            Role 1
+            Group 1
+          </option>
+          <option
+            data-qa="ROLE_2_option"
+            value="ROLE_2"
+          >
+            Group 2
           </option>
           <option
             data-qa="ROLE_3_option"
             value="ROLE_3"
           >
-            Role 3
+            Group 3
           </option>
         </select>
       </label>
@@ -58,7 +64,7 @@ exports[`Auth user add roles errors should render an error on the select if erro
           disabled={false}
           type="submit"
         >
-          Add role
+          Add group
         </button>
         <button
           className="sc-EHOje ifbWkv"
@@ -75,7 +81,7 @@ exports[`Auth user add roles errors should render an error on the select if erro
 </div>
 `;
 
-exports[`Auth user add roles no roles should render correctly with user and no roles 1`] = `
+exports[`Auth user add groups no groups should render correctly with user and no groups 1`] = `
 <div
   className="sc-gzVnrw kFjkBp"
 >
@@ -86,9 +92,9 @@ exports[`Auth user add roles no roles should render correctly with user and no r
       onSubmit={[Function]}
     >
       <div
-        data-qa="no-roles"
+        data-qa="no-groups"
       >
-        No roles available
+        No groups available
       </div>
       <div
         className="sc-dnqmqq hyCbor"
@@ -108,7 +114,7 @@ exports[`Auth user add roles no roles should render correctly with user and no r
 </div>
 `;
 
-exports[`Auth user add roles should render the add role page with a filtered list of roles 1`] = `
+exports[`Auth user add groups should render the add group page with a filtered list of groups 1`] = `
 <div
   className="sc-gzVnrw kFjkBp"
 >
@@ -120,17 +126,17 @@ exports[`Auth user add roles should render the add role page with a filtered lis
     >
       <label
         className="sc-bdVaJa iHrfuG"
-        htmlFor="role"
+        htmlFor="group"
       >
         <span
           className="sc-bwzfXH eLZbP"
         >
-          Choose new role
+          Choose new group
         </span>
         <select
           className="sc-ifAKCX cGrJfQ"
-          id="role"
-          name="role"
+          id="group"
+          name="group"
           onChange={[MockFunction]}
         >
           <option
@@ -142,13 +148,19 @@ exports[`Auth user add roles should render the add role page with a filtered lis
             data-qa="ROLE_1_option"
             value="ROLE_1"
           >
-            Role 1
+            Group 1
+          </option>
+          <option
+            data-qa="ROLE_2_option"
+            value="ROLE_2"
+          >
+            Group 2
           </option>
           <option
             data-qa="ROLE_3_option"
             value="ROLE_3"
           >
-            Role 3
+            Group 3
           </option>
         </select>
       </label>
@@ -161,7 +173,7 @@ exports[`Auth user add roles should render the add role page with a filtered lis
           disabled={false}
           type="submit"
         >
-          Add role
+          Add group
         </button>
         <button
           className="sc-EHOje ifbWkv"

@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { mount } from 'enzyme'
 import axios from 'axios'
 
-import ConnectedAuthUserAddRoleContainer, { AuthUserAddRoleContainer } from './AuthUserAddRoleContainer'
+import ConnectedAuthUserAddGroupContainer, { AuthUserAddGroupContainer } from './AuthUserAddGroupContainer'
 import mockHistory from '../../../test/mockHistory'
 import mockMatch from '../../../test/mockMatch'
 
@@ -20,77 +20,77 @@ const user = {
   enabled: true,
   email: 'joe.smith@justice.gov.uk',
 }
-const roles = [
-  { roleCode: 'ROLE_1', roleName: 'Role 1' },
-  { roleCode: 'ROLE_2', roleName: 'Role 2' },
-  { roleCode: 'ROLE_3', roleName: 'Role 3' },
+const groups = [
+  { groupCode: 'GROUP_1', groupName: 'Group 1' },
+  { groupCode: 'GROUP_2', groupName: 'Group 2' },
+  { groupCode: 'GROUP_3', groupName: 'Group 3' },
 ]
 
-describe('Auth user add role container', async () => {
+describe('Auth user add group container', async () => {
   describe('rendering', () => {
     it('should render correctly without user', () => {
       const store = mockStore({
         app: { error: '', loaded: true, message: '' },
-        maintainAuthUsers: { contextUser: {}, roleList: [] },
+        maintainAuthUsers: { contextUser: {}, groupList: [] },
       })
 
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter>
-            <ConnectedAuthUserAddRoleContainer />
+            <ConnectedAuthUserAddGroupContainer />
           </MemoryRouter>
         </Provider>
       )
       expect(wrapper.contains(<div>User not found</div>)).toBe(true)
     })
 
-    it('should render correctly with a user but no roles', () => {
+    it('should render correctly with a user but no groups', () => {
       const store = mockStore({
         app: { error: '', loaded: true, message: '' },
-        maintainAuthUsers: { contextUser: user, roleList: [] },
+        maintainAuthUsers: { contextUser: user, groupList: [] },
       })
 
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter>
-            <ConnectedAuthUserAddRoleContainer />
+            <ConnectedAuthUserAddGroupContainer />
           </MemoryRouter>
         </Provider>
       )
       expect(wrapper.contains(<div>User not found</div>)).toBe(true)
     })
 
-    it('should render correctly with a user and roles', async () => {
+    it('should render correctly with a user and groups', async () => {
       const store = mockStore({
         app: { error: '', loaded: true, message: '' },
-        maintainAuthUsers: { contextUser: user, roleList: [] },
+        maintainAuthUsers: { contextUser: user, groupList: [] },
       })
 
       axios.get = jest.fn()
-      axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: roles, config: {} }))
+      axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: groups, config: {} }))
 
       const wrapper = await mount(
         <Provider store={store}>
           <MemoryRouter>
-            <ConnectedAuthUserAddRoleContainer />
+            <ConnectedAuthUserAddGroupContainer />
           </MemoryRouter>
         </Provider>
       )
       await wrapper.update()
-      expect(wrapper.find('Page').props().title).toEqual('Add role: Joe Smith')
+      expect(wrapper.find('Page').props().title).toEqual('Add group: Joe Smith')
     })
   })
 
   describe('handle functions', async () => {
-    const event = { target: { name: 'role', value: 'ROLE_1' }, preventDefault: jest.fn() }
-    const roleList = [{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]
+    const event = { target: { name: 'group', value: 'GROUP_1' }, preventDefault: jest.fn() }
+    const groupList = [{ groupCode: 'groupA', groupName: 'Group A' }, { groupCode: 'groupB', groupName: 'Group B' }]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
 
     let dispatchFns
     let wrapper
     beforeEach(async () => {
       dispatchFns = {
-        removeAuthRoleDispatch: jest.fn(),
+        removeAuthGroupDispatch: jest.fn(),
         loadAuthUserRolesAndGroupsDispatch: jest.fn(),
         resetErrorDispatch: jest.fn(),
         setErrorDispatch: jest.fn(),
@@ -101,10 +101,10 @@ describe('Auth user add role container', async () => {
       wrapper = await mount(
         <Provider store={store}>
           <MemoryRouter>
-            <AuthUserAddRoleContainer
+            <AuthUserAddGroupContainer
               {...dispatchFns}
               contextUser={user}
-              roleList={roleList}
+              groupList={groupList}
               error=""
               message=""
               match={mockMatch({ username: 'joebook' })}
@@ -117,22 +117,22 @@ describe('Auth user add role container', async () => {
     })
 
     describe('handleAdd', async () => {
-      it('should require role to be selected when form submitted', () => {
+      it('should require group to be selected when form submitted', () => {
         wrapper.find('form').simulate('submit', event)
 
-        expect(dispatchFns.setErrorDispatch).toBeCalledWith([{ targetName: 'role', text: 'Select a role' }])
+        expect(dispatchFns.setErrorDispatch).toBeCalledWith([{ targetName: 'group', text: 'Select a group' }])
       })
 
-      it('should call axios to add role', () => {
+      it('should call axios to add group', () => {
         axios.get = jest.fn()
-        axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: roles, config: {} }))
+        axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: groups, config: {} }))
 
-        wrapper.find('#role select').simulate('change', event)
+        wrapper.find('#group select').simulate('change', event)
         wrapper.find('form').simulate('submit', event)
 
         expect(dispatchFns.setErrorDispatch).toHaveBeenCalledTimes(0)
-        expect(axios.get).toHaveBeenCalledWith('/api/auth-user-roles-add', {
-          params: { role: 'ROLE_1', username: 'joesmith' },
+        expect(axios.get).toHaveBeenCalledWith('/api/auth-user-groups-add', {
+          params: { group: 'GROUP_1', username: 'joesmith' },
         })
       })
 

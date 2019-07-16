@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Auth user display no roles should render correctly with user and no roles 1`] = `
+exports[`Auth user display no groups should render correctly with user and no groups 1`] = `
 <div>
   <div
-    className="sc-bZQynM gYfOhL"
+    className="sc-bZQynM ealgCS"
   >
     <div
-      className="sc-gzVnrw hGCwOi"
+      className="sc-gzVnrw diObRT"
     >
       <table
-        className="sc-EHOje kCMYgv"
+        className="sc-EHOje ecdksn"
         data-qa="user-details"
       >
         <tbody
@@ -19,17 +19,17 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Username
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               joesmith
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -38,19 +38,19 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Name
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               Joe
                
               Smith
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -59,20 +59,20 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Email
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               joe.smith@justice.gov.uk
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               <a
-                className="sc-iwsKbI cVTNNJ"
+                className="sc-iwsKbI fPJVSa"
                 data-qa="amend-link"
                 href="/admin-utilities/maintain-auth-users/joesmith/amend"
                 muted={false}
@@ -88,17 +88,17 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Locked
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               No
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -107,20 +107,20 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Enabled
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               Yes
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               <button
-                className="sc-htoDjs kiMCan"
+                className="sc-htoDjs cIFkfN"
                 data-qa="enable-button"
                 disabled={false}
                 onClick={[Function]}
@@ -134,17 +134,17 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Verified
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               No
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -154,13 +154,13 @@ exports[`Auth user display no roles should render correctly with user and no rol
     </div>
   </div>
   <div
-    className="sc-bZQynM eXvviO"
+    className="sc-bZQynM djKsEt"
   >
     <div
-      className="sc-gzVnrw doLCDi"
+      className="sc-gzVnrw dlKhrR"
     >
       <table
-        className="sc-EHOje kCMYgv"
+        className="sc-EHOje ecdksn"
         data-qa="user-roles"
       >
         <tbody
@@ -170,12 +170,12 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Current roles
             </th>
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
                
             </th>
@@ -184,12 +184,12 @@ exports[`Auth user display no roles should render correctly with user and no rol
             className="sc-ifAKCX cFlEyZ"
           >
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               No roles found
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -200,27 +200,82 @@ exports[`Auth user display no roles should render correctly with user and no rol
   </div>
   <div>
     <button
-      className="sc-htoDjs gxKpuV"
-      data-qa="add-button"
+      className="sc-htoDjs kDiIxW"
+      data-qa="add-role-button"
       disabled={false}
       onClick={[Function]}
     >
       Add role
     </button>
   </div>
+  <div
+    className="sc-bZQynM djKsEt"
+  >
+    <div
+      className="sc-gzVnrw dlKhrR"
+    >
+      <table
+        className="sc-EHOje ecdksn"
+        data-qa="user-groups"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Current groups
+            </th>
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              No groups found
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs kDiIxW"
+      data-qa="add-group-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Add group
+    </button>
+  </div>
 </div>
 `;
 
-exports[`Auth user display should render correctly with user and roles 1`] = `
+exports[`Auth user display no roles should render correctly with user and no roles 1`] = `
 <div>
   <div
-    className="sc-bZQynM gYfOhL"
+    className="sc-bZQynM ealgCS"
   >
     <div
-      className="sc-gzVnrw hGCwOi"
+      className="sc-gzVnrw diObRT"
     >
       <table
-        className="sc-EHOje kCMYgv"
+        className="sc-EHOje ecdksn"
         data-qa="user-details"
       >
         <tbody
@@ -230,17 +285,17 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Username
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               joesmith
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -249,19 +304,19 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Name
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               Joe
                
               Smith
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -270,34 +325,46 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Email
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               joe.smith@justice.gov.uk
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
-            />
+              className="sc-bxivhb ckLzJk"
+            >
+              <a
+                className="sc-iwsKbI fPJVSa"
+                data-qa="amend-link"
+                href="/admin-utilities/maintain-auth-users/joesmith/amend"
+                muted={false}
+                noVisitedState={false}
+                onClick={[Function]}
+                textColour={false}
+              >
+                Change
+              </a>
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Locked
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               No
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -306,20 +373,20 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Enabled
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               Yes
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               <button
-                className="sc-htoDjs kiMCan"
+                className="sc-htoDjs cIFkfN"
                 data-qa="enable-button"
                 disabled={false}
                 onClick={[Function]}
@@ -333,17 +400,17 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Verified
             </th>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
-              Yes
+              No
             </td>
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
                
             </td>
@@ -353,13 +420,13 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
     </div>
   </div>
   <div
-    className="sc-bZQynM eXvviO"
+    className="sc-bZQynM djKsEt"
   >
     <div
-      className="sc-gzVnrw doLCDi"
+      className="sc-gzVnrw dlKhrR"
     >
       <table
-        className="sc-EHOje kCMYgv"
+        className="sc-EHOje ecdksn"
         data-qa="user-roles"
       >
         <tbody
@@ -369,12 +436,12 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
               Current roles
             </th>
             <th
-              className="sc-bxivhb kZbmwT"
+              className="sc-bxivhb eWDuGm"
             >
                
             </th>
@@ -383,15 +450,269 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
+            >
+              No roles found
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs kDiIxW"
+      data-qa="add-role-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Add role
+    </button>
+  </div>
+  <div
+    className="sc-bZQynM djKsEt"
+  >
+    <div
+      className="sc-gzVnrw dlKhrR"
+    >
+      <table
+        className="sc-EHOje ecdksn"
+        data-qa="user-groups"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Current groups
+            </th>
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              No groups found
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs kDiIxW"
+      data-qa="add-group-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Add group
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Auth user display should render correctly with user roles and groupss 1`] = `
+<div>
+  <div
+    className="sc-bZQynM ealgCS"
+  >
+    <div
+      className="sc-gzVnrw diObRT"
+    >
+      <table
+        className="sc-EHOje ecdksn"
+        data-qa="user-details"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Username
+            </th>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              joesmith
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Name
+            </th>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              Joe
+               
+              Smith
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Email
+            </th>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              joe.smith@justice.gov.uk
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            />
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Locked
+            </th>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              No
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Enabled
+            </th>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              Yes
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              <button
+                className="sc-htoDjs cIFkfN"
+                data-qa="enable-button"
+                disabled={false}
+                onClick={[Function]}
+                value="joesmith"
+              >
+                Disable
+              </button>
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Verified
+            </th>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              Yes
+            </td>
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    className="sc-bZQynM djKsEt"
+  >
+    <div
+      className="sc-gzVnrw dlKhrR"
+    >
+      <table
+        className="sc-EHOje ecdksn"
+        data-qa="user-roles"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Current roles
+            </th>
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb ckLzJk"
             >
               Role A
             </td>
             <td
-              className="sc-bxivhb eFpOLU"
+              className="sc-bxivhb jLfrww"
             >
               <button
-                className="sc-htoDjs kiMCan"
+                className="sc-htoDjs cIFkfN"
                 data-qa="remove-button-roleA"
                 disabled={false}
                 onClick={[Function]}
@@ -405,15 +726,15 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
             className="sc-ifAKCX cFlEyZ"
           >
             <td
-              className="sc-bxivhb jMmQxS"
+              className="sc-bxivhb ckLzJk"
             >
               Role B
             </td>
             <td
-              className="sc-bxivhb eFpOLU"
+              className="sc-bxivhb jLfrww"
             >
               <button
-                className="sc-htoDjs kiMCan"
+                className="sc-htoDjs cIFkfN"
                 data-qa="remove-button-roleB"
                 disabled={false}
                 onClick={[Function]}
@@ -429,12 +750,97 @@ exports[`Auth user display should render correctly with user and roles 1`] = `
   </div>
   <div>
     <button
-      className="sc-htoDjs gxKpuV"
-      data-qa="add-button"
+      className="sc-htoDjs kDiIxW"
+      data-qa="add-role-button"
       disabled={false}
       onClick={[Function]}
     >
       Add role
+    </button>
+  </div>
+  <div
+    className="sc-bZQynM djKsEt"
+  >
+    <div
+      className="sc-gzVnrw dlKhrR"
+    >
+      <table
+        className="sc-EHOje ecdksn"
+        data-qa="user-groups"
+      >
+        <tbody
+          className="sc-bwzfXH uTxCW"
+        >
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+              Current groups
+            </th>
+            <th
+              className="sc-bxivhb eWDuGm"
+            >
+               
+            </th>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              Group 1
+            </td>
+            <td
+              className="sc-bxivhb jLfrww"
+            >
+              <button
+                className="sc-htoDjs cIFkfN"
+                data-qa="remove-button-group1"
+                disabled={false}
+                onClick={[Function]}
+                value="group1"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <td
+              className="sc-bxivhb ckLzJk"
+            >
+              Group 2
+            </td>
+            <td
+              className="sc-bxivhb jLfrww"
+            >
+              <button
+                className="sc-htoDjs cIFkfN"
+                data-qa="remove-button-group2"
+                disabled={false}
+                onClick={[Function]}
+                value="group2"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <button
+      className="sc-htoDjs kDiIxW"
+      data-qa="add-group-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Add group
     </button>
   </div>
 </div>

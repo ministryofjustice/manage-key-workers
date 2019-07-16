@@ -8,12 +8,22 @@ import Link from '@govuk-react/link'
 import { Link as RouterLink } from 'react-router-dom'
 import { BLACK, GREY_3 } from 'govuk-colours'
 import MessageBar from '../../../MessageBar'
-import { authRoleListType, contextAuthUserType } from '../../../types'
+import { authRoleListType, authGroupListType, contextAuthUserType } from '../../../types'
 
 const AuthUser = props => {
-  const { roleList, handleRemove, handleAdd, contextUser, handleEnable, handleDisable } = props
+  const {
+    roleList,
+    groupList,
+    handleRoleRemove,
+    handleRoleAdd,
+    handleGroupRemove,
+    handleGroupAdd,
+    contextUser,
+    handleEnable,
+    handleDisable,
+  } = props
 
-  const results = roleList.map(a => (
+  const roleResults = roleList.map(a => (
     <Table.Row key={a.roleCode}>
       <Table.Cell>{a.roleName}</Table.Cell>
       <Table.Cell alignRight>
@@ -23,7 +33,25 @@ const AuthUser = props => {
           mb={0}
           data-qa={`remove-button-${a.roleCode}`}
           value={a.roleCode}
-          onClick={handleRemove}
+          onClick={handleRoleRemove}
+        >
+          Remove
+        </Button>
+      </Table.Cell>
+    </Table.Row>
+  ))
+
+  const groupResults = groupList.map(a => (
+    <Table.Row key={a.groupCode}>
+      <Table.Cell>{a.groupName}</Table.Cell>
+      <Table.Cell alignRight>
+        <Button
+          buttonColour={GREY_3}
+          buttonTextColour={BLACK}
+          mb={0}
+          data-qa={`remove-button-${a.groupCode}`}
+          value={a.groupCode}
+          onClick={handleGroupRemove}
         >
           Remove
         </Button>
@@ -101,8 +129,8 @@ const AuthUser = props => {
               <Table.CellHeader>Current roles</Table.CellHeader>
               <Table.CellHeader>&nbsp;</Table.CellHeader>
             </Table.Row>
-            {results.length > 0 ? (
-              results
+            {roleResults.length > 0 ? (
+              roleResults
             ) : (
               <Table.Row>
                 <Table.Cell>No roles found</Table.Cell>
@@ -114,8 +142,33 @@ const AuthUser = props => {
       </GridRow>
 
       <div>
-        <Button data-qa="add-button" onClick={handleAdd}>
+        <Button data-qa="add-role-button" onClick={handleRoleAdd}>
           Add role
+        </Button>
+      </div>
+
+      <GridRow>
+        <GridCol setWidth="one-half">
+          <Table data-qa="user-groups">
+            <Table.Row>
+              <Table.CellHeader>Current groups</Table.CellHeader>
+              <Table.CellHeader>&nbsp;</Table.CellHeader>
+            </Table.Row>
+            {groupResults.length > 0 ? (
+              groupResults
+            ) : (
+              <Table.Row>
+                <Table.Cell>No groups found</Table.Cell>
+                <Table.Cell>&nbsp;</Table.Cell>
+              </Table.Row>
+            )}
+          </Table>
+        </GridCol>
+      </GridRow>
+
+      <div>
+        <Button data-qa="add-group-button" onClick={handleGroupAdd}>
+          Add group
         </Button>
       </div>
     </div>
@@ -125,8 +178,11 @@ const AuthUser = props => {
 AuthUser.propTypes = {
   contextUser: contextAuthUserType.isRequired,
   roleList: authRoleListType.isRequired,
-  handleRemove: PropTypes.func.isRequired,
-  handleAdd: PropTypes.func.isRequired,
+  groupList: authGroupListType.isRequired,
+  handleRoleRemove: PropTypes.func.isRequired,
+  handleGroupRemove: PropTypes.func.isRequired,
+  handleRoleAdd: PropTypes.func.isRequired,
+  handleGroupAdd: PropTypes.func.isRequired,
   handleEnable: PropTypes.func.isRequired,
   handleDisable: PropTypes.func.isRequired,
 }

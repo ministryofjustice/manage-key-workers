@@ -6,14 +6,16 @@ import {
   RESET_ERROR,
   SET_AUTH_USER_CONTEXT_USER,
   SET_AUTH_USER_ROLE_LIST,
+  SET_AUTH_USER_GROUP_LIST,
   SET_AUTH_USER_SEARCH_RESULTS_LIST,
   SET_ERROR,
   SET_LOADED,
   SET_MESSAGE,
 } from './actionTypes'
 import {
-  loadAuthUserAndRoles,
+  loadAuthUserRolesAndGroups,
   removeAuthRole,
+  removeAuthGroup,
   enableUser,
   disableUser,
   setMaintainAuthContextUser,
@@ -52,22 +54,25 @@ describe('maintain auth users', () => {
   })
 
   describe('thunks', () => {
-    describe('loadAuthUserAndRoles', () => {
+    describe('loadAuthUserRolesAndGroups', () => {
       it('should create an action to load auth users and roles', async () => {
         const roleB = { roleCode: 'roleB', roleName: 'Role B' }
+        const groupB = { groupCode: 'groupB', groupName: 'Group B' }
         axios.get = jest.fn()
         axios.get.mockImplementationOnce(() =>
           Promise.resolve({ status: 200, data: { username: 'fetcheduser' }, config: {} })
         )
         axios.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: [roleB], config: {} }))
+        axios.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: [groupB], config: {} }))
 
         const store = mockStore({
           maintainAuthUsers: {
             contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
             roleList: [{ roleCode: 'roleA', roleName: 'Role A' }, roleB],
+            groupList: [{ roleCode: 'groupA', roleName: 'Group A' }, groupB],
           },
         })
-        await store.dispatch(loadAuthUserAndRoles('user'))
+        await store.dispatch(loadAuthUserRolesAndGroups('user'))
 
         expect(store.getActions()).toEqual([
           { loaded: false, type: SET_LOADED },
@@ -75,6 +80,7 @@ describe('maintain auth users', () => {
           { loaded: true, type: SET_LOADED },
           { contextUser: { username: 'fetcheduser' }, type: SET_AUTH_USER_CONTEXT_USER },
           { roleList: [roleB], type: SET_AUTH_USER_ROLE_LIST },
+          { groupList: [groupB], type: SET_AUTH_USER_GROUP_LIST },
         ])
       })
       it('should handle axios errors', async () => {
@@ -88,11 +94,12 @@ describe('maintain auth users', () => {
             roleList: [{ roleCode: 'roleA', roleName: 'Role A' }, roleB],
           },
         })
-        await store.dispatch(loadAuthUserAndRoles('user'))
+        await store.dispatch(loadAuthUserRolesAndGroups('user'))
 
         expect(store.getActions()).toEqual([
           { loaded: false, type: SET_LOADED },
           { type: RESET_ERROR },
+          { error: 'Something went wrong: Error: User not found', type: SET_ERROR },
           { error: 'Something went wrong: Error: User not found', type: SET_ERROR },
           { error: 'Something went wrong: Error: User not found', type: SET_ERROR },
           { loaded: true, type: SET_LOADED },
@@ -137,6 +144,42 @@ describe('maintain auth users', () => {
           { type: 'RESET_ERROR' },
           { error: 'Something went wrong: Error: User not found', type: SET_ERROR },
         ])
+      })
+    })
+
+    describe('removeAuthGroup', () => {
+      it('should create an action to remove auth group from user', async () => {
+        const groupB = { groupCode: 'groupB', groupName: 'Group B' }
+        axios.get = jest.fn()
+        axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: [groupB], config: {} }))
+
+        const store = mockStore({
+          maintainAuthUsers: {
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
+            groupList: [{ groupCode: 'groupA', groupName: 'Group A' }, groupB],
+          },
+        })
+        await store.dispatch(removeAuthGroup('groupA'))
+
+        expect(store.getActions()).toEqual([
+          { groupList: [groupB], type: SET_AUTH_USER_GROUP_LIST },
+          { message: 'Group Group A removed', type: SET_MESSAGE },
+        ])
+      })
+      it('should handle axios errors', async () => {
+        const groupB = { groupCode: 'groupB', groupName: 'Group B' }
+        axios.get = jest.fn()
+        axios.get.mockImplementation(() => throw new Error('User not found'))
+
+        const store = mockStore({
+          maintainAuthUsers: {
+            contextUser: { username: 'fetcheduser', firstName: 'Auth', lastName: 'User' },
+            groupList: [{ groupCode: 'groupA', groupName: 'Group A' }, groupB],
+          },
+        })
+        await store.dispatch(removeAuthGroup('groupA'))
+
+        expect(store.getActions()).toEqual([{ error: 'Something went wrong: Error: User not found', type: SET_ERROR }])
       })
     })
 

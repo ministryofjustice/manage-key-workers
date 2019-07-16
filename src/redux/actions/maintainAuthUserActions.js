@@ -1,9 +1,15 @@
 import axios from 'axios'
-import { SET_AUTH_USER_CONTEXT_USER, SET_AUTH_USER_ROLE_LIST, SET_AUTH_USER_SEARCH_RESULTS_LIST } from './actionTypes'
+import {
+  SET_AUTH_USER_CONTEXT_USER,
+  SET_AUTH_USER_ROLE_LIST,
+  SET_AUTH_USER_GROUP_LIST,
+  SET_AUTH_USER_SEARCH_RESULTS_LIST,
+} from './actionTypes'
 import { handleAxiosError, resetError, setLoaded, setMessage } from './index'
 
 export const setMaintainAuthUsersList = userList => ({ type: SET_AUTH_USER_SEARCH_RESULTS_LIST, userList })
 export const setMaintainAuthRoleList = roleList => ({ type: SET_AUTH_USER_ROLE_LIST, roleList })
+export const setMaintainAuthGroupList = groupList => ({ type: SET_AUTH_USER_GROUP_LIST, groupList })
 export const setMaintainAuthContextUser = contextUser => ({ type: SET_AUTH_USER_CONTEXT_USER, contextUser })
 
 const getUserRoles = async (dispatch, username) => {
@@ -14,6 +20,18 @@ const getUserRoles = async (dispatch, username) => {
       },
     })
     dispatch(setMaintainAuthRoleList(roles.data))
+  } catch (error) {
+    dispatch(handleAxiosError(error))
+  }
+}
+const getUserGroups = async (dispatch, username) => {
+  try {
+    const groups = await axios.get('/api/auth-user-groups', {
+      params: {
+        username,
+      },
+    })
+    dispatch(setMaintainAuthGroupList(groups.data))
   } catch (error) {
     dispatch(handleAxiosError(error))
   }
@@ -32,12 +50,13 @@ const loadUser = async (dispatch, username) => {
   }
 }
 
-export const loadAuthUserAndRoles = username => dispatch => {
+export const loadAuthUserRolesAndGroups = username => dispatch => {
   dispatch(setLoaded(false))
   dispatch(resetError())
 
   loadUser(dispatch, username)
   getUserRoles(dispatch, username)
+  getUserGroups(dispatch, username)
 
   dispatch(setLoaded(true))
 }
@@ -60,6 +79,28 @@ export const removeAuthRole = roleCode => async (dispatch, getState) => {
     })
     await getUserRoles(dispatch, username)
     dispatch(setMessage(`Role ${selectedRole.roleName} removed`))
+  } catch (error) {
+    dispatch(handleAxiosError(error))
+  }
+}
+
+export const removeAuthGroup = groupCode => async (dispatch, getState) => {
+  const {
+    contextUser: { username },
+    groupList,
+  } = getState().maintainAuthUsers
+
+  const selectedGroup = groupList.find(r => r.groupCode === groupCode)
+
+  try {
+    await axios.get('/api/auth-user-groups-remove', {
+      params: {
+        username,
+        group: selectedGroup.groupCode,
+      },
+    })
+    await getUserGroups(dispatch, username)
+    dispatch(setMessage(`Group ${selectedGroup.groupName} removed`))
   } catch (error) {
     dispatch(handleAxiosError(error))
   }

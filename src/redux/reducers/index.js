@@ -447,6 +447,8 @@ export function maintainAuthUsers(state = maintainAuthUsersInitialState, action)
       return { ...state, userList: action.userList }
     case ActionTypes.SET_AUTH_USER_ROLE_LIST:
       return { ...state, roleList: action.roleList }
+    case ActionTypes.SET_AUTH_USER_GROUP_LIST:
+      return { ...state, groupList: action.groupList }
     case ActionTypes.SET_AUTH_USER_CONTEXT_USER:
       return { ...state, contextUser: action.contextUser }
     default:

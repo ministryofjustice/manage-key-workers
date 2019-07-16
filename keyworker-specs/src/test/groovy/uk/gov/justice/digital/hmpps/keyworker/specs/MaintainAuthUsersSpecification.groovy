@@ -89,6 +89,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
 
         when: "I choose a user to edit"
         oauthApi.stubAuthUserRoles()
+        oauthApi.stubAuthUserGroups()
         rows[1].find("#edit-button-AUTH_ADM").click()
 
         then: "I can see the user details"
@@ -102,7 +103,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         oauthApi.stubAuthAssignableRoles()
 
         when: 'I navigate to the add role page'
-        addButton.click()
+        addRoleButton.click()
 
         at AuthUserAddRolePage
 
@@ -121,6 +122,62 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         roleRows[1].find("[data-qa='remove-button-GLOBAL_SEARCH']").click()
 
         assert waitFor { messageBar.text() == 'Role Global Search removed' }
+    }
+
+    def "should add and remove a group from a user"() {
+        def MaintainAuthUsersRole = [roleId: -1, roleCode: 'MAINTAIN_OAUTH_USERS']
+        oauthApi.stubGetMyRoles([MaintainAuthUsersRole])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, false, false, 0, true)
+
+        given: "I have navigated to the Maintain Auth User search page"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+        elite2api.stubGetRoles()
+        to AuthUserSearchPage
+
+        when: "I perform a search by username"
+        oauthApi.stubAuthUsernameSearch()
+        search('sometext')
+
+        then: "The auth user search results page is displayed"
+        at AuthUserSearchResultsPage
+        assert waitFor { rows.size() == 2 }
+        user.value() == 'sometext'
+
+        when: "I choose a user to edit"
+        oauthApi.stubAuthUserRoles()
+        oauthApi.stubAuthUserGroups()
+        rows[1].find("#edit-button-AUTH_ADM").click()
+
+        then: "I can see the user details"
+        at AuthUserPage
+        userRows[1].find("td", 0).text() == 'Auth Adm'
+        userRows[2].find("td", 0).text() == 'auth_test2@digital.justice.gov.uk'
+
+        groupRows.size() == 3
+        groupRows[1].find("td", 0).text() == 'Site 1 - Group 1'
+
+        oauthApi.stubAuthAllGroups()
+
+        when: 'I navigate to the add group page'
+        addGroupButton.click()
+
+        at AuthUserAddGroupPage
+
+        then: 'I am on the add group page'
+        assert waitFor { headingText == 'Add group: Auth Adm' }
+        oauthApi.stubAuthAddGroup()
+
+        when: 'I select to add the Site 1 - Group 3 to the user'
+        choose('Site 1 - Group 3')
+
+        then: 'I receive a group added message'
+        at AuthUserPage
+        assert waitFor { messageBar.text() == 'Group Site 1 - Group 3 added' }
+
+        oauthApi.stubAuthRemoveGroup()
+        groupRows[1].find("[data-qa='remove-button-SITE_1_GROUP_1']").click()
+
+        assert waitFor { messageBar.text() == 'Group Site 1 - Group 1 removed' }
     }
 
     def "should create a user"() {
@@ -148,6 +205,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         oauthApi.stubAuthCreateUser()
         oauthApi.stubAuthUsernameSearch()
         oauthApi.stubAuthUserRoles()
+        oauthApi.stubAuthUserGroups()
         createUser(username, email, 'first', 'last', '--')
 
         then: "My user is created"
@@ -184,6 +242,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         oauthApi.stubAuthCreateUser()
         oauthApi.stubAuthUsernameSearch()
         oauthApi.stubAuthUserRoles()
+        oauthApi.stubAuthUserGroups()
         createUser(username, email, 'first', 'last', 'GROUP_1')
 
         then: "My user is created"
@@ -205,6 +264,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         elite2api.stubGetRoles()
         oauthApi.stubAuthUsernameSearch()
         oauthApi.stubAuthUserRoles()
+        oauthApi.stubAuthUserGroups()
 
         when:
         browser.go('/admin-utilities/maintain-auth-users/AUTH_TEST')
@@ -235,6 +295,7 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         elite2api.stubGetRoles()
         oauthApi.stubAuthUsernameSearch()
         oauthApi.stubAuthUserRoles()
+        oauthApi.stubAuthUserGroups()
 
         when:
         browser.go('/admin-utilities/maintain-auth-users/AUTH_TEST')

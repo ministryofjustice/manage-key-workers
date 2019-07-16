@@ -12,9 +12,11 @@ public class AuthUserPage extends AuthUserSearchPage {
         headingText { $('h1').first().text() }
         userRows(required: false) { $('[data-qa="user-details"] tbody tr') }
         roleRows(required: false) { $('[data-qa="user-roles"] tbody tr') }
+        groupRows(required: false) { $('[data-qa="user-groups"] tbody tr') }
         errorSummary(required: false) { $('#error-summary') }
         messageBar(required: false) { $('div #messageBar') }
-        addButton { $('[data-qa="add-button"]')}
+        addRoleButton { $('[data-qa="add-role-button"]')}
+        addGroupButton { $('[data-qa="add-group-button"]')}
         enableButton { $('[data-qa="enable-button"]')}
         amendLink(required: false) { $('[data-qa="amend-link"]')}
     }

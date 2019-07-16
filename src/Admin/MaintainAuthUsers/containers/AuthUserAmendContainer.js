@@ -9,7 +9,7 @@ import AuthUserAmend from '../components/AuthUserAmend'
 import Page from '../../../Components/Page'
 import { validateAmend } from './AuthUserValidation'
 import { contextAuthUserType, errorType, routeMatchType } from '../../../types'
-import { loadAuthUserAndRoles } from '../../../redux/actions/maintainAuthUserActions'
+import { loadAuthUserRolesAndGroups } from '../../../redux/actions/maintainAuthUserActions'
 
 class AuthUserAmendContainer extends Component {
   constructor(props) {
@@ -110,7 +110,7 @@ const mapDispatchToProps = dispatch => ({
   resetErrorDispatch: () => dispatch(resetError()),
   setErrorDispatch: error => dispatch(setError(error)),
   handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
-  loadAuthUserAndRolesDispatch: username => dispatch(loadAuthUserAndRoles(username)),
+  loadAuthUserAndRolesDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
   setMessageDispatch: message => dispatch(setMessage(message)),
 })
 
