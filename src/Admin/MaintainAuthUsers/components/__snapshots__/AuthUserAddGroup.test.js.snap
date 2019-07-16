@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth user add groups errors should render an error on the select if error occurred 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      onSubmit={[MockFunction]}
+    >
+      <label
+        className="sc-bdVaJa gDsdZv"
+        htmlFor="group"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Choose new group
+        </span>
+        <span
+          className="sc-htpNat lbiKAP"
+        >
+          something went wrong
+        </span>
+        <select
+          className="sc-ifAKCX iaVBIO"
+          id="group"
+          name="group"
+          onChange={[MockFunction]}
+        >
+          <option
+            value="--"
+          >
+            -- Select --
+          </option>
+          <option
+            data-qa="ROLE_1_option"
+            value="ROLE_1"
+          >
+            Group 1
+          </option>
+          <option
+            data-qa="ROLE_2_option"
+            value="ROLE_2"
+          >
+            Group 2
+          </option>
+          <option
+            data-qa="ROLE_3_option"
+            value="ROLE_3"
+          >
+            Group 3
+          </option>
+        </select>
+      </label>
+      <div
+        className="sc-dnqmqq hyCbor"
+      >
+        <button
+          className="sc-EHOje hEaLol"
+          data-qa="add-button"
+          disabled={false}
+          type="submit"
+        >
+          Add group
+        </button>
+        <button
+          className="sc-EHOje eIzgdI"
+          data-qa="cancel-button"
+          disabled={false}
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Auth user add groups no groups should render correctly with user and no groups 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        data-qa="no-groups"
+      >
+        No groups available
+      </div>
+      <div
+        className="sc-dnqmqq hyCbor"
+      >
+        <button
+          className="sc-EHOje eIzgdI"
+          data-qa="cancel-button"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Auth user add groups should render the add group page with a filtered list of groups 1`] = `
+<div
+  className="sc-gzVnrw lauuhu"
+>
+  <div
+    className="sc-htoDjs iFTIaU"
+  >
+    <form
+      onSubmit={[MockFunction]}
+    >
+      <label
+        className="sc-bdVaJa cmpKXw"
+        htmlFor="group"
+      >
+        <span
+          className="sc-bwzfXH lbxcXc"
+        >
+          Choose new group
+        </span>
+        <select
+          className="sc-ifAKCX kDzsBS"
+          id="group"
+          name="group"
+          onChange={[MockFunction]}
+        >
+          <option
+            value="--"
+          >
+            -- Select --
+          </option>
+          <option
+            data-qa="ROLE_1_option"
+            value="ROLE_1"
+          >
+            Group 1
+          </option>
+          <option
+            data-qa="ROLE_2_option"
+            value="ROLE_2"
+          >
+            Group 2
+          </option>
+          <option
+            data-qa="ROLE_3_option"
+            value="ROLE_3"
+          >
+            Group 3
+          </option>
+        </select>
+      </label>
+      <div
+        className="sc-dnqmqq hyCbor"
+      >
+        <button
+          className="sc-EHOje hEaLol"
+          data-qa="add-button"
+          disabled={false}
+          type="submit"
+        >
+          Add group
+        </button>
+        <button
+          className="sc-EHOje eIzgdI"
+          data-qa="cancel-button"
+          disabled={false}
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

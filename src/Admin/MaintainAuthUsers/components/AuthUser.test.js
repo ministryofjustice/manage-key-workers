@@ -22,8 +22,11 @@ describe('Auth user display', () => {
         <AuthUser
           contextUser={user}
           roleList={[]}
-          handleAdd={stubFunc}
-          handleRemove={stubFunc}
+          groupList={[]}
+          handleRoleAdd={stubFunc}
+          handleRoleRemove={stubFunc}
+          handleGroupAdd={stubFunc}
+          handleGroupRemove={stubFunc}
           handleEnable={stubFunc}
           handleDisable={stubFunc}
         />
@@ -36,19 +39,49 @@ describe('Auth user display', () => {
     it('should display message about no roles found', () => {
       const tableRows = wrapper.root.findAllByType(Table.Row)
       // last table row should have message
-      expect(tableRows[tableRows.length - 1].props.children[0].props.children).toEqual('No roles found')
+      expect(tableRows[tableRows.length - 3].props.children[0].props.children).toEqual('No roles found')
     })
   })
 
-  it('should render correctly with user and roles', () => {
+  describe('no groups', () => {
+    const wrapper = renderer.create(
+      <MemoryRouter>
+        <AuthUser
+          contextUser={user}
+          roleList={[]}
+          groupList={[]}
+          handleRoleAdd={stubFunc}
+          handleRoleRemove={stubFunc}
+          handleGroupAdd={stubFunc}
+          handleGroupRemove={stubFunc}
+          handleEnable={stubFunc}
+          handleDisable={stubFunc}
+        />
+      </MemoryRouter>
+    )
+    it('should render correctly with user and no groups', () => {
+      expect(wrapper.toJSON()).toMatchSnapshot()
+    })
+
+    it('should display message about no groups found', () => {
+      const tableRows = wrapper.root.findAllByType(Table.Row)
+      // last table row should have message
+      expect(tableRows[tableRows.length - 1].props.children[0].props.children).toEqual('No groups found')
+    })
+  })
+
+  it('should render correctly with user roles and groupss', () => {
     const verifiedUser = { verified: true, ...user }
     const wrapper = renderer.create(
       <MemoryRouter>
         <AuthUser
           contextUser={verifiedUser}
           roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
-          handleAdd={stubFunc}
-          handleRemove={stubFunc}
+          groupList={[{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]}
+          handleRoleAdd={stubFunc}
+          handleRoleRemove={stubFunc}
+          handleGroupAdd={stubFunc}
+          handleGroupRemove={stubFunc}
           handleEnable={stubFunc}
           handleDisable={stubFunc}
         />

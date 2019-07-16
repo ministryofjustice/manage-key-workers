@@ -167,7 +167,6 @@ class OauthApi extends WireMockRule {
                                 .withStatus(status)))
     }
 
-
     void stubAuthUserRoles() {
         this.stubFor(
                 get(urlPathMatching("/auth/api/authuser/.*/roles"))
@@ -180,12 +179,12 @@ class OauthApi extends WireMockRule {
 
     void stubAuthUserGroups() {
         this.stubFor(
-                get(urlPathMatching("/auth/api/authuser/.*/roles"))
+                get(urlPathMatching("/auth/api/authuser/.*/groups"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)
                                 .withHeader('Content-Type', 'application/json')
-                                .withBody(AuthUserSearchResponse.getRolesResponse())))
+                                .withBody(AuthUserSearchResponse.getGroupsResponse())))
     }
 
 
@@ -249,6 +248,24 @@ class OauthApi extends WireMockRule {
     void stubAuthAddRole() {
         this.stubFor(
                 put(urlPathMatching("/auth/api/authuser/.*/roles/.*"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')))
+    }
+
+    void stubAuthRemoveGroup() {
+        this.stubFor(
+                delete(urlPathMatching("/auth/api/authuser/.*/groups/.*"))
+                        .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader('Content-Type', 'application/json')))
+    }
+
+    void stubAuthAddGroup() {
+        this.stubFor(
+                put(urlPathMatching("/auth/api/authuser/.*/groups/.*"))
                         .willReturn(
                         aResponse()
                                 .withStatus(200)

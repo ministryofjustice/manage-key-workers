@@ -6,13 +6,13 @@ import axios from 'axios'
 import { withRouter } from 'react-router'
 
 import { setError, resetError, setMessage, setLoaded, handleAxiosError } from '../../../redux/actions/index'
-import AuthUserAddRole from '../components/AuthUserAddRole'
-import { routeMatchType, authRoleListType, contextAuthUserType, errorType } from '../../../types'
+import AuthUserAddGroup from '../components/AuthUserAddGroup'
+import { routeMatchType, authGroupListType, contextAuthUserType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
 import { loadAuthUserRolesAndGroups } from '../../../redux/actions/maintainAuthUserActions'
-import { validateAddRole } from './AuthUserValidation'
+import { validateAddGroup } from './AuthUserValidation'
 
-class AuthUserAddRoleContainer extends Component {
+class AuthUserAddGroupContainer extends Component {
   constructor(props) {
     super()
     props.resetErrorDispatch()
@@ -20,22 +20,18 @@ class AuthUserAddRoleContainer extends Component {
   }
 
   async componentDidMount() {
-    const { loadAuthUserRolesAndGroupDispatch, match } = this.props
+    const { loadAuthUserRolesAndGroupsDispatch, match } = this.props
 
-    this.getRoles(match.params.username)
-    loadAuthUserRolesAndGroupDispatch(match.params.username)
+    this.getGroups()
+    loadAuthUserRolesAndGroupsDispatch(match.params.username)
   }
 
-  async getRoles(username) {
+  async getGroups() {
     const { handleAxiosErrorDispatch } = this.props
 
     try {
-      const { data } = await axios.get('/api/auth-roles', {
-        params: {
-          username,
-        },
-      })
-      this.setState(state => ({ ...state, roles: data }))
+      const { data } = await axios.get('/api/auth-groups')
+      this.setState(state => ({ ...state, groups: data }))
     } catch (error) {
       handleAxiosErrorDispatch(error)
     }
@@ -48,26 +44,26 @@ class AuthUserAddRoleContainer extends Component {
 
   handleAdd = async event => {
     const { contextUser, setMessageDispatch, handleAxiosErrorDispatch, setErrorDispatch, history } = this.props
-    const { roles, role } = this.state
+    const { groups, group } = this.state
 
     event.preventDefault()
 
-    const selectedRole = roles.find(r => r.roleCode === role)
+    const selectedGroup = groups.find(r => r.groupCode === group)
 
-    const errors = validateAddRole(selectedRole)
+    const errors = validateAddGroup(selectedGroup)
     if (errors.length) {
       setErrorDispatch(errors)
       return
     }
 
     try {
-      await axios.get('/api/auth-user-roles-add', {
+      await axios.get('/api/auth-user-groups-add', {
         params: {
           username: contextUser.username,
-          role: selectedRole.roleCode,
+          group: selectedGroup.groupCode,
         },
       })
-      setMessageDispatch(`Role ${selectedRole.roleName} added`)
+      setMessageDispatch(`Group ${selectedGroup.groupName} added`)
       history.goBack()
     } catch (error) {
       handleAxiosErrorDispatch(error)
@@ -84,23 +80,23 @@ class AuthUserAddRoleContainer extends Component {
     const {
       contextUser: { firstName, lastName },
     } = this.props
-    const { roles } = this.state
+    const { groups } = this.state
 
-    if ((!firstName && !lastName) || !roles) {
+    if ((!firstName && !lastName) || !groups) {
       return (
-        <Page title="not found role:" alwaysRender>
+        <Page title="not found group:" alwaysRender>
           <div>User not found</div>
         </Page>
       )
     }
 
     return (
-      <Page title={`Add role: ${firstName} ${lastName}`} alwaysRender>
-        <AuthUserAddRole
+      <Page title={`Add group: ${firstName} ${lastName}`} alwaysRender>
+        <AuthUserAddGroup
           handleAdd={this.handleAdd}
           handleCancel={this.handleCancel}
-          handleRoleAddChange={this.handleChange}
-          roleFilterList={roles}
+          handleGroupAddChange={this.handleChange}
+          groupFilterList={groups}
           {...this.props}
         />
       </Page>
@@ -108,29 +104,29 @@ class AuthUserAddRoleContainer extends Component {
   }
 }
 
-AuthUserAddRoleContainer.propTypes = {
+AuthUserAddGroupContainer.propTypes = {
   error: errorType.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   contextUser: contextAuthUserType,
-  roleList: authRoleListType,
+  groupList: authGroupListType,
   setMessageDispatch: PropTypes.func.isRequired,
   match: routeMatchType.isRequired,
-  loadAuthUserRolesAndGroupDispatch: PropTypes.func.isRequired,
+  loadAuthUserRolesAndGroupsDispatch: PropTypes.func.isRequired,
   handleAxiosErrorDispatch: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 }
 
-AuthUserAddRoleContainer.defaultProps = {
+AuthUserAddGroupContainer.defaultProps = {
   contextUser: {},
-  roleList: [],
+  groupList: [],
 }
 
 const mapStateToProps = state => ({
   error: state.app.error,
   contextUser: state.maintainAuthUsers.contextUser,
-  roleList: state.maintainAuthUsers.roleList,
+  groupList: state.maintainAuthUsers.groupList,
   loaded: state.app.loaded,
 })
 
@@ -140,12 +136,12 @@ const mapDispatchToProps = dispatch => ({
   handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
   setMessageDispatch: message => dispatch(setMessage(message)),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
-  loadAuthUserRolesAndGroupDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
+  loadAuthUserRolesAndGroupsDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
 })
 
-export { AuthUserAddRoleContainer }
+export { AuthUserAddGroupContainer }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(AuthUserAddRoleContainer))
+)(withRouter(AuthUserAddGroupContainer))

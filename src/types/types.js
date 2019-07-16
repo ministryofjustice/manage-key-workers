@@ -156,6 +156,17 @@ export const roleFilterListType = arrayOf(roleType)
 
 export const roleListType = arrayOf(roleType)
 
+const groupType = shape({
+  groupCode: string.isRequired,
+  groupFunction: string.isRequired,
+  groupId: number.isRequired,
+  groupName: string.isRequired,
+})
+
+export const groupFilterListType = arrayOf(groupType)
+
+export const groupListType = arrayOf(groupType)
+
 const unallocatedOffenderType = shape({
   agencyId: string.isRequired,
   assignedLivingUnitDesc: string.isRequired,
