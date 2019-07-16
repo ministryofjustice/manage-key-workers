@@ -1677,7 +1677,7 @@ ShallowWrapper {
           },
           "getDerivedStateFromError": true,
           "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
+            "hasShouldComponentUpdateBug": true,
           },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
@@ -1686,9 +1686,7 @@ ShallowWrapper {
         },
       },
     },
-    Symbol(enzyme.__providerValues__): undefined,
   },
-  Symbol(enzyme.__providerValues__): Map {},
   Symbol(enzyme.__childContext__): null,
 }
 `;

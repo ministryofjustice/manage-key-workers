@@ -24,61 +24,25 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "function",
+    "nodeType": "class",
     "props": Object {
       "children": [Function],
     },
     "ref": null,
     "rendered": [Function],
-    "type": Object {
-      "$$typeof": Symbol(react.context),
-      "_calculateChangedBits": null,
-      "_context": Object {
-        "$$typeof": Symbol(react.context),
-        "Consumer": [Circular],
-        "Provider": Object {
-          "$$typeof": Symbol(react.provider),
-          "_context": [Circular],
-        },
-        "_calculateChangedBits": null,
-        "_currentRenderer": Object {},
-        "_currentRenderer2": null,
-        "_currentValue": undefined,
-        "_currentValue2": undefined,
-        "_threadCount": 0,
-        "displayName": "Router",
-      },
-    },
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "function",
+      "nodeType": "class",
       "props": Object {
         "children": [Function],
       },
       "ref": null,
       "rendered": [Function],
-      "type": Object {
-        "$$typeof": Symbol(react.context),
-        "_calculateChangedBits": null,
-        "_context": Object {
-          "$$typeof": Symbol(react.context),
-          "Consumer": [Circular],
-          "Provider": Object {
-            "$$typeof": Symbol(react.provider),
-            "_context": [Circular],
-          },
-          "_calculateChangedBits": null,
-          "_currentRenderer": Object {},
-          "_currentRenderer2": null,
-          "_currentValue": undefined,
-          "_currentValue2": undefined,
-          "_threadCount": 0,
-          "displayName": "Router",
-        },
-      },
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {
@@ -95,7 +59,7 @@ ShallowWrapper {
           },
           "getDerivedStateFromError": true,
           "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
+            "hasShouldComponentUpdateBug": true,
           },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
@@ -104,9 +68,7 @@ ShallowWrapper {
         },
       },
     },
-    Symbol(enzyme.__providerValues__): undefined,
   },
-  Symbol(enzyme.__providerValues__): Map {},
 }
 `;
 
@@ -132,61 +94,25 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "function",
+    "nodeType": "class",
     "props": Object {
       "children": [Function],
     },
     "ref": null,
     "rendered": [Function],
-    "type": Object {
-      "$$typeof": Symbol(react.context),
-      "_calculateChangedBits": null,
-      "_context": Object {
-        "$$typeof": Symbol(react.context),
-        "Consumer": [Circular],
-        "Provider": Object {
-          "$$typeof": Symbol(react.provider),
-          "_context": [Circular],
-        },
-        "_calculateChangedBits": null,
-        "_currentRenderer": Object {},
-        "_currentRenderer2": null,
-        "_currentValue": undefined,
-        "_currentValue2": undefined,
-        "_threadCount": 0,
-        "displayName": "Router",
-      },
-    },
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "function",
+      "nodeType": "class",
       "props": Object {
         "children": [Function],
       },
       "ref": null,
       "rendered": [Function],
-      "type": Object {
-        "$$typeof": Symbol(react.context),
-        "_calculateChangedBits": null,
-        "_context": Object {
-          "$$typeof": Symbol(react.context),
-          "Consumer": [Circular],
-          "Provider": Object {
-            "$$typeof": Symbol(react.provider),
-            "_context": [Circular],
-          },
-          "_calculateChangedBits": null,
-          "_currentRenderer": Object {},
-          "_currentRenderer2": null,
-          "_currentValue": undefined,
-          "_currentValue2": undefined,
-          "_threadCount": 0,
-          "displayName": "Router",
-        },
-      },
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {
@@ -203,7 +129,7 @@ ShallowWrapper {
           },
           "getDerivedStateFromError": true,
           "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
+            "hasShouldComponentUpdateBug": true,
           },
           "getSnapshotBeforeUpdate": true,
           "setState": Object {
@@ -212,8 +138,6 @@ ShallowWrapper {
         },
       },
     },
-    Symbol(enzyme.__providerValues__): undefined,
   },
-  Symbol(enzyme.__providerValues__): Map {},
 }
 `;

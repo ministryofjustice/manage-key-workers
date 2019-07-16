@@ -2,30 +2,30 @@
 
 exports[`Auth user add groups errors should render an error on the select if error occurred 1`] = `
 <div
-  className="sc-gzVnrw kFjkBp"
+  className="sc-gzVnrw lauuhu"
 >
   <div
-    className="sc-htoDjs cFfunZ"
+    className="sc-htoDjs iFTIaU"
   >
     <form
       onSubmit={[MockFunction]}
     >
       <label
-        className="sc-bdVaJa bWEely"
+        className="sc-bdVaJa gDsdZv"
         htmlFor="group"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Choose new group
         </span>
         <span
-          className="sc-htpNat khZZM"
+          className="sc-htpNat lbiKAP"
         >
           something went wrong
         </span>
         <select
-          className="sc-ifAKCX fVlzkY"
+          className="sc-ifAKCX iaVBIO"
           id="group"
           name="group"
           onChange={[MockFunction]}
@@ -59,7 +59,7 @@ exports[`Auth user add groups errors should render an error on the select if err
         className="sc-dnqmqq hyCbor"
       >
         <button
-          className="sc-EHOje ihKsGU"
+          className="sc-EHOje hEaLol"
           data-qa="add-button"
           disabled={false}
           type="submit"
@@ -67,7 +67,7 @@ exports[`Auth user add groups errors should render an error on the select if err
           Add group
         </button>
         <button
-          className="sc-EHOje ifbWkv"
+          className="sc-EHOje eIzgdI"
           data-qa="cancel-button"
           disabled={false}
           onClick={[MockFunction]}
@@ -83,10 +83,10 @@ exports[`Auth user add groups errors should render an error on the select if err
 
 exports[`Auth user add groups no groups should render correctly with user and no groups 1`] = `
 <div
-  className="sc-gzVnrw kFjkBp"
+  className="sc-gzVnrw lauuhu"
 >
   <div
-    className="sc-htoDjs cFfunZ"
+    className="sc-htoDjs iFTIaU"
   >
     <form
       onSubmit={[Function]}
@@ -100,7 +100,7 @@ exports[`Auth user add groups no groups should render correctly with user and no
         className="sc-dnqmqq hyCbor"
       >
         <button
-          className="sc-EHOje ifbWkv"
+          className="sc-EHOje eIzgdI"
           data-qa="cancel-button"
           disabled={false}
           onClick={[Function]}
@@ -116,25 +116,25 @@ exports[`Auth user add groups no groups should render correctly with user and no
 
 exports[`Auth user add groups should render the add group page with a filtered list of groups 1`] = `
 <div
-  className="sc-gzVnrw kFjkBp"
+  className="sc-gzVnrw lauuhu"
 >
   <div
-    className="sc-htoDjs cFfunZ"
+    className="sc-htoDjs iFTIaU"
   >
     <form
       onSubmit={[MockFunction]}
     >
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="group"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Choose new group
         </span>
         <select
-          className="sc-ifAKCX cGrJfQ"
+          className="sc-ifAKCX kDzsBS"
           id="group"
           name="group"
           onChange={[MockFunction]}
@@ -168,7 +168,7 @@ exports[`Auth user add groups should render the add group page with a filtered l
         className="sc-dnqmqq hyCbor"
       >
         <button
-          className="sc-EHOje ihKsGU"
+          className="sc-EHOje hEaLol"
           data-qa="add-button"
           disabled={false}
           type="submit"
@@ -176,7 +176,7 @@ exports[`Auth user add groups should render the add group page with a filtered l
           Add group
         </button>
         <button
-          className="sc-EHOje ifbWkv"
+          className="sc-EHOje eIzgdI"
           data-qa="cancel-button"
           disabled={false}
           onClick={[MockFunction]}

@@ -2,27 +2,27 @@
 
 exports[`Auth Create form Form should render correctly 1`] = `
 <div
-  className="sc-gzVnrw kFjkBp"
+  className="sc-gzVnrw lauuhu"
 >
   <div
-    className="sc-htoDjs cFfunZ"
+    className="sc-htoDjs iFTIaU"
   >
     <form
       noValidate={true}
       onSubmit={[Function]}
     >
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="username"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Username
         </span>
         <input
           autoComplete="create-username"
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="username"
           name="username"
           onChange={[Function]}
@@ -31,17 +31,17 @@ exports[`Auth Create form Form should render correctly 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="email"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Email address
         </span>
         <input
           autoComplete="create-email"
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="email"
           name="email"
           onChange={[Function]}
@@ -50,16 +50,16 @@ exports[`Auth Create form Form should render correctly 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="firstName"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           First name
         </span>
         <input
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="firstName"
           name="firstName"
           onChange={[Function]}
@@ -68,16 +68,16 @@ exports[`Auth Create form Form should render correctly 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="lastName"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Last name
         </span>
         <input
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="lastName"
           name="lastName"
           onChange={[Function]}
@@ -86,7 +86,7 @@ exports[`Auth Create form Form should render correctly 1`] = `
         />
       </label>
       <button
-        className="sc-EHOje ihKsGU"
+        className="sc-EHOje hEaLol"
         disabled={false}
         id="create-button"
         type="submit"
@@ -100,27 +100,27 @@ exports[`Auth Create form Form should render correctly 1`] = `
 
 exports[`Auth Create form Form should render correctly with groups 1`] = `
 <div
-  className="sc-gzVnrw kFjkBp"
+  className="sc-gzVnrw lauuhu"
 >
   <div
-    className="sc-htoDjs cFfunZ"
+    className="sc-htoDjs iFTIaU"
   >
     <form
       noValidate={true}
       onSubmit={[Function]}
     >
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="username"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Username
         </span>
         <input
           autoComplete="create-username"
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="username"
           name="username"
           onChange={[Function]}
@@ -129,17 +129,17 @@ exports[`Auth Create form Form should render correctly with groups 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="email"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Email address
         </span>
         <input
           autoComplete="create-email"
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="email"
           name="email"
           onChange={[Function]}
@@ -148,16 +148,16 @@ exports[`Auth Create form Form should render correctly with groups 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="firstName"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           First name
         </span>
         <input
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="firstName"
           name="firstName"
           onChange={[Function]}
@@ -166,16 +166,16 @@ exports[`Auth Create form Form should render correctly with groups 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="lastName"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Last name
         </span>
         <input
-          className="sc-ifAKCX hBHdQq"
+          className="sc-ifAKCX hTyiys"
           id="lastName"
           name="lastName"
           onChange={[Function]}
@@ -184,16 +184,16 @@ exports[`Auth Create form Form should render correctly with groups 1`] = `
         />
       </label>
       <label
-        className="sc-bdVaJa iHrfuG"
+        className="sc-bdVaJa cmpKXw"
         htmlFor="groupCode"
       >
         <span
-          className="sc-bwzfXH eLZbP"
+          className="sc-bwzfXH lbxcXc"
         >
           Select group
         </span>
         <select
-          className="sc-dnqmqq dqEzVR"
+          className="sc-dnqmqq fIVGzI"
           id="groupCode"
           name="groupCode"
           onChange={[Function]}
@@ -224,7 +224,7 @@ exports[`Auth Create form Form should render correctly with groups 1`] = `
         </select>
       </label>
       <button
-        className="sc-EHOje ihKsGU"
+        className="sc-EHOje hEaLol"
         disabled={false}
         id="create-button"
         type="submit"
