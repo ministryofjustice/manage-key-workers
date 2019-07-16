@@ -12,6 +12,24 @@ const user = {
   enabled: true,
   email: 'joe.smith@justice.gov.uk',
 }
+const groupManagerUser = {
+  username: 'joesmith',
+  firstName: 'Joe',
+  lastName: 'Smith',
+  locked: false,
+  enabled: true,
+  email: 'joe.smith@justice.gov.uk',
+  maintainAuthUsers: false,
+}
+const adminUser = {
+  username: 'joesmith',
+  firstName: 'Joe',
+  lastName: 'Smith',
+  locked: false,
+  enabled: true,
+  email: 'joe.smith@justice.gov.uk',
+  maintainAuthUsers: true,
+}
 
 describe('Auth user display', () => {
   const stubFunc = () => {}
@@ -20,6 +38,7 @@ describe('Auth user display', () => {
     const wrapper = renderer.create(
       <MemoryRouter>
         <AuthUser
+          user={adminUser}
           contextUser={user}
           roleList={[]}
           groupList={[]}
@@ -47,6 +66,7 @@ describe('Auth user display', () => {
     const wrapper = renderer.create(
       <MemoryRouter>
         <AuthUser
+          user={adminUser}
           contextUser={user}
           roleList={[]}
           groupList={[]}
@@ -70,11 +90,32 @@ describe('Auth user display', () => {
     })
   })
 
-  it('should render correctly with user roles and groupss', () => {
+  it('should render correctly with user roles and groups - add groups not available for Group Manager', () => {
     const verifiedUser = { verified: true, ...user }
     const wrapper = renderer.create(
       <MemoryRouter>
         <AuthUser
+          user={groupManagerUser}
+          contextUser={verifiedUser}
+          roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
+          groupList={[{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]}
+          handleRoleAdd={stubFunc}
+          handleRoleRemove={stubFunc}
+          handleEnable={stubFunc}
+          handleDisable={stubFunc}
+        />
+      </MemoryRouter>
+    )
+
+    expect(wrapper.toJSON()).toMatchSnapshot()
+  })
+
+  it('should render correctly with user roles and groups - add groups available for admin user', () => {
+    const verifiedUser = { verified: true, ...user }
+    const wrapper = renderer.create(
+      <MemoryRouter>
+        <AuthUser
+          user={adminUser}
           contextUser={verifiedUser}
           roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
           groupList={[{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]}

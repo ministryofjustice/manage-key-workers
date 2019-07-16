@@ -18,6 +18,17 @@ const user = {
   locked: false,
   enabled: true,
   email: 'joe.smith@justice.gov.uk',
+  maintainAuthUsers: false,
+}
+
+const adminUser = {
+  username: 'joesmith',
+  firstName: 'Joe',
+  lastName: 'Smith',
+  locked: false,
+  enabled: true,
+  email: 'joe.smith@justice.gov.uk',
+  maintainAuthUsers: true,
 }
 
 describe('Auth user container', () => {
@@ -40,7 +51,7 @@ describe('Auth user container', () => {
 
     it('should render correctly with a user', () => {
       const store = mockStore({
-        app: { error: '', loaded: true, message: '' },
+        app: { user: adminUser, error: '', loaded: true, message: '' },
         maintainAuthUsers: { contextUser: user },
       })
 
@@ -62,6 +73,7 @@ describe('Auth user container', () => {
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
 
     const props = {
+      user: adminUser,
       contextUser: user,
       roleList,
       groupList,

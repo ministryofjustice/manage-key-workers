@@ -12,7 +12,14 @@ import {
 } from '../../../redux/actions/maintainAuthUserActions'
 import { clearMessage } from '../../../redux/actions'
 import AuthUser from '../components/AuthUser'
-import { routeMatchType, contextAuthUserType, authRoleListType, authGroupListType, errorType } from '../../../types'
+import {
+  routeMatchType,
+  contextAuthUserType,
+  authRoleListType,
+  authGroupListType,
+  errorType,
+  userType,
+} from '../../../types'
 import Page from '../../../Components/Page'
 
 class AuthUserContainer extends Component {
@@ -107,6 +114,7 @@ AuthUserContainer.propTypes = {
   disableDispatch: PropTypes.func.isRequired,
   clearMessage: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
+  user: userType.isRequired,
 }
 
 AuthUserContainer.defaultProps = {
@@ -116,6 +124,7 @@ AuthUserContainer.defaultProps = {
 }
 
 const mapStateToProps = state => ({
+  user: state.app.user,
   error: state.app.error,
   contextUser: state.maintainAuthUsers.contextUser,
   roleList: state.maintainAuthUsers.roleList,
