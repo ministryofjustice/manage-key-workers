@@ -8,10 +8,11 @@ import Link from '@govuk-react/link'
 import { Link as RouterLink } from 'react-router-dom'
 import { BLACK, GREY_3 } from 'govuk-colours'
 import MessageBar from '../../../MessageBar'
-import { authRoleListType, authGroupListType, contextAuthUserType } from '../../../types'
+import { authRoleListType, authGroupListType, contextAuthUserType, userType } from '../../../types'
 
 const AuthUser = props => {
   const {
+    user: { maintainAuthUsers },
     roleList,
     groupList,
     handleRoleRemove,
@@ -45,16 +46,18 @@ const AuthUser = props => {
     <Table.Row key={a.groupCode}>
       <Table.Cell>{a.groupName}</Table.Cell>
       <Table.Cell alignRight>
-        <Button
-          buttonColour={GREY_3}
-          buttonTextColour={BLACK}
-          mb={0}
-          data-qa={`remove-button-${a.groupCode}`}
-          value={a.groupCode}
-          onClick={handleGroupRemove}
-        >
-          Remove
-        </Button>
+        {maintainAuthUsers && (
+          <Button
+            buttonColour={GREY_3}
+            buttonTextColour={BLACK}
+            mb={0}
+            data-qa={`remove-button-${a.groupCode}`}
+            value={a.groupCode}
+            onClick={handleGroupRemove}
+          >
+            Remove
+          </Button>
+        )}
       </Table.Cell>
     </Table.Row>
   ))
@@ -165,17 +168,19 @@ const AuthUser = props => {
           </Table>
         </GridCol>
       </GridRow>
-
-      <div>
-        <Button data-qa="add-group-button" onClick={handleGroupAdd}>
-          Add group
-        </Button>
-      </div>
+      {maintainAuthUsers && (
+        <div>
+          <Button data-qa="add-group-button" onClick={handleGroupAdd}>
+            Add group
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
 
 AuthUser.propTypes = {
+  user: userType.isRequired,
   contextUser: contextAuthUserType.isRequired,
   roleList: authRoleListType.isRequired,
   groupList: authGroupListType.isRequired,
