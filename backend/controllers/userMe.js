@@ -10,6 +10,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
     const roles = await oauthApi.currentRoles(context)
 
     const isKeyWorkerAdmin = roles.some(role => role.roleCode === 'OMIC_ADMIN')
+    const hasKeyWorkerMonitor = roles.some(role => role.roleCode === 'KEYWORKER_MONITOR')
     const hasMaintainAccessRolesRole = roles.some(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES')
     const hasMaintainAccessRolesAdminRole = roles.some(role => role.roleCode === 'MAINTAIN_ACCESS_ROLES_ADMIN')
     const hasKwMigrationRole = roles.some(role => role.roleCode === 'KW_MIGRATION')
@@ -20,6 +21,7 @@ const userMeFactory = (oauthApi, elite2Api, keyworkerApi) => {
       ...user,
       activeCaseLoadId,
       writeAccess: Boolean(prisonStatus.migrated && isKeyWorkerAdmin),
+      keyWorkerMonitor: hasKeyWorkerMonitor,
       migration: hasKwMigrationRole,
       maintainAccess: hasMaintainAccessRolesRole,
       maintainAccessAdmin: hasMaintainAccessRolesAdminRole,

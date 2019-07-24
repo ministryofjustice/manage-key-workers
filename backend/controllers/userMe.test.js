@@ -47,6 +47,7 @@ describe('userMe controller', () => {
       writeAccess: false,
       maintainAuthUsers: false,
       groupManager: false,
+      keyWorkerMonitor: false,
     }
 
     it('should default to no access if user has no roles', async () => {
@@ -130,6 +131,7 @@ describe('userMe controller', () => {
         { roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN' },
         { roleCode: 'KW_MIGRATION' },
         { roleCode: 'OMIC_ADMIN' },
+        { roleCode: 'KEYWORKER_MONITOR' },
       ])
       await userMeService(req, res)
 
@@ -137,6 +139,7 @@ describe('userMe controller', () => {
         ...defaultUserMe,
         maintainAccess: true,
         maintainAccessAdmin: true,
+        keyWorkerMonitor: true,
         migration: true,
         writeAccess: true,
         maintainAuthUsers: true,
@@ -162,6 +165,7 @@ describe('userMe controller', () => {
       ...staff1,
       activeCaseLoadId: 'LEI',
       writeAccess: true,
+      keyWorkerMonitor: false,
       prisonMigrated: true,
       maintainAccess: false,
       maintainAccessAdmin: false,

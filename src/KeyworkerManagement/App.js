@@ -177,13 +177,19 @@ class App extends React.Component {
       migrated,
       dispatchLoaded,
     } = this.props
+
+    const hasKWRoles = user && (user.hasKeyWorkerMonitor || user.writeAccess)
+    const hasAdminUtilities =
+      user && (user.maintainAccess || user.maintainAccessAdmin || user.maintainAuthUsers || user.groupManager)
+
     let innerContent
     const routes = (
       // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Switch>
-            <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />
+            {hasKWRoles && <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />}
+            {hasAdminUtilities && <Route exact path="/" render={() => <Redirect to="/admin-utilities" />} />}
             <Route
               exact
               path="/manage-key-workers"
