@@ -5,7 +5,7 @@ import geb.Page
 public class KeyworkerProfilePage extends Page {
 
 
-    static url = "/"
+    static url = "/manage-key-workers"
 
     static test_offender_Z0024ZZ = "Z0024ZZ"
     static moved_offender = "Z0018ZT"
