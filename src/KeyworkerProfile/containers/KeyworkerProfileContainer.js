@@ -152,7 +152,7 @@ class KeyworkerProfileContainer extends Component {
         setMessageDispatch('Offender allocation updated.')
         keyworkerChangeListDispatch([])
       }
-      history.push('/')
+      history.push('/manage-key-workers')
     } catch (error) {
       handleError(error)
     }

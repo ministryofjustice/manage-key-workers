@@ -21,7 +21,7 @@ class KeyworkerProfileEditContainer extends Component {
   componentDidMount() {
     const { user, history, match, keyworker } = this.props
     if (!user || !user.writeAccess) {
-      history.push('/')
+      history.push('/manage-key-workers')
       return
     }
     // invalid deeplink

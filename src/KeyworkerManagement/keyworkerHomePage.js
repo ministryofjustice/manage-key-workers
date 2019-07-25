@@ -5,7 +5,7 @@ import Page from '../Components/Page'
 import MessageBar from '../MessageBar/index'
 import { userType, configType } from '../types'
 
-class HomePage extends Component {
+class KeyworkerHomePage extends Component {
   componentDidMount() {
     const { dispatchLoaded } = this.props
     dispatchLoaded(true)
@@ -77,7 +77,7 @@ class HomePage extends Component {
   }
 }
 
-HomePage.propTypes = {
+KeyworkerHomePage.propTypes = {
   message: PropTypes.string.isRequired,
   user: userType.isRequired,
   config: configType.isRequired,
@@ -86,4 +86,4 @@ HomePage.propTypes = {
   dispatchLoaded: PropTypes.func.isRequired,
 }
 
-export default HomePage
+export default KeyworkerHomePage

@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import HomePage from './index'
+import HomePage from './keyworkerHomePage'
 
 const initialConfig = {
   keyworkerProfileStatsEnabled: 'false',
