@@ -5,7 +5,7 @@ import geb.Page
 public class StaffRoleProfilePage extends Page {
 
 
-    static url = "/manage-key-workers"
+    static url = "/"
 
     static at = {
         browser.currentUrl.contains(url)

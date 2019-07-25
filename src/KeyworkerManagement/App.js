@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Link, Redirect, Route, Switch } from 'react-ro
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
-import HomePage from './index'
+import HomePage from './keyworkerHomePage'
+import UnauthPage from './unauthPage'
 import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer'
 import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer'
 import KeyworkerProfileEditConfirmContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditConfirmContainer'
@@ -84,7 +85,7 @@ class App extends React.Component {
   }
 
   onFinishAllocation = history => {
-    history.push('/')
+    history.push('/manage-key-workers')
   }
 
   loadUserAndCaseload = async () => {
@@ -188,8 +189,12 @@ class App extends React.Component {
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Switch>
-            {hasKWRoles && <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />}
             {hasAdminUtilities && <Route exact path="/" render={() => <Redirect to="/admin-utilities" />} />}
+            {hasKWRoles && <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />}
+            {!(hasKWRoles || hasAdminUtilities) && (
+              <Route exact path="/" render={() => <Redirect to="/unauthorised" />} />
+            )}
+            <Route exact path="/unauthorised" render={() => <UnauthPage dispatchLoaded={dispatchLoaded} />} />
             <Route
               exact
               path="/manage-key-workers"
@@ -420,7 +425,7 @@ class App extends React.Component {
                     const routesThatDontRedirectAfterCaseloadSwitch = ['/manage-key-workers/key-worker-statistics']
 
                     if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
-                      props.history.push('/')
+                      props.history.push('/manage-key-workers')
                     }
                   }}
                   history={props.history}
