@@ -94,9 +94,9 @@ describe('Auth create validation', () => {
       })
     ).toEqual(
       expect.arrayContaining([
-        { targetName: 'username', text: 'Username must be less than 30 characters' },
-        { targetName: 'firstName', text: 'First name must be less than 50 characters' },
-        { targetName: 'lastName', text: 'Last name must be less than 50 characters' },
+        { targetName: 'username', text: 'Username must be 30 characters or less' },
+        { targetName: 'firstName', text: 'First name must be 50 characters or less' },
+        { targetName: 'lastName', text: 'Last name must be 50 characters or less' },
       ])
     )
   })

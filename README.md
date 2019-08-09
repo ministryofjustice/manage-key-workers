@@ -6,9 +6,10 @@ The service requires the following minimum tool versions:
 
 - yarn v1.17+ 
 - node v10+ 
-- gradle v5.6+
 - Chrome 
-- Chromedriver (align the versio with chrome version installed on your machine)
+- Chromedriver (align the version with chrome version installed on your machine)
+
+(The Gradle wrapper is bundled with the project, currently at version 5.0)
 
 Ensure that you have these installed using your system package manager and/or npm for node. 
 
@@ -21,13 +22,13 @@ need to be running and available at known locations.
 - Keyworker API    port: 8081
 - Oauth2 Server    port: 9090
 
-For simplicty, the easiest way to make these services available is to clone the elite2api
+For simplicity, the easiest way to make these services available is to clone the elite2api
 repository and to run the docker compose file in the root directory to bring up local 
 versions of all three. This starts the services at the above default ports on your
 machine.
 
 ```
-$ docker-compose up"  
+$ docker-compose pull && docker-compose up"  
 ```
 
 # Running OMiC-ui locally

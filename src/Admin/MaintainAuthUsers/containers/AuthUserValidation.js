@@ -58,7 +58,7 @@ const validateCreate = ({ username, email, firstName, lastName, groupCode }, gro
     errors.push({ targetName: 'username', text: 'Username must be 6 characters or more' })
   }
   if (username.length > 30) {
-    errors.push({ targetName: 'username', text: 'Username must be less than 30 characters' })
+    errors.push({ targetName: 'username', text: 'Username must be 30 characters or less' })
   }
   if (!username.match(/^[a-zA-Z0-9_]*$/)) {
     errors.push({ targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' })
@@ -70,13 +70,13 @@ const validateCreate = ({ username, email, firstName, lastName, groupCode }, gro
     errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
   }
   if (firstName.length > 50) {
-    errors.push({ targetName: 'firstName', text: 'First name must be less than 50 characters' })
+    errors.push({ targetName: 'firstName', text: 'First name must be 50 characters or less' })
   }
   if (lastName.length < 2) {
     errors.push({ targetName: 'lastName', text: 'Last name must be 2 characters or more' })
   }
   if (lastName.length > 50) {
-    errors.push({ targetName: 'lastName', text: 'Last name must be less than 50 characters' })
+    errors.push({ targetName: 'lastName', text: 'Last name must be 50 characters or less' })
   }
 
   return errors
