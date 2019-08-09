@@ -34,6 +34,7 @@ const validateEmailFormat = email => {
 
 const validateCreate = ({ username, email, firstName, lastName, groupCode }, groupManager) => {
   const errors = []
+
   if (!username) {
     errors.push({ targetName: 'username', text: 'Enter a username' })
   }
@@ -50,20 +51,32 @@ const validateCreate = ({ username, email, firstName, lastName, groupCode }, gro
   if (groupManager && (!groupCode || groupCode === '--')) {
     errors.push({ targetName: 'groupCode', text: 'Select a group' })
   }
+
   if (errors.length) return errors
 
   if (username.length < 6) {
     errors.push({ targetName: 'username', text: 'Username must be 6 characters or more' })
   }
+  if (username.length > 30) {
+    errors.push({ targetName: 'username', text: 'Username must be less than 30 characters' })
+  }
   if (!username.match(/^[a-zA-Z0-9_]*$/)) {
     errors.push({ targetName: 'username', text: 'Username can only contain A-Z, 0-9 and _ characters' })
   }
+
   errors.push(...validateEmailFormat(email))
+
   if (firstName.length < 2) {
     errors.push({ targetName: 'firstName', text: 'First name must be 2 characters or more' })
   }
+  if (firstName.length > 50) {
+    errors.push({ targetName: 'firstName', text: 'First name must be less than 50 characters' })
+  }
   if (lastName.length < 2) {
     errors.push({ targetName: 'lastName', text: 'Last name must be 2 characters or more' })
+  }
+  if (lastName.length > 50) {
+    errors.push({ targetName: 'lastName', text: 'Last name must be less than 50 characters' })
   }
 
   return errors
