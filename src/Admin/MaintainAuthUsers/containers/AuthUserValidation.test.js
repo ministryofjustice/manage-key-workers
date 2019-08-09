@@ -84,6 +84,22 @@ describe('Auth create validation', () => {
       ])
     )
   })
+  it('should disallow fields that are too long', () => {
+    expect(
+      validateCreate({
+        username: 'A12345678901234567890123456789012345678901234567890',
+        email: 'joe@bloggs.com',
+        firstName: 'ccccccccccccccccccccccccccccccccccccccccccccccccccc',
+        lastName: 'dddddddddddddddddddddddddddddddddddddddddddddddddddd',
+      })
+    ).toEqual(
+      expect.arrayContaining([
+        { targetName: 'username', text: 'Username must be 30 characters or less' },
+        { targetName: 'firstName', text: 'First name must be 50 characters or less' },
+        { targetName: 'lastName', text: 'Last name must be 50 characters or less' },
+      ])
+    )
+  })
   it('should validate specific characters allowed', () => {
     expect(validateCreate({ username: '"', email: 'b@c,d.com', firstName: 'ca', lastName: 'de' })).toEqual(
       expect.arrayContaining([
