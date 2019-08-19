@@ -29,7 +29,7 @@ const analytics = {
 const hmppsCookie = {
   name: process.env.HMPPS_COOKIE_NAME || 'hmpps-session-dev',
   domain: process.env.HMPPS_COOKIE_DOMAIN || 'localhost',
-  expiryMinutes: process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 20,
+  expiryMinutes: process.env.WEB_SESSION_TIMEOUT_IN_MINUTES || 60,
   sessionSecret: process.env.SESSION_COOKIE_SECRET || 'notm-insecure-session',
 }
 
