@@ -62,7 +62,7 @@ orbs:
 
 jobs:
   build:
-    <<: *defaults
+    executor: builder
     steps:
       - checkout
       - restore_cache:
@@ -191,12 +191,9 @@ workflows:
           filters:
             tags:
               ignore: /.*/
-      - test: 
-          requires:
-            - build
       - integration_tests:
           requires:
-          - test
+          - build
       - build_docker:
           requires:
             - integration_tests
