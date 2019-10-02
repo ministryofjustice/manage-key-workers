@@ -11,7 +11,7 @@ class PingSpecification extends Specification {
 
     def setup() {
         http = configure {
-            request.uri = 'http://localhost:3006/ping'
+            request.uri = 'http://localhost:3005/ping'
         }
     }
 
