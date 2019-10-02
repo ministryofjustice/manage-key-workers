@@ -75,6 +75,8 @@ app.get('/health', (req, res, next) => {
   })
 })
 
+app.get('/ping', (req, res) => res.send('pong'))
+
 if (config.app.production) {
   app.use(ensureHttps)
 } else {
