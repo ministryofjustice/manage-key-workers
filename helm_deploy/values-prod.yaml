@@ -20,8 +20,8 @@ env:
   API_ENDPOINT_URL: https://gateway.prod.nomis-api.service.hmpps.dsd.io/elite2api/
   OAUTH_ENDPOINT_URL: https://gateway.prod.nomis-api.service.hmpps.dsd.io/auth/
   KEYWORKER_API_URL: https://keyworker-api.service.hmpps.dsd.io/
-  NN_ENDPOINT_URL: https://notm.service.hmpps.dsd.io/
-  PRISON_STAFF_HUB_UI_URL: https://prisonstaffhub.service.hmpps.dsd.io/
+  NN_ENDPOINT_URL: https://digital.prison.service.justice.gov.uk/
+  PRISON_STAFF_HUB_UI_URL: https://whereabouts.prison.service.justice.gov.uk/
   HMPPS_COOKIE_NAME: hmpps-session-prod
   NODE_ENV: production
   MAINTAIN_ROLES_ENABLED: "true"
