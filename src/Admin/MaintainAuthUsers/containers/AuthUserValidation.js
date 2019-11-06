@@ -20,7 +20,7 @@ const validateEmailFormat = email => {
       text: 'Enter an email address in the correct format, like first.last@justice.gov.uk',
     })
   }
-  if (!email.match(/^[0-9A-Za-z@.'_\-+]*$/)) {
+  if (!email.match(/^[0-9A-Za-z@.'’_\-+]*$/)) {
     errors.push({
       targetName: 'email',
       text: "Email address can only contain 0-9, a-z, @, ', _, ., - and + characters",
