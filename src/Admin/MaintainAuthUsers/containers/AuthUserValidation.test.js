@@ -114,6 +114,11 @@ describe('Auth create validation', () => {
       validateCreate({ username: 'joejoe', email: 'joe+bloggs@joe.com', firstName: 'joe', lastName: 'joe' })
     ).toEqual([])
   })
+  it('should pass validation with microsoft special quote', () => {
+    expect(
+      validateCreate({ username: 'joejoe', email: 'joe.b’loggs@joe.com', firstName: 'joe', lastName: 'joe' })
+    ).toEqual([])
+  })
 })
 
 describe('Auth amend validation', () => {
