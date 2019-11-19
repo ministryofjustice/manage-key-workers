@@ -124,7 +124,7 @@ const AuthUser = props => {
             </Table.Row>
             <Table.Row>
               <Table.CellHeader>Last logged in</Table.CellHeader>
-              <Table.Cell>{moment(contextUser.lastLoggedIn).format('DD MMMM YYYY - HH:mm:ss')}</Table.Cell>
+              <Table.Cell>{moment(contextUser.lastLoggedIn).format('D MMMM YYYY - HH:mm:ss')}</Table.Cell>
               <Table.Cell>&nbsp;</Table.Cell>
             </Table.Row>
           </Table>
