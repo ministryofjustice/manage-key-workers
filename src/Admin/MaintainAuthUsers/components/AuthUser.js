@@ -7,6 +7,7 @@ import Table from '@govuk-react/table'
 import Link from '@govuk-react/link'
 import { Link as RouterLink } from 'react-router-dom'
 import { BLACK, GREY_3 } from 'govuk-colours'
+import moment from 'moment'
 import MessageBar from '../../../MessageBar'
 import { authRoleListType, authGroupListType, contextAuthUserType, userType } from '../../../types'
 
@@ -119,6 +120,11 @@ const AuthUser = props => {
             <Table.Row>
               <Table.CellHeader>Verified</Table.CellHeader>
               <Table.Cell>{contextUser.verified ? 'Yes' : 'No'}</Table.Cell>
+              <Table.Cell>&nbsp;</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.CellHeader>Last logged in</Table.CellHeader>
+              <Table.Cell>{moment(contextUser.lastLoggedIn).format('D MMMM YYYY - HH:mm:ss')}</Table.Cell>
               <Table.Cell>&nbsp;</Table.Cell>
             </Table.Row>
           </Table>

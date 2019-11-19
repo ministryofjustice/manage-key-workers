@@ -11,6 +11,7 @@ const user = {
   locked: false,
   enabled: true,
   email: 'joe.smith@justice.gov.uk',
+  lastLoggedIn: '2019-02-02T12:05:10',
 }
 const groupManagerUser = {
   username: 'joesmith',
@@ -20,6 +21,7 @@ const groupManagerUser = {
   enabled: true,
   email: 'joe.smith@justice.gov.uk',
   maintainAuthUsers: false,
+  lastLoggedIn: '2019-02-02T12:05:10',
 }
 const adminUser = {
   username: 'joesmith',
@@ -29,6 +31,7 @@ const adminUser = {
   enabled: true,
   email: 'joe.smith@justice.gov.uk',
   maintainAuthUsers: true,
+  lastLoggedIn: '2019-02-02T12:05:10',
 }
 
 describe('Auth user display', () => {

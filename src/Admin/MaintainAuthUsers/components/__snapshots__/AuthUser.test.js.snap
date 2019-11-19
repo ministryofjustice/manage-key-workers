@@ -149,6 +149,25 @@ exports[`Auth user display no groups - add groups available for admin user shoul
                
             </td>
           </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Last logged in
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              2 February 2019 - 12:05:10
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -408,6 +427,25 @@ exports[`Auth user display no groups - add groups not available for Group Manage
               className="sc-bxivhb jMmQxS"
             >
               No
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Last logged in
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              2 February 2019 - 12:05:10
             </td>
             <td
               className="sc-bxivhb jMmQxS"
@@ -681,6 +719,25 @@ exports[`Auth user display no roles should render correctly with user and no rol
                
             </td>
           </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Last logged in
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              2 February 2019 - 12:05:10
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -928,6 +985,25 @@ exports[`Auth user display should render correctly with user roles and groups - 
               className="sc-bxivhb jMmQxS"
             >
               Yes
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Last logged in
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              2 February 2019 - 12:05:10
             </td>
             <td
               className="sc-bxivhb jMmQxS"
@@ -1242,6 +1318,25 @@ exports[`Auth user display should render correctly with user roles and groups - 
               className="sc-bxivhb jMmQxS"
             >
               Yes
+            </td>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+               
+            </td>
+          </tr>
+          <tr
+            className="sc-ifAKCX cFlEyZ"
+          >
+            <th
+              className="sc-bxivhb kZbmwT"
+            >
+              Last logged in
+            </th>
+            <td
+              className="sc-bxivhb jMmQxS"
+            >
+              2 February 2019 - 12:05:10
             </td>
             <td
               className="sc-bxivhb jMmQxS"
