@@ -115,7 +115,7 @@ function createAvailableKeyworkerResponse() {
 
 const allocationResponse = createDataResponse()
 
-describe('keyworkerAllocations controller', async () => {
+describe('keyworkerAllocations controller', () => {
   let response
 
   beforeAll(async () => {

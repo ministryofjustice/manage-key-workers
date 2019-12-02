@@ -26,7 +26,7 @@ const roles = [
   { roleCode: 'ROLE_3', roleName: 'Role 3' },
 ]
 
-describe('Auth user add role container', async () => {
+describe('Auth user add role container', () => {
   describe('rendering', () => {
     it('should render correctly without user', () => {
       const store = mockStore({
@@ -81,7 +81,7 @@ describe('Auth user add role container', async () => {
     })
   })
 
-  describe('handle functions', async () => {
+  describe('handle functions', () => {
     const event = { target: { name: 'role', value: 'ROLE_1' }, preventDefault: jest.fn() }
     const roleList = [{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
@@ -116,7 +116,7 @@ describe('Auth user add role container', async () => {
       await wrapper.update()
     })
 
-    describe('handleAdd', async () => {
+    describe('handleAdd', () => {
       it('should require role to be selected when form submitted', () => {
         wrapper.find('form').simulate('submit', event)
 
@@ -143,7 +143,7 @@ describe('Auth user add role container', async () => {
       })
     })
 
-    describe('handleCancel', async () => {
+    describe('handleCancel', () => {
       it('should call history go back', () => {
         wrapper.find('[data-qa="cancel-button"] button').simulate('click')
 

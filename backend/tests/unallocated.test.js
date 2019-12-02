@@ -74,7 +74,7 @@ function createAssessmentListResponse() {
 
 const allocationResponse = createDataResponse()
 
-describe('Unallocated controller', async () => {
+describe('Unallocated controller', () => {
   it('Should add keyworker details to allocated data array', async () => {
     keyworkerApi.unallocated = jest.fn()
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
