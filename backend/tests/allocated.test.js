@@ -131,7 +131,7 @@ function createCaseNoteUsageListResponse() {
   ]
 }
 
-describe('Allocated controller', async () => {
+describe('Allocated controller', () => {
   let response
 
   beforeAll(async () => {

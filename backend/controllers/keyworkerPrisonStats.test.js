@@ -1,6 +1,6 @@
 import { keyworkerPrisonStatsFactory } from './keyworkerPrisonStats'
 
-describe('Key worker prison stats', async () => {
+describe('Key worker prison stats', () => {
   const keyworkerApi = {}
   const controller = keyworkerPrisonStatsFactory(keyworkerApi)
   const agencyId = 'LEI'

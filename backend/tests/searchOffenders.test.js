@@ -123,7 +123,7 @@ const createOffenderKeyworkerResponse = () => [
 
 const offenderResponse = createDataResponse()
 
-describe('keyworkerAllocations controller', async () => {
+describe('keyworkerAllocations controller', () => {
   let response
 
   beforeAll(async () => {

@@ -26,7 +26,7 @@ const groups = [
   { groupCode: 'GROUP_3', groupName: 'Group 3' },
 ]
 
-describe('Auth user add group container', async () => {
+describe('Auth user add group container', () => {
   describe('rendering', () => {
     it('should render correctly without user', () => {
       const store = mockStore({
@@ -81,7 +81,7 @@ describe('Auth user add group container', async () => {
     })
   })
 
-  describe('handle functions', async () => {
+  describe('handle functions', () => {
     const event = { target: { name: 'group', value: 'GROUP_1' }, preventDefault: jest.fn() }
     const groupList = [{ groupCode: 'groupA', groupName: 'Group A' }, { groupCode: 'groupB', groupName: 'Group B' }]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
@@ -116,7 +116,7 @@ describe('Auth user add group container', async () => {
       await wrapper.update()
     })
 
-    describe('handleAdd', async () => {
+    describe('handleAdd', () => {
       it('should require group to be selected when form submitted', () => {
         wrapper.find('form').simulate('submit', event)
 
@@ -143,7 +143,7 @@ describe('Auth user add group container', async () => {
       })
     })
 
-    describe('handleCancel', async () => {
+    describe('handleCancel', () => {
       it('should call history go back', () => {
         wrapper.find('[data-qa="cancel-button"] button').simulate('click')
 
