@@ -562,7 +562,6 @@ exports[`Auth user display no groups - add groups not available for Group Manage
       className="sc-htoDjs gxKpuV"
       data-qa="add-group-button"
       disabled={false}
-      onClick={undefined}
     >
       Add group
     </button>
