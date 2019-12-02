@@ -5,6 +5,8 @@ const plugins = [
   ['@babel/plugin-proposal-decorators', { legacy: true }],
   ['@babel/plugin-proposal-class-properties', { loose: true }],
   '@babel/plugin-proposal-throw-expressions',
+  '@babel/plugin-transform-runtime',
+  '@babel/plugin-transform-regenerator',
 ]
 
 const ignore = ['.spec.js', '.test.js', '-test.js', '/__tests__/']
