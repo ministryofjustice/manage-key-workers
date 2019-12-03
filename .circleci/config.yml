@@ -1,7 +1,7 @@
 version: 2.1
 commands:
   setup:
-    description: "Install tools and configure kubectl"
+    description: 'Install tools and configure kubectl'
     steps:
       - aws-cli/install
       - kubernetes/install
@@ -50,7 +50,7 @@ executors:
     docker:
       - image: circleci/python:3
     working_directory: ~/app
-  builder:  
+  builder:
     docker:
       - image: circleci/node:10.15.3-browsers
     working_directory: ~/app
@@ -80,15 +80,15 @@ jobs:
       - run:
           name: Run Tests
           command: |
-             set -e
-             yarn test --maxWorkers=2
+            set -e
+            yarn test --maxWorkers=2
       - run: NODE_ENV=production yarn build
       - run: |
-             DATE=$(date '+%Y-%m-%d')
-             export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
-             export GIT_REF=${CIRCLE_SHA1}
-             export GIT_DATE=${DATE}
-             yarn record-build-info
+          DATE=$(date '+%Y-%m-%d')
+          export BUILD_NUMBER=${DATE}.${CIRCLE_BUILD_NUM}
+          export GIT_REF=${CIRCLE_SHA1}
+          export GIT_DATE=${DATE}
+          yarn record-build-info
       - persist_to_workspace:
           root: .
           paths:
@@ -108,9 +108,9 @@ jobs:
           name: Run the node app.
           command: yarn run start-feature
           background: true
-#      - run:
-#          name: Wait for node app to start
-#          command: sleep 5
+      #      - run:
+      #          name: Wait for node app to start
+      #          command: sleep 5
       - restore_cache:
           key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
@@ -121,11 +121,11 @@ jobs:
       - save_cache:
           key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           paths:
-              - /home/circleci/.gradle/wrapper
+            - /home/circleci/.gradle/wrapper
       - save_cache:
           key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
           paths:
-              - /home/circleci/.gradle/caches
+            - /home/circleci/.gradle/caches
       - store_artifacts:
           path: keyworker-specs/build/reports
           destination: integration/spock
@@ -147,7 +147,7 @@ jobs:
           name: Build container and publish to docker hub
           command: |
             APP_VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
-            
+
             docker build --rm=false . \
               --build-arg BUILD_NUMBER=$APP_VERSION \
               --build-arg GIT_REF=$CIRCLE_SHA1 \
@@ -171,17 +171,33 @@ jobs:
     executor: deployer
     steps:
       - deploy_to_env:
-          env: "dev"
+          env: 'dev'
   deploy_preprod:
     executor: deployer
     steps:
       - deploy_to_env:
-          env: "preprod"
+          env: 'preprod'
   deploy_prod:
     executor: deployer
     steps:
       - deploy_to_env:
-          env: "prod"
+          env: 'prod'
+
+  security_audit:
+    executor: builder
+    steps:
+      - checkout
+      - run:
+          name: update-yarn
+          command: 'sudo yarn global add yarn'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-yarn
+          command: 'yarn --frozen-lockfile --no-audit'
+      - run:
+          name: run-security-audit
+          command: 'yarn security_audit'
 
 workflows:
   version: 2
@@ -193,7 +209,7 @@ workflows:
               ignore: /.*/
       - integration_tests:
           requires:
-          - build
+            - build
       - build_docker:
           requires:
             - integration_tests
@@ -220,3 +236,13 @@ workflows:
           requires:
             - request-prod-approval
 
+  scheduled:
+    triggers:
+      - schedule:
+          cron: '0 7 * * 1-5'
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - security_audit
