@@ -96,7 +96,9 @@ class OffenderResultsContainer extends Component {
   }
 
   async postManualOverride() {
-    const { agencyId, keyworkerChangeList, setMessageDispatch, handleError } = this.props
+    const { agencyId, keyworkerChangeList, setMessageDispatch, handleError, setLoadedDispatch } = this.props
+
+    setLoadedDispatch(false)
 
     try {
       if (keyworkerChangeList && keyworkerChangeList.length > 0) {
@@ -107,6 +109,8 @@ class OffenderResultsContainer extends Component {
     } catch (error) {
       handleError(error)
     }
+
+    setLoadedDispatch(true)
   }
 
   render() {

@@ -12,11 +12,10 @@ import '../../allocation.scss'
 import { userType, allocatedKeyworkersType, allocatedListType } from '../../types'
 
 class ProvisionalContainer extends Component {
-  constructor(props) {
+  constructor() {
     super()
     this.handleKeyworkerChange = this.handleKeyworkerChange.bind(this)
     this.postManualOverride = this.postManualOverride.bind(this)
-    props.setLoadedDispatch(false)
   }
 
   async componentWillMount() {
@@ -28,6 +27,8 @@ class ProvisionalContainer extends Component {
       handleError,
       setLoadedDispatch,
     } = this.props
+
+    setLoadedDispatch(false)
 
     try {
       if (!user || !user.writeAccess) {
@@ -49,6 +50,7 @@ class ProvisionalContainer extends Component {
     } catch (error) {
       handleError(error)
     }
+
     setLoadedDispatch(true)
   }
 
@@ -84,7 +86,16 @@ class ProvisionalContainer extends Component {
   }
 
   async postManualOverride(history) {
-    const { agencyId, allocatedKeyworkers, setMessageDispatch, onFinishAllocation, handleError } = this.props
+    const {
+      agencyId,
+      allocatedKeyworkers,
+      setMessageDispatch,
+      onFinishAllocation,
+      handleError,
+      setLoadedDispatch,
+    } = this.props
+
+    setLoadedDispatch(false)
 
     try {
       await axios.post(
@@ -101,6 +112,8 @@ class ProvisionalContainer extends Component {
     } catch (error) {
       handleError(error)
     }
+
+    setLoadedDispatch(true)
   }
 
   render() {
