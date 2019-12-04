@@ -28,6 +28,7 @@
     "agentkeepalive": "^4.0.2",
     "applicationinsights": "^1.4.0",
     "applicationinsights-native-metrics": "^0.0.5",
+    "audit-ci": "^2.4.2",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
@@ -83,10 +84,10 @@
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-proposal-throw-expressions": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
     "@babel/plugin-transform-regenerator": "^7.3.4",
     "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "axios-mock-adapter": "^1.15.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
@@ -139,7 +140,8 @@
     "record-build-info": "node scripts/record-build-info",
     "plant-beanstalk": "node scripts/plant-beanstalk.js",
     "lint": "node node_modules/eslint/bin/eslint.js --max-warnings 0 src backend",
-    "verify": "yarn lint && yarn test"
+    "verify": "yarn lint && yarn test",
+    "security_audit": "yarn run audit-ci --config audit-ci.json"
   },
   "husky": {
     "hooks": {
