@@ -9,7 +9,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { BLACK, GREY_3 } from 'govuk-colours'
 import moment from 'moment'
 import MessageBar from '../../../MessageBar'
-import { authRoleListType, authGroupListType, contextAuthUserType, userType } from '../../../types'
+import { authGroupListType, authRoleListType, contextAuthUserType, userType } from '../../../types'
 
 const AuthUser = props => {
   const {
@@ -85,15 +85,13 @@ const AuthUser = props => {
               <Table.CellHeader>Email</Table.CellHeader>
               <Table.Cell>{contextUser.email}</Table.Cell>
               <Table.Cell>
-                {!contextUser.verified && (
-                  <Link
-                    data-qa="amend-link"
-                    as={RouterLink}
-                    to={`/admin-utilities/maintain-auth-users/${contextUser.username}/amend`}
-                  >
-                    Change
-                  </Link>
-                )}
+                <Link
+                  data-qa="amend-link"
+                  as={RouterLink}
+                  to={`/admin-utilities/maintain-auth-users/${contextUser.username}/amend`}
+                >
+                  Change
+                </Link>
               </Table.Cell>
             </Table.Row>
             <Table.Row>

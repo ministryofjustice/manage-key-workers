@@ -77,6 +77,8 @@ describe('Auth user display', () => {
           handleRoleRemove={stubFunc}
           handleEnable={stubFunc}
           handleDisable={stubFunc}
+          handleGroupAdd={stubFunc}
+          handleGroupRemove={stubFunc}
         />
       </MemoryRouter>
     )
@@ -132,6 +134,8 @@ describe('Auth user display', () => {
           handleRoleRemove={stubFunc}
           handleEnable={stubFunc}
           handleDisable={stubFunc}
+          handleGroupAdd={stubFunc}
+          handleGroupRemove={stubFunc}
         />
       </MemoryRouter>
     )

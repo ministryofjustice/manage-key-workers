@@ -562,6 +562,7 @@ exports[`Auth user display no groups - add groups not available for Group Manage
       className="sc-htoDjs gxKpuV"
       data-qa="add-group-button"
       disabled={false}
+      onClick={[Function]}
     >
       Add group
     </button>
@@ -924,7 +925,19 @@ exports[`Auth user display should render correctly with user roles and groups - 
             </td>
             <td
               className="sc-bxivhb jMmQxS"
-            />
+            >
+              <a
+                className="sc-iwsKbI cVTNNJ"
+                data-qa="amend-link"
+                href="/admin-utilities/maintain-auth-users/joesmith/amend"
+                muted={false}
+                noVisitedState={false}
+                onClick={[Function]}
+                textColour={false}
+              >
+                Change
+              </a>
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
@@ -1257,7 +1270,19 @@ exports[`Auth user display should render correctly with user roles and groups - 
             </td>
             <td
               className="sc-bxivhb jMmQxS"
-            />
+            >
+              <a
+                className="sc-iwsKbI cVTNNJ"
+                data-qa="amend-link"
+                href="/admin-utilities/maintain-auth-users/joesmith/amend"
+                muted={false}
+                noVisitedState={false}
+                onClick={[Function]}
+                textColour={false}
+              >
+                Change
+              </a>
+            </td>
           </tr>
           <tr
             className="sc-ifAKCX cFlEyZ"
