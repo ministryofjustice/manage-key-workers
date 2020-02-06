@@ -114,14 +114,13 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         when: 'I select to add the vary role to the user'
         choose('Licence Vary')
 
-        then: 'I receive a role added message'
         at AuthUserPage
-        assert waitFor { messageBar.text() == 'Role Licence Vary added' }
 
+        then: 'I remove the GLOBAL_SEARCH role'
         oauthApi.stubAuthRemoveRole()
         roleRows[1].find("[data-qa='remove-button-GLOBAL_SEARCH']").click()
 
-        assert waitFor { messageBar.text() == 'Role Global Search removed' }
+
     }
 
     def "should add and remove a group from a user"() {
@@ -170,14 +169,11 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
         when: 'I select to add the Site 1 - Group 3 to the user'
         choose('Site 1 - Group 3')
 
-        then: 'I receive a group added message'
         at AuthUserPage
-        assert waitFor { messageBar.text() == 'Group Site 1 - Group 3 added' }
-
+        then: 'I remove the Site 1 - Group 3 from the user'
         oauthApi.stubAuthRemoveGroup()
         groupRows[1].find("[data-qa='remove-button-SITE_1_GROUP_1']").click()
 
-        assert waitFor { messageBar.text() == 'Group Site 1 - Group 1 removed' }
     }
 
     def "should create a user"() {
@@ -276,13 +272,11 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
 
         then:
         at AuthUserPage
-        assert waitFor { messageBar.text() == 'User Auth Adm disabled' }
 
         userRows[4].find("td", 0).text() == 'No'
         oauthApi.stubAuthUserEnable()
         enableButton.click()
 
-        assert waitFor { messageBar.text() == 'User Auth Adm enabled' }
     }
 
     def "should amend a user"() {
@@ -319,6 +313,5 @@ class MaintainAuthUsersSpecification extends BrowserReportingSpec {
 
         then: "The email address is amended and user is taken back to the user page"
         at AuthUserPage
-        assert waitFor { messageBar.text() == 'User email amended' }
     }
 }

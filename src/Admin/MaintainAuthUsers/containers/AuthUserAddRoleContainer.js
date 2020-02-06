@@ -5,7 +5,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import axios from 'axios'
 import { withRouter } from 'react-router'
 
-import { setError, resetError, setMessage, setLoaded, handleAxiosError } from '../../../redux/actions/index'
+import { setError, resetError, setLoaded, handleAxiosError } from '../../../redux/actions/index'
 import AuthUserAddRole from '../components/AuthUserAddRole'
 import { routeMatchType, authRoleListType, contextAuthUserType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
@@ -47,7 +47,7 @@ class AuthUserAddRoleContainer extends Component {
   }
 
   handleAdd = async event => {
-    const { contextUser, setMessageDispatch, handleAxiosErrorDispatch, setErrorDispatch, history } = this.props
+    const { contextUser, handleAxiosErrorDispatch, setErrorDispatch, history } = this.props
     const { roles, role } = this.state
 
     event.preventDefault()
@@ -67,7 +67,6 @@ class AuthUserAddRoleContainer extends Component {
           role: selectedRole.roleCode,
         },
       })
-      setMessageDispatch(`Role ${selectedRole.roleName} added`)
       history.goBack()
     } catch (error) {
       handleAxiosErrorDispatch(error)
@@ -115,7 +114,6 @@ AuthUserAddRoleContainer.propTypes = {
   setLoadedDispatch: PropTypes.func.isRequired,
   contextUser: contextAuthUserType,
   roleList: authRoleListType,
-  setMessageDispatch: PropTypes.func.isRequired,
   match: routeMatchType.isRequired,
   loadAuthUserRolesAndGroupDispatch: PropTypes.func.isRequired,
   handleAxiosErrorDispatch: PropTypes.func.isRequired,
@@ -138,7 +136,6 @@ const mapDispatchToProps = dispatch => ({
   setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
   loadAuthUserRolesAndGroupDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
 })

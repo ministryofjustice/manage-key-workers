@@ -8,7 +8,6 @@ import {
   setError,
   resetError,
   setMaintainRolesRoleAdd,
-  setMessage,
   setMaintainRolesUserContextUser,
   setMaintainRolesRoleFilterList,
   setValidationError,
@@ -64,7 +63,7 @@ class AddRoleContainer extends Component {
   }
 
   handleAdd = async (event, history) => {
-    const { contextUser, agencyId, roleAdd, setMessageDispatch, handleError } = this.props
+    const { contextUser, agencyId, roleAdd, handleError } = this.props
 
     if (!this.validate()) return
 
@@ -76,7 +75,6 @@ class AddRoleContainer extends Component {
           roleCode: roleAdd,
         },
       })
-      setMessageDispatch('Role successfully added')
       history.goBack()
     } catch (error) {
       handleError(error)
@@ -142,7 +140,6 @@ AddRoleContainer.propTypes = {
   handleError: PropTypes.func.isRequired,
   contextUserDispatch: PropTypes.func.isRequired,
   contextUser: contextUserType.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired,
   resetValidationErrorsDispatch: PropTypes.func.isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,
   validationErrors: PropTypes.shape({}).isRequired,
@@ -166,7 +163,6 @@ const mapDispatchToProps = dispatch => ({
   resetErrorDispatch: () => dispatch(resetError()),
   setRoleAddDispatch: filter => dispatch(setMaintainRolesRoleAdd(filter)),
   roleFilterListDispatch: list => dispatch(setMaintainRolesRoleFilterList(list)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
   contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
   resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),

@@ -5,7 +5,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import axios from 'axios'
 import { withRouter } from 'react-router'
 
-import { setError, resetError, setMessage, setLoaded, handleAxiosError } from '../../../redux/actions/index'
+import { setError, resetError, setLoaded, handleAxiosError } from '../../../redux/actions/index'
 import AuthUserAddGroup from '../components/AuthUserAddGroup'
 import { routeMatchType, authGroupListType, contextAuthUserType, errorType } from '../../../types'
 import Page from '../../../Components/Page'
@@ -43,7 +43,7 @@ class AuthUserAddGroupContainer extends Component {
   }
 
   handleAdd = async event => {
-    const { contextUser, setMessageDispatch, handleAxiosErrorDispatch, setErrorDispatch, history } = this.props
+    const { contextUser, handleAxiosErrorDispatch, setErrorDispatch, history } = this.props
     const { groups, group } = this.state
 
     event.preventDefault()
@@ -63,7 +63,6 @@ class AuthUserAddGroupContainer extends Component {
           group: selectedGroup.groupCode,
         },
       })
-      setMessageDispatch(`Group ${selectedGroup.groupName} added`)
       history.goBack()
     } catch (error) {
       handleAxiosErrorDispatch(error)
@@ -134,7 +133,6 @@ const mapDispatchToProps = dispatch => ({
   setErrorDispatch: error => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
   loadAuthUserRolesAndGroupsDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
 })
