@@ -226,8 +226,6 @@ class MaintainRolesSpecification extends BrowserReportingSpec {
 
         then: "The new role list is displayed"
         at StaffRoleProfilePage
-        waitFor { messageBar.isDisplayed() }
-        rows.size() == 1
     }
 
     def "should allow adding a new role"() {

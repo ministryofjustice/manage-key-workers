@@ -8,7 +8,6 @@ import {
   resetError,
   setMaintainRolesRoleList,
   setMaintainRolesRoleFilter,
-  setMessage,
   setMaintainRolesUserContextUser,
   setLoaded,
 } from '../../../redux/actions/index'
@@ -50,7 +49,7 @@ class StaffRoleProfileContainer extends Component {
   }
 
   handleRemove = async event => {
-    const { contextUser, agencyId, setMessageDispatch, handleError } = this.props
+    const { contextUser, agencyId, handleError } = this.props
 
     try {
       await axios.get('/api/removeRole', {
@@ -61,7 +60,6 @@ class StaffRoleProfileContainer extends Component {
         },
       })
       await this.getUserRoles(contextUser.username)
-      setMessageDispatch('Role list updated')
     } catch (error) {
       handleError(error)
     }
@@ -111,7 +109,6 @@ StaffRoleProfileContainer.propTypes = {
   setErrorDispatch: PropTypes.func.isRequired,
   contextUser: contextUserType.isRequired,
   roleList: roleListType.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   match: routeMatchType.isRequired,
@@ -135,7 +132,6 @@ const mapDispatchToProps = dispatch => ({
   resetErrorDispatch: () => dispatch(resetError()),
   setRoleListDispatch: list => dispatch(setMaintainRolesRoleList(list)),
   setRoleFilterDispatch: list => dispatch(setMaintainRolesRoleFilter(list)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
   contextUserDispatch: user => dispatch(setMaintainRolesUserContextUser(user)),
   setLoadedDispatch: status => dispatch(setLoaded(status)),
 })

@@ -16,7 +16,6 @@ public class AddRolePage extends Page {
         headingText { $('h1').first().text() }
         backLink { $('a.backlink')}
         addButton { $('#add-button')}
-        messageBar(required: false) { $('div #messageBar')}
         roleOptionUSER_ADMIN { $('#USER_ADMIN_option')}
     }
 

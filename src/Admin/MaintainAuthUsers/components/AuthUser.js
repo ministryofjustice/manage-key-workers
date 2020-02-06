@@ -8,7 +8,6 @@ import Link from '@govuk-react/link'
 import { Link as RouterLink } from 'react-router-dom'
 import { BLACK, GREY_3 } from 'govuk-colours'
 import moment from 'moment'
-import MessageBar from '../../../MessageBar'
 import { authGroupListType, authRoleListType, contextAuthUserType, userType } from '../../../types'
 
 const AuthUser = props => {
@@ -65,7 +64,6 @@ const AuthUser = props => {
 
   return (
     <div>
-      <MessageBar {...props} />
       <GridRow mb={5}>
         <GridCol setWidth="two-thirds">
           <Table data-qa="user-details">

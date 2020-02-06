@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router'
-import MessageBar from '../../../MessageBar'
-import { contextUserType, roleListType, userType } from '../../../types'
+import { roleListType } from '../../../types'
 
 class StaffRoleProfile extends Component {
   goBack = (e, history) => {
@@ -35,7 +34,6 @@ class StaffRoleProfile extends Component {
 
     return (
       <div className="padding-bottom-large">
-        <MessageBar {...this.props} />
         <div className="pure-g">
           <div className="pure-u-md-11-12 ">
             <div className="pure-u-md-7-12">
@@ -80,8 +78,6 @@ class StaffRoleProfile extends Component {
 
 StaffRoleProfile.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  user: userType.isRequired,
-  contextUser: contextUserType.isRequired,
   roleList: roleListType.isRequired,
   handleRemove: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,

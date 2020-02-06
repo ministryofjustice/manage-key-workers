@@ -4,7 +4,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import axios from 'axios'
-import { handleAxiosError, resetError, setError, setMessage } from '../../../redux/actions/index'
+import { handleAxiosError, resetError, setError } from '../../../redux/actions/index'
 import AuthUserAmend from '../components/AuthUserAmend'
 import Page from '../../../Components/Page'
 import { validateAmend } from './AuthUserValidation'
@@ -30,7 +30,7 @@ class AuthUserAmendContainer extends Component {
   }
 
   handleAmend = async event => {
-    const { history, setErrorDispatch, resetErrorDispatch, handleAxiosErrorDispatch, setMessageDispatch } = this.props
+    const { history, setErrorDispatch, resetErrorDispatch, handleAxiosErrorDispatch } = this.props
     const {
       contextUser: { username },
     } = this.props
@@ -48,7 +48,6 @@ class AuthUserAmendContainer extends Component {
         params: { username },
       })
       resetErrorDispatch()
-      setMessageDispatch(`User email amended`)
       history.push(`/admin-utilities/maintain-auth-users/${username}`)
     } catch (error) {
       handleAxiosErrorDispatch(error)
@@ -95,7 +94,6 @@ AuthUserAmendContainer.propTypes = {
   setErrorDispatch: PropTypes.func.isRequired,
   handleAxiosErrorDispatch: PropTypes.func.isRequired,
   loadAuthUserAndRolesDispatch: PropTypes.func.isRequired,
-  setMessageDispatch: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   error: errorType.isRequired,
   match: routeMatchType.isRequired,
@@ -111,7 +109,6 @@ const mapDispatchToProps = dispatch => ({
   setErrorDispatch: error => dispatch(setError(error)),
   handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
   loadAuthUserAndRolesDispatch: username => dispatch(loadAuthUserRolesAndGroups(username)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
 })
 
 const mapStateToProps = state => ({
