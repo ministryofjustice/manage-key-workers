@@ -95,8 +95,8 @@ describe('Auth user add role container', () => {
         resetErrorDispatch: jest.fn(),
         setErrorDispatch: jest.fn(),
         setLoadedDispatch: jest.fn(),
-        setMessageDispatch: jest.fn(),
         handleAxiosErrorDispatch: jest.fn(),
+        loadAuthUserRolesAndGroupDispatch: jest.fn(),
       }
       wrapper = await mount(
         <Provider store={store}>

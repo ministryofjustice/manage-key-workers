@@ -95,7 +95,6 @@ describe('Auth user add group container', () => {
         resetErrorDispatch: jest.fn(),
         setErrorDispatch: jest.fn(),
         setLoadedDispatch: jest.fn(),
-        setMessageDispatch: jest.fn(),
         handleAxiosErrorDispatch: jest.fn(),
       }
       wrapper = await mount(

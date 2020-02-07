@@ -69,7 +69,6 @@ describe('Auth amend container', () => {
         setErrorDispatch: jest.fn(),
         handleAxiosErrorDispatch: jest.fn(),
         loadAuthUserAndRolesDispatch: jest.fn(),
-        setMessageDispatch: jest.fn(),
       }
       wrapper = mount(
         <Provider store={store}>
