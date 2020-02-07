@@ -110,7 +110,6 @@ AuthUserAddGroupContainer.propTypes = {
   setLoadedDispatch: PropTypes.func.isRequired,
   contextUser: contextAuthUserType,
   groupList: authGroupListType,
-  setMessageDispatch: PropTypes.func.isRequired,
   match: routeMatchType.isRequired,
   loadAuthUserRolesAndGroupsDispatch: PropTypes.func.isRequired,
   handleAxiosErrorDispatch: PropTypes.func.isRequired,

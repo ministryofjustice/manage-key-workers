@@ -5,19 +5,18 @@ import axios from 'axios'
 import {
   RESET_ERROR,
   SET_AUTH_USER_CONTEXT_USER,
-  SET_AUTH_USER_ROLE_LIST,
   SET_AUTH_USER_GROUP_LIST,
+  SET_AUTH_USER_ROLE_LIST,
   SET_AUTH_USER_SEARCH_RESULTS_LIST,
   SET_ERROR,
   SET_LOADED,
-  SET_MESSAGE,
 } from './actionTypes'
 import {
-  loadAuthUserRolesAndGroups,
-  removeAuthRole,
-  removeAuthGroup,
-  enableUser,
   disableUser,
+  enableUser,
+  loadAuthUserRolesAndGroups,
+  removeAuthGroup,
+  removeAuthRole,
   setMaintainAuthContextUser,
   setMaintainAuthRoleList,
   setMaintainAuthUsersList,
@@ -124,7 +123,6 @@ describe('maintain auth users', () => {
         expect(store.getActions()).toEqual([
           { type: 'RESET_ERROR' },
           { roleList: [roleB], type: SET_AUTH_USER_ROLE_LIST },
-          { message: 'Role Role A removed', type: SET_MESSAGE },
         ])
       })
       it('should handle axios errors', async () => {
@@ -161,10 +159,7 @@ describe('maintain auth users', () => {
         })
         await store.dispatch(removeAuthGroup('groupA'))
 
-        expect(store.getActions()).toEqual([
-          { groupList: [groupB], type: SET_AUTH_USER_GROUP_LIST },
-          { message: 'Group Group A removed', type: SET_MESSAGE },
-        ])
+        expect(store.getActions()).toEqual([{ groupList: [groupB], type: SET_AUTH_USER_GROUP_LIST }])
       })
       it('should handle axios errors', async () => {
         const groupB = { groupCode: 'groupB', groupName: 'Group B' }
@@ -203,7 +198,6 @@ describe('maintain auth users', () => {
             contextUser: { username: 'fetcheduser' },
             type: 'SET_AUTH_USER_CONTEXT_USER',
           },
-          { message: 'User Auth User enabled', type: SET_MESSAGE },
         ])
       })
       it('should handle axios errors', async () => {
@@ -238,7 +232,6 @@ describe('maintain auth users', () => {
 
         expect(store.getActions()).toEqual([
           { contextUser: { username: 'fetcheduser' }, type: 'SET_AUTH_USER_CONTEXT_USER' },
-          { message: 'User Auth User disabled', type: SET_MESSAGE },
         ])
       })
       it('should handle axios errors', async () => {

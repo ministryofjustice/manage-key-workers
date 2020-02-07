@@ -5,7 +5,7 @@ import {
   SET_AUTH_USER_GROUP_LIST,
   SET_AUTH_USER_SEARCH_RESULTS_LIST,
 } from './actionTypes'
-import { handleAxiosError, resetError, setLoaded, setMessage } from './index'
+import { handleAxiosError, resetError, setLoaded } from './index'
 
 export const setMaintainAuthUsersList = userList => ({ type: SET_AUTH_USER_SEARCH_RESULTS_LIST, userList })
 export const setMaintainAuthRoleList = roleList => ({ type: SET_AUTH_USER_ROLE_LIST, roleList })
@@ -78,7 +78,6 @@ export const removeAuthRole = roleCode => async (dispatch, getState) => {
       },
     })
     await getUserRoles(dispatch, username)
-    dispatch(setMessage(`Role ${selectedRole.roleName} removed`))
   } catch (error) {
     dispatch(handleAxiosError(error))
   }
@@ -100,14 +99,13 @@ export const removeAuthGroup = groupCode => async (dispatch, getState) => {
       },
     })
     await getUserGroups(dispatch, username)
-    dispatch(setMessage(`Group ${selectedGroup.groupName} removed`))
   } catch (error) {
     dispatch(handleAxiosError(error))
   }
 }
 
 export const enableUser = () => async (dispatch, getState) => {
-  const { username, firstName, lastName } = getState().maintainAuthUsers.contextUser
+  const { username } = getState().maintainAuthUsers.contextUser
 
   try {
     await axios.get('/api/auth-user-enable', {
@@ -116,14 +114,13 @@ export const enableUser = () => async (dispatch, getState) => {
       },
     })
     await loadUser(dispatch, username)
-    dispatch(setMessage(`User ${firstName} ${lastName} enabled`))
   } catch (error) {
     dispatch(handleAxiosError(error))
   }
 }
 
 export const disableUser = () => async (dispatch, getState) => {
-  const { username, firstName, lastName } = getState().maintainAuthUsers.contextUser
+  const { username } = getState().maintainAuthUsers.contextUser
 
   try {
     await axios.get('/api/auth-user-disable', {
@@ -132,7 +129,6 @@ export const disableUser = () => async (dispatch, getState) => {
       },
     })
     await loadUser(dispatch, username)
-    dispatch(setMessage(`User ${firstName} ${lastName} disabled`))
   } catch (error) {
     dispatch(handleAxiosError(error))
   }
