@@ -2,30 +2,30 @@
 
 exports[`Auth user add roles errors should render an error on the select if error occurred 1`] = `
 <div
-  className="sc-gzVnrw lauuhu"
+  className="sc-Axmtr hjHhIB"
 >
   <div
-    className="sc-htoDjs iFTIaU"
+    className="sc-AxmLO czuJjP"
   >
     <form
       onSubmit={[MockFunction]}
     >
       <label
-        className="sc-bdVaJa gDsdZv"
+        className="sc-AxjAm iLFoNS"
         htmlFor="role"
       >
         <span
-          className="sc-bwzfXH lbxcXc"
+          className="sc-AxirZ lbZqdG"
         >
           Choose new role
         </span>
         <span
-          className="sc-htpNat lbiKAP"
+          className="sc-AxiKw MIKJW"
         >
           something went wrong
         </span>
         <select
-          className="sc-ifAKCX iaVBIO"
+          className="sc-AxhUy hIXZuA"
           id="role"
           name="role"
           onChange={[MockFunction]}
@@ -50,10 +50,10 @@ exports[`Auth user add roles errors should render an error on the select if erro
         </select>
       </label>
       <div
-        className="sc-dnqmqq hyCbor"
+        className="sc-fzozJi lkMuvo"
       >
         <button
-          className="sc-EHOje hEaLol"
+          className="sc-AxgMl dzrPxP"
           data-qa="add-button"
           disabled={false}
           type="submit"
@@ -61,7 +61,7 @@ exports[`Auth user add roles errors should render an error on the select if erro
           Add role
         </button>
         <button
-          className="sc-EHOje eIzgdI"
+          className="sc-AxgMl iErfzZ"
           data-qa="cancel-button"
           disabled={false}
           onClick={[MockFunction]}
@@ -77,10 +77,10 @@ exports[`Auth user add roles errors should render an error on the select if erro
 
 exports[`Auth user add roles no roles should render correctly with user and no roles 1`] = `
 <div
-  className="sc-gzVnrw lauuhu"
+  className="sc-Axmtr hjHhIB"
 >
   <div
-    className="sc-htoDjs iFTIaU"
+    className="sc-AxmLO czuJjP"
   >
     <form
       onSubmit={[Function]}
@@ -91,10 +91,10 @@ exports[`Auth user add roles no roles should render correctly with user and no r
         No roles available
       </div>
       <div
-        className="sc-dnqmqq hyCbor"
+        className="sc-fzozJi lkMuvo"
       >
         <button
-          className="sc-EHOje eIzgdI"
+          className="sc-AxgMl iErfzZ"
           data-qa="cancel-button"
           disabled={false}
           onClick={[Function]}
@@ -110,25 +110,25 @@ exports[`Auth user add roles no roles should render correctly with user and no r
 
 exports[`Auth user add roles should render the add role page with a filtered list of roles 1`] = `
 <div
-  className="sc-gzVnrw lauuhu"
+  className="sc-Axmtr hjHhIB"
 >
   <div
-    className="sc-htoDjs iFTIaU"
+    className="sc-AxmLO czuJjP"
   >
     <form
       onSubmit={[MockFunction]}
     >
       <label
-        className="sc-bdVaJa cmpKXw"
+        className="sc-AxjAm bnkTnU"
         htmlFor="role"
       >
         <span
-          className="sc-bwzfXH lbxcXc"
+          className="sc-AxirZ lbZqdG"
         >
           Choose new role
         </span>
         <select
-          className="sc-ifAKCX kDzsBS"
+          className="sc-AxhUy czrCMV"
           id="role"
           name="role"
           onChange={[MockFunction]}
@@ -153,10 +153,10 @@ exports[`Auth user add roles should render the add role page with a filtered lis
         </select>
       </label>
       <div
-        className="sc-dnqmqq hyCbor"
+        className="sc-fzozJi lkMuvo"
       >
         <button
-          className="sc-EHOje hEaLol"
+          className="sc-AxgMl dzrPxP"
           data-qa="add-button"
           disabled={false}
           type="submit"
@@ -164,7 +164,7 @@ exports[`Auth user add roles should render the add role page with a filtered lis
           Add role
         </button>
         <button
-          className="sc-EHOje eIzgdI"
+          className="sc-AxgMl iErfzZ"
           data-qa="cancel-button"
           disabled={false}
           onClick={[MockFunction]}

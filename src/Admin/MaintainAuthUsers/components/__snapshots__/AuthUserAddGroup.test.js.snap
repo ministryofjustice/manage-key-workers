@@ -2,30 +2,30 @@
 
 exports[`Auth user add groups errors should render an error on the select if error occurred 1`] = `
 <div
-  className="sc-gzVnrw lauuhu"
+  className="sc-Axmtr hjHhIB"
 >
   <div
-    className="sc-htoDjs iFTIaU"
+    className="sc-AxmLO czuJjP"
   >
     <form
       onSubmit={[MockFunction]}
     >
       <label
-        className="sc-bdVaJa gDsdZv"
+        className="sc-AxjAm iLFoNS"
         htmlFor="group"
       >
         <span
-          className="sc-bwzfXH lbxcXc"
+          className="sc-AxirZ lbZqdG"
         >
           Choose new group
         </span>
         <span
-          className="sc-htpNat lbiKAP"
+          className="sc-AxiKw MIKJW"
         >
           something went wrong
         </span>
         <select
-          className="sc-ifAKCX iaVBIO"
+          className="sc-AxhUy hIXZuA"
           id="group"
           name="group"
           onChange={[MockFunction]}
@@ -56,10 +56,10 @@ exports[`Auth user add groups errors should render an error on the select if err
         </select>
       </label>
       <div
-        className="sc-dnqmqq hyCbor"
+        className="sc-fzozJi lkMuvo"
       >
         <button
-          className="sc-EHOje hEaLol"
+          className="sc-AxgMl dzrPxP"
           data-qa="add-button"
           disabled={false}
           type="submit"
@@ -67,7 +67,7 @@ exports[`Auth user add groups errors should render an error on the select if err
           Add group
         </button>
         <button
-          className="sc-EHOje eIzgdI"
+          className="sc-AxgMl iErfzZ"
           data-qa="cancel-button"
           disabled={false}
           onClick={[MockFunction]}
@@ -83,10 +83,10 @@ exports[`Auth user add groups errors should render an error on the select if err
 
 exports[`Auth user add groups no groups should render correctly with user and no groups 1`] = `
 <div
-  className="sc-gzVnrw lauuhu"
+  className="sc-Axmtr hjHhIB"
 >
   <div
-    className="sc-htoDjs iFTIaU"
+    className="sc-AxmLO czuJjP"
   >
     <form
       onSubmit={[Function]}
@@ -97,10 +97,10 @@ exports[`Auth user add groups no groups should render correctly with user and no
         No groups available
       </div>
       <div
-        className="sc-dnqmqq hyCbor"
+        className="sc-fzozJi lkMuvo"
       >
         <button
-          className="sc-EHOje eIzgdI"
+          className="sc-AxgMl iErfzZ"
           data-qa="cancel-button"
           disabled={false}
           onClick={[Function]}
@@ -116,25 +116,25 @@ exports[`Auth user add groups no groups should render correctly with user and no
 
 exports[`Auth user add groups should render the add group page with a filtered list of groups 1`] = `
 <div
-  className="sc-gzVnrw lauuhu"
+  className="sc-Axmtr hjHhIB"
 >
   <div
-    className="sc-htoDjs iFTIaU"
+    className="sc-AxmLO czuJjP"
   >
     <form
       onSubmit={[MockFunction]}
     >
       <label
-        className="sc-bdVaJa cmpKXw"
+        className="sc-AxjAm bnkTnU"
         htmlFor="group"
       >
         <span
-          className="sc-bwzfXH lbxcXc"
+          className="sc-AxirZ lbZqdG"
         >
           Choose new group
         </span>
         <select
-          className="sc-ifAKCX kDzsBS"
+          className="sc-AxhUy czrCMV"
           id="group"
           name="group"
           onChange={[MockFunction]}
@@ -165,10 +165,10 @@ exports[`Auth user add groups should render the add group page with a filtered l
         </select>
       </label>
       <div
-        className="sc-dnqmqq hyCbor"
+        className="sc-fzozJi lkMuvo"
       >
         <button
-          className="sc-EHOje hEaLol"
+          className="sc-AxgMl dzrPxP"
           data-qa="add-button"
           disabled={false}
           type="submit"
@@ -176,7 +176,7 @@ exports[`Auth user add groups should render the add group page with a filtered l
           Add group
         </button>
         <button
-          className="sc-EHOje eIzgdI"
+          className="sc-AxgMl iErfzZ"
           data-qa="cancel-button"
           disabled={false}
           onClick={[MockFunction]}

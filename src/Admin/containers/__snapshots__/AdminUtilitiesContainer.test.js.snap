@@ -3,13 +3,13 @@
 exports[`<AdminUtilitiesContainer /> should render the admin and utilities page 1`] = `
 Array [
   <div
-    className="sc-dnqmqq ekasAr"
+    className="sc-fzozJi kmnVrx"
   >
     <ul
-      className="sc-iwsKbI bhpoyq"
+      className="sc-fzoLsD iIyIpF"
     >
       <li
-        className="sc-gZMcBi gYqZNj"
+        className="sc-fzpans dIDXjF"
       >
         <a
           data-qa="breadcrumb-home-page-link"
@@ -19,7 +19,7 @@ Array [
         </a>
       </li>
       <li
-        className="sc-gZMcBi gYqZNj"
+        className="sc-fzpans dIDXjF"
       >
         <span>
           Admin and utilities
@@ -28,11 +28,11 @@ Array [
     </ul>
   </div>,
   <div
-    className="sc-htoDjs bCKyuL"
+    className="sc-AxmLO lcDemq"
   >
     
     <h1
-      className="sc-bdVaJa eLwxMn"
+      className="sc-AxjAm cDEtdP"
       size="LARGE"
     >
       Admin and utilities
@@ -41,10 +41,10 @@ Array [
       className="page-content"
     >
       <div
-        className="sc-gqjmRU cthAvw"
+        className="sc-fzplWN iUslJo"
       >
         <div
-          className="sc-VigVT dUvdCr"
+          className="sc-fznyAO hgfQjo"
         >
           <a
             className="link"
@@ -60,7 +60,7 @@ Array [
           </div>
         </div>
         <div
-          className="sc-VigVT dUvdCr"
+          className="sc-fznyAO hgfQjo"
         >
           <a
             className="link"
@@ -76,7 +76,7 @@ Array [
           </div>
         </div>
         <div
-          className="sc-VigVT dUvdCr"
+          className="sc-fznyAO hgfQjo"
         >
           <a
             className="link"
@@ -92,7 +92,7 @@ Array [
           </div>
         </div>
         <div
-          className="sc-VigVT dUvdCr"
+          className="sc-fznyAO hgfQjo"
         >
           <a
             className="link"
@@ -108,7 +108,7 @@ Array [
           </div>
         </div>
         <div
-          className="sc-VigVT dUvdCr"
+          className="sc-fznyAO hgfQjo"
         >
           <a
             className="link"
