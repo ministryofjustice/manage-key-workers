@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/ministryofjustice/omic-ui/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/omic-ui)
+[![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/omic-ui/badge.svg)](https://snyk.io/test/github/ministryofjustice/omic-ui)
+
 # OMiC UI / Keyworker UI App
 
 This service is referred to by both names *OMiC UI* and *Keyworker UI*  (confusingly).
