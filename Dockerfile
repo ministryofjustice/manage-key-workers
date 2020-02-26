@@ -1,4 +1,4 @@
-FROM node:10-buster-slim
+FROM node:12.16.1-buster-slim
 ARG BUILD_NUMBER
 ARG GIT_REF
 ARG GIT_DATE
