@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  gradle: circleci/gradle@2.0.0
 commands:
   setup:
     description: 'Install tools and configure kubectl'
@@ -99,7 +101,7 @@ jobs:
   integration_tests:
     working_directory: ~/app
     docker:
-      - image: circleci/openjdk:11-jdk-node-browsers
+      - image: node:12.16.1-buster-slim
     steps:
       - checkout
       - attach_workspace:
