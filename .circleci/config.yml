@@ -52,13 +52,14 @@ executors:
     working_directory: ~/app
   builder:
     docker:
-      - image: circleci/node:12.16.1-browsers
+      - image: circleci/node:12.16.1-stretch-browsers
     working_directory: ~/app
 
 orbs:
   aws-cli: circleci/aws-cli@0.1.18
   kubernetes: circleci/kubernetes@0.10.1
   helm: circleci/helm@0.2.3
+  gradle: circleci/gradle@2.0.0
 
 jobs:
   build:
