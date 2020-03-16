@@ -4,7 +4,6 @@ require('dotenv').config()
 require('./azure-appinsights')
 const path = require('path')
 const express = require('express')
-const cookieSession = require('cookie-session')
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const bunyanMiddleware = require('bunyan-middleware')
@@ -31,6 +30,8 @@ const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { oauthApiFactory } = require('./api/oauthApi')
 
 const configureRoutes = require('./routes')
+
+const setupWebSession = require('./setupWebSession')
 
 const log = require('./log')
 const config = require('./config')
@@ -118,19 +119,7 @@ const oauthApi = oauthApiFactory(
 auth.init(oauthApi)
 const tokenRefresher = tokenRefresherFactory(oauthApi.refresh, config.app.tokenRefreshThresholdSeconds)
 
-app.use(
-  cookieSession({
-    name: config.hmppsCookie.name,
-    domain: config.hmppsCookie.domain,
-    maxAge: config.hmppsCookie.expiryMinutes * 60 * 1000,
-    secure: config.app.production,
-    httpOnly: true,
-    signed: true,
-    keys: [config.hmppsCookie.sessionSecret],
-    overwrite: true,
-    sameSite: 'lax',
-  })
-)
+app.use(setupWebSession())
 
 // Ensure cookie session is extended (once per minute) when user interacts with the server
 app.use((req, res, next) => {
