@@ -27,10 +27,9 @@ const configureRoutes = ({ app, tokenRefresher, mailTo, homeLink }) => {
   }
 
   const logout = (req, res) => {
-    req.logout()
-    // eslint-disable-next-line no-param-reassign
-    req.session = null
-    res.redirect(authLogoutUrl)
+    req.session.destroy(() => {
+      res.redirect(authLogoutUrl)
+    })
   }
 
   /**
