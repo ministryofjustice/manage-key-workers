@@ -40,6 +40,18 @@ env:
         name: {{ template "app.name" . }}
         key: SESSION_COOKIE_SECRET
 
+  - name: REDIS_HOST
+    valueFrom:
+      secretKeyRef:
+        name: dps-redis
+        key: REDIS_HOST
+
+  - name: REDIS_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: dps-redis
+        key: REDIS_PASSWORD
+
   - name: API_ENDPOINT_URL
     value: {{ .Values.env.API_ENDPOINT_URL | quote }}
 
