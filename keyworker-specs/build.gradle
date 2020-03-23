@@ -1,6 +1,7 @@
 plugins {
     id "groovy"
-    id 'com.github.ben-manes.versions' version '0.27.0'
+    id 'com.github.ben-manes.versions' version '0.28.0'
+    id 'se.patrikerdes.use-latest-versions' version "0.2.13"
 }
 
 ext {
@@ -49,11 +50,11 @@ dependencies {
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
     testCompile "io.github.http-builder-ng:http-builder-ng-apache:1.0.4"
 
-    testCompile 'com.github.tomakehurst:wiremock-standalone:2.26.0'
+    testCompile 'com.github.tomakehurst:wiremock-standalone:2.26.3'
     testCompile 'com.github.tomjankes:wiremock-groovy:0.2.0'
     testCompile 'org.slf4j:slf4j-api:1.7.30'
     testCompile 'ch.qos.logback:logback-classic:1.2.3'
-    testCompile 'com.auth0:java-jwt:3.9.0'
+    testCompile 'com.auth0:java-jwt:3.10.1'
 }
 
 drivers.each { driver ->

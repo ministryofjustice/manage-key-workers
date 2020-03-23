@@ -132,6 +132,10 @@
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.1.1"
   },
+  "resolutions": {
+    "acorn": "^7.1.1",
+    "minimist": "^1.2.5"
+  },
   "scripts": {
     "start": "node backend/index.js",
     "start-feature": "PORT=3005 OAUTH_ENDPOINT_URL=http://localhost:19090/auth/ API_ENDPOINT_URL=http://localhost:18080/ KEYWORKER_API_URL=http://localhost:18081/ node backend/index.js",
