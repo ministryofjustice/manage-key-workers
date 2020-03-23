@@ -68,8 +68,14 @@ describe('Auth user container', () => {
 
   describe('handle functions', () => {
     const event = { target: { name: 'user', value: 'usersearched' } }
-    const roleList = [{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]
-    const groupList = [{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]
+    const roleList = [
+      { roleCode: 'roleA', roleName: 'Role A' },
+      { roleCode: 'roleB', roleName: 'Role B' },
+    ]
+    const groupList = [
+      { groupCode: 'group1', groupName: 'Group 1' },
+      { groupCode: 'group2', groupName: 'Group 2' },
+    ]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
 
     const props = {

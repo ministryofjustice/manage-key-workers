@@ -73,7 +73,7 @@ describe('Keyworker search result component', () => {
         .find('td')
         .at(0)
         .text()
-    ).toContain('Link')
+    ).toContain('Daggart, Brent')
     expect(
       component
         .find('tr')

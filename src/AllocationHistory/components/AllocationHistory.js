@@ -115,7 +115,14 @@ class AllocationHistory extends Component {
 }
 
 AllocationHistory.propTypes = {
-  allocationHistory: PropTypes.shape({ allocationHistory: PropTypes.object }).isRequired,
+  allocationHistory: PropTypes.shape({
+    allocationHistory: PropTypes.object,
+    offender: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      offenderNo: PropTypes.string,
+    }),
+  }).isRequired,
   loaded: PropTypes.bool.isRequired,
 }
 

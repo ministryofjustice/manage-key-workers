@@ -92,7 +92,4 @@ const mapDispatchToProps = dispatch => ({
   dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OffenderSearchContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(OffenderSearchContainer)

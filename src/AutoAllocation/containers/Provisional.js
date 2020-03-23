@@ -41,9 +41,7 @@ class ProvisionalContainer extends Component {
       if (viewModel.warning) {
         handleError({
           response: {
-            data: `${
-              viewModel.warning
-            } Please try allocating manually, adding more Key workers or raising their capacities.`,
+            data: `${viewModel.warning} Please try allocating manually, adding more Key workers or raising their capacities.`,
           },
         })
       }
@@ -164,7 +162,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { ProvisionalContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ProvisionalContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProvisionalContainer))

@@ -138,7 +138,4 @@ const mapDispatchToProps = dispatch => ({
 
 export { AuthUserAddGroupContainer }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(AuthUserAddGroupContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AuthUserAddGroupContainer))

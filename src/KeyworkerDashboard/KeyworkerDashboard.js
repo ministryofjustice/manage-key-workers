@@ -143,7 +143,4 @@ const mapStateToProps = state => ({
   toDate: state.prisonLevelKeyWorkerStatsDashboard.toDate,
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(KeyworkerDashboard))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerDashboard))

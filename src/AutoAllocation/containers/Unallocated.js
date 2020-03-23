@@ -86,7 +86,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { UnallocatedContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(UnallocatedContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UnallocatedContainer))

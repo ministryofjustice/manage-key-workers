@@ -94,7 +94,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { AssignTransferContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AssignTransferContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AssignTransferContainer)

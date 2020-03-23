@@ -103,7 +103,4 @@ const mapDispatchToProps = dispatch => ({
   setLoadedDispatch: status => dispatch(setLoaded(status)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AdminUtilitiesContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminUtilitiesContainer)

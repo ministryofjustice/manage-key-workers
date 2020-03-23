@@ -152,7 +152,7 @@ class KeyworkerProfile extends Component {
               <tbody>{allocations}</tbody>
             </table>
           </div>
-          {keyworkerAllocations.length > 0 && (user && user.writeAccess) && (
+          {keyworkerAllocations.length > 0 && user && user.writeAccess && (
             <button
               type="button"
               id="updateAllocationButton"

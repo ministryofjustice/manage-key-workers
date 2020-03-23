@@ -137,7 +137,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { StaffRoleProfileContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(StaffRoleProfileContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(StaffRoleProfileContainer))

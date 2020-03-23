@@ -171,7 +171,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { OffenderResultsContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(OffenderResultsContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(OffenderResultsContainer))

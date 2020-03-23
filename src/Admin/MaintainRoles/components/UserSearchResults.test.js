@@ -28,7 +28,10 @@ describe('User search Results component', () => {
         user={user}
         nameFilter=""
         roleFilter=""
-        roleFilterList={[{ roleCode: 'ROLE_1', roleName: 'Role 1' }, { roleCode: 'ROLE_2', roleName: 'Role 2' }]}
+        roleFilterList={[
+          { roleCode: 'ROLE_1', roleName: 'Role 1' },
+          { roleCode: 'ROLE_2', roleName: 'Role 2' },
+        ]}
         userList={[
           {
             staffId: 70029,
