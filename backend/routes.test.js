@@ -54,7 +54,6 @@ describe('Routes', () => {
     'keyworkerSearch',
     'autoAllocateConfirmWithOverride',
     'keyworkerUpdate',
-    'enableNewNomis',
     'autoAllocateMigrate',
     'manualAllocateMigrate',
     'keyworkerSettings',

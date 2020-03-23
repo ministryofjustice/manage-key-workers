@@ -18,7 +18,6 @@ export default [
   { path: '/admin-utilities', breadcrumb: 'Admin and utilities' },
   { path: '/admin-utilities/maintain-roles', breadcrumb: 'Manage access roles' },
   { path: '/admin-utilities/manage-key-worker-settings', breadcrumb: 'Manage key worker settings' },
-  { path: '/admin-utilities/give-nomis-access', breadcrumb: 'Give access to New NOMIS' },
   { path: '/admin-utilities/create-auth-user', breadcrumb: 'Create auth user' },
   { path: '/admin-utilities/maintain-auth-users', breadcrumb: 'Maintain auth users' },
   { path: '/admin-utilities/maintain-auth-users/search-results', breadcrumb: 'Results' },

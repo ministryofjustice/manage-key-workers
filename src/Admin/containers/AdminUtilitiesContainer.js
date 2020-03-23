@@ -17,7 +17,6 @@ export class AdminUtilitiesContainer extends Component {
 
   render() {
     const { user } = this.props
-    const hasMaintainRolesAdminAccess = user && user.maintainAccessAdmin
     const hasMaintainRolesAccess = user && (user.maintainAccess || user.maintainAccessAdmin)
     const showKeyworkerSettings = hasMaintainRolesAccess && user.migration
     const hasMaintainAuthUsers = user && (user.maintainAuthUsers || user.groupManager)
@@ -30,20 +29,6 @@ export class AdminUtilitiesContainer extends Component {
             <div>
               <p>There are no admin or utility functions associated with your account.</p>
             </div>
-          )}
-
-          {hasMaintainRolesAdminAccess && (
-            <AdminUtility>
-              <Link
-                id="enable_new_nomis_link"
-                title="Enable Nomis"
-                className="link"
-                to="/admin-utilities/give-nomis-access"
-              >
-                Give access to New NOMIS
-              </Link>
-              <div>Allow prisons to use New NOMIS. Add new prison staff.</div>
-            </AdminUtility>
           )}
           {showKeyworkerSettings && (
             <AdminUtility>

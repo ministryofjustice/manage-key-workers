@@ -10,7 +10,6 @@ const { keyworkerSearchFactory } = require('./controllers/keyworkerSearch')
 const { keyworkerProfileFactory } = require('./controllers/keyworkerProfile')
 const { keyworkerUpdateFactory } = require('./controllers/keyworkerUpdate')
 const { userMeFactory } = require('./controllers/userMe')
-const { enableNewNomisFactory } = require('./controllers/enableNewNomis')
 const { autoAllocationAndMigrateFactory } = require('./controllers/autoAllocationMigrate')
 const { manualAllocationAndMigrateFactory } = require('./controllers/manualAllocationMigrate')
 const { keyworkerSettingsFactory } = require('./controllers/keyworkerSettings')
@@ -51,7 +50,6 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
   router.use('/api/keyworkerSearch', withErrorHandler(keyworkerSearchFactory(keyworkerApi).keyworkerSearch))
   router.use('/api/autoAllocateConfirmWithOverride', withErrorHandler(autoAllocateFactory(keyworkerApi).autoAllocate))
   router.use('/api/keyworkerUpdate', withErrorHandler(keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate))
-  router.use('/api/enableNewNomis', withErrorHandler(enableNewNomisFactory(elite2Api).enableNewNomis))
   router.use(
     '/api/autoAllocateMigrate',
     withErrorHandler(autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate)

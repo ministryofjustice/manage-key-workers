@@ -94,55 +94,6 @@ class AdminUtilitiesSpecification extends BrowserReportingSpec {
         errorMessage.text() == 'Capacity Tier 2 must be equal to or greater than Capacity Tier 1'
     }
 
-    def "should not see the auto allocation link when the current user is not a key worker admin"() {
-        oauthApi.stubGetMyRoles([])
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 1, true)
-
-        given: "I logged in and go to the admin and utilities page"
-        fixture.loginWithoutStaffRoles(ITAG_USER)
-        to AdminUtilitiesPage
-
-        when: "I am on the admin and utilities page"
-
-        then: "I should not see the auto allocation link"
-        assert !enableNewNomisLink.displayed
-    }
-
-    def "should see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES_ADMIN role"() {
-        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
-        def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
-        oauthApi.stubGetMyRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
-
-        given: "I logged in and go to the admin and utilities page"
-        fixture.loginWithoutStaffRoles(ITAG_USER)
-        to AdminUtilitiesPage
-
-        when: "I am on the admin and utilities page"
-
-        then: "I should see the enable new nomis link and not see the key worker settings link"
-        assert enableNewNomisLink.displayed
-        assert !keyworkerSettingsLink.displayed
-    }
-
-    def "should not see enable new nomis link if the user has the the MAINTAIN_ACCESS_ROLES role"() {
-        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-        def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES']
-        def roles = [keyWorkerAdminRole, MaintainAccessRolesRole]
-        oauthApi.stubGetMyRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
-
-        given: "I logged in and go to the admin and utilities page"
-        fixture.loginWithoutStaffRoles(ITAG_USER)
-        to AdminUtilitiesPage
-
-        when: "I am on the admin and utilities page"
-
-        then: "I should not see the enable new nomis link and not see the key worker settings link"
-        assert !enableNewNomisLink.displayed
-    }
-
     def "should see keyworker settings link if the user has the the MAINTAIN_ACCESS_ROLES_ADMIN role"() {
         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
         def MaintainAccessRolesRole = [roleId: -1, roleCode: 'MAINTAIN_ACCESS_ROLES_ADMIN']
@@ -156,8 +107,7 @@ class AdminUtilitiesSpecification extends BrowserReportingSpec {
 
         when: "I am on the admin and utilities page"
 
-        then: "I should see the enable new nomis link and not see the key worker settings link"
-        assert enableNewNomisLink.displayed
+        then: "I should not see the key worker settings link"
         assert !keyworkerSettingsLink.displayed
     }
 
