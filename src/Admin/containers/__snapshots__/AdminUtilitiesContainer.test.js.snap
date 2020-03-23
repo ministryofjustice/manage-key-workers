@@ -3,13 +3,13 @@
 exports[`<AdminUtilitiesContainer /> should render the admin and utilities page 1`] = `
 Array [
   <div
-    className="sc-dnqmqq ekasAr"
+    className="sc-dnqmqq covUjf"
   >
     <ul
-      className="sc-iwsKbI bhpoyq"
+      className="sc-iwsKbI cWIuJK"
     >
       <li
-        className="sc-gZMcBi gYqZNj"
+        className="sc-gZMcBi cRHLOy"
       >
         <a
           data-qa="breadcrumb-home-page-link"
@@ -19,7 +19,7 @@ Array [
         </a>
       </li>
       <li
-        className="sc-gZMcBi gYqZNj"
+        className="sc-gZMcBi cRHLOy"
       >
         <span>
           Admin and utilities
@@ -32,7 +32,7 @@ Array [
   >
     
     <h1
-      className="sc-bdVaJa eLwxMn"
+      className="sc-bdVaJa dSUtdh"
       size="LARGE"
     >
       Admin and utilities

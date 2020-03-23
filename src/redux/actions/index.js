@@ -78,7 +78,8 @@ export const handleAxiosError = error => dispatch => {
   if (
     error.response &&
     error.response.status === 401 &&
-    (error.response.data && error.response.data.reason === 'session-expired')
+    error.response.data &&
+    error.response.data.reason === 'session-expired'
   ) {
     // eslint-disable-next-line no-alert
     alert('Your session has expired, please click OK to be redirected back to the login page')

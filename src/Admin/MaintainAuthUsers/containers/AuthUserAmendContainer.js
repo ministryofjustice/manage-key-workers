@@ -118,9 +118,4 @@ const mapStateToProps = state => ({
 
 export { AuthUserAmendContainer }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AuthUserAmendContainer)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthUserAmendContainer))

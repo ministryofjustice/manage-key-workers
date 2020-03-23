@@ -128,11 +128,4 @@ const mapDispatchToProps = dispatch => ({
   handleAxiosErrorDispatch: error => dispatch(handleAxiosError(error)),
 })
 
-export default withRouter(
-  searchComponent(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps
-    )(AuthUserSearchResultsContainer)
-  )
-)
+export default withRouter(searchComponent(connect(mapStateToProps, mapDispatchToProps)(AuthUserSearchResultsContainer)))

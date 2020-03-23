@@ -51,7 +51,7 @@ AllocationHistoryContainer.propTypes = {
   allocationHistoryDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({ params: PropTypes.shape({ offenderNo: PropTypes.string }) }).isRequired,
   loaded: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
 }
@@ -70,7 +70,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { AllocationHistoryContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(AllocationHistoryContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AllocationHistoryContainer))

@@ -47,11 +47,4 @@ const mapDispatchToProps = dispatch => ({
   dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
-export default withRouter(
-  searchComponent(
-    connect(
-      null,
-      mapDispatchToProps
-    )(AuthUserSearchContainer)
-  )
-)
+export default withRouter(searchComponent(connect(null, mapDispatchToProps)(AuthUserSearchContainer)))

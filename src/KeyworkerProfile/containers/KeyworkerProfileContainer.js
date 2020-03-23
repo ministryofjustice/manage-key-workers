@@ -183,7 +183,8 @@ KeyworkerProfileContainer.propTypes = {
   setMessageDispatch: PropTypes.func.isRequired,
   setLoadedDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({ params: PropTypes.shape({ offenderNo: PropTypes.string, staffId: PropTypes.number }) })
+    .isRequired,
   keyworkerChangeList: keyworkerChangeListType.isRequired,
   keyworker: keyworkerType.isRequired,
   keyworkerChangeListDispatch: PropTypes.func.isRequired,
@@ -222,7 +223,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { KeyworkerProfileContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(KeyworkerProfileContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileContainer))

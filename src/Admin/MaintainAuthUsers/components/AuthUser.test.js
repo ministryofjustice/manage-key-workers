@@ -128,8 +128,14 @@ describe('Auth user display', () => {
         <AuthUser
           user={groupManagerUser}
           contextUser={verifiedUser}
-          roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
-          groupList={[{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]}
+          roleList={[
+            { roleCode: 'roleA', roleName: 'Role A' },
+            { roleCode: 'roleB', roleName: 'Role B' },
+          ]}
+          groupList={[
+            { groupCode: 'group1', groupName: 'Group 1' },
+            { groupCode: 'group2', groupName: 'Group 2' },
+          ]}
           handleRoleAdd={stubFunc}
           handleRoleRemove={stubFunc}
           handleEnable={stubFunc}
@@ -150,8 +156,14 @@ describe('Auth user display', () => {
         <AuthUser
           user={adminUser}
           contextUser={verifiedUser}
-          roleList={[{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]}
-          groupList={[{ groupCode: 'group1', groupName: 'Group 1' }, { groupCode: 'group2', groupName: 'Group 2' }]}
+          roleList={[
+            { roleCode: 'roleA', roleName: 'Role A' },
+            { roleCode: 'roleB', roleName: 'Role B' },
+          ]}
+          groupList={[
+            { groupCode: 'group1', groupName: 'Group 1' },
+            { groupCode: 'group2', groupName: 'Group 2' },
+          ]}
           handleRoleAdd={stubFunc}
           handleRoleRemove={stubFunc}
           handleGroupAdd={stubFunc}

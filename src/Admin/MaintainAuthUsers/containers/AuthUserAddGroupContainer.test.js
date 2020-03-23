@@ -83,7 +83,10 @@ describe('Auth user add group container', () => {
 
   describe('handle functions', () => {
     const event = { target: { name: 'group', value: 'GROUP_1' }, preventDefault: jest.fn() }
-    const groupList = [{ groupCode: 'groupA', groupName: 'Group A' }, { groupCode: 'groupB', groupName: 'Group B' }]
+    const groupList = [
+      { groupCode: 'groupA', groupName: 'Group A' },
+      { groupCode: 'groupB', groupName: 'Group B' },
+    ]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
 
     let dispatchFns

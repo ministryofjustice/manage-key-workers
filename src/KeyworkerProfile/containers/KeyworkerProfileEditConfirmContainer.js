@@ -164,7 +164,7 @@ KeyworkerProfileEditConfirmContainer.propTypes = {
   setMessageDispatch: PropTypes.func.isRequired,
   dateDispatch: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({ params: PropTypes.shape({ staffId: PropTypes.number }) }).isRequired,
   setStatusChangeBehaviourDispatch: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   setValidationErrorDispatch: PropTypes.func.isRequired,
@@ -194,7 +194,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { KeyworkerProfileEditConfirmContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(KeyworkerProfileEditConfirmContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditConfirmContainer))

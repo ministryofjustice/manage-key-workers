@@ -83,7 +83,10 @@ describe('Auth user add role container', () => {
 
   describe('handle functions', () => {
     const event = { target: { name: 'role', value: 'ROLE_1' }, preventDefault: jest.fn() }
-    const roleList = [{ roleCode: 'roleA', roleName: 'Role A' }, { roleCode: 'roleB', roleName: 'Role B' }]
+    const roleList = [
+      { roleCode: 'roleA', roleName: 'Role A' },
+      { roleCode: 'roleB', roleName: 'Role B' },
+    ]
     const store = mockStore({ app: { error: '', loaded: true, message: '' } })
 
     let dispatchFns

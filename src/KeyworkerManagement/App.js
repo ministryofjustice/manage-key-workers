@@ -139,7 +139,8 @@ class App extends React.Component {
     if (
       error.response &&
       error.response.status === 401 &&
-      (error.response.data && error.response.data.reason === 'session-expired')
+      error.response.data &&
+      error.response.data.reason === 'session-expired'
     ) {
       this.displayAlertAndLogout('Your session has expired, please click OK to be redirected back to the login page')
     } else {
@@ -154,7 +155,7 @@ class App extends React.Component {
 
   shouldDisplayInnerContent = () => {
     const { shouldShowTerms, user } = this.props
-    return !shouldShowTerms && (user && user.username)
+    return !shouldShowTerms && user && user.username
   }
 
   displayBack = () => (
@@ -484,10 +485,7 @@ const mapDispatchToProps = dispatch => ({
   dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
 
 export { App, AppContainer }
 export default App

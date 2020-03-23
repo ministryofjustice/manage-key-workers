@@ -70,7 +70,4 @@ const mapDispatchToProps = dispatch => ({
   resetErrorDispatch: () => dispatch(resetError()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(KeyworkerSearchContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(KeyworkerSearchContainer)

@@ -82,7 +82,4 @@ const mapDispatchToProps = dispatch => ({
   resetErrorDispatch: () => dispatch(resetError()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Page)
+export default connect(mapStateToProps, mapDispatchToProps)(Page)

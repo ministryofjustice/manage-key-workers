@@ -128,7 +128,4 @@ const mapDispatchToProps = dispatch => ({
   keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(KeyworkerSearchResultsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(KeyworkerSearchResultsContainer)

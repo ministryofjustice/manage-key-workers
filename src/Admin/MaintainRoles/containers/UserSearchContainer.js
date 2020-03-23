@@ -107,7 +107,4 @@ const mapDispatchToProps = dispatch => ({
   dispatchLoaded: value => dispatch(setLoaded(value)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserSearchContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UserSearchContainer)

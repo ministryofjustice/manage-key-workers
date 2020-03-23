@@ -200,7 +200,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { KeyworkerSettingsContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(KeyworkerSettingsContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerSettingsContainer))

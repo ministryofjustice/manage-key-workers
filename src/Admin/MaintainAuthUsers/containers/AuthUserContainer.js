@@ -144,7 +144,4 @@ const mapDispatchToProps = dispatch => ({
 
 export { AuthUserContainer }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(AuthUserContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AuthUserContainer))

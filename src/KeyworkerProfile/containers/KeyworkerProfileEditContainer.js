@@ -141,7 +141,7 @@ KeyworkerProfileEditContainer.propTypes = {
   handleError: PropTypes.func.isRequired,
   keyworkerStatusDispatch: PropTypes.func.isRequired,
   keyworkerCapacityDispatch: PropTypes.func.isRequired,
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({ params: PropTypes.shape({ staffId: PropTypes.number }) }).isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   status: PropTypes.string.isRequired,
   capacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -173,7 +173,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { KeyworkerProfileEditContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(KeyworkerProfileEditContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerProfileEditContainer))

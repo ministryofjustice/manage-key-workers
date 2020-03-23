@@ -170,7 +170,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export { AddRoleContainer }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(AddRoleContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddRoleContainer))
