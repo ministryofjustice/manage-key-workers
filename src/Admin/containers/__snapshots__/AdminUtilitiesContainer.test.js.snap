@@ -48,22 +48,6 @@ Array [
         >
           <a
             className="link"
-            href="/admin-utilities/give-nomis-access"
-            id="enable_new_nomis_link"
-            onClick={[Function]}
-            title="Enable Nomis"
-          >
-            Give access to New NOMIS
-          </a>
-          <div>
-            Allow prisons to use New NOMIS. Add new prison staff.
-          </div>
-        </div>
-        <div
-          className="sc-VigVT dUvdCr"
-        >
-          <a
-            className="link"
             href="/admin-utilities/manage-key-worker-settings"
             id="keyworker_settings_link"
             onClick={[Function]}

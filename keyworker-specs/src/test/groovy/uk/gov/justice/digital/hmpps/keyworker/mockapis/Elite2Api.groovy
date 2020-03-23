@@ -311,14 +311,6 @@ class Elite2Api extends WireMockRule {
         )
     }
 
-    void stubEnableNewNomisResponse(AgencyLocation agencyLocation) {
-        this.stubFor(
-                put(urlPathEqualTo("/api/users/add/default/${agencyLocation.id}"))
-                        .willReturn(aResponse()
-                        .withStatus(200))
-        )
-    }
-
     void stubCaseNoteUsageResponse() {
         this.stubFor(
                 get(urlPathMatching("/api/case-notes/usage?.*"))

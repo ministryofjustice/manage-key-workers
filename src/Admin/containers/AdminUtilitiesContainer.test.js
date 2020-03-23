@@ -39,15 +39,6 @@ describe('<AdminUtilitiesContainer />', () => {
   })
 
   describe('render links', () => {
-    it('should render a Link to the Give access to New NOMIS Admin section if user has maintainAccessAdmin role', () => {
-      props.user.maintainAccessAdmin = true
-      props.user.maintainAccess = false
-      const wrapper = shallow(<AdminUtilitiesContainer {...props} />)
-      const giveAccessLink = wrapper.find('Link').find({ to: '/admin-utilities/give-nomis-access' })
-
-      expect(giveAccessLink.prop('children')).toEqual('Give access to New NOMIS')
-    })
-
     it('should render a Link to Maintain Roles Admin section if user has maintain access role', () => {
       props.user.maintainAccess = true
       const wrapper = shallow(<AdminUtilitiesContainer {...props} />)

@@ -30,7 +30,6 @@ const elite2ApiFactory = client => {
   const userCaseLoads = context => (isNomisUser(context) ? get(context, 'api/users/me/caseLoads') : [])
   const userLocations = context => (isNomisUser(context) ? get(context, 'api/users/me/locations') : [])
   const getAgencyDetails = (context, caseloadId) => get(context, `api/agencies/caseload/${caseloadId}`)
-  const enableNewNomis = (context, agencyId) => put(context, `api/users/add/default/${agencyId}`, {})
   const userSearch = (context, { nameFilter, roleFilter }) =>
     get(
       context,
@@ -98,7 +97,6 @@ const elite2ApiFactory = client => {
     searchOffenders,
     sentenceDetailList,
     setActiveCaseload,
-    enableNewNomis,
     userSearch,
     getRoles,
     getRolesAdmin,

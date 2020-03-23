@@ -18,7 +18,6 @@ import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer'
 import UnallocatedContainer from '../AutoAllocation/containers/Unallocated'
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional'
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
-import EnableNomisContainer from '../Admin/containers/EnableNomisContainer'
 import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
 import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
 import AuthUserAddGroupContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddGroupContainer'
@@ -304,11 +303,6 @@ class App extends React.Component {
                   clearMessage={this.clearMessage}
                 />
               )}
-            />
-            <Route
-              exact
-              path="/admin-utilities/give-nomis-access"
-              render={() => <EnableNomisContainer displayBack={this.displayBack} handleError={this.handleError} />}
             />
             <Route
               exact
