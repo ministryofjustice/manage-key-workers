@@ -7,7 +7,6 @@ This service is referred to by both names *OMiC UI* and *Keyworker UI*  (confusi
 
 The service requires the following minimum tool versions:
 
-- yarn v1.17+ 
 - node v10+ 
 - Chrome 
 - Chromedriver (align the version with chrome version installed on your machine)
@@ -39,15 +38,15 @@ $ docker-compose pull && docker-compose up"
 The application can be built & run with the following bash commands : 
 
 ```
-yarn
-yarn start
+npm install
+npm start
 ```
 
 This will start the service and use the default dependent services as above.
 
 The UI will be available on http://localhost:3001
 
-Yarn will use the package.json file in the root of the project to download any required dependencies.
+NPM will use the package.json file in the root of the project to download any required dependencies.
 You will need to re-run these commands each time you make a change to ensure that the react application is updated.
 
 
@@ -75,8 +74,8 @@ The following environment variables supply these values:
 For a production build run the following within bash :
 
 ```
-yarn build
-node-env mode=PRODUCTION yarn start
+npm run build
+node-env mode=PRODUCTION npm start
 ```
 
 # Running in Docker locally
@@ -132,7 +131,7 @@ A choice of web browsers can be configured, though Chrome or Chrome headless are
 
    - In one terminal session, from the project root : 
 
-       ```yarn start-feature```
+       ```npm run start-feature```
 
    - In another terminal, from the project root :
 
@@ -160,7 +159,6 @@ A choice of web browsers can be configured, though Chrome or Chrome headless are
 
 ### Useful links
 
-- Yarn: https://yarnpkg.com/en/docs/usage
 - Spock: http://spockframework.org/
 - Geb: http://www.gebish.org/
 - Groovy: http://groovy-lang.org/index.html

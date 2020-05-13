@@ -28,7 +28,6 @@
     "agentkeepalive": "^4.0.2",
     "applicationinsights": "^1.4.0",
     "applicationinsights-native-metrics": "^0.0.5",
-    "audit-ci": "^2.4.2",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
@@ -91,6 +90,7 @@
     "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "audit-ci": "^3.0.0",
     "axios-mock-adapter": "^1.15.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
@@ -137,18 +137,18 @@
     "start-feature": "PORT=3005 OAUTH_ENDPOINT_URL=http://localhost:19090/auth/ API_ENDPOINT_URL=http://localhost:18080/ KEYWORKER_API_URL=http://localhost:18081/ node backend/index.js",
     "start-prod": "NODE_ENV=production node backend/index.js",
     "build": "webpack --mode=production",
-    "build:analyse": "BUNDLE_ANALYSE=true yarn build",
+    "build:analyse": "BUNDLE_ANALYSE=true npm run build",
     "test": "jest --env=jsdom",
     "test-watch": "jest --env=jsdom --watchAll",
     "record-build-info": "node scripts/record-build-info",
     "plant-beanstalk": "node scripts/plant-beanstalk.js",
     "lint": "node node_modules/eslint/bin/eslint.js --max-warnings 0 src backend",
-    "verify": "yarn lint && yarn test",
-    "security_audit": "yarn run audit-ci --config audit-ci.json"
+    "verify": "npm run lint && npm test",
+    "security_audit": "npx audit-ci --config audit-ci.json"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn test"
+      "pre-commit": "lint-staged && npm test"
     }
   },
   "lint-staged": {
@@ -161,6 +161,7 @@
     },
     "ignore": [
       "package.json",
+      "package-lock.json",
       "audit-ci.json"
     ]
   }
