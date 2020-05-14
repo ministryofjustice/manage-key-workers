@@ -94,7 +94,7 @@ jobs:
           name: Run Tests
           command: |
             set -e
-            npm test --maxWorkers=2
+            npm test -- --maxWorkers=2
       - run: NODE_ENV=production npm run build
       - run: |
           DATE=$(date '+%Y-%m-%d')
