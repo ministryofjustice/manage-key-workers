@@ -50,6 +50,8 @@ whitelist:
   ark-nps-hmcts-ttp5: "194.33.197.0/25"
   oakwood-1: "217.161.76.187/32"
   oakwood-2: "217.161.76.195/32"
+  oakwood-3: "217.161.76.186/32"
+  oakwood-4: "217.161.76.194/32"
   dxc_webproxy1: "195.92.38.20/32"
   dxc_webproxy2: "195.92.38.21/32"
   dxc_webproxy3: "195.92.38.22/32"
