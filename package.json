@@ -46,7 +46,7 @@
     "govuk_frontend_toolkit": "^7.5.0",
     "helmet": "^3.12.1",
     "hsts": "^2.1.0",
-    "immutable": "3.8.1",
+    "immutable": "3.8.2",
     "jsonwebtoken": "^8.2.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
