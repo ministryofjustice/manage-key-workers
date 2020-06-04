@@ -12,7 +12,7 @@ const autoAllocationAndMigrateFactory = keyworkerApi => {
       update.capacity,
       update.frequency
     )
-    log.debug({ response }, 'Response from enableAutoAllocationAndMigrate')
+    log.debug('Response from enableAutoAllocationAndMigrate')
     res.json(response)
   }
 

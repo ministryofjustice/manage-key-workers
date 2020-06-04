@@ -8,7 +8,7 @@ const keyworkerSearchFactory = keyworkerApi => {
       searchText,
       statusFilter: statusFilter || '',
     })
-    log.debug({ keyworkerSearch: response }, 'Response from keyworker search request')
+    log.debug('Response from keyworker search request')
     res.json(response)
   }
 
