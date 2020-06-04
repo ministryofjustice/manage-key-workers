@@ -77,7 +77,7 @@ const keyworkerStatsFactory = keyworkerApi => {
   const getStatsForStaffRoute = async (req, res) => {
     const { agencyId, staffId, fromDate, toDate, period } = req.query
     const stats = await getStatsForStaff({ locals: res.locals, agencyId, staffId, fromDate, toDate, period })
-    log.debug({ data: stats }, 'Response from keyworker stats request')
+    log.debug('Response from keyworker stats request')
     res.json(stats)
   }
 

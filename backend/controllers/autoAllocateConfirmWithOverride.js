@@ -8,7 +8,7 @@ const factory = keyworkerApi => {
 
     const { allocatedKeyworkers } = req.body
 
-    log.debug({ allocateList: allocatedKeyworkers }, 'Manual override contents')
+    log.debug('Manual override')
 
     const allocationPromises = allocatedKeyworkers
       .filter(item => Boolean(item) && item.staffId)
@@ -22,8 +22,8 @@ const factory = keyworkerApi => {
           deallocationReason: 'OVERRIDE',
         }
 
-        const response = await keyworkerApi.allocate(res.locals, data)
-        log.debug({ response }, 'Response from allocate request')
+        await keyworkerApi.allocate(res.locals, data)
+        log.debug('Response from allocate request')
       })
 
     await Promise.all(allocationPromises)

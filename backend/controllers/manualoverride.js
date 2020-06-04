@@ -4,7 +4,7 @@ const manualOverrideFactory = keyworkerApi => {
   const manualOverride = async (req, res) => {
     const allocateList = req.body.allocatedKeyworkers
 
-    log.debug({ allocateList }, 'Manual override contents')
+    log.debug('Manual override contents')
 
     const prisonId = req.query.agencyId
 
@@ -12,15 +12,15 @@ const manualOverrideFactory = keyworkerApi => {
       .filter(element => element && element.staffId)
       .map(async ({ offenderNo, staffId, deallocate }) => {
         if (deallocate) {
-          const response = await keyworkerApi.deallocate(res.locals, offenderNo, {
+          await keyworkerApi.deallocate(res.locals, offenderNo, {
             offenderNo,
             staffId,
             prisonId,
             deallocationReason: 'MANUAL',
           })
-          log.debug({ response }, 'Response from deallocate request')
+          log.debug('Response from deallocate request')
         } else {
-          const response = await keyworkerApi.allocate(res.locals, {
+          await keyworkerApi.allocate(res.locals, {
             offenderNo,
             staffId,
             prisonId,
@@ -28,7 +28,7 @@ const manualOverrideFactory = keyworkerApi => {
             allocationReason: 'MANUAL',
             deallocationReason: 'OVERRIDE',
           })
-          log.debug({ response }, 'Response from allocate request')
+          log.debug('Response from allocate request')
         }
       })
 

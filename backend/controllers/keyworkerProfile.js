@@ -4,7 +4,7 @@ const keyworkerProfileFactory = keyworkerApi => {
   const keyworkerProfile = async (req, res) => {
     const { staffId, agencyId } = req.query
     const keyworker = await keyworkerApi.keyworker(res.locals, staffId, agencyId)
-    log.debug({ data: keyworker }, 'Response from keyworker request')
+    log.debug('Response from keyworker request')
     res.json(keyworker)
   }
 
