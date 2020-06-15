@@ -96,6 +96,10 @@ workflows:
           chart_name: manage-key-workers
           name: deploy_dev
           env: "dev"
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - build
             - integration_tests
