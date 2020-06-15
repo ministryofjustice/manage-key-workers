@@ -113,6 +113,7 @@ workflows:
       - request-prod-approval:
           type: approval
           requires:
+            - deploy_preprod
       - hmpps/deploy_env:
           chart_name: manage-key-workers
           name: deploy_prod
