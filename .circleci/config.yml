@@ -92,8 +92,16 @@ workflows:
       - integration_tests:
           requires:
             - build
+      - hmpps/build_docker:
+          name: build_docker
+          image_name: "quay.io/hmpps/omic-ui"
+          filters:
+            branches:
+              only:
+                - master
       - hmpps/deploy_env:
           chart_name: manage-key-workers
+          release_name: manage-key-workers
           name: deploy_dev
           env: "dev"
           filters:
@@ -109,6 +117,7 @@ workflows:
             - deploy_dev
       - hmpps/deploy_env:
           chart_name: manage-key-workers
+          release_name: manage-key-workers
           name: deploy_preprod
           env: "preprod"
           context: manage-key-workers-preprod
@@ -120,6 +129,7 @@ workflows:
             - deploy_preprod
       - hmpps/deploy_env:
           chart_name: manage-key-workers
+          release_name: manage-key-workers
           name: deploy_prod
           env: "prod"
           context: manage-key-workers-prod
