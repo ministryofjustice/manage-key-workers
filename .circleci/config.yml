@@ -92,8 +92,8 @@ workflows:
       - integration_tests:
           requires:
             - build
-      - hmpps/deploy_to_env:
-          app_name: manage-key-workers
+      - hmpps/deploy_env:
+          chart_name: manage-key-workers
           name: deploy_dev
           env: "dev"
           requires:
@@ -103,8 +103,8 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-      - hmpps/deploy_to_env:
-          app_name: manage-key-workers
+      - hmpps/deploy_env:
+          chart_name: manage-key-workers
           name: deploy_preprod
           env: "preprod"
           context: manage-key-workers-preprod
@@ -113,8 +113,8 @@ workflows:
       - request-prod-approval:
           type: approval
           requires:
-      - hmpps/deploy_to_env:
-          app_name: manage-key-workers
+      - hmpps/deploy_env:
+          chart_name: manage-key-workers
           name: deploy_prod
           env: "prod"
           context: manage-key-workers-prod
