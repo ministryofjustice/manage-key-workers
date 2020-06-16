@@ -94,14 +94,12 @@ workflows:
             - build
       - hmpps/build_docker:
           name: build_docker
-          image_name: "quay.io/hmpps/omic-ui"
+          image_name: "quay.io/hmpps/manage-key-workers"
           filters:
             branches:
               only:
                 - master
       - hmpps/deploy_env:
-          chart_name: manage-key-workers
-          release_name: manage-key-workers
           name: deploy_dev
           env: "dev"
           filters:
@@ -116,8 +114,6 @@ workflows:
           requires:
             - deploy_dev
       - hmpps/deploy_env:
-          chart_name: manage-key-workers
-          release_name: manage-key-workers
           name: deploy_preprod
           env: "preprod"
           context: manage-key-workers-preprod
@@ -128,8 +124,6 @@ workflows:
           requires:
             - deploy_preprod
       - hmpps/deploy_env:
-          chart_name: manage-key-workers
-          release_name: manage-key-workers
           name: deploy_prod
           env: "prod"
           slack_notification: true
