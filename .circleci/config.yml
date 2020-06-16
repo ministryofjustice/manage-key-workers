@@ -109,7 +109,7 @@ workflows:
               only:
                 - master
           requires:
-            - build
+            - build_docker
             - integration_tests
       - request-preprod-approval:
           type: approval
