@@ -132,6 +132,7 @@ workflows:
           release_name: manage-key-workers
           name: deploy_prod
           env: "prod"
+          slack_notification: true
           context: manage-key-workers-prod
           requires:
             - request-prod-approval
