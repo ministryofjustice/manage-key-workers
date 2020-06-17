@@ -98,14 +98,14 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
       - hmpps/deploy_env:
           name: deploy_dev
           env: "dev"
           filters:
             branches:
               only:
-                - master
+                - main
           requires:
             - build_docker
             - integration_tests
@@ -138,6 +138,6 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
       - hmpps/npm_security_audit
