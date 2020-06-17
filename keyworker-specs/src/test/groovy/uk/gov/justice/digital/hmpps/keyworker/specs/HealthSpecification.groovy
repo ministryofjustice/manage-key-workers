@@ -61,7 +61,7 @@ class HealthSpecification extends Specification {
         }
 
         then:
-        response.name == "omic-ui"
+        response.name == "manage-key-workers"
         !response.version.isEmpty()
         response.api == [auth:'UP', elite2:'UP', keyworker:[timeout:1000, code:'ECONNABORTED', errno:'ETIMEDOUT', retries:2]]
     }
