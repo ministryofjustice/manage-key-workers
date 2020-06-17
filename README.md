@@ -1,9 +1,9 @@
 [![CircleCI](https://circleci.com/gh/ministryofjustice/manage-key-workers/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/manage-key-workers)
 [![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/manage-key-workers/badge.svg)](https://snyk.io/test/github/ministryofjustice/manage-key-workers)
 
-# OMiC UI / Keyworker UI App
+# manage-key-workers
 
-This service is referred to by both names *OMiC UI* and *Keyworker UI*  (confusingly).
+This service was previously referred to by names *OMiC UI* and *Keyworker UI*  (confusingly), but we've settled on Manage Key Workers.
 
 The service requires the following minimum tool versions:
 
@@ -33,7 +33,7 @@ machine.
 $ docker-compose pull && docker-compose up"  
 ```
 
-# Running OMiC-ui locally
+# Running manage-key-workers locally
 
 The application can be built & run with the following bash commands : 
 
@@ -52,7 +52,7 @@ You will need to re-run these commands each time you make a change to ensure tha
 
 # Overriding the Default Environment Settings
 
-When omic-ui runs in non-local environments it requires a set of environment variables to 
+When manage-key-workers runs in non-local environments it requires a set of environment variables to 
 tell it where to find the dependent services and other important settings.
 The following environment variables supply these values:
 
@@ -82,27 +82,27 @@ node-env mode=PRODUCTION npm start
 
 ```
 docker run -p 3000:3000 -d \
-     --name omic-ui \
+     --name manage-key-workers \
      -e USE_API_GATEWAY_AUTH=no \
-     mojdigitalstudio/omic-ui:latest
+     quay.io/hmpps/manage-key-workers:latest
 ```
 
 # Running in a remote environment
 
 ```
 docker run -p 3000:3000 -d \
-     --name omic-ui \
+     --name manage-key-workers \
      -e USE_API_GATEWAY_AUTH=yes \
      -e API_ENDPOINT_URL=https://gateway.t3.nomis.hmpps.dsd.io/elite2api \
      -e API_GATEWAY_TOKEN=<add here> \
      -e API_CLIENT_SECRET=<add here> \
      -e API_GATEWAY_PRIVATE_KEY=<add here> \
-     mojdigitalstudio/omic-ui:latest
+     quay.io/hmpps/manage-key-workers:latest
 ```
 
 # Integration tests
 
-The `keyworker-specs` directory contains a set of integration tests for the `omic-ui` application.
+The `keyworker-specs` directory contains a set of integration tests for the `manage-key-workers` application.
 
 The tests are written in the Groovy programming language using a test framework called Spock. 
 
