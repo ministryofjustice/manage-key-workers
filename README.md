@@ -1,5 +1,5 @@
-[![CircleCI](https://circleci.com/gh/ministryofjustice/omic-ui/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/omic-ui)
-[![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/omic-ui/badge.svg)](https://snyk.io/test/github/ministryofjustice/omic-ui)
+[![CircleCI](https://circleci.com/gh/ministryofjustice/manage-key-workers/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/manage-key-workers)
+[![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/manage-key-workers/badge.svg)](https://snyk.io/test/github/ministryofjustice/manage-key-workers)
 
 # OMiC UI / Keyworker UI App
 
