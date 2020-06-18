@@ -87,24 +87,6 @@ class KeyworkerStatsSpecification extends BrowserReportingSpec {
                 .withQueryParam("toDate", WireMock.equalTo(toDate.toString())))
     }
 
-    def "should parse date correctly"() {
-
-        expect:
-        assert formatToLongDate(LocalDate.parse("2018-11-01")) == "1st November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-02")) == "2nd November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-03")) == "3rd November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-04")) == "4th November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-11")) == "11th November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-12")) == "12th November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-13")) == "13th November 2018"
-
-        assert formatToLongDate(LocalDate.parse("2018-11-21")) == "21st November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-22")) == "22nd November 2018"
-        assert formatToLongDate(LocalDate.parse("2018-11-23")) == "23rd November 2018"
-
-        assert formatToLongDate(LocalDate.parse("2018-10-31")) == "31st October 2018"
-    }
-
     static statToMap(def stat) {
         String description  = stat.find('h2').text()
         String value = stat.find('strong').text()
@@ -114,26 +96,7 @@ class KeyworkerStatsSpecification extends BrowserReportingSpec {
     }
 
     static formatToLongDate(LocalDate date) {
-        String ordinal = getOrdinalFor(date.dayOfMonth)
-        String datePattern = String.format("d'%s' MMMM yyyy", ordinal)
-
         return date
-                .format(DateTimeFormatter.ofPattern(datePattern))
-    }
-
-    static String getOrdinalFor(int value) {
-        if(value == 11 || value == 12 || value == 13) return "th"
-
-        int remainder = value % 10
-        switch (remainder) {
-            case 1:
-                return "st"
-            case 2:
-                return "nd"
-            case 3:
-                return "rd"
-            default:
-                return "th"
-        }
+                .format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
     }
 }
