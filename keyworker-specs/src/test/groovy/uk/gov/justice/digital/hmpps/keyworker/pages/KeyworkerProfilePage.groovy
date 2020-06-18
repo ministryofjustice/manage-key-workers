@@ -12,7 +12,7 @@ public class KeyworkerProfilePage extends Page {
 
     static at = {
         browser.currentUrl.contains(url)
-        headingText.contains('-3 HPA-3')
+        headingText.contains('Hpa-3 Auser')
     }
 
     static content = {
