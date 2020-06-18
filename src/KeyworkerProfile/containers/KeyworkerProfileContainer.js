@@ -159,10 +159,11 @@ class KeyworkerProfileContainer extends Component {
   }
 
   render() {
-    const { keyworker } = this.props
+    const { keyworker, match, user } = this.props
     const keyworkerDisplayName = `${properCaseName(keyworker.firstName)} ${properCaseName(keyworker.lastName)}`
+    const title = match.params.staffId === user.userId ? 'My profile' : `Key worker: ${keyworkerDisplayName}`
     return (
-      <Page title={`Key worker: ${keyworkerDisplayName}`}>
+      <Page title={title}>
         <KeyworkerProfile
           handleKeyworkerChange={this.handleKeyworkerChange}
           handleAllocationChange={this.postAllocationChange}
