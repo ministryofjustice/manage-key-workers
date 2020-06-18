@@ -53,7 +53,7 @@ const renderDate = date => {
 const formatDateToLongHand = date => {
   if (!date || typeof date !== 'string') throw new Error('date should not be null and be of type string')
 
-  return moment(date, iso8601DateFormat).format('Do MMMM YYYY')
+  return moment(date, iso8601DateFormat).format('DD MMMM YYYY')
 }
 
 const renderDateTime = date => {

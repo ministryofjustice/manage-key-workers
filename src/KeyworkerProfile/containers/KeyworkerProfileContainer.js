@@ -162,7 +162,7 @@ class KeyworkerProfileContainer extends Component {
     const { keyworker } = this.props
     const keyworkerDisplayName = `${properCaseName(keyworker.firstName)} ${properCaseName(keyworker.lastName)}`
     return (
-      <Page title={`Key worker: ${keyworkerDisplayName}`}>
+      <Page title={`${keyworkerDisplayName}`}>
         <KeyworkerProfile
           handleKeyworkerChange={this.handleKeyworkerChange}
           handleAllocationChange={this.postAllocationChange}
