@@ -1,11 +1,11 @@
-package uk.gov.justice.digital.hmpps.keyworker.pages;
+package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
 
-public class KeyworkerSettingsPage extends Page {
+class KeyworkerSettingsPage extends Page {
 
 
-    static url = "/admin-utilities/manage-key-worker-settings"
+    static url = "/manage-key-worker-settings"
 
     static at = {
         browser.currentUrl.contains(url)

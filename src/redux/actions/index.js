@@ -38,16 +38,6 @@ import {
   SET_TERMS_VISIBILITY,
   SET_UNALLOCATED_LIST,
   SET_USER_DETAILS,
-  SET_USER_SEARCH_CONTEXT_USER,
-  SET_USER_SEARCH_NAME_FILTER,
-  SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
-  SET_USER_SEARCH_PAGINATION_PAGE_SIZE,
-  SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
-  SET_USER_SEARCH_RESULTS_LIST,
-  SET_USER_SEARCH_ROLE_ADD,
-  SET_USER_SEARCH_ROLE_FILTER,
-  SET_USER_SEARCH_ROLE_FILTER_LIST,
-  SET_USER_SEARCH_ROLE_LIST,
   SET_VALIDATION_ERROR,
   SWITCH_AGENCY,
 } from './actionTypes'
@@ -73,7 +63,7 @@ export const manualOverride = allocated => ({ type: SET_MANUAL_OVERRIDE_LIST, al
 export const manualOverrideDateFilter = (dateName, date) => ({ type: SET_MANUAL_OVERRIDE_DATE_FILTER, dateName, date })
 
 export const setError = error => ({ type: SET_ERROR, error })
-export const resetError = error => ({ type: RESET_ERROR })
+export const resetError = () => ({ type: RESET_ERROR })
 export const handleAxiosError = error => dispatch => {
   if (
     error.response &&
@@ -154,26 +144,6 @@ export const setSettingsSequenceFrequency = sequenceFrequency => ({
   type: SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
   sequenceFrequency,
 })
-
-export const setMaintainRolesUserList = userList => ({ type: SET_USER_SEARCH_RESULTS_LIST, userList })
-export const setMaintainRolesRoleList = roleList => ({ type: SET_USER_SEARCH_ROLE_LIST, roleList })
-export const setMaintainRolesRoleFilterList = roleFilterList => ({
-  type: SET_USER_SEARCH_ROLE_FILTER_LIST,
-  roleFilterList,
-})
-export const setMaintainRolesNameFilter = nameFilter => ({ type: SET_USER_SEARCH_NAME_FILTER, nameFilter })
-export const setMaintainRolesRoleFilter = roleFilter => ({ type: SET_USER_SEARCH_ROLE_FILTER, roleFilter })
-export const setMaintainRolesRoleAdd = roleAdd => ({ type: SET_USER_SEARCH_ROLE_ADD, roleAdd })
-export const setMaintainRolesUserPageNumber = pageNumber => ({
-  type: SET_USER_SEARCH_PAGINATION_PAGE_NUMBER,
-  pageNumber,
-})
-export const setMaintainRolesUserPageSize = pageSize => ({ type: SET_USER_SEARCH_PAGINATION_PAGE_SIZE, pageSize })
-export const setMaintainRolesUserTotalRecords = totalRecords => ({
-  type: SET_USER_SEARCH_PAGINATION_TOTAL_RECORDS,
-  totalRecords,
-})
-export const setMaintainRolesUserContextUser = contextUser => ({ type: SET_USER_SEARCH_CONTEXT_USER, contextUser })
 
 export const setSettings = settings => ({
   type: SET_KEYWORKER_SETTINGS,

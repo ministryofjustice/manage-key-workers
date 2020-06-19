@@ -131,7 +131,7 @@ class KeyworkerProfileContainer extends Component {
     // initialise inputs with current capacity value
     keyworkerCapacityDispatch(keyworker.capacity.toString())
     keyworkerStatusDispatch(keyworker.status)
-    history.push(`/manage-key-workers/key-worker/${keyworker.staffId}/edit`)
+    history.push(`/key-worker/${keyworker.staffId}/edit`)
   }
 
   postAllocationChange = async history => {
@@ -152,7 +152,7 @@ class KeyworkerProfileContainer extends Component {
         setMessageDispatch('Offender allocation updated.')
         keyworkerChangeListDispatch([])
       }
-      history.push('/manage-key-workers')
+      history.push('/')
     } catch (error) {
       handleError(error)
     }

@@ -6,7 +6,6 @@ const errorStatusCode = require('../error-status-code')
 const AuthClientErrorName = 'AuthClientError'
 const AuthClientError = message => ({ name: AuthClientErrorName, message, stack: new Error().stack })
 
-const encodeQueryString = input => encodeURIComponent(input)
 const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
 /**
@@ -19,25 +18,8 @@ const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId
  */
 const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const get = (context, path) => client.get(context, path).then(response => response.data)
-  const put = (context, path, body) => client.put(context, path, body).then(response => response.data)
-  const post = (context, path, body) => client.post(context, path, body).then(response => response.data)
-  const del = (context, path) => client.del(context, path).then(response => response.data)
   const currentUser = context => get(context, 'api/user/me')
   const currentRoles = context => get(context, 'api/user/me/roles')
-  const getUser = (context, { username }) => get(context, `api/authuser/${username}`)
-  const createUser = (context, username, user) => put(context, `api/authuser/${username}`, user)
-  const userRoles = (context, { username }) => get(context, `api/authuser/${username}/roles`)
-  const userGroups = (context, { username }) => get(context, `api/authuser/${username}/groups`)
-  const userSearch = (context, { nameFilter }) => get(context, `api/authuser?email=${encodeQueryString(nameFilter)}`)
-  const addUserRole = (context, { username, role }) => put(context, `api/authuser/${username}/roles/${role}`)
-  const removeUserRole = (context, { username, role }) => del(context, `api/authuser/${username}/roles/${role}`)
-  const addUserGroup = (context, { username, group }) => put(context, `api/authuser/${username}/groups/${group}`)
-  const removeUserGroup = (context, { username, group }) => del(context, `api/authuser/${username}/groups/${group}`)
-  const assignableGroups = context => get(context, 'api/authuser/me/assignable-groups')
-  const enableUser = (context, { username }) => put(context, `api/authuser/${username}/enable`)
-  const disableUser = (context, { username }) => put(context, `api/authuser/${username}/disable`)
-  const assignableRoles = (context, { username }) => get(context, `api/authuser/${username}/assignable-roles`)
-  const amendUser = (context, username, email) => post(context, `api/authuser/${username}`, email)
 
   const oauthAxios = axios.create({
     baseURL: url,
@@ -100,23 +82,9 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   return {
     currentUser,
     currentRoles,
-    getUser,
-    createUser,
-    userSearch,
-    userRoles,
-    userGroups,
-    addUserRole,
-    removeUserRole,
-    addUserGroup,
-    removeUserGroup,
-    assignableRoles,
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,
-    enableUser,
-    disableUser,
-    amendUser,
-    assignableGroups,
   }
 }
 

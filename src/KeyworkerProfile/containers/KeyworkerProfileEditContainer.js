@@ -21,12 +21,12 @@ class KeyworkerProfileEditContainer extends Component {
   componentDidMount() {
     const { user, history, match, keyworker } = this.props
     if (!user || !user.writeAccess) {
-      history.push('/manage-key-workers')
+      history.push('/')
       return
     }
     // invalid deeplink
     if (!keyworker.staffId) {
-      history.push(`/manage-key-workers/key-worker/${match.params.staffId}`)
+      history.push(`/key-worker/${match.params.staffId}`)
     }
   }
 
@@ -41,7 +41,7 @@ class KeyworkerProfileEditContainer extends Component {
     try {
       if (this.formChange()) {
         if (statusChange && status !== 'ACTIVE') {
-          history.replace(`/manage-key-workers/key-worker/${keyworker.staffId}/confirm-edit`)
+          history.replace(`/key-worker/${keyworker.staffId}/confirm-edit`)
         } else {
           await this.postKeyworkerUpdate()
           setMessageDispatch('Profile changed')

@@ -1,15 +1,15 @@
-package uk.gov.justice.digital.hmpps.keyworker.pages;
+package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
 
 import static uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage.test_keyworker_staffId
 
-public class OffenderResultsPage extends Page {
+class OffenderResultsPage extends Page {
 
     static test_offender_Z0024ZZ = "Z0024ZZ"
 
-    static url ="/manage-key-workers/offender-search/results"
-    static keyworkerLinkText = "a[href=\'/manage-key-workers/key-worker/${test_keyworker_staffId}\']"
+    static url ="/offender-search/results"
+    static keyworkerLinkText = "a[href=\'/key-worker/${test_keyworker_staffId}\']"
 
     static at = {
         browser.currentUrl.contains(url)

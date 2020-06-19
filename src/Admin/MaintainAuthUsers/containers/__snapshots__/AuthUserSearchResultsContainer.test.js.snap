@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Auth search results container should render correctly with search location 1`] = `ShallowWrapper {}`;
-
-exports[`Auth search results container should render correctly without existing location 1`] = `ShallowWrapper {}`;

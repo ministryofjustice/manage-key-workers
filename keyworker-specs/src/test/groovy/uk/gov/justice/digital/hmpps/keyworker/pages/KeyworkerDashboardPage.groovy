@@ -4,7 +4,7 @@ import geb.Page
 import uk.gov.justice.digital.hmpps.keyworker.modules.HeaderModule
 
 class KeyworkerDashboardPage extends Page {
-    static url = "/manage-key-workers/key-worker-statistics"
+    static url = "/key-worker-statistics"
 
     static at = {
         browser.currentUrl.contains(url)
@@ -39,6 +39,7 @@ class KeyworkerDashboardPage extends Page {
     }
 
 
+    @SuppressWarnings("GrMethodMayBeStatic")
     def setDatePickers(def fromYear, def fromMonth, def fromDay, def toYear, def toMonth, def toDay) {
         fromDateInput.click()
         fromDateTopBar.click()

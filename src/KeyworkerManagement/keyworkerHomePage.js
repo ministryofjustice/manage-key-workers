@@ -22,12 +22,7 @@ class KeyworkerHomePage extends Component {
           <div className="pure-u-md-8-12 padding-bottom-large">
             {user && user.writeAccess && allowAuto && (
               <div className="pure-u-md-6-12">
-                <Link
-                  id="auto_allocate_link"
-                  title="Auto allocate link"
-                  className="link"
-                  to="/manage-key-workers/unallocated"
-                >
+                <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated">
                   Auto-allocate key workers
                 </Link>
                 <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
@@ -38,20 +33,20 @@ class KeyworkerHomePage extends Component {
                 id="keyworker_profile_link"
                 title="Key worker profile link"
                 className="link"
-                to="/manage-key-workers/key-worker-search"
+                to="/key-worker-search"
               >
                 Your key workers
               </Link>
               <div>Update a key worker&apos;s availability, re-assign their prisoners and check their statistics.</div>
             </div>
           </div>
-          <div className="pure-u-md-8-12">
+          <div className="pure-u-md-8-12 padding-bottom-large">
             <div className="pure-u-md-6-12">
               <Link
                 id="assign_transfer_link"
                 title="Manually allocate key workers"
                 className="link"
-                to="/manage-key-workers/offender-search"
+                to="/offender-search"
               >
                 Manually allocate key workers
               </Link>
@@ -63,13 +58,26 @@ class KeyworkerHomePage extends Component {
                   id="keyworker_dashboard_link"
                   title="Key worker dashboard"
                   className="link"
-                  to="/manage-key-workers/key-worker-statistics"
+                  to="/key-worker-statistics"
                 >
                   Prison statistics
                 </Link>
                 <div className="padding-right-large">Check the key worker statistics for your establishment.</div>
               </div>
             )}
+          </div>
+          <div className="pure-u-md-8-12">
+            <div className="pure-u-md-6-12">
+              <Link
+                id="keyworker_settings_link"
+                title="Key worker settings link"
+                className="link"
+                to="/manage-key-worker-settings"
+              >
+                Manage key worker settings
+              </Link>
+              <div>Allow auto-allocation. Edit key worker capacity and session frequency.</div>
+            </div>
           </div>
         </div>
       </Page>

@@ -27,7 +27,7 @@ class AllocationHistory extends Component {
       const lastModStaff = `${properCaseName(a.lastModifiedByUser.firstName)} ${properCaseName(
         a.lastModifiedByUser.lastName
       )}`
-      const keyworkerHref = `/manage-key-workers/key-worker/${a.staffId}`
+      const keyworkerHref = `/key-worker/${a.staffId}`
       return (
         <tr key={a.offenderKeyworkerId}>
           <td className="row-gutters">
@@ -47,9 +47,7 @@ class AllocationHistory extends Component {
       )
     })
 
-    let renderContent = null
-
-    renderContent = (
+    const renderContent = (
       <div>
         <div className="pure-u-md-12-12">
           <div className="padding-bottom-40">

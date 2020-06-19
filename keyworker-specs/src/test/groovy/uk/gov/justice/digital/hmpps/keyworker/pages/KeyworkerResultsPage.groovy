@@ -1,11 +1,11 @@
-package uk.gov.justice.digital.hmpps.keyworker.pages;
+package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
 
-public class KeyworkerResultsPage extends Page {
+class KeyworkerResultsPage extends Page {
 
 
-    static url = "/manage-key-workers/key-worker-search/results"
+    static url = "/key-worker-search/results"
 
     static int test_keyworker_staffId = -3
 
