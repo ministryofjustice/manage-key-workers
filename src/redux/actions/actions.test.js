@@ -20,6 +20,7 @@ import {
   SET_KEYWORKER_SETTINGS_MIGRATED,
   SET_KEYWORKER_SETTINGS_SEQUENCE_FREQUENCY,
   SET_KEYWORKER_SETTINGS_SUPPORTED,
+  SET_KEY_WORKER_STATS,
   SET_KEY_WORKER_STATUS,
   SET_KEY_WORKER_STATUS_CHANGE_BEHAVIOUR,
   SET_KEY_WORKER_STATUS_FILTER,
@@ -373,5 +374,13 @@ describe('actions', () => {
       }
       expect(actions.setSettings(settings)).toEqual(expectedAction)
     })
+  })
+  it('should create an action to set the keyworker stats', () => {
+    const stats = {}
+    const expectedAction = {
+      type: SET_KEY_WORKER_STATS,
+      stats,
+    }
+    expect(actions.setKeyworkerStats(stats)).toEqual(expectedAction)
   })
 })
