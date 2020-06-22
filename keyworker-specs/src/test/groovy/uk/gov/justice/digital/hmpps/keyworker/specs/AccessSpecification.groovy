@@ -155,7 +155,7 @@ class AccessSpecification extends BrowserReportingSpec {
         fixture.loginWithoutStaffRoles(ITAG_USER)
 
         when: "and then try to navigate directly to the profile page"
-        go "/key-worker/${ KeyworkerResultsPage.test_keyworker_staffId}/edit"
+        go "/manage-key-workers/key-worker/${ KeyworkerResultsPage.test_keyworker_staffId}/edit"
 
         then: "I should be redirected back to the landing page"
         at KeyworkerManagementPage
@@ -170,7 +170,7 @@ class AccessSpecification extends BrowserReportingSpec {
         fixture.loginWithoutStaffRoles(ITAG_USER)
 
         when: "and then try to navigate directly to the auto allocation page"
-        go "/unallocated"
+        go "/manage-key-workers/unallocated"
 
         then: "I should be redirected back to the landing page"
         at KeyworkerManagementPage
@@ -185,7 +185,7 @@ class AccessSpecification extends BrowserReportingSpec {
         fixture.loginWithoutStaffRoles(ITAG_USER)
 
         when: "and then try to navigate directly to the auto allocation page"
-        go "/unallocated/provisional-allocation"
+        go "/manage-key-workers/unallocated/provisional-allocation"
 
         then: "I should be redirected back to the landing page"
         at KeyworkerManagementPage

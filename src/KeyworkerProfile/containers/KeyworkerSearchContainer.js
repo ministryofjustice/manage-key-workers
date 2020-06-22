@@ -31,7 +31,7 @@ class KeyworkerSearchContainer extends Component {
 
   handleSearch = (event, history) => {
     event.preventDefault()
-    history.push('/key-worker-search/results')
+    history.push('/manage-key-workers/key-worker-search/results')
   }
 
   render() {

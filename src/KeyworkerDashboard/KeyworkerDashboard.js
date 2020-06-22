@@ -46,7 +46,7 @@ export class KeyworkerDashboard extends Component {
   async loadStatsForPeriod(fromDate, toDate) {
     const { agencyId, handleError, dispatchLoaded, dispatchStats, migrated, history } = this.props
     if (!migrated) {
-      history.push('/')
+      history.push('/manage-key-workers')
     } else {
       dispatchLoaded(false)
       try {

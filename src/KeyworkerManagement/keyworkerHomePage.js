@@ -22,7 +22,12 @@ class KeyworkerHomePage extends Component {
           <div className="pure-u-md-8-12 padding-bottom-large">
             {user && user.writeAccess && allowAuto && (
               <div className="pure-u-md-6-12">
-                <Link id="auto_allocate_link" title="Auto allocate link" className="link" to="/unallocated">
+                <Link
+                  id="auto_allocate_link"
+                  title="Auto allocate link"
+                  className="link"
+                  to="/manage-key-workers/unallocated"
+                >
                   Auto-allocate key workers
                 </Link>
                 <div className="padding-right-large">Allocate key workers to prisoners automatically.</div>
@@ -33,7 +38,7 @@ class KeyworkerHomePage extends Component {
                 id="keyworker_profile_link"
                 title="Key worker profile link"
                 className="link"
-                to="/key-worker-search"
+                to="/manage-key-workers/key-worker-search"
               >
                 Your key workers
               </Link>
@@ -46,7 +51,7 @@ class KeyworkerHomePage extends Component {
                 id="assign_transfer_link"
                 title="Manually allocate key workers"
                 className="link"
-                to="/offender-search"
+                to="/manage-key-workers/offender-search"
               >
                 Manually allocate key workers
               </Link>
@@ -58,7 +63,7 @@ class KeyworkerHomePage extends Component {
                   id="keyworker_dashboard_link"
                   title="Key worker dashboard"
                   className="link"
-                  to="/key-worker-statistics"
+                  to="/manage-key-workers/key-worker-statistics"
                 >
                   Prison statistics
                 </Link>
@@ -72,7 +77,7 @@ class KeyworkerHomePage extends Component {
                 id="keyworker_settings_link"
                 title="Key worker settings link"
                 className="link"
-                to="/manage-key-worker-settings"
+                to="/manage-key-workers/manage-key-worker-settings"
               >
                 Manage key worker settings
               </Link>
