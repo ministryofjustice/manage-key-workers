@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { FooterContainer, Header } from 'new-nomis-shared-components'
-import { BrowserRouter as Router, Link, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
@@ -168,15 +168,12 @@ class App extends React.Component {
       dispatchLoaded,
     } = this.props
 
-    const hasKWRoles = user && (user.keyWorkerMonitor || user.writeAccess)
-
     let innerContent
     const routes = (
       // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Switch>
-            {!hasKWRoles && <Route exact path="/" render={() => <Redirect to="/unauthorised" />} />}
             <Route exact path="/unauthorised" render={() => <UnauthPage dispatchLoaded={dispatchLoaded} />} />
             <Route
               exact
