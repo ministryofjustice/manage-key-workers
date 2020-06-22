@@ -13,10 +13,6 @@ const { userMeFactory } = require('./controllers/userMe')
 const { autoAllocationAndMigrateFactory } = require('./controllers/autoAllocationMigrate')
 const { manualAllocationAndMigrateFactory } = require('./controllers/manualAllocationMigrate')
 const { keyworkerSettingsFactory } = require('./controllers/keyworkerSettings')
-const { getRolesFactory } = require('./controllers/getRoles')
-const { getUserFactory } = require('./controllers/getUser')
-const { contextUserRolesFactory } = require('./controllers/contextUserRoles')
-const { userSearchFactory } = require('./controllers/userSearch')
 const { getConfiguration } = require('./controllers/getConfig')
 const { keyworkerStatsFactory } = require('./controllers/keyworkerStats')
 const userCaseLoadsFactory = require('./controllers/usercaseloads').userCaseloadsFactory
@@ -59,10 +55,6 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
     '/api/keyworkerSettings',
     withErrorHandler(keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings)
   )
-  router.use('/api/userSearch', withErrorHandler(userSearchFactory(elite2Api).userSearch))
-  router.use('/api/getRoles', withErrorHandler(getRolesFactory(elite2Api).getRoles))
-  router.use('/api/getUser', withErrorHandler(getUserFactory(elite2Api).getUser))
-  router.use('/api/contextUserRoles', withErrorHandler(contextUserRolesFactory(elite2Api).contextUserRoles))
   router.use(
     '/api/keyworker-profile-stats',
     withErrorHandler(keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)

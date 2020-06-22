@@ -57,10 +57,6 @@ describe('Routes', () => {
     'autoAllocateMigrate',
     'manualAllocateMigrate',
     'keyworkerSettings',
-    'userSearch',
-    'getRoles',
-    'getUser',
-    'contextUserRoles',
     'keyworker-profile-stats',
     'keyworker-prison-stats',
   ]
