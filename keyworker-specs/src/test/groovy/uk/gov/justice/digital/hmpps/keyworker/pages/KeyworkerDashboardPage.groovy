@@ -39,6 +39,7 @@ class KeyworkerDashboardPage extends Page {
     }
 
 
+    @SuppressWarnings("GrMethodMayBeStatic")
     def setDatePickers(def fromYear, def fromMonth, def fromDay, def toYear, def toMonth, def toDay) {
         fromDateInput.click()
         fromDateTopBar.click()

@@ -47,9 +47,7 @@ class AllocationHistory extends Component {
       )
     })
 
-    let renderContent = null
-
-    renderContent = (
+    const renderContent = (
       <div>
         <div className="pure-u-md-12-12">
           <div className="padding-bottom-40">

@@ -1,8 +1,8 @@
-package uk.gov.justice.digital.hmpps.keyworker.pages;
+package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
 
-public class UnallocatedPage extends Page {
+class UnallocatedPage extends Page {
 
     static url ="/manage-key-workers/unallocated"
 

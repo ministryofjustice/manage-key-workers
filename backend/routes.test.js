@@ -57,18 +57,6 @@ describe('Routes', () => {
     'autoAllocateMigrate',
     'manualAllocateMigrate',
     'keyworkerSettings',
-    'userSearch',
-    'auth-user-get',
-    'auth-user-create',
-    'auth-user-enable',
-    'auth-user-disable',
-    'auth-roles',
-    'auth-user-amend',
-    'getRoles',
-    'getUser',
-    'removeRole',
-    'addRole',
-    'contextUserRoles',
     'keyworker-profile-stats',
     'keyworker-prison-stats',
   ]
@@ -77,23 +65,6 @@ describe('Routes', () => {
     it(`GET /api/${route} should go through error handler`, () =>
       request(app)
         .get(`/api/${route}`)
-        .set('Accept', 'application/json')
-        .expect(500)
-        .expect('"Test error"'))
-  )
-
-  const queryRoutes = [
-    { route: 'auth-user-search', query: { nameFilter: 'john doe' } },
-    { route: 'auth-user-roles', query: { username: 'john doe' } },
-    { route: 'auth-user-roles-add', query: { role: 'admin' } },
-    { route: 'auth-user-roles-remove', query: { role: 'admin' } },
-  ]
-
-  queryRoutes.map(({ route, query }) =>
-    it(`GET /api/${route} should go through error handler`, () =>
-      request(app)
-        .get(`/api/${route}`)
-        .query(query)
         .set('Accept', 'application/json')
         .expect(500)
         .expect('"Test error"'))

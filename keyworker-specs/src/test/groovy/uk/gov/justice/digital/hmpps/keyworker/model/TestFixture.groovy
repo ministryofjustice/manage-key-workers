@@ -134,7 +134,7 @@ class TestFixture {
     }
 
     def stubOffenderResultsPage(largeResult) {
-        List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
+        List<Location> locations = locationsForCaseload(ITAG_USER.workingCaseload)
         elite2Api.stubGetMyLocations(locations)
         keyworkerApi.stubAvailableKeyworkersResponse(AgencyLocation.LEI, false)
         largeResult == true ? elite2Api.stubOffenderSearchLargeResponse(AgencyLocation.LEI) : elite2Api.stubOffenderSearchResponse(AgencyLocation.LEI)

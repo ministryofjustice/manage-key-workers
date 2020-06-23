@@ -64,7 +64,7 @@ env:
   - name: NN_ENDPOINT_URL
     value: {{ .Values.env.NN_ENDPOINT_URL | quote }}
 
-  - name: OMIC_UI_URL
+  - name: MANAGE_KEY_WORKERS_URL
     value: "https://{{ .Values.ingress.host }}/"
 
   - name: PRISON_STAFF_HUB_UI_URL

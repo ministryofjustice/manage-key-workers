@@ -9,7 +9,7 @@ const app = {
   applicationCaseload: process.env.APPLICATION_CASELOAD || 'NWEB',
   keyworkerProfileStatsEnabled: process.env.KEYWORKER_PROFILE_STATS_ENABLED || 'false',
   keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
-  url: process.env.OMIC_UI_URL || `http://localhost:${process.env.PORT || 3001}/`,
+  url: process.env.MANAGE_KEY_WORKERS_URL || `http://localhost:${process.env.PORT || 3001}/`,
 }
 
 const setTestDefaults = () => {
@@ -48,7 +48,7 @@ const apis = {
   keyworker: {
     url: process.env.KEYWORKER_API_URL || 'http://localhost:8081/',
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
-    ui_url: process.env.OMIC_UI_URL,
+    ui_url: process.env.MANAGE_KEY_WORKERS_URL,
   },
 }
 

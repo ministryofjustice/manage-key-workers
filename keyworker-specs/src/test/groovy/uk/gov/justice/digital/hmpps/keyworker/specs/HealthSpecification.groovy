@@ -40,7 +40,7 @@ class HealthSpecification extends Specification {
         def response = this.http.get()
         then:
         response.uptime > 0.0
-        response.name == "omic-ui"
+        response.name == "manage-key-workers"
         !response.version.isEmpty()
         response.api == [auth:'UP', elite2:'UP', keyworker:'UP']
     }
@@ -61,7 +61,7 @@ class HealthSpecification extends Specification {
         }
 
         then:
-        response.name == "omic-ui"
+        response.name == "manage-key-workers"
         !response.version.isEmpty()
         response.api == [auth:'UP', elite2:'UP', keyworker:[timeout:1000, code:'ECONNABORTED', errno:'ETIMEDOUT', retries:2]]
     }

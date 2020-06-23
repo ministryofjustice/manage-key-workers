@@ -41,7 +41,7 @@ module.exports = function healthcheckFactory(authUrl, elite2Url, keyworkerUrl) {
     Promise.all(checks.map(fn => fn())).then(checkResults => {
       const allOk = checkResults.every(item => item.status === 'UP') ? 'UP' : 'DOWN'
       const result = {
-        name: 'omic-ui',
+        name: 'manage-key-workers',
         status: allOk,
         api: checkResults.reduce(gatherCheckInfo, {}),
       }

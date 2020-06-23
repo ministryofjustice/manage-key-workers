@@ -1,6 +1,5 @@
 // This needs to be put into a centralised route config that is also used in App.js
 // See: https://reacttraining.com/react-router/web/example/route-config
-import AuthUserBreadcrumb from './Components/Breadcrumb/AuthUserBreadcrumb'
 
 export default [
   { path: '/', breadcrumb: null },
@@ -15,17 +14,5 @@ export default [
   { path: '/manage-key-workers/offender-search', breadcrumb: 'Offender search' },
   { path: '/manage-key-workers/offender-history', breadcrumb: null },
   { path: '/manage-key-workers/offender-history/:offenderId', breadcrumb: 'Offender key worker allocation history' },
-  { path: '/admin-utilities', breadcrumb: 'Admin and utilities' },
-  { path: '/admin-utilities/maintain-roles', breadcrumb: 'Manage access roles' },
-  { path: '/admin-utilities/manage-key-worker-settings', breadcrumb: 'Manage key worker settings' },
-  { path: '/admin-utilities/create-auth-user', breadcrumb: 'Create auth user' },
-  { path: '/admin-utilities/maintain-auth-users', breadcrumb: 'Maintain auth users' },
-  { path: '/admin-utilities/maintain-auth-users/search-results', breadcrumb: 'Results' },
-  { path: '/admin-utilities/maintain-auth-users/:username', breadcrumb: AuthUserBreadcrumb },
-  { path: '/admin-utilities/maintain-auth-users/:username/add-role', breadcrumb: 'Add role' },
-  { path: '/admin-utilities/maintain-auth-users/:username/add-group', breadcrumb: 'Add group' },
-  { path: '/admin-utilities/maintain-roles/:staffId/roles', breadcrumb: 'Current profile roles' },
-  { path: '/admin-utilities/maintain-roles/:staffId/roles/add-role', breadcrumb: 'Add role' },
-  { path: '/admin-utilities/maintain-roles/search-results', breadcrumb: 'Results' },
-  { path: '/admin-utilities/maintain-roles/:staffId', breadcrumb: null },
+  { path: '/manage-key-workers/manage-key-worker-settings', breadcrumb: 'Manage key worker settings' },
 ]

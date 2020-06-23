@@ -1,10 +1,10 @@
-package uk.gov.justice.digital.hmpps.keyworker.pages;
+package uk.gov.justice.digital.hmpps.keyworker.pages
 
 import geb.Page
 
 import static uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage.test_keyworker_staffId
 
-public class OffenderResultsPage extends Page {
+class OffenderResultsPage extends Page {
 
     static test_offender_Z0024ZZ = "Z0024ZZ"
 

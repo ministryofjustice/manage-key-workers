@@ -7,9 +7,9 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
-import uk.gov.justice.digital.hmpps.keyworker.pages.AdminUtilitiesPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerManagementPage
 import uk.gov.justice.digital.hmpps.keyworker.pages.LoginPage
+import uk.gov.justice.digital.hmpps.keyworker.pages.SearchForKeyworkerPage
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
 
@@ -75,14 +75,14 @@ class LoginSpecification extends BrowserReportingSpec {
         oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
 
-        browser.go('/admin-utilities')
+        browser.go('/manage-key-workers/key-worker-search')
 
         when: "I have logged in"
         at LoginPage
         loginAs ITAG_USER, 'password'
 
-        then: "I am taken to the admin utilities page"
-        at AdminUtilitiesPage
+        then: "I am taken to the keyworker search page"
+        at SearchForKeyworkerPage
     }
 
     def "Log out"() {

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { FooterContainer, Header } from 'new-nomis-shared-components'
-import { BrowserRouter as Router, Link, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Link, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
@@ -18,18 +18,6 @@ import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer'
 import UnallocatedContainer from '../AutoAllocation/containers/Unallocated'
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional'
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
-import AdminUtilitiesContainer from '../Admin/containers/AdminUtilitiesContainer'
-import AuthUserAddRoleContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddRoleContainer'
-import AuthUserAddGroupContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAddGroupContainer'
-import AuthUserContainer from '../Admin/MaintainAuthUsers/containers/AuthUserContainer'
-import AuthUserCreateContainer from '../Admin/MaintainAuthUsers/containers/AuthUserCreateContainer'
-import AuthUserAmendContainer from '../Admin/MaintainAuthUsers/containers/AuthUserAmendContainer'
-import AuthUserSearchContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchContainer'
-import AuthUserSearchResultsContainer from '../Admin/MaintainAuthUsers/containers/AuthUserSearchResultsContainer'
-import UserSearchContainer from '../Admin/MaintainRoles/containers/UserSearchContainer'
-import UserSearchResultsContainer from '../Admin/MaintainRoles/containers/UserSearchResultsContainer'
-import StaffRoleProfileContainer from '../Admin/MaintainRoles/containers/StaffRoleProfileContainer'
-import AddRoleContainer from '../Admin/MaintainRoles/containers/AddRoleContainer'
 import KeyworkerDashboard from '../KeyworkerDashboard/KeyworkerDashboard'
 import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
@@ -158,6 +146,7 @@ class App extends React.Component {
     return !shouldShowTerms && user && user.username
   }
 
+  // noinspection HtmlUnknownTarget
   displayBack = () => (
     <div className="padding-top">
       <Link id="back_to_menu_link" title="Back to menu link" className="link backlink" to="/">
@@ -179,21 +168,13 @@ class App extends React.Component {
       dispatchLoaded,
     } = this.props
 
-    const hasKWRoles = user && (user.hasKeyWorkerMonitor || user.writeAccess)
-    const hasAdminUtilities =
-      user && (user.maintainAccess || user.maintainAccessAdmin || user.maintainAuthUsers || user.groupManager)
-
     let innerContent
     const routes = (
       // eslint-disable-next-line
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Switch>
-            {hasAdminUtilities && <Route exact path="/" render={() => <Redirect to="/admin-utilities" />} />}
-            {hasKWRoles && <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />}
-            {!(hasKWRoles || hasAdminUtilities) && (
-              <Route exact path="/" render={() => <Redirect to="/unauthorised" />} />
-            )}
+            <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />
             <Route exact path="/unauthorised" render={() => <UnauthPage dispatchLoaded={dispatchLoaded} />} />
             <Route
               exact
@@ -296,18 +277,7 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/admin-utilities"
-              render={() => (
-                <AdminUtilitiesContainer
-                  handleError={this.handleError}
-                  message={message}
-                  clearMessage={this.clearMessage}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/admin-utilities/manage-key-worker-settings"
+              path="/manage-key-workers/manage-key-worker-settings"
               render={() => (
                 <KeyworkerSettingsContainer
                   displayBack={this.displayBack}
@@ -316,73 +286,6 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route
-              exact
-              path="/admin-utilities/maintain-roles"
-              render={() => (
-                <UserSearchContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/admin-utilities/maintain-roles/search-results"
-              render={() => (
-                <UserSearchResultsContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/admin-utilities/maintain-roles/:username/roles"
-              render={() => (
-                <StaffRoleProfileContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/admin-utilities/maintain-roles/:username/roles/add-role"
-              render={() => (
-                <AddRoleContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
-            />
-            <Route exact path="/admin-utilities/maintain-auth-users" render={() => <AuthUserSearchContainer />} />
-            <Route
-              exact
-              path="/admin-utilities/maintain-auth-users/search-results"
-              render={() => <AuthUserSearchResultsContainer />}
-            />
-            <Route exact path="/admin-utilities/maintain-auth-users/:username" render={() => <AuthUserContainer />} />
-            <Route
-              exact
-              path="/admin-utilities/maintain-auth-users/:username/add-role"
-              render={() => <AuthUserAddRoleContainer />}
-            />
-            <Route
-              exact
-              path="/admin-utilities/maintain-auth-users/:username/add-group"
-              render={() => <AuthUserAddGroupContainer />}
-            />
-            <Route
-              exact
-              path="/admin-utilities/maintain-auth-users/:username/amend"
-              render={() => <AuthUserAmendContainer />}
-            />
-            <Route exact path="/admin-utilities/create-auth-user" render={() => <AuthUserCreateContainer />} />
           </Switch>
         </div>
       </div>
