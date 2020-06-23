@@ -88,7 +88,7 @@ class TestFixture {
     }
 
     def toKeyworkerDashboardPage() {
-        browser.go('/manage-key-workers/key-worker-statistics')
+        browser.go('/key-worker-statistics')
     }
 
     def toKeyworkerProfilePage() {

@@ -32,7 +32,7 @@ class ProvisionalContainer extends Component {
 
     try {
       if (!user || !user.writeAccess) {
-        history.push('/manage-key-workers')
+        history.push('/')
         return
       }
       const viewModel = await this.getAllocated()

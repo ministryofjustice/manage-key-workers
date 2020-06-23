@@ -5,7 +5,7 @@ import geb.Page
 class KeyworkerResultsPage extends Page {
 
 
-    static url = "/manage-key-workers/key-worker-search/results"
+    static url = "/key-worker-search/results"
 
     static int test_keyworker_staffId = -3
 

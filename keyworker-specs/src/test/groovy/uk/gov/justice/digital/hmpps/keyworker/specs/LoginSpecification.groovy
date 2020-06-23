@@ -75,7 +75,7 @@ class LoginSpecification extends BrowserReportingSpec {
         oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
 
-        browser.go('/manage-key-workers/key-worker-search')
+        browser.go('/key-worker-search')
 
         when: "I have logged in"
         at LoginPage

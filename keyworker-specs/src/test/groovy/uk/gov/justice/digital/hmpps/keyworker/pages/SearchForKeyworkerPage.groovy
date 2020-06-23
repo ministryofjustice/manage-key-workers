@@ -4,7 +4,7 @@ import geb.Page
 
 class SearchForKeyworkerPage extends Page {
 
-    static url = '/manage-key-workers/key-worker-search'
+    static url = '/key-worker-search'
 
     static at = {
         browser.currentUrl.contains(url)

@@ -25,7 +25,7 @@ class OffenderResultsContainer extends Component {
     /* if arriving from a page refresh - redirect to initial search */
     if (!locations || locations.length === 0) {
       history.push({
-        pathname: '/manage-key-workers/offender-search',
+        pathname: '/offender-search',
         state: { initialSearch: true },
       })
     } else {
