@@ -5,7 +5,7 @@ import uk.gov.justice.digital.hmpps.keyworker.modules.HeaderModule
 
 class KeyworkerManagementPage extends Page {
 
-    static url = "/manage-key-workers"
+    static url = "/"
 
     static at = {
         headingText == 'Manage key workers'

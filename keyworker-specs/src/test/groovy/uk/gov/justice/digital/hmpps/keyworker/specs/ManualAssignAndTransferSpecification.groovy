@@ -142,7 +142,7 @@ class ManualAssignAndTransferSpecification extends BrowserReportingSpec {
         !rows.isDisplayed()
     }
 
-    def "refreshing on offender result (or typing /manage-key-workers/offender-search/results in url) - should redirect to offender search"() {
+    def "refreshing on offender result (or typing /offender-search/results in url) - should redirect to offender search"() {
         given: "I have logged in"
         fixture.loginAs(ITAG_USER)
 
@@ -150,7 +150,7 @@ class ManualAssignAndTransferSpecification extends BrowserReportingSpec {
         List<Location> locations = TestFixture.locationsForCaseload(ITAG_USER.workingCaseload)
         elite2api.stubGetMyLocations(locations)
 
-        browser.go '/manage-key-workers/offender-search/results'
+        browser.go '/offender-search/results'
 
         then: "I am redirected to the Offender Search page"
         at SearchForOffenderPage

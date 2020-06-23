@@ -23,7 +23,7 @@ class UnallocatedContainer extends Component {
 
     try {
       if (!user || !user.writeAccess) {
-        history.push('/manage-key-workers')
+        history.push('/')
         return
       }
       const list = await this.getUnallocated(agencyId)
@@ -44,7 +44,7 @@ class UnallocatedContainer extends Component {
   }
 
   gotoManualAllocation = async history => {
-    history.push(`/manage-key-workers/unallocated/provisional-allocation`)
+    history.push(`/unallocated/provisional-allocation`)
   }
 
   render() {

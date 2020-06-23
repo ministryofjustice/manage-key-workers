@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { FooterContainer, Header } from 'new-nomis-shared-components'
-import { BrowserRouter as Router, Redirect, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 
   onFinishAllocation = history => {
-    history.push('/manage-key-workers')
+    history.push('/')
   }
 
   loadUserAndCaseload = async () => {
@@ -174,11 +174,10 @@ class App extends React.Component {
       <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
         <div className="pure-g">
           <Switch>
-            <Route exact path="/" render={() => <Redirect to="/manage-key-workers" />} />
             <Route exact path="/unauthorised" render={() => <UnauthPage dispatchLoaded={dispatchLoaded} />} />
             <Route
               exact
-              path="/manage-key-workers"
+              path="/"
               render={() => (
                 <HomePage
                   allowAuto={allowAuto}
@@ -193,7 +192,7 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/manage-key-workers/key-worker-statistics"
+              path="/key-worker-statistics"
               render={() => (
                 <KeyworkerDashboard migrated={migrated} displayBack={this.displayBack} handleError={this.handleError} />
               )}
@@ -201,14 +200,14 @@ class App extends React.Component {
             <Route exact path="/keyworkerReports" render={() => <KeyworkerReports />} />
             <Route
               exact
-              path="/manage-key-workers/offender-search"
+              path="/offender-search"
               render={() => (
                 <AssignTransferContainer initialSearch displayBack={this.displayBack} handleError={this.handleError} />
               )}
             />
             <Route
               exact
-              path="/manage-key-workers/offender-search/results"
+              path="/offender-search/results"
               render={() => (
                 <AssignTransferContainer
                   onFinishAllocation={this.onFinishAllocation}
@@ -220,19 +219,19 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/manage-key-workers/offender-history/:offenderNo"
+              path="/offender-history/:offenderNo"
               render={() => (
                 <AllocationHistoryContainer handleError={this.handleError} clearMessage={this.clearMessage} />
               )}
             />
             <Route
               exact
-              path="/manage-key-workers/unallocated"
+              path="/unallocated"
               render={() => <UnallocatedContainer displayBack={this.displayBack} handleError={this.handleError} />}
             />
             <Route
               exact
-              path="/manage-key-workers/unallocated/provisional-allocation"
+              path="/unallocated/provisional-allocation"
               render={() => (
                 <ProvisionalAllocationContainer
                   handleError={this.handleError}
@@ -242,7 +241,7 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/manage-key-workers/key-worker-search"
+              path="/key-worker-search"
               render={() => (
                 <KeyworkerSearchContainer
                   displayBack={this.displayBack}
@@ -253,31 +252,31 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/manage-key-workers/key-worker-search/results"
+              path="/key-worker-search/results"
               render={() => (
                 <KeyworkerSearchResultsContainer displayBack={this.displayBack} handleError={this.handleError} />
               )}
             />
             <Route
               exact
-              path="/manage-key-workers/key-worker/:staffId"
+              path="/key-worker/:staffId"
               render={() => (
                 <KeyworkerProfileContainer handleError={this.handleError} clearMessage={this.clearMessage} />
               )}
             />
             <Route
               exact
-              path="/manage-key-workers/key-worker/:staffId/edit"
+              path="/key-worker/:staffId/edit"
               render={() => <KeyworkerProfileEditContainer handleError={this.handleError} />}
             />
             <Route
               exact
-              path="/manage-key-workers/key-worker/:staffId/confirm-edit"
+              path="/key-worker/:staffId/confirm-edit"
               render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
             />
             <Route
               exact
-              path="/manage-key-workers/manage-key-worker-settings"
+              path="/manage-key-worker-settings"
               render={() => (
                 <KeyworkerSettingsContainer
                   displayBack={this.displayBack}
@@ -320,10 +319,10 @@ class App extends React.Component {
                   homeLink={links.getHomeLink()}
                   switchCaseLoad={newCaseload => {
                     this.switchCaseLoad(newCaseload)
-                    const routesThatDontRedirectAfterCaseloadSwitch = ['/manage-key-workers/key-worker-statistics']
+                    const routesThatDontRedirectAfterCaseloadSwitch = ['/key-worker-statistics']
 
                     if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
-                      props.history.push('/manage-key-workers')
+                      props.history.push('/')
                     }
                   }}
                   history={props.history}
