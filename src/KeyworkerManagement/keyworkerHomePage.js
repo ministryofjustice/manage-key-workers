@@ -14,6 +14,7 @@ class KeyworkerHomePage extends Component {
   render() {
     const { allowAuto, user, config, migrated } = this.props
     const showKeyworkerDashboard = config && config.keyworkerDashboardStatsEnabled && migrated
+    const showKeyworkerSettings = user && user.migration
 
     return (
       <Page title="Manage key workers">
@@ -72,17 +73,19 @@ class KeyworkerHomePage extends Component {
             )}
           </div>
           <div className="pure-u-md-8-12">
-            <div className="pure-u-md-6-12">
-              <Link
-                id="keyworker_settings_link"
-                title="Key worker settings link"
-                className="link"
-                to="/manage-key-workers/manage-key-worker-settings"
-              >
-                Manage key worker settings
-              </Link>
-              <div>Allow auto-allocation. Edit key worker capacity and session frequency.</div>
-            </div>
+            {showKeyworkerSettings && (
+              <div className="pure-u-md-6-12">
+                <Link
+                  id="keyworker_settings_link"
+                  title="Key worker settings link"
+                  className="link"
+                  to="/manage-key-workers/manage-key-worker-settings"
+                >
+                  Manage key worker settings
+                </Link>
+                <div>Allow auto-allocation. Edit key worker capacity and session frequency.</div>
+              </div>
+            )}
           </div>
         </div>
       </Page>

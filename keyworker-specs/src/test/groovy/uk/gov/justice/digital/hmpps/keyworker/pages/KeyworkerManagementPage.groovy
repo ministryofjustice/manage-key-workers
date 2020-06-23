@@ -22,6 +22,6 @@ class KeyworkerManagementPage extends Page {
         messageBar(required: false) { $('div #messageBar')}
         homeLink { $('a.link', href: 'http://localhost:3000/') }
         breadCrumbHomeLink { $('[data-qa="breadcrumb-home-page-link"]', href: 'http://localhost:3000/') }
-        keyworkerSettingsLink(to: KeyworkerSettingsPage) { $('#keyworker_settings_link') }
+        keyworkerSettingsLink(required: false, to: KeyworkerSettingsPage) { $('#keyworker_settings_link') }
     }
 }
