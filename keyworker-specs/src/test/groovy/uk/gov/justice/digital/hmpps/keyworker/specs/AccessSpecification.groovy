@@ -254,4 +254,30 @@ class AccessSpecification extends BrowserReportingSpec {
         assert saveButton.displayed == true
         assert saveButton.displayed == true
     }
+
+    def "should not see the keyworker settings link when the current user is not authorised"() {
+        oauthApi.stubGetMyRoles([])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 1, true)
+
+        given: "I am logged in"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+
+        when: "I am on the key worker landing page"
+
+        then: "I should not see the keyworker settings link"
+        assert keyworkerSettingsLink.displayed == false
+    }
+
+    def "should see the keyworker settings link when the current user is authorised"() {
+        oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'KW_MIGRATION']])
+        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 1, true)
+
+        given: "I am logged in"
+        fixture.loginWithoutStaffRoles(ITAG_USER)
+
+        when: "I am on the key worker landing page"
+
+        then: "I should see the keyworker settings link"
+        assert keyworkerSettingsLink.displayed == true
+    }
 }
