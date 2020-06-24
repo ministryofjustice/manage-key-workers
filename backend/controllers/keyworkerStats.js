@@ -46,7 +46,7 @@ const numberOfProjectedKeyworkerSessions = (currentStats, pastStats, period) => 
   },
 })
 
-const keyworkerStatsFactory = keyworkerApi => {
+const keyworkerStatsFactory = (keyworkerApi) => {
   const getPastStats = async (locals, agencyId, staffId, fromDate, toDate) => {
     const format = 'YYYY-MM-DD'
     const days = moment(toDate, format).diff(moment(fromDate, format), 'days')

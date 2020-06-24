@@ -170,7 +170,7 @@ KeyworkerSettingsContainer.propTypes = {
   message: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
@@ -185,16 +185,16 @@ const mapStateToProps = state => ({
   message: state.app.message,
 })
 
-const mapDispatchToProps = dispatch => ({
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
-  setSettingsCapacityDispatch: input => dispatch(setSettingsCapacity(input)),
-  setSettingsExtCapacityDispatch: input => dispatch(setSettingsExtCapacity(input)),
-  setSettingsMigratedDispatch: input => dispatch(setSettingsMigrated(input)),
-  setSettingsSupportedDispatch: input => dispatch(setSettingsSupported(input)),
-  setSettingsDispatch: input => dispatch(setSettings(input)),
-  setSettingsAllowAutoDispatch: input => dispatch(setSettingsAllowAutoAllocation(input)),
-  setSettingsSequenceFrequencyDispatch: input => dispatch(setSettingsSequenceFrequency(input)),
+const mapDispatchToProps = (dispatch) => ({
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+  setSettingsCapacityDispatch: (input) => dispatch(setSettingsCapacity(input)),
+  setSettingsExtCapacityDispatch: (input) => dispatch(setSettingsExtCapacity(input)),
+  setSettingsMigratedDispatch: (input) => dispatch(setSettingsMigrated(input)),
+  setSettingsSupportedDispatch: (input) => dispatch(setSettingsSupported(input)),
+  setSettingsDispatch: (input) => dispatch(setSettings(input)),
+  setSettingsAllowAutoDispatch: (input) => dispatch(setSettingsAllowAutoAllocation(input)),
+  setSettingsSequenceFrequencyDispatch: (input) => dispatch(setSettingsSequenceFrequency(input)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
   resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
 })

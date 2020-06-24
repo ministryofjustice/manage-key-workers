@@ -1,5 +1,5 @@
 const lookupError = (name, errors) => {
-  const error = errors && errors.find(s => s.targetName === name)
+  const error = errors && errors.find((s) => s.targetName === name)
   return error && error.text
 }
 
@@ -9,6 +9,6 @@ export const lookupMeta = (name, errors) => {
   return error ? { touched: Boolean(error), error } : {}
 }
 
-export const onHandleErrorClick = targetName => {
+export const onHandleErrorClick = (targetName) => {
   document.getElementsByName(targetName)[0].focus()
 }

@@ -56,7 +56,7 @@ AllocationHistoryContainer.propTypes = {
   message: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   agencyId: state.app.user.activeCaseLoadId,
   allocationHistory: state.allocationHistory.allocationHistory,
@@ -64,9 +64,9 @@ const mapStateToProps = state => ({
   message: state.app.message,
 })
 
-const mapDispatchToProps = dispatch => ({
-  allocationHistoryDispatch: allocHistory => dispatch(setAllocationHistory(allocHistory)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
+const mapDispatchToProps = (dispatch) => ({
+  allocationHistoryDispatch: (allocHistory) => dispatch(setAllocationHistory(allocHistory)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
 })
 
 export { AllocationHistoryContainer }

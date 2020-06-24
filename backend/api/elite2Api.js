@@ -1,13 +1,14 @@
 const contextProperties = require('../contextProperties')
 
-const encodeOffenderNumbers = offenderNumbers => offenderNumbers.map(offenderNo => `offenderNo=${offenderNo}`).join('&')
+const encodeOffenderNumbers = (offenderNumbers) =>
+  offenderNumbers.map((offenderNo) => `offenderNo=${offenderNo}`).join('&')
 
-const encodeQueryString = input => encodeURIComponent(input)
+const encodeQueryString = (input) => encodeURIComponent(input)
 
-const isNomisUser = context => context.authSource !== 'auth'
+const isNomisUser = (context) => context.authSource !== 'auth'
 
-const elite2ApiFactory = client => {
-  const processResponse = context => response => {
+const elite2ApiFactory = (client) => {
+  const processResponse = (context) => (response) => {
     contextProperties.setResponsePagination(context, response.headers)
     return response.data
   }
@@ -24,8 +25,8 @@ const elite2ApiFactory = client => {
       `api/case-notes/usage?type=KA&subType=KS&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
     )
   const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
-  const userCaseLoads = context => (isNomisUser(context) ? get(context, 'api/users/me/caseLoads') : [])
-  const userLocations = context => (isNomisUser(context) ? get(context, 'api/users/me/locations') : [])
+  const userCaseLoads = (context) => (isNomisUser(context) ? get(context, 'api/users/me/caseLoads') : [])
+  const userLocations = (context) => (isNomisUser(context) ? get(context, 'api/users/me/locations') : [])
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.

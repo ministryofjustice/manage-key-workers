@@ -66,37 +66,9 @@ describe('Keyworker search result component', () => {
       />
     )
     expect(component.find('tr').length).toEqual(4) // includes header tr
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(0)
-        .text()
-    ).toContain('Daggart, Brent')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(2)
-        .text()
-    ).toEqual('3')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(1)
-        .text()
-    ).toEqual('Active')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(5)
-        .text()
-    ).toEqual('2')
+    expect(component.find('tr').at(1).find('td').at(0).text()).toContain('Daggart, Brent')
+    expect(component.find('tr').at(1).find('td').at(2).text()).toEqual('3')
+    expect(component.find('tr').at(1).find('td').at(1).text()).toEqual('Active')
+    expect(component.find('tr').at(1).find('td').at(5).text()).toEqual('2')
   })
 })

@@ -23,7 +23,7 @@ const OffenderSearch = ({
   handleSearchTextChange,
 }) => {
   const housingLocations = locations
-    ? locations.map(kw => (
+    ? locations.map((kw) => (
         <option key={`housinglocation_option_${kw.locationId}`} value={kw.locationPrefix}>
           {kw.description || kw.locationPrefix}
         </option>
@@ -79,7 +79,7 @@ const OffenderSearch = ({
       <GridRow>
         <GridCol setWidth="two-thirds">
           <FormPanel>
-            <form onSubmit={event => handleSubmit(event, history)}>
+            <form onSubmit={(event) => handleSubmit(event, history)}>
               <div className="padding-bottom-large">
                 <label className="form-label" htmlFor="search-text">
                   Prisoner name or number
@@ -112,7 +112,7 @@ const OffenderSearch = ({
   }
   return (
     <FormPanel>
-      <form onSubmit={event => handleSubmit(event, history)}>
+      <form onSubmit={(event) => handleSubmit(event, history)}>
         <div className="pure-u-md-4-12">
           <label className="form-label" htmlFor="search-text">
             Prisoner name or number

@@ -6,7 +6,7 @@ import MessageBar from '../../MessageBar/index'
 import ValidationErrors from '../../ValidationError'
 import { userType } from '../../types'
 
-const KeyworkerSettings = props => {
+const KeyworkerSettings = (props) => {
   const {
     capacity,
     supported,
@@ -43,7 +43,7 @@ const KeyworkerSettings = props => {
   )
 
   const caseLoadOption = user.caseLoadOptions
-    ? user.caseLoadOptions.find(option => option.caseLoadId === user.activeCaseLoadId)
+    ? user.caseLoadOptions.find((option) => option.caseLoadId === user.activeCaseLoadId)
     : undefined
   const caseLoadDesc = caseLoadOption ? caseLoadOption.description : user.activeCaseLoadId
 

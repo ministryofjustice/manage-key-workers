@@ -5,7 +5,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import DatePicker from './datePicker'
 import { keyworkerListType } from '../types'
 
-const DateFilter = props => {
+const DateFilter = (props) => {
   const { fromDate, toDate, applyDateFilter, history } = props
 
   return (
@@ -16,7 +16,7 @@ const DateFilter = props => {
         <DatePicker
           inputProps={{ placeholder: fromDate, className: 'dateFilterInput form-control' }}
           name="fromDate"
-          shouldShowDay={date => date.isBefore(moment())}
+          shouldShowDay={(date) => date.isBefore(moment())}
           title="From"
           {...props}
         />
@@ -25,7 +25,7 @@ const DateFilter = props => {
         <DatePicker
           inputProps={{ placeholder: toDate, className: 'dateFilterInput form-control' }}
           name="toDate"
-          shouldShowDay={date => date.isBefore(moment())}
+          shouldShowDay={(date) => date.isBefore(moment())}
           title="To"
           {...props}
         />

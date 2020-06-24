@@ -172,7 +172,7 @@ KeyworkerProfileEditConfirmContainer.propTypes = {
   validationErrors: PropTypes.shape({}).isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
@@ -184,13 +184,13 @@ const mapStateToProps = state => ({
   annualLeaveReturnDate: state.keyworkerSearch.annualLeaveReturnDate,
 })
 
-const mapDispatchToProps = dispatch => ({
-  keyworkerDispatch: object => dispatch(setKeyworker(object)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  setStatusChangeBehaviourDispatch: message => dispatch(setKeyworkerStatusChangeBehaviour(message)),
+const mapDispatchToProps = (dispatch) => ({
+  keyworkerDispatch: (object) => dispatch(setKeyworker(object)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
+  setStatusChangeBehaviourDispatch: (message) => dispatch(setKeyworkerStatusChangeBehaviour(message)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
   resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
-  dateDispatch: text => dispatch(setAnnualLeaveReturnDate(text)),
+  dateDispatch: (text) => dispatch(setAnnualLeaveReturnDate(text)),
 })
 
 export { KeyworkerProfileEditConfirmContainer }

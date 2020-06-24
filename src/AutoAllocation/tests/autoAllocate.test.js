@@ -113,7 +113,7 @@ describe('Unallocated component', () => {
     expect(mockAxios.mock.calls[0][AXIOS_CONFIG].params.agencyId).toBe('LEI')
   })
 
-  it('should render a middle tier error on unallocated page correctly', done => {
+  it('should render a middle tier error on unallocated page correctly', (done) => {
     const mockAxios = jest.fn() // v22+ .mockName('mockAxios');
     const errorDispatch = jest.fn()
     axios.get = mockAxios
@@ -148,7 +148,7 @@ describe('Unallocated component', () => {
     }, 5)
   })
 
-  it('should render a middle tier error on provisional allocation page correctly', done => {
+  it('should render a middle tier error on provisional allocation page correctly', (done) => {
     const mockAxios = jest.fn()
     const errorDispatch = jest.fn()
     axios.get = mockAxios

@@ -160,7 +160,7 @@ describe('keyworkerAllocations controller', () => {
   })
 
   it('Should map classifications for offenders', () => {
-    expect(response.allocatedResponse.map(a => a.lastKeyWorkerSessionDate)).toEqual([
+    expect(response.allocatedResponse.map((a) => a.lastKeyWorkerSessionDate)).toEqual([
       '2018-03-01',
       '2018-03-03',
       '2018-04-13',

@@ -5,12 +5,12 @@ const logger = require('../log')
 
 const { addAuthorizationHeader, addPaginationHeaders, addMediaHeaders } = require('./axios-config-decorators')
 
-const resultLogger = result => {
+const resultLogger = (result) => {
   logger.debug(`${result.config.method} ${result.config.url} ${result.status} ${result.statusText}`)
   return result
 }
 
-const errorLogger = error => {
+const errorLogger = (error) => {
   const status = error.response ? error.response.status : '-'
   const responseData = error.response ? error.response.data : '-'
   logger.debug(`Error. ${error.config.method} ${error.config.url} ${status} ${error.message} ${responseData}`)

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { properCaseName, renderDate, formatDateToLongHand } from '../../stringUtils'
@@ -51,7 +51,7 @@ class KeyworkerProfile extends Component {
     } = this.props
 
     const statusStyle = getStatusStyle(keyworker.status)
-    const keyworkerOptions = keyworkerList.map(kw => {
+    const keyworkerOptions = keyworkerList.map((kw) => {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`
       return (
         <option key={`option_${kw.staffId}`} value={kw.staffId}>
@@ -85,7 +85,7 @@ class KeyworkerProfile extends Component {
               id={`keyworker-select-${a.offenderNo}`}
               className="form-control"
               value={currentSelectValue}
-              onChange={event => handleKeyworkerChange(event, index, a.offenderNo)}
+              onChange={(event) => handleKeyworkerChange(event, index, a.offenderNo)}
             >
               <option key="choose" value="--">
                 -- No change --
@@ -93,7 +93,7 @@ class KeyworkerProfile extends Component {
               <option key="deallocate" value="_DEALLOCATE">
                 -- Deallocate --
               </option>
-              {a.deallocOnly ? '' : keyworkerOptions.filter(e => e.props.value !== keyworker.staffId)}
+              {a.deallocOnly ? '' : keyworkerOptions.filter((e) => e.props.value !== keyworker.staffId)}
             </select>
           </td>
         </tr>
@@ -106,7 +106,7 @@ class KeyworkerProfile extends Component {
     renderContent = (
       <div>
         {config.keyworkerProfileStatsEnabled === 'true' && keyworker && keyworker.stats && (
-          <Fragment>
+          <>
             <h3 className="heading-medium" data-qa="keyworker-stat-heading">
               {`Statistics for period: `}
               <span className="normal-weight">{` ${formatDateToLongHand(
@@ -115,7 +115,7 @@ class KeyworkerProfile extends Component {
             </h3>
             <KeyworkerStats stats={keyworker.stats.data || []} />
             <hr />
-          </Fragment>
+          </>
         )}
         <div className="lede padding-top padding-bottom-large bold">
           Current allocations{' '}

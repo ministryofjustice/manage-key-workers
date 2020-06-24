@@ -149,7 +149,7 @@ OffenderResultsContainer.propTypes = {
   validationErrors: PropTypes.shape({}).isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   searchText: state.offenderSearch.searchText,
   allocationStatus: state.offenderSearch.allocationStatus,
   keyworkerList: state.keyworkerSearch.keyworkerList,
@@ -163,10 +163,10 @@ const mapStateToProps = state => ({
   validationErrors: state.app.validationErrors,
 })
 
-const mapDispatchToProps = dispatch => ({
-  offenderSearchResultsDispatch: resultList => dispatch(setOffenderSearchResults(resultList)),
-  keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
+const mapDispatchToProps = (dispatch) => ({
+  offenderSearchResultsDispatch: (resultList) => dispatch(setOffenderSearchResults(resultList)),
+  keyworkerChangeListDispatch: (list) => dispatch(setKeyworkerChangeList(list)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
   resetErrorDispatch: () => dispatch(resetError()),
 })
 

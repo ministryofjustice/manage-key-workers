@@ -34,7 +34,7 @@ class UnallocatedContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  getUnallocated = async agencyId => {
+  getUnallocated = async (agencyId) => {
     const response = await axios.get('/api/unallocated', {
       params: {
         agencyId,
@@ -43,7 +43,7 @@ class UnallocatedContainer extends Component {
     return response.data
   }
 
-  gotoManualAllocation = async history => {
+  gotoManualAllocation = async (history) => {
     history.push(`/unallocated/provisional-allocation`)
   }
 
@@ -69,7 +69,7 @@ UnallocatedContainer.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.app.user,
   error: state.app.error,
   unallocatedList: state.unallocated.unallocatedList,
@@ -79,10 +79,10 @@ const mapStateToProps = state => ({
   loaded: state.app.loaded,
 })
 
-const mapDispatchToProps = dispatch => ({
-  unallocatedListDispatch: list => dispatch(setUnallocatedList(list)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
+const mapDispatchToProps = (dispatch) => ({
+  unallocatedListDispatch: (list) => dispatch(setUnallocatedList(list)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
 })
 
 export { UnallocatedContainer }

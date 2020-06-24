@@ -17,12 +17,7 @@ describe('Keyworker search component', () => {
       />
     )
     expect(component.find('#search-text').length).toBe(1)
-    expect(
-      component
-        .find('Status')
-        .shallow()
-        .find('#status-select').length
-    ).toBe(1)
+    expect(component.find('Status').shallow().find('#status-select').length).toBe(1)
     expect(component.find('button').length).toBe(1)
   })
 

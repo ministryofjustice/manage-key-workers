@@ -3,7 +3,7 @@ const formatNumber = (value, type) => {
   return value
 }
 
-const keyworkerPrisonStatsFactory = keyworkerApi => {
+const keyworkerPrisonStatsFactory = (keyworkerApi) => {
   const createPayload = (current, previous) => {
     if (!current) return []
 

@@ -1,6 +1,6 @@
 const log = require('../log')
 
-const autoAllocationAndMigrateFactory = keyworkerApi => {
+const autoAllocationAndMigrateFactory = (keyworkerApi) => {
   const enableAutoAllocationAndMigrate = async (req, res) => {
     const { agencyId } = req.query
     const update = req.body

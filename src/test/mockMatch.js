@@ -1,4 +1,4 @@
-const createMatch = params => ({
+const createMatch = (params) => ({
   isExact: false,
   path: '',
   url: '',

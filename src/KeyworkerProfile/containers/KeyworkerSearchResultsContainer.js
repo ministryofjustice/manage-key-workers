@@ -108,7 +108,7 @@ KeyworkerSearchResultsContainer.propTypes = {
   loaded: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   searchText: state.keyworkerSearch.searchText,
   statusFilter: state.keyworkerSearch.statusFilter,
@@ -118,14 +118,14 @@ const mapStateToProps = state => ({
   keyworkerSettings: state.keyworkerSettings,
 })
 
-const mapDispatchToProps = dispatch => ({
-  keyworkerSearchResultsDispatch: list => dispatch(setKeyworkerSearchResults(list)),
-  keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
-  keyworkerStatusFilterDispatch: status => dispatch(setKeyworkerStatusFilter(status)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
-  setErrorDispatch: error => dispatch(setError(error)),
+const mapDispatchToProps = (dispatch) => ({
+  keyworkerSearchResultsDispatch: (list) => dispatch(setKeyworkerSearchResults(list)),
+  keyworkerSearchTextDispatch: (text) => dispatch(setKeyworkerSearchText(text)),
+  keyworkerStatusFilterDispatch: (status) => dispatch(setKeyworkerStatusFilter(status)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+  setErrorDispatch: (error) => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
-  keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
+  keyworkerSettingsDispatch: (settings) => dispatch(setSettings(settings)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyworkerSearchResultsContainer)

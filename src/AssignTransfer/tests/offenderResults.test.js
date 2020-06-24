@@ -157,112 +157,21 @@ describe('Offender results component', () => {
       />
     )
     expect(component.find('tr').length).toEqual(4) // 3 plus table header tr
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(OFFENDER_NAME_COLUMN)
-        .text()
-    ).toEqual('Rendell, Steve')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(NOMS_ID_COLUMN)
-        .text()
-    ).toEqual('ZZ124WX')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(LOCATION_COLUMN)
-        .text()
-    ).toEqual('L-1-1')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(CRD_COLUMN)
-        .text()
-    ).toEqual('20/10/2019')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(CSRA_COLUMN)
-        .text()
-    ).toEqual('Standard')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(KEYWORKER_NAME_COLUMN)
-        .text()
-    ).toContain('Hanson, Sam')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(KEYWORKER_HISTORY_VIEW_COLUMN)
-        .text()
-    ).toContain('View')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(KEYWORKER_SELECT_COLUMN)
-        .text()
-    ).toContain('Hanson, Sam (6)')
+    expect(component.find('tr').at(1).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Rendell, Steve')
+    expect(component.find('tr').at(1).find('td').at(NOMS_ID_COLUMN).text()).toEqual('ZZ124WX')
+    expect(component.find('tr').at(1).find('td').at(LOCATION_COLUMN).text()).toEqual('L-1-1')
+    expect(component.find('tr').at(1).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019')
+    expect(component.find('tr').at(1).find('td').at(CSRA_COLUMN).text()).toEqual('Standard')
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_NAME_COLUMN).text()).toContain('Hanson, Sam')
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_HISTORY_VIEW_COLUMN).text()).toContain('View')
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).text()).toContain('Hanson, Sam (6)')
 
-    expect(
-      component
-        .find('tr')
-        .at(2)
-        .find('td')
-        .at(OFFENDER_NAME_COLUMN)
-        .text()
-    ).toEqual('Rendell2, Steve2')
-    expect(
-      component
-        .find('tr')
-        .at(2)
-        .find('td')
-        .at(CSRA_COLUMN)
-        .text()
-    ).toEqual('--')
+    expect(component.find('tr').at(2).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Rendell2, Steve2')
+    expect(component.find('tr').at(2).find('td').at(CSRA_COLUMN).text()).toEqual('--')
 
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(OFFENDER_NAME_COLUMN)
-        .text()
-    ).toEqual('Bennett, Lucinda')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(CRD_COLUMN)
-        .text()
-    ).toEqual('--')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(CSRA_COLUMN)
-        .text()
-    ).toEqual('--')
+    expect(component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Bennett, Lucinda')
+    expect(component.find('tr').at(3).find('td').at(CRD_COLUMN).text()).toEqual('--')
+    expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual('--')
   })
 
   it('should duplicate buttons when list is long', async () => {
@@ -351,12 +260,7 @@ describe('Offender results component', () => {
       />
     )
 
-    const dropDown = component
-      .find('tr')
-      .at(1)
-      .find('td')
-      .at(KEYWORKER_SELECT_COLUMN)
-      .find('select')
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select')
 
     expect(dropDown.props().disabled).toBe(false)
   })
@@ -403,12 +307,7 @@ describe('Offender results component', () => {
       />
     )
 
-    const dropDown = component
-      .find('tr')
-      .at(1)
-      .find('td')
-      .at(KEYWORKER_SELECT_COLUMN)
-      .find('select')
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select')
 
     expect(dropDown.props().disabled).toBe(true)
   })

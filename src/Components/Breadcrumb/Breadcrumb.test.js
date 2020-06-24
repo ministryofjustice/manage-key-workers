@@ -57,13 +57,7 @@ describe('<Breadcrumb />', () => {
   })
 
   it('should have the Home link as the first Breadcrumb ', () => {
-    expect(
-      wrapper
-        .find('BreadcrumbItem')
-        .first()
-        .find('a')
-        .text()
-    ).toEqual('Home')
+    expect(wrapper.find('BreadcrumbItem').first().find('a').text()).toEqual('Home')
   })
 
   it('should link back to the Application homepage', () => {

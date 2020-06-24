@@ -4,7 +4,7 @@ const logger = require('./log')
 const contextProperties = require('./contextProperties')
 const config = require('./config')
 
-const isXHRRequest = req =>
+const isXHRRequest = (req) =>
   req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1) || (req.path && req.path.endsWith('.js'))
 
 /**
@@ -106,7 +106,7 @@ const configureRoutes = ({ app, tokenRefresher, mailTo, homeLink }) => {
         logger.info(`Auth failure due to ${JSON.stringify(info)}`)
         return res.redirect('/autherror')
       }
-      req.logIn(user, err2 => {
+      req.logIn(user, (err2) => {
         if (err2) {
           return next(err2)
         }

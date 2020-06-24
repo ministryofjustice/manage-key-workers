@@ -6,7 +6,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { OffenderResultsContainer } from './OffenderResultsContainer'
 import mockHistory from '../../test/mockHistory'
 
-const waitForAsync = () => new Promise(resolve => setImmediate(resolve))
+const waitForAsync = () => new Promise((resolve) => setImmediate(resolve))
 
 describe('OffenderResultsContainer', () => {
   const props = {

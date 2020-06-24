@@ -11,12 +11,12 @@ const setPagingHeaders = (context, res) => {
   res.set(contextProperties.getResponsePagination(context))
 }
 
-const sendJsonResponse = res => data => {
+const sendJsonResponse = (res) => (data) => {
   setPagingHeaders(res.locals, res)
   res.json(data)
 }
 
-const handleErrors = res => error => {
+const handleErrors = (res) => (error) => {
   logger.error(error)
 
   res.status(errorStatusCode(error))
@@ -30,7 +30,7 @@ const handleErrors = res => error => {
   }
 }
 
-const forwardingHandlerFactory = elite2Api =>
+const forwardingHandlerFactory = (elite2Api) =>
   /**
    * Forward the incoming request using the elite2Api get and post functions.
    * @param req
@@ -47,22 +47,13 @@ const forwardingHandlerFactory = elite2Api =>
 
     switch (req.method) {
       case 'GET':
-        return elite2Api
-          .get(res.locals, theUrl)
-          .then(sendJsonResponse(res))
-          .catch(handleErrors(res))
+        return elite2Api.get(res.locals, theUrl).then(sendJsonResponse(res)).catch(handleErrors(res))
 
       case 'POST':
-        return elite2Api
-          .post(res.locals, theUrl, req.body)
-          .then(sendJsonResponse(res))
-          .catch(handleErrors(res))
+        return elite2Api.post(res.locals, theUrl, req.body).then(sendJsonResponse(res)).catch(handleErrors(res))
 
       case 'PUT':
-        return elite2Api
-          .put(res.locals, theUrl, req.body)
-          .then(sendJsonResponse(res))
-          .catch(handleErrors())
+        return elite2Api.put(res.locals, theUrl, req.body).then(sendJsonResponse(res)).catch(handleErrors())
 
       default:
         throw new Error(`Unsupported request method ${req.method}`)

@@ -1,4 +1,4 @@
-const getStatusDescription = status => {
+const getStatusDescription = (status) => {
   const styles = {
     ACTIVE: 'Active',
     UNAVAILABLE_ANNUAL_LEAVE: 'Unavailable - annual leave',
@@ -9,11 +9,11 @@ const getStatusDescription = status => {
   return styles[status]
 }
 
-const getStatusStyle = status => {
+const getStatusStyle = (status) => {
   const statusDescription = getStatusDescription(status)
   const styles = ['inactive', 'active', 'unavailable']
   let styleClass = ''
-  styles.forEach(style => {
+  styles.forEach((style) => {
     if (statusDescription && statusDescription.toLowerCase().startsWith(style)) styleClass = style
   })
   return styleClass
