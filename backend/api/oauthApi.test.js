@@ -35,7 +35,7 @@ describe('oathApi tests', () => {
       })
 
       mock.reset()
-      mock.onAny('oauth/token').reply(200, {
+      mock.onAny('/oauth/token').reply(200, {
         ...baseResponse,
         access_token: 'newAccessToken',
         refresh_token: 'newRefreshToken',
@@ -82,7 +82,7 @@ describe('oathApi tests', () => {
       expect(actual).toEqual(userDetails)
     })
     it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, 'api/user/me')
+      expect(client.get).toBeCalledWith(context, '/api/user/me')
     })
   })
 
@@ -101,7 +101,7 @@ describe('oathApi tests', () => {
       expect(actual).toEqual(roles)
     })
     it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, 'api/user/me/roles')
+      expect(client.get).toBeCalledWith(context, '/api/user/me/roles')
     })
   })
 })

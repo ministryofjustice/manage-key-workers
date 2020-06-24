@@ -241,6 +241,7 @@ class Elite2Api extends WireMockRule {
                 delete(urlPathEqualTo("/api/users/${username}/caseload/NWEB/access-role/${roleCode}"))
                         .willReturn(
                         aResponse()
+                                .withHeader('Content-Type', 'application/json')
                                 .withStatus(200)))
     }
 
@@ -250,6 +251,7 @@ class Elite2Api extends WireMockRule {
                 put(urlPathEqualTo("/api/users/${username}/caseload/NWEB/access-role/${roleCode}"))
                         .willReturn(
                         aResponse()
+                                .withHeader('Content-Type', 'application/json')
                                 .withStatus(201)))
     }
 
@@ -307,6 +309,7 @@ class Elite2Api extends WireMockRule {
                 post(urlPathEqualTo("/api/offender-sentences"))
                         .willReturn(aResponse()
                         .withBody(OffenderSentencesResponse.response)
+                        .withHeader('Content-Type', 'application/json')
                         .withStatus(200))
         )
     }
@@ -316,6 +319,7 @@ class Elite2Api extends WireMockRule {
                 get(urlPathMatching("/api/case-notes/usage?.*"))
                         .willReturn(aResponse()
                         .withBody(CaseNoteUsageResponse.response)
+                        .withHeader('Content-Type', 'application/json')
                         .withStatus(200))
         )
     }
@@ -325,6 +329,7 @@ class Elite2Api extends WireMockRule {
                 post(urlPathEqualTo("/api/offender-assessments/csra/list"))
                         .willReturn(aResponse()
                         .withBody(OffenderAssessmentsResponse.response)
+                        .withHeader('Content-Type', 'application/json')
                         .withStatus(200))
         )
     }
@@ -334,6 +339,7 @@ class Elite2Api extends WireMockRule {
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
                         .willReturn(aResponse()
                         .withBody(OffenderSearchResponse.response_5_results)
+                        .withHeader('Content-Type', 'application/json')
                         .withStatus(200))
         )
     }
@@ -344,6 +350,7 @@ class Elite2Api extends WireMockRule {
                         .withHeader('page-limit', equalTo('3000'))
                         .willReturn(aResponse()
                         .withBody(OffenderSearchResponse.response_55_results)
+                        .withHeader('Content-Type', 'application/json')
                         .withStatus(200))
         )
     }
@@ -353,6 +360,7 @@ class Elite2Api extends WireMockRule {
                 get(urlPathEqualTo("/api/locations/description/${agencyLocation.id}/inmates"))
                         .willReturn(aResponse()
                         .withBody("[]")
+                        .withHeader('Content-Type', 'application/json')
                         .withStatus(200))
         )
     }
@@ -382,6 +390,8 @@ class Elite2Api extends WireMockRule {
     void stubSetActiveCaseload() {
         this.stubFor(
                 put(urlPathEqualTo("/api/users/me/activeCaseLoad"))
-                        .willReturn(aResponse().withStatus(200)))
+                        .willReturn(aResponse()
+                                .withHeader('Content-Type', 'application/json')
+                                .withStatus(200)))
     }
 }

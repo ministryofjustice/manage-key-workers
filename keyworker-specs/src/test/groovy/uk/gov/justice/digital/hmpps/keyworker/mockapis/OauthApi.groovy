@@ -70,6 +70,7 @@ class OauthApi extends WireMockRule {
         this.stubFor(
                 get(urlPathEqualTo("/auth/api/user/me/roles"))
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json')
                         .withBody(json)
                         .withStatus(200)))
     }
