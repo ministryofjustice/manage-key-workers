@@ -159,7 +159,7 @@ describe('keyworkerAllocations controller', () => {
   })
 
   it('Should map classifications for offenders', () => {
-    expect(response.offenderResponse.map(a => a.staffId)).toEqual([-3, -5, null, null, null])
+    expect(response.offenderResponse.map((a) => a.staffId)).toEqual([-3, -5, null, null, null])
   })
 
   it('Should add keyworker details to data array', () => {

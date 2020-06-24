@@ -38,7 +38,7 @@ export class KeyworkerDashboard extends Component {
     return { firstDay, lastDay }
   }
 
-  onSubmit = values => {
+  onSubmit = (values) => {
     const { fromDate, toDate } = values
     this.loadStatsForPeriod(switchToIsoDateFormat(fromDate), switchToIsoDateFormat(toDate))
   }
@@ -61,7 +61,7 @@ export class KeyworkerDashboard extends Component {
     }
   }
 
-  renderStatistic = statistic => (
+  renderStatistic = (statistic) => (
     <Fragment key={statistic.heading}>
       <GridCol setWidth="one-quarter">
         <Statistic {...statistic} />
@@ -74,16 +74,16 @@ export class KeyworkerDashboard extends Component {
 
     if (data.length > 0) {
       return (
-        <Fragment>
-          <GridRow>{data.slice(0, 4).map(statistic => this.renderStatistic(statistic))}</GridRow>
+        <>
+          <GridRow>{data.slice(0, 4).map((statistic) => this.renderStatistic(statistic))}</GridRow>
           {data.length > 4 && (
-            <Fragment>
+            <>
               <hr />
-              <GridRow>{data.slice(4, 8).map(statistic => this.renderStatistic(statistic))}</GridRow>
+              <GridRow>{data.slice(4, 8).map((statistic) => this.renderStatistic(statistic))}</GridRow>
               <hr />
-            </Fragment>
+            </>
           )}
-        </Fragment>
+        </>
       )
     }
 
@@ -128,16 +128,16 @@ KeyworkerDashboard.propTypes = {
   activeCaseLoad: PropTypes.string.isRequired,
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatchStats: ({ data, fromDate, toDate, prisonerToKeyWorkerRatio }) =>
     dispatch(setPrisonLevelKeyworkerStats({ data, fromDate, toDate, prisonerToKeyWorkerRatio })),
-  dispatchLoaded: value => dispatch(setLoaded(value)),
+  dispatchLoaded: (value) => dispatch(setLoaded(value)),
 })
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   agencyId: state.app.user.activeCaseLoadId,
   data: state.prisonLevelKeyWorkerStatsDashboard.data,
   prisonerToKeyWorkerRatio: state.prisonLevelKeyWorkerStatsDashboard.prisonerToKeyWorkerRatio,
-  activeCaseLoad: state.app.user.caseLoadOptions.filter(caseLoad => caseLoad.currentlyActive)[0].description,
+  activeCaseLoad: state.app.user.caseLoadOptions.filter((caseLoad) => caseLoad.currentlyActive)[0].description,
   migrated: state.keyworkerSettings.migrated,
   fromDate: state.prisonLevelKeyWorkerStatsDashboard.fromDate,
   toDate: state.prisonLevelKeyWorkerStatsDashboard.toDate,

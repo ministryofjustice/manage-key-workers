@@ -2,10 +2,10 @@ const moment = require('moment')
 
 const iso8601DateFormat = 'YYYY-MM-DD'
 
-const properCase = word =>
+const properCase = (word) =>
   typeof word === 'string' && word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
 
-const isBlank = str => !str || /^\s*$/.test(str)
+const isBlank = (str) => !str || /^\s*$/.test(str)
 
 /**
  * Converts a name (first name, last name, middle name, etc.) to proper case equivalent, handling double-barreled names
@@ -13,20 +13,11 @@ const isBlank = str => !str || /^\s*$/.test(str)
  * @param name name to be converted.
  * @returns name converted to proper case.
  */
-const properCaseName = name =>
-  isBlank(name)
-    ? ''
-    : name
-        .split('-')
-        .map(properCase)
-        .join('-')
+const properCaseName = (name) => (isBlank(name) ? '' : name.split('-').map(properCase).join('-'))
 
 const toFullName = ({ firstName, lastName, name }) =>
   !isBlank(name)
-    ? name
-        .split(' ')
-        .map(properCaseName)
-        .join(', ')
+    ? name.split(' ').map(properCaseName).join(', ')
     : (!isBlank(lastName) ? `${properCaseName(lastName)}, ` : '') +
       (!isBlank(firstName) ? properCaseName(firstName) : '')
 
@@ -35,7 +26,7 @@ const toFullName = ({ firstName, lastName, name }) =>
  * dd/MM/yyyy.  If the date parameter is not present or cannot be understood the function returns '--'.
  * @param date An object which is a moment, an ISO 8601 date formatted string or anything else including null or undefined.
  */
-const renderDate = date => {
+const renderDate = (date) => {
   const screenFormat = 'DD/MM/YYYY'
   const notPresentString = '--'
 
@@ -50,13 +41,13 @@ const renderDate = date => {
   return notPresentString
 }
 
-const formatDateToLongHand = date => {
+const formatDateToLongHand = (date) => {
   if (!date || typeof date !== 'string') throw new Error('date should not be null and be of type string')
 
   return moment(date, iso8601DateFormat).format('DD MMMM YYYY')
 }
 
-const renderDateTime = date => {
+const renderDateTime = (date) => {
   const screenFormat = 'DD/MM/YYYY HH:mm'
   const iso8601DateTimeFormat = 'YYYY-MM-DDTHH:mm:ss.SSS.'
   const notPresentString = '--'
@@ -72,15 +63,15 @@ const renderDateTime = date => {
   return notPresentString
 }
 
-const switchToIsoDateFormat = displayDateString =>
+const switchToIsoDateFormat = (displayDateString) =>
   isBlank(displayDateString) ? undefined : moment(displayDateString, 'DD/MM/YYYY').format(iso8601DateFormat)
 
-const stringIsInteger = input => {
+const stringIsInteger = (input) => {
   const parsed = Number.parseInt(input, 10)
   return !Number.isNaN(parsed)
 }
 
-const createQueryParamString = params => {
+const createQueryParamString = (params) => {
   if (typeof params !== 'object' || Array.isArray(params)) return null
   return Object.entries(params)
     .filter(([, val]) => val)

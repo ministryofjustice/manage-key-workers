@@ -6,7 +6,7 @@ import Statistic from '../../Statistic/Statistic'
 
 const KeyworkerStats = ({ stats }) => (
   <GridRow>
-    {stats.map(stat => (
+    {stats.map((stat) => (
       <Fragment key={stat.name}>
         <GridCol setWidth="one-quarter">
           <Statistic {...stat} />

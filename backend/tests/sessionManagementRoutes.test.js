@@ -19,8 +19,8 @@ const auth = require('../auth')
 
 const hmppsCookieName = 'testCookie'
 
-const hasCookies = expectedNames => res => {
-  const cookieNames = setCookie.parse(res).map(cookie => cookie.name)
+const hasCookies = (expectedNames) => (res) => {
+  const cookieNames = setCookie.parse(res).map((cookie) => cookie.name)
   expect(cookieNames).to.have.members(expectedNames)
 }
 
@@ -73,28 +73,18 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   it('GET "/" with no cookie (not authenticated) redirects to /login', () => {
     tokenRefresher.resolves()
 
-    return agent
-      .get('/')
-      .expect(302)
-      .expect('location', '/login?returnTo=%2F')
+    return agent.get('/').expect(302).expect('location', '/login?returnTo=%2F')
   })
 
   it('GET "/some-page" with no cookie (not authenticated) redirects to /login?returnTo=some-page', () => {
     tokenRefresher.resolves()
 
-    return agent
-      .get('/some-page')
-      .expect(302)
-      .expect('location', '/login?returnTo=%2Fsome-page')
+    return agent.get('/some-page').expect(302).expect('location', '/login?returnTo=%2Fsome-page')
   })
 
   it('GET "/login" when not authenticated returns login page', () => agent.get('/login').expect(302))
 
-  it('GET "/heart-beat"', () =>
-    agent
-      .get('/heart-beat')
-      .set('Accept', 'application/json')
-      .expect(401))
+  it('GET "/heart-beat"', () => agent.get('/heart-beat').set('Accept', 'application/json').expect(401))
 
   it('GET "/logout" clears the cookie', () => {
     agent
@@ -107,9 +97,5 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   })
 
   it('After logout get "/" should redirect to "/login"', () =>
-    agent
-      .get('/')
-      .expect(302)
-      .expect('location', '/login?returnTo=%2F')
-      .expect(hasCookies([])))
+    agent.get('/').expect(302).expect('location', '/login?returnTo=%2F').expect(hasCookies([])))
 })

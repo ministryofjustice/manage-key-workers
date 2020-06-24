@@ -43,7 +43,7 @@ class App extends React.Component {
     const { configDispatch, setErrorDispatch } = this.props
 
     axios.interceptors.response.use(
-      config => {
+      (config) => {
         if (config.status === 205) {
           // eslint-disable-next-line no-alert
           alert(
@@ -53,7 +53,7 @@ class App extends React.Component {
         }
         return config
       },
-      error => Promise.reject(error)
+      (error) => Promise.reject(error)
     )
 
     try {
@@ -71,7 +71,7 @@ class App extends React.Component {
     }
   }
 
-  onFinishAllocation = history => {
+  onFinishAllocation = (history) => {
     history.push('/')
   }
 
@@ -84,7 +84,7 @@ class App extends React.Component {
     userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data })
   }
 
-  switchCaseLoad = async newCaseload => {
+  switchCaseLoad = async (newCaseload) => {
     const { switchAgencyDispatch } = this.props
 
     try {
@@ -116,12 +116,12 @@ class App extends React.Component {
     resetErrorDispatch()
   }
 
-  displayError = error => {
+  displayError = (error) => {
     const { setErrorDispatch } = this.props
     setErrorDispatch((error.response && error.response.data) || `Something went wrong: ${error}`)
   }
 
-  handleError = error => {
+  handleError = (error) => {
     const { setErrorDispatch } = this.props
 
     if (
@@ -136,7 +136,7 @@ class App extends React.Component {
     }
   }
 
-  displayAlertAndLogout = message => {
+  displayAlertAndLogout = (message) => {
     alert(message) // eslint-disable-line no-alert
     window.location = '/auth/logout'
   }
@@ -307,7 +307,7 @@ class App extends React.Component {
       <Router>
         <div className="content">
           <Route
-            render={props => {
+            render={(props) => {
               if (config.googleAnalyticsId) {
                 ReactGA.pageview(props.location.pathname)
               }
@@ -317,7 +317,7 @@ class App extends React.Component {
                   logoText="HMPPS"
                   title="Digital Prison Services"
                   homeLink={links.getHomeLink()}
-                  switchCaseLoad={newCaseload => {
+                  switchCaseLoad={(newCaseload) => {
                     this.switchCaseLoad(newCaseload)
                     const routesThatDontRedirectAfterCaseloadSwitch = ['/key-worker-statistics']
 
@@ -363,7 +363,7 @@ App.propTypes = {
   dispatchLoaded: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   message: state.app.message,
   config: state.app.config,
@@ -374,17 +374,17 @@ const mapStateToProps = state => ({
   migrated: state.keyworkerSettings.migrated,
 })
 
-const mapDispatchToProps = dispatch => ({
-  configDispatch: config => dispatch(setConfig(config)),
-  userDetailsDispatch: user => dispatch(setUserDetails(user)),
-  switchAgencyDispatch: agencyId => dispatch(switchAgency(agencyId)),
-  setTermsVisibilityDispatch: shouldShowTerms => dispatch(setTermsVisibility(shouldShowTerms)),
-  setErrorDispatch: error => dispatch(setError(error)),
+const mapDispatchToProps = (dispatch) => ({
+  configDispatch: (config) => dispatch(setConfig(config)),
+  userDetailsDispatch: (user) => dispatch(setUserDetails(user)),
+  switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
+  setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
+  setErrorDispatch: (error) => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  boundSetMenuOpen: flag => dispatch(setMenuOpen(flag)),
-  keyworkerSettingsDispatch: settings => dispatch(setSettings(settings)),
-  dispatchLoaded: value => dispatch(setLoaded(value)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
+  boundSetMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
+  keyworkerSettingsDispatch: (settings) => dispatch(setSettings(settings)),
+  dispatchLoaded: (value) => dispatch(setLoaded(value)),
 })
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)

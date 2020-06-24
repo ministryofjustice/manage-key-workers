@@ -19,7 +19,7 @@ const KeyworkerSearchPage = ({
   <GridRow>
     <GridCol setWidth="two-thirds">
       <FormPanel>
-        <form onSubmit={event => handleSearch(event, history)}>
+        <form onSubmit={(event) => handleSearch(event, history)}>
           <label className="form-label" htmlFor="search-text">
             Key worker name
           </label>

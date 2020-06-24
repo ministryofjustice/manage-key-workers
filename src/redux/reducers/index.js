@@ -107,7 +107,7 @@ const prisonLevelKeyWorkerStatsDashboardInitialState = {
 }
 
 function updateObject(oldObject, newValues) {
-  return Object.assign({}, oldObject, newValues)
+  return { ...oldObject, ...newValues }
 }
 
 export function app(state = appInitialState, action) {
@@ -219,7 +219,7 @@ export function offenderSearch(state = offenderSearchInitialState, action) {
         locations: action.locations,
       }
     case ActionTypes.SWITCH_AGENCY:
-      return Object.assign({}, offenderSearchInitialState)
+      return { ...offenderSearchInitialState }
     case ActionTypes.SET_OFFENDER_SEARCH_RESULTS:
       return {
         ...state,

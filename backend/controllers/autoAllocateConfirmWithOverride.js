@@ -1,6 +1,6 @@
 const log = require('../log')
 
-const factory = keyworkerApi => {
+const factory = (keyworkerApi) => {
   const autoAllocate = async (req, res) => {
     const { agencyId } = req.query
 
@@ -11,8 +11,8 @@ const factory = keyworkerApi => {
     log.debug('Manual override')
 
     const allocationPromises = allocatedKeyworkers
-      .filter(item => Boolean(item) && item.staffId)
-      .map(async allocatedKeyworker => {
+      .filter((item) => Boolean(item) && item.staffId)
+      .map(async (allocatedKeyworker) => {
         const data = {
           offenderNo: allocatedKeyworker.offenderNo,
           staffId: allocatedKeyworker.staffId,

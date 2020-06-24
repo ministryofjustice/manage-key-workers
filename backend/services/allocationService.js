@@ -6,34 +6,34 @@ const telemetry = require('../azure-appinsights')
 // TODO: There's a lot of duplication in this module...
 
 const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
-  const getOffenderNumbers = offenderResults =>
-    offenderResults && offenderResults.length && offenderResults.map(row => row.offenderNo)
+  const getOffenderNumbers = (offenderResults) =>
+    offenderResults && offenderResults.length && offenderResults.map((row) => row.offenderNo)
 
   const findCrsaForOffender = (csras, offenderNo) =>
     csras
-      .filter(d => d.offenderNo === offenderNo)
-      .map(d => d.classification)
-      .find(e => !!e) || null
+      .filter((d) => d.offenderNo === offenderNo)
+      .map((d) => d.classification)
+      .find((e) => !!e) || null
 
   const findReleaseDateForOffender = (allReleaseDates, offenderNo) =>
     allReleaseDates
-      .filter(d => d.offenderNo === offenderNo)
-      .map(d => d.sentenceDetail && d.sentenceDetail.releaseDate)
-      .find(d => !!d) || null
+      .filter((d) => d.offenderNo === offenderNo)
+      .map((d) => d.sentenceDetail && d.sentenceDetail.releaseDate)
+      .find((d) => !!d) || null
 
   const findKeyworkerCaseNoteDate = (kwDates, offenderNo) =>
     kwDates
-      .filter(d => d.offenderNo === offenderNo)
-      .map(d => d.latestCaseNote)
+      .filter((d) => d.offenderNo === offenderNo)
+      .map((d) => d.latestCaseNote)
       .reduce((acc, cur) => (cur > acc ? cur : acc), '') || null
 
   const findKeyworkerNumKeyWorkerSessions = (kwDates, offenderNo) =>
     kwDates
-      .filter(d => d.offenderNo === offenderNo)
-      .map(d => d.numCaseNotes)
+      .filter((d) => d.offenderNo === offenderNo)
+      .map((d) => d.numCaseNotes)
       .reduce((acc, cur) => (cur > acc ? cur : acc), '') || null
 
-  const reduceToKeyworkerMap = keyworkers =>
+  const reduceToKeyworkerMap = (keyworkers) =>
     keyworkers.reduce((keyworkerMap, keyworker) => {
       keyworkerMap.set(keyworker.staffId, keyworker)
       return keyworkerMap
@@ -49,16 +49,16 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     log.debug('Response from csraList request')
 
     const keyworkerLookup = offenders
-      .filter(offender => !availableKeyworkers.find(keyworker => keyworker.staffId === offender.staffId))
-      .map(o => ({
+      .filter((offender) => !availableKeyworkers.find((keyworker) => keyworker.staffId === offender.staffId))
+      .map((o) => ({
         staffId: o.staffId,
         agencyId: o.agencyId,
       }))
 
     const extraKeyworkers = await Promise.all(
       keyworkerLookup
-        .filter(lookup => lookup.staffId !== null)
-        .map(lookup => getKeyworkerDetails(context, lookup.staffId, lookup.agencyId))
+        .filter((lookup) => lookup.staffId !== null)
+        .map((lookup) => getKeyworkerDetails(context, lookup.staffId, lookup.agencyId))
     )
 
     const keyworkerMap = reduceToKeyworkerMap([...availableKeyworkers, ...extraKeyworkers])
@@ -68,7 +68,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       numberAllocated: 'n/a',
     }
 
-    return offenders.map(offenderWithAllocatedKeyworker => {
+    return offenders.map((offenderWithAllocatedKeyworker) => {
       const keyworkerDetails = keyworkerMap.get(offenderWithAllocatedKeyworker.staffId) || noAssignedKeyWorker
 
       const keyworkerDisplay =
@@ -92,7 +92,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     const offenderWithLocationDtos = await keyworkerApi.unallocated(context, agencyId)
     log.debug('Response from unallocated offenders request')
 
-    const offenderNumbers = offenderWithLocationDtos.map(offenderWithLocation => offenderWithLocation.offenderNo)
+    const offenderNumbers = offenderWithLocationDtos.map((offenderWithLocation) => offenderWithLocation.offenderNo)
 
     if (offenderNumbers.length > 0) {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
@@ -101,7 +101,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allCsras = await elite2Api.csraList(context, offenderNumbers)
       log.debug('Response from csraList request')
 
-      return offenderWithLocationDtos.map(offenderWithLocation => ({
+      return offenderWithLocationDtos.map((offenderWithLocation) => ({
         ...offenderWithLocation,
         crsaClassification: findCrsaForOffender(allCsras, offenderWithLocation.offenderNo),
         confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, offenderWithLocation.offenderNo),
@@ -125,9 +125,9 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
   const findKeyworkerStaffIdForOffender = (offenderKeyworkers, offenderNo) =>
     offenderKeyworkers
-      .filter(k => k.offenderNo === offenderNo)
-      .map(k => k.staffId)
-      .find(e => !!e) || null
+      .filter((k) => k.offenderNo === offenderNo)
+      .map((k) => k.staffId)
+      .find((e) => !!e) || null
 
   const applyAllocationStatusFilter = (allocationStatus, currentOffenderResults, offenderKeyworkers) => {
     let offenderResults = currentOffenderResults
@@ -135,12 +135,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     switch (allocationStatus) {
       case 'unallocated':
         offenderResults = offenderResults.filter(
-          offender => !offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo)
+          (offender) => !offenderKeyworkers.find((keyWorker) => keyWorker.offenderNo === offender.offenderNo)
         )
         break
       case 'allocated':
-        offenderResults = offenderResults.filter(offender =>
-          offenderKeyworkers.find(keyWorker => keyWorker.offenderNo === offender.offenderNo)
+        offenderResults = offenderResults.filter((offender) =>
+          offenderKeyworkers.find((keyWorker) => keyWorker.offenderNo === offender.offenderNo)
         )
         break
       default:
@@ -148,7 +148,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
     log.debug(`After allocation status filter of ${allocationStatus}`)
 
-    return offenderResults.map(offender => ({
+    return offenderResults.map((offender) => ({
       ...offender,
       staffId: findKeyworkerStaffIdForOffender(offenderKeyworkers, offender.offenderNo),
     }))
@@ -234,7 +234,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     log.debug('Response from keyworkerAllocations request')
 
     const offenderNumbers = keyworkerAllocationDetailsDtos.map(
-      keyworkerAllocationDetails => keyworkerAllocationDetails.offenderNo
+      (keyworkerAllocationDetails) => keyworkerAllocationDetails.offenderNo
     )
     if (offenderNumbers.length > 0) {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
@@ -246,7 +246,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers, staffId)
       log.debug('Response from case note usage request')
 
-      const allocatedResponse = keyworkerAllocationDetailsDtos.map(keyworkerAllocation => ({
+      const allocatedResponse = keyworkerAllocationDetailsDtos.map((keyworkerAllocation) => ({
         ...keyworkerAllocation,
         crsaClassification: findCrsaForOffender(allCsras, keyworkerAllocation.offenderNo),
         confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, keyworkerAllocation.offenderNo),

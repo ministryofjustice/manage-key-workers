@@ -1,7 +1,7 @@
 const keyworkerSettingsFactory = (keyworkerApi, elite2Api) => {
-  const keyworkerSettingsService = async context => {
+  const keyworkerSettingsService = async (context) => {
     const caseloads = await elite2Api.userCaseLoads(context)
-    const activeCaseLoad = caseloads.find(cl => cl.currentlyActive)
+    const activeCaseLoad = caseloads.find((cl) => cl.currentlyActive)
     const activeCaseLoadId = activeCaseLoad ? activeCaseLoad.caseLoadId : null
 
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(context, activeCaseLoadId)

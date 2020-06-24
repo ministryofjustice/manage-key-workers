@@ -15,7 +15,7 @@ class KeyworkerSearchResults extends Component {
       return []
     }
 
-    return keyworkerList.map(a => {
+    return keyworkerList.map((a) => {
       const formattedName = `${properCaseName(a.lastName)}, ${properCaseName(a.firstName)}`
       const keyworkerHref = `/key-worker/${a.staffId}`
       return (

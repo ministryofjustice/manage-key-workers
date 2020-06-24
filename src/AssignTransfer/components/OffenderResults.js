@@ -62,7 +62,7 @@ class OffenderResults extends Component {
               name={`keyworker-select-${a.offenderNo}`}
               className="form-control"
               value={currentSelectValue}
-              onChange={event => handleKeyworkerChange(event, index, a.offenderNo)}
+              onChange={(event) => handleKeyworkerChange(event, index, a.offenderNo)}
             >
               <option key="choose" value="--">
                 -- No change --
@@ -74,7 +74,7 @@ class OffenderResults extends Component {
               ) : (
                 ''
               )}
-              {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
+              {keyworkerOptions.filter((e) => e.props.value !== a.staffId)}
             </select>
           </td>
         </tr>
@@ -82,7 +82,7 @@ class OffenderResults extends Component {
     })
   }
 
-  buttons = rows => {
+  buttons = (rows) => {
     const { user, postManualOverride, onFinishAllocation, history } = this.props
 
     if (!user || !user.writeAccess) return <div />
@@ -111,7 +111,7 @@ class OffenderResults extends Component {
     if (!offenderResults || !loaded) return ''
 
     const keyworkerOptions = offenderResults.keyworkerResponse
-      ? offenderResults.keyworkerResponse.map(kw => {
+      ? offenderResults.keyworkerResponse.map((kw) => {
           const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${
             kw.numberAllocated
           })`

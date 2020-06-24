@@ -1,6 +1,6 @@
 const log = require('../log')
 
-const keyworkerUpdateFactory = keyworkerApi => {
+const keyworkerUpdateFactory = (keyworkerApi) => {
   const keyworkerUpdate = async (req, res) => {
     const update = req.body.keyworker
     log.debug('Key worker update contents')

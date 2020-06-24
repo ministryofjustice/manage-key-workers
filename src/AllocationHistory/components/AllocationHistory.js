@@ -21,7 +21,7 @@ class AllocationHistory extends Component {
     const offenderDisplayName = `${properCaseName(allocationHistory.offender.firstName)} ${properCaseName(
       allocationHistory.offender.lastName
     )}`
-    const allocations = allocationHistory.allocationHistory.map(a => {
+    const allocations = allocationHistory.allocationHistory.map((a) => {
       const kwName = `${properCaseName(a.firstName)} ${properCaseName(a.lastName)}`
       const createdStaff = `${properCaseName(a.userId.firstName)} ${properCaseName(a.userId.lastName)}`
       const lastModStaff = `${properCaseName(a.lastModifiedByUser.firstName)} ${properCaseName(

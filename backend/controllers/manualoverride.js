@@ -1,6 +1,6 @@
 const log = require('../log')
 
-const manualOverrideFactory = keyworkerApi => {
+const manualOverrideFactory = (keyworkerApi) => {
   const manualOverride = async (req, res) => {
     const allocateList = req.body.allocatedKeyworkers
 
@@ -9,7 +9,7 @@ const manualOverrideFactory = keyworkerApi => {
     const prisonId = req.query.agencyId
 
     const allocationPromises = allocateList
-      .filter(element => element && element.staffId)
+      .filter((element) => element && element.staffId)
       .map(async ({ offenderNo, staffId, deallocate }) => {
         if (deallocate) {
           await keyworkerApi.deallocate(res.locals, offenderNo, {

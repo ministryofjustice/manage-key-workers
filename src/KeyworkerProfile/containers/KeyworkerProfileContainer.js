@@ -63,9 +63,7 @@ class KeyworkerProfileContainer extends Component {
     const { agencyId, match, keyworkerStatsDispatch } = this.props
     const format = 'YYYY-MM-DD'
     const toDate = moment().format(format)
-    const fromDate = moment()
-      .subtract(1, 'month')
-      .format(format)
+    const fromDate = moment().subtract(1, 'month').format(format)
 
     const response = await axios.get('/api/keyworker-profile-stats', {
       params: {
@@ -115,7 +113,7 @@ class KeyworkerProfileContainer extends Component {
     keyworkerChangeListDispatch(changeList)
   }
 
-  makeKeyworkerProfileCall = async staffId => {
+  makeKeyworkerProfileCall = async (staffId) => {
     const { agencyId } = this.props
     const response = await axios.get('/api/keyworker', {
       params: {
@@ -126,7 +124,7 @@ class KeyworkerProfileContainer extends Component {
     return response.data
   }
 
-  handleEditProfileClick = history => {
+  handleEditProfileClick = (history) => {
     const { keyworkerCapacityDispatch, keyworkerStatusDispatch, keyworker } = this.props
     // initialise inputs with current capacity value
     keyworkerCapacityDispatch(keyworker.capacity.toString())
@@ -134,7 +132,7 @@ class KeyworkerProfileContainer extends Component {
     history.push(`/key-worker/${keyworker.staffId}/edit`)
   }
 
-  postAllocationChange = async history => {
+  postAllocationChange = async (history) => {
     const { agencyId, keyworkerChangeList, setMessageDispatch, keyworkerChangeListDispatch, handleError } = this.props
     try {
       if (keyworkerChangeList && keyworkerChangeList.length > 0) {
@@ -197,7 +195,7 @@ KeyworkerProfileContainer.propTypes = {
   keyworkerStatsDispatch: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
@@ -210,16 +208,16 @@ const mapStateToProps = state => ({
   message: state.app.message,
 })
 
-const mapDispatchToProps = dispatch => ({
-  keyworkerAllocationsDispatch: list => dispatch(setKeyworkerAllocationList(list)),
-  keyworkerDispatch: id => dispatch(setKeyworker(id)),
-  keyworkerStatsDispatch: stats => dispatch(setKeyworkerStats(stats)),
-  keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
-  availableKeyworkerListDispatch: list => dispatch(setAvailableKeyworkerList(list)),
-  keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
-  keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status)),
+const mapDispatchToProps = (dispatch) => ({
+  keyworkerAllocationsDispatch: (list) => dispatch(setKeyworkerAllocationList(list)),
+  keyworkerDispatch: (id) => dispatch(setKeyworker(id)),
+  keyworkerStatsDispatch: (stats) => dispatch(setKeyworkerStats(stats)),
+  keyworkerChangeListDispatch: (list) => dispatch(setKeyworkerChangeList(list)),
+  availableKeyworkerListDispatch: (list) => dispatch(setAvailableKeyworkerList(list)),
+  keyworkerCapacityDispatch: (capacity) => dispatch(setKeyworkerCapacity(capacity)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
+  keyworkerStatusDispatch: (status) => dispatch(setKeyworkerStatus(status)),
 })
 
 export { KeyworkerProfileContainer }

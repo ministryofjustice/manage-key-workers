@@ -77,19 +77,19 @@ OffenderSearchContainer.propTypes = {
   dispatchLoaded: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   locations: state.offenderSearch.locations,
   searchText: state.offenderSearch.searchText,
   allocationStatus: state.offenderSearch.allocationStatus,
   validationErrors: state.app.validationErrors,
 })
 
-const mapDispatchToProps = dispatch => ({
-  offenderSearchLocationsDispatch: locationList => dispatch(setOffenderSearchLocations(locationList)),
-  keyworkerChangeListDispatch: list => dispatch(setKeyworkerChangeList(list)),
+const mapDispatchToProps = (dispatch) => ({
+  offenderSearchLocationsDispatch: (locationList) => dispatch(setOffenderSearchLocations(locationList)),
+  keyworkerChangeListDispatch: (list) => dispatch(setKeyworkerChangeList(list)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
   resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
-  dispatchLoaded: value => dispatch(setLoaded(value)),
+  dispatchLoaded: (value) => dispatch(setLoaded(value)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OffenderSearchContainer)

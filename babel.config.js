@@ -11,7 +11,7 @@ const plugins = [
 
 const ignore = ['.spec.js', '.test.js', '-test.js', '/__tests__/']
 
-module.exports = api => {
+module.exports = (api) => {
   api.cache(() => process.env.NODE_ENV)
   return {
     presets,

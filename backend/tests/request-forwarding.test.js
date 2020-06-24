@@ -40,8 +40,8 @@ describe('Test request forwarding', () => {
   describe('pagination headers on response', () => {
     const responseHeaders = { 'total-records': '100', 'test-header': 'test-value' }
 
-    const apiFunction = context =>
-      new Promise(resolve => {
+    const apiFunction = (context) =>
+      new Promise((resolve) => {
         contextProperties.setResponsePagination(context, responseHeaders)
         resolve()
       })
@@ -57,15 +57,9 @@ describe('Test request forwarding', () => {
     const request = supertest(app)
 
     it('pagination headers should be set on response to get', () =>
-      request
-        .get('/app/me/locations')
-        .expect(200)
-        .expect('total-records', '100'))
+      request.get('/app/me/locations').expect(200).expect('total-records', '100'))
 
     it('pagination headers should be set on response to post', () =>
-      request
-        .post('/app/me/locations')
-        .expect(200)
-        .expect('total-records', '100'))
+      request.post('/app/me/locations').expect(200).expect('total-records', '100'))
   })
 })

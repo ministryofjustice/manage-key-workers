@@ -217,82 +217,21 @@ const component = shallow(<KeyworkerProfile {...props} />)
 
 describe('Keyworker Profile component', () => {
   it('should render component correctly', async () => {
-    expect(
-      component
-        .find('#keyworker-status')
-        .at(0)
-        .prop('className')
-    ).toContain('inactiveStatus')
+    expect(component.find('#keyworker-status').at(0).prop('className')).toContain('inactiveStatus')
     expect(component.find('tr').length).toEqual(4) // includes header tr
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(OFFENDER_NAME_COLUMN)
-        .text()
-    ).toEqual('Bennett, Lucinda')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(NOMS_ID_COLUMN)
-        .text()
-    ).toEqual('ZB125WX')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(LOCATION_COLUMN)
-        .text()
-    ).toEqual('L-2-2')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(CRD_COLUMN)
-        .text()
-    ).toEqual('20/10/2019')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(CSRA_COLUMN)
-        .text()
-    ).toEqual(NO_DATA)
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(KW_ACTIVITY_COLUMN)
-        .text()
-    ).toEqual('01/06/2018')
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(LAST_KW_SESSION_DATE_COLUMN)
-        .text()
-    ).toEqual('3')
+    expect(component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Bennett, Lucinda')
+    expect(component.find('tr').at(3).find('td').at(NOMS_ID_COLUMN).text()).toEqual('ZB125WX')
+    expect(component.find('tr').at(3).find('td').at(LOCATION_COLUMN).text()).toEqual('L-2-2')
+    expect(component.find('tr').at(3).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019')
+    expect(component.find('tr').at(3).find('td').at(CSRA_COLUMN).text()).toEqual(NO_DATA)
+    expect(component.find('tr').at(3).find('td').at(KW_ACTIVITY_COLUMN).text()).toEqual('01/06/2018')
+    expect(component.find('tr').at(3).find('td').at(LAST_KW_SESSION_DATE_COLUMN).text()).toEqual('3')
     expect(component.find('#updateAllocationButton').length).toEqual(1)
     expect(component.find('#active-date').length).toEqual(0)
   })
 
   it('should remove keyworker from select if currently allocated', async () => {
-    expect(
-      component
-        .find('tr')
-        .at(2)
-        .find('td')
-        .at(KEYWORKER_SELECT_COLUMN)
-        .find('option').length
-    ).toEqual(4)
+    expect(component.find('tr').at(2).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(4)
   })
 
   it('should handle click correctly', async () => {
@@ -309,12 +248,7 @@ describe('Keyworker Profile component', () => {
 
   it('should render active date if status = annual leave', async () => {
     component.setProps({ keyworker: keyworkerWithActiveDate })
-    expect(
-      component
-        .find('#active-date')
-        .at(0)
-        .text()
-    ).toEqual('28/06/2018')
+    expect(component.find('#active-date').at(0).text()).toEqual('28/06/2018')
   })
 
   it('should show the edit profile and update buttons when the user has write access', () => {
@@ -323,12 +257,7 @@ describe('Keyworker Profile component', () => {
   })
 
   it('should not disable the allocate new key worker drop down when the user has write access', () => {
-    const dropDown = component
-      .find('tr')
-      .at(1)
-      .find('td')
-      .at(KEYWORKER_SELECT_COLUMN)
-      .find('select')
+    const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select')
 
     expect(dropDown.props().disabled).toBe(false)
   })
@@ -341,12 +270,7 @@ describe('Keyworker Profile component', () => {
     })
 
     it('should disable the allocate new key worker drop down', () => {
-      const dropDown = component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(KEYWORKER_SELECT_COLUMN)
-        .find('select')
+      const dropDown = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('select')
 
       expect(dropDown.props().disabled).toBe(true)
     })
@@ -355,39 +279,17 @@ describe('Keyworker Profile component', () => {
   it('should only show the de-allocate KW drop down when the offender in different prison', async () => {
     component.setProps({ keyworkerAllocations: allocatedOffendersWithDangling })
 
-    expect(
-      component
-        .find('tr')
-        .at(3)
-        .find('td')
-        .at(KEYWORKER_SELECT_COLUMN)
-        .find('option').length
-    ).toEqual(2)
+    expect(component.find('tr').at(3).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2)
   })
 
   it('should not provide offender link when the offender in different prison', () => {
-    const activeLink = component
-      .find('tr')
-      .at(1)
-      .find('td')
-      .at(OFFENDER_NAME_COLUMN)
-      .find('a')
+    const activeLink = component.find('tr').at(1).find('td').at(OFFENDER_NAME_COLUMN).find('a')
     expect(activeLink.props().href).toBe('offenders/ZZ124WX/quick-look')
 
-    const nextActiveLink = component
-      .find('tr')
-      .at(2)
-      .find('td')
-      .at(OFFENDER_NAME_COLUMN)
-      .find('a')
+    const nextActiveLink = component.find('tr').at(2).find('td').at(OFFENDER_NAME_COLUMN).find('a')
     expect(nextActiveLink.props().href).toBe('offenders/ZB125WX/quick-look')
 
-    const noLink = component
-      .find('tr')
-      .at(3)
-      .find('td')
-      .at(OFFENDER_NAME_COLUMN)
-      .html()
+    const noLink = component.find('tr').at(3).find('td').at(OFFENDER_NAME_COLUMN).html()
     expect(noLink).toBe('<td class="row-gutters">Buckley, Jeff</td>')
   })
 

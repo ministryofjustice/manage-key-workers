@@ -1,4 +1,4 @@
-const manualAllocationAndMigrateFactory = keyworkerApi => {
+const manualAllocationAndMigrateFactory = (keyworkerApi) => {
   const enableManualAllocationAndMigrate = async (req, res) => {
     const { agencyId } = req.query
     const update = req.body

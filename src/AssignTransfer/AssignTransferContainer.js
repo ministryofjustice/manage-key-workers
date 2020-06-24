@@ -38,16 +38,16 @@ class AssignTransferContainer extends Component {
       <div>
         {initialSearch ? (
           <OffenderSearchContainer
-            handleSearchTextChange={event => this.handleSearchTextChange(event)}
-            handleSearchAllocationStatusChange={event => this.handleSearchAllocationStatusChange(event)}
-            handleSearchHousingLocationChange={event => this.handleSearchHousingLocationChange(event)}
+            handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+            handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
+            handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)}
             {...this.props}
           />
         ) : (
           <OffenderResultsContainer
-            handleSearchTextChange={event => this.handleSearchTextChange(event)}
-            handleSearchAllocationStatusChange={event => this.handleSearchAllocationStatusChange(event)}
-            handleSearchHousingLocationChange={event => this.handleSearchHousingLocationChange(event)}
+            handleSearchTextChange={(event) => this.handleSearchTextChange(event)}
+            handleSearchAllocationStatusChange={(event) => this.handleSearchAllocationStatusChange(event)}
+            handleSearchHousingLocationChange={(event) => this.handleSearchHousingLocationChange(event)}
             {...this.props}
           />
         )}
@@ -74,7 +74,7 @@ AssignTransferContainer.defaultProps = {
   initialSearch: false,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.app.user,
   searchText: state.offenderSearch.searchText,
   allocationStatus: state.offenderSearch.allocationStatus,
@@ -85,12 +85,12 @@ const mapStateToProps = state => ({
   agencyId: state.app.user.activeCaseLoadId,
 })
 
-const mapDispatchToProps = dispatch => ({
-  offenderSearchTextDispatch: text => dispatch(setOffenderSearchText(text)),
-  offenderSearchAllocationStatusDispatch: status => dispatch(setOffenderSearchAllocationStatus(status)),
-  offenderSearchHousingLocationDispatch: location => dispatch(setOffenderSearchHousingLocation(location)),
-  setErrorDispatch: error => dispatch(setError(error)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
+const mapDispatchToProps = (dispatch) => ({
+  offenderSearchTextDispatch: (text) => dispatch(setOffenderSearchText(text)),
+  offenderSearchAllocationStatusDispatch: (status) => dispatch(setOffenderSearchAllocationStatus(status)),
+  offenderSearchHousingLocationDispatch: (location) => dispatch(setOffenderSearchHousingLocation(location)),
+  setErrorDispatch: (error) => dispatch(setError(error)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
 })
 
 export { AssignTransferContainer }

@@ -9,21 +9,21 @@ import Date from '../Components/Date'
 import { switchToIsoDateFormat, renderDate } from '../stringUtils'
 import { formInputType, formMetaType } from '../types'
 
-const showPastDatesOnly = date => date && date.isBefore(moment().startOf('day'))
+const showPastDatesOnly = (date) => date && date.isBefore(moment().startOf('day'))
 
 const DateAdapter = ({ input, meta, ...rest }) => (
   <Date
     {...input}
     {...rest}
     shouldShowDay={showPastDatesOnly}
-    onChange={value => input.onChange(value)}
-    onBlur={event => input.onBlur(event)}
+    onChange={(value) => input.onChange(value)}
+    onBlur={(event) => input.onBlur(event)}
     meta={meta}
     errorText={meta.touched ? meta.error : ''}
   />
 )
 
-const validate = values => {
+const validate = (values) => {
   const errors = {}
   const fromDate = switchToIsoDateFormat(values.fromDate)
   const toDate = switchToIsoDateFormat(values.toDate)

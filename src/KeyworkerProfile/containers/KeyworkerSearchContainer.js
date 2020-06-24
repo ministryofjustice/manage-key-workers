@@ -17,13 +17,13 @@ class KeyworkerSearchContainer extends Component {
     props.dispatchLoaded(true)
   }
 
-  handleSearchTextChange = event => {
+  handleSearchTextChange = (event) => {
     const { keyworkerSearchTextDispatch } = this.props
 
     keyworkerSearchTextDispatch(event.target.value)
   }
 
-  handleStatusFilterChange = event => {
+  handleStatusFilterChange = (event) => {
     const { keyworkerStatusFilterDispatch } = this.props
 
     keyworkerStatusFilterDispatch(event.target.value)
@@ -57,16 +57,16 @@ KeyworkerSearchContainer.propTypes = {
   dispatchLoaded: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   searchText: state.keyworkerSearch.searchText,
   statusFilter: state.keyworkerSearch.statusFilter,
   agencyId: state.app.user.activeCaseLoadId,
   keyworkerList: state.keyworkerSearch.keyworkerSearchResults,
 })
 
-const mapDispatchToProps = dispatch => ({
-  keyworkerSearchTextDispatch: text => dispatch(setKeyworkerSearchText(text)),
-  keyworkerStatusFilterDispatch: status => dispatch(setKeyworkerStatusFilter(status)),
+const mapDispatchToProps = (dispatch) => ({
+  keyworkerSearchTextDispatch: (text) => dispatch(setKeyworkerSearchText(text)),
+  keyworkerStatusFilterDispatch: (status) => dispatch(setKeyworkerStatusFilter(status)),
   resetErrorDispatch: () => dispatch(resetError()),
 })
 

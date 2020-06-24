@@ -171,11 +171,11 @@ describe('Allocated controller', () => {
   })
 
   it('Should map classifications for offenders', () => {
-    expect(response.allocatedResponse.map(a => a.crsaClassification)).toEqual(['High', null, 'Low', 'Silly', null])
+    expect(response.allocatedResponse.map((a) => a.crsaClassification)).toEqual(['High', null, 'Low', 'Silly', null])
   })
 
   it('Should map release date for offenders', () => {
-    expect(response.allocatedResponse.map(a => a.confirmedReleaseDate)).toEqual([
+    expect(response.allocatedResponse.map((a) => a.confirmedReleaseDate)).toEqual([
       '2024-03-03',
       '2025-04-03',
       null,

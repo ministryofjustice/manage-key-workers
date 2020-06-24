@@ -11,7 +11,7 @@ class Unallocated extends Component {
 
     if (!(unallocatedList && unallocatedList.map)) return []
 
-    return unallocatedList.map(a => {
+    return unallocatedList.map((a) => {
       const formattedName = `${properCaseName(a.lastName)}, ${properCaseName(a.firstName)}`
       return (
         <tr key={a.offenderNo}>

@@ -30,7 +30,7 @@ class KeyworkerProfileEditContainer extends Component {
     }
   }
 
-  handleSaveChanges = async history => {
+  handleSaveChanges = async (history) => {
     if (!this.validate()) {
       return
     }
@@ -89,18 +89,18 @@ class KeyworkerProfileEditContainer extends Component {
     )
   }
 
-  handleCancel = history => {
+  handleCancel = (history) => {
     // Return to profile page
     history.goBack()
   }
 
-  handleStatusChange = event => {
+  handleStatusChange = (event) => {
     const { keyworkerStatusDispatch } = this.props
 
     keyworkerStatusDispatch(event.target.value)
   }
 
-  handleCapacityChange = event => {
+  handleCapacityChange = (event) => {
     const { keyworkerCapacityDispatch } = this.props
 
     keyworkerCapacityDispatch(event.target.value)
@@ -151,7 +151,7 @@ KeyworkerProfileEditContainer.propTypes = {
   user: userType.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   user: state.app.user,
   agencyId: state.app.user.activeCaseLoadId,
@@ -163,11 +163,11 @@ const mapStateToProps = state => ({
   resetValidationErrorsDispatch: PropTypes.func,
 })
 
-const mapDispatchToProps = dispatch => ({
-  keyworkerDispatch: object => dispatch(setKeyworker(object)),
-  keyworkerStatusDispatch: status => dispatch(setKeyworkerStatus(status)),
-  keyworkerCapacityDispatch: capacity => dispatch(setKeyworkerCapacity(capacity)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
+const mapDispatchToProps = (dispatch) => ({
+  keyworkerDispatch: (object) => dispatch(setKeyworker(object)),
+  keyworkerStatusDispatch: (status) => dispatch(setKeyworkerStatus(status)),
+  keyworkerCapacityDispatch: (capacity) => dispatch(setKeyworkerCapacity(capacity)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
   setValidationErrorDispatch: (fieldName, message) => dispatch(setValidationError(fieldName, message)),
   resetValidationErrorsDispatch: () => dispatch(resetValidationErrors()),
 })

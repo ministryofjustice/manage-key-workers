@@ -143,7 +143,7 @@ ProvisionalContainer.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.app.user,
   allocatedList: state.allocated.allocatedList,
   keyworkerList: state.allocated.keyworkerList,
@@ -153,12 +153,12 @@ const mapStateToProps = state => ({
   loaded: state.app.loaded,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   allocatedDetailsDispatch: (allocatedList, keyworkerList) =>
     dispatch(setAllocatedDetails(allocatedList, keyworkerList)),
-  manualOverrideDispatch: allocatedKeyworkers => dispatch(manualOverride(allocatedKeyworkers)),
-  setMessageDispatch: message => dispatch(setMessage(message)),
-  setLoadedDispatch: status => dispatch(setLoaded(status)),
+  manualOverrideDispatch: (allocatedKeyworkers) => dispatch(manualOverride(allocatedKeyworkers)),
+  setMessageDispatch: (message) => dispatch(setMessage(message)),
+  setLoadedDispatch: (status) => dispatch(setLoaded(status)),
 })
 
 export { ProvisionalContainer }

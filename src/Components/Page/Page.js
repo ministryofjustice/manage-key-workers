@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { H1 } from '@govuk-react/heading'
@@ -26,7 +26,7 @@ export class Page extends Component {
     resetErrorDispatch()
   }
 
-  renderTitleString = title => {
+  renderTitleString = (title) => {
     document.title = `${title} - Key worker - Digital Prison Services`
   }
 
@@ -35,7 +35,7 @@ export class Page extends Component {
 
     if (loaded || error) {
       return (
-        <Fragment>
+        <>
           {showBreadcrumb && <Breadcrumb />}
           <Container>
             {error &&
@@ -50,7 +50,7 @@ export class Page extends Component {
             <H1 size="LARGE">{title}</H1>
             {(!error || alwaysRender) && <div className="page-content">{children}</div>}
           </Container>
-        </Fragment>
+        </>
       )
     }
 
@@ -73,12 +73,12 @@ Page.defaultProps = {
   showBreadcrumb: true,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.app.error,
   loaded: state.app.loaded,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   resetErrorDispatch: () => dispatch(resetError()),
 })
 

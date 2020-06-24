@@ -123,54 +123,12 @@ describe('ManualAllocation component', () => {
     )
 
     expect(component.find('tr').length).toEqual(4) // includes table header tr
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(OFFENDER_NAME_COLUMN)
-        .text()
-    ).toEqual('Rendell, Steve')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(NOMS_ID_COLUMN)
-        .text()
-    ).toEqual('ZZ124WX')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(LOCATION_COLUMN)
-        .text()
-    ).toEqual('L-1-1')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(CRD_COLUMN)
-        .text()
-    ).toEqual('20/10/2019')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(CSRA_COLUMN)
-        .text()
-    ).toEqual('Standard')
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(KEYWORKER_NAME_COLUMN)
-        .text()
-    ).toContain('Hanson, Sam')
+    expect(component.find('tr').at(1).find('td').at(OFFENDER_NAME_COLUMN).text()).toEqual('Rendell, Steve')
+    expect(component.find('tr').at(1).find('td').at(NOMS_ID_COLUMN).text()).toEqual('ZZ124WX')
+    expect(component.find('tr').at(1).find('td').at(LOCATION_COLUMN).text()).toEqual('L-1-1')
+    expect(component.find('tr').at(1).find('td').at(CRD_COLUMN).text()).toEqual('20/10/2019')
+    expect(component.find('tr').at(1).find('td').at(CSRA_COLUMN).text()).toEqual('Standard')
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_NAME_COLUMN).text()).toContain('Hanson, Sam')
     expect(component.find('.button-save').length).toEqual(1)
     expect(component.find('.button-cancel').length).toEqual(1)
   })
@@ -205,14 +163,7 @@ describe('ManualAllocation component', () => {
         history={mockHistory}
       />
     )
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(KEYWORKER_SELECT_COLUMN)
-        .find('option').length
-    ).toEqual(2)
+    expect(component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(2)
   })
 
   it('should handle submit click correctly', async () => {
@@ -272,14 +223,7 @@ describe('ManualAllocation component', () => {
         history={mockHistory}
       />
     )
-    expect(
-      component
-        .find('tr')
-        .at(1)
-        .find('td')
-        .at(5)
-        .text()
-    ).toMatch(/Hanson, Sam \(4\)/)
+    expect(component.find('tr').at(1).find('td').at(5).text()).toMatch(/Hanson, Sam \(4\)/)
   })
 
   it('should not display allocations if keyworker details unavailable', async () => {
@@ -295,13 +239,6 @@ describe('ManualAllocation component', () => {
         history={mockHistory}
       />
     )
-    expect(
-      component
-        .find('tr')
-        .at(2)
-        .find('td')
-        .at(5)
-        .text()
-    ).toMatch(/999 \(no details available\)/)
+    expect(component.find('tr').at(2).find('td').at(5).text()).toMatch(/999 \(no details available\)/)
   })
 })

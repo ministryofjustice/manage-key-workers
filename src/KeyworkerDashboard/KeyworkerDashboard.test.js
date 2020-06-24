@@ -26,12 +26,7 @@ describe('<KeyworkerDashboard />', () => {
   it('render a message saying there is no data to display if there is no data', () => {
     const wrapper = shallow(<KeyworkerDashboard {...props} />)
 
-    expect(
-      wrapper
-        .find('NoDataMessage')
-        .render()
-        .text()
-    ).toEqual('There is no data for this period.')
+    expect(wrapper.find('NoDataMessage').render().text()).toEqual('There is no data for this period.')
   })
 
   describe('onSubmit()', () => {

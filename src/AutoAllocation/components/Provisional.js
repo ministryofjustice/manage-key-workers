@@ -28,7 +28,7 @@ class Provisional extends Component {
     return `${staffId} (no details available)`
   }
 
-  buildTableForRender = keyworkerOptions => {
+  buildTableForRender = (keyworkerOptions) => {
     const { allocatedList, allocatedKeyworkers, handleKeyworkerChange } = this.props
     const offenders = allocatedList.map((a, index) => {
       const currentSelectValue = allocatedKeyworkers[index] ? allocatedKeyworkers[index].staffId : ''
@@ -49,12 +49,12 @@ class Provisional extends Component {
               id={`keyworker-select-${a.offenderNo}`}
               className="form-control"
               value={currentSelectValue}
-              onChange={event => handleKeyworkerChange(event, index, a.offenderNo)}
+              onChange={(event) => handleKeyworkerChange(event, index, a.offenderNo)}
             >
               <option key="choose" value="--">
                 -- Select --
               </option>
-              {keyworkerOptions.filter(e => e.props.value !== a.staffId)}
+              {keyworkerOptions.filter((e) => e.props.value !== a.staffId)}
             </select>
           </td>
         </tr>
@@ -65,7 +65,7 @@ class Provisional extends Component {
 
   render() {
     const { keyworkerList, postManualOverride, onFinishAllocation, history } = this.props
-    const keyworkerOptions = keyworkerList.map(kw => {
+    const keyworkerOptions = keyworkerList.map((kw) => {
       const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`
       return (
         <option key={`option_${kw.staffId}`} value={kw.staffId}>
