@@ -56,12 +56,12 @@ class KeyworkerApi extends WireMockRule {
 
     void stubHealth() {
         this.stubFor(
-            get('/ping')
-            .willReturn(
+            get('/health/ping')
+                .willReturn(
                 aResponse()
-                        .withStatus(200)
-                        .withHeader('Content-Type', 'text/plain')
-                        .withBody("pong")))
+                    .withStatus(200)
+                    .withHeader('Content-Type', 'application/json')
+                    .withBody("{\"status\":\"UP\"}")))
     }
 
     void stubKeyworkerSearchResponse(AgencyLocation agencyLocation, nameFilter = '', statusFilter = '') {

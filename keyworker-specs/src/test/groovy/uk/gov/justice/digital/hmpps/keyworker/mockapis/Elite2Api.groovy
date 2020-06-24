@@ -359,12 +359,12 @@ class Elite2Api extends WireMockRule {
 
     void stubHealth() {
         this.stubFor(
-            get('/ping')
+            get('/health/ping')
                 .willReturn(
                 aResponse()
                     .withStatus(200)
-                    .withHeader('Content-Type', 'text/plain')
-                    .withBody("pong")))
+                    .withHeader('Content-Type', 'application/json')
+                    .withBody("{\"status\":\"UP\"}")))
     }
 
     void stubErrorWithMessage(url, status, message) {

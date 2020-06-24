@@ -168,12 +168,13 @@ class OauthApi extends WireMockRule {
 
     void stubHealth() {
         this.stubFor(
-                get('/auth/ping')
-                        .willReturn(
-                                aResponse()
-                                        .withStatus(200)
-                                        .withHeader('Content-Type', 'text/plain ')
-                                        .withBody("pong")))
+            get('/auth/health/ping')
+                .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader('Content-Type', 'application/json')
+                    .withBody("{\"status\":\"UP\"}")))
+
     }
 
 }
