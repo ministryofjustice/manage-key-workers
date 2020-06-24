@@ -21,9 +21,9 @@ const handleErrors = (res) => (error) => {
 
   res.status(errorStatusCode(error))
 
-  if (error.response && error.response.data) {
+  if (error.response && error.response.body) {
     res.json({
-      message: error.response.data.userMessage,
+      message: error.response.body.userMessage,
     })
   } else {
     res.end()

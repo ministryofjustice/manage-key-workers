@@ -10,7 +10,7 @@ const isNomisUser = (context) => context.authSource !== 'auth'
 const elite2ApiFactory = (client) => {
   const processResponse = (context) => (response) => {
     contextProperties.setResponsePagination(context, response.headers)
-    return response.data
+    return response.body
   }
 
   const get = (context, url, resultsLimit) => client.get(context, url, resultsLimit).then(processResponse(context))
@@ -22,11 +22,13 @@ const elite2ApiFactory = (client) => {
   const caseNoteUsageList = (context, offenderNumbers, staffId) =>
     get(
       context,
-      `api/case-notes/usage?type=KA&subType=KS&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(offenderNumbers)}`
+      `/api/case-notes/usage?type=KA&subType=KS&staffId=${staffId}&numMonths=1&${encodeOffenderNumbers(
+        offenderNumbers
+      )}`
     )
-  const csraList = (context, offenderNumbers) => post(context, 'api/offender-assessments/csra/list', offenderNumbers)
-  const userCaseLoads = (context) => (isNomisUser(context) ? get(context, 'api/users/me/caseLoads') : [])
-  const userLocations = (context) => (isNomisUser(context) ? get(context, 'api/users/me/locations') : [])
+  const csraList = (context, offenderNumbers) => post(context, '/api/offender-assessments/csra/list', offenderNumbers)
+  const userCaseLoads = (context) => (isNomisUser(context) ? get(context, '/api/users/me/caseLoads') : [])
+  const userLocations = (context) => (isNomisUser(context) ? get(context, '/api/users/me/locations') : [])
 
   /**
    * Retrive information about offender bookings that satisfy the provided selection criteria.
@@ -57,15 +59,15 @@ const elite2ApiFactory = (client) => {
   const searchOffenders = (context, keywords, locationPrefix, resultsLimit) =>
     get(
       context,
-      `api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`,
+      `/api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`,
       resultsLimit
     )
-  const sentenceDetailList = (context, offenderNumbers) => post(context, 'api/offender-sentences', offenderNumbers)
+  const sentenceDetailList = (context, offenderNumbers) => post(context, '/api/offender-sentences', offenderNumbers)
 
   // NB. This function expects a caseload object.
   // The object *must* have non-blank caseLoadId,  description and type properties.
   // However, only 'caseLoadId' has meaning.  The other two properties can take *any* non-blank value and these will be ignored.
-  const setActiveCaseload = (context, caseload) => put(context, 'api/users/me/activeCaseLoad', caseload)
+  const setActiveCaseload = (context, caseload) => put(context, '/api/users/me/activeCaseLoad', caseload)
 
   return {
     caseNoteUsageList,

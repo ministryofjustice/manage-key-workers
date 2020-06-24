@@ -133,7 +133,7 @@
   },
   "scripts": {
     "start": "node backend/index.js",
-    "start-feature": "PORT=3005 OAUTH_ENDPOINT_URL=http://localhost:19090/auth/ API_ENDPOINT_URL=http://localhost:18080/ KEYWORKER_API_URL=http://localhost:18081/ node backend/index.js",
+    "start-feature": "export $(cat $npm_config_env) && node backend/index.js",
     "start-prod": "NODE_ENV=production node backend/index.js",
     "build": "webpack --mode=production",
     "build:analyse": "BUNDLE_ANALYSE=true npm run build",

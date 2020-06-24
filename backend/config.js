@@ -35,18 +35,18 @@ const hmppsCookie = {
 
 const apis = {
   oauth2: {
-    url: process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth/',
+    url: process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth',
     ui_url: process.env.OAUTH_ENDPOINT_UI_URL || process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth/',
     timeoutSeconds: process.env.OAUTH_ENDPOINT_TIMEOUT_SECONDS || 10,
     clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
     clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
   },
   elite2: {
-    url: process.env.API_ENDPOINT_URL || 'http://localhost:8080/',
+    url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 30,
   },
   keyworker: {
-    url: process.env.KEYWORKER_API_URL || 'http://localhost:8081/',
+    url: process.env.KEYWORKER_API_URL || 'http://localhost:8081',
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
     ui_url: process.env.MANAGE_KEY_WORKERS_URL,
   },

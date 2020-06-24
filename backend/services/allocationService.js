@@ -111,8 +111,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
   }
 
   function warning(error) {
-    if (error.response && error.response.data) {
-      const msg = error.response.data.userMessage
+    if (error.response && error.response.body) {
+      const msg = error.response.body.userMessage
       if (
         msg === 'No Key workers available for allocation.' ||
         msg === 'All available Key workers are at full capacity.'

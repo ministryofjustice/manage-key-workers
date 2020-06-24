@@ -70,6 +70,7 @@ class KeyworkerApi extends WireMockRule {
             .willReturn(
                 aResponse()
                     .withBody(KeyworkerSearchResponse.response)
+                    .withHeader('Content-Type', 'application/json;charset=UTF-8')
                     .withStatus(200))
         )
     }
@@ -81,6 +82,7 @@ class KeyworkerApi extends WireMockRule {
                         .willReturn(
                         aResponse()
                                 .withBody(KeyworkerPrisonStatsResponse.response)
+                                .withHeader('Content-Type', 'application/json;charset=UTF-8')
                                 .withStatus(200))
         )
     }
@@ -92,6 +94,7 @@ class KeyworkerApi extends WireMockRule {
                         .willReturn(
                         aResponse()
                                 .withBody(KeyworkerPrisonStatsResponse.noCurrentDataResponse)
+                                .withHeader('Content-Type', 'application/json;charset=UTF-8')
                                 .withStatus(200))
         )
     }
@@ -101,6 +104,7 @@ class KeyworkerApi extends WireMockRule {
             get("/key-worker/${staffId}/prison/${agencyLocation.id}")
                 .willReturn(aResponse()
                 .withBody(KeyworkerDetailResponse.getResponse(staffId))
+                .withHeader('Content-Type', 'application/json;charset=UTF-8')
                 .withStatus(200))
         )
     }
@@ -110,6 +114,7 @@ class KeyworkerApi extends WireMockRule {
             get("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${agencyLocation.id}")
                 .willReturn(aResponse()
                 .withBody(KeyworkerDetailResponse.response_keyworker_inactive)
+                .withHeader('Content-Type', 'application/json;charset=UTF-8')
                 .withStatus(200))
         )
     }
@@ -119,6 +124,7 @@ class KeyworkerApi extends WireMockRule {
             get("/key-worker/${KeyworkerResultsPage.test_keyworker_staffId}/prison/${agencyLocation.id}/offenders")
                 .willReturn(aResponse()
                 .withBody(AllocationsForKeyworkerResponse.response)
+                .withHeader('Content-Type', 'application/json;charset=UTF-8')
                 .withStatus(200))
         )
     }
@@ -131,6 +137,7 @@ class KeyworkerApi extends WireMockRule {
                     .withBody(insufficient ?
                         AvailableKeyworkerResponse.insufficientResponse :
                         AvailableKeyworkerResponse.response)
+                    .withHeader('Content-Type', 'application/json;charset=UTF-8')
                     .withStatus(200))
         )
     }
@@ -148,6 +155,7 @@ class KeyworkerApi extends WireMockRule {
                 .willReturn(
                     aResponse()
                         .withBody(UnallocatedResponse.response)
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withStatus(200))
         )
     }
@@ -156,6 +164,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post("/key-worker/${agencyLocation.id}/allocate/start")
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withStatus(200))
         )
     }
@@ -164,6 +173,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post("/key-worker/allocate")
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withStatus(200))
         )
     }
@@ -172,6 +182,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post("/key-worker/${agencyLocation.id}/allocate/start")
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withStatusMessage("Request failed with status code 400")
                         .withBody('''{"status":400,"userMessage":"No Key workers available for allocation."}''')
                         .withStatus(400))
@@ -182,6 +193,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 get(urlPathEqualTo("/key-worker/${agencyLocation.id}/allocations"))//?allocationType=P&fromDate=.*&toDate=.*"))  urlMatching(...)
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withBody(AllocatedResponse.response)
                         .withStatus(200))
         )
@@ -191,6 +203,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post(urlPathEqualTo("/key-worker/${agencyLocation.id}/offenders"))
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withBody(OffenderSearchResponse.keyworkersOfOffenders)
                         .withStatus(200))
         )
@@ -209,6 +222,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 get(urlPathEqualTo("/key-worker/prison/${agencyLocation.id}"))
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withBody(json)
                         .withStatus(200)))
     }
@@ -226,6 +240,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post(urlPathEqualTo("/key-worker/enable/${agencyLocation.id}/auto-allocate"))
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withBody(json)
                         .withStatus(200))
         )
@@ -243,6 +258,7 @@ class KeyworkerApi extends WireMockRule {
         this.stubFor(
                 post(urlPathEqualTo("/key-worker/enable/${agencyLocation.id}/manual"))
                         .willReturn(aResponse()
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withBody(json)
                         .withStatus(200))
         )
@@ -253,6 +269,7 @@ class KeyworkerApi extends WireMockRule {
                 get(urlPathEqualTo("/key-worker-stats/${KeyworkerResultsPage.test_keyworker_staffId}/prison/LEI"))
                         .willReturn(aResponse()
                         .withBody(KeyworkerStatsResponse.statsForStaffResponse)
+                        .withHeader('Content-Type', 'application/json;charset=UTF-8')
                         .withStatus(200)))
     }
 }
