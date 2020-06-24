@@ -60,11 +60,6 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
     withErrorHandler(keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
   )
   router.use('/api/keyworker-prison-stats', withErrorHandler(controller.getPrisonStats))
-
-  router.use('/manage-key-workers', (req, res, next) => {
-    res.redirect(req.url.replace(/\/manage-key-workers(.*)$/gi, '$1'))
-    next()
-  })
   return router
 }
 
