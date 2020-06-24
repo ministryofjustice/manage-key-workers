@@ -48,7 +48,7 @@ class HealthSpecification extends Specification {
     def "Health page reports API down"() {
 
         given:
-        keyworkerApi.stubDelayedError('/ping', 500)
+        keyworkerApi.stubDelayedError('/health/ping', 500)
         elite2Api.stubHealth()
         oauthApi.stubHealth()
 
