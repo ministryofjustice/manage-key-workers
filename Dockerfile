@@ -21,7 +21,7 @@ USER 2000
 WORKDIR /app
 ADD --chown=appuser:appgroup . .
 
-RUN npm ci --no-audit && \
+RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit && \
     npm run build && \
     export BUILD_NUMBER=${BUILD_NUMBER} && \
     export GIT_REF=${GIT_REF} && \

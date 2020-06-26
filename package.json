@@ -99,6 +99,8 @@
     "chai": "^4.1.2",
     "copy-webpack-plugin": "^6.0.0",
     "css-loader": "^1.0.0",
+    "cypress": "^4.9.0",
+    "cypress-multi-reporters": "^1.4.0",
     "dotenv-expand": "^4.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
@@ -106,6 +108,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-react": "^1.1.7",
+    "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
@@ -144,7 +147,9 @@
     "plant-beanstalk": "node scripts/plant-beanstalk.js",
     "lint": "node node_modules/eslint/bin/eslint.js --max-warnings 0 src backend",
     "verify": "npm run lint && npm test",
-    "security_audit": "npx audit-ci --config audit-ci.json"
+    "security_audit": "npx audit-ci --config audit-ci.json",
+    "int-test": "cypress run",
+    "int-test-ui": "cypress open"
   },
   "husky": {
     "hooks": {
