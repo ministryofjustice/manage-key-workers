@@ -131,7 +131,7 @@ A choice of web browsers can be configured, though Chrome or Chrome headless are
 
    - In one terminal session, from the project root : 
 
-       ```npm run start-feature```
+       ```npm run start-feature --env=feature.env```
 
    - In another terminal, from the project root :
 

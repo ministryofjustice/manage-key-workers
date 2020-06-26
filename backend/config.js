@@ -1,6 +1,7 @@
 const app = {
   port: process.env.PORT || 3001,
   production: process.env.NODE_ENV === 'production',
+  disableWebpack: process.env.DISABLE_WEBPACK === 'true',
   notmEndpointUrl: process.env.NN_ENDPOINT_URL || 'http://localhost:3000/',
   prisonStaffHubUrl: process.env.PRISON_STAFF_HUB_UI_URL || 'http://localhost:3002/',
   mailTo: process.env.MAIL_TO || 'feedback@digital.justice.gov.uk',
@@ -36,7 +37,7 @@ const hmppsCookie = {
 const apis = {
   oauth2: {
     url: process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth',
-    ui_url: process.env.OAUTH_ENDPOINT_UI_URL || process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth/',
+    ui_url: process.env.OAUTH_ENDPOINT_UI_URL || process.env.OAUTH_ENDPOINT_URL || 'http://localhost:9090/auth',
     timeoutSeconds: process.env.OAUTH_ENDPOINT_TIMEOUT_SECONDS || 10,
     clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
     clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
