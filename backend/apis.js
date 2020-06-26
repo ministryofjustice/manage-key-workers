@@ -3,6 +3,7 @@ const clientFactory = require('./api/oauthEnabledClient')
 const { elite2ApiFactory } = require('./api/elite2Api')
 const { oauthApiFactory } = require('./api/oauthApi')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
+const { tokenVerificationApiFactory } = require('./api/tokenVerificationApi')
 
 const elite2Api = elite2ApiFactory(
   clientFactory({
@@ -26,8 +27,16 @@ const keyworkerApi = keyworkerApiFactory(
   })
 )
 
+const tokenVerificationApi = tokenVerificationApiFactory(
+  clientFactory({
+    baseUrl: config.apis.tokenverification.url,
+    timeout: config.apis.tokenverification.timeoutSeconds * 1000,
+  })
+)
+
 module.exports = {
   elite2Api,
   oauthApi,
   keyworkerApi,
+  tokenVerificationApi,
 }

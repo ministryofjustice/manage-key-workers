@@ -51,7 +51,12 @@ app.use(
   })
 )
 
-const health = healthFactory(config.apis.oauth2.url, config.apis.elite2.url, config.apis.keyworker.url)
+const health = healthFactory(
+  config.apis.oauth2.url,
+  config.apis.elite2.url,
+  config.apis.keyworker.url,
+  config.apis.tokenverification.url
+)
 
 app.get('/health', (req, res, next) => {
   health((err, result) => {
@@ -88,7 +93,7 @@ app.get('/terms', async (req, res) => {
 })
 
 app.use(setupWebSession())
-app.use(setupAuth({ oauthApi: apis.oauthApi }))
+app.use(setupAuth({ oauthApi: apis.oauthApi, tokenVerificationApi: apis.tokenVerificationApi }))
 
 // Ensure cookie session is extended (once per minute) when user interacts with the server
 app.use((req, res, next) => {

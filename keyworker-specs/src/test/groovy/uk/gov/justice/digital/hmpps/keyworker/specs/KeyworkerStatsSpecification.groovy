@@ -6,6 +6,7 @@ import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.TokenVerificationApi
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerResultsPage
@@ -26,7 +27,10 @@ class KeyworkerStatsSpecification extends BrowserReportingSpec {
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
+    @Rule
+    TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
 
     def "should populate the key worker profile page with stats for a member of staff"() {
         given: "I am logged in"

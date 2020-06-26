@@ -5,6 +5,7 @@ import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.TokenVerificationApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.pages.*
@@ -22,7 +23,10 @@ class KeyworkerProfileSpecification extends BrowserReportingSpec {
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
+    @Rule
+    TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
 
     def "key worker profile is displayed correctly"() {
         given: "I am at the key worker profile page"

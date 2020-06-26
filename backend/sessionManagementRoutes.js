@@ -5,21 +5,23 @@ const contextProperties = require('./contextProperties')
 const config = require('./config')
 
 const isXHRRequest = (req) =>
-  req.xhr || (req.headers.accept && req.headers.accept.indexOf('json') > -1) || (req.path && req.path.endsWith('.js'))
+  req.xhr ||
+  (req.headers.accept && (req.headers.accept.indexOf('json') > -1 || req.headers.accept.indexOf('image/*') > -1)) ||
+  (req.path && req.path.endsWith('.js'))
 
 /**
  * Add session management related routes to an express 'app'.
  * These handle login, logout, and middleware to handle the JWT token cookie. (hmppsCookie).
  * @param app an Express instance.
  * @param tokenRefresher a function which uses the 'context' object to perform an OAuth token refresh (returns a promise).
+ * @param tokenVerifier a function which uses the 'context' object to check whether the token is valid (returns a promise).
  * @param mailTo The email address displayed at the bottom of the login page.
  * @param homeLink The URL for the home page.
  */
-const configureRoutes = ({ app, tokenRefresher, mailTo, homeLink }) => {
+const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo, homeLink }) => {
   const authLogoutUrl = `${config.apis.oauth2.ui_url}/logout?client_id=${config.apis.oauth2.clientId}&redirect_uri=${config.app.url}`
 
   const remoteLoginIndex = (req, res, next) => {
-    // eslint-disable-next-line no-param-reassign
     req.session.returnTo = req.query.returnTo
     return passport.authenticate('oauth2')(req, res, next)
   }
@@ -74,12 +76,13 @@ const configureRoutes = ({ app, tokenRefresher, mailTo, homeLink }) => {
    * If the user is not authenticated the client is denied access to the application and is redirected to the login page.
    * (or if this is a 'data' request then the response is an Http 401 status (Expired)
    */
-  const requireLoginMiddleware = (req, res, next) => {
-    if (req.isAuthenticated()) {
+  const requireLoginMiddleware = async (req, res, next) => {
+    if (req.isAuthenticated() && (await tokenVerifier(req.user))) {
       contextProperties.setTokens(req.user, res.locals)
       next()
       return
     }
+    req.logout() // need logout as want session recreated from latest auth credentials
     if (isXHRRequest(req)) {
       res.status(401)
       res.json({ reason: 'session-expired' })

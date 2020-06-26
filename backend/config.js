@@ -51,6 +51,11 @@ const apis = {
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
     ui_url: process.env.MANAGE_KEY_WORKERS_URL,
   },
+  tokenverification: {
+    url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',
+    timeoutSeconds: process.env.TOKENVERIFICATION_API_TIMEOUT_SECONDS || 10,
+    enabled: process.env.TOKENVERIFICATION_API_ENABLED === 'true',
+  },
 }
 
 const redis = {
