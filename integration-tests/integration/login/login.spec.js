@@ -40,7 +40,7 @@ context('Login functionality', () => {
     cy.request('/auth/logout').its('body').should('contain', 'Sign in')
   })
 
-  it.skip('Token verification failure clears user session', () => {
+  it('Token verification failure clears user session', () => {
     cy.task('stubLogin', {})
     cy.login()
     HomePage.verifyOnPage()

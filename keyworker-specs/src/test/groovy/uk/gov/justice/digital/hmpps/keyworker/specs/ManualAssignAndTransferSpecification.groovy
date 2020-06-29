@@ -5,6 +5,7 @@ import org.junit.Rule
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.TokenVerificationApi
 import uk.gov.justice.digital.hmpps.keyworker.model.AgencyLocation
 import uk.gov.justice.digital.hmpps.keyworker.model.Location
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
@@ -26,7 +27,10 @@ class ManualAssignAndTransferSpecification extends BrowserReportingSpec {
     @Rule
     KeyworkerApi keyworkerApi = new KeyworkerApi()
 
-    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi)
+    @Rule
+    TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
+
+    TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
 
     def "Assign and Transfer home"() {
         given: "I have logged in"

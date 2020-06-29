@@ -4,6 +4,7 @@ import geb.Browser
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.TokenVerificationApi
 import uk.gov.justice.digital.hmpps.keyworker.pages.*
 
 import static uk.gov.justice.digital.hmpps.keyworker.model.UserAccount.ITAG_USER
@@ -14,15 +15,16 @@ class TestFixture {
     Elite2Api elite2Api
     OauthApi oauthApi
     KeyworkerApi keyworkerApi
-
+    TokenVerificationApi tokenVerificationApi
     UserAccount currentUser
     List<Location> locations
 
-    TestFixture(Browser browser, Elite2Api elite2Api, KeyworkerApi keyworkerApi, OauthApi oauthApi) {
+    TestFixture(Browser browser, Elite2Api elite2Api, KeyworkerApi keyworkerApi, OauthApi oauthApi, TokenVerificationApi tokenVerificationApi) {
         this.browser = browser
         this.elite2Api = elite2Api
         this.keyworkerApi = keyworkerApi
         this.oauthApi = oauthApi
+        this.tokenVerificationApi = tokenVerificationApi
     }
 
     def loginAs(UserAccount user) {
@@ -34,6 +36,7 @@ class TestFixture {
         oauthApi.stubValidOAuthTokenLogin()
         oauthApi.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
+        tokenVerificationApi.stubVerifyToken()
 
         oauthApi.stubGetMyRoles([[roleId: -1, roleCode: 'OMIC_ADMIN']])
         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, kwFrequency, true)
@@ -46,6 +49,7 @@ class TestFixture {
         oauthApi.stubValidOAuthTokenLogin()
         oauthApi.stubGetMyDetails currentUser
         elite2Api.stubGetMyCaseloads currentUser.caseloads
+        tokenVerificationApi.stubVerifyToken()
 
         browser.to KeyworkerManagementPage
     }

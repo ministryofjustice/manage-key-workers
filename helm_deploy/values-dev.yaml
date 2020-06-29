@@ -28,4 +28,5 @@ env:
   KEYWORKER_DASHBOARD_STATS_ENABLED: "true"
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
-
+  TOKENVERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
+  TOKENVERIFICATION_API_ENABLED: true
