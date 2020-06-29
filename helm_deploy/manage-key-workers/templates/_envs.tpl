@@ -94,4 +94,9 @@ env:
   - name: WEB_SESSION_TIMEOUT_IN_MINUTES
     value: {{ .Values.env.WEB_SESSION_TIMEOUT_IN_MINUTES | quote }}
 
+  - name: TOKENVERIFICATION_API_URL
+    value: {{ .Values.env.TOKENVERIFICATION_API_URL | quote }}
+
+  - name: TOKENVERIFICATION_API_ENABLED
+    value: {{ .Values.env.TOKENVERIFICATION_API_ENABLED | quote }}
 {{- end -}}
