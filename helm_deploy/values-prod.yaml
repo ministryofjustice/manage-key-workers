@@ -30,7 +30,7 @@ env:
   REMOTE_AUTH_STRATEGY: "true"
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
   TOKENVERIFICATION_API_URL: "https://token-verification-api.prison.service.justice.gov.uk"
-  TOKENVERIFICATION_API_ENABLED: false
+  TOKENVERIFICATION_API_ENABLED: true
 
 whitelist:
   office: "217.33.148.210/32"
