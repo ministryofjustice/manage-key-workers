@@ -30,3 +30,4 @@ env:
   WEB_SESSION_TIMEOUT_IN_MINUTES: "60"
   TOKENVERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
   TOKENVERIFICATION_API_ENABLED: true
+  REDIS_ENABLED: true
