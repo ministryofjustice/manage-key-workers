@@ -93,7 +93,7 @@ docker run -p 3000:3000 -d \
 docker run -p 3000:3000 -d \
      --name manage-key-workers \
      -e USE_API_GATEWAY_AUTH=yes \
-     -e API_ENDPOINT_URL=https://gateway.t3.nomis.hmpps.dsd.io/elite2api \
+     -e API_ENDPOINT_URL=https://api-dev.prison.service.justice.gov.uk \
      -e API_GATEWAY_TOKEN=<add here> \
      -e API_CLIENT_SECRET=<add here> \
      -e API_GATEWAY_PRIVATE_KEY=<add here> \
