@@ -101,6 +101,6 @@ class KeyworkerStatsSpecification extends BrowserReportingSpec {
 
     static formatToLongDate(LocalDate date) {
         return date
-                .format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
+                .format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
     }
 }
