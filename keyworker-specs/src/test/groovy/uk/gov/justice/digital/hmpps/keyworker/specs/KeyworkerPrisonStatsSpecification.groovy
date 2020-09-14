@@ -126,36 +126,6 @@ class KeyworkerPrisonStatsSpecification extends BrowserReportingSpec {
                 .withQueryParam("toDate", WireMock.equalTo(yesterday.toString())))
     }
 
-    def "should display an error if before date is after to date and disable submit button"() {
-        given: "I am logged in"
-        fixture.loginAs(UserAccount.ITAG_USER)
-
-        when: "I navigate to the key worker prison stats dashboard page"
-        keyworkerApi.stubKeyworkerPrisonStatsResponse()
-        fixture.toKeyworkerDashboardPage()
-
-        then: "I select the invalid from and to dates"
-        at KeyworkerDashboardPage
-
-        LocalDate yesterday = LocalDate.now().minusDays((1))
-        LocalDate sevenDaysAgo = yesterday.minusDays((7))
-
-        setDatePickers(
-                yesterday.getYear(),
-                yesterday.getMonthValue(),
-                yesterday.getDayOfMonth(),
-                sevenDaysAgo.getYear(),
-                sevenDaysAgo.getMonthValue(),
-                sevenDaysAgo.getDayOfMonth()
-        )
-
-        then:
-        at KeyworkerDashboardPage
-
-        fromDateError == 'Date must be before To'
-        formSubmit.attr('disabled')
-    }
-
     def "should stay on the dashboard after a case load switch"() {
         given: "I am logged in"
         fixture.loginAs(UserAccount.ITAG_USER)
