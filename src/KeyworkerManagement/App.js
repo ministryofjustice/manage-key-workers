@@ -336,7 +336,10 @@ class App extends React.Component {
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <FooterContainer feedbackEmail={config.mailTo} prisonStaffHubUrl={config.prisonStaffHubUrl} />
+          <FooterContainer
+            supportUrl={`${config.supportUrl}feedback-and-support`}
+            prisonStaffHubUrl={config.prisonStaffHubUrl}
+          />
         </div>
       </Router>
     )
