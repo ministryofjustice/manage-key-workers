@@ -8,6 +8,7 @@ const getConfiguration = async (req, res) =>
     googleAnalyticsId: config.analytics.googleAnalyticsId,
     keyworkerProfileStatsEnabled: config.app.keyworkerProfileStatsEnabled,
     keyworkerDashboardStatsEnabled: config.app.keyworkerDashboardStatsEnabled,
+    supportUrl: config.app.supportUrl,
   })
 
 module.exports = {

@@ -102,4 +102,7 @@ env:
 
   - name: REDIS_ENABLED
     value: {{ .Values.env.REDIS_ENABLED | quote }}
+
+  - name: SUPPORT_URL
+    value: {{ .Values.env.SUPPORT_URL | quote }}
 {{- end -}}
