@@ -37,6 +37,27 @@ class OffenderResultsContainer extends Component {
     this.doSearch()
   }
 
+  handleKeyworkerChange(event, index, offenderNo) {
+    const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props
+    const changeList = keyworkerChangeList ? [...keyworkerChangeList] : []
+
+    if (event.target.value === '--') {
+      changeList[index] = null
+    } else if (event.target.value === '_DEALLOCATE') {
+      changeList[index] = {
+        deallocate: true,
+        staffId: event.target.value,
+        offenderNo,
+      }
+    } else {
+      changeList[index] = {
+        staffId: event.target.value,
+        offenderNo,
+      }
+    }
+    keyworkerChangeListDispatch(changeList)
+  }
+
   async doSearch() {
     const {
       resetErrorDispatch,
@@ -72,27 +93,6 @@ class OffenderResultsContainer extends Component {
       handleError(error)
     }
     setLoadedDispatch(true)
-  }
-
-  handleKeyworkerChange(event, index, offenderNo) {
-    const { keyworkerChangeList, keyworkerChangeListDispatch } = this.props
-    const changeList = keyworkerChangeList ? [...keyworkerChangeList] : []
-
-    if (event.target.value === '--') {
-      changeList[index] = null
-    } else if (event.target.value === '_DEALLOCATE') {
-      changeList[index] = {
-        deallocate: true,
-        staffId: event.target.value,
-        offenderNo,
-      }
-    } else {
-      changeList[index] = {
-        staffId: event.target.value,
-        offenderNo,
-      }
-    }
-    keyworkerChangeListDispatch(changeList)
   }
 
   async postManualOverride() {

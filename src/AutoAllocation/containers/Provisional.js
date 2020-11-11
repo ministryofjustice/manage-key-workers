@@ -52,17 +52,6 @@ class ProvisionalContainer extends Component {
     setLoadedDispatch(true)
   }
 
-  async getAllocated() {
-    const { agencyId } = this.props
-    const response = await axios.get('/api/allocated', {
-      params: {
-        agencyId,
-        allocationType: 'A',
-      },
-    })
-    return response.data
-  }
-
   handleKeyworkerChange(event, index, offenderNo) {
     const { allocatedKeyworkers, manualOverrideDispatch, handleError } = this.props
 
@@ -81,6 +70,17 @@ class ProvisionalContainer extends Component {
     } catch (error) {
       handleError(error)
     }
+  }
+
+  async getAllocated() {
+    const { agencyId } = this.props
+    const response = await axios.get('/api/allocated', {
+      params: {
+        agencyId,
+        allocationType: 'A',
+      },
+    })
+    return response.data
   }
 
   async postManualOverride(history) {

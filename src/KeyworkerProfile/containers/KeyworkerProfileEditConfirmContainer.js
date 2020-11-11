@@ -65,26 +65,25 @@ class KeyworkerProfileEditConfirmContainer extends Component {
     }
   }
 
-  validate() {
-    const {
-      behaviour,
-      status,
-      annualLeaveReturnDate,
-      resetValidationErrorsDispatch,
-      setValidationErrorDispatch,
-    } = this.props
+  handleCancel(history) {
+    const { keyworker } = this.props
 
-    resetValidationErrorsDispatch()
-    let result = true
-    if (!behaviour) {
-      setValidationErrorDispatch('behaviourRadios', 'Please choose an option')
-      result = false
+    // Use replace to ensure the profile page remains the history 'parent'
+    history.replace(`/key-worker/${keyworker.staffId}/edit`)
+  }
+
+  handleOptionChange(event) {
+    const { setStatusChangeBehaviourDispatch } = this.props
+
+    setStatusChangeBehaviourDispatch(event.target.value)
+  }
+
+  handleDateChange(date) {
+    const { dateDispatch } = this.props
+
+    if (date) {
+      dateDispatch(moment(date).format('DD/MM/YYYY'))
     }
-    if (status === 'UNAVAILABLE_ANNUAL_LEAVE' && isBlank(annualLeaveReturnDate)) {
-      setValidationErrorDispatch('active-date', 'Please choose a return date')
-      result = false
-    }
-    return result
   }
 
   async postKeyworkerUpdate() {
@@ -116,25 +115,26 @@ class KeyworkerProfileEditConfirmContainer extends Component {
     )
   }
 
-  handleCancel(history) {
-    const { keyworker } = this.props
+  validate() {
+    const {
+      behaviour,
+      status,
+      annualLeaveReturnDate,
+      resetValidationErrorsDispatch,
+      setValidationErrorDispatch,
+    } = this.props
 
-    // Use replace to ensure the profile page remains the history 'parent'
-    history.replace(`/key-worker/${keyworker.staffId}/edit`)
-  }
-
-  handleOptionChange(event) {
-    const { setStatusChangeBehaviourDispatch } = this.props
-
-    setStatusChangeBehaviourDispatch(event.target.value)
-  }
-
-  handleDateChange(date) {
-    const { dateDispatch } = this.props
-
-    if (date) {
-      dateDispatch(moment(date).format('DD/MM/YYYY'))
+    resetValidationErrorsDispatch()
+    let result = true
+    if (!behaviour) {
+      setValidationErrorDispatch('behaviourRadios', 'Please choose an option')
+      result = false
     }
+    if (status === 'UNAVAILABLE_ANNUAL_LEAVE' && isBlank(annualLeaveReturnDate)) {
+      setValidationErrorDispatch('active-date', 'Please choose a return date')
+      result = false
+    }
+    return result
   }
 
   render() {

@@ -28,15 +28,16 @@ class KeyworkerSearchResultsContainer extends Component {
     this.performSearch()
   }
 
-  async getKeyworkerSettings() {
-    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props
+  handleSearchTextChange(event) {
+    const { keyworkerSearchTextDispatch } = this.props
 
-    try {
-      const keyworkerSettings = await axios.get('/api/keyworkerSettings')
-      keyworkerSettingsDispatch(keyworkerSettings.data)
-    } catch (error) {
-      setErrorDispatch(error.message)
-    }
+    keyworkerSearchTextDispatch(event.target.value)
+  }
+
+  handleStatusFilterChange(event) {
+    const { keyworkerStatusFilterDispatch } = this.props
+
+    keyworkerStatusFilterDispatch(event.target.value)
   }
 
   async getKeyworkerList(agencyId) {
@@ -51,16 +52,15 @@ class KeyworkerSearchResultsContainer extends Component {
     return response.data
   }
 
-  handleSearchTextChange(event) {
-    const { keyworkerSearchTextDispatch } = this.props
+  async getKeyworkerSettings() {
+    const { keyworkerSettingsDispatch, setErrorDispatch } = this.props
 
-    keyworkerSearchTextDispatch(event.target.value)
-  }
-
-  handleStatusFilterChange(event) {
-    const { keyworkerStatusFilterDispatch } = this.props
-
-    keyworkerStatusFilterDispatch(event.target.value)
+    try {
+      const keyworkerSettings = await axios.get('/api/keyworkerSettings')
+      keyworkerSettingsDispatch(keyworkerSettings.data)
+    } catch (error) {
+      setErrorDispatch(error.message)
+    }
   }
 
   async performSearch() {
