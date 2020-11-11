@@ -86,7 +86,7 @@ export const keyworkerType = shape({
   numberAllocated: number.isRequired,
   scheduleType: string.isRequired,
   staffId: number.isRequired,
-  stats: arrayOf(object),
+  stats: arrayOf(shape({})),
   status: string.isRequired,
 })
 

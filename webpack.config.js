@@ -30,7 +30,7 @@ const plugins = [
   new HtmlWebpackPlugin({
     template: 'html-template/index.html',
     filename: 'index.html',
-    publicPath: process.env.PUBLIC_URL,
+    publicPath: process.env.PUBLIC_URL || '/',
   }),
 ]
 

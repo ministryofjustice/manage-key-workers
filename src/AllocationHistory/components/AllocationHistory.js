@@ -114,7 +114,10 @@ class AllocationHistory extends Component {
 
 AllocationHistory.propTypes = {
   allocationHistory: PropTypes.shape({
-    allocationHistory: PropTypes.object,
+    allocationHistory: PropTypes.shape({
+      length: PropTypes.number,
+      map: PropTypes.func,
+    }),
     offender: PropTypes.shape({
       firstName: PropTypes.string,
       lastName: PropTypes.string,
