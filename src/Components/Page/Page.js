@@ -17,10 +17,6 @@ export class Page extends Component {
     this.renderTitleString(title)
   }
 
-  componentWillUpdate(nextProps) {
-    this.renderTitleString(nextProps.title)
-  }
-
   componentWillUnmount() {
     const { resetErrorDispatch } = this.props
     resetErrorDispatch()
