@@ -33,7 +33,7 @@ class KeyworkerSettingsContainer extends Component {
     this.handleAllowAutoChange = this.handleAllowAutoChange.bind(this)
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const { setLoadedDispatch, resetValidationErrorsDispatch } = this.props
 
     setLoadedDispatch(true)

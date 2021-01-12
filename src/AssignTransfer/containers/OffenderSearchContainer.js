@@ -14,16 +14,13 @@ import { locationsType } from '../../types'
 import Page from '../../Components/Page'
 
 class OffenderSearchContainer extends Component {
-  componentWillMount() {
-    const { offenderSearchTextDispatch, offenderSearchAllocationStatusDispatch } = this.props
+  componentDidMount() {
+    const { offenderSearchTextDispatch, offenderSearchAllocationStatusDispatch, dispatchLoaded } = this.props
 
     this.getLocations()
     offenderSearchTextDispatch('')
     offenderSearchAllocationStatusDispatch('all')
-  }
 
-  componentDidMount() {
-    const { dispatchLoaded } = this.props
     dispatchLoaded(true)
   }
 
