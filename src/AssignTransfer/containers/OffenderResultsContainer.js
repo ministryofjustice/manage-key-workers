@@ -19,7 +19,7 @@ class OffenderResultsContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const { locations, history } = this.props
 
     /* if arriving from a page refresh - redirect to initial search */

@@ -18,7 +18,7 @@ class ProvisionalContainer extends Component {
     this.postManualOverride = this.postManualOverride.bind(this)
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const {
       user,
       history,

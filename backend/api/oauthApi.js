@@ -22,8 +22,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
   const currentRoles = (context) => get(context, '/api/user/me/roles')
 
   const oauthAxios = axios.create({
-    baseURL: url,
-    url: '/oauth/token',
+    baseURL: `${url}oauth/token`,
     method: 'post',
     timeout: 30000,
     headers: {

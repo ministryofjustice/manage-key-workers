@@ -18,7 +18,7 @@ class UnallocatedContainer extends Component {
     props.setLoadedDispatch(false)
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const { agencyId, user, history, unallocatedListDispatch, handleError, setLoadedDispatch } = this.props
 
     try {
