@@ -100,7 +100,7 @@
     "chai": "^4.1.2",
     "copy-webpack-plugin": "^6.3.0",
     "css-loader": "^1.0.0",
-    "cypress": "^5.6.0",
+    "cypress": "^6.2.1",
     "cypress-multi-reporters": "^1.4.0",
     "dotenv-expand": "^4.2.0",
     "enzyme": "^3.9.0",
