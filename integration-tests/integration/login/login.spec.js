@@ -54,8 +54,8 @@ context('Login functionality', () => {
     cy.task('stubLogin', { username: 'joe', roles: [{}] })
     cy.login()
     const homePage = HomePage.verifyOnPage()
-    homePage.keyworkerSettingsLink().should('not.be.visible')
-    homePage.autoAllocateLink().should('not.be.visible')
+    homePage.keyworkerSettingsLink().should('not.exist')
+    homePage.autoAllocateLink().should('not.exist')
   })
 
   it('Log in as keyworker migration user', () => {
@@ -63,14 +63,14 @@ context('Login functionality', () => {
     cy.login()
     const homePage = HomePage.verifyOnPage()
     homePage.keyworkerSettingsLink().should('be.visible')
-    homePage.autoAllocateLink().should('not.be.visible')
+    homePage.autoAllocateLink().should('not.exist')
   })
 
   it('Log in as keyworker admin user', () => {
     cy.task('stubLogin', { roles: [{ roleCode: 'OMIC_ADMIN' }] })
     cy.login()
     const homePage = HomePage.verifyOnPage()
-    homePage.keyworkerSettingsLink().should('not.be.visible')
+    homePage.keyworkerSettingsLink().should('not.exist')
     homePage.autoAllocateLink().should('be.visible')
   })
 
