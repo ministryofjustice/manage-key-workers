@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@2.2
+  hmpps: ministryofjustice/hmpps@2.3.0
 
 jobs:
   build:
     executor:
       name: hmpps/node
-      tag: 14-buster-browsers
+      tag: 14.15.3-browsers
     steps:
       - checkout
       - restore_cache:
@@ -37,7 +37,7 @@ jobs:
   integration_tests:
     working_directory: ~/app
     docker:
-      - image: circleci/node:14-buster-browsers
+      - image: cimg/node:14.15.3-browsers
     steps:
       - checkout
       - attach_workspace:
@@ -73,8 +73,10 @@ jobs:
   cypress_integration_tests:
     working_directory: ~/app
     docker:
-      - image: circleci/node:14-buster-browsers
-      - image: circleci/redis:buster
+      - image: cimg/node:14.15.3-browsers
+      - image: bitnami/redis:5.0
+        environment:
+          ALLOW_EMPTY_PASSWORD=yes
     steps:
       - checkout
       - attach_workspace:
