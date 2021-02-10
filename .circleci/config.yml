@@ -38,6 +38,9 @@ jobs:
     working_directory: ~/app
     docker:
       - image: cimg/node:14.15.3-browsers
+      - image: bitnami/redis:5.0
+        environment:
+          ALLOW_EMPTY_PASSWORD=yes
     steps:
       - checkout
       - attach_workspace:
