@@ -1,13 +1,14 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@2.3.0
+  hmpps: ministryofjustice/hmpps@2.3
+  browser-tools: circleci/browser-tools@1.1.1
 
 jobs:
   build:
     executor:
       name: hmpps/node
-      tag: 14.15.3-browsers
+      tag: 14.15-browsers
     steps:
       - checkout
       - restore_cache:
@@ -37,11 +38,9 @@ jobs:
   integration_tests:
     working_directory: ~/app
     docker:
-      - image: cimg/node:14.15.3-browsers
-      - image: bitnami/redis:5.0
-        environment:
-          ALLOW_EMPTY_PASSWORD=yes
+      - image: cimg/node:14.15-browsers
     steps:
+      - browser-tools/install-browser-tools
       - checkout
       - attach_workspace:
           at: ~/app
@@ -76,7 +75,7 @@ jobs:
   cypress_integration_tests:
     working_directory: ~/app
     docker:
-      - image: cimg/node:14.15.3-browsers
+      - image: cimg/node:14.15-browsers
       - image: bitnami/redis:5.0
         environment:
           ALLOW_EMPTY_PASSWORD=yes
