@@ -8,7 +8,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get
 class ComplexityOfNeedApi extends WireMockRule {
 
     ComplexityOfNeedApi() {
-        super(18081)
+        super(18091)
     }
 
     void stubHealth() {
