@@ -4,6 +4,7 @@ import groovyx.net.http.HttpBuilder
 import groovyx.net.http.HttpException
 import org.junit.Rule
 import spock.lang.Specification
+import uk.gov.justice.digital.hmpps.keyworker.mockapis.ComplexityOfNeedApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
@@ -23,6 +24,9 @@ class HealthSpecification extends Specification {
     OauthApi oauthApi = new OauthApi()
 
     @Rule
+    ComplexityOfNeedApi complexityOfNeedApi = new ComplexityOfNeedApi()
+
+    @Rule
     TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
 
     HttpBuilder http
@@ -40,6 +44,7 @@ class HealthSpecification extends Specification {
         elite2Api.stubHealth()
         oauthApi.stubHealth()
         tokenVerificationApi.stubHealth()
+        complexityOfNeedApi.stubHealth()
 
         when:
         def response = this.http.get()
@@ -47,7 +52,7 @@ class HealthSpecification extends Specification {
         response.uptime > 0.0
         response.name == "manage-key-workers"
         !response.version.isEmpty()
-        response.api == [auth:'UP', elite2:'UP', keyworker:'UP', tokenverification: 'UP']
+        response.api == [auth:'UP', elite2:'UP', keyworker:'UP', tokenverification: 'UP', complexityOfNeed: 'UP']
     }
 
     def "Health page reports API down"() {
@@ -57,6 +62,7 @@ class HealthSpecification extends Specification {
         elite2Api.stubHealth()
         oauthApi.stubHealth()
         tokenVerificationApi.stubHealth()
+        complexityOfNeedApi.stubHealth()
 
         when:
         def response
@@ -69,6 +75,6 @@ class HealthSpecification extends Specification {
         then:
         response.name == "manage-key-workers"
         !response.version.isEmpty()
-        response.api == [auth:'UP', elite2:'UP', keyworker:[timeout:1000, code:'ECONNABORTED', errno:'ETIMEDOUT', retries:2], tokenverification: 'UP']
+        response.api == [auth:'UP', elite2:'UP', keyworker:[timeout:1000, code:'ECONNABORTED', errno:'ETIMEDOUT', retries:2], tokenverification: 'UP', complexityOfNeed: 'UP']
     }
 }
