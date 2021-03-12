@@ -53,7 +53,7 @@ const apis = {
     ui_url: process.env.MANAGE_KEY_WORKERS_URL,
   },
   complexityOfNeed: {
-    url: process.env.COMPLEXITY_OF_NEED_API_URL || 'http://localhost:8082',
+    url: process.env.COMPLEXITY_OF_NEED_API_URL || 'http://localhost:18091',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
   },
   tokenverification: {
