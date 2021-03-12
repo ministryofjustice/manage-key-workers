@@ -17,8 +17,8 @@ class ComplexityOfNeedApi extends WireMockRule {
                         .willReturn(
                                 aResponse()
                                         .withStatus(200)
-                                        .withHeader('Content-Type', 'application/json')
-                                        .withBody("{\"status\":\"UP\"}")))
+                                        .withHeader('Content-Type', 'text/plain')
+                                        .withBody("{\"status\":\"Everything is fine\"}")))
     }
 
 }
