@@ -52,6 +52,10 @@ const apis = {
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
     ui_url: process.env.MANAGE_KEY_WORKERS_URL,
   },
+  complexityOfNeed: {
+    url: process.env.COMPLEXITY_OF_NEED_API_URL || 'http://localhost:18091',
+    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
+  },
   tokenverification: {
     url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',
     timeoutSeconds: process.env.TOKENVERIFICATION_API_TIMEOUT_SECONDS || 10,

@@ -4,6 +4,7 @@ const { elite2ApiFactory } = require('./api/elite2Api')
 const { oauthApiFactory } = require('./api/oauthApi')
 const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { tokenVerificationApiFactory } = require('./api/tokenVerificationApi')
+const { complexityOfNeedApiFactory } = require('./api/complexityOfNeedApi')
 
 const elite2Api = elite2ApiFactory(
   clientFactory({
@@ -27,6 +28,13 @@ const keyworkerApi = keyworkerApiFactory(
   })
 )
 
+const complexityOfNeedApi = complexityOfNeedApiFactory(
+  clientFactory({
+    baseUrl: config.apis.complexityOfNeed.url,
+    timeout: 1000 * config.apis.complexityOfNeed.timeoutSeconds,
+  })
+)
+
 const tokenVerificationApi = tokenVerificationApiFactory(
   clientFactory({
     baseUrl: config.apis.tokenverification.url,
@@ -39,4 +47,5 @@ module.exports = {
   oauthApi,
   keyworkerApi,
   tokenVerificationApi,
+  complexityOfNeedApi,
 }
