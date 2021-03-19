@@ -1,9 +1,5 @@
 const logger = require('../log')
-
-const forenameToInitial = (name) => {
-  if (!name) return null
-  return `${name.charAt()}. ${name.split(' ').pop()}`
-}
+const { forenameToInitial } = require('../utils')
 
 module.exports = ({ prisonApi, oauthApi }) => {
   const getActiveCaseload = async (req, res) => {

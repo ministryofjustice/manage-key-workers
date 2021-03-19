@@ -11,14 +11,12 @@ const helmet = require('helmet')
 const apis = require('./apis')
 
 const ensureHttps = require('./middleware/ensureHttps')
-const requestForwarding = require('./request-forwarding')
+const errorHandler = require('./middleware/errorHandler')
+const currentUser = require('./middleware/currentUser')
 
 const healthFactory = require('./services/healthCheck')
 
 const setupAuth = require('./setupAuth')
-
-const routes = require('./routes')
-const currentUser = require('./middleware/currentUser')
 const setupWebSession = require('./setupWebSession')
 const setupWebpackForDev = require('./setupWebpackForDev')
 const setupNunjucks = require('./setupNunjucks')
@@ -27,9 +25,8 @@ const setupStaticContent = require('./setupStaticContent')
 const setupReactRoutes = require('./setupReactRoutes')
 
 const pageNotFound = require('./pageNotFound')
-
-const errorHandler = require('./middleware/errorHandler')
-
+const routes = require('./routes')
+const requestForwarding = require('./request-forwarding')
 const log = require('./log')
 const config = require('./config')
 
