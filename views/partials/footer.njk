@@ -1,0 +1,38 @@
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+{{ 
+  govukFooter({
+    navigation: [
+      {
+        title: "Useful links",
+        items: [
+          {
+            href: dpsUrl + "content/features",
+            text: "Features"
+          },
+          {
+            href: dpsUrl + "content/roadmap",
+            text: "Roadmap"
+          },
+          {
+            href: dpsUrl + "content/whats-new",
+            text: "What’s new"
+          }
+        ]
+      }
+    ],
+    meta: {
+      items: [
+        {
+          href: supportUrl + 'feedback-and-support',
+          text: "Feedback and support"
+        },
+        {
+          href: dpsUrl + "content/terms-conditions",
+          text: "Terms and conditions"
+        }
+      ]
+    },
+    classes: "govuk-!-display-none-print"
+  }) 
+}}
