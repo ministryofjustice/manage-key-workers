@@ -8,6 +8,7 @@ context('Login functionality', () => {
 
   beforeEach(() => {
     cy.task('reset')
+    cy.task('stubUpdateCaseload')
   })
 
   it('Root (/) redirects to the auth login page if not logged in', () => {
