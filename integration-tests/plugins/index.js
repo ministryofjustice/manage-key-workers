@@ -23,5 +23,6 @@ module.exports = (on) => {
       ]),
     stubVerifyToken: (active = true) => tokenverification.stubVerifyToken(active),
     stubLoginPage: auth.redirect,
+    stubUpdateCaseload: elite2api.stubUpdateCaseload,
   })
 }

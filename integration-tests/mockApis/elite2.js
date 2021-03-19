@@ -19,6 +19,19 @@ module.exports = {
         },
       },
     }),
+  stubUpdateCaseload: () =>
+    stubFor({
+      request: {
+        method: 'PUT',
+        url: '/api/users/me/activeCaseLoad',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+      },
+    }),
   stubUserCaseloads: (caseloads) => {
     return stubFor({
       request: {
