@@ -10,6 +10,7 @@ const setup = () => {
   // This is needed in order to implement a page not found behaviour.
   router.get(
     [
+      '/',
       '/unauthorised',
       '/key-worker-statistics',
       '/keyworkerReports',
