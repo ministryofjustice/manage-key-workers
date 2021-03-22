@@ -171,7 +171,7 @@ workflows:
           requires:
             - request-prod-approval
 
-  scheduled:
+  security:
     triggers:
       - schedule:
           cron: '0 7 * * 1-5'
@@ -180,4 +180,10 @@ workflows:
               only:
                 - main
     jobs:
-      - hmpps/npm_security_audit
+      - hmpps/npm_security_audit:
+          context:
+            - hmpps-common-vars
+      - hmpps/veracode_pipeline_scan:
+          context:
+            - hmpps-common-vars
+
