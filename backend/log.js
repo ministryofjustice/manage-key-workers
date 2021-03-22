@@ -5,7 +5,7 @@ module.exports = new Logger({
   streams: [
     {
       stream: process.stdout,
-      level: 'debug',
+      level: process.env.LOG_LEVEL || 'info',
     },
   ],
 })
