@@ -1,0 +1,136 @@
+{% extends "./partials/layout.njk" %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set title = "All prisoners in a residential location" %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Digital Prison Services",
+        href: dpsUrl
+      },
+      {
+        text: "Manage key workers",
+        href: "/"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% set rows = [] %}
+
+{% for prisoner in prisoners %}
+  {% set rows = (rows.push([
+    { text: prisoner.name },
+    { text: prisoner.prisonNumber },
+    { text: prisoner.location },
+    { text: prisoner.releaseDate },
+    {
+      text: 'Not allocated',
+      html: '<a class="govuk-link" href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName
+    },
+    {
+      html: govukSelect({
+        name: 'allocateKeyworker',
+        id: 'allocateKeyworker',
+        label: {
+          text: "Select key worker",
+          classes: "govuk-visually-hidden"
+        },
+        items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
+        attributes: { 'data-test': 'allocate-keyworker-select' },
+        classes: 'govuk-!-margin-bottom-0'
+      })
+    },
+    {
+      html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>'
+    }
+  ]), rows) %}
+{% endfor %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  <form>
+    {{ govukSelect({
+      name: 'residentialLocation',
+      id: 'residentialLocation',
+      label: {
+        text: "Select residential location"
+      },
+      items: residentialLocations | addDefaultSelectedValue('Select', false) | setSelected(formValues.residentialLocation),
+      attributes: { 'data-test': 'location-select' }
+    }) }}
+
+    {{ govukButton({
+      text: "View",
+      type: "submit",
+      classes: "govuk-button--secondary"
+    }) }}
+  </form>
+
+  {% if formValues.residentialLocation %}
+    {% if prisoners.length %}
+      <p>Key workers will only be allocated when you have saved the changes.</p>
+
+      <form method="POST">
+        {{ govukTable({
+          head: [
+            {
+              text: "Name",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Prison number"
+            },
+            {
+              text: "Location",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Release date"
+            },
+            {
+              text: "Key worker",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Change key worker"
+            },
+            {
+              html: '<span class="govuk-visually-hidden">View history</span>'
+            }
+          ],
+          rows: rows,
+          classes: "results-table"
+        }) }}
+
+        {{ govukButton({
+          text: "Save changes",
+          type: "submit"
+        }) }}
+      </form>
+    {% else %}
+      <p>There are no prisoners in this location.</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="/assets/moj/components/sortable-table/sortable-table.js"></script>
+  <script>
+    new MOJFrontend.SortableTable({
+      table: $('table')[0],
+    })
+  </script>
+{% endblock %}

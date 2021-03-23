@@ -4,6 +4,7 @@ const manualOverrideFactory = (keyworkerApi) => {
   const manualOverride = async (req, res) => {
     const allocateList = req.body.allocatedKeyworkers
 
+    console.log({ allocateList })
     log.debug('Manual override contents')
 
     const prisonId = req.query.agencyId
