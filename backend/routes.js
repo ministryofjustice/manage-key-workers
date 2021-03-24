@@ -23,6 +23,8 @@ const controllerFactory = require('./controllers/controller').factory
 const allocationServiceFactory = require('./services/allocationService').serviceFactory
 const offenderSearchFactory = require('./controllers/searchOffendersController')
 
+const viewResidentialLocation = require('./controllers/viewResidentialLocation')
+
 const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
   const allocationService = allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax)
@@ -74,6 +76,15 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
       allocationService,
       complexityOfNeedApi,
     }).post
+  )
+
+  router.get(
+    '/manage-key-workers/view-residential-location',
+    viewResidentialLocation({ allocationService, elite2Api, keyworkerApi }).index
+  )
+  router.post(
+    '/manage-key-workers/view-residential-location',
+    viewResidentialLocation({ allocationService, elite2Api, keyworkerApi }).post
   )
 
   router.use('/manage-key-workers', (req, res) => {
