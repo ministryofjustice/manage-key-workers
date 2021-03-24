@@ -284,8 +284,6 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
     const offenderNumbers = getOffenderNumbers(offenders)
     const offenderKeyworkers = await keyworkerApi.offenderKeyworkerList(context, agencyId, offenderNumbers)
-    log.debug('Response from getOffenders request')
-
     const filteredOffenders = applyAllocationStatusFilter(allocationStatus, offenders, offenderKeyworkers) // adjust results if filtering by unallocated
 
     const partialResults = filteredOffenders.length > offenderSearchResultMax

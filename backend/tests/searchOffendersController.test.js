@@ -62,6 +62,7 @@ describe('Search offenders controller', () => {
   let req
   let res
   const allocationService = {}
+  const complexityOfNeedApi = {}
 
   beforeEach(() => {
     req = {
@@ -78,15 +79,49 @@ describe('Search offenders controller', () => {
       redirect: jest.fn(),
     }
 
+    complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([])
     allocationService.searchOffenders = jest.fn().mockResolvedValue(searchOffendersResponse)
-
-    controller = controllerFactory({ allocationService })
+    controller = controllerFactory({ allocationService, complexityOfNeedApi })
   })
 
   describe('Index', () => {
+    it('should call next if the user details are not available', async () => {
+      const next = jest.fn()
+
+      req.session = null
+
+      await controller.index(req, res, next)
+
+      expect(next).toHaveBeenCalled()
+    })
+
+    it('should render the view with empty data sets then there is no data', async () => {
+      req.query = {
+        searchText: 'Smith',
+      }
+      allocationService.searchOffenders = jest.fn().mockResolvedValue({})
+      await controller.index(req, res)
+
+      expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
+        keyworkersDropdownValues: [],
+        offenders: [],
+        errors: undefined,
+      })
+    })
+
+    it('should not make a call to the complexity api when no offenders are returned', async () => {
+      allocationService.searchOffenders = jest.fn().mockResolvedValue({})
+      await controller.index(req, res)
+
+      expect(complexityOfNeedApi.getComplexOffenders).not.toBeCalled()
+    })
+
     it('should render the correct template', async () => {
       await controller.index(req, res)
-      expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {})
+      expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
+        errors: undefined,
+        initialPageLoad: true,
+      })
     })
 
     it('should unpack errors and pass them through to the view', async () => {
@@ -96,6 +131,7 @@ describe('Search offenders controller', () => {
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
         errors: [searchTextError],
+        initialPageLoad: true,
       })
     })
 
@@ -124,6 +160,7 @@ describe('Search offenders controller', () => {
       await controller.index(req, res)
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
+        initialPageLoad: false,
         keyworkersDropdownValues: [
           {
             text: 'Ball, Bob (6)',
@@ -136,6 +173,7 @@ describe('Search offenders controller', () => {
         ],
         offenders: [
           {
+            highComplexityOfNeed: false,
             keyworker: 'Not allocated',
             location: 'CSWAP',
             name: 'Alff, Ferinand',
@@ -143,6 +181,49 @@ describe('Search offenders controller', () => {
             releaseDate: '2012-04-30',
           },
         ],
+      })
+    })
+
+    describe('Complex offenders', () => {
+      beforeEach(() => {
+        complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([
+          {
+            offenderNo: 'G0276VC',
+            level: 'high',
+          },
+        ])
+      })
+
+      it('should make a call to get the complexity of needs information', async () => {
+        req.query = {
+          searchText: 'G0276VC',
+        }
+        await controller.index(req, res)
+
+        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith({}, ['G0276VC'])
+      })
+
+      it('should mark offenders with high complexity of need', async () => {
+        req.query = {
+          searchText: 'G0276VC',
+        }
+        await controller.index(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'offenderSearch.njk',
+          expect.objectContaining({
+            offenders: [
+              {
+                keyworker: 'Not allocated',
+                location: 'CSWAP',
+                name: 'Alff, Ferinand',
+                prisonNumber: 'G0276VC',
+                releaseDate: '2012-04-30',
+                highComplexityOfNeed: true,
+              },
+            ],
+          })
+        )
       })
     })
   })
