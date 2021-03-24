@@ -80,11 +80,11 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
 
   router.get(
     '/manage-key-workers/view-residential-location',
-    viewResidentialLocation({ allocationService, elite2Api, keyworkerApi }).index
+    viewResidentialLocation({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).index
   )
   router.post(
     '/manage-key-workers/view-residential-location',
-    viewResidentialLocation({ allocationService, elite2Api, keyworkerApi }).post
+    viewResidentialLocation({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).post
   )
 
   router.use('/manage-key-workers', (req, res) => {

@@ -55,9 +55,6 @@
       </div>
       
       <form method="POST">
-        <input type="hidden" name="activeCaseLoadId" value="{{ activeCaseLoadId }}" />
-        <input type="hidden" name="residentialLocation" value="{{ residentialLocation }}" />
-
         {% set rows = [] %}
 
         {% for prisoner in prisoners %}
@@ -67,13 +64,14 @@
             { text: prisoner.location },
             { text: prisoner.releaseDate },
             {
-              text: 'Not allocated',
+              text: 'None' if prisoner.isHighComplexity else 'Not allocated',
               html: '<a class="govuk-link" href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
               attributes: {
                 'data-sort-value': prisoner.keyworkerName
               }
             },
             {
+              text: 'N/A - high complexity',
               html: govukSelect({
                 name: 'allocateKeyworker',
                 id: 'allocateKeyworker',
@@ -84,7 +82,7 @@
                 items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
                 attributes: { 'data-test': 'allocate-keyworker-select' },
                 classes: 'govuk-!-margin-bottom-0'
-              })
+              }) if prisoner.keyworkerList
             },
             {
               html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>'
