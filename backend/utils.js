@@ -17,6 +17,17 @@ const removeBlanks = (array) => array.filter((item) => !!item)
  */
 const properCaseName = (name) => (isBlank(name) ? '' : name.split('-').map(properCase).join('-'))
 
+const formatName = (firstName, lastName) =>
+  [properCaseName(firstName), properCaseName(lastName)].filter(Boolean).join(' ')
+
+const putLastNameFirst = (firstName, lastName) => {
+  if (!firstName && !lastName) return null
+  if (!firstName && lastName) return properCaseName(lastName)
+  if (firstName && !lastName) return properCaseName(firstName)
+
+  return `${properCaseName(lastName)}, ${properCaseName(firstName)}`
+}
+
 const forenameToInitial = (name) => {
   if (!name) return null
   return `${name.charAt()}. ${name.split(' ').pop()}`
@@ -136,6 +147,9 @@ const pascalToString = (value) =>
     .replace(/([A-Z])/g, ' $1')
     .toLowerCase()
 
+const formatTimestampToDate = (timestamp, outputFormat = 'DD/MM/YYYY') =>
+  timestamp && moment(timestamp).format(outputFormat)
+
 const isXHRRequest = (req) =>
   req.xhr ||
   (req.headers.accept && (req.headers.accept.indexOf('json') > -1 || req.headers.accept.indexOf('image/*') > -1)) ||
@@ -144,6 +158,8 @@ const isXHRRequest = (req) =>
 module.exports = {
   properCase,
   properCaseName,
+  formatName,
+  putLastNameFirst,
   forenameToInitial,
   getHoursMinutes,
   isTodayOrAfter,
@@ -160,4 +176,5 @@ module.exports = {
   pascalToString,
   isWithinNextTwoWorkingDays,
   isXHRRequest,
+  formatTimestampToDate,
 }
