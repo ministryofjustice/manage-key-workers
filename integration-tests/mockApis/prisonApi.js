@@ -57,15 +57,15 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/locations/description/.+?/inmates',
+        urlPathPattern: '/api/locations/description/.+?/inmates',
       },
       response: {
         status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
       },
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      jsonBody: response,
     }),
   stubUserLocations: (locations) => {
     return stubFor({
@@ -121,4 +121,32 @@ module.exports = {
       },
     })
   },
+  stubOffenderSentences: () =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPath: '/api/offender-sentences',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: [],
+      },
+    }),
+  stubOffenderAssessments: () =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPath: '/api/offender-assessments/csra/list',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: [],
+      },
+    }),
 }
