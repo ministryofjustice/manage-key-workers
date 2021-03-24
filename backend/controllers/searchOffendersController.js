@@ -28,7 +28,7 @@ module.exports = ({ allocationService, complexityOfNeedApi }) => {
         name: `${properCaseName(offender.lastName)}, ${properCaseName(offender.firstName)}`,
         prisonNumber: offender.offenderNo,
         location: offender.assignedLivingUnitDesc,
-        releaseDate: offender.confirmedReleaseDate,
+        releaseDate: offender.confirmedReleaseDate || 'Not entered',
         keyworker: offender.keyworkerDisplay === '--' ? 'Not allocated' : offender.keyworkerDisplay,
         highComplexityOfNeed: Boolean(
           complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
@@ -43,11 +43,13 @@ module.exports = ({ allocationService, complexityOfNeedApi }) => {
       return res.render('offenderSearch.njk', {
         offenders,
         keyworkersDropdownValues,
+        initialPageLoad: false,
       })
     }
 
     return res.render('offenderSearch.njk', {
       errors: req.flash('errors'),
+      initialPageLoad: true,
     })
   }
 

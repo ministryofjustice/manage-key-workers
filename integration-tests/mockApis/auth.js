@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const { stubFor, getMatchingRequests } = require('./wiremock')
 
-const { stubStaffRoles, stubUserLocations } = require('./elite2')
+const { stubStaffRoles, stubUserLocations } = require('./prisonApi')
 
 const createToken = () => {
   const payload = {

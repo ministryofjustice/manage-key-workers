@@ -118,7 +118,10 @@ describe('Search offenders controller', () => {
 
     it('should render the correct template', async () => {
       await controller.index(req, res)
-      expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {})
+      expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
+        errors: undefined,
+        initialPageLoad: true,
+      })
     })
 
     it('should unpack errors and pass them through to the view', async () => {
@@ -128,6 +131,7 @@ describe('Search offenders controller', () => {
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
         errors: [searchTextError],
+        initialPageLoad: true,
       })
     })
 
@@ -156,6 +160,7 @@ describe('Search offenders controller', () => {
       await controller.index(req, res)
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
+        initialPageLoad: false,
         keyworkersDropdownValues: [
           {
             text: 'Ball, Bob (6)',
@@ -168,12 +173,12 @@ describe('Search offenders controller', () => {
         ],
         offenders: [
           {
+            highComplexityOfNeed: false,
             keyworker: 'Not allocated',
             location: 'CSWAP',
             name: 'Alff, Ferinand',
             prisonNumber: 'G0276VC',
             releaseDate: '2012-04-30',
-            highComplexityOfNeed: false,
           },
         ],
       })

@@ -23,7 +23,7 @@ const controllerFactory = require('./controllers/controller').factory
 const allocationServiceFactory = require('./services/allocationService').serviceFactory
 const offenderSearchFactory = require('./controllers/searchOffendersController')
 
-const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
+const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
   const allocationService = allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax)
 
@@ -61,8 +61,20 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi }) => {
   )
   router.use('/api/keyworker-prison-stats', withErrorHandler(controller.getPrisonStats))
 
-  router.get('/manage-key-workers/search-for-prisoner', offenderSearchFactory({ allocationService }).index)
-  router.post('/manage-key-workers/search-for-prisoner', offenderSearchFactory({ allocationService }).post)
+  router.get(
+    '/manage-key-workers/search-for-prisoner',
+    offenderSearchFactory({
+      allocationService,
+      complexityOfNeedApi,
+    }).index
+  )
+  router.post(
+    '/manage-key-workers/search-for-prisoner',
+    offenderSearchFactory({
+      allocationService,
+      complexityOfNeedApi,
+    }).post
+  )
 
   router.use('/manage-key-workers', (req, res) => {
     res.redirect(req.url.replace(/\/manage-key-workers(.*)$/gi, '$1'))
