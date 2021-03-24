@@ -150,6 +150,11 @@ const pascalToString = (value) =>
 const formatTimestampToDate = (timestamp, outputFormat = 'DD/MM/YYYY') =>
   timestamp && moment(timestamp).format(outputFormat)
 
+const isXHRRequest = (req) =>
+  req.xhr ||
+  (req.headers.accept && (req.headers.accept.indexOf('json') > -1 || req.headers.accept.indexOf('image/*') > -1)) ||
+  (req.path && req.path.endsWith('.js'))
+
 module.exports = {
   properCase,
   properCaseName,
@@ -170,5 +175,6 @@ module.exports = {
   linkOnClick,
   pascalToString,
   isWithinNextTwoWorkingDays,
+  isXHRRequest,
   formatTimestampToDate,
 }

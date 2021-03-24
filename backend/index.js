@@ -31,6 +31,7 @@ const routes = require('./routes')
 const requestForwarding = require('./request-forwarding')
 const log = require('./log')
 const config = require('./config')
+const { logError } = require('./logError')
 
 const app = express()
 
@@ -115,7 +116,7 @@ app.use(routes({ ...apis }))
 
 app.use(setupReactRoutes())
 app.use(pageNotFound)
-app.use(errorHandler)
+app.use(errorHandler({ logError }))
 
 app.listen(config.app.port, () => {
   // eslint-disable-next-line no-console
