@@ -136,6 +136,11 @@ const pascalToString = (value) =>
     .replace(/([A-Z])/g, ' $1')
     .toLowerCase()
 
+const isXHRRequest = (req) =>
+  req.xhr ||
+  (req.headers.accept && (req.headers.accept.indexOf('json') > -1 || req.headers.accept.indexOf('image/*') > -1)) ||
+  (req.path && req.path.endsWith('.js'))
+
 module.exports = {
   properCase,
   properCaseName,
@@ -154,4 +159,5 @@ module.exports = {
   linkOnClick,
   pascalToString,
   isWithinNextTwoWorkingDays,
+  isXHRRequest,
 }
