@@ -5,3 +5,10 @@ $govuk-page-width: 1170px;
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 @import 'components/header';
+@import 'components/results-table';
+
+@import 'horizontal-content';
+
+.align-right {
+  text-align: right;
+}
