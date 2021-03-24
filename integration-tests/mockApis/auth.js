@@ -92,12 +92,13 @@ const token = () =>
     },
   })
 
-const stubUser = (username) => {
+const stubUser = (username, caseload) => {
   const user = username || 'ITAG_USER'
+  const activeCaseLoadId = caseload || 'MDI'
   return stubFor({
     request: {
       method: 'GET',
-      urlPattern: `/auth/api/user/${encodeURI(user)}`,
+      url: `/auth/api/user/${encodeURI(user)}`,
     },
     response: {
       status: 200,
@@ -111,6 +112,7 @@ const stubUser = (username) => {
         active: true,
         name: `${user} name`,
         authSource: 'nomis',
+        activeCaseLoadId,
       },
     },
   })
@@ -192,13 +194,11 @@ module.exports = {
       logout(),
       token(),
       stubUserMe(),
-      stubUserMeRoles([{ roleCode: 'UPDATE_ALERT' }, ...roles]),
+      stubUserMeRoles(roles),
       stubUser(username, caseloadId),
       stubUserLocations(),
       stubStaffRoles(),
     ]),
-  /*  stubLogin: (username, roles) =>
-      Promise.all([favicon(), redirect(), logout(), token(), stubUserMe(), stubUserMeRoles(roles), stubUser(username)]), */
   stubUserDetailsRetrieval: (username) => Promise.all([stubUser(username), stubEmail(username)]),
   stubUnverifiedUserDetailsRetrieval: (username) => Promise.all([stubUser(username), stubUnverifiedEmail(username)]),
   stubUserMe,

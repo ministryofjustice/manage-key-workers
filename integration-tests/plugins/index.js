@@ -14,9 +14,9 @@ module.exports = (on) => {
       return tokenverification.stubVerifyToken(true)
     },
     getLoginUrl: auth.getLoginUrl,
-    stubLogin: ({ username = 'ITAG_USER', roles = [{ roleCode: 'OMIC_ADMIN' }] }) =>
+    stubLogin: ({ username = 'ITAG_USER', roles = [{ roleCode: 'OMIC_ADMIN' }], caseloadId = 'MDI' }) =>
       Promise.all([
-        auth.stubLogin(username, roles),
+        auth.stubLogin(username, caseloadId, roles),
         prisonApi.stubUserMe(),
         prisonApi.stubUserCaseloads(),
         prisonApi.stubUpdateCaseload(),
