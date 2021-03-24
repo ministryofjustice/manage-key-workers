@@ -20,41 +20,10 @@
   }) }}
 {% endblock %}
 
-{% set rows = [] %}
-
-{% for prisoner in prisoners %}
-  {% set rows = (rows.push([
-    { text: prisoner.name },
-    { text: prisoner.prisonNumber },
-    { text: prisoner.location },
-    { text: prisoner.releaseDate },
-    {
-      text: 'Not allocated',
-      html: '<a class="govuk-link" href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName
-    },
-    {
-      html: govukSelect({
-        name: 'allocateKeyworker',
-        id: 'allocateKeyworker',
-        label: {
-          text: "Select key worker",
-          classes: "govuk-visually-hidden"
-        },
-        items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
-        attributes: { 'data-test': 'allocate-keyworker-select' },
-        classes: 'govuk-!-margin-bottom-0'
-      })
-    },
-    {
-      html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>'
-    }
-  ]), rows) %}
-{% endfor %}
-
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
-  <form>
+  <form class="horizontal-form govuk-!-margin-bottom-6">
     {{ govukSelect({
       name: 'residentialLocation',
       id: 'residentialLocation',
@@ -74,45 +43,92 @@
 
   {% if formValues.residentialLocation %}
     {% if prisoners.length %}
-      <p>Key workers will only be allocated when you have saved the changes.</p>
-
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <p>Key workers will only be allocated when you have saved the changes.</p>
+        </div>
+        <div class="govuk-grid-column-one-third">
+          <p class="align-right">
+            <strong>Prisoners listed:</strong> <span data-test="prisoner-count">{{ prisoners.length }}</span>
+          </p>
+        </div>
+      </div>
+      
       <form method="POST">
-        {{ govukTable({
-          head: [
+        <input type="hidden" name="activeCaseLoadId" value="{{ activeCaseLoadId }}" />
+        <input type="hidden" name="residentialLocation" value="{{ residentialLocation }}" />
+
+        {% set rows = [] %}
+
+        {% for prisoner in prisoners %}
+          {% set rows = (rows.push([
+            { text: prisoner.name },
+            { text: prisoner.prisonNumber },
+            { text: prisoner.location },
+            { text: prisoner.releaseDate },
             {
-              text: "Name",
+              text: 'Not allocated',
+              html: '<a class="govuk-link" href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
               attributes: {
-                "aria-sort": "ascending"
+                'data-sort-value': prisoner.keyworkerName
               }
             },
             {
-              text: "Prison number"
+              html: govukSelect({
+                name: 'allocateKeyworker',
+                id: 'allocateKeyworker',
+                label: {
+                  text: "Select key worker",
+                  classes: "govuk-visually-hidden"
+                },
+                items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
+                attributes: { 'data-test': 'allocate-keyworker-select' },
+                classes: 'govuk-!-margin-bottom-0'
+              })
             },
             {
-              text: "Location",
-              attributes: {
-                "aria-sort": "ascending"
-              }
-            },
-            {
-              text: "Release date"
-            },
-            {
-              text: "Key worker",
-              attributes: {
-                "aria-sort": "ascending"
-              }
-            },
-            {
-              text: "Change key worker"
-            },
-            {
-              html: '<span class="govuk-visually-hidden">View history</span>'
+              html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>'
             }
-          ],
-          rows: rows,
-          classes: "results-table"
-        }) }}
+          ]), rows) %}
+        {% endfor %}
+
+        <div class="results-table">
+          {{ govukTable({
+            head: [
+              {
+                text: "Name",
+                attributes: {
+                  "aria-sort": "ascending"
+                }
+              },
+              {
+                text: "Prison number"
+              },
+              {
+                text: "Location",
+                attributes: {
+                  "aria-sort": "ascending"
+                }
+              },
+              {
+                text: "Release date"
+              },
+              {
+                text: "Key worker",
+                attributes: {
+                  "aria-sort": "ascending"
+                }
+              },
+              {
+                text: "Change key worker"
+              },
+              {
+                html: '<span class="govuk-visually-hidden">View history</span>'
+              }
+            ],
+            rows: rows
+          }) }}
+        </div>
 
         {{ govukButton({
           text: "Save changes",
@@ -123,6 +139,8 @@
       <p>There are no prisoners in this location.</p>
     {% endif %}
   {% endif %}
+
+  <a href="/manage-key-workers">Return to manage key workers</a>
 {% endblock %}
 
 {% block bodyEnd %}

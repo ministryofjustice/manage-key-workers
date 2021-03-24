@@ -1,6 +1,6 @@
 const { properCaseName } = require('../utils')
 
-module.exports = ({ allocationService }) => {
+module.exports = ({ allocationService, complexityOfNeedApi }) => {
   const index = async (req, res, next) => {
     const { searchText } = req?.query || {}
     const { activeCaseLoadId } = req?.session?.userDetails || {}
@@ -14,12 +14,25 @@ module.exports = ({ allocationService }) => {
         locationPrefix: activeCaseLoadId,
       })
 
+      if (!offenderResponse?.length) {
+        return res.render('offenderSearch.njk', {
+          offenders: [],
+          keyworkersDropdownValues: [],
+        })
+      }
+
+      const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
+      const complexOffenders = await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
+
       const offenders = offenderResponse.map((offender) => ({
         name: `${properCaseName(offender.lastName)}, ${properCaseName(offender.firstName)}`,
         prisonNumber: offender.offenderNo,
         location: offender.assignedLivingUnitDesc,
-        releaseDate: offender.confirmedReleaseDate,
+        releaseDate: offender.confirmedReleaseDate || 'Not entered',
         keyworker: offender.keyworkerDisplay === '--' ? 'Not allocated' : offender.keyworkerDisplay,
+        highComplexityOfNeed: Boolean(
+          complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
+        ),
       }))
 
       const keyworkersDropdownValues = keyworkerResponse.map((keyworker) => ({
@@ -30,11 +43,13 @@ module.exports = ({ allocationService }) => {
       return res.render('offenderSearch.njk', {
         offenders,
         keyworkersDropdownValues,
+        initialPageLoad: false,
       })
     }
 
     return res.render('offenderSearch.njk', {
       errors: req.flash('errors'),
+      initialPageLoad: true,
     })
   }
 
@@ -49,7 +64,7 @@ module.exports = ({ allocationService }) => {
         },
       ])
 
-      return res.redirect(`/manage-key-workers/search-for-prisoner`)
+      return res.redirect('/manage-key-workers/search-for-prisoner')
     }
 
     return res.redirect(`/manage-key-workers/search-for-prisoner?searchText=${searchText}`)

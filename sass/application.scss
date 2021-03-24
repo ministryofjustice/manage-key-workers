@@ -6,3 +6,9 @@ $govuk-page-width: 1170px;
 
 @import 'components/header';
 @import 'components/results-table';
+
+@import 'horizontal-content';
+
+.align-right {
+  text-align: right;
+}

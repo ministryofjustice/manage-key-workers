@@ -28,4 +28,32 @@ module.exports = {
         },
       },
     }),
+  stubAvailableKeyworkers: (keyworkers) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPathPattern: '/key-worker/.+?/available',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: keyworkers,
+      },
+    }),
+  stubOffenderKeyworker: () =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPathPattern: '/key-worker/.+?/offenders',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: [],
+      },
+    }),
 }

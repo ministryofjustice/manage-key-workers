@@ -4,6 +4,8 @@ require('dotenv').config()
 require('./azure-appinsights')
 
 const express = require('express')
+require('express-async-errors')
+
 const bodyParser = require('body-parser')
 const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
