@@ -87,7 +87,7 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
     viewResidentialLocation({ allocationService, elite2Api, keyworkerApi }).post
   )
 
-  router.get('/manage-key-workers', (req, res) => {
+  router.use('/manage-key-workers', (req, res) => {
     res.redirect(req.url.replace(/\/manage-key-workers(.*)$/gi, '$1'))
   })
 
