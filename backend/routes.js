@@ -1,7 +1,6 @@
 const express = require('express')
 const config = require('./config')
 
-const withErrorHandler = require('./middleware/asyncHandler')
 const { userLocationsFactory } = require('./controllers/userLocations')
 const { allocationHistoryFactory } = require('./controllers/allocationHistory')
 const { manualOverrideFactory } = require('./controllers/manualoverride')
@@ -30,38 +29,29 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
   const allocationService = allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax)
 
   const controller = controllerFactory(allocationService, keyworkerPrisonStatsFactory(keyworkerApi))
-  router.use('/api/config', withErrorHandler(getConfiguration))
-  router.use('/api/me', withErrorHandler(userMeFactory(oauthApi, elite2Api, keyworkerApi).userMeService))
-  router.use('/api/usercaseloads', withErrorHandler(userCaseLoadsFactory(elite2Api).userCaseloads))
-  router.use('/api/setactivecaseload', withErrorHandler(setActiveCaseLoadFactory(elite2Api).setActiveCaseload))
-  router.use('/api/unallocated', withErrorHandler(controller.unallocated))
-  router.use('/api/allocated', withErrorHandler(controller.allocated))
-  router.use('/api/keyworkerAllocations', withErrorHandler(controller.keyworkerAllocations))
-  router.use('/api/searchOffenders', withErrorHandler(controller.searchOffenders))
-  router.use('/api/userLocations', withErrorHandler(userLocationsFactory(elite2Api).userLocations))
-  router.use('/api/allocationHistory', withErrorHandler(allocationHistoryFactory(keyworkerApi).allocationHistory))
-  router.use('/api/keyworker', withErrorHandler(keyworkerProfileFactory(keyworkerApi).keyworkerProfile))
-  router.use('/api/manualoverride', withErrorHandler(manualOverrideFactory(keyworkerApi).manualOverride))
-  router.use('/api/keyworkerSearch', withErrorHandler(keyworkerSearchFactory(keyworkerApi).keyworkerSearch))
-  router.use('/api/autoAllocateConfirmWithOverride', withErrorHandler(autoAllocateFactory(keyworkerApi).autoAllocate))
-  router.use('/api/keyworkerUpdate', withErrorHandler(keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate))
-  router.use(
-    '/api/autoAllocateMigrate',
-    withErrorHandler(autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate)
-  )
+  router.use('/api/config', getConfiguration)
+  router.use('/api/me', userMeFactory(oauthApi, elite2Api, keyworkerApi).userMeService)
+  router.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
+  router.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
+  router.use('/api/unallocated', controller.unallocated)
+  router.use('/api/allocated', controller.allocated)
+  router.use('/api/keyworkerAllocations', controller.keyworkerAllocations)
+  router.use('/api/searchOffenders', controller.searchOffenders)
+  router.use('/api/userLocations', userLocationsFactory(elite2Api).userLocations)
+  router.use('/api/allocationHistory', allocationHistoryFactory(keyworkerApi).allocationHistory)
+  router.use('/api/keyworker', keyworkerProfileFactory(keyworkerApi).keyworkerProfile)
+  router.use('/api/manualoverride', manualOverrideFactory(keyworkerApi).manualOverride)
+  router.use('/api/keyworkerSearch', keyworkerSearchFactory(keyworkerApi).keyworkerSearch)
+  router.use('/api/autoAllocateConfirmWithOverride', autoAllocateFactory(keyworkerApi).autoAllocate)
+  router.use('/api/keyworkerUpdate', keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate)
+  router.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate)
   router.use(
     '/api/manualAllocateMigrate',
-    withErrorHandler(manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate)
+    manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate
   )
-  router.use(
-    '/api/keyworkerSettings',
-    withErrorHandler(keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings)
-  )
-  router.use(
-    '/api/keyworker-profile-stats',
-    withErrorHandler(keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
-  )
-  router.use('/api/keyworker-prison-stats', withErrorHandler(controller.getPrisonStats))
+  router.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings)
+  router.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
+  router.use('/api/keyworker-prison-stats', controller.getPrisonStats)
 
   router.get(
     '/manage-key-workers/search-for-prisoner',
