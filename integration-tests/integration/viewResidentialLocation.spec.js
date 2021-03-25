@@ -140,7 +140,7 @@ context('View residential location', () => {
           expect(offenders[1].prisonNo).to.eq('ABC456')
           expect(offenders[1].location).to.eq('MDI-1-2')
           expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
-          expect(offenders[1].keyworker.trim()).to.eq('Doe, Julian (9)')
+          expect(offenders[1].keyworker.trim()).to.eq('Julian Doe (9)')
           cy.get(offenders[1].changeKeyworker)
             .find('[data-test="allocate-keyworker-select"]')
             .then(($select) => {

@@ -163,7 +163,7 @@ describe('Allocated controller', () => {
       staffId: 123,
       agencyId: 'LEI',
       internalLocationDesc: 'A-1-1',
-      keyworkerDisplay: 'Hanson, Amy',
+      keyworkerDisplay: 'Amy Hanson',
       numberAllocated: 4,
       crsaClassification: 'High',
       confirmedReleaseDate: '2024-03-03',
@@ -185,6 +185,6 @@ describe('Allocated controller', () => {
   })
 
   it('Should add keyworker details to allocated data array', () => {
-    expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Lard, Ben')
+    expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Ben Lard')
   })
 })
