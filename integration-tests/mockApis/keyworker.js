@@ -42,7 +42,7 @@ module.exports = {
         jsonBody: keyworkers,
       },
     }),
-  stubOffenderKeyworker: () =>
+  stubOffenderKeyworker: (response = []) =>
     stubFor({
       request: {
         method: 'POST',
@@ -53,7 +53,7 @@ module.exports = {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
         },
-        jsonBody: [],
+        jsonBody: response,
       },
     }),
 }
