@@ -48,7 +48,7 @@ const searchOffendersResponse = {
       alertsDetails: [],
       legalStatus: 'SENTENCED',
       staffId: null,
-      keyworkerDisplay: 'Not allocated',
+      keyworkerDisplay: '--',
       numberAllocated: 'n/a',
       crsaClassification: 'High',
       confirmedReleaseDate: '2012-04-30',

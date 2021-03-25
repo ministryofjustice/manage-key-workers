@@ -64,7 +64,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     const keyworkerMap = reduceToKeyworkerMap([...availableKeyworkers, ...extraKeyworkers])
 
     const noAssignedKeyWorker = {
-      keyworkerDisplay: 'Not allocated',
+      keyworkerDisplay: '--',
       numberAllocated: 'n/a',
     }
 
@@ -172,7 +172,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
             numberAllocated: keyworkerData.numberAllocated,
           }
         : {
-            keyworkerDisplay: 'Not allocated',
+            keyworkerDisplay: '--',
             numberAllocated: 'n/a',
           }
     } catch (error) {

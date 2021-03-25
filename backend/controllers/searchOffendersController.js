@@ -29,7 +29,7 @@ module.exports = ({ allocationService, complexityOfNeedApi }) => {
         prisonNumber: offender.offenderNo,
         location: offender.assignedLivingUnitDesc,
         releaseDate: offender.confirmedReleaseDate || 'Not entered',
-        keyworker: offender.keyworkerDisplay,
+        keyworker: offender.keyworkerDisplay === '--' ? 'Not allocated' : offender.keyworkerDisplay,
         highComplexityOfNeed: Boolean(
           complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
         ),
