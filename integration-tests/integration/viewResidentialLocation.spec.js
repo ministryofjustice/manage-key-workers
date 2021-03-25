@@ -5,7 +5,7 @@ const toOffender = ($cell) => ({
   releaseDate: $cell[3]?.textContent,
   keyworker: $cell[4]?.textContent,
   changeKeyworker: $cell[5],
-  viewHistory: $cell[6]?.textContent,
+  viewHistory: $cell[6],
 })
 
 context('View residential location', () => {
@@ -79,7 +79,7 @@ context('View residential location', () => {
       .should('include', '/manage-key-workers')
   })
 
-  context('when there are results', () => {
+  context.only('when there are results', () => {
     beforeEach(() => {
       cy.task('stubSearchOffenders', [
         {
@@ -110,6 +110,21 @@ context('View residential location', () => {
           assignedLivingUnitDesc: 'MDI-1-3',
         },
       ])
+      cy.task('stubAllocationHistory', {
+        offenderNo: 'ABC123',
+        response: { offender: { offenderNo: 'ABC123' }, allocationHistory: [] },
+      })
+      cy.task('stubAllocationHistory', {
+        offenderNo: 'ABC456',
+        response: {
+          offender: { offenderNo: 'ABC456' },
+          allocationHistory: [{ staffId: 2 }],
+        },
+      })
+      cy.task('stubAllocationHistory', {
+        offenderNo: 'ABC789',
+        response: { offender: { offenderNo: 'ABC789' }, allocationHistory: [] },
+      })
     })
 
     it('should display the correct results', () => {
@@ -134,6 +149,7 @@ context('View residential location', () => {
           expect(offenders[0].releaseDate.trim()).to.eq('30/04/2022')
           expect(offenders[0].keyworker.trim()).to.eq('None')
           expect(offenders[0].changeKeyworker.textContent.trim()).to.eq('N/A - high complexity')
+          cy.get(offenders[0].viewHistory).find('a').should('not.exist')
 
           // Offender with keyworker
           expect(offenders[1].name).to.eq('Smith, John')
@@ -152,6 +168,11 @@ context('View residential location', () => {
                   expect($options.get(2)).to.contain('Bob Ball (6)')
                 })
             })
+          cy.get(offenders[1].viewHistory)
+            .find('a')
+            .contains('View history')
+            .should('have.attr', 'href')
+            .should('include', '/offender-history/ABC456')
 
           // Offender without keyworker
           expect(offenders[2].name).to.eq('Gray, Simon')
@@ -170,6 +191,7 @@ context('View residential location', () => {
                   expect($options.get(2)).to.contain('Julian Doe (9)')
                 })
             })
+          cy.get(offenders[2].viewHistory).find('a').should('not.exist')
         })
     })
   })
