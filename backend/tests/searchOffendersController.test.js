@@ -179,7 +179,6 @@ describe('Search offenders controller', () => {
             name: 'Alff, Ferinand',
             prisonNumber: 'G0276VC',
             releaseDate: '2012-04-30',
-            highComplexityOfNeed: false,
           },
         ],
       })
