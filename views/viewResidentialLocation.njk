@@ -86,7 +86,7 @@
               }) if prisoner.keyworkerList
             },
             {
-              html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>'
+              html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>' if prisoner.hasHistory
             }
           ]), rows) %}
         {% endfor %}

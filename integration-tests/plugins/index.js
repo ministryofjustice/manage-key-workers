@@ -32,5 +32,6 @@ module.exports = (on) => {
     stubOffenderSentences: (response) => prisonApi.stubOffenderSentences(response),
     stubOffenderAssessments: () => prisonApi.stubOffenderAssessments(),
     stubGetComplexOffenders: (offenders = []) => complexityApi.stubGetComplexOffenders(offenders),
+    stubAllocationHistory: ({ offenderNo, response }) => keyworker.stubAllocationHistory({ offenderNo, response }),
   })
 }

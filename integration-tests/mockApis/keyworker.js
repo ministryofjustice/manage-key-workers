@@ -56,4 +56,18 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubAllocationHistory: ({ offenderNo, response = {} }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/key-worker/allocation-history/${offenderNo}`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
 }
