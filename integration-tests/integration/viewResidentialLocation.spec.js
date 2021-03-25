@@ -1,5 +1,5 @@
 const toOffender = ($cell) => ({
-  name: $cell[0]?.textContent,
+  name: $cell[0],
   prisonNo: $cell[1]?.textContent,
   location: $cell[2]?.textContent,
   releaseDate: $cell[3]?.textContent,
@@ -79,7 +79,7 @@ context('View residential location', () => {
       .should('include', '/manage-key-workers')
   })
 
-  context.only('when there are results', () => {
+  context('when there are results', () => {
     beforeEach(() => {
       cy.task('stubSearchOffenders', [
         {
@@ -143,7 +143,11 @@ context('View residential location', () => {
           const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
 
           // High complexity offender
-          expect(offenders[0].name).to.eq('Alff, Ferinand')
+          cy.get(offenders[0].name)
+            .find('a')
+            .contains('Alff, Ferinand')
+            .should('have.attr', 'href')
+            .should('include', 'http://localhost:3002/prisoner/ABC123')
           expect(offenders[0].prisonNo).to.eq('ABC123')
           expect(offenders[0].location).to.eq('MDI-1-1')
           expect(offenders[0].releaseDate.trim()).to.eq('30/04/2022')
@@ -152,7 +156,11 @@ context('View residential location', () => {
           cy.get(offenders[0].viewHistory).find('a').should('not.exist')
 
           // Offender with keyworker
-          expect(offenders[1].name).to.eq('Smith, John')
+          cy.get(offenders[1].name)
+            .find('a')
+            .contains('Smith, John')
+            .should('have.attr', 'href')
+            .should('include', 'http://localhost:3002/prisoner/ABC456')
           expect(offenders[1].prisonNo).to.eq('ABC456')
           expect(offenders[1].location).to.eq('MDI-1-2')
           expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
@@ -175,7 +183,11 @@ context('View residential location', () => {
             .should('include', '/offender-history/ABC456')
 
           // Offender without keyworker
-          expect(offenders[2].name).to.eq('Gray, Simon')
+          cy.get(offenders[2].name)
+            .find('a')
+            .contains('Gray, Simon')
+            .should('have.attr', 'href')
+            .should('include', 'http://localhost:3002/prisoner/ABC789')
           expect(offenders[2].prisonNo).to.eq('ABC789')
           expect(offenders[2].location).to.eq('MDI-1-3')
           expect(offenders[2].releaseDate.trim()).to.eq('28/02/2029')
