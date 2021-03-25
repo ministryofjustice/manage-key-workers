@@ -37,7 +37,8 @@
     {{ govukButton({
       text: "View",
       type: "submit",
-      classes: "govuk-button--secondary"
+      classes: "govuk-button--secondary",
+      attributes: { 'data-test': 'view-location-button' }
     }) }}
   </form>
 
@@ -124,7 +125,8 @@
                 html: '<span class="govuk-visually-hidden">View history</span>'
               }
             ],
-            rows: rows
+            rows: rows,
+            attributes: { 'data-test': 'location-results-table' }
           }) }}
         </div>
 
@@ -134,11 +136,11 @@
         }) }}
       </form>
     {% else %}
-      <p>There are no prisoners in this location.</p>
+      <p data-test="no-results-message">There are no prisoners in this location.</p>
     {% endif %}
   {% endif %}
 
-  <a href="/manage-key-workers">Return to manage key workers</a>
+  <a href="/manage-key-workers" data-test="return-link">Return to manage key workers</a>
 {% endblock %}
 
 {% block bodyEnd %}
