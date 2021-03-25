@@ -1,6 +1,6 @@
 const log = require('../log')
 const { logError } = require('../logError')
-const { properCaseName } = require('../../src/stringUtils')
+const { formatName } = require('../utils')
 const telemetry = require('../azure-appinsights')
 
 // TODO: There's a lot of duplication in this module...
@@ -72,8 +72,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const keyworkerDetails = keyworkerMap.get(offenderWithAllocatedKeyworker.staffId) || noAssignedKeyWorker
 
       const keyworkerDisplay =
-        keyworkerDetails.keyworkerDisplay ||
-        `${properCaseName(keyworkerDetails.lastName)}, ${properCaseName(keyworkerDetails.firstName)}`
+        keyworkerDetails.keyworkerDisplay || formatName(keyworkerDetails.firstName, keyworkerDetails.lastName)
 
       const { offenderNo } = offenderWithAllocatedKeyworker
       const { numberAllocated } = keyworkerDetails
@@ -169,7 +168,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
             staffId: keyworkerData.staffId,
             firstName: keyworkerData.firstName,
             lastName: keyworkerData.lastName,
-            keyworkerDisplay: `${properCaseName(keyworkerData.lastName)}, ${properCaseName(keyworkerData.firstName)}`,
+            keyworkerDisplay: formatName(keyworkerData.firstName, keyworkerData.lastName),
             numberAllocated: keyworkerData.numberAllocated,
           }
         : {
