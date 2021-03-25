@@ -121,7 +121,7 @@ module.exports = {
       },
     })
   },
-  stubOffenderSentences: () =>
+  stubOffenderSentences: (response = []) =>
     stubFor({
       request: {
         method: 'POST',
@@ -132,7 +132,7 @@ module.exports = {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
         },
-        jsonBody: [],
+        jsonBody: response,
       },
     }),
   stubOffenderAssessments: () =>
