@@ -91,7 +91,7 @@ class AutoAllocationSpecification extends BrowserReportingSpec {
         table.find("tr", 1).find("td", 2).text() == 'H-1'
         table.find("tr", 1).find("td", 3).text() == '--'
         table.find("tr", 1).find("td", 4).text() == '--'
-        table.find("tr", 1).find("td", 5).text() == 'Cuser, Another (6)'
+        table.find("tr", 1).find("td", 5).text() == 'Another Cuser (6)'
         table.find("tr", 1).find("option", 1).text() == 'Auser, Hpa (4)'
         table.find("tr", 1).find("option", 1).@value == '-3'
         table.find("tr", 1).find("option", 2).text() == 'Tuser, Test (5)'
