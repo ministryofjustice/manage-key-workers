@@ -9,6 +9,7 @@ const getConfiguration = async (req, res) =>
     keyworkerProfileStatsEnabled: config.app.keyworkerProfileStatsEnabled,
     keyworkerDashboardStatsEnabled: config.app.keyworkerDashboardStatsEnabled,
     supportUrl: config.app.supportUrl,
+    authUrl: config.apis.oauth2.url,
   })
 
 module.exports = {
