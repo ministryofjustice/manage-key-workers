@@ -174,7 +174,7 @@ class ManualAssignAndTransferSpecification extends BrowserReportingSpec {
 
         and: "An error message is displayed"
         !rows.isDisplayed()
-        message == 'Something went wrong with the search'
+        message == 'Something went wrong: Error: Request failed with status code 403'
     }
 
     def "error is not left on screen if hitting search again with successful result"() {

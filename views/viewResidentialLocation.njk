@@ -37,7 +37,8 @@
     {{ govukButton({
       text: "View",
       type: "submit",
-      classes: "govuk-button--secondary"
+      classes: "govuk-button--secondary",
+      attributes: { 'data-test': 'view-location-button' }
     }) }}
   </form>
 
@@ -49,23 +50,29 @@
         </div>
         <div class="govuk-grid-column-one-third">
           <p class="align-right">
-            <strong>Prisoners listed:</strong> <span data-test="prisoner-count">{{ prisoners.length }}</span>
+            <strong>Prisoners listed:</strong>
+            <span data-test="prisoner-count">{{ prisoners.length }}</span>
           </p>
         </div>
       </div>
-      
+
       <form method="POST">
         {% set rows = [] %}
 
         {% for prisoner in prisoners %}
           {% set rows = (rows.push([
-            { text: prisoner.name },
+            { 
+              html: '<a href="' + dpsUrl + 'prisoner/' + prisoner.prisonNumber + '">' + prisoner.name + '</a>',
+              attributes: {
+                'data-sort-value': prisoner.name
+              }
+            },
             { text: prisoner.prisonNumber },
             { text: prisoner.location },
             { text: prisoner.releaseDate },
             {
               text: 'None' if prisoner.isHighComplexity else 'Not allocated',
-              html: '<a class="govuk-link" href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
+              html: '<a href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
               attributes: {
                 'data-sort-value': prisoner.keyworkerName
               }
@@ -85,7 +92,7 @@
               }) if prisoner.keyworkerList
             },
             {
-              html: '<a class="govuk-link" href="/offender-history/' + prisoner.prisonNumber + '">View history</a>'
+              html: '<a href="/offender-history/' + prisoner.prisonNumber + '">View history</a>' if prisoner.hasHistory
             }
           ]), rows) %}
         {% endfor %}
@@ -124,7 +131,8 @@
                 html: '<span class="govuk-visually-hidden">View history</span>'
               }
             ],
-            rows: rows
+            rows: rows,
+            attributes: { 'data-test': 'location-results-table' }
           }) }}
         </div>
 
@@ -134,11 +142,11 @@
         }) }}
       </form>
     {% else %}
-      <p>There are no prisoners in this location.</p>
+      <p data-test="no-results-message">There are no prisoners in this location.</p>
     {% endif %}
   {% endif %}
 
-  <a href="/manage-key-workers">Return to manage key workers</a>
+  <a href="/manage-key-workers" data-test="return-link">Return to manage key workers</a>
 {% endblock %}
 
 {% block bodyEnd %}
@@ -146,7 +154,7 @@
   <script src="/assets/moj/components/sortable-table/sortable-table.js"></script>
   <script>
     new MOJFrontend.SortableTable({
-      table: $('table')[0],
+      table: $('table')[0]
     })
   </script>
 {% endblock %}

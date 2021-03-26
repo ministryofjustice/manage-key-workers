@@ -25,6 +25,15 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       ? await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
       : []
 
+    const allocationHistoryData = offenderNumbers.length
+      ? await Promise.all(
+          offenderResponse.map(async ({ offenderNo }) => {
+            const history = await keyworkerApi.allocationHistory(res.locals, offenderNo)
+            return { offenderNo, hasHistory: Boolean(history?.allocationHistory?.length) }
+          })
+        )
+      : []
+
     return res.render('viewResidentialLocation', {
       activeCaseLoadId,
       formValues: req.query,
@@ -38,6 +47,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
 
         return {
           isHighComplexity,
+          hasHistory: allocationHistoryData.find((history) => history.offenderNo === offenderNo).hasHistory,
           keyworkerName: staffId && `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
           keyworkerStaffId: staffId,
           keyworkerList: !isHighComplexity && [

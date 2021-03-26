@@ -28,9 +28,10 @@ module.exports = (on) => {
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
-    stubOffenderKeyworker: () => keyworker.stubOffenderKeyworker(),
-    stubOffenderSentences: () => prisonApi.stubOffenderSentences(),
+    stubOffenderKeyworker: (response) => keyworker.stubOffenderKeyworker(response),
+    stubOffenderSentences: (response) => prisonApi.stubOffenderSentences(response),
     stubOffenderAssessments: () => prisonApi.stubOffenderAssessments(),
     stubGetComplexOffenders: (offenders = []) => complexityApi.stubGetComplexOffenders(offenders),
+    stubAllocationHistory: ({ offenderNo, response }) => keyworker.stubAllocationHistory({ offenderNo, response }),
   })
 }

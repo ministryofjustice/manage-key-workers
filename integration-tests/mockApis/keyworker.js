@@ -42,7 +42,7 @@ module.exports = {
         jsonBody: keyworkers,
       },
     }),
-  stubOffenderKeyworker: () =>
+  stubOffenderKeyworker: (response = []) =>
     stubFor({
       request: {
         method: 'POST',
@@ -53,7 +53,21 @@ module.exports = {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
         },
-        jsonBody: [],
+        jsonBody: response,
+      },
+    }),
+  stubAllocationHistory: ({ offenderNo, response = {} }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/key-worker/allocation-history/${offenderNo}`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
       },
     }),
 }
