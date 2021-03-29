@@ -93,17 +93,6 @@ describe('App component', () => {
     expect(component.instance().displayAlertAndLogout).not.toBeCalled()
   })
 
-  it('should close the menu when the content is clicked', () => {
-    const setMenuOpen = jest.fn()
-    props.boundSetMenuOpen = setMenuOpen
-
-    const component = shallow(<App {...props} />)
-
-    component.find('.inner-content').simulate('click')
-
-    expect(setMenuOpen).toHaveBeenCalledWith(false)
-  })
-
   it('should pass through correct props to the footer container', () => {
     const component = shallow(<App {...props} />)
 

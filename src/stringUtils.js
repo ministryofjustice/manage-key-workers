@@ -21,6 +21,11 @@ const toFullName = ({ firstName, lastName, name }) =>
     : (!isBlank(lastName) ? `${properCaseName(lastName)}, ` : '') +
       (!isBlank(firstName) ? properCaseName(firstName) : '')
 
+const forenameToInitial = (name) => {
+  if (!name) return null
+  return `${name.charAt()}. ${name.split(' ').pop()}`
+}
+
 /**
  * Render a moment object or ISO 8601 formatted string in the standard ui date format.  This format is
  * dd/MM/yyyy.  If the date parameter is not present or cannot be understood the function returns '--'.
@@ -90,6 +95,7 @@ module.exports = {
   properCase,
   properCaseName,
   toFullName,
+  forenameToInitial,
   renderDate,
   renderDateTime,
   switchToIsoDateFormat,

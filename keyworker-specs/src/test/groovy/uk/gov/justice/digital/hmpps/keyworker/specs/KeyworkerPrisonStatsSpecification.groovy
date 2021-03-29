@@ -7,7 +7,6 @@ import uk.gov.justice.digital.hmpps.keyworker.mockapis.Elite2Api
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.KeyworkerApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.OauthApi
 import uk.gov.justice.digital.hmpps.keyworker.mockapis.TokenVerificationApi
-import uk.gov.justice.digital.hmpps.keyworker.model.Caseload
 import uk.gov.justice.digital.hmpps.keyworker.model.TestFixture
 import uk.gov.justice.digital.hmpps.keyworker.model.UserAccount
 import uk.gov.justice.digital.hmpps.keyworker.pages.KeyworkerDashboardPage
@@ -124,40 +123,5 @@ class KeyworkerPrisonStatsSpecification extends BrowserReportingSpec {
                 .withQueryParam("prisonId", WireMock.equalTo("LEI"))
                 .withQueryParam("fromDate", WireMock.equalTo(sevenDaysAgo.toString()))
                 .withQueryParam("toDate", WireMock.equalTo(yesterday.toString())))
-    }
-
-    def "should stay on the dashboard after a case load switch"() {
-        given: "I am logged in"
-        fixture.loginAs(UserAccount.ITAG_USER)
-
-        when: "I navigate to the key worker prison stats dashboard page"
-        keyworkerApi.stubKeyworkerPrisonStatsResponse()
-        fixture.toKeyworkerDashboardPage()
-
-        at KeyworkerDashboardPage
-
-        then: "I switch caseloads"
-        elite2api.stubSetActiveCaseload()
-        keyworkerApi.stubPrisonMigrationStatus(BXI, true, true, 0, true)
-
-        header.dropDown.click()
-        assert waitFor { header.brixtonCaseLoad.displayed }
-
-        elite2api.stubGetMyCaseloads(ITAG_USER.caseloads, BXI.id)
-        header.brixtonCaseLoad.click()
-
-        then: "I will still be on the dashboard"
-        at KeyworkerDashboardPage
-        assert waitFor { header.caseload == Caseload.BXI.description }
-
-        then: "a call for Brixton stats should be made"
-        LocalDate lastMonth = LocalDate.now().minusMonths(1)
-        LocalDate from = lastMonth.withDayOfMonth(1)
-        LocalDate to = lastMonth.withDayOfMonth(lastMonth.lengthOfMonth())
-
-        keyworkerApi.verify(WireMock.getRequestedFor(requestUrl)
-                .withQueryParam("prisonId", WireMock.equalTo("BXI"))
-                .withQueryParam("fromDate", WireMock.equalTo(from.toString()))
-                .withQueryParam("toDate", WireMock.equalTo(to.toString())))
-    }
+    } 
 }

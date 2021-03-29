@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { FooterContainer, Header } from 'new-nomis-shared-components'
+import { FooterContainer } from 'new-nomis-shared-components'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
+import Header from '../Header'
 import HomePage from './keyworkerHomePage'
 import UnauthPage from './unauthPage'
 import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer'
@@ -27,12 +28,10 @@ import {
   setConfig,
   setError,
   setLoaded,
-  setMenuOpen,
   setMessage,
   setSettings,
   setTermsVisibility,
   setUserDetails,
-  switchAgency,
 } from '../redux/actions/index'
 import { configType, errorType, userType } from '../types'
 
@@ -82,18 +81,6 @@ class App extends React.Component {
     const keyworkerSettings = await axios.get('/api/keyworkerSettings')
     keyworkerSettingsDispatch(keyworkerSettings.data)
     userDetailsDispatch({ ...user.data, caseLoadOptions: caseloads.data })
-  }
-
-  switchCaseLoad = async (newCaseload) => {
-    const { switchAgencyDispatch } = this.props
-
-    try {
-      await axios.put('/api/setactivecaseload', { caseLoadId: newCaseload })
-      await this.loadUserAndCaseload()
-      switchAgencyDispatch(newCaseload)
-    } catch (error) {
-      this.handleError(error)
-    }
   }
 
   showTermsAndConditions = () => {
@@ -156,22 +143,12 @@ class App extends React.Component {
   )
 
   render() {
-    const {
-      boundSetMenuOpen,
-      config,
-      shouldShowTerms,
-      error,
-      allowAuto,
-      user,
-      message,
-      migrated,
-      dispatchLoaded,
-    } = this.props
+    const { config, shouldShowTerms, error, allowAuto, user, message, migrated, dispatchLoaded } = this.props
 
     let innerContent
     const routes = (
       // eslint-disable-next-line
-      <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
+      <div className="inner-content">
         <div className="pure-g">
           <Switch>
             <Route exact path="/unauthorised" render={() => <UnauthPage dispatchLoaded={dispatchLoaded} />} />
@@ -295,7 +272,7 @@ class App extends React.Component {
     } else {
       innerContent = (
         // eslint-disable-next-line
-        <div className="inner-content" onClick={() => boundSetMenuOpen(false)}>
+        <div className="inner-content">
           <div className="pure-g">
             <Error error={error} />
           </div>
@@ -312,26 +289,7 @@ class App extends React.Component {
                 ReactGA.pageview(props.location.pathname)
               }
 
-              return (
-                <Header
-                  logoText="HMPPS"
-                  title="Digital Prison Services"
-                  homeLink={links.getHomeLink()}
-                  switchCaseLoad={(newCaseload) => {
-                    this.switchCaseLoad(newCaseload)
-                    const routesThatDontRedirectAfterCaseloadSwitch = ['/key-worker-statistics']
-
-                    if (routesThatDontRedirectAfterCaseloadSwitch.includes(props.location.pathname) === false) {
-                      props.history.push('/')
-                    }
-                  }}
-                  history={props.history}
-                  resetError={this.resetError}
-                  setMenuOpen={boundSetMenuOpen}
-                  caseChangeRedirect={false}
-                  {...this.props}
-                />
-              )
+              return <Header dpsUrl={config.prisonStaffHubUrl} authUrl={config.authUrl} user={user} />
             }}
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
@@ -353,13 +311,11 @@ App.propTypes = {
   shouldShowTerms: PropTypes.bool.isRequired,
   configDispatch: PropTypes.func.isRequired,
   userDetailsDispatch: PropTypes.func.isRequired,
-  switchAgencyDispatch: PropTypes.func.isRequired,
   setTermsVisibilityDispatch: PropTypes.func.isRequired,
   setErrorDispatch: PropTypes.func.isRequired,
   resetErrorDispatch: PropTypes.func.isRequired,
   keyworkerSettingsDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  boundSetMenuOpen: PropTypes.func.isRequired,
   allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
@@ -380,12 +336,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   configDispatch: (config) => dispatch(setConfig(config)),
   userDetailsDispatch: (user) => dispatch(setUserDetails(user)),
-  switchAgencyDispatch: (agencyId) => dispatch(switchAgency(agencyId)),
   setTermsVisibilityDispatch: (shouldShowTerms) => dispatch(setTermsVisibility(shouldShowTerms)),
   setErrorDispatch: (error) => dispatch(setError(error)),
   resetErrorDispatch: () => dispatch(resetError()),
   setMessageDispatch: (message) => dispatch(setMessage(message)),
-  boundSetMenuOpen: (flag) => dispatch(setMenuOpen(flag)),
   keyworkerSettingsDispatch: (settings) => dispatch(setSettings(settings)),
   dispatchLoaded: (value) => dispatch(setLoaded(value)),
 })
