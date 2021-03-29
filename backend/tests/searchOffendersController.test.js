@@ -47,8 +47,8 @@ const searchOffendersResponse = {
       alertsCodes: [],
       alertsDetails: [],
       legalStatus: 'SENTENCED',
-      staffId: null,
-      keyworkerDisplay: '--',
+      staffId: 1,
+      keyworkerDisplay: 'First last',
       numberAllocated: 'n/a',
       crsaClassification: 'High',
       confirmedReleaseDate: '2012-04-30',
@@ -63,6 +63,7 @@ describe('Search offenders controller', () => {
   let res
   const allocationService = {}
   const complexityOfNeedApi = {}
+  const keyworkerApi = {}
 
   beforeEach(() => {
     req = {
@@ -81,57 +82,51 @@ describe('Search offenders controller', () => {
 
     complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([])
     allocationService.searchOffenders = jest.fn().mockResolvedValue(searchOffendersResponse)
-    controller = controllerFactory({ allocationService, complexityOfNeedApi })
+    keyworkerApi.deallocate = jest.fn()
+    keyworkerApi.allocate = jest.fn()
+    keyworkerApi.allocationHistory = jest.fn()
+    controller = controllerFactory({ allocationService, complexityOfNeedApi, keyworkerApi })
   })
 
-  describe('Index', () => {
-    it('should call next if the user details are not available', async () => {
-      const next = jest.fn()
-
-      req.session = null
-
-      await controller.index(req, res, next)
-
-      expect(next).toHaveBeenCalled()
-    })
-
+  describe('Search offenders', () => {
     it('should render the view with empty data sets then there is no data', async () => {
       req.query = {
         searchText: 'Smith',
       }
       allocationService.searchOffenders = jest.fn().mockResolvedValue({})
-      await controller.index(req, res)
+      await controller.searchOffenders(req, res)
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
         keyworkersDropdownValues: [],
         offenders: [],
         errors: undefined,
+        formValues: {
+          searchText: 'Smith',
+        },
       })
     })
 
     it('should not make a call to the complexity api when no offenders are returned', async () => {
       allocationService.searchOffenders = jest.fn().mockResolvedValue({})
-      await controller.index(req, res)
+      await controller.searchOffenders(req, res)
 
       expect(complexityOfNeedApi.getComplexOffenders).not.toBeCalled()
     })
 
     it('should render the correct template', async () => {
-      await controller.index(req, res)
+      await controller.searchOffenders(req, res)
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
         errors: undefined,
-        initialPageLoad: true,
       })
     })
 
     it('should unpack errors and pass them through to the view', async () => {
       req.flash.mockImplementation(() => [searchTextError])
 
-      await controller.index(req, res)
+      await controller.searchOffenders(req, res)
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
         errors: [searchTextError],
-        initialPageLoad: true,
       })
     })
 
@@ -140,7 +135,7 @@ describe('Search offenders controller', () => {
         searchText: 'Smith',
       }
 
-      await controller.index(req, res)
+      await controller.searchOffenders(req, res)
 
       expect(allocationService.searchOffenders).toHaveBeenCalledWith(
         {},
@@ -157,29 +152,36 @@ describe('Search offenders controller', () => {
         searchText: 'Smith',
       }
 
-      await controller.index(req, res)
+      await controller.searchOffenders(req, res)
 
       expect(res.render).toHaveBeenCalledWith('offenderSearch.njk', {
-        initialPageLoad: false,
-        keyworkersDropdownValues: [
+        formValues: {
+          searchText: 'Smith',
+        },
+        prisoners: [
           {
-            text: 'Ball, Bob (6)',
-            value: 34353,
-          },
-          {
-            text: 'Doe, Julian (6)',
-            value: 485593,
-          },
-        ],
-        offenders: [
-          {
-            highComplexityOfNeed: false,
-            keyworker: 'Not allocated',
+            hasHistory: false,
+            isHighComplexity: false,
+            keyworkerList: [
+              {
+                text: 'Deallocate',
+                value: '1:G0276VC:true',
+              },
+              {
+                text: 'Bob Ball (6)',
+                value: '34353:G0276VC',
+              },
+              {
+                text: 'Julian Doe (9)',
+                value: '485593:G0276VC',
+              },
+            ],
+            keyworkerName: 'First last (n/a)',
+            keyworkerStaffId: 1,
             location: 'CSWAP',
             name: 'Alff, Ferinand',
             prisonNumber: 'G0276VC',
-            releaseDate: '2012-04-30',
-            highComplexityOfNeed: false,
+            releaseDate: '30/04/2012',
           },
         ],
       })
@@ -199,7 +201,7 @@ describe('Search offenders controller', () => {
         req.query = {
           searchText: 'G0276VC',
         }
-        await controller.index(req, res)
+        await controller.searchOffenders(req, res)
 
         expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith({}, ['G0276VC'])
       })
@@ -208,19 +210,23 @@ describe('Search offenders controller', () => {
         req.query = {
           searchText: 'G0276VC',
         }
-        await controller.index(req, res)
+        await controller.searchOffenders(req, res)
 
         expect(res.render).toHaveBeenCalledWith(
           'offenderSearch.njk',
           expect.objectContaining({
-            offenders: [
+            formValues: { searchText: 'G0276VC' },
+            prisoners: [
               {
-                keyworker: 'Not allocated',
+                hasHistory: false,
+                isHighComplexity: true,
+                keyworkerList: false,
+                keyworkerName: 'First last (n/a)',
+                keyworkerStaffId: 1,
                 location: 'CSWAP',
                 name: 'Alff, Ferinand',
                 prisonNumber: 'G0276VC',
-                releaseDate: '2012-04-30',
-                highComplexityOfNeed: true,
+                releaseDate: '30/04/2012',
               },
             ],
           })
@@ -229,9 +235,9 @@ describe('Search offenders controller', () => {
     })
   })
 
-  describe('Post', () => {
+  describe('Validate search text', () => {
     it('should respond with validation messages when the search text is null', async () => {
-      await controller.post(req, res)
+      await controller.validateSearchText(req, res)
       expect(req.flash).toBeCalledWith('errors', [searchTextError])
       expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/search-for-prisoner')
     })
@@ -239,8 +245,60 @@ describe('Search offenders controller', () => {
       req.body = {
         searchText: 'A123456',
       }
-      await controller.post(req, res)
+      await controller.validateSearchText(req, res)
       expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/search-for-prisoner?searchText=A123456')
+    })
+  })
+
+  describe('Save', () => {
+    describe('when there are allocations', () => {
+      beforeEach(() => {
+        req.body = { searchText: 'smith', allocateKeyworker: ['', '1:ABC123', '', '2:ABC456', '', ''] }
+      })
+
+      it('should make the expected calls', async () => {
+        await controller.save(req, res)
+
+        expect(keyworkerApi.allocate).toHaveBeenCalledTimes(2)
+        expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
+          offenderNo: 'ABC123',
+          staffId: '1',
+          prisonId: 'MDI',
+          allocationType: 'M',
+          allocationReason: 'MANUAL',
+          deallocationReason: 'OVERRIDE',
+        })
+        expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
+          offenderNo: 'ABC456',
+          staffId: '2',
+          prisonId: 'MDI',
+          allocationType: 'M',
+          allocationReason: 'MANUAL',
+          deallocationReason: 'OVERRIDE',
+        })
+
+        expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/search-for-prisoner?searchText=smith')
+      })
+    })
+
+    describe('when there are deallocations', () => {
+      beforeEach(() => {
+        req.body = { searchText: 'smith', allocateKeyworker: ['3:ABC789:true', '', '', '', '', ''] }
+      })
+
+      it('should make the expected calls', async () => {
+        await controller.save(req, res)
+
+        expect(keyworkerApi.deallocate).toHaveBeenCalledTimes(1)
+        expect(keyworkerApi.deallocate).toHaveBeenCalledWith(res.locals, 'ABC789', {
+          offenderNo: 'ABC789',
+          staffId: '3',
+          prisonId: 'MDI',
+          deallocationReason: 'MANUAL',
+        })
+
+        expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/search-for-prisoner?searchText=smith')
+      })
     })
   })
 })

@@ -1,11 +1,13 @@
-const { properCaseName } = require('../utils')
+const { properCaseName, formatTimestampToDate, formatName } = require('../utils')
 
-module.exports = ({ allocationService, complexityOfNeedApi }) => {
-  const index = async (req, res, next) => {
+const formatNumberAllocated = (number) => (number ? `(${number})` : '')
+const getDeallocateRow = (staffId, offenderNo) =>
+  staffId ? [{ text: 'Deallocate', value: `${staffId}:${offenderNo}:true` }] : []
+
+module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
+  const searchOffenders = async (req, res, next) => {
     const { searchText } = req?.query || {}
     const { activeCaseLoadId } = req?.session?.userDetails || {}
-
-    if (!activeCaseLoadId) return next()
 
     if (searchText) {
       const { offenderResponse, keyworkerResponse } = await allocationService.searchOffenders(res.locals, {
@@ -18,42 +20,77 @@ module.exports = ({ allocationService, complexityOfNeedApi }) => {
         return res.render('offenderSearch.njk', {
           offenders: [],
           keyworkersDropdownValues: [],
+          formValues: {
+            searchText,
+          },
         })
       }
 
       const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
       const complexOffenders = await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
 
-      const offenders = offenderResponse.map((offender) => ({
-        name: `${properCaseName(offender.lastName)}, ${properCaseName(offender.firstName)}`,
-        prisonNumber: offender.offenderNo,
-        location: offender.assignedLivingUnitDesc,
-        releaseDate: offender.confirmedReleaseDate || 'Not entered',
-        keyworker: offender.keyworkerDisplay === '--' ? 'Not allocated' : offender.keyworkerDisplay,
-        highComplexityOfNeed: Boolean(
-          complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
-        ),
-      }))
+      const allocationHistoryData = offenderNumbers.length
+        ? await Promise.all(
+            offenderResponse.map(async ({ offenderNo }) => {
+              const history = await keyworkerApi.allocationHistory(res.locals, offenderNo)
+              return { offenderNo, hasHistory: Boolean(history?.allocationHistory?.length) }
+            })
+          )
+        : []
 
-      const keyworkersDropdownValues = keyworkerResponse.map((keyworker) => ({
-        text: `${properCaseName(keyworker.lastName)}, ${properCaseName(keyworker.firstName)} (${keyworker.capacity})`,
-        value: keyworker.staffId,
-      }))
+      const prisoners = offenderResponse.map((offender) => {
+        const {
+          offenderNo,
+          assignedLivingUnitDesc,
+          confirmedReleaseDate,
+          keyworkerDisplay,
+          staffId,
+          firstName,
+          lastName,
+          numberAllocated,
+        } = offender
+
+        const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== staffId)
+
+        const isHighComplexity = Boolean(
+          complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
+        )
+
+        return {
+          name: `${properCaseName(lastName)}, ${properCaseName(firstName)}`,
+          hasHistory: allocationHistoryData.find((history) => history.offenderNo === offenderNo).hasHistory,
+          prisonNumber: offenderNo,
+          location: assignedLivingUnitDesc,
+          releaseDate: confirmedReleaseDate ? formatTimestampToDate(confirmedReleaseDate) : 'Not entered',
+          isHighComplexity,
+          keyworkerName: staffId && `${keyworkerDisplay} ${formatNumberAllocated(numberAllocated)}`,
+          keyworkerStaffId: staffId,
+          keyworkerList: !isHighComplexity && [
+            ...getDeallocateRow(staffId, offenderNo),
+            ...otherKeyworkers.map((keyworker) => ({
+              text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
+                keyworker.numberAllocated
+              )}`,
+              value: `${keyworker.staffId}:${offenderNo}`,
+            })),
+          ],
+        }
+      })
 
       return res.render('offenderSearch.njk', {
-        offenders,
-        keyworkersDropdownValues,
-        initialPageLoad: false,
+        prisoners,
+        formValues: {
+          searchText,
+        },
       })
     }
 
     return res.render('offenderSearch.njk', {
       errors: req.flash('errors'),
-      initialPageLoad: true,
     })
   }
 
-  const post = async (req, res) => {
+  const validateSearchText = async (req, res) => {
     const { searchText } = req?.body || {}
 
     if (!searchText) {
@@ -70,8 +107,46 @@ module.exports = ({ allocationService, complexityOfNeedApi }) => {
     return res.redirect(`/manage-key-workers/search-for-prisoner?searchText=${searchText}`)
   }
 
+  const save = async (req, res) => {
+    const { activeCaseLoadId } = req.session?.userDetails || {}
+    const { allocateKeyworker, searchText } = req.body
+
+    const selectedKeyworkerAllocations = allocateKeyworker.filter((keyworker) => keyworker)
+
+    const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => {
+      const [staffId, offenderNo, deallocate] = keyworker.split(':')
+
+      return { staffId, offenderNo, deallocate }
+    })
+
+    await Promise.all(
+      keyworkerAllocations.map(async ({ staffId, offenderNo, deallocate }) => {
+        if (deallocate) {
+          await keyworkerApi.deallocate(res.locals, offenderNo, {
+            offenderNo,
+            staffId,
+            prisonId: activeCaseLoadId,
+            deallocationReason: 'MANUAL',
+          })
+        } else {
+          await keyworkerApi.allocate(res.locals, {
+            offenderNo,
+            staffId,
+            prisonId: activeCaseLoadId,
+            allocationType: 'M',
+            allocationReason: 'MANUAL',
+            deallocationReason: 'OVERRIDE',
+          })
+        }
+      })
+    )
+
+    return res.redirect(`/manage-key-workers/search-for-prisoner?searchText=${searchText}`)
+  }
+
   return {
-    index,
-    post,
+    searchOffenders,
+    validateSearchText,
+    save,
   }
 }
