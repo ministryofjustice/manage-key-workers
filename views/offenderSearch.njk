@@ -8,85 +8,162 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
 
-{% block content %}
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-thirds">
-            {% if errors.length > 0 %}
-                {{ govukErrorSummary({
-                    titleText: "There is a problem",
-                    errorList: errors,
-                    attributes: { 'data-qa-errors': true }
-                }) }}
-            {% endif %}
-            <h1 class="govuk-heading-l">Search for a prisoner</h1>
+{% set title = "Search for a prisoner" %}
 
-            <form id='search-filter-form' action="/manage-key-workers/search-for-prisoner" method="post">
-                {{ govukInput({
-                    label: {
-                        html: 'Enter a prisoner&#39;s name or number'
-                    },
-                    id: "search-text",
-                    name: "searchText",
-                    errorMessage: errors | findError('search-text')
-                }) }}
+{% block beforeContent %}
+    {{ govukBreadcrumbs({
+        items: [
+            {
+                text: "Digital Prison Services",
+                href: dpsUrl
+            },
+            {
+                text: "Manage key workers",
+                href: "/"
+            }
+        ]
+    }) }}
+{% endblock %}
+
+
+{% block content %}
+
+    {% if errors.length > 0 %}
+        {{ govukErrorSummary({
+            titleText: "There is a problem",
+            errorList: errors,
+            attributes: { 'data-qa-errors': true }
+        }) }}
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+
+    <form id='search-filter-form' action="/manage-key-workers/search-for-prisoner" method="post"
+          class="horizontal-form govuk-!-margin-bottom-6">
+        {{ govukInput({
+            label: {
+                html: 'Enter a prisoner&#39;s name or number'
+            },
+            id: "search-text",
+            name: "searchText",
+            errorMessage: errors | findError('search-text')
+        }) }}
+
+        {{ govukButton({
+            attributes: { id: "submit-search" },
+            text: "Search",
+            type: "submit",
+            classes: "govuk-button--secondary"
+        }) }}
+    </form>
+
+    {% if formValues.searchText %}
+        {% if prisoners.length %}
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <p>Key workers will only be allocated when you have saved the changes.</p>
+                </div>
+                <div class="govuk-grid-column-one-third">
+                    <p class="align-right">
+                        <strong>Prisoners listed:</strong>
+                        <span data-test="prisoner-count">{{ prisoners.length }}</span>
+                    </p>
+                </div>
+            </div>
+            <form method="post" action='/manage-key-workers/search-for-prisoner/save'>
+                <input type='hidden' name="searchText" value="{{ formValues.searchText }}" />
+                {% set rows = [] %}
+
+                {% for prisoner in prisoners %}
+                    {% set rows = (rows.push([
+                        {
+                            html: '<a href="' + dpsUrl + 'prisoner/' + prisoner.prisonNumber + '">' + prisoner.name + '</a>',
+                            attributes: {
+                            'data-sort-value': prisoner.name
+                        }
+                        },
+                        { text: prisoner.prisonNumber },
+                        { text: prisoner.location },
+                        { text: prisoner.releaseDate },
+                        {
+                            text: 'None' if prisoner.isHighComplexity else 'Not allocated',
+                            html: '<a href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
+                            attributes: {
+                            'data-sort-value': prisoner.keyworkerName
+                        }
+                        },
+                        {
+                            text: 'N/A - high complexity',
+                            html: govukSelect({
+                            name: 'allocateKeyworker',
+                            id: 'allocateKeyworker',
+                            label: {
+                                text: "Select key worker",
+                                classes: "govuk-visually-hidden"
+                            },
+                            items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
+                            attributes: { 'data-test': 'allocate-keyworker-select' },
+                            classes: 'govuk-!-margin-bottom-0'
+                        }) if prisoner.keyworkerList
+                        },
+                        {
+                            html: '<a href="/offender-history/' + prisoner.prisonNumber + '">View history</a>' if prisoner.hasHistory
+                        }
+                    ]), rows) %}
+                {% endfor %}
+
+                <div class="results-table">
+                    {{ govukTable({
+                        head: [
+                            {
+                                text: "Name",
+                                attributes: {
+                                "aria-sort": "ascending"
+                            }
+                            },
+                            {
+                                text: "Prison number"
+                            },
+                            {
+                                text: "Location",
+                                attributes: {
+                                "aria-sort": "ascending"
+                            }
+                            },
+                            {
+                                text: "Release date"
+                            },
+                            {
+                                text: "Key worker",
+                                attributes: {
+                                "aria-sort": "ascending"
+                            }
+                            },
+                            {
+                                text: "Change key worker"
+                            },
+                            {
+                                html: '<span class="govuk-visually-hidden">View history</span>'
+                            }
+                        ],
+                        rows: rows
+                    }) }}
+                </div>
 
                 {{ govukButton({
-                    attributes: { id: "submit-search" },
-                    text: "Search",
+                    attributes: { id: "submit-changes" },
+                    text: "Save changes",
                     type: "submit"
                 }) }}
             </form>
+        {% else %}
+            <p id='no-offenders-returned-message'>There are no results for the name or number you
+                have entered. You can search
+                again.</p>
+        {% endif %}
+    {% endif %}
 
-            {% if offenders.length === 0 %}
-                <p id='no-offenders-returned-message' class='govuk-body'>There are no results for the name or number you
-                    have entered. You can search
-                    again.</p>
-            {% else %}
-                {% if initialPageLoad === false %}
-                    <div class="govuk-grid-column-full-width">
-                        <table class="govuk-table govuk-table--with-child-rows" data-qa="offender-results-table">
-                            <thead class="govuk-table__head">
-                            <tr class="govuk-table__row">
-                                <th scope="col" class="govuk-table__header" data-test="name-table-header">Name</th>
-                                <th scope="col" class="govuk-table__header">Prison number</th>
-                                <th scope="col" class="govuk-table__header">Location</th>
-                                <th scope="col" class="govuk-table__header">Release date</th>
-                                <th scope="col" class="govuk-table__header">Key worker</th>
-                                <th scope="col" class="govuk-table__header">Change key worker</th>
-                            </tr>
-                            </thead>
-                            <tbody class="govuk-table__body">
-                            {% for offender in offenders %}
-                                <td class="govuk-table__cell">{{ offender.name }}</td>
-                                <td class="govuk-table__cell">{{ offender.prisonNumber }}</td>
-                                <td class="govuk-table__cell">{{ offender.location }}</td>
-                                <td class="govuk-table__cell">{{ offender.releaseDate }}</td>
-                                <td class="govuk-table__cell">
-                                    {% if offender.highComplexityOfNeed %}
-                                        <p class="govuk-body">None</p>
-                                    {% else %}
-                                        {{ offender.keyworker }}
-                                    {% endif %}
-                                </td>
-                                <td class="govuk-table__cell">
-                                    {% if offender.highComplexityOfNeed %}
-                                        <p class="govuk-body">N/A - high complexity</p>
-                                    {% else %}
-                                        {{ govukSelect({
-                                            id: "keyworker",
-                                            name: "keyworker",
-                                            items: keyworkersDropdownValues | addDefaultSelectedValue('Select key worker')
-                                        }) }}
-                                    {% endif %}
-                                </td>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
+    <a href="/manage-key-workers" class="govuk-link"> Return to manage key workers </a>
+
 {% endblock %}
 
 {% block bodyEnd %}

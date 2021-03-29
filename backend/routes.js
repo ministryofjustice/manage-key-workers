@@ -53,20 +53,15 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
   router.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
   router.use('/api/keyworker-prison-stats', controller.getPrisonStats)
 
-  router.get(
-    '/manage-key-workers/search-for-prisoner',
-    offenderSearchFactory({
-      allocationService,
-      complexityOfNeedApi,
-    }).index
-  )
-  router.post(
-    '/manage-key-workers/search-for-prisoner',
-    offenderSearchFactory({
-      allocationService,
-      complexityOfNeedApi,
-    }).post
-  )
+  const offenderSearchController = offenderSearchFactory({
+    allocationService,
+    complexityOfNeedApi,
+    keyworkerApi,
+  })
+
+  router.get('/manage-key-workers/search-for-prisoner', offenderSearchController.searchOffenders)
+  router.post('/manage-key-workers/search-for-prisoner', offenderSearchController.validateSearchText)
+  router.post('/manage-key-workers/search-for-prisoner/save', offenderSearchController.save)
 
   router.get(
     '/manage-key-workers/view-residential-location',

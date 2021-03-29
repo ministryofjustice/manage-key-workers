@@ -1,4 +1,4 @@
-const { stubFor } = require('./wiremock')
+const { stubFor, verifyRequest } = require('./wiremock')
 
 module.exports = {
   stubPrisonMigrationStatus: ({
@@ -70,4 +70,34 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubAllocate: () =>
+    stubFor({
+      request: {
+        urlPath: '/key-worker/allocate',
+        method: 'POST',
+      },
+      response: {
+        status: 201,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: {},
+      },
+    }),
+  stubDeallocate: (offenderNo) =>
+    stubFor({
+      request: {
+        urlPath: `/key-worker/deallocate/${offenderNo}`,
+        method: 'PUT',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: {},
+      },
+    }),
+  verifyAllocateWasCalled: () => verifyRequest('/key-worker/allocate', 'POST'),
+  verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),
 }

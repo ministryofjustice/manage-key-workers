@@ -26,10 +26,24 @@ const getFor = ({ body, urlPattern, urlPath }) =>
     },
   })
 
+const verifyRequest = (requestUrl, method, body) => {
+  const bodyPatterns =
+    (body && {
+      bodyPatterns: [{ equalToJson: JSON.stringify(body) }],
+    }) ||
+    {}
+
+  return superagent.post(`${url}/requests/count`).send({
+    method,
+    url: requestUrl,
+    ...bodyPatterns,
+  })
+}
 module.exports = {
   stubFor,
   getRequests,
   getMatchingRequests,
   resetStubs,
   getFor,
+  verifyRequest,
 }
