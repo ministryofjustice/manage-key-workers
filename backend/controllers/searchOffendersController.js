@@ -97,7 +97,7 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
       req.flash('errors', [
         {
           href: '#search-text',
-          html: 'Enter the prisoner&#39;s name or number',
+          html: 'Enter a prisoner&#39;s name or number',
         },
       ])
 

@@ -2,7 +2,7 @@ const controllerFactory = require('../controllers/searchOffendersController')
 
 const searchTextError = {
   href: '#search-text',
-  html: 'Enter the prisoner&#39;s name or number',
+  html: 'Enter a prisoner&#39;s name or number',
 }
 
 const searchOffendersResponse = {
