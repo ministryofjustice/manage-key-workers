@@ -23,7 +23,7 @@ const keyWorkerTasks = (prisonStatus) => [
     id: 'search-for-prisoner',
     heading: 'Search for a prisoner',
     description:
-      'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner`s name or prison number.',
+      'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner’s name or prison number.',
     href: '/manage-key-workers/search-for-prisoner',
     roles: null,
     enabled: true,
@@ -31,7 +31,7 @@ const keyWorkerTasks = (prisonStatus) => [
   {
     id: 'key-worker-settings',
     heading: 'Key worker settings',
-    description: 'Manage a key worker`s availability, re-assign their prisoners and check their individual statistics.',
+    description: 'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
     href: '/key-worker-search',
     roles: ['OMIC_ADMIN'],
     enabled: prisonStatus.migrated && prisonStatus.autoAllocatedSupported,
@@ -39,14 +39,14 @@ const keyWorkerTasks = (prisonStatus) => [
   {
     id: 'key-worker-statistics',
     heading: 'Key worker statistics',
-    description: 'View the statistics for your establishment`s key workers.',
+    description: 'View the statistics for your establishment’s key workers.',
     href: '/key-worker-statistics',
     roles: null,
     enabled: config?.app?.keyworkerDashboardStatsEnabled && prisonStatus?.migrated,
   },
   {
     id: 'establishment-key-worker-settings',
-    heading: 'Manage your establishment`s key worker settings',
+    heading: 'Manage your establishment’s key worker settings',
     description: 'Allow auto-allocation, edit key worker capacity and session frequency.',
     href: '/manage-key-worker-settings',
     roles: ['KW_MIGRATION'],

@@ -49,7 +49,7 @@ describe('Homepage', () => {
           },
           {
             description:
-              'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner`s name or prison number.',
+              'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner’s name or prison number.',
             heading: 'Search for a prisoner',
             href: '/manage-key-workers/search-for-prisoner',
             id: 'search-for-prisoner',
@@ -70,7 +70,7 @@ describe('Homepage', () => {
           tasks: expect.arrayContaining([
             {
               description:
-                'Manage a key worker`s availability, re-assign their prisoners and check their individual statistics.',
+                'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
               heading: 'Key worker settings',
               href: '/key-worker-search',
               id: 'key-worker-settings',
@@ -91,7 +91,7 @@ describe('Homepage', () => {
         expect.objectContaining({
           tasks: expect.arrayContaining([
             {
-              description: 'View the statistics for your establishment`s key workers.',
+              description: 'View the statistics for your establishment’s key workers.',
               heading: 'Key worker statistics',
               href: '/key-worker-statistics',
               id: 'key-worker-statistics',
@@ -112,7 +112,7 @@ describe('Homepage', () => {
           tasks: expect.arrayContaining([
             {
               description: 'Allow auto-allocation, edit key worker capacity and session frequency.',
-              heading: 'Manage your establishment`s key worker settings',
+              heading: 'Manage your establishment’s key worker settings',
               href: '/manage-key-worker-settings',
               id: 'establishment-key-worker-settings',
             },
