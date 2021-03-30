@@ -22,6 +22,7 @@ const controllerFactory = require('./controllers/controller').factory
 const allocationServiceFactory = require('./services/allocationService').serviceFactory
 const offenderSearchFactory = require('./controllers/searchOffendersController')
 
+const homepage = require('./controllers/homepage')
 const viewResidentialLocation = require('./controllers/viewResidentialLocation')
 
 const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
@@ -71,6 +72,8 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
     '/manage-key-workers/view-residential-location',
     viewResidentialLocation({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).post
   )
+
+  router.get('/homepage', homepage({ keyworkerApi, oauthApi }))
 
   router.use('/manage-key-workers', (req, res) => {
     res.redirect(req.url.replace(/\/manage-key-workers(.*)$/gi, '$1'))
