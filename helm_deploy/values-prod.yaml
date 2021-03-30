@@ -33,7 +33,7 @@ env:
   TOKENVERIFICATION_API_ENABLED: true
   REDIS_ENABLED: true
   SUPPORT_URL: https://support.hmpps.service.justice.gov.uk/
-  COMPLEXITY_OF_NEED_API_URL: https://hmpps-complexity-of-need-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+  COMPLEXITY_OF_NEED_URI: https://complexity-of-need.hmpps.service.justice.gov.uk
 
 allowlist:
   office: "217.33.148.210/32"
