@@ -106,6 +106,6 @@ env:
   - name: SUPPORT_URL
     value: {{ .Values.env.SUPPORT_URL | quote }}
 
-  - name: COMPLEXITY_OF_NEED_API_URL
-    value: {{ .Values.env.COMPLEXITY_OF_NEED_API_URL | quote }}
+  - name: COMPLEXITY_OF_NEED_URI
+    value: {{ .Values.env.COMPLEXITY_OF_NEED_URI | quote }}
 {{- end -}}
