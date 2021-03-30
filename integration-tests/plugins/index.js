@@ -14,13 +14,18 @@ module.exports = (on) => {
       return tokenverification.stubVerifyToken(true)
     },
     getLoginUrl: auth.getLoginUrl,
-    stubLogin: ({ username = 'ITAG_USER', roles = [{ roleCode: 'OMIC_ADMIN' }], caseloadId = 'MDI' }) =>
+    stubLogin: ({
+      username = 'ITAG_USER',
+      roles = [{ roleCode: 'OMIC_ADMIN' }],
+      caseloadId = 'MDI',
+      migrationStatus = {},
+    }) =>
       Promise.all([
         auth.stubLogin(username, caseloadId, roles),
         prisonApi.stubUserMe(),
         prisonApi.stubUserCaseloads(),
         prisonApi.stubUpdateCaseload(),
-        keyworker.stubPrisonMigrationStatus({}),
+        keyworker.stubPrisonMigrationStatus(migrationStatus),
         tokenverification.stubVerifyToken(true),
       ]),
     stubVerifyToken: (active = true) => tokenverification.stubVerifyToken(active),

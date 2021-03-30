@@ -4,8 +4,11 @@ $govuk-page-width: 1170px;
 @import "node_modules/govuk-frontend/govuk/all";
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
+@import 'components/card';
 @import 'components/header';
 @import 'components/results-table';
+
+@import 'pages/homepage';
 
 @import 'horizontal-content';
 
