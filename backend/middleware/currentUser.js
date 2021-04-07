@@ -28,13 +28,14 @@ module.exports = ({ prisonApi, oauthApi }) => {
 
   return async (req, res, next) => {
     if (!req.xhr) {
-      if (!req.session.userDetails) {
-        const userDetails = await oauthApi.currentUser(res.locals)
+      if (!req.session.allCaseloads) {
         const allCaseloads = await prisonApi.userCaseLoads(res.locals)
-
-        req.session.userDetails = userDetails
         req.session.allCaseloads = allCaseloads
       }
+
+      const userDetails = await oauthApi.currentUser(res.locals)
+
+      req.session.userDetails = userDetails
 
       const activeCaseLoad = await getActiveCaseload(req, res)
 
