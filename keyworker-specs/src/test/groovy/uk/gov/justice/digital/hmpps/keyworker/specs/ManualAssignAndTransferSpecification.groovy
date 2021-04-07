@@ -189,6 +189,7 @@ class ManualAssignAndTransferSpecification extends BrowserReportingSpec {
         WireMock.reset()
 
         when:
+        oauthApi.stubGetMyDetails(ITAG_USER)
         fixture.stubOffenderResultsPage(false)
         searchButton.click()
 
