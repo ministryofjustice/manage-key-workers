@@ -13,12 +13,12 @@ class ComplexityOfNeedApi extends WireMockRule {
 
     void stubHealth() {
         this.stubFor(
-                get('/health')
+                get('/ping')
                         .willReturn(
                                 aResponse()
                                         .withStatus(200)
                                         .withHeader('Content-Type', 'text/plain')
-                                        .withBody("{\"status\":\"Everything is fine\"}")))
+                                        .withBody("pong")))
     }
 
 }

@@ -42,7 +42,7 @@ module.exports = function healthcheckFactory(
     service('elite2', `${elite2Url}/health/ping`),
     service('keyworker', `${keyworkerUrl}/health/ping`),
     service('tokenverification', `${tokenverificationUrl}/health/ping`),
-    service('complexityOfNeed', `${complexityOfNeedUrl}/health`),
+    service('complexityOfNeed', `${complexityOfNeedUrl}/ping`),
   ]
 
   return (callback) =>
