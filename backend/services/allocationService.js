@@ -89,6 +89,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
   const unallocated = async (context, agencyId) => {
     const offenderWithLocationDtos = await keyworkerApi.unallocated(context, agencyId)
+    console.log({ offenderWithLocationDtos })
     log.debug('Response from unallocated offenders request')
 
     const offenderNumbers = offenderWithLocationDtos.map((offenderWithLocation) => offenderWithLocation.offenderNo)
@@ -211,6 +212,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     if (telemetry) {
       telemetry.trackEvent({ name: 'Auto allocation' })
     }
+
+    console.log({ offenderWithAllocatedKeyworkerDtos })
     return {
       keyworkerResponse: availableKeyworkers,
       allocatedResponse:

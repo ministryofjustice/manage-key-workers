@@ -24,6 +24,7 @@ const offenderSearchFactory = require('./controllers/searchOffendersController')
 
 const homepage = require('./controllers/homepage')
 const viewResidentialLocation = require('./controllers/viewResidentialLocation')
+const allocateKeyWorker = require('./controllers/allocateKeyWorker')
 
 const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
@@ -71,6 +72,16 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
   router.post(
     '/manage-key-workers/view-residential-location',
     viewResidentialLocation({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).post
+  )
+
+  router.get(
+    '/manage-key-workers/allocate-key-worker',
+    allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).index
+  )
+
+  router.get(
+    '/manage-key-workers/allocate-key-worker/auto',
+    allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).auto
   )
 
   router.get('/homepage', homepage({ keyworkerApi, oauthApi }))
