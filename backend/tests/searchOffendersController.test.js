@@ -1,3 +1,4 @@
+const config = require('../config')
 const controllerFactory = require('../controllers/searchOffendersController')
 
 const searchTextError = {
@@ -66,6 +67,8 @@ describe('Search offenders controller', () => {
   const keyworkerApi = {}
 
   beforeEach(() => {
+    config.apis.complexityOfNeed.enabled = true
+
     req = {
       flash: jest.fn(),
       session: {
@@ -204,6 +207,16 @@ describe('Search offenders controller', () => {
         await controller.searchOffenders(req, res)
 
         expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith({}, ['G0276VC'])
+      })
+
+      it('should only check for complex offenders when the feature is enabled', async () => {
+        config.apis.complexityOfNeed.enabled = false
+        req.query = {
+          searchText: 'G0276VC',
+        }
+        await controller.searchOffenders(req, res)
+
+        expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
       })
 
       it('should mark offenders with high complexity of need', async () => {

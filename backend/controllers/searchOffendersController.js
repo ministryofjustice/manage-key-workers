@@ -1,4 +1,7 @@
 const { properCaseName, formatTimestampToDate, formatName } = require('../utils')
+const {
+  apis: { complexityOfNeed },
+} = require('../config')
 
 const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 const getDeallocateRow = (staffId, offenderNo) =>
@@ -27,7 +30,8 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
       }
 
       const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
-      const complexOffenders = await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
+      const complexOffenders =
+        complexityOfNeed.enabled && (await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers))
 
       const allocationHistoryData = offenderNumbers.length
         ? await Promise.all(
@@ -52,9 +56,11 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
 
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== staffId)
 
-        const isHighComplexity = Boolean(
-          complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
-        )
+        const isHighComplexity =
+          complexityOfNeed.enabled &&
+          Boolean(
+            complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
+          )
 
         return {
           name: `${properCaseName(lastName)}, ${properCaseName(firstName)}`,
