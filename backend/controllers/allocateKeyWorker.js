@@ -105,8 +105,6 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
       return { staffId, offenderNo }
     })
 
-    console.log({ recentlyAllocated })
-
     if (allocationMode === 'manual')
       req.flash('recentlyAllocated', [...keyworkerAllocations, ...JSON.parse(recentlyAllocated)])
 
