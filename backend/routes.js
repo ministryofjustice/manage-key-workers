@@ -84,6 +84,11 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
     allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).auto
   )
 
+  router.post(
+    '/manage-key-workers/allocate-key-worker',
+    allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).post
+  )
+
   router.get('/homepage', homepage({ keyworkerApi, oauthApi }))
 
   router.use('/manage-key-workers', (req, res) => {

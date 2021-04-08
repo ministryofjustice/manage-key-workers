@@ -1,7 +1,6 @@
 {% extends "./partials/layout.njk" %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% set title = "Allocate a key worker" %}
@@ -24,46 +23,22 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
-  <p>Key workers will only be allocated when you have saved the changes.</p>
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% call govukFieldset({
-        legend: {
-          text: "View by",
-          classes: "govuk-fieldset__legend--s"
-        }
-      }) %}
-        <form class="horizontal-form govuk-!-margin-bottom-6">
-          {{ govukSelect({
-            name: 'residentialLocation',
-            id: 'residentialLocation',
-            label: {
-              text: "Residential location"
-            },
-            items: residentialLocations | setSelected(formValues.residentialLocation),
-            attributes: { 'data-test': 'location-select' }
-          }) }}
-
-          {{ govukButton({
-            text: "Apply",
-            type: "submit",
-            classes: "govuk-button--secondary",
-            attributes: { 'data-test': 'view-location-button' }
-          }) }}
-        </form>
-      {% endcall %}
-    </div>
-    <div class="govuk-grid-column-one-third">
-      <p class="align-right">
-        <strong>Prisoners listed:</strong>
-        <span data-test="prisoner-count">{{ prisoners.length }}</span>
-      </p>
-    </div>
-  </div>
-
   {% if prisoners.length %}
-    <form method="POST">
+    <p>Key workers will only be allocated when you have saved the changes.</p>
+
+    <p class="align-right">
+      <strong>Prisoners listed:</strong>
+      <span data-test="prisoner-count">{{ prisoners.length }}</span>
+    </p>
+
+    <p class="align-right">
+      <a href="/manage-key-workers/allocate-key-worker/auto">Automatically allocate key workers</a>
+    </p>
+
+    <form method="POST" action="/manage-key-workers/allocate-key-worker">
+      <input type="hidden" name="allocationMode" value="{{ allocationMode }}" />
+      <input type="hidden" name="recentlyAllocated" value="{{ recentlyAllocated }}" />
+
       {% set rows = [] %}
 
       {% for prisoner in prisoners %}
@@ -78,14 +53,13 @@
           { text: prisoner.location },
           { text: prisoner.releaseDate },
           {
-            text: 'None' if prisoner.isHighComplexity else 'Not allocated',
+            text: 'Not allocated',
             html: '<a href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
             attributes: {
               'data-sort-value': prisoner.keyworkerName
             }
           },
           {
-            text: 'N/A - high complexity',
             html: govukSelect({
               name: 'allocateKeyworker',
               id: 'allocateKeyworker',
@@ -149,7 +123,7 @@
       }) }}
     </form>
   {% else %}
-    <p data-test="no-results-message">There are no prisoners in this location.</p>
+    <p data-test="no-results-message">All prisoners have a key worker allocated.</p>
   {% endif %}
 
   <a href="/manage-key-workers" data-test="return-link">Return to manage key workers</a>
