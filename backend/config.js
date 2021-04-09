@@ -56,6 +56,7 @@ const apis = {
   complexityOfNeed: {
     url: process.env.COMPLEXITY_OF_NEED_URI || 'http://localhost:18091',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
+    enabled: process.env.ENABLE_COMPLEXITY_API === 'true',
   },
   tokenverification: {
     url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',

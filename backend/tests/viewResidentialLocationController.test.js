@@ -1,3 +1,4 @@
+const config = require('../config')
 const viewResidentialLocation = require('../controllers/viewResidentialLocation')
 
 describe('View residential location', () => {
@@ -11,6 +12,7 @@ describe('View residential location', () => {
   let controller
 
   beforeEach(() => {
+    config.apis.complexityOfNeed.enabled = true
     req = {
       session: {
         userDetails: {
@@ -236,6 +238,24 @@ describe('View residential location', () => {
             ]),
           })
         )
+      })
+
+      it('should only check for complex offenders when the feature is enabled', async () => {
+        config.apis.complexityOfNeed.enabled = false
+        await controller.index(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'viewResidentialLocation',
+          expect.objectContaining({
+            prisoners: expect.arrayContaining([
+              expect.objectContaining({
+                isHighComplexity: false,
+              }),
+            ]),
+          })
+        )
+
+        expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
       })
 
       it('should return deallocate as an option and other keyworkers except for the current one in the keyworker list', async () => {

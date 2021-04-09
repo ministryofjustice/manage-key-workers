@@ -34,6 +34,7 @@ env:
   REDIS_ENABLED: true
   SUPPORT_URL: https://support-preprod.hmpps.service.justice.gov.uk/
   COMPLEXITY_OF_NEED_URI: https://complexity-of-need-preprod.hmpps.service.justice.gov.uk
+  ENABLE_COMPLEXITY_API: true
 
 allowlist:
   office: "217.33.148.210/32"

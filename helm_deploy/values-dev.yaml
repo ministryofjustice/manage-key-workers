@@ -33,3 +33,4 @@ env:
   REDIS_ENABLED: true
   SUPPORT_URL: https://support-dev.hmpps.service.justice.gov.uk/
   COMPLEXITY_OF_NEED_URI: https://complexity-of-need-staging.hmpps.service.justice.gov.uk
+  ENABLE_COMPLEXITY_API: true
