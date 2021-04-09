@@ -133,12 +133,14 @@ describe('Allocate key worker', () => {
               hasHistory: false,
               keyworkerList: [
                 {
+                  selected: false,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC123',
+                  value: '1:ABC123:M',
                 },
                 {
+                  selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC123',
+                  value: '2:ABC123:M',
                 },
               ],
               keyworkerName: undefined,
@@ -152,12 +154,14 @@ describe('Allocate key worker', () => {
               hasHistory: true,
               keyworkerList: [
                 {
+                  selected: false,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC456',
+                  value: '1:ABC456:M',
                 },
                 {
+                  selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC456',
+                  value: '2:ABC456:M',
                 },
               ],
               keyworkerName: undefined,
@@ -226,12 +230,14 @@ describe('Allocate key worker', () => {
                 hasHistory: true,
                 keyworkerList: [
                   {
+                    selected: false,
                     text: 'Bob Ball (6)',
-                    value: '1:ABC123',
+                    value: '1:ABC123:M',
                   },
                   {
+                    selected: false,
                     text: 'Julian Doe (9)',
-                    value: '2:ABC123',
+                    value: '2:ABC123:M',
                   },
                 ],
                 keyworkerName: undefined,
@@ -245,8 +251,9 @@ describe('Allocate key worker', () => {
                 hasHistory: false,
                 keyworkerList: [
                   {
+                    selected: false,
                     text: 'Bob Ball (6)',
-                    value: '1:ABC789',
+                    value: '1:ABC789:M',
                   },
                 ],
                 keyworkerName: 'Julian Doe (9)',
@@ -260,12 +267,14 @@ describe('Allocate key worker', () => {
                 hasHistory: false,
                 keyworkerList: [
                   {
+                    selected: false,
                     text: 'Bob Ball (6)',
-                    value: '1:ABC456',
+                    value: '1:ABC456:M',
                   },
                   {
+                    selected: false,
                     text: 'Julian Doe (9)',
-                    value: '2:ABC456',
+                    value: '2:ABC456:M',
                   },
                 ],
                 keyworkerName: undefined,
@@ -369,11 +378,17 @@ describe('Allocate key worker', () => {
               hasHistory: false,
               keyworkerList: [
                 {
+                  selected: true,
+                  text: 'Bob Ball (6)',
+                  value: '1:ABC123:A',
+                },
+                {
+                  selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC123',
+                  value: '2:ABC123:M',
                 },
               ],
-              keyworkerName: 'Ball, Bob (6)',
+              keyworkerName: false,
               keyworkerStaffId: 1,
               location: 'MDI-1-1',
               name: 'Alff, Ferinand',
@@ -384,11 +399,17 @@ describe('Allocate key worker', () => {
               hasHistory: true,
               keyworkerList: [
                 {
+                  selected: false,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC456',
+                  value: '1:ABC456:M',
+                },
+                {
+                  selected: true,
+                  text: 'Julian Doe (9)',
+                  value: '2:ABC456:A',
                 },
               ],
-              keyworkerName: 'Doe, Julian (9)',
+              keyworkerName: false,
               keyworkerStaffId: 2,
               location: 'MDI-1-2',
               name: 'Smith, John',
@@ -411,8 +432,7 @@ describe('Allocate key worker', () => {
     describe('manual', () => {
       beforeEach(() => {
         req.body = {
-          allocateKeyworker: ['1:ABC123', '', ''],
-          allocationMode: 'manual',
+          allocateKeyworker: ['1:ABC123:M', '', ''],
           recentlyAllocated: '[]',
         }
       })
@@ -422,6 +442,7 @@ describe('Allocate key worker', () => {
 
         expect(req.flash).toHaveBeenCalledWith('recentlyAllocated', [
           {
+            allocationType: 'M',
             offenderNo: 'ABC123',
             staffId: '1',
           },
@@ -444,8 +465,7 @@ describe('Allocate key worker', () => {
     describe('auto', () => {
       beforeEach(() => {
         req.body = {
-          allocateKeyworker: ['1:ABC123', '', ''],
-          allocationMode: 'auto',
+          allocateKeyworker: ['1:ABC123:A', '', ''],
           recentlyAllocated: '[]',
         }
       })
@@ -453,15 +473,15 @@ describe('Allocate key worker', () => {
       it('should make the correct calls', async () => {
         await controller.post(req, res)
 
-        expect(req.flash).not.toHaveBeenCalled()
+        expect(req.flash).toHaveBeenCalled()
 
-        expect(keyworkerApi.autoAllocateConfirm).toHaveBeenCalledWith(res.locals, 'MDI')
+        // expect(keyworkerApi.autoAllocateConfirm).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
           offenderNo: 'ABC123',
           staffId: '1',
           prisonId: 'MDI',
-          allocationType: 'M',
-          allocationReason: 'MANUAL',
+          allocationType: 'A',
+          allocationReason: 'AUTO',
           deallocationReason: 'OVERRIDE',
         })
 

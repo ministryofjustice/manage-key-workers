@@ -59,18 +59,28 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
       recentlyAllocated: JSON.stringify(recentlyAllocated),
       prisoners: allPrisoners.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
-        const otherKeyworkers = availableKeyworkers.filter((keyworker) => keyworker.staffId !== offender.staffId)
+        const selectableKeyworkers =
+          allocationMode === 'manual'
+            ? availableKeyworkers.filter((keyworker) => keyworker.staffId !== offender.staffId)
+            : availableKeyworkers
 
         return {
           hasHistory: allocationHistoryData.find((history) => history.offenderNo === offenderNo)?.hasHistory,
-          keyworkerName: staffId && `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
+          keyworkerName:
+            staffId &&
+            allocationMode === 'manual' &&
+            `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
           keyworkerStaffId: staffId,
-          keyworkerList: otherKeyworkers.map((keyworker) => ({
-            text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
-              keyworker.numberAllocated
-            )}`,
-            value: `${keyworker.staffId}:${offenderNo}`,
-          })),
+          keyworkerList: selectableKeyworkers.map((keyworker) => {
+            const isAutoAllocation = keyworker.staffId === offender.staffId
+            return {
+              text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
+                keyworker.numberAllocated
+              )}`,
+              value: `${keyworker.staffId}:${offenderNo}:${isAutoAllocation ? 'A' : 'M'}`,
+              selected: isAutoAllocation,
+            }
+          }),
           location: offender.assignedLivingUnitDesc || offender.internalLocationDesc,
           name: offender.name,
           prisonNumber: offenderNo,
@@ -98,30 +108,30 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
 
   const post = async (req, res) => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
-    const { allocateKeyworker, allocationMode, recentlyAllocated } = req.body
+    const { allocateKeyworker, recentlyAllocated } = req.body
 
     const selectedKeyworkerAllocations = allocateKeyworker.filter((keyworker) => keyworker)
 
     const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => {
-      const [staffId, offenderNo] = keyworker.split(':')
+      const [staffId, offenderNo, allocationType] = keyworker.split(':')
 
-      return { staffId, offenderNo }
+      return { staffId, offenderNo, allocationType }
     })
 
     const allAllocations = [...keyworkerAllocations, ...JSON.parse(recentlyAllocated)]
 
-    if (allAllocations.length && allocationMode === 'manual') req.flash('recentlyAllocated', allAllocations)
+    if (allAllocations.length) req.flash('recentlyAllocated', allAllocations)
 
-    if (allocationMode === 'auto') await keyworkerApi.autoAllocateConfirm(res.locals, activeCaseLoadId)
+    // if (allocationMode === 'auto') await keyworkerApi.autoAllocateConfirm(res.locals, activeCaseLoadId)
 
     await Promise.all(
-      keyworkerAllocations.map(async ({ staffId, offenderNo }) => {
+      keyworkerAllocations.map(async ({ staffId, offenderNo, allocationType }) => {
         await keyworkerApi.allocate(res.locals, {
           offenderNo,
           staffId,
           prisonId: activeCaseLoadId,
-          allocationType: 'M',
-          allocationReason: 'MANUAL',
+          allocationType,
+          allocationReason: allocationType === 'A' ? 'AUTO' : 'MANUAL',
           deallocationReason: 'OVERRIDE',
         })
       })
