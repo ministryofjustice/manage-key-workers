@@ -6,8 +6,6 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
   const renderTemplate = async (req, res, offenderResponse, allocationMode = 'manual') => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
 
-    const availableKeyworkers = await keyworkerApi.availableKeyworkers(res.locals, activeCaseLoadId)
-
     const recentlyAllocated = req.flash('recentlyAllocated')
 
     const recentlyAllocatedOffenderNumbers = recentlyAllocated.map((allocation) => allocation.offenderNo)
@@ -17,6 +15,10 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
       : []
 
     const offenderNumbers = [...recentlyAllocated, ...offenderResponse].map((o) => o.offenderNo)
+
+    const availableKeyworkers = offenderNumbers.length
+      ? await keyworkerApi.availableKeyworkers(res.locals, activeCaseLoadId)
+      : []
 
     const allocationHistoryData = offenderNumbers.length
       ? await Promise.all(
@@ -54,7 +56,6 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
     return res.render('allocateKeyWorker', {
       activeCaseLoadId,
       allocationMode,
-      formValues: req.query,
       recentlyAllocated: JSON.stringify(recentlyAllocated),
       prisoners: allPrisoners.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
@@ -89,7 +90,9 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
 
   const auto = async (req, res) => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
+
     const { allocatedResponse } = await allocationService.allocated(res.locals, activeCaseLoadId)
+
     return renderTemplate(req, res, allocatedResponse, 'auto')
   }
 
@@ -105,8 +108,9 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
       return { staffId, offenderNo }
     })
 
-    if (allocationMode === 'manual')
-      req.flash('recentlyAllocated', [...keyworkerAllocations, ...JSON.parse(recentlyAllocated)])
+    const allAllocations = [...keyworkerAllocations, ...JSON.parse(recentlyAllocated)]
+
+    if (allAllocations.length && allocationMode === 'manual') req.flash('recentlyAllocated', allAllocations)
 
     if (allocationMode === 'auto') await keyworkerApi.autoAllocateConfirm(res.locals, activeCaseLoadId)
 
@@ -123,37 +127,8 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
       })
     )
 
-    return res.redirect(`/manage-key-workers/allocate-key-worker`)
+    return res.redirect('/manage-key-workers/allocate-key-worker')
   }
 
   return { auto, index, post }
 }
-
-// {
-//   "offenderNo": "G4982VX",
-//   "bookingId": 877013,
-//   "firstName": "ANATOLE",
-//   "lastName": "ALTWIES",
-//   "dateOfBirth": "1993-02-17",
-//   "agencyId": "MDI",
-//   "assignedLivingUnitId": 25779,
-//   "assignedLivingUnitDesc": "3-1-007",
-//   "facialImageId": 3490504,
-//   "crsaClassification": "High",
-//   "confirmedReleaseDate": "2020-12-01"
-// location: 'MDI-1',
-//   },
-
-// AUTO========
-// {
-//   offenderNo: 'G1214VA',
-//   firstName: 'EDUARDO',
-//   lastName: 'KEANY',
-//   staffId: 485588,
-//   agencyId: 'MDI',
-//   prisonId: 'MDI',
-//   assigned: '2021-04-08T09:01:03.51242',
-//   allocationType: 'P',
-//   internalLocationDesc: '5-2-A-045',
-//   deallocOnly: false
-// },
