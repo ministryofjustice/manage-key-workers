@@ -98,6 +98,21 @@ module.exports = {
         jsonBody: {},
       },
     }),
+
+  stubOffenderKeyworkerList: ({ agencyId, response = [] }) =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: `/key-worker/${agencyId}/offenders`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
   stubUnallocated: ({ agencyId, response = [] }) =>
     stubFor({
       request: {
@@ -112,6 +127,49 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubAutoAllocate: ({ agencyId, response = {} }) =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: `/key-worker/${agencyId}/allocate/start`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
+  stubAutoAllocated: ({ agencyId, response = [] }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/key-worker/${agencyId}/allocations.+?`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
+  stubAutoAllocateConfirm: ({ agencyId, response = {} }) =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPattern: `/key-worker/${agencyId}/allocate/confirm`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
+
   verifyAllocateWasCalled: () => verifyRequest('/key-worker/allocate', 'POST'),
   verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),
 }

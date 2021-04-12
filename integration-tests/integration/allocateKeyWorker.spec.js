@@ -14,11 +14,6 @@ context('Allocate key worker to unallocated prisoners', () => {
     cy.task('resetAndStubTokenVerification')
     cy.task('stubLogin', { username: 'ITAG_USER', caseload: 'WWI' })
     cy.login()
-  })
-
-  beforeEach(() => {
-    Cypress.Cookies.preserveOnce('hmpps-session-dev')
-
     cy.task('stubAvailableKeyworkers', [
       {
         staffId: 1,
@@ -55,6 +50,10 @@ context('Allocate key worker to unallocated prisoners', () => {
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
     cy.task('stubUnallocated', { agencyId: 'MDI' })
+  })
+
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce('hmpps-session-dev')
   })
 
   it('should load correctly', () => {
@@ -116,6 +115,13 @@ context('Allocate key worker to unallocated prisoners', () => {
         response: {
           offender: { offenderNo: 'ABC456' },
           allocationHistory: [{ staffId: 2 }],
+        },
+      })
+      cy.task('stubAllocationHistory', {
+        offenderNo: 'ABC123',
+        response: {
+          offender: { offenderNo: 'ABC123' },
+          allocationHistory: [],
         },
       })
 
@@ -254,6 +260,175 @@ context('Allocate key worker to unallocated prisoners', () => {
                     expect($options.get(0)).to.contain('Select key worker')
                     expect($options.get(1)).to.contain('Bob Ball (6)')
                     expect($options.get(2)).to.contain('Julian Doe (9)')
+                  })
+              })
+            cy.get(offenders[0].viewHistory).find('a').should('not.exist')
+
+            cy.get(offenders[1].name)
+              .find('a')
+              .contains('Smith, John')
+              .should('have.attr', 'href')
+              .should('include', 'http://localhost:3002/prisoner/ABC456')
+            expect(offenders[1].prisonNo).to.eq('ABC456')
+            expect(offenders[1].location).to.eq('MDI-1-2')
+            expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
+            expect(offenders[1].keyworker.trim()).to.eq('Julian Doe (9)')
+            cy.get(offenders[1].changeKeyworker)
+              .find('[data-test="allocate-keyworker-select"]')
+              .then(($select) => {
+                cy.get($select)
+                  .find('option')
+                  .then(($options) => {
+                    expect($options.get(0)).to.contain('Select key worker')
+                    expect($options.get(1)).to.contain('Bob Ball (6)')
+                  })
+              })
+            cy.get(offenders[1].viewHistory)
+              .find('a')
+              .contains('View history')
+              .should('have.attr', 'href')
+              .should('include', '/offender-history/ABC456')
+          })
+      })
+    })
+
+    context('when auto allocating', () => {
+      beforeEach(() => {
+        cy.task('stubAutoAllocate', { agencyId: 'MDI' })
+        cy.task('stubAutoAllocated', {
+          agencyId: 'MDI',
+          response: [
+            {
+              offenderNo: 'ABC123',
+              firstName: 'FERINAND',
+              lastName: 'ALFF',
+              dateOfBirth: '1982-04-06',
+              agencyId: 'MDI',
+              assignedLivingUnitId: 11,
+              assignedLivingUnitDesc: 'MDI-1-1',
+              staffId: 1,
+            },
+            {
+              offenderNo: 'ABC456',
+              firstName: 'JOHN',
+              lastName: 'SMITH',
+              dateOfBirth: '1986-03-01',
+              agencyId: 'MDI',
+              assignedLivingUnitId: 12,
+              assignedLivingUnitDesc: 'MDI-1-2',
+              staffId: 2,
+            },
+          ],
+        })
+      })
+
+      it('should auto allocate correctly', () => {
+        cy.visit('/manage-key-workers/allocate-key-worker')
+
+        cy.get('h1').contains('Allocate a key worker')
+        cy.get('[data-test="no-results-message"]').should('not.exist')
+
+        cy.get('[data-test="auto-allocate"]').click()
+
+        cy.get('[data-test="results-table"]')
+          .find('tbody')
+          .find('tr')
+          .then(($tableRows) => {
+            cy.get($tableRows).its('length').should('eq', 2)
+
+            const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
+
+            cy.get(offenders[0].name)
+              .find('a')
+              .contains('Alff, Ferinand')
+              .should('have.attr', 'href')
+              .should('include', 'http://localhost:3002/prisoner/ABC123')
+            expect(offenders[0].prisonNo).to.eq('ABC123')
+            expect(offenders[0].location).to.eq('MDI-1-1')
+            expect(offenders[0].releaseDate.trim()).to.eq('30/04/2022')
+            expect(offenders[0].keyworker.trim()).to.eq('Not allocated')
+            cy.get(offenders[0].changeKeyworker)
+              .find('[data-test="allocate-keyworker-select"]')
+              .then(($select) => {
+                cy.get($select).find('option:selected').contains('Bob Ball (6)')
+              })
+            cy.get(offenders[0].viewHistory).find('a').should('not.exist')
+
+            cy.get(offenders[1].name)
+              .find('a')
+              .contains('Smith, John')
+              .should('have.attr', 'href')
+              .should('include', 'http://localhost:3002/prisoner/ABC456')
+            expect(offenders[1].prisonNo).to.eq('ABC456')
+            expect(offenders[1].location).to.eq('MDI-1-2')
+            expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
+            expect(offenders[1].keyworker.trim()).to.eq('Not allocated')
+            cy.get(offenders[1].changeKeyworker)
+              .find('[data-test="allocate-keyworker-select"]')
+              .then(($select) => {
+                cy.get($select).find('option:selected').contains('Julian Doe (9)')
+              })
+            cy.get(offenders[1].viewHistory)
+              .find('a')
+              .contains('View history')
+              .should('have.attr', 'href')
+              .should('include', '/offender-history/ABC456')
+          })
+
+        cy.task('stubUnallocated', { agencyId: 'MDI' })
+        cy.task('stubAutoAllocated', { agencyId: 'MDI' })
+        cy.task('stubAutoAllocateConfirm', { agencyId: 'MDI' })
+        cy.task('stubOffenderKeyworkerList', {
+          agencyId: 'MDI',
+          response: [
+            {
+              offenderKeyworkerId: 1,
+              offenderNo: 'ABC123',
+              staffId: 1,
+              agencyId: 'MDI',
+              assigned: '2021-04-09T09:44:47.581306',
+              userId: 'TEST_USER',
+              active: 'Y',
+            },
+            {
+              offenderKeyworkerId: 2,
+              offenderNo: 'ABC456',
+              staffId: 2,
+              agencyId: 'MDI',
+              assigned: '2021-04-09T09:44:47.581306',
+              userId: 'TEST_USER',
+              active: 'Y',
+            },
+          ],
+        })
+
+        cy.get('[type="submit"]').click()
+
+        cy.get('[data-test="results-table"]')
+          .find('tbody')
+          .find('tr')
+          .then(($tableRows) => {
+            cy.get($tableRows).its('length').should('eq', 2)
+
+            const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
+
+            cy.get(offenders[0].name)
+              .find('a')
+              .contains('Alff, Ferinand')
+              .should('have.attr', 'href')
+              .should('include', 'http://localhost:3002/prisoner/ABC123')
+            expect(offenders[0].prisonNo).to.eq('ABC123')
+            expect(offenders[0].location).to.eq('MDI-1-1')
+            expect(offenders[0].releaseDate.trim()).to.eq('30/04/2022')
+            expect(offenders[0].keyworker.trim()).to.eq('Bob Ball (6)')
+            cy.get(offenders[0].changeKeyworker)
+              .find('[data-test="allocate-keyworker-select"]')
+              .then(($select) => {
+                cy.get($select)
+                  .find('option')
+                  .then(($options) => {
+                    expect($options.get(0)).to.contain('Select key worker')
+                    expect($options.get(1)).to.contain('Julian Doe (9)')
                   })
               })
             cy.get(offenders[0].viewHistory).find('a').should('not.exist')
