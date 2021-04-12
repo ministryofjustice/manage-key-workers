@@ -26,6 +26,7 @@ const setupPhaseName = require('./setupPhaseName')
 const setupStaticContent = require('./setupStaticContent')
 const setupReactRoutes = require('./setupReactRoutes')
 
+const homepage = require('./controllers/homepage')
 const pageNotFound = require('./pageNotFound')
 const routes = require('./routes')
 const requestForwarding = require('./request-forwarding')
@@ -87,8 +88,8 @@ if (config.app.production) {
 } else {
   config.setTestDefaults()
 }
-
 // Don't cache dynamic resources
+
 app.use(helmet.noCache())
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -115,6 +116,7 @@ app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 app.use(routes({ ...apis }))
 
 app.use(setupReactRoutes())
+app.use('/$', homepage({ ...apis }))
 app.use(pageNotFound)
 app.use(errorHandler({ logError }))
 
