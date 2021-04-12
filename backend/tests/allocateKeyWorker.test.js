@@ -299,7 +299,7 @@ describe('Allocate key worker', () => {
         })
       })
 
-      it('should let the template know that the user an auto allocate', async () => {
+      it('should let the template know that the user can auto allocate', async () => {
         oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
         keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, autoAllocatedSupported: true })
 
