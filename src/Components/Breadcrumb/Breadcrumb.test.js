@@ -57,13 +57,13 @@ describe('<Breadcrumb />', () => {
   })
 
   it('should have the Home link as the first Breadcrumb ', () => {
-    expect(wrapper.find('BreadcrumbItem').first().find('a').text()).toEqual('Home')
+    expect(wrapper.find('BreadcrumbItem').first().find('a').text()).toEqual('Digital Prison Services')
   })
 
   it('should link back to the Application homepage', () => {
     const breadcrumbItem = wrapper.find('BreadcrumbItem').at(1)
 
-    expect(breadcrumbItem.find('Link').prop('to')).toEqual('/')
+    expect(breadcrumbItem.find('a').prop('href')).toEqual('/')
     expect(breadcrumbItem.find('span').text()).toEqual('Application homepage')
   })
 
