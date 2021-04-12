@@ -466,6 +466,7 @@ describe('Allocate key worker', () => {
       beforeEach(() => {
         req.body = {
           allocateKeyworker: ['1:ABC123:A', '', ''],
+          allocationMode: 'auto',
           recentlyAllocated: '[]',
         }
       })
@@ -475,15 +476,8 @@ describe('Allocate key worker', () => {
 
         expect(req.flash).toHaveBeenCalled()
 
-        // expect(keyworkerApi.autoAllocateConfirm).toHaveBeenCalledWith(res.locals, 'MDI')
-        expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
-          offenderNo: 'ABC123',
-          staffId: '1',
-          prisonId: 'MDI',
-          allocationType: 'A',
-          allocationReason: 'AUTO',
-          deallocationReason: 'OVERRIDE',
-        })
+        expect(keyworkerApi.autoAllocateConfirm).toHaveBeenCalledWith(res.locals, 'MDI')
+        expect(keyworkerApi.allocate).not.toHaveBeenCalled()
 
         expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/allocate-key-worker')
       })
