@@ -65,7 +65,7 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
     allocationService,
     elite2Api,
     keyworkerApi,
-    complexityOfNeedApi,
+    oauthApi,
   })
 
   router.get('/manage-key-workers/search-for-prisoner', offenderSearchController.searchOffenders)

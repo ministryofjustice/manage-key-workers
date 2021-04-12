@@ -1,10 +1,16 @@
 const { formatName, putLastNameFirst, formatTimestampToDate } = require('../utils')
 
-module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
+module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
   const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 
   const renderTemplate = async (req, res, offenderResponse, allocationMode = 'manual') => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
+
+    const [currentRoles, prisonStatus] = await Promise.all([
+      oauthApi.currentRoles(res.locals),
+      keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId),
+    ])
+    const isKeyWorkerAdmin = currentRoles.some((role) => role.roleCode === 'OMIC_ADMIN')
 
     const recentlyAllocated = req.flash('recentlyAllocated')
 
@@ -56,6 +62,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi }) => {
     return res.render('allocateKeyWorker', {
       activeCaseLoadId,
       allocationMode,
+      canAutoAllocate: Boolean(prisonStatus.migrated && prisonStatus.autoAllocatedSupported && isKeyWorkerAdmin),
       recentlyAllocated: JSON.stringify(recentlyAllocated),
       prisoners: allPrisoners.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender

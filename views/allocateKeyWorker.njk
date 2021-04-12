@@ -31,9 +31,11 @@
       <span data-test="prisoner-count">{{ prisoners.length }}</span>
     </p>
 
-    <p class="align-right">
-      <a href="/manage-key-workers/allocate-key-worker/auto" data-test="auto-allocate">Automatically allocate key workers</a>
-    </p>
+    {% if canAutoAllocate %}
+      <p class="align-right">
+        <a href="/manage-key-workers/allocate-key-worker/auto" data-test="auto-allocate">Automatically allocate key workers</a>
+      </p>
+    {% endif %}
 
     <form method="POST" action="/manage-key-workers/allocate-key-worker">
       <input type="hidden" name="allocationMode" value="{{ allocationMode }}" />
