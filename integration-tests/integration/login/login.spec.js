@@ -56,15 +56,13 @@ context('Login functionality', () => {
     cy.login()
     const homePage = HomePage.verifyOnPage()
     homePage.keyworkerSettingsLink().should('not.exist')
-    homePage.autoAllocateLink().should('not.exist')
   })
 
   it('Log in as keyworker migration user', () => {
     cy.task('stubLogin', { roles: [{ roleCode: 'KW_MIGRATION' }] })
     cy.login()
     const homePage = HomePage.verifyOnPage()
-    homePage.keyworkerSettingsLink().should('be.visible')
-    homePage.autoAllocateLink().should('not.exist')
+    homePage.keyworkerSettingsLink().should('exist')
   })
 
   it('Log in as keyworker admin user', () => {
@@ -72,7 +70,6 @@ context('Login functionality', () => {
     cy.login()
     const homePage = HomePage.verifyOnPage()
     homePage.keyworkerSettingsLink().should('not.exist')
-    homePage.autoAllocateLink().should('be.visible')
   })
 
   it('User login takes user back to requested page', () => {
