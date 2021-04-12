@@ -98,6 +98,20 @@ module.exports = {
         jsonBody: {},
       },
     }),
+  stubUnallocated: ({ agencyId, response = [] }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/key-worker/${agencyId}/offenders/unallocated`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
   verifyAllocateWasCalled: () => verifyRequest('/key-worker/allocate', 'POST'),
   verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),
 }
