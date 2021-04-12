@@ -21,7 +21,7 @@ context('Homepage', () => {
       })
 
       it('should show the correct tasks', () => {
-        cy.visit('/homepage')
+        cy.visit('/')
 
         cy.get('[data-test="view-without-key-worker"]').should('exist')
         cy.get('[data-test="view-residential-location"]').should('exist')
@@ -41,7 +41,7 @@ context('Homepage', () => {
       })
 
       it('should show the correct additional tasks', () => {
-        cy.visit('/homepage')
+        cy.visit('/')
 
         cy.get('[data-test="key-worker-settings"]').should('exist')
         cy.get('[data-test="key-worker-statistics"]').should('exist')
