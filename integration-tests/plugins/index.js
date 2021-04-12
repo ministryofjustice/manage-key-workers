@@ -40,6 +40,11 @@ module.exports = (on) => {
     stubAllocationHistory: ({ offenderNo, response }) => keyworker.stubAllocationHistory({ offenderNo, response }),
     stubAllocate: () => keyworker.stubAllocate(),
     stubDeallocate: (offenderNo) => keyworker.stubDeallocate(offenderNo),
+    stubUnallocated: ({ agencyId, response }) => keyworker.stubUnallocated({ agencyId, response }),
+    stubAutoAllocate: ({ agencyId, response }) => keyworker.stubAutoAllocate({ agencyId, response }),
+    stubAutoAllocated: ({ agencyId, response }) => keyworker.stubAutoAllocated({ agencyId, response }),
+    stubAutoAllocateConfirm: ({ agencyId, response }) => keyworker.stubAutoAllocateConfirm({ agencyId, response }),
+    stubOffenderKeyworkerList: ({ agencyId, response }) => keyworker.stubOffenderKeyworkerList({ agencyId, response }),
     verifyAllocateWasCalled: () => keyworker.verifyAllocateWasCalled(),
     verifyDeallocateWasCalled: (offenderNo) => keyworker.verifyAllocateWasCalled(offenderNo),
   })

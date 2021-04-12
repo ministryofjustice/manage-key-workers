@@ -1,0 +1,140 @@
+{% extends "./partials/layout.njk" %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set title = "Allocate a key worker" %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Digital Prison Services",
+        href: dpsUrl
+      },
+      {
+        text: "Manage key workers",
+        href: "/"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+
+  {% if prisoners.length %}
+    <p>Key workers will only be allocated when you have saved the changes.</p>
+
+    <p class="align-right">
+      <strong>Prisoners listed:</strong>
+      <span data-test="prisoner-count">{{ prisoners.length }}</span>
+    </p>
+
+    <p class="align-right">
+      <a href="/manage-key-workers/allocate-key-worker/auto" data-test="auto-allocate">Automatically allocate key workers</a>
+    </p>
+
+    <form method="POST" action="/manage-key-workers/allocate-key-worker">
+      <input type="hidden" name="allocationMode" value="{{ allocationMode }}" />
+      <input type="hidden" name="recentlyAllocated" value="{{ recentlyAllocated }}" />
+
+      {% set rows = [] %}
+
+      {% for prisoner in prisoners %}
+        {% set rows = (rows.push([
+          { 
+            html: '<a href="' + dpsUrl + 'prisoner/' + prisoner.prisonNumber + '">' + prisoner.name + '</a>',
+            attributes: {
+              'data-sort-value': prisoner.name
+            }
+          },
+          { text: prisoner.prisonNumber },
+          { text: prisoner.location },
+          { text: prisoner.releaseDate },
+          {
+            text: 'Not allocated',
+            html: '<a href="/key-worker/' + prisoner.keyworkerStaffId + '">' + prisoner.keyworkerName + '</a>' if prisoner.keyworkerName,
+            attributes: {
+              'data-sort-value': prisoner.keyworkerName
+            }
+          },
+          {
+            html: govukSelect({
+              name: 'allocateKeyworker',
+              id: 'allocateKeyworker',
+              label: {
+                text: "Select key worker",
+                classes: "govuk-visually-hidden"
+              },
+              items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
+              attributes: { 'data-test': 'allocate-keyworker-select' },
+              classes: 'govuk-!-margin-bottom-0'
+            }) if prisoner.keyworkerList
+          },
+          {
+            html: '<a href="/offender-history/' + prisoner.prisonNumber + '">View history</a>' if prisoner.hasHistory
+          }
+        ]), rows) %}
+      {% endfor %}
+
+      <div class="results-table">
+        {{ govukTable({
+          head: [
+            {
+              text: "Name",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Prison number"
+            },
+            {
+              text: "Location",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Release date"
+            },
+            {
+              text: "Key worker",
+              attributes: {
+                "aria-sort": "ascending"
+              }
+            },
+            {
+              text: "Change key worker"
+            },
+            {
+              html: '<span class="govuk-visually-hidden">View history</span>'
+            }
+          ],
+          rows: rows,
+          attributes: { 'data-test': 'results-table' }
+        }) }}
+      </div>
+
+      {{ govukButton({
+        text: "Save changes",
+        type: "submit"
+      }) }}
+    </form>
+  {% else %}
+    <p data-test="no-results-message">All prisoners have a key worker allocated.</p>
+  {% endif %}
+
+  <a href="/manage-key-workers" data-test="return-link">Return to manage key workers</a>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="/assets/moj/components/sortable-table/sortable-table.js"></script>
+  <script>
+    new MOJFrontend.SortableTable({
+      table: $('table')[0]
+    })
+  </script>
+{% endblock %}
