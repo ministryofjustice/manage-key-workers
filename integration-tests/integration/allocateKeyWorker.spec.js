@@ -198,6 +198,50 @@ context('Allocate key worker to unallocated prisoners', () => {
         .should('include', '/manage-key-workers')
     })
 
+    context('auto allocate link', () => {
+      it('should not show if user is not a keyworker admin', () => {
+        cy.task('stubLogin', {
+          username: 'ITAG_USER',
+          caseload: 'WWI',
+          roles: [],
+          migrationStatus: { migrated: true },
+        })
+        cy.login()
+
+        cy.visit('/manage-key-workers/allocate-key-worker')
+
+        cy.get('[data-test="auto-allocate"]').should('not.exist')
+      })
+
+      it('should not show when prison is not migrated', () => {
+        cy.task('stubLogin', {
+          username: 'ITAG_USER',
+          caseload: 'WWI',
+          roles: [{ roleCode: 'OMIC_ADMIN' }],
+          migrationStatus: { migrated: false },
+        })
+        cy.login()
+
+        cy.visit('/manage-key-workers/allocate-key-worker')
+
+        cy.get('[data-test="auto-allocate"]').should('not.exist')
+      })
+
+      it('should show if prison is migrated and user has permissions', () => {
+        cy.task('stubLogin', {
+          username: 'ITAG_USER',
+          caseload: 'WWI',
+          roles: [{ roleCode: 'OMIC_ADMIN' }],
+          migrationStatus: { migrated: true },
+        })
+        cy.login()
+
+        cy.visit('/manage-key-workers/allocate-key-worker')
+
+        cy.get('[data-test="auto-allocate"]').should('exist')
+      })
+    })
+
     context('when saving changes', () => {
       beforeEach(() => {
         cy.task('stubAllocate')

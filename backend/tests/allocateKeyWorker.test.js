@@ -4,6 +4,7 @@ describe('Allocate key worker', () => {
   const allocationService = {}
   const elite2Api = {}
   const keyworkerApi = {}
+  const oauthApi = {}
 
   let req
   let res
@@ -51,10 +52,13 @@ describe('Allocate key worker', () => {
     ])
     keyworkerApi.offenderKeyworkerList = jest.fn()
     keyworkerApi.allocationHistory = jest.fn()
+    keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
 
     elite2Api.sentenceDetailList = jest.fn()
 
-    controller = allocateKeyWorker({ allocationService, elite2Api, keyworkerApi })
+    oauthApi.currentRoles = jest.fn().mockResolvedValue([])
+
+    controller = allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, oauthApi })
   })
 
   describe('index', () => {
@@ -75,6 +79,7 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'manual',
+          canAutoAllocate: false,
           prisoners: [],
           recentlyAllocated: '[]',
         })
@@ -113,7 +118,9 @@ describe('Allocate key worker', () => {
       it('should make the expected calls', async () => {
         await controller.index(req, res)
 
+        expect(oauthApi.currentRoles).toHaveBeenCalledWith({})
         expect(allocationService.unallocated).toHaveBeenCalledWith(res.locals, 'MDI')
+        expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith({}, 'MDI')
         expect(keyworkerApi.availableKeyworkers).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(2)
@@ -128,6 +135,7 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'manual',
+          canAutoAllocate: false,
           prisoners: [
             {
               hasHistory: false,
@@ -225,6 +233,7 @@ describe('Allocate key worker', () => {
           expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
             activeCaseLoadId: 'MDI',
             allocationMode: 'manual',
+            canAutoAllocate: false,
             prisoners: [
               {
                 hasHistory: true,
@@ -289,6 +298,20 @@ describe('Allocate key worker', () => {
           })
         })
       })
+
+      it('should let the template know that the user an auto allocate', async () => {
+        oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
+        keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, autoAllocatedSupported: true })
+
+        await controller.index(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'allocateKeyWorker',
+          expect.objectContaining({
+            canAutoAllocate: true,
+          })
+        )
+      })
     })
   })
 
@@ -310,6 +333,7 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'auto',
+          canAutoAllocate: false,
           prisoners: [],
           recentlyAllocated: '[]',
         })
@@ -373,6 +397,7 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'auto',
+          canAutoAllocate: false,
           prisoners: [
             {
               hasHistory: false,
