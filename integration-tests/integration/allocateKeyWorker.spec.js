@@ -198,7 +198,7 @@ context('Allocate key worker to unallocated prisoners', () => {
         .should('include', '/manage-key-workers')
     })
 
-    context.only('auto allocate link', () => {
+    context('auto allocate link', () => {
       it('should not show if user is not a keyworker admin', () => {
         cy.task('stubLogin', {
           username: 'ITAG_USER',
