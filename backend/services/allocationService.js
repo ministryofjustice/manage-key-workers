@@ -211,7 +211,6 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     if (telemetry) {
       telemetry.trackEvent({ name: 'Auto allocation' })
     }
-
     return {
       keyworkerResponse: availableKeyworkers,
       allocatedResponse:

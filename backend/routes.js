@@ -61,6 +61,13 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
     keyworkerApi,
   })
 
+  const allocateKeyWorkerController = allocateKeyWorker({
+    allocationService,
+    elite2Api,
+    keyworkerApi,
+    complexityOfNeedApi,
+  })
+
   router.get('/manage-key-workers/search-for-prisoner', offenderSearchController.searchOffenders)
   router.post('/manage-key-workers/search-for-prisoner', offenderSearchController.validateSearchText)
   router.post('/manage-key-workers/search-for-prisoner/save', offenderSearchController.save)
@@ -74,20 +81,9 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
     viewResidentialLocation({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).post
   )
 
-  router.get(
-    '/manage-key-workers/allocate-key-worker',
-    allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).index
-  )
-
-  router.get(
-    '/manage-key-workers/allocate-key-worker/auto',
-    allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).auto
-  )
-
-  router.post(
-    '/manage-key-workers/allocate-key-worker',
-    allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }).post
-  )
+  router.get('/manage-key-workers/allocate-key-worker', allocateKeyWorkerController.index)
+  router.get('/manage-key-workers/allocate-key-worker/auto', allocateKeyWorkerController.auto)
+  router.post('/manage-key-workers/allocate-key-worker', allocateKeyWorkerController.post)
 
   router.get('/homepage', homepage({ keyworkerApi, oauthApi }))
 
