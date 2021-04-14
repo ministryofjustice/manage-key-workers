@@ -22,8 +22,8 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
 
     const offenderNumbers = [...recentlyAllocated, ...offenderResponse].map((o) => o.offenderNo)
 
-    const availableKeyworkers = offenderNumbers.length
-      ? await keyworkerApi.availableKeyworkers(res.locals, activeCaseLoadId)
+    const allKeyworkers = offenderNumbers.length
+      ? await keyworkerApi.keyworkerSearch(res.locals, { agencyId: activeCaseLoadId, searchText: '', statusFilter: '' })
       : []
 
     const allocationHistoryData = offenderNumbers.length
@@ -40,7 +40,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
       : []
 
     const recentlyUpdatedAllocations = offenderKeyworkers.map((offender) => {
-      const keyworkerUser = availableKeyworkers.find((keyworker) => offender.staffId === keyworker.staffId)
+      const keyworkerUser = allKeyworkers.find((keyworker) => offender.staffId === keyworker.staffId)
       const offenderDetails = recentlyAllocatedSentenceDetails.find((o) => offender.offenderNo === o.offenderNo)
 
       return {
@@ -68,8 +68,11 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const isManualAllocation = allocationMode === 'manual'
         const selectableKeyworkers = isManualAllocation
-          ? availableKeyworkers.filter((keyworker) => keyworker.staffId !== offender.staffId)
-          : availableKeyworkers
+          ? allKeyworkers.filter((keyworker) => keyworker.staffId !== offender.staffId && keyworker.status === 'ACTIVE')
+          : allKeyworkers.filter((keyworker) => keyworker.staffId === offender.staffId || keyworker.status === 'ACTIVE')
+        const sortedSelectableKeyworkers = selectableKeyworkers.sort(
+          (left, right) => left.numberAllocated - right.numberAllocated
+        )
 
         return {
           hasHistory: allocationHistoryData.find((history) => history.offenderNo === offenderNo)?.hasHistory,
@@ -78,14 +81,14 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
             isManualAllocation &&
             `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
           keyworkerStaffId: staffId,
-          keyworkerList: selectableKeyworkers.map((keyworker) => {
-            const isAutoAllocation = keyworker.staffId === offender.staffId
+          keyworkerList: sortedSelectableKeyworkers.map((keyworker) => {
+            const isAutoAllocated = keyworker.staffId === offender.staffId
             return {
               text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
                 keyworker.numberAllocated
               )}`,
-              value: `${keyworker.staffId}:${offenderNo}:${isAutoAllocation ? 'A' : 'M'}`,
-              selected: isAutoAllocation,
+              value: `${keyworker.staffId}:${offenderNo}:${isAutoAllocated ? 'A' : 'M'}`,
+              selected: isAutoAllocated,
             }
           }),
           location: offender.assignedLivingUnitDesc || offender.internalLocationDesc,

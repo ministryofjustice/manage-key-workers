@@ -33,6 +33,7 @@ module.exports = (on) => {
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
+    stubKeyworkerSearch: (keyworkers) => keyworker.stubKeyworkerSearch(keyworkers),
     stubOffenderKeyworker: (response) => keyworker.stubOffenderKeyworker(response),
     stubOffenderSentences: (response) => prisonApi.stubOffenderSentences(response),
     stubOffenderAssessments: () => prisonApi.stubOffenderAssessments(),
