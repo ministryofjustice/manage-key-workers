@@ -34,12 +34,7 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
         complexityOfNeed.enabled && (await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers))
 
       const allocationHistoryData = offenderNumbers.length
-        ? await Promise.all(
-            offenderResponse.map(async ({ offenderNo }) => {
-              const history = await keyworkerApi.allocationHistory(res.locals, offenderNo)
-              return { offenderNo, hasHistory: Boolean(history?.allocationHistory?.length) }
-            })
-          )
+        ? await keyworkerApi.allocationHistorySummary(res.locals, offenderNumbers)
         : []
 
       const prisoners = offenderResponse.map((offender) => {
