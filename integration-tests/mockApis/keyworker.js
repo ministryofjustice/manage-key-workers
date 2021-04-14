@@ -42,6 +42,20 @@ module.exports = {
         jsonBody: keyworkers,
       },
     }),
+  stubKeyworkerSearch: (keyworkers) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPathPattern: '/key-worker/.+?/members',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: keyworkers,
+      },
+    }),
   stubOffenderKeyworker: (response = []) =>
     stubFor({
       request: {

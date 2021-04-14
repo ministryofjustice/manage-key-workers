@@ -9,30 +9,44 @@ const toOffender = ($cell) => ({
 })
 
 context('Allocate key worker to unallocated prisoners', () => {
+  const availableKeyworkers = [
+    {
+      staffId: 1,
+      firstName: 'BOB',
+      lastName: 'BALL',
+      capacity: 6,
+      numberAllocated: 6,
+      agencyId: 'MDI',
+      status: 'ACTIVE',
+      autoAllocationAllowed: true,
+    },
+    {
+      staffId: 2,
+      firstName: 'JULIAN',
+      lastName: 'DOE',
+      capacity: 6,
+      numberAllocated: 9,
+      agencyId: 'MDI',
+      status: 'ACTIVE',
+      autoAllocationAllowed: true,
+    },
+  ]
   before(() => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
     cy.task('stubLogin', { username: 'ITAG_USER', caseload: 'WWI' })
     cy.login()
-    cy.task('stubAvailableKeyworkers', [
+    cy.task('stubAvailableKeyworkers', availableKeyworkers)
+    cy.task('stubKeyworkerSearch', [
+      ...availableKeyworkers,
       {
-        staffId: 1,
-        firstName: 'BOB',
-        lastName: 'BALL',
+        staffId: 3,
+        firstName: 'ANDY',
+        lastName: 'SMITH',
         capacity: 6,
-        numberAllocated: 6,
+        numberAllocated: 1,
         agencyId: 'MDI',
-        status: 'ACTIVE',
-        autoAllocationAllowed: true,
-      },
-      {
-        staffId: 2,
-        firstName: 'JULIAN',
-        lastName: 'DOE',
-        capacity: 6,
-        numberAllocated: 9,
-        agencyId: 'MDI',
-        status: 'ACTIVE',
+        status: 'UNAVAILABLE_LONG_TERM_ABSENCE',
         autoAllocationAllowed: true,
       },
     ])
@@ -374,7 +388,7 @@ context('Allocate key worker to unallocated prisoners', () => {
               agencyId: 'MDI',
               assignedLivingUnitId: 12,
               assignedLivingUnitDesc: 'MDI-1-2',
-              staffId: 2,
+              staffId: 3,
             },
           ],
         })
@@ -409,6 +423,14 @@ context('Allocate key worker to unallocated prisoners', () => {
               .find('[data-test="allocate-keyworker-select"]')
               .then(($select) => {
                 cy.get($select).find('option:selected').contains('Bob Ball (6)')
+                cy.get($select)
+                  .find('option')
+                  .then(($options) => {
+                    cy.get($options).its('length').should('eq', 3)
+                    expect($options.get(0)).to.contain('Select key worker')
+                    expect($options.get(1)).to.contain('Bob Ball (6)')
+                    expect($options.get(2)).to.contain('Julian Doe (9)')
+                  })
               })
             cy.get(offenders[0].viewHistory).find('a').should('not.exist')
 
@@ -424,7 +446,16 @@ context('Allocate key worker to unallocated prisoners', () => {
             cy.get(offenders[1].changeKeyworker)
               .find('[data-test="allocate-keyworker-select"]')
               .then(($select) => {
-                cy.get($select).find('option:selected').contains('Julian Doe (9)')
+                cy.get($select).find('option:selected').contains('Andy Smith (1)')
+                cy.get($select)
+                  .find('option')
+                  .then(($options) => {
+                    cy.get($options).its('length').should('eq', 4)
+                    expect($options.get(0)).to.contain('Select key worker')
+                    expect($options.get(1)).to.contain('Andy Smith (1)')
+                    expect($options.get(2)).to.contain('Bob Ball (6)')
+                    expect($options.get(3)).to.contain('Julian Doe (9)')
+                  })
               })
             cy.get(offenders[1].viewHistory)
               .find('a')
@@ -449,9 +480,9 @@ context('Allocate key worker to unallocated prisoners', () => {
               active: 'Y',
             },
             {
-              offenderKeyworkerId: 2,
+              offenderKeyworkerId: 3,
               offenderNo: 'ABC456',
-              staffId: 2,
+              staffId: 3,
               agencyId: 'MDI',
               assigned: '2021-04-09T09:44:47.581306',
               userId: 'TEST_USER',
@@ -485,6 +516,7 @@ context('Allocate key worker to unallocated prisoners', () => {
                 cy.get($select)
                   .find('option')
                   .then(($options) => {
+                    cy.get($options).its('length').should('eq', 2)
                     expect($options.get(0)).to.contain('Select key worker')
                     expect($options.get(1)).to.contain('Julian Doe (9)')
                   })
@@ -499,15 +531,17 @@ context('Allocate key worker to unallocated prisoners', () => {
             expect(offenders[1].prisonNo).to.eq('ABC456')
             expect(offenders[1].location).to.eq('MDI-1-2')
             expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
-            expect(offenders[1].keyworker.trim()).to.eq('Julian Doe (9)')
+            expect(offenders[1].keyworker.trim()).to.eq('Andy Smith (1)')
             cy.get(offenders[1].changeKeyworker)
               .find('[data-test="allocate-keyworker-select"]')
               .then(($select) => {
                 cy.get($select)
                   .find('option')
                   .then(($options) => {
+                    cy.get($options).its('length').should('eq', 3)
                     expect($options.get(0)).to.contain('Select key worker')
                     expect($options.get(1)).to.contain('Bob Ball (6)')
+                    expect($options.get(2)).to.contain('Julian Doe (9)')
                   })
               })
             cy.get(offenders[1].viewHistory)

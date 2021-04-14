@@ -28,7 +28,7 @@ describe('Allocate key worker', () => {
     allocationService.allocated = jest.fn().mockResolvedValue({ allocatedResponse: [] })
     allocationService.unallocated = jest.fn().mockResolvedValue([])
 
-    keyworkerApi.availableKeyworkers = jest.fn().mockResolvedValue([
+    keyworkerApi.keyworkerSearch = jest.fn().mockResolvedValue([
       {
         staffId: 1,
         firstName: 'BOB',
@@ -49,6 +49,16 @@ describe('Allocate key worker', () => {
         status: 'ACTIVE',
         autoAllocationAllowed: true,
       },
+      {
+        staffId: 3,
+        firstName: 'ANDY',
+        lastName: 'SMITH',
+        capacity: 6,
+        numberAllocated: 1,
+        agencyId: 'MDI',
+        status: 'UNAVAILABLE_LONG_TERM_ABSENCE',
+        autoAllocationAllowed: true,
+      },
     ])
     keyworkerApi.offenderKeyworkerList = jest.fn()
     keyworkerApi.allocationHistory = jest.fn()
@@ -67,7 +77,7 @@ describe('Allocate key worker', () => {
         await controller.index(req, res)
 
         expect(allocationService.unallocated).toHaveBeenCalledWith(res.locals, 'MDI')
-        expect(keyworkerApi.availableKeyworkers).not.toHaveBeenCalled()
+        expect(keyworkerApi.keyworkerSearch).not.toHaveBeenCalled()
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistory).not.toHaveBeenCalled()
         expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
@@ -121,7 +131,11 @@ describe('Allocate key worker', () => {
         expect(oauthApi.currentRoles).toHaveBeenCalledWith({})
         expect(allocationService.unallocated).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith({}, 'MDI')
-        expect(keyworkerApi.availableKeyworkers).toHaveBeenCalledWith(res.locals, 'MDI')
+        expect(keyworkerApi.keyworkerSearch).toHaveBeenCalledWith(res.locals, {
+          agencyId: 'MDI',
+          searchText: '',
+          statusFilter: '',
+        })
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(2)
         expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC123')
@@ -218,7 +232,11 @@ describe('Allocate key worker', () => {
           await controller.index(req, res)
 
           expect(allocationService.unallocated).toHaveBeenCalledWith(res.locals, 'MDI')
-          expect(keyworkerApi.availableKeyworkers).toHaveBeenCalledWith(res.locals, 'MDI')
+          expect(keyworkerApi.keyworkerSearch).toHaveBeenCalledWith(res.locals, {
+            agencyId: 'MDI',
+            searchText: '',
+            statusFilter: '',
+          })
           expect(keyworkerApi.offenderKeyworkerList).toHaveBeenCalledWith(res.locals, 'MDI', ['ABC789'])
           expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(3)
           expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC123')
@@ -321,7 +339,7 @@ describe('Allocate key worker', () => {
         await controller.auto(req, res)
 
         expect(allocationService.allocated).toHaveBeenCalledWith(res.locals, 'MDI')
-        expect(keyworkerApi.availableKeyworkers).not.toHaveBeenCalled()
+        expect(keyworkerApi.keyworkerSearch).not.toHaveBeenCalled()
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistory).not.toHaveBeenCalled()
         expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
@@ -367,7 +385,7 @@ describe('Allocate key worker', () => {
               assignedLivingUnitId: 12,
               internalLocationDesc: 'MDI-1-2',
               confirmedReleaseDate: '2030-05-30',
-              staffId: 2,
+              staffId: 3,
               keyworkerDisplay: 'Doe, Julian',
               numberAllocated: '9',
               allocationType: 'P',
@@ -383,7 +401,11 @@ describe('Allocate key worker', () => {
         await controller.auto(req, res)
 
         expect(allocationService.allocated).toHaveBeenCalledWith(res.locals, 'MDI')
-        expect(keyworkerApi.availableKeyworkers).toHaveBeenCalledWith(res.locals, 'MDI')
+        expect(keyworkerApi.keyworkerSearch).toHaveBeenCalledWith(res.locals, {
+          agencyId: 'MDI',
+          searchText: '',
+          statusFilter: '',
+        })
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(2)
         expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC123')
@@ -424,18 +446,23 @@ describe('Allocate key worker', () => {
               hasHistory: true,
               keyworkerList: [
                 {
+                  selected: true,
+                  text: 'Andy Smith (1)',
+                  value: '3:ABC456:A',
+                },
+                {
                   selected: false,
                   text: 'Bob Ball (6)',
                   value: '1:ABC456:M',
                 },
                 {
-                  selected: true,
+                  selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC456:A',
+                  value: '2:ABC456:M',
                 },
               ],
               keyworkerName: false,
-              keyworkerStaffId: 2,
+              keyworkerStaffId: 3,
               location: 'MDI-1-2',
               name: 'Smith, John',
               prisonNumber: 'ABC456',
