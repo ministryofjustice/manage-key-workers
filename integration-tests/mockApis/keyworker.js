@@ -74,7 +74,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPattern: `/key-worker/allocation-history/summary`,
+        urlPath: `/key-worker/allocation-history/summary`,
       },
       response: {
         status: 200,

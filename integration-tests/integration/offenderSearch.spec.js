@@ -97,8 +97,16 @@ context('Offender search', () => {
     ])
     cy.task('stubAllocationHistorySummary', [
       {
+        offenderNo: 'G12345',
+        hasHistory: false,
+      },
+      {
+        offenderNo: 'G12346',
+        hasHistory: false,
+      },
+      {
         offenderNo: 'G0276VC',
-        hasHistory: true,
+        hasHistory: false,
       },
     ])
     cy.task('stubOffenderSentences')
