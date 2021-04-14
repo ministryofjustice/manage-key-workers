@@ -38,6 +38,7 @@ module.exports = (on) => {
     stubOffenderAssessments: () => prisonApi.stubOffenderAssessments(),
     stubGetComplexOffenders: (offenders = []) => complexityApi.stubGetComplexOffenders(offenders),
     stubAllocationHistory: ({ offenderNo, response }) => keyworker.stubAllocationHistory({ offenderNo, response }),
+    stubAllocationHistorySummary: ({ response }) => keyworker.stubAllocationHistorySummary({ response }),
     stubAllocate: () => keyworker.stubAllocate(),
     stubDeallocate: (offenderNo) => keyworker.stubDeallocate(offenderNo),
     stubUnallocated: ({ agencyId, response }) => keyworker.stubUnallocated({ agencyId, response }),
