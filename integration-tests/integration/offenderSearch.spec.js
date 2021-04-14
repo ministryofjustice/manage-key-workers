@@ -106,7 +106,7 @@ context('Offender search', () => {
       },
       {
         offenderNo: 'G0276VC',
-        hasHistory: false,
+        hasHistory: true,
       },
     ])
     cy.task('stubOffenderSentences')

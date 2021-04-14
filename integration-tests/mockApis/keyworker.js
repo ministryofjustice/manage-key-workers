@@ -56,11 +56,11 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubAllocationHistory: ({ offenderNo, response = {} }) =>
+  stubAllocationHistorySummary: (response = []) =>
     stubFor({
       request: {
-        method: 'GET',
-        urlPattern: `/key-worker/allocation-history/${offenderNo}`,
+        method: 'POST',
+        urlPath: `/key-worker/allocation-history/summary`,
       },
       response: {
         status: 200,
@@ -70,11 +70,11 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubAllocationHistorySummary: (response = []) =>
+  stubAllocationHistory: ({ offenderNo, response = {} }) =>
     stubFor({
       request: {
-        method: 'POST',
-        urlPath: `/key-worker/allocation-history/summary`,
+        method: 'GET',
+        urlPattern: `/key-worker/allocation-history/${offenderNo}`,
       },
       response: {
         status: 200,
