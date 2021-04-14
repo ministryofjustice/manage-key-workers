@@ -70,7 +70,7 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubAllocationHistorySummary: ({ response = [] }) =>
+  stubAllocationHistorySummary: (response = []) =>
     stubFor({
       request: {
         method: 'POST',
