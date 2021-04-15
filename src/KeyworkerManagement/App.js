@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
 import Header from '../Header'
-import HomePage from './keyworkerHomePage'
 import UnauthPage from './unauthPage'
 import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer'
 import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer'
@@ -143,7 +142,7 @@ class App extends React.Component {
   )
 
   render() {
-    const { config, shouldShowTerms, error, allowAuto, user, message, migrated, dispatchLoaded } = this.props
+    const { config, shouldShowTerms, error, user, migrated, dispatchLoaded } = this.props
 
     let innerContent
     const routes = (
@@ -152,21 +151,6 @@ class App extends React.Component {
         <div className="pure-g">
           <Switch>
             <Route exact path="/unauthorised" render={() => <UnauthPage dispatchLoaded={dispatchLoaded} />} />
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <HomePage
-                  allowAuto={allowAuto}
-                  migrated={migrated}
-                  user={user}
-                  config={config}
-                  message={message}
-                  clearMessage={this.clearMessage}
-                  dispatchLoaded={dispatchLoaded}
-                />
-              )}
-            />
             <Route
               exact
               path="/key-worker-statistics"
@@ -316,9 +300,7 @@ App.propTypes = {
   resetErrorDispatch: PropTypes.func.isRequired,
   keyworkerSettingsDispatch: PropTypes.func.isRequired,
   setMessageDispatch: PropTypes.func.isRequired,
-  allowAuto: PropTypes.bool.isRequired,
   migrated: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
   dispatchLoaded: PropTypes.func.isRequired,
 }
 

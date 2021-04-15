@@ -42,7 +42,7 @@ module.exports = {
   context: __dirname,
   entry: [...developmentEntries, './src/index.js'],
   output: {
-    filename: 'bundle.js',
+    filename: './app/bundle.js',
     path: path.join(__dirname, 'build'),
     publicPath: process.env.PUBLIC_URL || '/',
     environment: {

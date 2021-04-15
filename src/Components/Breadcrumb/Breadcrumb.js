@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import withBreadcrumbs from 'react-router-breadcrumbs-hoc'
 import links from '../../links'
 import { BreadcrumbContainer, BreadcrumbList, BreadcrumbListItem } from './Breadcrumb.styles'
@@ -15,16 +14,16 @@ export const Breadcrumb = ({ breadcrumbs }) => {
       <BreadcrumbList>
         <BreadcrumbListItem>
           <a data-qa="breadcrumb-home-page-link" href={links.getHomeLink()}>
-            Home
+            Digital Prison Services
           </a>
         </BreadcrumbListItem>
         {breadcrumbs.map(({ match, breadcrumb }, i, arr) => {
           const parentPageLink = arr.length - 1 === i ? 'breadcrumb-parent-page-link' : null
           return (
             <BreadcrumbListItem key={match.url}>
-              <Link to={match.url} data-qa={parentPageLink}>
+              <a href={match.url} data-qa={parentPageLink}>
                 {breadcrumb}
-              </Link>
+              </a>
             </BreadcrumbListItem>
           )
         })}

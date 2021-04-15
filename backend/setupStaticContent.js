@@ -4,7 +4,7 @@ const path = require('path')
 const router = express.Router()
 
 module.exports = () => {
-  router.use('/bundle.js', express.static(path.join(__dirname, '../build/bundle.js')))
+  router.use('/app/bundle.js', express.static(path.join(__dirname, '../build/app/bundle.js')))
   router.use('/static', express.static(path.join(__dirname, '../build/static')))
   router.use(express.static(path.join(__dirname, '../build/static'))) // For existing static references in the React code
 
