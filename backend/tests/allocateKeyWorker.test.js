@@ -2,7 +2,6 @@ const allocateKeyWorker = require('../controllers/allocateKeyWorker')
 
 describe('Allocate key worker', () => {
   const allocationService = {}
-  const elite2Api = {}
   const keyworkerApi = {}
   const oauthApi = {}
 
@@ -64,11 +63,9 @@ describe('Allocate key worker', () => {
     keyworkerApi.allocationHistorySummary = jest.fn()
     keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
 
-    elite2Api.sentenceDetailList = jest.fn()
-
     oauthApi.currentRoles = jest.fn().mockResolvedValue([])
 
-    controller = allocateKeyWorker({ allocationService, elite2Api, keyworkerApi, oauthApi })
+    controller = allocateKeyWorker({ allocationService, keyworkerApi, oauthApi })
   })
 
   describe('index', () => {
@@ -80,7 +77,6 @@ describe('Allocate key worker', () => {
         expect(keyworkerApi.keyworkerSearch).not.toHaveBeenCalled()
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
-        expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
       it('should render the correct template with the correct values', async () => {
@@ -149,7 +145,6 @@ describe('Allocate key worker', () => {
         })
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistorySummary).toHaveBeenCalledWith(res.locals, ['ABC123', 'ABC456'])
-        expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
       it('should render the correct template with the correct values', async () => {
@@ -166,12 +161,14 @@ describe('Allocate key worker', () => {
                 {
                   selected: false,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC123:M',
+                  value:
+                    '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
                 },
                 {
                   selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC123:M',
+                  value:
+                    '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":2}',
                 },
               ],
               keyworkerName: undefined,
@@ -187,12 +184,14 @@ describe('Allocate key worker', () => {
                 {
                   selected: false,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC456:M',
+                  value:
+                    '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":1}',
                 },
                 {
                   selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC456:M',
+                  value:
+                    '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}',
                 },
               ],
               keyworkerName: undefined,
@@ -209,7 +208,17 @@ describe('Allocate key worker', () => {
 
       describe('and a recently allocated prisoner', () => {
         beforeEach(() => {
-          req.flash.mockReturnValue([{ staffId: 1, offenderNo: 'ABC789' }])
+          req.flash.mockReturnValue([
+            {
+              allocationType: 'M',
+              firstName: 'Simon',
+              lastName: 'Gray',
+              location: 'MDI-1-3',
+              offenderNo: 'ABC789',
+              releaseDate: '2029-02-28',
+              staffId: 1,
+            },
+          ])
 
           keyworkerApi.offenderKeyworkerList.mockResolvedValue([
             {
@@ -220,20 +229,6 @@ describe('Allocate key worker', () => {
               assigned: '2021-04-09T09:44:47.581306',
               userId: 'TEST_USER',
               active: 'Y',
-            },
-          ])
-          elite2Api.sentenceDetailList.mockResolvedValue([
-            {
-              offenderNo: 'ABC789',
-              firstName: 'SIMON',
-              lastName: 'GRAY',
-              agencyLocationId: 'MDI',
-              sentenceDetail: {
-                confirmedReleaseDate: '2029-02-28',
-              },
-              dateOfBirth: '1995-01-11',
-              agencyLocationDesc: 'Moorland (HMP & YOI)',
-              internalLocationDesc: 'MDI-1-3',
             },
           ])
         })
@@ -248,7 +243,6 @@ describe('Allocate key worker', () => {
           })
           expect(keyworkerApi.offenderKeyworkerList).toHaveBeenCalledWith(res.locals, 'MDI', ['ABC789'])
           expect(keyworkerApi.allocationHistorySummary).toHaveBeenCalledWith(res.locals, ['ABC789', 'ABC123', 'ABC456'])
-          expect(elite2Api.sentenceDetailList).toHaveBeenCalledWith(res.locals, ['ABC789'])
         })
 
         it('should render the correct template with the correct values', async () => {
@@ -265,12 +259,14 @@ describe('Allocate key worker', () => {
                   {
                     selected: false,
                     text: 'Bob Ball (6)',
-                    value: '1:ABC123:M',
+                    value:
+                      '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
                   },
                   {
                     selected: false,
                     text: 'Julian Doe (9)',
-                    value: '2:ABC123:M',
+                    value:
+                      '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":2}',
                   },
                 ],
                 keyworkerName: undefined,
@@ -286,7 +282,8 @@ describe('Allocate key worker', () => {
                   {
                     selected: false,
                     text: 'Bob Ball (6)',
-                    value: '1:ABC789:M',
+                    value:
+                      '{"allocationType":"M","firstName":"Simon","lastName":"Gray","location":"MDI-1-3","offenderNo":"ABC789","releaseDate":"2029-02-28","staffId":1}',
                   },
                 ],
                 keyworkerName: 'Julian Doe (9)',
@@ -302,12 +299,14 @@ describe('Allocate key worker', () => {
                   {
                     selected: false,
                     text: 'Bob Ball (6)',
-                    value: '1:ABC456:M',
+                    value:
+                      '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":1}',
                   },
                   {
                     selected: false,
                     text: 'Julian Doe (9)',
-                    value: '2:ABC456:M',
+                    value:
+                      '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}',
                   },
                 ],
                 keyworkerName: undefined,
@@ -318,7 +317,8 @@ describe('Allocate key worker', () => {
                 releaseDate: '30/05/2030',
               },
             ],
-            recentlyAllocated: '[{"staffId":1,"offenderNo":"ABC789"}]',
+            recentlyAllocated:
+              '[{"allocationType":"M","firstName":"Simon","lastName":"Gray","location":"MDI-1-3","offenderNo":"ABC789","releaseDate":"2029-02-28","staffId":1}]',
           })
         })
       })
@@ -348,7 +348,6 @@ describe('Allocate key worker', () => {
         expect(keyworkerApi.keyworkerSearch).not.toHaveBeenCalled()
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
-        expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
       it('should render the correct template with the correct values', async () => {
@@ -421,7 +420,6 @@ describe('Allocate key worker', () => {
         })
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistorySummary).toHaveBeenCalledWith(res.locals, ['ABC123', 'ABC456'])
-        expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
       it('should render the correct template with the correct values', async () => {
@@ -438,12 +436,14 @@ describe('Allocate key worker', () => {
                 {
                   selected: true,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC123:A',
+                  value:
+                    '{"allocationType":"A","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
                 },
                 {
                   selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC123:M',
+                  value:
+                    '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":2}',
                 },
               ],
               keyworkerName: false,
@@ -459,17 +459,20 @@ describe('Allocate key worker', () => {
                 {
                   selected: true,
                   text: 'Andy Smith (1)',
-                  value: '3:ABC456:A',
+                  value:
+                    '{"allocationType":"A","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":3}',
                 },
                 {
                   selected: false,
                   text: 'Bob Ball (6)',
-                  value: '1:ABC456:M',
+                  value:
+                    '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":1}',
                 },
                 {
                   selected: false,
                   text: 'Julian Doe (9)',
-                  value: '2:ABC456:M',
+                  value:
+                    '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}',
                 },
               ],
               keyworkerName: false,
@@ -495,7 +498,11 @@ describe('Allocate key worker', () => {
     describe('manual', () => {
       beforeEach(() => {
         req.body = {
-          allocateKeyworker: ['1:ABC123:M', '', ''],
+          allocateKeyworker: [
+            '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
+            '',
+            '',
+          ],
           recentlyAllocated: '[]',
         }
       })
@@ -506,15 +513,19 @@ describe('Allocate key worker', () => {
         expect(req.flash).toHaveBeenCalledWith('recentlyAllocated', [
           {
             allocationType: 'M',
+            firstName: 'FERINAND',
+            lastName: 'ALFF',
+            location: 'MDI-1-1',
             offenderNo: 'ABC123',
-            staffId: '1',
+            releaseDate: '2022-04-30',
+            staffId: 1,
           },
         ])
 
         expect(keyworkerApi.autoAllocateConfirm).not.toHaveBeenCalled()
         expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
           offenderNo: 'ABC123',
-          staffId: '1',
+          staffId: 1,
           prisonId: 'MDI',
           allocationType: 'M',
           allocationReason: 'MANUAL',
@@ -528,7 +539,11 @@ describe('Allocate key worker', () => {
     describe('auto', () => {
       beforeEach(() => {
         req.body = {
-          allocateKeyworker: ['1:ABC123:A', '', ''],
+          allocateKeyworker: [
+            '{"allocationType":"A","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
+            '',
+            '',
+          ],
           allocationMode: 'auto',
           recentlyAllocated: '[]',
         }

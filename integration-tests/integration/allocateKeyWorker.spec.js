@@ -282,7 +282,11 @@ context('Allocate key worker to unallocated prisoners', () => {
 
             const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
 
-            cy.get(offenders[1].changeKeyworker).find('[data-test="allocate-keyworker-select"]').select('2:ABC456:M')
+            cy.get(offenders[1].changeKeyworker)
+              .find('[data-test="allocate-keyworker-select"]')
+              .select(
+                '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}'
+              )
           })
 
         cy.task('stubUnallocated', {

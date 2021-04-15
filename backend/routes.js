@@ -63,7 +63,6 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
 
   const allocateKeyWorkerController = allocateKeyWorker({
     allocationService,
-    elite2Api,
     keyworkerApi,
     oauthApi,
   })
