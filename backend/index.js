@@ -88,8 +88,8 @@ if (config.app.production) {
 } else {
   config.setTestDefaults()
 }
-// Don't cache dynamic resources
 
+// Don't cache dynamic resources
 app.use(helmet.noCache())
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -116,7 +116,7 @@ app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 app.use(routes({ ...apis }))
 
 app.use(setupReactRoutes())
-app.use('/$', homepage({ ...apis }))
+app.use('/$', homepage({ keyworkerApi: apis.keyworkerApi, oauthApi: apis.oauthApi }))
 app.use(pageNotFound)
 app.use(errorHandler({ logError }))
 
