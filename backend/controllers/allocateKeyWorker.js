@@ -27,12 +27,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
       : []
 
     const allocationHistoryData = offenderNumbers.length
-      ? await Promise.all(
-          offenderNumbers.map(async (offenderNo) => {
-            const history = await keyworkerApi.allocationHistory(res.locals, offenderNo)
-            return { offenderNo, hasHistory: Boolean(history?.allocationHistory?.length) }
-          })
-        )
+      ? await keyworkerApi.allocationHistorySummary(res.locals, offenderNumbers)
       : []
 
     const recentlyAllocatedSentenceDetails = recentlyAllocatedOffenderNumbers.length

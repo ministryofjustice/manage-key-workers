@@ -58,6 +58,13 @@ const searchOffendersResponse = {
   partialResults: false,
 }
 
+const allocationHistoryResponse = [
+  {
+    offenderNo: 'G0276VC',
+    hasHistory: false,
+  },
+]
+
 describe('Search offenders controller', () => {
   let controller
   let req
@@ -87,7 +94,7 @@ describe('Search offenders controller', () => {
     allocationService.searchOffenders = jest.fn().mockResolvedValue(searchOffendersResponse)
     keyworkerApi.deallocate = jest.fn()
     keyworkerApi.allocate = jest.fn()
-    keyworkerApi.allocationHistory = jest.fn()
+    keyworkerApi.allocationHistorySummary = jest.fn().mockResolvedValue(allocationHistoryResponse)
     controller = controllerFactory({ allocationService, complexityOfNeedApi, keyworkerApi })
   })
 
@@ -260,6 +267,58 @@ describe('Search offenders controller', () => {
       }
       await controller.validateSearchText(req, res)
       expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/search-for-prisoner?searchText=A123456')
+    })
+  })
+
+  describe('When the offender has an allocation history', () => {
+    beforeEach(() => {
+      const allocationHistory = [
+        {
+          offenderNo: 'G0276VC',
+          hasHistory: true,
+        },
+      ]
+      keyworkerApi.allocationHistorySummary = jest.fn().mockResolvedValue(allocationHistory)
+    })
+
+    it('should show the history link', async () => {
+      req.query = {
+        searchText: 'G0276VC',
+      }
+      await controller.searchOffenders(req, res)
+
+      expect(res.render).toHaveBeenCalledWith(
+        'offenderSearch.njk',
+        expect.objectContaining({
+          formValues: { searchText: 'G0276VC' },
+          prisoners: [
+            {
+              hasHistory: true,
+              isHighComplexity: false,
+              keyworkerList: [
+                {
+                  text: 'Deallocate',
+                  value: '1:G0276VC:true',
+                },
+                {
+                  text: 'Bob Ball (6)',
+                  value: '34353:G0276VC',
+                },
+                {
+                  text: 'Julian Doe (9)',
+                  value: '485593:G0276VC',
+                },
+              ],
+              keyworkerName: 'First last (n/a)',
+              keyworkerStaffId: 1,
+              location: 'CSWAP',
+              name: 'Alff, Ferinand',
+              prisonNumber: 'G0276VC',
+              releaseDate: '30/04/2012',
+            },
+          ],
+        })
+      )
     })
   })
 

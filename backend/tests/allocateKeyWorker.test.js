@@ -61,7 +61,7 @@ describe('Allocate key worker', () => {
       },
     ])
     keyworkerApi.offenderKeyworkerList = jest.fn()
-    keyworkerApi.allocationHistory = jest.fn()
+    keyworkerApi.allocationHistorySummary = jest.fn()
     keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
 
     elite2Api.sentenceDetailList = jest.fn()
@@ -79,7 +79,7 @@ describe('Allocate key worker', () => {
         expect(allocationService.unallocated).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.keyworkerSearch).not.toHaveBeenCalled()
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
-        expect(keyworkerApi.allocationHistory).not.toHaveBeenCalled()
+        expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
         expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
@@ -120,9 +120,20 @@ describe('Allocate key worker', () => {
             confirmedReleaseDate: '2030-05-30',
           },
         ])
-        keyworkerApi.allocationHistory
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC123' }, allocationHistory: [] })
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC456' }, allocationHistory: [{ staffId: 2 }] })
+        keyworkerApi.allocationHistorySummary.mockResolvedValue([
+          {
+            offenderNo: 'ABC789',
+            hasHistory: false,
+          },
+          {
+            offenderNo: 'ABC123',
+            hasHistory: false,
+          },
+          {
+            offenderNo: 'ABC456',
+            hasHistory: true,
+          },
+        ])
       })
 
       it('should make the expected calls', async () => {
@@ -137,9 +148,7 @@ describe('Allocate key worker', () => {
           statusFilter: '',
         })
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
-        expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(2)
-        expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC123')
-        expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC456')
+        expect(keyworkerApi.allocationHistorySummary).toHaveBeenCalledWith(res.locals, ['ABC123', 'ABC456'])
         expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
@@ -238,10 +247,7 @@ describe('Allocate key worker', () => {
             statusFilter: '',
           })
           expect(keyworkerApi.offenderKeyworkerList).toHaveBeenCalledWith(res.locals, 'MDI', ['ABC789'])
-          expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(3)
-          expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC123')
-          expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC456')
-          expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC789')
+          expect(keyworkerApi.allocationHistorySummary).toHaveBeenCalledWith(res.locals, ['ABC789', 'ABC123', 'ABC456'])
           expect(elite2Api.sentenceDetailList).toHaveBeenCalledWith(res.locals, ['ABC789'])
         })
 
@@ -254,7 +260,7 @@ describe('Allocate key worker', () => {
             canAutoAllocate: false,
             prisoners: [
               {
-                hasHistory: true,
+                hasHistory: false,
                 keyworkerList: [
                   {
                     selected: false,
@@ -291,7 +297,7 @@ describe('Allocate key worker', () => {
                 releaseDate: '28/02/2029',
               },
               {
-                hasHistory: false,
+                hasHistory: true,
                 keyworkerList: [
                   {
                     selected: false,
@@ -341,7 +347,7 @@ describe('Allocate key worker', () => {
         expect(allocationService.allocated).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.keyworkerSearch).not.toHaveBeenCalled()
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
-        expect(keyworkerApi.allocationHistory).not.toHaveBeenCalled()
+        expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
         expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 
@@ -392,9 +398,16 @@ describe('Allocate key worker', () => {
             },
           ],
         })
-        keyworkerApi.allocationHistory
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC123' }, allocationHistory: [] })
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC456' }, allocationHistory: [{ staffId: 2 }] })
+        keyworkerApi.allocationHistorySummary.mockResolvedValue([
+          {
+            offenderNo: 'ABC123',
+            hasHistory: false,
+          },
+          {
+            offenderNo: 'ABC456',
+            hasHistory: true,
+          },
+        ])
       })
 
       it('should make the expected calls', async () => {
@@ -407,9 +420,7 @@ describe('Allocate key worker', () => {
           statusFilter: '',
         })
         expect(keyworkerApi.offenderKeyworkerList).not.toHaveBeenCalled()
-        expect(keyworkerApi.allocationHistory).toHaveBeenCalledTimes(2)
-        expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC123')
-        expect(keyworkerApi.allocationHistory).toHaveBeenCalledWith(res.locals, 'ABC456')
+        expect(keyworkerApi.allocationHistorySummary).toHaveBeenCalledWith(res.locals, ['ABC123', 'ABC456'])
         expect(elite2Api.sentenceDetailList).not.toHaveBeenCalled()
       })
 

@@ -110,21 +110,20 @@ context('View residential location', () => {
           assignedLivingUnitDesc: 'MDI-1-3',
         },
       ])
-      cy.task('stubAllocationHistory', {
-        offenderNo: 'ABC123',
-        response: { offender: { offenderNo: 'ABC123' }, allocationHistory: [] },
-      })
-      cy.task('stubAllocationHistory', {
-        offenderNo: 'ABC456',
-        response: {
-          offender: { offenderNo: 'ABC456' },
-          allocationHistory: [{ staffId: 2 }],
+      cy.task('stubAllocationHistorySummary', [
+        {
+          offenderNo: 'ABC123',
+          hasHistory: false,
         },
-      })
-      cy.task('stubAllocationHistory', {
-        offenderNo: 'ABC789',
-        response: { offender: { offenderNo: 'ABC789' }, allocationHistory: [] },
-      })
+        {
+          offenderNo: 'ABC456',
+          hasHistory: true,
+        },
+        {
+          offenderNo: 'ABC789',
+          hasHistory: false,
+        },
+      ])
     })
 
     it('should display the correct results', () => {

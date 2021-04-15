@@ -95,13 +95,20 @@ context('Offender search', () => {
         active: 'Y',
       },
     ])
-    cy.task('stubAllocationHistory', {
-      offenderNo: 'G0276VC',
-      response: {
-        offender: { offenderNo: 'G0276VC' },
-        allocationHistory: [{ staffId: 2 }],
+    cy.task('stubAllocationHistorySummary', [
+      {
+        offenderNo: 'G12345',
+        hasHistory: false,
       },
-    })
+      {
+        offenderNo: 'G12346',
+        hasHistory: false,
+      },
+      {
+        offenderNo: 'G0276VC',
+        hasHistory: true,
+      },
+    ])
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'G12346', level: 'high' }])

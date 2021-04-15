@@ -70,6 +70,20 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubAllocationHistorySummary: (response = []) =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPath: `/key-worker/allocation-history/summary`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
   stubAllocationHistory: ({ offenderNo, response = {} }) =>
     stubFor({
       request: {

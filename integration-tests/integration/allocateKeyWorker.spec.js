@@ -124,20 +124,16 @@ context('Allocate key worker to unallocated prisoners', () => {
         },
       ])
 
-      cy.task('stubAllocationHistory', {
-        offenderNo: 'ABC456',
-        response: {
-          offender: { offenderNo: 'ABC456' },
-          allocationHistory: [{ staffId: 2 }],
+      cy.task('stubAllocationHistorySummary', [
+        {
+          offenderNo: 'ABC456',
+          hasHistory: true,
         },
-      })
-      cy.task('stubAllocationHistory', {
-        offenderNo: 'ABC123',
-        response: {
-          offender: { offenderNo: 'ABC123' },
-          allocationHistory: [],
+        {
+          offenderNo: 'ABC123',
+          hasHistory: false,
         },
-      })
+      ])
 
       cy.task('stubAllocate')
     })

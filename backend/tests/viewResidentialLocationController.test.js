@@ -30,6 +30,8 @@ describe('View residential location', () => {
 
     complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([])
 
+    keyworkerApi.allocationHistorySummary = jest.fn().mockResolvedValue([])
+
     elite2Api.userLocations = jest.fn().mockResolvedValue([
       {
         locationId: 1,
@@ -56,7 +58,6 @@ describe('View residential location', () => {
       },
     ])
 
-    keyworkerApi.allocationHistory = jest.fn()
     keyworkerApi.deallocate = jest.fn()
     keyworkerApi.allocate = jest.fn()
 
@@ -75,7 +76,7 @@ describe('View residential location', () => {
         expect(elite2Api.userLocations).toHaveBeenCalledWith(res.locals)
         expect(allocationService.searchOffenders).not.toHaveBeenCalled()
         expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
-        expect(keyworkerApi.allocationHistory).not.toHaveBeenCalled()
+        expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
       })
 
       it('should render the template with the correct data', async () => {
@@ -174,10 +175,20 @@ describe('View residential location', () => {
             level: 'high',
           },
         ])
-        keyworkerApi.allocationHistory
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC123' }, allocationHistory: [] })
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC456' }, allocationHistory: [{ staffId: 2 }] })
-          .mockResolvedValueOnce({ offender: { offenderNo: 'ABC789' }, allocationHistory: [] })
+        keyworkerApi.allocationHistorySummary.mockResolvedValue([
+          {
+            offenderNo: 'ABC123',
+            hasHistory: false,
+          },
+          {
+            offenderNo: 'ABC456',
+            hasHistory: true,
+          },
+          {
+            offenderNo: 'ABC789',
+            hasHistory: false,
+          },
+        ])
       })
 
       it('should make the expected calls', async () => {
