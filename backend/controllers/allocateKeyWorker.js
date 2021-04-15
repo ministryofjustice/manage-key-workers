@@ -1,6 +1,6 @@
 const { formatName, putLastNameFirst, formatTimestampToDate } = require('../utils')
 
-module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
+module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
   const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 
   const renderTemplate = async (req, res, offenderResponse, allocationMode = 'manual') => {
@@ -20,7 +20,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
       ? await keyworkerApi.offenderKeyworkerList(res.locals, activeCaseLoadId, recentlyAllocatedOffenderNumbers)
       : []
 
-    const offenderNumbers = [...recentlyAllocated, ...offenderResponse].map((o) => o.offenderNo)
+    const offenderNumbers = [...recentlyAllocated, ...offenderResponse].map(({ offenderNo }) => offenderNo)
 
     const allKeyworkers = offenderNumbers.length
       ? await keyworkerApi.keyworkerSearch(res.locals, { agencyId: activeCaseLoadId, searchText: '', statusFilter: '' })
@@ -30,18 +30,14 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
       ? await keyworkerApi.allocationHistorySummary(res.locals, offenderNumbers)
       : []
 
-    const recentlyAllocatedSentenceDetails = recentlyAllocatedOffenderNumbers.length
-      ? await elite2Api.sentenceDetailList(res.locals, recentlyAllocatedOffenderNumbers)
-      : []
-
     const recentlyUpdatedAllocations = offenderKeyworkers.map((offender) => {
       const keyworkerUser = allKeyworkers.find((keyworker) => offender.staffId === keyworker.staffId)
-      const offenderDetails = recentlyAllocatedSentenceDetails.find((o) => offender.offenderNo === o.offenderNo)
+      const offenderDetails = recentlyAllocated.find((o) => offender.offenderNo === o.offenderNo)
 
       return {
-        confirmedReleaseDate: offenderDetails.sentenceDetail?.confirmedReleaseDate,
+        assignedLivingUnitDesc: offenderDetails.location,
+        confirmedReleaseDate: offenderDetails.releaseDate,
         firstName: offenderDetails.firstName,
-        internalLocationDesc: offenderDetails.internalLocationDesc,
         keyworkerDisplay: formatName(keyworkerUser.firstName, keyworkerUser.lastName),
         lastName: offenderDetails.lastName,
         numberAllocated: keyworkerUser.numberAllocated,
@@ -69,6 +65,8 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
           (left, right) => left.numberAllocated - right.numberAllocated
         )
 
+        const location = offender.assignedLivingUnitDesc || offender.internalLocationDesc
+
         return {
           hasHistory: allocationHistoryData.find((history) => history.offenderNo === offenderNo)?.hasHistory,
           keyworkerName:
@@ -82,11 +80,19 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
               text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
                 keyworker.numberAllocated
               )}`,
-              value: `${keyworker.staffId}:${offenderNo}:${isAutoAllocated ? 'A' : 'M'}`,
+              value: JSON.stringify({
+                allocationType: isAutoAllocated ? 'A' : 'M',
+                firstName: offender.firstName,
+                lastName: offender.lastName,
+                location,
+                offenderNo,
+                releaseDate: confirmedReleaseDate,
+                staffId: keyworker.staffId,
+              }),
               selected: isAutoAllocated,
             }
           }),
-          location: offender.assignedLivingUnitDesc || offender.internalLocationDesc,
+          location,
           name: offender.name,
           prisonNumber: offenderNo,
           releaseDate: confirmedReleaseDate ? formatTimestampToDate(confirmedReleaseDate) : 'Not entered',
@@ -117,11 +123,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, oauthApi }) => {
 
     const selectedKeyworkerAllocations = allocateKeyworker.filter((keyworker) => keyworker)
 
-    const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => {
-      const [staffId, offenderNo, allocationType] = keyworker.split(':')
-
-      return { staffId, offenderNo, allocationType }
-    })
+    const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => JSON.parse(keyworker))
 
     const allAllocations = [...keyworkerAllocations, ...JSON.parse(recentlyAllocated)]
 
