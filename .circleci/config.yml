@@ -35,42 +35,42 @@ jobs:
             - node_modules
             - build
 
-  integration_tests:
-    working_directory: ~/app
-    docker:
-      - image: cimg/node:14.15-browsers
-    steps:
-      - browser-tools/install-browser-tools
-      - checkout
-      - attach_workspace:
-          at: ~/app
-      - run:
-          name: Run the node app.
-          command: npm run start-feature-no-webpack --env=feature.env
-          background: true
-      - restore_cache:
-          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-      - restore_cache:
-          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
-      - run:
-          name: Run Integration Tests
-          command: ./gradlew build
-      - save_cache:
-          key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-          paths:
-            - /home/circleci/.gradle/wrapper
-      - save_cache:
-          key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
-          paths:
-            - /home/circleci/.gradle/caches
-      - store_artifacts:
-          path: keyworker-specs/build/reports
-          destination: integration/spock
-      - store_artifacts:
-          path: keyworker-specs/build/geb-reports
-          destination: integration/geb
-      - store_test_results:
-          path: keyworker-specs/build/test-results
+  # integration_tests:
+  #   working_directory: ~/app
+  #   docker:
+  #     - image: cimg/node:14.15-browsers
+  #   steps:
+  #     - browser-tools/install-browser-tools
+  #     - checkout
+  #     - attach_workspace:
+  #         at: ~/app
+  #     - run:
+  #         name: Run the node app.
+  #         command: npm run start-feature-no-webpack --env=feature.env
+  #         background: true
+  #     - restore_cache:
+  #         key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+  #     - restore_cache:
+  #         key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
+  #     - run:
+  #         name: Run Integration Tests
+  #         command: ./gradlew build
+  #     - save_cache:
+  #         key: gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+  #         paths:
+  #           - /home/circleci/.gradle/wrapper
+  #     - save_cache:
+  #         key: gradle-cache-{{ checksum "keyworker-specs/build.gradle" }}
+  #         paths:
+  #           - /home/circleci/.gradle/caches
+  #     - store_artifacts:
+  #         path: keyworker-specs/build/reports
+  #         destination: integration/spock
+  #     - store_artifacts:
+  #         path: keyworker-specs/build/geb-reports
+  #         destination: integration/geb
+  #     - store_test_results:
+  #         path: keyworker-specs/build/test-results
 
   cypress_integration_tests:
     working_directory: ~/app
@@ -117,9 +117,9 @@ workflows:
           filters:
             tags:
               ignore: /.*/
-      - integration_tests:
-          requires:
-            - build
+      # - integration_tests:
+      #     requires:
+      #       - build
       - cypress_integration_tests:
           requires:
             - build
@@ -143,7 +143,7 @@ workflows:
           requires:
             - helm_lint
             - build_docker
-            - integration_tests
+            # - integration_tests
             - cypress_integration_tests
       - request-preprod-approval:
           type: approval
