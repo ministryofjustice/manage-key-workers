@@ -1,4 +1,4 @@
-const { properCaseName, formatTimestampToDate, formatName } = require('../utils')
+const { properCaseName, formatTimestampToDate, formatName, ensureIsArray } = require('../utils')
 const {
   apis: { complexityOfNeed },
 } = require('../config')
@@ -112,7 +112,7 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
     const { allocateKeyworker, searchText } = req.body
 
-    const selectedKeyworkerAllocations = allocateKeyworker.filter((keyworker) => keyworker)
+    const selectedKeyworkerAllocations = ensureIsArray(allocateKeyworker).filter((keyworker) => keyworker)
 
     const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => {
       const [staffId, offenderNo, deallocate] = keyworker.split(':')

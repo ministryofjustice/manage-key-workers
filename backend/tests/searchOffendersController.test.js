@@ -351,6 +351,21 @@ describe('Search offenders controller', () => {
 
         expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/search-for-prisoner?searchText=smith')
       })
+
+      it('should handle single entries', async () => {
+        req.body = { searchText: 'smith', allocateKeyworker: '2:ABC456' }
+
+        await controller.save(req, res)
+
+        expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
+          offenderNo: 'ABC456',
+          staffId: '2',
+          prisonId: 'MDI',
+          allocationType: 'M',
+          allocationReason: 'MANUAL',
+          deallocationReason: 'OVERRIDE',
+        })
+      })
     })
 
     describe('when there are deallocations', () => {

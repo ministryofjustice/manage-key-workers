@@ -534,6 +534,25 @@ describe('Allocate key worker', () => {
 
         expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/allocate-key-worker')
       })
+
+      it('should handle single entries', async () => {
+        req.body = {
+          allocateKeyworker:
+            '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
+          recentlyAllocated: '[]',
+        }
+
+        await controller.post(req, res)
+
+        expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
+          offenderNo: 'ABC123',
+          staffId: 1,
+          prisonId: 'MDI',
+          allocationType: 'M',
+          allocationReason: 'MANUAL',
+          deallocationReason: 'OVERRIDE',
+        })
+      })
     })
 
     describe('auto', () => {

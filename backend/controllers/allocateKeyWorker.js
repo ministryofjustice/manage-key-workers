@@ -1,4 +1,4 @@
-const { formatName, putLastNameFirst, formatTimestampToDate } = require('../utils')
+const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 
 module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
   const formatNumberAllocated = (number) => (number ? `(${number})` : '')
@@ -121,7 +121,7 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
     const { allocateKeyworker, recentlyAllocated, allocationMode } = req.body
 
-    const selectedKeyworkerAllocations = allocateKeyworker.filter((keyworker) => keyworker)
+    const selectedKeyworkerAllocations = ensureIsArray(allocateKeyworker).filter((keyworker) => keyworker)
 
     const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => JSON.parse(keyworker))
 
