@@ -1,4 +1,4 @@
-const { formatName, putLastNameFirst, formatTimestampToDate } = require('../utils')
+const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 const {
   apis: { complexityOfNeed },
 } = require('../config')
@@ -85,7 +85,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
     const { activeCaseLoadId } = req.session?.userDetails || {}
     const { allocateKeyworker } = req.body
 
-    const selectedKeyworkerAllocations = allocateKeyworker.filter((keyworker) => keyworker)
+    const selectedKeyworkerAllocations = ensureIsArray(allocateKeyworker).filter((keyworker) => keyworker)
 
     const keyworkerAllocations = selectedKeyworkerAllocations.map((keyworker) => {
       const [staffId, offenderNo, deallocate] = keyworker.split(':')

@@ -155,6 +155,8 @@ const isXHRRequest = (req) =>
   (req.headers.accept && (req.headers.accept.indexOf('json') > -1 || req.headers.accept.indexOf('image/*') > -1)) ||
   (req.path && req.path.endsWith('.js'))
 
+const ensureIsArray = (data) => (Array.isArray(data) ? data : [data])
+
 module.exports = {
   properCase,
   properCaseName,
@@ -177,4 +179,5 @@ module.exports = {
   isWithinNextTwoWorkingDays,
   isXHRRequest,
   formatTimestampToDate,
+  ensureIsArray,
 }

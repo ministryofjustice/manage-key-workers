@@ -358,6 +358,21 @@ describe('View residential location', () => {
           '/manage-key-workers/view-residential-location?residentialLocation=MDI-1'
         )
       })
+
+      it('should handle single entries', async () => {
+        req.body = { searchText: 'smith', allocateKeyworker: '2:ABC456' }
+
+        await controller.post(req, res)
+
+        expect(keyworkerApi.allocate).toHaveBeenCalledWith(res.locals, {
+          offenderNo: 'ABC456',
+          staffId: '2',
+          prisonId: 'MDI',
+          allocationType: 'M',
+          allocationReason: 'MANUAL',
+          deallocationReason: 'OVERRIDE',
+        })
+      })
     })
 
     describe('when there are deallocations', () => {
