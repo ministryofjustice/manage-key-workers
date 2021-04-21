@@ -3,8 +3,10 @@ const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = r
 module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
   const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 
-  const renderTemplate = async (req, res, offenderResponse, allocationMode = 'manual') => {
+  const renderTemplate = async (req, res, offenderResponse, allocationMode = 'manual', warnings = {}) => {
+    const { autoAllocateLink } = req.query
     const { activeCaseLoadId } = req.session?.userDetails || {}
+    const { noKeyworkersForAuto, insufficientKeyworkers } = warnings
 
     const [currentRoles, prisonStatus] = await Promise.all([
       oauthApi.currentRoles(res.locals),
@@ -53,8 +55,8 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
     return res.render('allocateKeyWorker', {
       activeCaseLoadId,
       allocationMode,
-      canAutoAllocate: Boolean(prisonStatus.migrated && prisonStatus.autoAllocatedSupported && isKeyWorkerAdmin),
-      recentlyAllocated: JSON.stringify(recentlyAllocated),
+      insufficientKeyworkers,
+      noKeyworkersForAuto,
       prisoners: allPrisoners.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const isManualAllocation = allocationMode === 'manual'
@@ -98,6 +100,10 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
           releaseDate: confirmedReleaseDate ? formatTimestampToDate(confirmedReleaseDate) : 'Not entered',
         }
       }),
+      recentlyAllocated: JSON.stringify(recentlyAllocated),
+      showAutoAllocateLink:
+        Boolean(prisonStatus.migrated && prisonStatus.autoAllocatedSupported && isKeyWorkerAdmin) &&
+        autoAllocateLink !== 'hidden',
     })
   }
 
@@ -112,9 +118,12 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
   const auto = async (req, res) => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
 
-    const { allocatedResponse } = await allocationService.allocated(res.locals, activeCaseLoadId)
+    const { allocatedResponse, warning } = await allocationService.allocated(res.locals, activeCaseLoadId)
 
-    return renderTemplate(req, res, allocatedResponse, 'auto')
+    return renderTemplate(req, res, allocatedResponse, 'auto', {
+      noKeyworkersForAuto: warning === 'No Key workers available for allocation.',
+      insufficientKeyworkers: warning === 'All available Key workers are at full capacity.',
+    })
   }
 
   const post = async (req, res) => {

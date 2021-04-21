@@ -155,14 +155,14 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubAutoAllocate: ({ agencyId, response = {} }) =>
+  stubAutoAllocate: ({ agencyId, response = {}, status = 200 }) =>
     stubFor({
       request: {
         method: 'POST',
         urlPattern: `/key-worker/${agencyId}/allocate/start`,
       },
       response: {
-        status: 200,
+        status,
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
         },

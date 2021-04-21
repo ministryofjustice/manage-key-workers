@@ -2,6 +2,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% set title = "Allocate a key worker" %}
 
@@ -23,7 +24,20 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
-  {% if prisoners.length %}
+  {% if noKeyworkersForAuto %}
+    <div data-test="no-keyworkers-warning">
+      <p>No key workers have availability.</p>
+
+      <p>You can:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a href="/manage-key-workers/allocate-key-worker?autoAllocateLink=hidden" data-test="manually-allocate-hide-auto-link">manually allocate key workers to the prisoners</a>
+        </li>
+        <li>increase the capacity of your key workers</li>
+      </ul>
+    </div>
+  {% elseif prisoners.length %}
     <p>Key workers will only be allocated when you have saved the changes.</p>
 
     <p class="align-right">
@@ -31,7 +45,7 @@
       <span data-test="prisoner-count">{{ prisoners.length }}</span>
     </p>
 
-    {% if canAutoAllocate %}
+    {% if showAutoAllocateLink %}
       <p class="align-right">
         <a href="/manage-key-workers/allocate-key-worker/auto" data-test="auto-allocate">Automatically allocate key workers</a>
       </p>
@@ -118,6 +132,23 @@
           attributes: { 'data-test': 'results-table' }
         }) }}
       </div>
+
+      {% if insufficientKeyworkers %}
+        {% set insufficientKeyworkersHtml %}
+          <p>Only {{ prisoners.length }} prisoners can be automatically allocated a keyworker. This is because there are not enough key workers with capacity.</p>
+          <p>You need to save these changes first. Then you can choose to:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>view all prisoners without a key worker again and manually allocate key workers</li>
+            <li>increase the capacity of your key workers</li>
+          </ul>
+        {% endset %}
+
+        {{ govukInsetText({
+          html: insufficientKeyworkersHtml,
+          classes: "govuk-!-width-one-half",
+          attributes: { 'data-test': 'insufficient-keyworkers-warning' }
+        }) }}
+      {% endif %}
 
       {{ govukButton({
         text: "Save changes",

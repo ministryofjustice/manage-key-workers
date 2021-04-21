@@ -17,6 +17,7 @@ describe('Allocate key worker', () => {
         },
       },
       flash: jest.fn().mockReturnValue([]),
+      query: {},
     }
     res = {
       locals: {},
@@ -85,9 +86,9 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'manual',
-          canAutoAllocate: false,
           prisoners: [],
           recentlyAllocated: '[]',
+          showAutoAllocateLink: false,
         })
       })
     })
@@ -153,7 +154,6 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'manual',
-          canAutoAllocate: false,
           prisoners: [
             {
               hasHistory: false,
@@ -203,6 +203,7 @@ describe('Allocate key worker', () => {
             },
           ],
           recentlyAllocated: '[]',
+          showAutoAllocateLink: false,
         })
       })
 
@@ -251,7 +252,6 @@ describe('Allocate key worker', () => {
           expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
             activeCaseLoadId: 'MDI',
             allocationMode: 'manual',
-            canAutoAllocate: false,
             prisoners: [
               {
                 hasHistory: false,
@@ -319,22 +319,40 @@ describe('Allocate key worker', () => {
             ],
             recentlyAllocated:
               '[{"allocationType":"M","firstName":"Simon","lastName":"Gray","location":"MDI-1-3","offenderNo":"ABC789","releaseDate":"2029-02-28","staffId":1}]',
+            showAutoAllocateLink: false,
           })
         })
       })
 
-      it('should let the template know that the user can auto allocate', async () => {
-        oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
-        keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, autoAllocatedSupported: true })
+      describe('auto allocate link', () => {
+        beforeEach(() => {
+          oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
+          keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, autoAllocatedSupported: true })
+        })
 
-        await controller.index(req, res)
+        it('should let the template know that the user can auto allocate', async () => {
+          await controller.index(req, res)
 
-        expect(res.render).toHaveBeenCalledWith(
-          'allocateKeyWorker',
-          expect.objectContaining({
-            canAutoAllocate: true,
-          })
-        )
+          expect(res.render).toHaveBeenCalledWith(
+            'allocateKeyWorker',
+            expect.objectContaining({
+              showAutoAllocateLink: true,
+            })
+          )
+        })
+
+        it('should let the template know that the user should not see the auto allocate link', async () => {
+          req.query.autoAllocateLink = 'hidden'
+
+          await controller.index(req, res)
+
+          expect(res.render).toHaveBeenCalledWith(
+            'allocateKeyWorker',
+            expect.objectContaining({
+              showAutoAllocateLink: false,
+            })
+          )
+        })
       })
     })
   })
@@ -356,9 +374,11 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'auto',
-          canAutoAllocate: false,
+          insufficientKeyworkers: false,
+          noKeyworkersForAuto: false,
           prisoners: [],
           recentlyAllocated: '[]',
+          showAutoAllocateLink: false,
         })
       })
     })
@@ -428,7 +448,8 @@ describe('Allocate key worker', () => {
         expect(res.render).toHaveBeenCalledWith('allocateKeyWorker', {
           activeCaseLoadId: 'MDI',
           allocationMode: 'auto',
-          canAutoAllocate: false,
+          insufficientKeyworkers: false,
+          noKeyworkersForAuto: false,
           prisoners: [
             {
               hasHistory: false,
@@ -484,7 +505,44 @@ describe('Allocate key worker', () => {
             },
           ],
           recentlyAllocated: '[]',
+          showAutoAllocateLink: false,
         })
+      })
+    })
+
+    describe('with warnings', () => {
+      it('should let the template know if there are no keyworkers available for auto allocation', async () => {
+        allocationService.allocated.mockResolvedValue({
+          allocatedResponse: [],
+          warning: 'No Key workers available for allocation.',
+        })
+
+        await controller.auto(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'allocateKeyWorker',
+          expect.objectContaining({
+            insufficientKeyworkers: false,
+            noKeyworkersForAuto: true,
+          })
+        )
+      })
+
+      it('should let the template know if there is insufficient keyworker capacity', async () => {
+        allocationService.allocated.mockResolvedValue({
+          allocatedResponse: [],
+          warning: 'All available Key workers are at full capacity.',
+        })
+
+        await controller.auto(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'allocateKeyWorker',
+          expect.objectContaining({
+            insufficientKeyworkers: true,
+            noKeyworkersForAuto: false,
+          })
+        )
       })
     })
   })
