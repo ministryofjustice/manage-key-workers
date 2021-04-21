@@ -109,6 +109,6 @@ env:
   - name: COMPLEXITY_OF_NEED_URI
     value: {{ .Values.env.COMPLEXITY_OF_NEED_URI | quote }}
 
-  - name: ENABLE_COMPLEXITY_API
-    value: {{ .Values.env.ENABLE_COMPLEXITY_API | quote }}
+  - name: PRISONS_WITH_OFFENDERS_THAT_HAVE_COMPLEX_NEEDS
+    value: {{ .Values.env.PRISONS_WITH_OFFENDERS_THAT_HAVE_COMPLEX_NEEDS | quote }}
 {{- end -}}

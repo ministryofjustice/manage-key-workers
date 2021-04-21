@@ -1,7 +1,9 @@
 const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 const {
-  apis: { complexityOfNeed },
+  apis: { complexity },
 } = require('../config')
+
+const isComplexityEnabledFor = (agencyId) => complexity.enabled_prisons?.includes(agencyId)
 
 module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
   const index = async (req, res) => {
@@ -25,7 +27,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
 
     const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
     const complexOffenders =
-      complexityOfNeed.enabled && offenderNumbers.length
+      isComplexityEnabledFor(activeCaseLoadId) && offenderNumbers.length
         ? await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
         : []
 
@@ -41,7 +43,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
         const formatNumberAllocated = (number) => (number ? `(${number})` : '')
         const isHighComplexity =
-          complexityOfNeed.enabled &&
+          isComplexityEnabledFor(activeCaseLoadId) &&
           Boolean(
             complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
           )

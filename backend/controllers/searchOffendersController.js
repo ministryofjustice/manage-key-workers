@@ -1,8 +1,9 @@
 const { properCaseName, formatTimestampToDate, formatName, ensureIsArray } = require('../utils')
 const {
-  apis: { complexityOfNeed },
+  apis: { complexity },
 } = require('../config')
 
+const isComplexityEnabledFor = (agencyId) => complexity.enabled_prisons?.includes(agencyId)
 const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 const getDeallocateRow = (staffId, offenderNo) =>
   staffId ? [{ text: 'Deallocate', value: `${staffId}:${offenderNo}:true` }] : []
@@ -31,7 +32,8 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
 
       const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
       const complexOffenders =
-        complexityOfNeed.enabled && (await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers))
+        isComplexityEnabledFor(activeCaseLoadId) &&
+        (await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers))
 
       const allocationHistoryData = offenderNumbers.length
         ? await keyworkerApi.allocationHistorySummary(res.locals, offenderNumbers)
@@ -52,7 +54,7 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== staffId)
 
         const isHighComplexity =
-          complexityOfNeed.enabled &&
+          isComplexityEnabledFor(activeCaseLoadId) &&
           Boolean(
             complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
           )
