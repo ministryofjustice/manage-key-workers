@@ -31,7 +31,7 @@ const keyworkerApi = keyworkerApiFactory(
 const complexityOfNeedApi = complexityOfNeedApiFactory(
   clientFactory({
     baseUrl: config.apis.complexity.url,
-    timeout: 1000 * config.apis.complexityOfNeed.timeoutSeconds,
+    timeout: 1000 * config.apis.complexity.timeoutSeconds,
   })
 )
 
