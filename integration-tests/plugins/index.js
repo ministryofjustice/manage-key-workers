@@ -43,7 +43,7 @@ module.exports = (on) => {
     stubAllocate: () => keyworker.stubAllocate(),
     stubDeallocate: (offenderNo) => keyworker.stubDeallocate(offenderNo),
     stubUnallocated: ({ agencyId, response }) => keyworker.stubUnallocated({ agencyId, response }),
-    stubAutoAllocate: ({ agencyId, response }) => keyworker.stubAutoAllocate({ agencyId, response }),
+    stubAutoAllocate: ({ agencyId, response, status }) => keyworker.stubAutoAllocate({ agencyId, response, status }),
     stubAutoAllocated: ({ agencyId, response }) => keyworker.stubAutoAllocated({ agencyId, response }),
     stubAutoAllocateConfirm: ({ agencyId, response }) => keyworker.stubAutoAllocateConfirm({ agencyId, response }),
     stubOffenderKeyworkerList: ({ agencyId, response }) => keyworker.stubOffenderKeyworkerList({ agencyId, response }),

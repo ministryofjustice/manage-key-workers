@@ -551,6 +551,37 @@ context('Allocate key worker to unallocated prisoners', () => {
               .should('include', '/offender-history/ABC456')
           })
       })
+
+      context('with warnings', () => {
+        it('show message for insufficient keyworkers', () => {
+          cy.task('stubAutoAllocate', {
+            agencyId: 'MDI',
+            status: 400,
+            response: { status: 'Error', userMessage: 'All available Key workers are at full capacity.' },
+          })
+
+          cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
+
+          cy.get('h1').contains('Allocate a key worker')
+          cy.get('[data-test="insufficient-keyworkers-warning"]').should('contain', 'Only 2 prisoners')
+        })
+
+        it('show message for no available keyworkers and hide auto link on follow on page', () => {
+          cy.task('stubAutoAllocate', {
+            agencyId: 'MDI',
+            status: 400,
+            response: { status: 'Error', userMessage: 'No Key workers available for allocation.' },
+          })
+
+          cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
+
+          cy.get('h1').contains('Allocate a key worker')
+          cy.get('[data-test="no-keyworkers-warning"]').should('exist')
+
+          cy.get('[data-test="manually-allocate-hide-auto-link"]').click()
+          cy.get('[data-test="auto-allocate"]').should('not.exist')
+        })
+      })
     })
   })
 })
