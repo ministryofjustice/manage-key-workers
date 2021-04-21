@@ -155,7 +155,7 @@
         type: "submit"
       }) }}
     </form>
-  {% elseif not noKeyworkersForAuto %}
+  {% else %}
     <p data-test="no-results-message">All prisoners have a key worker allocated.</p>
   {% endif %}
 
