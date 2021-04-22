@@ -31,9 +31,9 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
       }
 
       const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
-      const complexOffenders =
-        isComplexityEnabledFor(activeCaseLoadId) &&
-        (await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers))
+      const complexOffenders = isComplexityEnabledFor(activeCaseLoadId)
+        ? await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
+        : []
 
       const allocationHistoryData = offenderNumbers.length
         ? await keyworkerApi.allocationHistorySummary(res.locals, offenderNumbers)
@@ -53,11 +53,9 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
 
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== staffId)
 
-        const isHighComplexity =
-          isComplexityEnabledFor(activeCaseLoadId) &&
-          Boolean(
-            complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
-          )
+        const isHighComplexity = Boolean(
+          complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
+        )
 
         return {
           name: `${properCaseName(lastName)}, ${properCaseName(firstName)}`,

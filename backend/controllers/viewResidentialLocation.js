@@ -42,11 +42,9 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
         const formatNumberAllocated = (number) => (number ? `(${number})` : '')
-        const isHighComplexity =
-          isComplexityEnabledFor(activeCaseLoadId) &&
-          Boolean(
-            complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
-          )
+        const isHighComplexity = Boolean(
+          complexOffenders.find((complex) => complex.offenderNo === offender.offenderNo && complex.level === 'high')
+        )
 
         return {
           isHighComplexity,
