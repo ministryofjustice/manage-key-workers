@@ -12,7 +12,7 @@ describe('View residential location', () => {
   let controller
 
   beforeEach(() => {
-    config.apis.complexityOfNeed.enabled = true
+    config.apis.complexity.enabled_prisons = ['MDI']
     req = {
       session: {
         userDetails: {
@@ -252,7 +252,7 @@ describe('View residential location', () => {
       })
 
       it('should only check for complex offenders when the feature is enabled', async () => {
-        config.apis.complexityOfNeed.enabled = false
+        config.apis.complexity.enabled_prisons = ['LEI']
         await controller.index(req, res)
 
         expect(res.render).toHaveBeenCalledWith(

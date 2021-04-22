@@ -65,7 +65,7 @@ const health = healthFactory(
   config.apis.elite2.url,
   config.apis.keyworker.url,
   config.apis.tokenverification.url,
-  config.apis.complexityOfNeed.url
+  config.apis.complexity.url
 )
 
 app.get('/health', (req, res, next) => {

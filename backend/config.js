@@ -53,10 +53,10 @@ const apis = {
     timeoutSeconds: process.env.KEYWORKER_API_TIMEOUT_SECONDS || 30,
     ui_url: process.env.MANAGE_KEY_WORKERS_URL,
   },
-  complexityOfNeed: {
+  complexity: {
     url: process.env.COMPLEXITY_OF_NEED_URI || 'http://localhost:18091',
     timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 10,
-    enabled: process.env.ENABLE_COMPLEXITY_API === 'true',
+    enabled_prisons: process.env.PRISONS_WITH_OFFENDERS_THAT_HAVE_COMPLEX_NEEDS,
   },
   tokenverification: {
     url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',

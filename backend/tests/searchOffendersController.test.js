@@ -74,8 +74,6 @@ describe('Search offenders controller', () => {
   const keyworkerApi = {}
 
   beforeEach(() => {
-    config.apis.complexityOfNeed.enabled = true
-
     req = {
       flash: jest.fn(),
       session: {
@@ -96,6 +94,8 @@ describe('Search offenders controller', () => {
     keyworkerApi.allocate = jest.fn()
     keyworkerApi.allocationHistorySummary = jest.fn().mockResolvedValue(allocationHistoryResponse)
     controller = controllerFactory({ allocationService, complexityOfNeedApi, keyworkerApi })
+
+    config.apis.complexity.enabled_prisons = ['MDI']
   })
 
   describe('Search offenders', () => {
@@ -217,7 +217,8 @@ describe('Search offenders controller', () => {
       })
 
       it('should only check for complex offenders when the feature is enabled', async () => {
-        config.apis.complexityOfNeed.enabled = false
+        config.apis.complexity.enabled_prisons = ['LEI']
+
         req.query = {
           searchText: 'G0276VC',
         }
