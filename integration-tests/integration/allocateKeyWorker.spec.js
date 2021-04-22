@@ -553,33 +553,61 @@ context('Allocate key worker to unallocated prisoners', () => {
       })
 
       context('with warnings', () => {
-        it('show message for insufficient keyworkers', () => {
-          cy.task('stubAutoAllocate', {
-            agencyId: 'MDI',
-            status: 400,
-            response: { status: 'Error', userMessage: 'All available Key workers are at full capacity.' },
+        context('some or all key workers are at full capacity', () => {
+          beforeEach(() => {
+            cy.task('stubAutoAllocate', {
+              agencyId: 'MDI',
+              status: 400,
+              response: { status: 'Error', userMessage: 'All available Key workers are at full capacity.' },
+            })
           })
 
-          cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
+          context('with results', () => {
+            it('should show message for insufficient keyworkers', () => {
+              cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
 
-          cy.get('h1').contains('Allocate a key worker')
-          cy.get('[data-test="insufficient-keyworkers-warning"]').should('contain', 'Only 2 prisoners')
+              cy.get('h1').contains('Allocate a key worker')
+              cy.get('[data-test="insufficient-keyworkers-warning"]').should('contain', 'Only 2 prisoners')
+            })
+          })
+
+          context('with no results', () => {
+            beforeEach(() => {
+              cy.task('stubAutoAllocated', { agencyId: 'MDI' })
+            })
+
+            it('should show message for no available keyworkers and hide auto link on follow on page', () => {
+              cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
+
+              cy.get('h1').contains('Allocate a key worker')
+              cy.get('[data-test="no-keyworkers-warning"]').should('exist')
+
+              cy.get('[data-test="manually-allocate-hide-auto-link"]').click()
+              cy.get('[data-test="auto-allocate"]').should('not.exist')
+            })
+          })
         })
 
-        it('show message for no available keyworkers and hide auto link on follow on page', () => {
-          cy.task('stubAutoAllocate', {
-            agencyId: 'MDI',
-            status: 400,
-            response: { status: 'Error', userMessage: 'No Key workers available for allocation.' },
+        context('no keyworkers available for allocation', () => {
+          beforeEach(() => {
+            cy.task('stubAutoAllocate', {
+              agencyId: 'MDI',
+              status: 400,
+              response: { status: 'Error', userMessage: 'No Key workers available for allocation.' },
+            })
           })
 
-          cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
+          context('with results', () => {
+            it('should show message for no available keyworkers and hide auto link on follow on page', () => {
+              cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
 
-          cy.get('h1').contains('Allocate a key worker')
-          cy.get('[data-test="no-keyworkers-warning"]').should('exist')
+              cy.get('h1').contains('Allocate a key worker')
+              cy.get('[data-test="no-keyworkers-warning"]').should('exist')
 
-          cy.get('[data-test="manually-allocate-hide-auto-link"]').click()
-          cy.get('[data-test="auto-allocate"]').should('not.exist')
+              cy.get('[data-test="manually-allocate-hide-auto-link"]').click()
+              cy.get('[data-test="auto-allocate"]').should('not.exist')
+            })
+          })
         })
       })
     })

@@ -24,20 +24,7 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
-  {% if noKeyworkersForAuto %}
-    <div data-test="no-keyworkers-warning">
-      <p>No key workers have availability.</p>
-
-      <p>You can:</p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          <a href="/manage-key-workers/allocate-key-worker?autoAllocateLink=hidden" data-test="manually-allocate-hide-auto-link">manually allocate key workers to the prisoners</a>
-        </li>
-        <li>increase the capacity of your key workers</li>
-      </ul>
-    </div>
-  {% elseif prisoners.length %}
+  {% if prisoners.length and not noKeyworkersForAuto %}
     <p>Key workers will only be allocated when you have saved the changes.</p>
 
     <p class="align-right">
@@ -155,6 +142,19 @@
         type: "submit"
       }) }}
     </form>
+  {% elseif noKeyworkersForAuto or insufficientKeyworkers %}
+    <div data-test="no-keyworkers-warning">
+      <p>No key workers have availability.</p>
+
+      <p>You can:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a href="/manage-key-workers/allocate-key-worker?autoAllocateLink=hidden" data-test="manually-allocate-hide-auto-link">manually allocate key workers to the prisoners</a>
+        </li>
+        <li>increase the capacity of your key workers</li>
+      </ul>
+    </div>
   {% else %}
     <p data-test="no-results-message">All prisoners have a key worker allocated.</p>
   {% endif %}
