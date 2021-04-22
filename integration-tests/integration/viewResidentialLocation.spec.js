@@ -59,6 +59,7 @@ context('View residential location', () => {
     ])
     cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'ABC123', level: 'high' }])
+    cy.task('stubClientCredentialsRequest')
   })
 
   it('should load correctly', () => {

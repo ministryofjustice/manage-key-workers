@@ -5,10 +5,10 @@ const {
 
 const isComplexityEnabledFor = (agencyId) => complexity.enabled_prisons?.includes(agencyId)
 
-module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
+module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeedApi, systemOauthClient }) => {
   const index = async (req, res) => {
     const { residentialLocation } = req.query
-    const { activeCaseLoadId } = req.session?.userDetails || {}
+    const { activeCaseLoadId, username } = req.session?.userDetails || {}
 
     const currentUserLocations = await elite2Api.userLocations(res.locals)
 
@@ -25,10 +25,13 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
         })
       : { keyworkerResponse: [], offenderResponse: [] }
 
+    const systemContext =
+      isComplexityEnabledFor(activeCaseLoadId) && (await systemOauthClient.getClientCredentialsTokens(username))
+
     const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
     const complexOffenders =
       isComplexityEnabledFor(activeCaseLoadId) && offenderNumbers.length
-        ? await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
+        ? await complexityOfNeedApi.getComplexOffenders(systemContext, offenderNumbers)
         : []
 
     const allocationHistoryData = offenderNumbers.length

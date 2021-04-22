@@ -6,6 +6,7 @@ describe('View residential location', () => {
   const complexityOfNeedApi = {}
   const elite2Api = {}
   const keyworkerApi = {}
+  const systemOauthClient = {}
 
   let req
   let res
@@ -17,6 +18,7 @@ describe('View residential location', () => {
       session: {
         userDetails: {
           activeCaseLoadId: 'MDI',
+          username: 'user123',
         },
       },
     }
@@ -31,6 +33,8 @@ describe('View residential location', () => {
     complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([])
 
     keyworkerApi.allocationHistorySummary = jest.fn().mockResolvedValue([])
+
+    systemOauthClient.getClientCredentialsTokens = jest.fn()
 
     elite2Api.userLocations = jest.fn().mockResolvedValue([
       {
@@ -61,7 +65,13 @@ describe('View residential location', () => {
     keyworkerApi.deallocate = jest.fn()
     keyworkerApi.allocate = jest.fn()
 
-    controller = viewResidentialLocation({ allocationService, complexityOfNeedApi, elite2Api, keyworkerApi })
+    controller = viewResidentialLocation({
+      allocationService,
+      complexityOfNeedApi,
+      elite2Api,
+      keyworkerApi,
+      systemOauthClient,
+    })
   })
 
   describe('index', () => {
@@ -201,7 +211,7 @@ describe('View residential location', () => {
           keywords: '',
           locationPrefix: 'MDI-1',
         })
-        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(res.locals, ['ABC123', 'ABC456', 'ABC789'])
+        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(undefined, ['ABC123', 'ABC456', 'ABC789'])
       })
 
       it('should render the template with the correct data', async () => {
@@ -267,6 +277,21 @@ describe('View residential location', () => {
         )
 
         expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
+      })
+
+      it('should use client credentials when making request to the complexity api', async () => {
+        const systemContext = { client_creds: true }
+
+        systemOauthClient.getClientCredentialsTokens = jest.fn().mockResolvedValue(systemContext)
+
+        await controller.index(req, res)
+
+        expect(systemOauthClient.getClientCredentialsTokens).toHaveBeenCalledWith('user123')
+        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(systemContext, [
+          'ABC123',
+          'ABC456',
+          'ABC789',
+        ])
       })
 
       it('should return deallocate as an option and other keyworkers except for the current one in the keyworker list', async () => {

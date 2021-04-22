@@ -8,10 +8,10 @@ const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 const getDeallocateRow = (staffId, offenderNo) =>
   staffId ? [{ text: 'Deallocate', value: `${staffId}:${offenderNo}:true` }] : []
 
-module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
+module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi, systemOauthClient }) => {
   const searchOffenders = async (req, res, next) => {
     const { searchText } = req?.query || {}
-    const { activeCaseLoadId } = req?.session?.userDetails || {}
+    const { activeCaseLoadId, username } = req?.session?.userDetails || {}
 
     if (searchText) {
       const { offenderResponse, keyworkerResponse } = await allocationService.searchOffenders(res.locals, {
@@ -30,9 +30,12 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi }) => {
         })
       }
 
+      const systemContext =
+        isComplexityEnabledFor(activeCaseLoadId) && (await systemOauthClient.getClientCredentialsTokens(username))
+
       const offenderNumbers = offenderResponse.map((o) => o.offenderNo)
       const complexOffenders = isComplexityEnabledFor(activeCaseLoadId)
-        ? await complexityOfNeedApi.getComplexOffenders(res.locals, offenderNumbers)
+        ? await complexityOfNeedApi.getComplexOffenders(systemContext, offenderNumbers)
         : []
 
       const allocationHistoryData = offenderNumbers.length

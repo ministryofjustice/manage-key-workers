@@ -84,6 +84,7 @@ const oauthApiFactory = (client, { clientId, clientSecret, url }) => {
     refresh,
     // Expose the internals so they can be Monkey Patched for testing. Oo oo oo.
     oauthAxios,
+    makeTokenRequest,
   }
 }
 

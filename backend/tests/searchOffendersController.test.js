@@ -72,6 +72,7 @@ describe('Search offenders controller', () => {
   const allocationService = {}
   const complexityOfNeedApi = {}
   const keyworkerApi = {}
+  const systemOauthClient = {}
 
   beforeEach(() => {
     req = {
@@ -79,6 +80,7 @@ describe('Search offenders controller', () => {
       session: {
         userDetails: {
           activeCaseLoadId: 'MDI',
+          username: 'user123',
         },
       },
     }
@@ -93,8 +95,9 @@ describe('Search offenders controller', () => {
     keyworkerApi.deallocate = jest.fn()
     keyworkerApi.allocate = jest.fn()
     keyworkerApi.allocationHistorySummary = jest.fn().mockResolvedValue(allocationHistoryResponse)
-    controller = controllerFactory({ allocationService, complexityOfNeedApi, keyworkerApi })
+    systemOauthClient.getClientCredentialsTokens = jest.fn()
 
+    controller = controllerFactory({ allocationService, complexityOfNeedApi, keyworkerApi, systemOauthClient })
     config.apis.complexity.enabled_prisons = ['MDI']
   })
 
@@ -213,7 +216,7 @@ describe('Search offenders controller', () => {
         }
         await controller.searchOffenders(req, res)
 
-        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith({}, ['G0276VC'])
+        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(undefined, ['G0276VC'])
       })
 
       it('should only check for complex offenders when the feature is enabled', async () => {
@@ -252,6 +255,21 @@ describe('Search offenders controller', () => {
             ],
           })
         )
+      })
+
+      it('should use client credentials when making request to the complexity api', async () => {
+        const offenderNo = 'G0276VC'
+        const systemContext = { client_creds: true }
+
+        complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([{ offenderNo, level: 'high' }])
+        systemOauthClient.getClientCredentialsTokens = jest.fn().mockResolvedValue(systemContext)
+
+        req.query = { searchText: offenderNo }
+
+        await controller.searchOffenders(req, res)
+
+        expect(systemOauthClient.getClientCredentialsTokens).toHaveBeenCalledWith('user123')
+        expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(systemContext, [offenderNo])
       })
     })
   })
