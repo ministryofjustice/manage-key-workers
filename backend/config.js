@@ -43,6 +43,8 @@ const apis = {
     timeoutSeconds: process.env.OAUTH_ENDPOINT_TIMEOUT_SECONDS || 10,
     clientId: process.env.API_CLIENT_ID || 'elite2apiclient',
     clientSecret: process.env.API_CLIENT_SECRET || 'clientsecret',
+    systemClientId: process.env.API_SYSTEM_CLIENT_ID,
+    systemClientSecret: process.env.API_SYSTEM_CLIENT_SECRET,
   },
   elite2: {
     url: process.env.API_ENDPOINT_URL || 'http://localhost:8080',

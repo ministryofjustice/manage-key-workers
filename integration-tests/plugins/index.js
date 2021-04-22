@@ -49,5 +49,6 @@ module.exports = (on) => {
     stubOffenderKeyworkerList: ({ agencyId, response }) => keyworker.stubOffenderKeyworkerList({ agencyId, response }),
     verifyAllocateWasCalled: () => keyworker.verifyAllocateWasCalled(),
     verifyDeallocateWasCalled: (offenderNo) => keyworker.verifyAllocateWasCalled(offenderNo),
+    stubClientCredentialsRequest: () => auth.stubClientCredentialsRequest(),
   })
 }

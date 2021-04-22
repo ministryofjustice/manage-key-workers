@@ -185,6 +185,17 @@ const stubUnverifiedEmail = (username) =>
     },
   })
 
+const stubClientCredentialsRequest = () =>
+  stubFor({
+    request: {
+      method: 'POST',
+      url: '/auth/oauth/token',
+    },
+    response: {
+      status: 200,
+    },
+  })
+
 module.exports = {
   getLoginUrl,
   stubLogin: (username, caseloadId, roles = []) =>
@@ -205,4 +216,5 @@ module.exports = {
   stubUserMeRoles,
   stubEmail,
   redirect,
+  stubClientCredentialsRequest,
 }
