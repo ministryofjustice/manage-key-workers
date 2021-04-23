@@ -152,7 +152,7 @@ context('View residential location', () => {
           expect(offenders[0].location).to.eq('MDI-1-1')
           expect(offenders[0].releaseDate.trim()).to.eq('30/04/2022')
           expect(offenders[0].keyworker.trim()).to.eq('None')
-          expect(offenders[0].changeKeyworker.textContent.trim()).to.eq('N/A - high complexity')
+          expect(offenders[0].changeKeyworker.textContent.trim()).to.eq('N/A - high complexity of need')
           cy.get(offenders[0].viewHistory).find('a').should('not.exist')
 
           // Offender with keyworker
