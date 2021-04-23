@@ -1,6 +1,7 @@
 const nunjucks = require('nunjucks')
 const moment = require('moment')
 const config = require('./config')
+const { maybePluralise } = require('./utils')
 
 const { pascalToString, capitalize, hyphenatedStringToCamel } = require('./utils')
 
@@ -138,6 +139,7 @@ module.exports = (app) => {
     return value || specifiedText || '--'
   })
 
+  njkEnv.addFilter('maybePluralise', maybePluralise)
   njkEnv.addGlobal('dpsUrl', config.app.prisonStaffHubUrl)
   njkEnv.addGlobal('authUrl', config.apis.oauth2.url)
   njkEnv.addGlobal('googleTagManagerId', config.analytics.googleTagManagerId)

@@ -122,7 +122,7 @@
 
       {% if insufficientKeyworkers %}
         {% set insufficientKeyworkersHtml %}
-          <p>Only {{ prisoners.length }} prisoners can be automatically allocated a keyworker. This is because there are not enough key workers with capacity.</p>
+          <p>Only <span data-test="insufficient-keyworker-prisoner-count">{{ 'prisoner' | maybePluralise(prisoners.length) }}</span> can be automatically allocated a keyworker. This is because there are not enough key workers with capacity.</p>
           <p>You need to save these changes first. Then you can choose to:</p>
           <ul class="govuk-list govuk-list--bullet">
             <li>view all prisoners without a key worker again and manually allocate key workers</li>

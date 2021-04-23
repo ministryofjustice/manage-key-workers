@@ -562,12 +562,39 @@ context('Allocate key worker to unallocated prisoners', () => {
             })
           })
 
-          context('with results', () => {
-            it('should show message for insufficient keyworkers', () => {
+          context('with multiple results', () => {
+            it('should show correct count message for insufficient keyworkers', () => {
               cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
 
               cy.get('h1').contains('Allocate a key worker')
-              cy.get('[data-test="insufficient-keyworkers-warning"]').should('contain', 'Only 2 prisoners')
+              cy.get('[data-test="insufficient-keyworker-prisoner-count"]').should('have.text', '2 prisoners')
+            })
+          })
+
+          context('with single result', () => {
+            beforeEach(() => {
+              cy.task('stubAutoAllocated', {
+                agencyId: 'MDI',
+                response: [
+                  {
+                    offenderNo: 'ABC123',
+                    firstName: 'FERINAND',
+                    lastName: 'ALFF',
+                    dateOfBirth: '1982-04-06',
+                    agencyId: 'MDI',
+                    assignedLivingUnitId: 11,
+                    assignedLivingUnitDesc: 'MDI-1-1',
+                    staffId: 1,
+                  },
+                ],
+              })
+            })
+
+            it('should show correct count message for insufficient keyworkers', () => {
+              cy.visit('/manage-key-workers/allocate-key-worker/auto', { failOnStatusCode: false })
+
+              cy.get('h1').contains('Allocate a key worker')
+              cy.get('[data-test="insufficient-keyworker-prisoner-count"]').should('have.text', '1 prisoner')
             })
           })
 
