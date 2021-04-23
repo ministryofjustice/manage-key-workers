@@ -157,6 +157,8 @@ const isXHRRequest = (req) =>
 
 const ensureIsArray = (data) => (Array.isArray(data) ? data : [data])
 
+const maybePluralise = (noun, count, suffix = 's') => `${count} ${noun}${count !== 1 ? suffix : ''}`
+
 module.exports = {
   properCase,
   properCaseName,
@@ -180,4 +182,5 @@ module.exports = {
   isXHRRequest,
   formatTimestampToDate,
   ensureIsArray,
+  maybePluralise,
 }
