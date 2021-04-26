@@ -15,7 +15,7 @@ describe('Homepage', () => {
 
     oauthApi.currentRoles = jest.fn().mockResolvedValue([])
 
-    keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
+    keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({ supported: true })
 
     controller = homepageController({ keyworkerApi, oauthApi })
   })
@@ -60,7 +60,11 @@ describe('Homepage', () => {
 
     it('should render home page with the key worker settings task', async () => {
       oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
-      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, autoAllocatedSupported: true })
+      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({
+        migrated: true,
+        autoAllocatedSupported: true,
+        supported: true,
+      })
 
       await controller(req, res)
 
@@ -82,7 +86,7 @@ describe('Homepage', () => {
 
     it('should render home page with the key worker statistics task', async () => {
       config.app.keyworkerDashboardStatsEnabled = true
-      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
+      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, supported: true })
 
       await controller(req, res)
 
@@ -99,6 +103,15 @@ describe('Homepage', () => {
           ]),
         })
       )
+    })
+
+    it('should redirect to the page not found if the prison is not supported', async () => {
+      config.app.keyworkerDashboardStatsEnabled = true
+      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ supported: false })
+
+      await controller(req, res)
+
+      expect(res.redirect).toHaveBeenCalledWith('/not-found')
     })
 
     it('should render home page with the establishment key worker settings task', async () => {
