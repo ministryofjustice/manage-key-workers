@@ -241,7 +241,7 @@ context('Offender search', () => {
           expect(offenders[2].prisonNo).to.eq('G12346')
           expect(offenders[2].releaseDate).to.eq('30/04/2022')
           expect(offenders[2].keyworker).to.eq('None')
-          expect(offenders[2].changeKeyworker.textContent).to.eq('N/A - high complexity')
+          expect(offenders[2].changeKeyworker.textContent).to.eq('N/A - high complexity of need')
         })
     })
   })
