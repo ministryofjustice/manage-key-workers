@@ -15,7 +15,7 @@ context('Homepage', () => {
           username: 'ITAG_USER',
           caseload: 'MDI',
           roles: [],
-          migrationStatus: { migrated: false },
+          migrationStatus: { migrated: true },
         })
         cy.login()
       })
