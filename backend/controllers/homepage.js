@@ -8,7 +8,7 @@ const keyWorkerTasks = (prisonStatus) => [
       'You can allocate key workers to these prisoners. You can also automatically allocate a key worker to these prisoners if your establishment allows it.',
     href: '/manage-key-workers/allocate-key-worker',
     roles: null,
-    enabled: true,
+    enabled: prisonStatus?.migrated,
   },
   {
     id: 'view-residential-location',

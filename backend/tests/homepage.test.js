@@ -35,6 +35,30 @@ describe('Homepage', () => {
         tasks: [
           {
             description:
+              'View all prisoners in a residential location and allocate or change key workers. You can also see high complexity prisoners',
+            heading: 'View by residential location',
+            href: '/manage-key-workers/view-residential-location',
+            id: 'view-residential-location',
+          },
+          {
+            description:
+              'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner’s name or prison number.',
+            heading: 'Search for a prisoner',
+            href: '/manage-key-workers/search-for-prisoner',
+            id: 'search-for-prisoner',
+          },
+        ],
+      })
+    })
+
+    it('should include allocate key worker tab', async () => {
+      keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({ migrated: true })
+      await controller(req, res)
+
+      expect(res.render).toHaveBeenCalledWith('homepage', {
+        tasks: [
+          {
+            description:
               'You can allocate key workers to these prisoners. You can also automatically allocate a key worker to these prisoners if your establishment allows it.',
             heading: 'View all without a key worker',
             href: '/manage-key-workers/allocate-key-worker',
