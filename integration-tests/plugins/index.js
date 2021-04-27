@@ -50,5 +50,6 @@ module.exports = (on) => {
     verifyAllocateWasCalled: () => keyworker.verifyAllocateWasCalled(),
     verifyDeallocateWasCalled: (offenderNo) => keyworker.verifyAllocateWasCalled(offenderNo),
     stubClientCredentialsRequest: () => auth.stubClientCredentialsRequest(),
+    stubPrisonMigrationStatus: (settings) => keyworker.stubPrisonMigrationStatus(settings),
   })
 }

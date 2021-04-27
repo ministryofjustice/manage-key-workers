@@ -227,7 +227,7 @@ context('Allocate key worker to unallocated prisoners', () => {
         cy.task('stubLogin', {
           username: 'ITAG_USER',
           caseload: 'WWI',
-          roles: [{ roleCode: 'OMIC_ADMIN' }],
+          roles: [{ roleCode: 'OMIC_ADMIN' }, { roleCode: 'KW_MIGRATION' }],
           migrationStatus: { migrated: false, allowAuto: true },
         })
         cy.login()
