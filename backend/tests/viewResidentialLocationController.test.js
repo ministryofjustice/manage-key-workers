@@ -95,6 +95,52 @@ describe('View residential location', () => {
         expect(res.render).toHaveBeenCalledWith('viewResidentialLocation', {
           activeCaseLoadId: 'MDI',
           formValues: {},
+          errors: [],
+          prisoners: [],
+          residentialLocations: [
+            {
+              text: 'Houseblock 1',
+              value: 'MDI-1',
+            },
+            {
+              text: 'Houseblock 2',
+              value: 'MDI-2',
+            },
+          ],
+        })
+      })
+    })
+
+    describe('with the default residential location label selected', () => {
+      beforeEach(() => {
+        req.query = {
+          residentialLocation: '',
+        }
+      })
+
+      it('should make the expected calls', async () => {
+        await controller.index(req, res)
+
+        expect(elite2Api.userLocations).toHaveBeenCalledWith(res.locals)
+        expect(allocationService.searchOffenders).not.toHaveBeenCalled()
+        expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
+        expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
+      })
+
+      it('should render the template with the correct error', async () => {
+        await controller.index(req, res)
+
+        expect(res.render).toHaveBeenCalledWith('viewResidentialLocation', {
+          activeCaseLoadId: 'MDI',
+          errors: [
+            {
+              href: '#residentialLocation',
+              html: 'Select a residential location',
+            },
+          ],
+          formValues: {
+            residentialLocation: '',
+          },
           prisoners: [],
           residentialLocations: [
             {

@@ -2,6 +2,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% set title = "All prisoners in a residential location" %}
 
@@ -21,6 +22,16 @@
 {% endblock %}
 
 {% block content %}
+
+  {% if errors.length > 0 %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errors,
+      attributes: { 'data-qa-errors': true }
+      }) 
+    }}
+  {% endif %}
+
   <h1 class="govuk-heading-l">{{ title }}</h1>
 
   <form class="horizontal-form govuk-!-margin-bottom-6">

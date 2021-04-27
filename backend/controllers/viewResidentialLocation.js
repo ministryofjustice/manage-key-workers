@@ -10,6 +10,16 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
     const { residentialLocation } = req.query
     const { activeCaseLoadId, username } = req.session?.userDetails || {}
 
+    const validationErrors =
+      residentialLocation?.length === 0
+        ? [
+            {
+              href: '#residentialLocation',
+              html: 'Select a residential location',
+            },
+          ]
+        : []
+
     const currentUserLocations = await elite2Api.userLocations(res.locals)
 
     const residentialLocations = currentUserLocations?.filter(
@@ -41,6 +51,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
     return res.render('viewResidentialLocation', {
       activeCaseLoadId,
       formValues: req.query,
+      errors: validationErrors,
       prisoners: offenderResponse.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
