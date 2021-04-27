@@ -17,7 +17,7 @@ const keyWorkerTasks = (prisonStatus) => [
       'View all prisoners in a residential location and allocate or change key workers. You can also see high complexity prisoners',
     href: '/manage-key-workers/view-residential-location',
     roles: null,
-    enabled: true,
+    enabled: prisonStatus?.migrated,
   },
   {
     id: 'search-for-prisoner',
@@ -26,7 +26,7 @@ const keyWorkerTasks = (prisonStatus) => [
       'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner’s name or prison number.',
     href: '/manage-key-workers/search-for-prisoner',
     roles: null,
-    enabled: true,
+    enabled: prisonStatus?.migrated,
   },
   {
     id: 'key-worker-settings',
@@ -64,11 +64,14 @@ module.exports = ({ keyworkerApi, oauthApi }) => async (req, res) => {
 
   const roleCodes = currentRoles.map((userRole) => userRole.roleCode)
 
+  const availableTasks = keyWorkerTasks(prisonStatus).filter(
+    (task) => Boolean(task.roles === null || task.roles.find((role) => roleCodes.includes(role))) && task.enabled
+  )
+
+  if (!availableTasks.length) return res.redirect('/not-found')
+
   return res.render('homepage', {
-    tasks: keyWorkerTasks(prisonStatus)
-      .filter(
-        (task) => Boolean(task.roles === null || task.roles.find((role) => roleCodes.includes(role))) && task.enabled
-      )
+    tasks: availableTasks
       // eslint-disable-next-line no-unused-vars
       .map(({ roles, enabled, ...task }) => task),
   })

@@ -28,30 +28,13 @@ describe('Homepage', () => {
   })
 
   describe('Tasks', () => {
-    it('should render template with correct non role specfic tasks', async () => {
+    it('should redirect to not found if there are no tasks for a user', async () => {
       await controller(req, res)
 
-      expect(res.render).toHaveBeenCalledWith('homepage', {
-        tasks: [
-          {
-            description:
-              'View all prisoners in a residential location and allocate or change key workers. You can also see high complexity prisoners',
-            heading: 'View by residential location',
-            href: '/manage-key-workers/view-residential-location',
-            id: 'view-residential-location',
-          },
-          {
-            description:
-              'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner’s name or prison number.',
-            heading: 'Search for a prisoner',
-            href: '/manage-key-workers/search-for-prisoner',
-            id: 'search-for-prisoner',
-          },
-        ],
-      })
+      expect(res.redirect).toHaveBeenCalledWith('/not-found')
     })
 
-    it('should include allocate key worker tab', async () => {
+    it('show tabs that require the a prison to be migrated', async () => {
       keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({ migrated: true })
       await controller(req, res)
 
