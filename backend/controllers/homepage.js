@@ -62,8 +62,6 @@ module.exports = ({ keyworkerApi, oauthApi }) => async (req, res) => {
     keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId),
   ])
 
-  if (!prisonStatus?.supported) return res.redirect('/not-found')
-
   const roleCodes = currentRoles.map((userRole) => userRole.roleCode)
 
   return res.render('homepage', {
