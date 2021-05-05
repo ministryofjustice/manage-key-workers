@@ -26,7 +26,8 @@ const elite2ApiFactory = (client) => {
         offenderNumbers
       )}`
     )
-  const csraList = (context, offenderNumbers) => post(context, '/api/offender-assessments/csra/list', offenderNumbers)
+  const csraRatingList = (context, offenderNumbers) =>
+    post(context, '/api/offender-assessments/csra/rating', offenderNumbers)
   const userCaseLoads = (context) => (isNomisUser(context) ? get(context, '/api/users/me/caseLoads') : [])
   const userLocations = (context) => (isNomisUser(context) ? get(context, '/api/users/me/locations') : [])
 
@@ -71,7 +72,7 @@ const elite2ApiFactory = (client) => {
 
   return {
     caseNoteUsageList,
-    csraList,
+    csraRatingList,
     userCaseLoads,
     userLocations,
     searchOffenders,
