@@ -205,8 +205,8 @@ context('Offender search', () => {
                 .find('option')
                 .then(($options) => {
                   expect($options.get(0)).to.contain('Select key worker')
-                  expect($options.get(1)).to.contain('Bob Ball (6)')
-                  expect($options.get(2)).to.contain('Julian Doe (9)')
+                  expect($options.get(1)).to.contain('6 - Ball, Bob')
+                  expect($options.get(2)).to.contain('9 - Doe, Julian')
                 })
             })
           cy.get(offenders[0].viewHistory)
@@ -229,7 +229,7 @@ context('Offender search', () => {
                 .then(($options) => {
                   expect($options.get(0)).to.contain('Select key worker')
                   expect($options.get(1)).to.contain('Deallocate')
-                  expect($options.get(2)).to.contain('Julian Doe (9)')
+                  expect($options.get(2)).to.contain('9 - Doe, Julian')
                 })
             })
 

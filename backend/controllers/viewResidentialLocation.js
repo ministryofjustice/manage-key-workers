@@ -1,7 +1,9 @@
-const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
+const { putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 const {
   apis: { complexity },
 } = require('../config')
+
+const { sortAndFormatKeyworkerNameAndAllocationCount, getDeallocateRow } = require('./keyworkerShared')
 
 const isComplexityEnabledFor = (agencyId) => complexity.enabled_prisons?.includes(agencyId)
 
@@ -66,18 +68,9 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
           keyworkerName: staffId && `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
           keyworkerStaffId: staffId,
           keyworkerList: !isHighComplexity && [
-            ...(staffId
-              ? [
-                  {
-                    text: 'Deallocate',
-                    value: `${staffId}:${offender.offenderNo}:true`,
-                  },
-                ]
-              : []),
-            ...otherKeyworkers.map((keyworker) => ({
-              text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
-                keyworker.numberAllocated
-              )}`,
+            ...getDeallocateRow(staffId, offenderNo),
+            ...sortAndFormatKeyworkerNameAndAllocationCount(otherKeyworkers).map((keyworker) => ({
+              text: keyworker.formattedName,
               value: `${keyworker.staffId}:${offenderNo}`,
             })),
           ],

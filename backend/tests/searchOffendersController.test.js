@@ -181,11 +181,11 @@ describe('Search offenders controller', () => {
                 value: '1:G0276VC:true',
               },
               {
-                text: 'Bob Ball (6)',
+                text: '6 - Ball, Bob',
                 value: '34353:G0276VC',
               },
               {
-                text: 'Julian Doe (9)',
+                text: '9 - Doe, Julian',
                 value: '485593:G0276VC',
               },
             ],
@@ -320,11 +320,11 @@ describe('Search offenders controller', () => {
                   value: '1:G0276VC:true',
                 },
                 {
-                  text: 'Bob Ball (6)',
+                  text: '6 - Ball, Bob',
                   value: '34353:G0276VC',
                 },
                 {
-                  text: 'Julian Doe (9)',
+                  text: '9 - Doe, Julian',
                   value: '485593:G0276VC',
                 },
               ],

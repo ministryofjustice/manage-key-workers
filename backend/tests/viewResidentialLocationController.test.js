@@ -352,7 +352,7 @@ describe('View residential location', () => {
                 isHighComplexity: false,
                 keyworkerList: [
                   { text: 'Deallocate', value: '2:ABC456:true' },
-                  { text: 'Bob Ball (6)', value: '1:ABC456' },
+                  { text: '6 - Ball, Bob', value: '1:ABC456' },
                 ],
                 keyworkerName: 'Doe, Julian (9)',
                 keyworkerStaffId: 2,
@@ -377,8 +377,8 @@ describe('View residential location', () => {
                 hasHistory: false,
                 isHighComplexity: false,
                 keyworkerList: [
-                  { text: 'Bob Ball (6)', value: '1:ABC789' },
-                  { text: 'Julian Doe (9)', value: '2:ABC789' },
+                  { text: '6 - Ball, Bob', value: '1:ABC789' },
+                  { text: '9 - Doe, Julian', value: '2:ABC789' },
                 ],
                 keyworkerName: null,
                 keyworkerStaffId: null,
