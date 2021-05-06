@@ -1,12 +1,12 @@
-const { properCaseName, formatTimestampToDate, formatName, ensureIsArray } = require('../utils')
+const { properCaseName, formatTimestampToDate, ensureIsArray } = require('../utils')
 const {
   apis: { complexity },
 } = require('../config')
 
+const { sortAndFormatKeyworkerNameAndAllocationCount, getDeallocateRow } = require('./keyworkerShared')
+
 const isComplexityEnabledFor = (agencyId) => complexity.enabled_prisons?.includes(agencyId)
 const formatNumberAllocated = (number) => (number ? `(${number})` : '')
-const getDeallocateRow = (staffId, offenderNo) =>
-  staffId ? [{ text: 'Deallocate', value: `${staffId}:${offenderNo}:true` }] : []
 
 module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi, systemOauthClient }) => {
   const searchOffenders = async (req, res, next) => {
@@ -71,10 +71,8 @@ module.exports = ({ allocationService, complexityOfNeedApi, keyworkerApi, system
           keyworkerStaffId: staffId,
           keyworkerList: !isHighComplexity && [
             ...getDeallocateRow(staffId, offenderNo),
-            ...otherKeyworkers.map((keyworker) => ({
-              text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
-                keyworker.numberAllocated
-              )}`,
+            ...sortAndFormatKeyworkerNameAndAllocationCount(otherKeyworkers).map((keyworker) => ({
+              text: keyworker.formattedName,
               value: `${keyworker.staffId}:${offenderNo}`,
             })),
           ],

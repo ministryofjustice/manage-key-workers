@@ -1,4 +1,5 @@
 const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
+const { sortAndFormatKeyworkerNameAndAllocationCount } = require('./keyworkerShared')
 
 module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
   const formatNumberAllocated = (number) => (number ? `(${number})` : '')
@@ -64,13 +65,6 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
           ? allKeyworkers.filter((keyworker) => keyworker.staffId !== offender.staffId && keyworker.status === 'ACTIVE')
           : allKeyworkers.filter((keyworker) => keyworker.staffId === offender.staffId || keyworker.status === 'ACTIVE')
 
-        const sortedSelectableKeyworkers = selectableKeyworkers.sort((left, right) => {
-          const diff = left.numberAllocated - right.numberAllocated
-          if (diff) return diff
-
-          return left.lastName.localeCompare(right.lastName)
-        })
-
         const location = offender.assignedLivingUnitDesc || offender.internalLocationDesc
 
         return {
@@ -80,13 +74,10 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
             isManualAllocation &&
             `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
           keyworkerStaffId: staffId,
-          keyworkerList: sortedSelectableKeyworkers.map((keyworker) => {
+          keyworkerList: sortAndFormatKeyworkerNameAndAllocationCount(selectableKeyworkers).map((keyworker) => {
             const isAutoAllocated = keyworker.staffId === offender.staffId
             return {
-              text: `${keyworker.numberAllocated || '0'} - ${putLastNameFirst(
-                keyworker.firstName,
-                keyworker.lastName
-              )}`,
+              text: keyworker.formattedName,
               value: JSON.stringify({
                 allocationType: isAutoAllocated ? 'A' : 'M',
                 firstName: offender.firstName,

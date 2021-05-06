@@ -52,7 +52,9 @@ class KeyworkerProfile extends Component {
 
     const statusStyle = getStatusStyle(keyworker.status)
     const keyworkerOptions = keyworkerList.map((kw) => {
-      const formattedDetails = `${properCaseName(kw.lastName)}, ${properCaseName(kw.firstName)} (${kw.numberAllocated})`
+      const formattedDetails = `${kw.numberAllocated || '0'} - ${properCaseName(kw.lastName)}, ${properCaseName(
+        kw.firstName
+      )}`
       return (
         <option key={`option_${kw.staffId}`} value={kw.staffId}>
           {formattedDetails}

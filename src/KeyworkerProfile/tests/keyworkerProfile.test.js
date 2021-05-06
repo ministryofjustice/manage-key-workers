@@ -234,6 +234,12 @@ describe('Keyworker Profile component', () => {
     expect(component.find('tr').at(2).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').length).toEqual(4)
   })
 
+  it('should format the keyworker name in the list correctly', async () => {
+    const selectValue = component.find('tr').at(1).find('td').at(KEYWORKER_SELECT_COLUMN).find('option').at(2).text()
+
+    expect(selectValue).toEqual('5 - Loo, David')
+  })
+
   it('should handle click correctly', async () => {
     component.find('#updateAllocationButton').simulate('click')
 
