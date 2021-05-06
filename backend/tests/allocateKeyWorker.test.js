@@ -160,13 +160,13 @@ describe('Allocate key worker', () => {
               keyworkerList: [
                 {
                   selected: false,
-                  text: 'Bob Ball (6)',
+                  text: '6 - Ball, Bob',
                   value:
                     '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
                 },
                 {
                   selected: false,
-                  text: 'Julian Doe (9)',
+                  text: '9 - Doe, Julian',
                   value:
                     '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":2}',
                 },
@@ -183,13 +183,13 @@ describe('Allocate key worker', () => {
               keyworkerList: [
                 {
                   selected: false,
-                  text: 'Bob Ball (6)',
+                  text: '6 - Ball, Bob',
                   value:
                     '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":1}',
                 },
                 {
                   selected: false,
-                  text: 'Julian Doe (9)',
+                  text: '9 - Doe, Julian',
                   value:
                     '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}',
                 },
@@ -258,13 +258,13 @@ describe('Allocate key worker', () => {
                 keyworkerList: [
                   {
                     selected: false,
-                    text: 'Bob Ball (6)',
+                    text: '6 - Ball, Bob',
                     value:
                       '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
                   },
                   {
                     selected: false,
-                    text: 'Julian Doe (9)',
+                    text: '9 - Doe, Julian',
                     value:
                       '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":2}',
                   },
@@ -281,7 +281,7 @@ describe('Allocate key worker', () => {
                 keyworkerList: [
                   {
                     selected: false,
-                    text: 'Bob Ball (6)',
+                    text: '6 - Ball, Bob',
                     value:
                       '{"allocationType":"M","firstName":"Simon","lastName":"Gray","location":"MDI-1-3","offenderNo":"ABC789","releaseDate":"2029-02-28","staffId":1}',
                   },
@@ -298,13 +298,13 @@ describe('Allocate key worker', () => {
                 keyworkerList: [
                   {
                     selected: false,
-                    text: 'Bob Ball (6)',
+                    text: '6 - Ball, Bob',
                     value:
                       '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":1}',
                   },
                   {
                     selected: false,
-                    text: 'Julian Doe (9)',
+                    text: '9 - Doe, Julian',
                     value:
                       '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}',
                   },
@@ -383,6 +383,149 @@ describe('Allocate key worker', () => {
       })
     })
 
+    describe('key worker lists', () => {
+      beforeEach(() => {
+        keyworkerApi.keyworkerSearch = jest.fn().mockResolvedValue([
+          {
+            staffId: 1,
+            firstName: 'BOB',
+            lastName: 'BALL',
+            capacity: 6,
+            numberAllocated: 6,
+            agencyId: 'MDI',
+            status: 'ACTIVE',
+            autoAllocationAllowed: true,
+          },
+          {
+            staffId: 2,
+            firstName: 'BOB',
+            lastName: 'DUKE',
+            capacity: 6,
+            numberAllocated: 6,
+            agencyId: 'MDI',
+            status: 'ACTIVE',
+            autoAllocationAllowed: true,
+          },
+          {
+            staffId: 2,
+            firstName: 'JULIAN',
+            lastName: 'DOE',
+            capacity: 6,
+            numberAllocated: 9,
+            agencyId: 'MDI',
+            status: 'ACTIVE',
+            autoAllocationAllowed: true,
+          },
+          {
+            staffId: 3,
+            firstName: 'ANDY',
+            lastName: 'SMITH',
+            capacity: 6,
+            numberAllocated: 1,
+            agencyId: 'MDI',
+            status: 'ACTIVE',
+            autoAllocationAllowed: true,
+          },
+        ])
+
+        keyworkerApi.offenderKeyworkerList.mockResolvedValue([
+          {
+            offenderKeyworkerId: 21380,
+            offenderNo: 'ABC123',
+            staffId: 2,
+            agencyId: 'MDI',
+            assigned: '2021-04-09T09:44:47.581306',
+            userId: 'TEST_USER',
+            active: 'Y',
+          },
+        ])
+
+        allocationService.allocated.mockResolvedValue({
+          allocatedResponse: [
+            {
+              offenderNo: 'ABC123',
+              firstName: 'FERINAND',
+              lastName: 'ALFF',
+              dateOfBirth: '1982-04-06',
+              agencyId: 'MDI',
+              assignedLivingUnitId: 11,
+              internalLocationDesc: 'MDI-1-1',
+              confirmedReleaseDate: '2022-04-30',
+              staffId: 2,
+              keyworkerDisplay: 'Ball, Bob',
+              numberAllocated: '6',
+              allocationType: 'P',
+            },
+          ],
+        })
+        keyworkerApi.allocationHistorySummary.mockResolvedValue([
+          {
+            offenderNo: 'ABC123',
+            hasHistory: false,
+          },
+        ])
+      })
+
+      it('should sort by number allocated, then by last name', async () => {
+        await controller.auto(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'allocateKeyWorker',
+          expect.objectContaining({
+            prisoners: [
+              expect.objectContaining({
+                keyworkerList: [
+                  expect.objectContaining({
+                    text: '1 - Smith, Andy',
+                  }),
+                  expect.objectContaining({
+                    text: '6 - Ball, Bob',
+                  }),
+                  expect.objectContaining({
+                    text: '6 - Duke, Bob',
+                  }),
+                  expect.objectContaining({
+                    text: '9 - Doe, Julian',
+                  }),
+                ],
+              }),
+            ],
+          })
+        )
+      })
+
+      it('should display a zero when the key worker does not have allocations', async () => {
+        keyworkerApi.keyworkerSearch = jest.fn().mockResolvedValue([
+          {
+            staffId: 2,
+            firstName: 'JULIAN',
+            lastName: 'DOE',
+            capacity: 6,
+            agencyId: 'MDI',
+            status: 'ACTIVE',
+            autoAllocationAllowed: true,
+          },
+        ])
+
+        await controller.auto(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'allocateKeyWorker',
+          expect.objectContaining({
+            prisoners: [
+              expect.objectContaining({
+                keyworkerList: [
+                  expect.objectContaining({
+                    text: '0 - Doe, Julian',
+                  }),
+                ],
+              }),
+            ],
+          })
+        )
+      })
+    })
+
     describe('with allocated prisoners', () => {
       beforeEach(() => {
         allocationService.allocated.mockResolvedValue({
@@ -456,13 +599,13 @@ describe('Allocate key worker', () => {
               keyworkerList: [
                 {
                   selected: true,
-                  text: 'Bob Ball (6)',
+                  text: '6 - Ball, Bob',
                   value:
                     '{"allocationType":"A","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":1}',
                 },
                 {
                   selected: false,
-                  text: 'Julian Doe (9)',
+                  text: '9 - Doe, Julian',
                   value:
                     '{"allocationType":"M","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30","staffId":2}',
                 },
@@ -479,19 +622,19 @@ describe('Allocate key worker', () => {
               keyworkerList: [
                 {
                   selected: true,
-                  text: 'Andy Smith (1)',
+                  text: '1 - Smith, Andy',
                   value:
                     '{"allocationType":"A","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":3}',
                 },
                 {
                   selected: false,
-                  text: 'Bob Ball (6)',
+                  text: '6 - Ball, Bob',
                   value:
                     '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":1}',
                 },
                 {
                   selected: false,
-                  text: 'Julian Doe (9)',
+                  text: '9 - Doe, Julian',
                   value:
                     '{"allocationType":"M","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30","staffId":2}',
                 },

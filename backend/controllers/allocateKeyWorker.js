@@ -63,9 +63,13 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
         const selectableKeyworkers = isManualAllocation
           ? allKeyworkers.filter((keyworker) => keyworker.staffId !== offender.staffId && keyworker.status === 'ACTIVE')
           : allKeyworkers.filter((keyworker) => keyworker.staffId === offender.staffId || keyworker.status === 'ACTIVE')
-        const sortedSelectableKeyworkers = selectableKeyworkers.sort(
-          (left, right) => left.numberAllocated - right.numberAllocated
-        )
+
+        const sortedSelectableKeyworkers = selectableKeyworkers.sort((left, right) => {
+          const diff = left.numberAllocated - right.numberAllocated
+          if (diff) return diff
+
+          return left.lastName.localeCompare(right.lastName)
+        })
 
         const location = offender.assignedLivingUnitDesc || offender.internalLocationDesc
 
@@ -79,8 +83,9 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
           keyworkerList: sortedSelectableKeyworkers.map((keyworker) => {
             const isAutoAllocated = keyworker.staffId === offender.staffId
             return {
-              text: `${formatName(keyworker.firstName, keyworker.lastName)} ${formatNumberAllocated(
-                keyworker.numberAllocated
+              text: `${keyworker.numberAllocated || '0'} - ${putLastNameFirst(
+                keyworker.firstName,
+                keyworker.lastName
               )}`,
               value: JSON.stringify({
                 allocationType: isAutoAllocated ? 'A' : 'M',
