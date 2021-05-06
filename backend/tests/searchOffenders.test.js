@@ -66,6 +66,14 @@ const createSearchOffendersResponse = () => [
   { offenderNo: 'A1234AD', classification: 'Low' },
 ]
 
+const csraRatingsResponse = () => [
+  { offenderNo: 'A1234AA', classificationCode: 'HI' },
+  { offenderNo: 'A1234AB', classificationCode: 'HI' },
+  { offenderNo: 'A1234AF', classificationCode: 'LOW' },
+  { offenderNo: 'A1234AC', classificationCode: 'SILLY' },
+  { offenderNo: 'A1234AD', classificationCode: 'LOW' },
+]
+
 const createAvailableKeyworkerResponse = () => [
   {
     staffId: 15583,
@@ -133,7 +141,7 @@ describe('keyworkerAllocations controller', () => {
 
     elite2Api.searchOffenders = jest.fn().mockImplementationOnce(() => createSearchOffendersResponse())
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createSearchOffendersResponse())
+    elite2Api.csraRatingList = jest.fn().mockImplementationOnce(() => csraRatingsResponse())
 
     keyworkerApi.searchOffenders = jest.fn().mockReturnValueOnce(offenderResponse)
 

@@ -326,7 +326,7 @@ class Elite2Api extends WireMockRule {
 
     void stubOffenderAssessmentResponse(AgencyLocation agencyLocation) {
         this.stubFor(
-                post(urlPathEqualTo("/api/offender-assessments/csra/list"))
+                post(urlPathEqualTo("/api/offender-assessments/csra/rating"))
                         .willReturn(aResponse()
                         .withBody(OffenderAssessmentsResponse.response)
                         .withHeader('Content-Type', 'application/json')
