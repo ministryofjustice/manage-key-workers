@@ -115,10 +115,10 @@ function createSentenceDetailListResponse() {
 
 function createAssessmentListResponse() {
   return [
-    { offenderNo: 'A1234AA', classification: 'High' },
+    { offenderNo: 'A1234AA', classificationCode: 'HI' },
     { offenderNo: 'A1234AB' },
-    { offenderNo: 'A1234AF', classification: 'Low' },
-    { offenderNo: 'A1234AC', classification: 'Silly' },
+    { offenderNo: 'A1234AF', classificationCode: 'LOW' },
+    { offenderNo: 'A1234AC', classificationCode: 'SILLY' },
   ]
 }
 
@@ -140,7 +140,7 @@ describe('Allocated controller', () => {
     keyworkerApi.autoallocated = jest.fn()
 
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+    elite2Api.csraRatingList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
     elite2Api.caseNoteUsageList = jest.fn().mockImplementationOnce(() => createCaseNoteUsageListResponse())
 
     keyworkerApi.keyworker = jest.fn().mockImplementation(() => createSingleKeyworkerResponse())
@@ -171,7 +171,7 @@ describe('Allocated controller', () => {
   })
 
   it('Should map classifications for offenders', () => {
-    expect(response.allocatedResponse.map((a) => a.crsaClassification)).toEqual(['High', null, 'Low', 'Silly', null])
+    expect(response.allocatedResponse.map((a) => a.crsaClassification)).toEqual(['High', null, 'Low', null, null])
   })
 
   it('Should map release date for offenders', () => {

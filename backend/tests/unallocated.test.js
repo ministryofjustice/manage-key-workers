@@ -64,11 +64,11 @@ function createSentenceDetailListResponse() {
 
 function createAssessmentListResponse() {
   return [
-    { offenderNo: 'A1234AA', classification: 'High' },
-    { offenderNo: 'A1234AB', classification: 'High' },
-    { offenderNo: 'A1234AF', classification: 'Low' },
-    { offenderNo: 'A1234AC', classification: 'Silly' },
-    { offenderNo: 'A1234AD', classification: 'Low' },
+    { offenderNo: 'A1234AA', classificationCode: 'HI' },
+    { offenderNo: 'A1234AB', classificationCode: 'HI' },
+    { offenderNo: 'A1234AF', classificationCode: 'LOW' },
+    { offenderNo: 'A1234AC', classificationCode: 'SILLY' },
+    { offenderNo: 'A1234AD', classificationCode: 'LOW' },
   ]
 }
 
@@ -79,7 +79,7 @@ describe('Unallocated controller', () => {
     keyworkerApi.unallocated = jest.fn()
     elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
 
-    elite2Api.csraList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+    elite2Api.csraRatingList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
 
     keyworkerApi.unallocated.mockReturnValueOnce(allocationResponse)
 

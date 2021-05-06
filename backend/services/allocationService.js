@@ -1,6 +1,7 @@
 const log = require('../log')
 const { logError } = require('../logError')
 const { formatName } = require('../utils')
+const { csraTranslations } = require('../csraHelpers')
 const telemetry = require('../azure-appinsights')
 
 // TODO: There's a lot of duplication in this module...
@@ -9,10 +10,10 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
   const getOffenderNumbers = (offenderResults) =>
     offenderResults && offenderResults.length && offenderResults.map((row) => row.offenderNo)
 
-  const findCrsaForOffender = (csras, offenderNo) =>
-    csras
+  const findCrsaForOffender = (csraRatings, offenderNo) =>
+    csraRatings
       .filter((d) => d.offenderNo === offenderNo)
-      .map((d) => d.classification)
+      .map((d) => csraTranslations[d.classificationCode])
       .find((e) => !!e) || null
 
   const findReleaseDateForOffender = (allReleaseDates, offenderNo) =>
@@ -45,8 +46,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
     log.debug('Response from sentenceDetailList request')
 
-    const allCsras = await elite2Api.csraList(context, offenderNumbers)
-    log.debug('Response from csraList request')
+    const allCsraRatings = await elite2Api.csraRatingList(context, offenderNumbers)
+    log.debug('Response from csraRatingList request')
 
     const keyworkerLookup = offenders
       .filter((offender) => !availableKeyworkers.find((keyworker) => keyworker.staffId === offender.staffId))
@@ -81,7 +82,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         ...offenderWithAllocatedKeyworker,
         keyworkerDisplay,
         numberAllocated,
-        crsaClassification: findCrsaForOffender(allCsras, offenderNo),
+        crsaClassification: findCrsaForOffender(allCsraRatings, offenderNo),
         confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, offenderNo),
       }
     })
@@ -97,12 +98,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
       log.debug('Response from sentenceDetailList request')
 
-      const allCsras = await elite2Api.csraList(context, offenderNumbers)
-      log.debug('Response from csraList request')
+      const allCsraRatings = await elite2Api.csraRatingList(context, offenderNumbers)
+      log.debug('Response from csraRatingList request')
 
       return offenderWithLocationDtos.map((offenderWithLocation) => ({
         ...offenderWithLocation,
-        crsaClassification: findCrsaForOffender(allCsras, offenderWithLocation.offenderNo),
+        crsaClassification: findCrsaForOffender(allCsraRatings, offenderWithLocation.offenderNo),
         confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, offenderWithLocation.offenderNo),
       }))
     }
@@ -239,15 +240,15 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       const allReleaseDates = await elite2Api.sentenceDetailList(context, offenderNumbers)
       log.debug('Response from sentenceDetailList request')
 
-      const allCsras = await elite2Api.csraList(context, offenderNumbers)
-      log.debug('Response from csraList request')
+      const allCsraRatings = await elite2Api.csraRatingList(context, offenderNumbers)
+      log.debug('Response from csraRatingList request')
 
       const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers, staffId)
       log.debug('Response from case note usage request')
 
       const allocatedResponse = keyworkerAllocationDetailsDtos.map((keyworkerAllocation) => ({
         ...keyworkerAllocation,
-        crsaClassification: findCrsaForOffender(allCsras, keyworkerAllocation.offenderNo),
+        crsaClassification: findCrsaForOffender(allCsraRatings, keyworkerAllocation.offenderNo),
         confirmedReleaseDate: findReleaseDateForOffender(allReleaseDates, keyworkerAllocation.offenderNo),
         lastKeyWorkerSessionDate: findKeyworkerCaseNoteDate(kwDates, keyworkerAllocation.offenderNo),
         numKeyWorkerSessions: findKeyworkerNumKeyWorkerSessions(kwDates, keyworkerAllocation.offenderNo),
