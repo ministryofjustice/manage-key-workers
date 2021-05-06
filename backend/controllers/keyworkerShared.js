@@ -1,7 +1,7 @@
 const { putLastNameFirst } = require('../utils')
 
-const sortAndFormatKeyworkerNameAndAllocationCount = (keyworkers) => {
-  return keyworkers
+const sortAndFormatKeyworkerNameAndAllocationCount = (keyworkers) =>
+  keyworkers
     .sort((left, right) => {
       const diff = left.numberAllocated - right.numberAllocated
       if (diff) return diff
@@ -15,7 +15,6 @@ const sortAndFormatKeyworkerNameAndAllocationCount = (keyworkers) => {
         keyworker.lastName
       )}`,
     }))
-}
 
 const getDeallocateRow = (staffId, offenderNo) =>
   staffId ? [{ text: 'Deallocate', value: `${staffId}:${offenderNo}:true` }] : []
