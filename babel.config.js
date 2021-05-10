@@ -7,6 +7,7 @@ const plugins = [
   '@babel/plugin-proposal-throw-expressions',
   '@babel/plugin-transform-runtime',
   '@babel/plugin-transform-regenerator',
+  ['@babel/plugin-proposal-private-methods', { loose: true }],
 ]
 
 const ignore = ['.spec.js', '.test.js', '-test.js', '/__tests__/']
