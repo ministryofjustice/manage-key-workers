@@ -33,7 +33,7 @@ const keyWorkerTasks = (prisonStatus) => [
     heading: 'Key worker settings',
     description: 'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
     href: '/key-worker-search',
-    roles: ['OMIC_ADMIN'],
+    roles: ['OMIC_ADMIN', 'KEYWORKER_MONITOR'],
     enabled: prisonStatus?.migrated,
   },
   {
