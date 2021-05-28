@@ -140,7 +140,7 @@ describe('Homepage', () => {
       })
     })
 
-    describe('hen the prison is migrated and the user has keyworker migration role', () => {
+    describe('when the prison is migrated and the user has keyworker migration role', () => {
       beforeEach(() => {
         keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
         oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'KW_MIGRATION' }])
