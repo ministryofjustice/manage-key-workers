@@ -65,67 +65,104 @@ describe('Homepage', () => {
       })
     })
 
-    it('should render home page with the key worker settings task', async () => {
-      oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
-      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
+    describe('when the user is an omic admin', () => {
+      beforeEach(() => oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }]))
 
-      await controller(req, res)
+      it('should render home page with the key worker settings task', async () => {
+        keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
 
-      expect(res.render).toHaveBeenCalledWith(
-        'homepage',
-        expect.objectContaining({
-          tasks: expect.arrayContaining([
-            {
-              description:
-                'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
-              heading: 'Key worker settings',
-              href: '/key-worker-search',
-              id: 'key-worker-settings',
-            },
-          ]),
-        })
-      )
+        await controller(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'homepage',
+          expect.objectContaining({
+            tasks: expect.arrayContaining([
+              {
+                description:
+                  'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
+                heading: 'Key worker settings',
+                href: '/key-worker-search',
+                id: 'key-worker-settings',
+              },
+            ]),
+          })
+        )
+      })
     })
 
-    it('should render home page with the key worker statistics task', async () => {
-      config.app.keyworkerDashboardStatsEnabled = true
-      keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
+    describe('when the user is a keyworker monitor', () => {
+      beforeEach(() => oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'KEYWORKER_MONITOR' }]))
 
-      await controller(req, res)
+      it('should render home page with the key worker settings task', async () => {
+        keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
 
-      expect(res.render).toHaveBeenCalledWith(
-        'homepage',
-        expect.objectContaining({
-          tasks: expect.arrayContaining([
-            {
-              description: 'View the statistics for your establishment’s key workers.',
-              heading: 'Key worker statistics',
-              href: '/key-worker-statistics',
-              id: 'key-worker-statistics',
-            },
-          ]),
-        })
-      )
+        await controller(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'homepage',
+          expect.objectContaining({
+            tasks: expect.arrayContaining([
+              {
+                description:
+                  'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
+                heading: 'Key worker settings',
+                href: '/key-worker-search',
+                id: 'key-worker-settings',
+              },
+            ]),
+          })
+        )
+      })
     })
 
-    it('should render home page with the establishment key worker settings task', async () => {
-      oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'KW_MIGRATION' }])
+    describe('when the prison is migrated and keyworker dashboard stats is enabled', () => {
+      beforeEach(() => {
+        config.app.keyworkerDashboardStatsEnabled = true
+        keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
+      })
 
-      await controller(req, res)
+      it('should render home page with the key worker statistics task', async () => {
+        await controller(req, res)
 
-      expect(res.render).toHaveBeenCalledWith(
-        'homepage',
-        expect.objectContaining({
-          tasks: expect.arrayContaining([
-            {
-              description: 'Allow auto-allocation, edit key worker capacity and session frequency.',
-              heading: 'Manage your establishment’s key worker settings',
-              href: '/manage-key-worker-settings',
-              id: 'establishment-key-worker-settings',
-            },
-          ]),
-        })
-      )
+        expect(res.render).toHaveBeenCalledWith(
+          'homepage',
+          expect.objectContaining({
+            tasks: expect.arrayContaining([
+              {
+                description: 'View the statistics for your establishment’s key workers.',
+                heading: 'Key worker statistics',
+                href: '/key-worker-statistics',
+                id: 'key-worker-statistics',
+              },
+            ]),
+          })
+        )
+      })
+    })
+
+    describe('when the prison is migrated and the user has keyworker migration role', () => {
+      beforeEach(() => {
+        keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
+        oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'KW_MIGRATION' }])
+      })
+
+      it('should render home page with the key worker settings task', async () => {
+        await controller(req, res)
+
+        expect(res.render).toHaveBeenCalledWith(
+          'homepage',
+          expect.objectContaining({
+            tasks: expect.arrayContaining([
+              {
+                description: 'Allow auto-allocation, edit key worker capacity and session frequency.',
+                heading: 'Manage your establishment’s key worker settings',
+                href: '/manage-key-worker-settings',
+                id: 'establishment-key-worker-settings',
+              },
+            ]),
+          })
+        )
+      })
     })
   })
 })
