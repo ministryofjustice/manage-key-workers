@@ -22,6 +22,15 @@ const NoDataMessage = styled('p')`
   font-weight: 700;
 `
 
+export const PeriodText = styled('p')`
+  font-size: ${FONT_SIZE.SIZE_16};
+  margin-bottom: ${SPACING.SCALE_3};
+
+  @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
+    font-size: ${FONT_SIZE.SIZE_19};
+  }
+`
+
 NoDataMessage.displayName = 'NoDataMessage'
 
 export { Ratio, RatioHeader, NoDataMessage }

@@ -20,17 +20,17 @@ export const Container = styled('p')`
 `
 
 const StatisticChange = ({ change, type }) => {
-  const { value, period } = change
+  const { value } = change
   const changeType = value > 0 ? 'increase' : 'decrease'
 
-  if (!change.value || change.value === 0) return <Container>{`no change since last ${change.period}`}</Container>
+  if (!change.value || change.value === 0) return <Container>{`No change`}</Container>
 
   return (
     <Container>
       {changeType === 'increase' && '+'}
       {createValueString(value, type)}
-      <img src={`/images/icon-${changeType}.png`} alt={changeType} height={20} width={20} />
-      {period && `since last ${period}`}
+      {" "}
+      {changeType}
     </Container>
   )
 }
@@ -38,7 +38,6 @@ const StatisticChange = ({ change, type }) => {
 StatisticChange.propTypes = {
   change: PropTypes.shape({
     value: PropTypes.number,
-    period: PropTypes.string,
   }).isRequired,
   type: PropTypes.string.isRequired,
 }

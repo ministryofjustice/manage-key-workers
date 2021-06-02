@@ -15,7 +15,7 @@ import { switchToIsoDateFormat } from '../stringUtils'
 
 import { setPrisonLevelKeyworkerStats, setLoaded } from '../redux/actions'
 
-import { RatioHeader, Ratio, NoDataMessage } from './KeyworkerDashboard.styles'
+import { RatioHeader, Ratio, NoDataMessage, PeriodText } from './KeyworkerDashboard.styles'
 
 export class KeyworkerDashboard extends Component {
   async componentDidMount() {
@@ -93,7 +93,7 @@ export class KeyworkerDashboard extends Component {
   render() {
     const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad } = this.props
     return (
-      <Page title={`Key worker statistics - ${activeCaseLoad}`}>
+      <Page title={`Key worker statistics for ${activeCaseLoad}`}>
         <hr />
         <GridRow>
           <GridCol>
@@ -107,6 +107,8 @@ export class KeyworkerDashboard extends Component {
           </GridCol>
         </GridRow>
         <hr />
+        <PeriodText>Displaying statistics from {`${fromDate}`} to {`${toDate}`}. 
+        </PeriodText>
         {this.renderData()}
       </Page>
     )

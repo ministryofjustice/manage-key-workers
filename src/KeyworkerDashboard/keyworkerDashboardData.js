@@ -8,7 +8,7 @@ export default [
     },
   },
   {
-    heading: 'Percentage of prisoners with allocated key worker',
+    heading: 'Percentage of prisoners with an allocated key worker',
     value: 89,
     change: {
       value: 2,
@@ -17,7 +17,7 @@ export default [
     type: 'percentage',
   },
   {
-    heading: 'Average time from reception to allocation',
+    heading: 'Average time from reception to key worker allocation',
     value: 2,
     change: {
       value: 0,
@@ -26,7 +26,7 @@ export default [
     type: 'day',
   },
   {
-    heading: 'Average time from reception to first session',
+    heading: 'Average time from reception to first key worker session',
     value: 3,
     change: {
       value: 1,
