@@ -38,6 +38,22 @@ export class KeyworkerDashboard extends Component {
     return { firstDay, lastDay }
   }
 
+  getComparisonDates = (fromDate, toDate) => {
+    let from = fromDate
+    let to = toDate
+    if (!fromDate) {
+      const { firstDay, lastDay } = this.getLastMonthsDates()
+      from = firstDay
+      to = lastDay
+    }
+    const diff = moment.duration(moment(to).diff(moment(from))).asDays()
+    const comparisonFromMoment = moment(fromDate).subtract(diff, 'days')
+    const comparisonToMoment = moment(toDate).subtract(diff + 1, 'days')
+    const comparisonFromDate = switchToIsoDateFormat(comparisonFromMoment)
+    const comparisonToDate = switchToIsoDateFormat(comparisonToMoment)
+    return { comparisonFromDate, comparisonToDate }
+  }
+
   onSubmit = (values) => {
     const { fromDate, toDate } = values
     this.loadStatsForPeriod(switchToIsoDateFormat(fromDate), switchToIsoDateFormat(toDate))
@@ -70,11 +86,17 @@ export class KeyworkerDashboard extends Component {
   )
 
   renderData = () => {
-    const { data } = this.props
-
+    const { data, fromDate, toDate } = this.props
+    const { comparisonFromDate, comparisonToDate } = this.getComparisonDates(fromDate, toDate)
     if (data.length > 0) {
       return (
         <>
+          {data.length > 0 && (
+            <PeriodText>
+              Displaying statistics from {`${fromDate}`} to {`${toDate}`}. Comparing against statistics from{' '}
+              {`${comparisonFromDate}`} to {`${comparisonToDate}`}.
+            </PeriodText>
+          )}
           <GridRow>{data.slice(0, 4).map((statistic) => this.renderStatistic(statistic))}</GridRow>
           {data.length > 4 && (
             <>
@@ -92,6 +114,7 @@ export class KeyworkerDashboard extends Component {
 
   render() {
     const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad } = this.props
+
     return (
       <Page title={`Key worker statistics for ${activeCaseLoad}`}>
         <hr />
@@ -107,8 +130,6 @@ export class KeyworkerDashboard extends Component {
           </GridCol>
         </GridRow>
         <hr />
-        <PeriodText>Displaying statistics from {`${fromDate}`} to {`${toDate}`}. 
-        </PeriodText>
         {this.renderData()}
       </Page>
     )
