@@ -23,14 +23,12 @@ const StatisticChange = ({ change, type }) => {
   const { value } = change
   const changeType = value > 0 ? 'increase' : 'decrease'
 
-  if (!change.value || change.value === 0) return <Container>{`No change`}</Container>
+  if (!change.value || change.value === 0) return <Container>No change</Container>
 
   return (
     <Container>
       {changeType === 'increase' && '+'}
-      {createValueString(value, type)}
-      {" "}
-      {changeType}
+      {createValueString(value, type)} {changeType}
     </Container>
   )
 }
