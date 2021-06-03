@@ -11,7 +11,7 @@ import { withRouter } from 'react-router'
 import Statistic from '../Statistic/Statistic'
 import Page from '../Components/Page'
 import Period from '../Period/Period'
-import { switchToIsoDateFormat } from '../stringUtils'
+import { switchToIsoDateFormat, formatDateToLongHand } from '../stringUtils'
 
 import { setPrisonLevelKeyworkerStats, setLoaded } from '../redux/actions'
 
@@ -38,19 +38,28 @@ export class KeyworkerDashboard extends Component {
     return { firstDay, lastDay }
   }
 
+  formatChosenDates = (fromDate, toDate) => {
+    const formattedChosenFromDate = moment(fromDate, 'YYYY-MM-DD').format('DD MMMM YYYY')
+    const formattedChosenToDate = moment(toDate, 'YYYY-MM-DD').format('DD MMMM YYYY')
+
+    return { formattedChosenFromDate, formattedChosenToDate }
+  }
+
   getComparisonDates = (fromDate, toDate) => {
+    // dates come in the format YYYY-MM-DD
     let from = fromDate
     let to = toDate
-    if (!fromDate) {
+    if (fromDate === '') {
       const { firstDay, lastDay } = this.getLastMonthsDates()
       from = firstDay
       to = lastDay
     }
-    const diff = moment.duration(moment(to).diff(moment(from))).asDays()
-    const comparisonFromMoment = moment(fromDate).subtract(diff, 'days')
-    const comparisonToMoment = moment(toDate).subtract(diff + 1, 'days')
-    const comparisonFromDate = switchToIsoDateFormat(comparisonFromMoment)
-    const comparisonToDate = switchToIsoDateFormat(comparisonToMoment)
+    const diff = moment.duration(moment(to, 'YYYY-MM-DD').diff(moment(from, 'YYYY-MM-DD'))).asDays()
+    const comparisonFromMoment = moment(from, 'YYYY-MM-DD').subtract(diff, 'days')
+    const comparisonToMoment = moment(to, 'YYYY-MM-DD').subtract(diff + 1, 'days')
+    const comparisonFromDate = formatDateToLongHand(comparisonFromMoment.format())
+    const comparisonToDate = formatDateToLongHand(comparisonToMoment.format())
+
     return { comparisonFromDate, comparisonToDate }
   }
 
@@ -88,13 +97,15 @@ export class KeyworkerDashboard extends Component {
   renderData = () => {
     const { data, fromDate, toDate } = this.props
     const { comparisonFromDate, comparisonToDate } = this.getComparisonDates(fromDate, toDate)
+    const { formattedChosenFromDate, formattedChosenToDate } = this.formatChosenDates(fromDate, toDate)
+
     if (data.length > 0) {
       return (
         <>
           {data.length > 0 && (
-            <PeriodText>
-              Displaying statistics from {`${fromDate}`} to {`${toDate}`}. Comparing against statistics from{' '}
-              {`${comparisonFromDate}`} to {`${comparisonToDate}`}.
+            <PeriodText data-qa="period-text">
+              Displaying statistics from {`${formattedChosenFromDate}`} to {`${formattedChosenToDate}`}. Comparing
+              against statistics from {`${comparisonFromDate}`} to {`${comparisonToDate}`}.
             </PeriodText>
           )}
           <GridRow>{data.slice(0, 4).map((statistic) => this.renderStatistic(statistic))}</GridRow>
