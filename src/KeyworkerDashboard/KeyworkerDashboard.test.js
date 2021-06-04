@@ -7,7 +7,6 @@ import mockHistory from '../test/mockHistory'
 describe('<KeyworkerDashboard />', () => {
   describe('Data available for dates chosen', () => {
     it('calculates the comparison dates as a like-for-like number of days previous - 30 days', () => {
-      // chosen dates come in the format YYYY-MM-DD
       const dateValues = {
         fromDate: '2020-12-01',
         toDate: '2020-12-31',
@@ -37,46 +36,12 @@ describe('<KeyworkerDashboard />', () => {
 
       const wrapper = shallow(<KeyworkerDashboard {...props} />)
       const dates = wrapper.instance().getComparisonDates(dateValues.fromDate, dateValues.toDate)
-      expect(dates).toEqual({ comparisonFromDate: '01 November 2020', comparisonToDate: '30 November 2020' })
-    })
-
-    it('calculates the comparison dates when no fromDate and toDate have been chosen - default dates', () => {
-      // default dates come in the format YYYY-MM-DD
-      const dateValues = {
-        fromDate: '',
-        toDate: '',
-      }
-
-      const props = {
-        agencyId: 'TEST',
-        activeCaseLoad: 'TEST',
-        displayBack: jest.fn(),
-        handleError: jest.fn(),
-        history: mockHistory,
-        migrated: true,
-        dispatchStats: jest.fn(),
-        dispatchLoaded: jest.fn(),
-        data: [
-          {
-            heading: '',
-            value: 1,
-            type: '',
-            name: '',
-          },
-        ],
-        prisonerToKeyWorkerRatio: 6,
-        ...dateValues,
-        store: () => {},
-      }
-
-      const lastMonth = moment().subtract(2, 'months')
-      const firstDay = lastMonth.startOf('month').format('DD MMMM YYYY')
-      const lastDay = lastMonth.endOf('month').format('DD MMMM YYYY')
-      const expectedDates = { comparisonFromDate: firstDay, comparisonToDate: lastDay }
-
-      const wrapper = shallow(<KeyworkerDashboard {...props} />)
-      const dates = wrapper.instance().getComparisonDates(dateValues.fromDate, dateValues.toDate)
-      expect(dates).toEqual(expectedDates)
+      expect(dates).toEqual({
+        comparisonFromDate: '01 November 2020',
+        comparisonToDate: '30 November 2020',
+        formattedChosenFromDate: '01 December 2020',
+        formattedChosenToDate: '31 December 2020',
+      })
     })
   })
 
