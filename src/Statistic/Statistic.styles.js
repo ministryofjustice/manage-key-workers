@@ -10,7 +10,8 @@ export const Container = styled('div')`
 export const Heading = styled('h2')`
   flex: 1 0 auto;
   margin: 0 0 ${SPACING.SCALE_3};
-  font-size: ${FONT_SIZE.SIZE_16};
+  font-size: ${FONT_SIZE.SIZE_19};
+  font-weight: bold;
 
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
     font-size: ${FONT_SIZE.SIZE_19};
@@ -20,8 +21,7 @@ export const Heading = styled('h2')`
 export const Value = styled('strong')`
   display: block;
   margin: 0 0 ${SPACING.SCALE_3};
-  font-size: ${FONT_SIZE.SIZE_24};
-  font-weight: bold;
+  font-size: ${FONT_SIZE.SIZE_36};
   line-height: 1;
 
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {

@@ -1,17 +1,10 @@
 import styled from 'styled-components'
-import { SPACING, FONT_SIZE, BREAKPOINTS } from '@govuk-react/constants'
+import { SPACING } from '@govuk-react/constants'
 
 export const FilterStyled = styled('div')`
   display: flex;
   align-items: flex-end;
-  margin-bottom: ${SPACING.SCALE_4};
+  margin-bottom: ${SPACING.SCALE_4} !important;
 `
 
-export const DefaultText = styled('p')`
-  font-size: ${FONT_SIZE.SIZE_16};
-
-  @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
-    margin-bottom: 0;
-    font-size: ${FONT_SIZE.SIZE_19};
-  }
-`
+export default { FilterStyled }

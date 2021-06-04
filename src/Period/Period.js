@@ -4,7 +4,7 @@ import { H3 } from '@govuk-react/heading'
 import moment from 'moment'
 import { Form, Field } from 'react-final-form'
 
-import { FilterStyled, DefaultText } from './Period.styles'
+import { FilterStyled } from './Period.styles'
 import Date from '../Components/Date'
 import { switchToIsoDateFormat, renderDate } from '../stringUtils'
 import { formInputType, formMetaType } from '../types'
@@ -43,15 +43,14 @@ const Period = ({ fromDate, toDate, onSubmit }) => (
     validate={validate}
     render={({ handleSubmit, pristine, invalid }) => (
       <form onSubmit={handleSubmit}>
-        <H3 size="SMALL">Select date range to view</H3>
+        <H3 size="SMALL">Select a date range to view</H3>
         <FilterStyled>
           <Field name="fromDate" component={DateAdapter} title="From" />
           <Field name="toDate" component={DateAdapter} title="To" />
           <button type="submit" className="button greyButton" disabled={pristine || invalid}>
-            Update
+            View
           </button>
         </FilterStyled>
-        <DefaultText>The default is the last calendar month.</DefaultText>
       </form>
     )}
   />

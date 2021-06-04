@@ -11,11 +11,11 @@ import { withRouter } from 'react-router'
 import Statistic from '../Statistic/Statistic'
 import Page from '../Components/Page'
 import Period from '../Period/Period'
-import { switchToIsoDateFormat } from '../stringUtils'
+import { switchToIsoDateFormat, formatDateToLongHand } from '../stringUtils'
 
 import { setPrisonLevelKeyworkerStats, setLoaded } from '../redux/actions'
 
-import { RatioHeader, Ratio, NoDataMessage } from './KeyworkerDashboard.styles'
+import { RatioHeader, Ratio, NoDataMessage, PeriodText } from './KeyworkerDashboard.styles'
 
 export class KeyworkerDashboard extends Component {
   async componentDidMount() {
@@ -36,6 +36,19 @@ export class KeyworkerDashboard extends Component {
     const lastDay = switchToIsoDateFormat(lastMonth.endOf('month'))
 
     return { firstDay, lastDay }
+  }
+
+  getComparisonDates = (fromDate, toDate) => {
+    const fromDateMoment = moment(fromDate, 'YYYY-MM-DD')
+    const toDateMoment = moment(toDate, 'YYYY-MM-DD')
+    const diff = moment.duration(toDateMoment.diff(fromDateMoment)).asDays()
+
+    const comparisonFromDate = formatDateToLongHand(fromDateMoment.subtract(diff, 'days').format())
+    const comparisonToDate = formatDateToLongHand(toDateMoment.subtract(diff + 1, 'days').format())
+    const formattedChosenFromDate = formatDateToLongHand(fromDate)
+    const formattedChosenToDate = formatDateToLongHand(toDate)
+
+    return { comparisonFromDate, comparisonToDate, formattedChosenFromDate, formattedChosenToDate }
   }
 
   onSubmit = (values) => {
@@ -70,11 +83,17 @@ export class KeyworkerDashboard extends Component {
   )
 
   renderData = () => {
-    const { data } = this.props
+    const { data, fromDate, toDate } = this.props
+    const { comparisonFromDate, comparisonToDate, formattedChosenFromDate, formattedChosenToDate } =
+      (toDate && this.getComparisonDates(fromDate, toDate)) || {}
 
     if (data.length > 0) {
       return (
         <>
+          <PeriodText data-qa="period-text">
+            Displaying statistics from {`${formattedChosenFromDate}`} to {`${formattedChosenToDate}`}. Comparing against
+            statistics from {`${comparisonFromDate}`} to {`${comparisonToDate}`}.
+          </PeriodText>
           <GridRow>{data.slice(0, 4).map((statistic) => this.renderStatistic(statistic))}</GridRow>
           {data.length > 4 && (
             <>
@@ -92,8 +111,9 @@ export class KeyworkerDashboard extends Component {
 
   render() {
     const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad } = this.props
+
     return (
-      <Page title={`Key worker statistics - ${activeCaseLoad}`}>
+      <Page title={`Key worker statistics for ${activeCaseLoad}`}>
         <hr />
         <GridRow>
           <GridCol>
