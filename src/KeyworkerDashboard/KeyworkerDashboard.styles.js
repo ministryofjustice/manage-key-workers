@@ -1,19 +1,18 @@
 import styled from 'styled-components'
 import { BREAKPOINTS, FONT_SIZE, SPACING } from '@govuk-react/constants'
-import Heading from '@govuk-react/heading'
 
-const Ratio = styled('strong')`
+const Ratio = styled('p')`
   margin: 0;
-  font-size: ${FONT_SIZE.SIZE_24};
-  font-weight: 700;
+  font-size: ${FONT_SIZE.SIZE_36};
 
   @media (min-width: ${BREAKPOINTS.LARGESCREEN}) {
     font-size: 36px;
   }
 `
 
-const RatioHeader = styled(Heading)`
-  font-weight: 200;
+const RatioHeader = styled('h2')`
+  font-size: ${FONT_SIZE.SIZE_19};
+  font-weight: 900;
   margin-right: ${SPACING.SCALE_3};
   margin-bottom: ${SPACING.SCALE_3} !important;
 `

@@ -18,7 +18,7 @@ export const Heading = styled('h2')`
   }
 `
 
-export const Value = styled('strong')`
+export const Value = styled('p')`
   display: block;
   margin: 0 0 ${SPACING.SCALE_3};
   font-size: ${FONT_SIZE.SIZE_36};
