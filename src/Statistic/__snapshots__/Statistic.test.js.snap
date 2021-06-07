@@ -10,12 +10,12 @@ exports[`<Statistic /> should match the default snapshot 1`] = `
   >
     Unknown statistic
   </h2>
-  <strong
+  <p
     className="sc-htpNat ibCvOT"
     data-qa="-value"
   >
     -
-  </strong>
+  </p>
   <p
     className="sc-bxivhb wfIdL"
   >
@@ -34,12 +34,12 @@ exports[`<Statistic /> with negative change value should match the negative chan
   >
     A statistic with a negative change
   </h2>
-  <strong
+  <p
     className="sc-htpNat ibCvOT"
     data-qa="statWithNegativeChange-value"
   >
     0
-  </strong>
+  </p>
   <p
     className="sc-bxivhb wfIdL"
   >
@@ -60,12 +60,12 @@ exports[`<Statistic /> with no change in value over the change period should mat
   >
     A statistic with no change over the change period
   </h2>
-  <strong
+  <p
     className="sc-htpNat ibCvOT"
     data-qa="statWithNoChange-value"
   >
     1
-  </strong>
+  </p>
   <p
     className="sc-bxivhb wfIdL"
   >
@@ -84,12 +84,12 @@ exports[`<Statistic /> with percentages should decorate the value with a percent
   >
     A statistic with a percentage
   </h2>
-  <strong
+  <p
     className="sc-htpNat ibCvOT"
     data-qa="stateWithPercentageValue-value"
   >
     5%
-  </strong>
+  </p>
   <p
     className="sc-bxivhb wfIdL"
   >
@@ -108,12 +108,12 @@ exports[`<Statistic /> with positive change value should match the positive chan
   >
     A statistic with a positive change
   </h2>
-  <strong
+  <p
     className="sc-htpNat ibCvOT"
     data-qa="statWithPositiveChange-value"
   >
     2
-  </strong>
+  </p>
   <p
     className="sc-bxivhb wfIdL"
   >
