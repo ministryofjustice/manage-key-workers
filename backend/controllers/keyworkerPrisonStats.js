@@ -10,12 +10,15 @@ const keyworkerPrisonStatsFactory = (keyworkerApi) => {
     const items = {
       numberOfActiveKeyworkers: { heading: 'Total number of active key workers' },
       percentagePrisonersWithKeyworker: {
-        heading: 'Percentage of prisoners with allocated key worker',
+        heading: 'Percentage of prisoners with an allocated key worker',
         type: 'percentage',
       },
-      avgNumDaysFromReceptionToAllocationDays: { heading: 'Average time from reception to allocation', type: 'day' },
+      avgNumDaysFromReceptionToAllocationDays: {
+        heading: 'Average time from reception to key worker allocation',
+        type: 'day',
+      },
       avgNumDaysFromReceptionToKeyWorkingSession: {
-        heading: 'Average time from reception to first session',
+        heading: 'Average time from reception to first key worker session',
         type: 'day',
       },
       numProjectedKeyworkerSessions: { heading: 'Number of projected key worker sessions' },
