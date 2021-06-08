@@ -66,7 +66,7 @@ const Header = ({ authUrl, dpsUrl, user }) => {
         </span>
         {user.caseLoadOptions && user.caseLoadOptions.length && (
           <a className="location-bar__link" href={`${dpsUrl}change-caseload`} data-test="change-location-link">
-            Change location
+            Change your location
           </a>
         )}
       </div>
