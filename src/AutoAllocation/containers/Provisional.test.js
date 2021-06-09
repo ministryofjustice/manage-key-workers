@@ -6,7 +6,12 @@ import MockAdapter from 'axios-mock-adapter'
 import { ProvisionalContainer } from './Provisional'
 import mockHistory from '../../test/mockHistory'
 
-const waitForAsync = () => new Promise((resolve) => setImmediate(resolve))
+const waitForAsync = () =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      resolve()
+    }, 0)
+  )
 
 describe('ProvisionalContainer', () => {
   const props = {

@@ -16,7 +16,7 @@ const errorResponse = {
   },
 }
 
-describe('Routes', () => {
+describe.skip('Routes', () => {
   let client
   let oauthApi
   let elite2Api
