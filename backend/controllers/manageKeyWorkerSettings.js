@@ -22,7 +22,7 @@ module.exports = ({ keyworkerApi }) => {
     const { allowAuto, standardCapacity, extendedCapacity, frequency } = req.body
     const { supported } = await keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId)
 
-    if (standardCapacity > extendedCapacity) {
+    if (Number(standardCapacity) > Number(extendedCapacity)) {
       return renderTemplate(req, res, {
         errors: [
           {
