@@ -3,11 +3,12 @@ module.exports = ({ keyworkerApi }) => {
     const { errors = [], inputtedFormValues = {} } = pageData
     const { activeCaseLoadId } = req.session?.userDetails || {}
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId)
+    const allowAuto = prisonStatus.autoAllocatedSupported ? 'yes' : 'no'
 
     return res.render('manageKeyWorkerSettings', {
       errors,
       formValues: {
-        allowAuto: inputtedFormValues.allowAuto || prisonStatus.autoAllocatedSupported,
+        allowAuto: inputtedFormValues.allowAuto || allowAuto,
         standardCapacity: (inputtedFormValues.standardCapacity || prisonStatus.capacityTier1).toString(),
         extendedCapacity: (inputtedFormValues.extendedCapacity || prisonStatus.capacityTier2).toString(),
         frequency: Number(inputtedFormValues.frequency || prisonStatus.kwSessionFrequencyInWeeks),
