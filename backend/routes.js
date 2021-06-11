@@ -24,6 +24,7 @@ const offenderSearchFactory = require('./controllers/searchOffendersController')
 
 const viewResidentialLocation = require('./controllers/viewResidentialLocation')
 const allocateKeyWorker = require('./controllers/allocateKeyWorker')
+const manageKeyWorkerSettings = require('./controllers/manageKeyWorkerSettings')
 
 const systemOauthClient = require('./api/systemOauthClient')
 
@@ -95,6 +96,9 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
   router.use('/manage-key-workers', (req, res) => {
     res.redirect(req.url.replace(/\/manage-key-workers(.*)$/gi, '$1'))
   })
+
+  router.get('/manage-key-worker-settings-new', manageKeyWorkerSettings({ keyworkerApi }).index)
+  router.post('/manage-key-worker-settings-new', manageKeyWorkerSettings({ keyworkerApi }).post)
 
   return router
 }
