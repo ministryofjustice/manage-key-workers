@@ -27,7 +27,7 @@
     {{ govukErrorSummary({
       titleText: "There is a problem",
       errorList: errors,
-      attributes: { 'data-qa-errors': true }
+      attributes: { "data-test": "form-errors" }
     }) }}
   {% endif %}
 
@@ -55,7 +55,8 @@
           text: "No",
           checked: formValues.allowAuto === 'no'
         }
-      ]
+      ],
+      attributes: { "data-test": "allow-auto" }
     }) }}
 
     {{ govukInput({
@@ -65,7 +66,8 @@
       classes: "govuk-input--width-2",
       id: "standardCapacity",
       name: "standardCapacity",
-      value: formValues.standardCapacity
+      value: formValues.standardCapacity,
+      attributes: { "data-test": "standard-capacity" }
     }) }}
 
     {{ govukInput({
@@ -76,7 +78,8 @@
       id: "extendedCapacity",
       name: "extendedCapacity",
       value: formValues.extendedCapacity,
-      errorMessage: errors | findError('extendedCapacity')
+      errorMessage: errors | findError("extendedCapacity"),
+      attributes: { "data-test": "extended-capacity" }
     }) }}
 
     {{ govukSelect({
@@ -98,20 +101,23 @@
           value: 4,
           text: "Every 4 weeks"
         }
-      ] | setSelected(formValues.frequency)
+      ] | setSelected(formValues.frequency),
+      attributes: { "data-test": "frequency" }
     }) }}
 
     {{ govukButton({
       text: "Save",
       type: "submit",
-      classes: "govuk-!-margin-right-2"
+      classes: "govuk-!-margin-right-2",
+      attributes: { "data-test": "save-button" }
     }) }}
 
     {{ govukButton({
       text: "Cancel",
       classes: "govuk-button--secondary",
       element: "a",
-      href: "/"
+      href: "/",
+      attributes: { "data-test": "cancel-button" }
     }) }}
   </form>
 {% endblock %}
