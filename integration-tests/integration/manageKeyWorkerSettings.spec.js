@@ -45,7 +45,9 @@ context('Manage key worker settings', () => {
     cy.get('[data-test="form-errors"]')
       .find('li')
       .then(($errors) => {
-        expect($errors.get(0).innerText).to.contain('Capacity Tier 2 must be equal to or greater than Capacity Tier 1')
+        expect($errors.get(0).innerText).to.contain(
+          'Enter a maximum number of prisoners a key worker is able to have which is not less than the number of prisoners a key worker can have allocated'
+        )
       })
   })
 })
