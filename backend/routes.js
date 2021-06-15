@@ -9,8 +9,6 @@ const { keyworkerSearchFactory } = require('./controllers/keyworkerSearch')
 const { keyworkerProfileFactory } = require('./controllers/keyworkerProfile')
 const { keyworkerUpdateFactory } = require('./controllers/keyworkerUpdate')
 const { userMeFactory } = require('./controllers/userMe')
-const { autoAllocationAndMigrateFactory } = require('./controllers/autoAllocationMigrate')
-const { manualAllocationAndMigrateFactory } = require('./controllers/manualAllocationMigrate')
 const { keyworkerSettingsFactory } = require('./controllers/keyworkerSettings')
 const { getConfiguration } = require('./controllers/getConfig')
 const { keyworkerStatsFactory } = require('./controllers/keyworkerStats')
@@ -24,6 +22,7 @@ const offenderSearchFactory = require('./controllers/searchOffendersController')
 
 const viewResidentialLocation = require('./controllers/viewResidentialLocation')
 const allocateKeyWorker = require('./controllers/allocateKeyWorker')
+const manageKeyWorkerSettings = require('./controllers/manageKeyWorkerSettings')
 
 const systemOauthClient = require('./api/systemOauthClient')
 
@@ -47,11 +46,6 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
   router.use('/api/keyworkerSearch', keyworkerSearchFactory(keyworkerApi).keyworkerSearch)
   router.use('/api/autoAllocateConfirmWithOverride', autoAllocateFactory(keyworkerApi).autoAllocate)
   router.use('/api/keyworkerUpdate', keyworkerUpdateFactory(keyworkerApi).keyworkerUpdate)
-  router.use('/api/autoAllocateMigrate', autoAllocationAndMigrateFactory(keyworkerApi).enableAutoAllocationAndMigrate)
-  router.use(
-    '/api/manualAllocateMigrate',
-    manualAllocationAndMigrateFactory(keyworkerApi).enableManualAllocationAndMigrate
-  )
   router.use('/api/keyworkerSettings', keyworkerSettingsFactory(keyworkerApi, elite2Api).keyworkerSettings)
   router.use('/api/keyworker-profile-stats', keyworkerStatsFactory(keyworkerApi).getStatsForStaffRoute)
   router.use('/api/keyworker-prison-stats', controller.getPrisonStats)
@@ -95,6 +89,9 @@ const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedAp
   router.use('/manage-key-workers', (req, res) => {
     res.redirect(req.url.replace(/\/manage-key-workers(.*)$/gi, '$1'))
   })
+
+  router.get('/manage-key-worker-settings', manageKeyWorkerSettings({ keyworkerApi }).index)
+  router.post('/manage-key-worker-settings', manageKeyWorkerSettings({ keyworkerApi }).post)
 
   return router
 }

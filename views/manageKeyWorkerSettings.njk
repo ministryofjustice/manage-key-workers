@@ -1,0 +1,125 @@
+{% extends "./partials/layout.njk" %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Digital Prison Services",
+        href: dpsUrl
+      },
+      {
+        text: "Manage key workers",
+        href: "/"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors | length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors,
+          attributes: { "data-test": "form-errors" }
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">{{ title }}</h1>
+
+      <form method="POST">
+        {{ govukRadios({
+          classes: "govuk-radios--inline",
+          idPrefix: "allowAuto",
+          name: "allowAuto",
+          fieldset: {
+            legend: {
+              text: "Allow auto-allocation of prisoners to key workers",
+              classes: "govuk-fieldset__legend--s govuk-!-font-weight-regular"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: formValues.allowAuto === 'yes'
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: formValues.allowAuto === 'no'
+            }
+          ],
+          attributes: { "data-test": "allow-auto" }
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Number of prisoners to be allocated to each key worker"
+          },
+          classes: "govuk-input--width-2",
+          id: "standardCapacity",
+          name: "standardCapacity",
+          value: formValues.standardCapacity,
+          attributes: { "data-test": "standard-capacity" }
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Maximum number of prisoners a key worker is able to have"
+          },
+          classes: "govuk-input--width-2",
+          id: "extendedCapacity",
+          name: "extendedCapacity",
+          value: formValues.extendedCapacity,
+          errorMessage: errors | findError("extendedCapacity"),
+          attributes: { "data-test": "extended-capacity" }
+        }) }}
+
+        {{ govukSelect({
+          id: "frequency",
+          name: "frequency",
+          label: {
+            text: "Frequency of key worker sessions"
+          },
+          items: [
+            {
+              value: 1,
+              text: "Every 1 week"
+            },
+            {
+              value: 2,
+              text: "Every 2 weeks"
+            },
+            {
+              value: 4,
+              text: "Every 4 weeks"
+            }
+          ] | setSelected(formValues.frequency),
+          attributes: { "data-test": "frequency" }
+        }) }}
+
+        {{ govukButton({
+          text: "Save",
+          type: "submit",
+          classes: "govuk-!-margin-right-2",
+          attributes: { "data-test": "save-button" }
+        }) }}
+
+        {{ govukButton({
+          text: "Cancel",
+          classes: "govuk-button--secondary",
+          element: "a",
+          href: "/",
+          attributes: { "data-test": "cancel-button" }
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

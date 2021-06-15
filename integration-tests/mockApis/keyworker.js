@@ -7,6 +7,8 @@ module.exports = {
     migrated = true,
     kwSessionFrequencyInWeeks = 1,
     allowAuto = true,
+    capacityTier1 = 3,
+    capacityTier2 = 6,
   }) =>
     stubFor({
       request: {
@@ -22,8 +24,8 @@ module.exports = {
           supported,
           migrated,
           autoAllocatedSupported: allowAuto,
-          capacityTier1: 3,
-          capacityTier2: 6,
+          capacityTier1,
+          capacityTier2,
           kwSessionFrequencyInWeeks,
         },
       },

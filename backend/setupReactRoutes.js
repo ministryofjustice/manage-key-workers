@@ -23,7 +23,6 @@ const setup = () => {
       '/key-worker/:staffId',
       '/key-worker/:staffId/edit',
       '/key-worker/:staffId/confirm-edit',
-      '/manage-key-worker-settings',
     ],
     (req, res) => {
       res.sendFile(path.join(__dirname, '../build/index.html'))

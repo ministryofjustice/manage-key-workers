@@ -13,5 +13,4 @@ export default [
   { path: '/offender-search', breadcrumb: 'Offender search' },
   { path: '/offender-history', breadcrumb: null },
   { path: '/offender-history/:offenderId', breadcrumb: 'Offender key worker allocation history' },
-  { path: '/manage-key-worker-settings', breadcrumb: 'Manage key worker settings' },
 ]

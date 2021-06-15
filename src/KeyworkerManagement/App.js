@@ -11,7 +11,6 @@ import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerP
 import KeyworkerProfileEditContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditContainer'
 import KeyworkerProfileEditConfirmContainer from '../KeyworkerProfile/containers/KeyworkerProfileEditConfirmContainer'
 import KeyworkerSearchContainer from '../KeyworkerProfile/containers/KeyworkerSearchContainer'
-import KeyworkerSettingsContainer from '../Admin/containers/KeyworkerSettingsContainer'
 import KeyworkerSearchResultsContainer from '../KeyworkerProfile/containers/KeyworkerSearchResultsContainer'
 import KeyworkerReports from '../KeyworkerReports/index'
 import AssignTransferContainer from '../AssignTransfer/AssignTransferContainer'
@@ -234,17 +233,6 @@ class App extends React.Component {
               exact
               path="/key-worker/:staffId/confirm-edit"
               render={() => <KeyworkerProfileEditConfirmContainer handleError={this.handleError} />}
-            />
-            <Route
-              exact
-              path="/manage-key-worker-settings"
-              render={() => (
-                <KeyworkerSettingsContainer
-                  displayBack={this.displayBack}
-                  handleError={this.handleError}
-                  clearMessage={this.clearMessage}
-                />
-              )}
             />
           </Switch>
         </div>
