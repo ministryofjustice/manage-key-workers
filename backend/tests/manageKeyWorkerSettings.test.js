@@ -10,6 +10,15 @@ describe('Manage key worker settings', () => {
   beforeEach(() => {
     req = {
       session: {
+        allCaseloads: [
+          {
+            caseLoadId: 'MDI',
+            description: 'Moorland Closed (HMP & YOI)',
+            type: 'INST',
+            caseloadFunction: 'GENERAL',
+            currentlyActive: true,
+          },
+        ],
         userDetails: {
           activeCaseLoadId: 'MDI',
         },
@@ -50,6 +59,7 @@ describe('Manage key worker settings', () => {
           frequency: 4,
           standardCapacity: '5',
         },
+        title: 'Manage Moorland Closed’s key worker settings',
       })
     })
   })
@@ -83,6 +93,7 @@ describe('Manage key worker settings', () => {
             frequency: 2,
             standardCapacity: '4',
           },
+          title: 'Manage Moorland Closed’s key worker settings',
         })
       })
     })

@@ -24,7 +24,7 @@ context('Manage key worker settings', () => {
   it('should have the correct page elements with the correct data', () => {
     cy.visit('/manage-key-worker-settings')
 
-    cy.get('h1').should('contain', 'Manage key worker settings')
+    cy.get('h1').should('contain', 'Manage Moorland’s key worker settings')
     cy.get('[data-test="allow-auto"]').find('#allowAuto').should('be.checked')
     cy.get('[data-test="standard-capacity"]').should('have.value', 5)
     cy.get('[data-test="extended-capacity"]').should('have.value', 10)

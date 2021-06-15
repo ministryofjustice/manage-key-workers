@@ -159,6 +159,12 @@ const ensureIsArray = (data) => (Array.isArray(data) ? data : [data])
 
 const maybePluralise = (noun, count, suffix = 's') => `${count} ${noun}${count !== 1 ? suffix : ''}`
 
+const possessive = (string) => {
+  if (!string) return ''
+
+  return `${string}${string.toLowerCase().endsWith('s') ? '’' : '’s'}`
+}
+
 module.exports = {
   properCase,
   properCaseName,
@@ -183,4 +189,5 @@ module.exports = {
   formatTimestampToDate,
   ensureIsArray,
   maybePluralise,
+  possessive,
 }

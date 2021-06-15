@@ -1,7 +1,14 @@
+const { possessive } = require('../utils')
+
 module.exports = ({ keyworkerApi }) => {
   const renderTemplate = async (req, res, pageData = {}) => {
     const { errors = [], inputtedFormValues = {} } = pageData
-    const { activeCaseLoadId } = req.session?.userDetails || {}
+    const {
+      userDetails: { activeCaseLoadId },
+      allCaseloads,
+    } = req.session || {}
+    const activeCaseLoad = allCaseloads.find((cl) => cl.caseLoadId === activeCaseLoadId)
+    const caseloadWithoutBrackets = activeCaseLoad.description.replace(/ *\([^)]*\) */g, '')
     const prisonStatus = await keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId)
     const allowAuto = prisonStatus.autoAllocatedSupported ? 'yes' : 'no'
 
@@ -13,6 +20,7 @@ module.exports = ({ keyworkerApi }) => {
         extendedCapacity: (inputtedFormValues.extendedCapacity || prisonStatus.capacityTier2).toString(),
         frequency: Number(inputtedFormValues.frequency || prisonStatus.kwSessionFrequencyInWeeks),
       },
+      title: `Manage ${possessive(caseloadWithoutBrackets)} key worker settings`,
     })
   }
 
