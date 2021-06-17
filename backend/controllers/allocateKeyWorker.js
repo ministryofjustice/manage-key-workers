@@ -74,22 +74,40 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
             isManualAllocation &&
             `${offender.keyworkerDisplay} ${formatNumberAllocated(offender.numberAllocated)}`,
           keyworkerStaffId: staffId,
-          keyworkerList: sortAndFormatKeyworkerNameAndAllocationCount(selectableKeyworkers).map((keyworker) => {
-            const isAutoAllocated = keyworker.staffId === offender.staffId
-            return {
-              text: keyworker.formattedName,
-              value: JSON.stringify({
-                allocationType: isAutoAllocated ? 'A' : 'M',
-                firstName: offender.firstName,
-                lastName: offender.lastName,
-                location,
-                offenderNo,
-                releaseDate: confirmedReleaseDate,
-                staffId: keyworker.staffId,
-              }),
-              selected: isAutoAllocated,
-            }
-          }),
+          keyworkerList: [
+            ...(isManualAllocation
+              ? [{ text: 'Select key worker', value: '', selected: true }]
+              : [
+                  {
+                    text: 'Select key worker',
+                    value: JSON.stringify({
+                      allocationType: 'D',
+                      firstName: offender.firstName,
+                      lastName: offender.lastName,
+                      location,
+                      offenderNo,
+                      releaseDate: confirmedReleaseDate,
+                    }),
+                    selected: false,
+                  },
+                ]),
+            ...sortAndFormatKeyworkerNameAndAllocationCount(selectableKeyworkers).map((keyworker) => {
+              const isAutoAllocated = keyworker.staffId === offender.staffId
+              return {
+                text: keyworker.formattedName,
+                value: JSON.stringify({
+                  allocationType: isAutoAllocated ? 'A' : 'M',
+                  firstName: offender.firstName,
+                  lastName: offender.lastName,
+                  location,
+                  offenderNo,
+                  releaseDate: confirmedReleaseDate,
+                  staffId: keyworker.staffId,
+                }),
+                selected: isAutoAllocated,
+              }
+            }),
+          ],
           location,
           name: offender.name,
           prisonNumber: offenderNo,
@@ -138,6 +156,14 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
 
     await Promise.all(
       keyworkerAllocations.map(async ({ staffId, offenderNo, allocationType }) => {
+        if (allocationType === 'D') {
+          await keyworkerApi.deallocate(res.locals, offenderNo, {
+            offenderNo,
+            prisonId: activeCaseLoadId,
+            deallocationReason: 'MANUAL',
+          })
+        }
+
         if (allocationType === 'M') {
           await keyworkerApi.allocate(res.locals, {
             offenderNo,

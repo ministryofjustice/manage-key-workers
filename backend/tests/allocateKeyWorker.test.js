@@ -159,6 +159,11 @@ describe('Allocate key worker', () => {
               hasHistory: false,
               keyworkerList: [
                 {
+                  selected: true,
+                  text: 'Select key worker',
+                  value: '',
+                },
+                {
                   selected: false,
                   text: '6 - Ball, Bob',
                   value:
@@ -181,6 +186,11 @@ describe('Allocate key worker', () => {
             {
               hasHistory: true,
               keyworkerList: [
+                {
+                  selected: true,
+                  text: 'Select key worker',
+                  value: '',
+                },
                 {
                   selected: false,
                   text: '6 - Ball, Bob',
@@ -257,6 +267,11 @@ describe('Allocate key worker', () => {
                 hasHistory: false,
                 keyworkerList: [
                   {
+                    selected: true,
+                    text: 'Select key worker',
+                    value: '',
+                  },
+                  {
                     selected: false,
                     text: '6 - Ball, Bob',
                     value:
@@ -280,6 +295,11 @@ describe('Allocate key worker', () => {
                 hasHistory: false,
                 keyworkerList: [
                   {
+                    selected: true,
+                    text: 'Select key worker',
+                    value: '',
+                  },
+                  {
                     selected: false,
                     text: '6 - Ball, Bob',
                     value:
@@ -296,6 +316,11 @@ describe('Allocate key worker', () => {
               {
                 hasHistory: true,
                 keyworkerList: [
+                  {
+                    selected: true,
+                    text: 'Select key worker',
+                    value: '',
+                  },
                   {
                     selected: false,
                     text: '6 - Ball, Bob',
@@ -455,6 +480,12 @@ describe('Allocate key worker', () => {
               hasHistory: false,
               keyworkerList: [
                 {
+                  selected: false,
+                  text: 'Select key worker',
+                  value:
+                    '{"allocationType":"D","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30"}',
+                },
+                {
                   selected: true,
                   text: '6 - Ball, Bob',
                   value:
@@ -477,6 +508,12 @@ describe('Allocate key worker', () => {
             {
               hasHistory: true,
               keyworkerList: [
+                {
+                  selected: false,
+                  text: 'Select key worker',
+                  value:
+                    '{"allocationType":"D","firstName":"JOHN","lastName":"SMITH","location":"MDI-1-2","offenderNo":"ABC456","releaseDate":"2030-05-30"}',
+                },
                 {
                   selected: true,
                   text: '1 - Smith, Andy',
@@ -550,6 +587,7 @@ describe('Allocate key worker', () => {
   describe('post', () => {
     beforeEach(() => {
       keyworkerApi.allocate = jest.fn()
+      keyworkerApi.deallocate = jest.fn()
       keyworkerApi.autoAllocateConfirm = jest.fn()
     })
 
@@ -633,6 +671,43 @@ describe('Allocate key worker', () => {
 
         expect(keyworkerApi.autoAllocateConfirm).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.allocate).not.toHaveBeenCalled()
+
+        expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/allocate-key-worker')
+      })
+    })
+
+    describe('deallocate', () => {
+      beforeEach(() => {
+        req.body = {
+          allocateKeyworker: [
+            '{"allocationType":"D","firstName":"FERINAND","lastName":"ALFF","location":"MDI-1-1","offenderNo":"ABC123","releaseDate":"2022-04-30"}',
+            '',
+            '',
+          ],
+          allocationMode: 'auto',
+          recentlyAllocated: '[]',
+        }
+      })
+
+      it('should make the correct calls', async () => {
+        await controller.post(req, res)
+
+        expect(req.flash).toHaveBeenCalledWith('recentlyAllocated', [
+          {
+            allocationType: 'D',
+            firstName: 'FERINAND',
+            lastName: 'ALFF',
+            location: 'MDI-1-1',
+            offenderNo: 'ABC123',
+            releaseDate: '2022-04-30',
+          },
+        ])
+
+        expect(keyworkerApi.deallocate).toHaveBeenCalledWith({}, 'ABC123', {
+          deallocationReason: 'MANUAL',
+          offenderNo: 'ABC123',
+          prisonId: 'MDI',
+        })
 
         expect(res.redirect).toHaveBeenCalledWith('/manage-key-workers/allocate-key-worker')
       })
