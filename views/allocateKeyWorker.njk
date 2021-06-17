@@ -70,7 +70,7 @@
                 text: "Select key worker",
                 classes: "govuk-visually-hidden"
               },
-              items: prisoner.keyworkerList | addDefaultSelectedValue('Select key worker', true),
+              items: prisoner.keyworkerList,
               attributes: { 'data-test': 'allocate-keyworker-select' },
               classes: 'govuk-!-margin-bottom-0'
             }) if prisoner.keyworkerList
