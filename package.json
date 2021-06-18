@@ -34,7 +34,7 @@
     "bunyan": "^1.8.12",
     "bunyan-middleware": "^1.0.1",
     "connect-flash": "^0.1.1",
-    "connect-redis": "^4.0.3",
+    "connect-redis": "^6.0.0",
     "cookie-session": "^2.0.0-beta.3",
     "debug": "~2.6.9",
     "dotenv": "^5.0.1",
