@@ -30,7 +30,8 @@ const handleErrors = (res) => (error) => {
   }
 }
 
-const forwardingHandlerFactory = (elite2Api) =>
+const forwardingHandlerFactory =
+  (elite2Api) =>
   /**
    * Forward the incoming request using the elite2Api get and post functions.
    * @param req

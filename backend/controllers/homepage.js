@@ -54,25 +54,27 @@ const keyWorkerTasks = (prisonStatus) => [
   },
 ]
 
-module.exports = ({ keyworkerApi, oauthApi }) => async (req, res) => {
-  const { activeCaseLoadId } = req.session?.userDetails || {}
+module.exports =
+  ({ keyworkerApi, oauthApi }) =>
+  async (req, res) => {
+    const { activeCaseLoadId } = req.session?.userDetails || {}
 
-  const [currentRoles, prisonStatus] = await Promise.all([
-    oauthApi.currentRoles(res.locals),
-    keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId),
-  ])
+    const [currentRoles, prisonStatus] = await Promise.all([
+      oauthApi.currentRoles(res.locals),
+      keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId),
+    ])
 
-  const roleCodes = currentRoles.map((userRole) => userRole.roleCode)
+    const roleCodes = currentRoles.map((userRole) => userRole.roleCode)
 
-  const availableTasks = keyWorkerTasks(prisonStatus).filter(
-    (task) => Boolean(task.roles === null || task.roles.find((role) => roleCodes.includes(role))) && task.enabled
-  )
+    const availableTasks = keyWorkerTasks(prisonStatus).filter(
+      (task) => Boolean(task.roles === null || task.roles.find((role) => roleCodes.includes(role))) && task.enabled
+    )
 
-  if (!availableTasks.length) return res.redirect('/not-found')
+    if (!availableTasks.length) return res.redirect('/not-found')
 
-  return res.render('homepage', {
-    tasks: availableTasks
-      // eslint-disable-next-line no-unused-vars
-      .map(({ roles, enabled, ...task }) => task),
-  })
-}
+    return res.render('homepage', {
+      tasks: availableTasks
+        // eslint-disable-next-line no-unused-vars
+        .map(({ roles, enabled, ...task }) => task),
+    })
+  }

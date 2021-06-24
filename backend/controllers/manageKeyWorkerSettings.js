@@ -36,8 +36,7 @@ module.exports = ({ keyworkerApi }) => {
         errors: [
           {
             href: '#extendedCapacity',
-            text:
-              'Enter a maximum number of prisoners a key worker is able to have which is not less than the number of prisoners a key worker can have allocated',
+            text: 'Enter a maximum number of prisoners a key worker is able to have which is not less than the number of prisoners a key worker can have allocated',
           },
         ],
         inputtedFormValues: req.body,
