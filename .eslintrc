@@ -1,6 +1,6 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/react"],
-  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier"],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
@@ -23,7 +23,7 @@
     "jsx-a11y/label-has-associated-control": [2, { "assert": "either" }],
     "jsx-a11y/label-has-for": 0, // disable as has been deprecated and replaced by label-has-associated-control
     "react/jsx-props-no-spreading": 0,
-    "react/no-deprecated": 0,
+    "react/no-deprecated": 0
   },
   "plugins": ["prettier"]
 }

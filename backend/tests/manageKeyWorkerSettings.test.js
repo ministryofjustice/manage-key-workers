@@ -83,8 +83,7 @@ describe('Manage key worker settings', () => {
           errors: [
             {
               href: '#extendedCapacity',
-              text:
-                'Enter a maximum number of prisoners a key worker is able to have which is not less than the number of prisoners a key worker can have allocated',
+              text: 'Enter a maximum number of prisoners a key worker is able to have which is not less than the number of prisoners a key worker can have allocated',
             },
           ],
           formValues: {

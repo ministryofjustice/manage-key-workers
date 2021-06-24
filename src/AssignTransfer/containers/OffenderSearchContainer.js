@@ -25,12 +25,8 @@ class OffenderSearchContainer extends Component {
   }
 
   getLocations = async () => {
-    const {
-      offenderSearchLocationsDispatch,
-      offenderSearchHousingLocationDispatch,
-      handleError,
-      initialSearch,
-    } = this.props
+    const { offenderSearchLocationsDispatch, offenderSearchHousingLocationDispatch, handleError, initialSearch } =
+      this.props
     try {
       const response = await axios.get('/api/userLocations')
       offenderSearchLocationsDispatch(response.data)

@@ -116,13 +116,8 @@ class KeyworkerProfileEditConfirmContainer extends Component {
   }
 
   validate() {
-    const {
-      behaviour,
-      status,
-      annualLeaveReturnDate,
-      resetValidationErrorsDispatch,
-      setValidationErrorDispatch,
-    } = this.props
+    const { behaviour, status, annualLeaveReturnDate, resetValidationErrorsDispatch, setValidationErrorDispatch } =
+      this.props
 
     resetValidationErrorsDispatch()
     let result = true

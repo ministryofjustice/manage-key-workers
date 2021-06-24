@@ -19,14 +19,8 @@ class ProvisionalContainer extends Component {
   }
 
   async componentDidMount() {
-    const {
-      user,
-      history,
-      allocatedDetailsDispatch,
-      manualOverrideDispatch,
-      handleError,
-      setLoadedDispatch,
-    } = this.props
+    const { user, history, allocatedDetailsDispatch, manualOverrideDispatch, handleError, setLoadedDispatch } =
+      this.props
 
     setLoadedDispatch(false)
 
@@ -84,14 +78,8 @@ class ProvisionalContainer extends Component {
   }
 
   async postManualOverride(history) {
-    const {
-      agencyId,
-      allocatedKeyworkers,
-      setMessageDispatch,
-      onFinishAllocation,
-      handleError,
-      setLoadedDispatch,
-    } = this.props
+    const { agencyId, allocatedKeyworkers, setMessageDispatch, onFinishAllocation, handleError, setLoadedDispatch } =
+      this.props
 
     setLoadedDispatch(false)
 
