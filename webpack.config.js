@@ -39,6 +39,7 @@ if (isAnalyse) plugins.push(new BundleAnalyzerPlugin())
 
 module.exports = {
   mode: 'development',
+  devtool: 'cheap-module-source-map',
   context: __dirname,
   entry: [...developmentEntries, './src/index.js'],
   output: {
