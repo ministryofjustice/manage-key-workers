@@ -30,6 +30,11 @@ export const PeriodText = styled('p')`
   }
 `
 
-NoDataMessage.displayName = 'NoDataMessage'
+const SubHeader = styled('p')`
+  margin-top: -${SPACING.SCALE_3};
+`
 
-export { Ratio, RatioHeader, NoDataMessage }
+NoDataMessage.displayName = 'NoDataMessage'
+SubHeader.displayName = 'SubHeader'
+
+export { Ratio, RatioHeader, NoDataMessage, SubHeader }

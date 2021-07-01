@@ -5,34 +5,34 @@ import mockHistory from '../test/mockHistory'
 
 describe('<KeyworkerDashboard />', () => {
   describe('Data available for dates chosen', () => {
+    const dateValues = {
+      fromDate: '2020-12-01',
+      toDate: '2020-12-31',
+    }
+
+    const props = {
+      agencyId: 'TEST',
+      activeCaseLoad: 'Test',
+      displayBack: jest.fn(),
+      handleError: jest.fn(),
+      history: mockHistory,
+      migrated: true,
+      dispatchStats: jest.fn(),
+      dispatchLoaded: jest.fn(),
+      data: [
+        {
+          heading: '',
+          value: 1,
+          type: '',
+          name: '',
+        },
+      ],
+      prisonerToKeyWorkerRatio: 6,
+      ...dateValues,
+      store: () => {},
+    }
+
     it('calculates the comparison dates as a like-for-like number of days previous - 30 days', () => {
-      const dateValues = {
-        fromDate: '2020-12-01',
-        toDate: '2020-12-31',
-      }
-
-      const props = {
-        agencyId: 'TEST',
-        activeCaseLoad: 'TEST',
-        displayBack: jest.fn(),
-        handleError: jest.fn(),
-        history: mockHistory,
-        migrated: true,
-        dispatchStats: jest.fn(),
-        dispatchLoaded: jest.fn(),
-        data: [
-          {
-            heading: '',
-            value: 1,
-            type: '',
-            name: '',
-          },
-        ],
-        prisonerToKeyWorkerRatio: 6,
-        ...dateValues,
-        store: () => {},
-      }
-
       const wrapper = shallow(<KeyworkerDashboard {...props} />)
       const dates = wrapper.instance().getComparisonDates(dateValues.fromDate, dateValues.toDate)
       expect(dates).toEqual({
@@ -40,6 +40,34 @@ describe('<KeyworkerDashboard />', () => {
         comparisonToDate: '30 November 2020',
         formattedChosenFromDate: '01 December 2020',
         formattedChosenToDate: '31 December 2020',
+      })
+    })
+
+    describe('When the key worker sessions frequency is 1 week', () => {
+      beforeEach(() => {
+        props.sequenceFrequency = 1
+      })
+
+      it('a non pluralised sub header', () => {
+        const wrapper = shallow(<KeyworkerDashboard {...props} />)
+
+        expect(wrapper.find('SubHeader').render().text()).toEqual(
+          'Prisoners in Test have a key worker session every 1 week.'
+        )
+      })
+    })
+
+    describe('When the key worker sessions frequency is 2 weeks', () => {
+      beforeEach(() => {
+        props.sequenceFrequency = 2
+      })
+
+      it('render a pluralised sub header', () => {
+        const wrapper = shallow(<KeyworkerDashboard {...props} />)
+
+        expect(wrapper.find('SubHeader').render().text()).toEqual(
+          'Prisoners in Test have a key worker session every 2 weeks.'
+        )
       })
     })
   })

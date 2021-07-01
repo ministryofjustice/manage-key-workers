@@ -15,7 +15,7 @@ import { switchToIsoDateFormat, formatDateToLongHand } from '../stringUtils'
 
 import { setPrisonLevelKeyworkerStats, setLoaded } from '../redux/actions'
 
-import { RatioHeader, Ratio, NoDataMessage, PeriodText } from './KeyworkerDashboard.styles'
+import { RatioHeader, Ratio, NoDataMessage, PeriodText, SubHeader } from './KeyworkerDashboard.styles'
 
 export class KeyworkerDashboard extends Component {
   async componentDidMount() {
@@ -110,10 +110,14 @@ export class KeyworkerDashboard extends Component {
   }
 
   render() {
-    const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad } = this.props
+    const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad, sequenceFrequency } = this.props
 
     return (
       <Page title={`Key worker statistics for ${activeCaseLoad}`}>
+        <SubHeader>
+          Prisoners in {activeCaseLoad} have a key worker session every {sequenceFrequency} week
+          {sequenceFrequency > 1 ? 's' : ''}.
+        </SubHeader>
         <hr />
         <GridRow>
           <GridCol>
@@ -139,6 +143,7 @@ KeyworkerDashboard.propTypes = {
   handleError: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   migrated: PropTypes.bool.isRequired,
+  sequenceFrequency: PropTypes.number.isRequired,
   fromDate: PropTypes.string.isRequired,
   toDate: PropTypes.string.isRequired,
   dispatchStats: PropTypes.func.isRequired,
@@ -159,6 +164,7 @@ const mapStateToProps = (state) => ({
   prisonerToKeyWorkerRatio: state.prisonLevelKeyWorkerStatsDashboard.prisonerToKeyWorkerRatio,
   activeCaseLoad: state.app.user.caseLoadOptions.filter((caseLoad) => caseLoad.currentlyActive)[0].description,
   migrated: state.keyworkerSettings.migrated,
+  sequenceFrequency: state.keyworkerSettings.sequenceFrequency,
   fromDate: state.prisonLevelKeyWorkerStatsDashboard.fromDate,
   toDate: state.prisonLevelKeyWorkerStatsDashboard.toDate,
 })
