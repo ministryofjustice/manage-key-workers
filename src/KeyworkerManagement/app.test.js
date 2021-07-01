@@ -96,8 +96,8 @@ describe('App component', () => {
   it('should pass through correct props to the footer container', () => {
     const component = shallow(<App {...props} />)
 
-    expect(
-      component.find({ supportUrl: `${config.supportUrl}feedback-and-support` }).prop('prisonStaffHubUrl')
-    ).toEqual(config.prisonStaffHubUrl)
+    expect(component.find({ supportUrl: config.supportUrl }).prop('prisonStaffHubUrl')).toEqual(
+      config.prisonStaffHubUrl
+    )
   })
 })

@@ -266,10 +266,7 @@ class App extends React.Component {
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <FooterContainer
-            supportUrl={`${config.supportUrl}feedback-and-support`}
-            prisonStaffHubUrl={config.prisonStaffHubUrl}
-          />
+          <FooterContainer supportUrl={config.supportUrl} prisonStaffHubUrl={config.prisonStaffHubUrl} />
         </div>
       </Router>
     )
