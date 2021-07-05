@@ -79,8 +79,8 @@ describe('Homepage', () => {
             tasks: expect.arrayContaining([
               {
                 description:
-                  'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
-                heading: 'Key worker settings',
+                  'You can manage a key worker’s availability, reassign their prisoners and check their individual statistics.',
+                heading: 'View key workers in your establishment',
                 href: '/key-worker-search',
                 id: 'key-worker-settings',
               },
@@ -103,9 +103,8 @@ describe('Homepage', () => {
           expect.objectContaining({
             tasks: expect.arrayContaining([
               {
-                description:
-                  'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
-                heading: 'Key worker settings',
+                description: 'You can view a key worker’s availability and check their individual statistics.',
+                heading: 'View key workers in your establishment',
                 href: '/key-worker-search',
                 id: 'key-worker-settings',
               },
