@@ -30,8 +30,11 @@ const keyWorkerTasks = (prisonStatus) => [
   },
   {
     id: 'key-worker-settings',
-    heading: 'Key worker settings',
-    description: 'Manage a key worker’s availability, re-assign their prisoners and check their individual statistics.',
+    heading: 'View key workers in your establishment',
+    description: ({ roles }) =>
+      roles.includes('OMIC_ADMIN')
+        ? 'You can manage a key worker’s availability, reassign their prisoners and check their individual statistics.'
+        : 'You can view a key worker’s availability and check their individual statistics.',
     href: '/key-worker-search',
     roles: ['OMIC_ADMIN', 'KEYWORKER_MONITOR'],
     enabled: prisonStatus?.migrated,
@@ -54,6 +57,25 @@ const keyWorkerTasks = (prisonStatus) => [
   },
 ]
 
+const hasAnyRole = (task, userRoles) => {
+  const acceptedRoles = task.roles
+  if (!task.enabled) {
+    return false
+  }
+  return !acceptedRoles || acceptedRoles.some((role) => userRoles.includes(role))
+}
+
+const processTask = (task, userRoles) => {
+  if (typeof task.description === 'function') {
+    return {
+      ...task,
+      description: task.description({ roles: userRoles }),
+    }
+  }
+
+  return task
+}
+
 module.exports =
   ({ keyworkerApi, oauthApi }) =>
   async (req, res) => {
@@ -66,9 +88,9 @@ module.exports =
 
     const roleCodes = currentRoles.map((userRole) => userRole.roleCode)
 
-    const availableTasks = keyWorkerTasks(prisonStatus).filter(
-      (task) => Boolean(task.roles === null || task.roles.find((role) => roleCodes.includes(role))) && task.enabled
-    )
+    const availableTasks = keyWorkerTasks(prisonStatus)
+      .filter((task) => hasAnyRole(task, roleCodes))
+      .map((task) => processTask(task, roleCodes))
 
     if (!availableTasks.length) return res.redirect('/not-found')
 
