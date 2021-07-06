@@ -45,7 +45,15 @@ app.set('view engine', 'njk')
 setupNunjucks(app)
 setupPhaseName(app, config)
 
-app.use(helmet({ contentSecurityPolicy: false }))
+app.use(helmet())
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      'script-src': ["'self'", "'unsafe-inline'", 'https://code.jquery.com/'],
+    },
+  })
+)
 app.use(setupStaticContent())
 app.use(
   hsts({
