@@ -45,7 +45,7 @@ app.set('view engine', 'njk')
 setupNunjucks(app)
 setupPhaseName(app, config)
 
-app.use(helmet())
+app.use(helmet({ contentSecurityPolicy: false }))
 app.use(setupStaticContent())
 app.use(
   hsts({
