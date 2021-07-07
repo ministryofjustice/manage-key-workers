@@ -49,4 +49,21 @@ context('Homepage', () => {
       })
     })
   })
+
+  describe('Footer', () => {
+    it('should display the feedback banner with the correct href', () => {
+      cy.task('stubLogin', { username: 'ITAG_USER', caseload: 'MDI' })
+      cy.login()
+
+      cy.visit('/')
+
+      cy.get('[data-test="feedback-banner"]')
+        .find('a')
+        .should('contain', 'Give feedback on this service')
+        .should('have.attr', 'href')
+        .then((href) => {
+          expect(href).to.equal('https://eu.surveymonkey.com/r/GYB8Y9Q?source=localhost/')
+        })
+    })
+  })
 })

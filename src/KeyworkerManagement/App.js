@@ -18,6 +18,7 @@ import UnallocatedContainer from '../AutoAllocation/containers/Unallocated'
 import ProvisionalAllocationContainer from '../AutoAllocation/containers/Provisional'
 import AllocationHistoryContainer from '../AllocationHistory/containers/AllocationHistoryContainer'
 import KeyworkerDashboard from '../KeyworkerDashboard/KeyworkerDashboard'
+import FeedbackBanner from '../FeedbackBanner/FeedbackBanner'
 import Terms from '../Footer/terms-and-conditions'
 import Error from '../Error/index'
 import links from '../links'
@@ -266,6 +267,7 @@ class App extends React.Component {
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
+          <FeedbackBanner />
           <FooterContainer supportUrl={config.supportUrl} prisonStaffHubUrl={config.prisonStaffHubUrl} />
         </div>
       </Router>
