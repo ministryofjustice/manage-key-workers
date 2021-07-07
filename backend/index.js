@@ -103,11 +103,6 @@ app.use(noCache())
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
-app.get('/terms', async (req, res) => {
-  res.render('terms', { mailTo: config.app.mailTo, homeLink: config.app.notmEndpointUrl })
-})
-
 app.use(setupWebSession())
 app.use(setupAuth({ oauthApi: apis.oauthApi, tokenVerificationApi: apis.tokenVerificationApi }))
 app.use(currentUser({ prisonApi: apis.elite2Api, oauthApi: apis.oauthApi }))
@@ -118,6 +113,16 @@ app.use((req, res, next) => {
   req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
   next()
 })
+
+app.use(async (req, res, next) => {
+  res.locals = {
+    ...res.locals,
+    currentUrlPath: req.originalUrl,
+    hostname: req.hostname,
+  }
+  next()
+})
+
 app.use(setupWebpackForDev())
 // Extract pagination header information from requests and set on the 'context'
 app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
