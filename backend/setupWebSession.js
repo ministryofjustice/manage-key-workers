@@ -3,6 +3,7 @@ const redis = require('redis')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 
+const log = require('./log')
 const config = require('./config')
 
 const router = express.Router()
@@ -18,6 +19,8 @@ module.exports = () => {
       password,
       tls: config.app.production ? {} : false,
     })
+
+    client.on('error', log.error.bind(log))
 
     return new RedisStore({ client })
   }

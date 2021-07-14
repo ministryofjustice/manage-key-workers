@@ -1,5 +1,5 @@
+const querystring = require('querystring')
 const contextProperties = require('../contextProperties')
-const { createQueryParamString } = require('../../src/stringUtils')
 
 const processError = (error) => {
   if (!error.response) throw error
@@ -160,7 +160,7 @@ const keyworkerApiFactory = (client) => {
    * @returns an Object which contains summary and prisons
    */
   const prisonStats = (context, prisonId, fromDate, toDate) =>
-    get(context, `/key-worker-stats?${createQueryParamString({ prisonId, fromDate, toDate })}`)
+    get(context, `/key-worker-stats?${querystring.stringify({ prisonId, fromDate, toDate })}`)
 
   return {
     allocate,
