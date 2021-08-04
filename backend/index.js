@@ -117,7 +117,7 @@ app.use((req, res, next) => {
 app.use(async (req, res, next) => {
   res.locals = {
     ...res.locals,
-    currentUrlPath: req.originalUrl,
+    currentUrlPath: req.baseUrl + req.path,
     hostname: req.hostname,
   }
   next()
