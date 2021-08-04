@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 const { serviceCheckFactory } = require('../controllers/healthCheck')
 
 const service = (name, url) => {
@@ -12,8 +15,7 @@ const gatherCheckInfo = (total, currentValue) => ({ ...total, [currentValue.name
 
 const getBuild = () => {
   try {
-    // eslint-disable-next-line import/no-unresolved,global-require
-    return require('../../build-info.json')
+    return JSON.parse(fs.readFileSync(path.join(process.cwd(), './build-info.json'), 'utf-8'))
   } catch (ex) {
     return null
   }
