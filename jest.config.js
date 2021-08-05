@@ -13,7 +13,7 @@ module.exports = {
     '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
     '^(?!.*\\.(js|jsx|mjs|css|json)$)': '<rootDir>/config/jest/fileTransform.js',
   },
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!(new-nomis-shared-components|spin.js)/).+\\.(js|jsx|mjs)$'],
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\](?!(spin.js)/).+\\.(js|jsx|mjs)$'],
   moduleNameMapper: {
     '^react-native$': 'react-native-web',
   },

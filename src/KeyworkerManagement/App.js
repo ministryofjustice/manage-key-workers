@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { FooterContainer } from 'new-nomis-shared-components'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -33,6 +32,7 @@ import {
   setUserDetails,
 } from '../redux/actions/index'
 import { configType, errorType, userType } from '../types'
+import FooterContainer from '../Components/FooterContainer'
 
 const axios = require('axios')
 
