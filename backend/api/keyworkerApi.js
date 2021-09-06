@@ -141,10 +141,6 @@ const keyworkerApiFactory = (client) => {
        private String agencyId;
        private Long assignedLivingUnitId;
        private String assignedLivingUnitDesc;
-       private Long facialImageId;
-       private String assignedOfficerUserId;
-       private List<String> aliases;
-       private String iepLevel;
      }
    */
   const unallocated = (context, agencyId) => get(context, `/key-worker/${agencyId}/offenders/unallocated`)
