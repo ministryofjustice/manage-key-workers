@@ -35,6 +35,7 @@ module.exports = (on) => {
     stubTokenHealth: tokenverification.stubHealth,
     stubPrisonHealth: prisonApi.stubHealth,
     stubKeyWorkerHealth: keyworker.stubHealth,
+    stubKeyWorkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),

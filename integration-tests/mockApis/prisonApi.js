@@ -5,7 +5,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/users/me',
+        urlPattern: '/prison/api/users/me',
       },
       response: {
         status: 200,
@@ -23,7 +23,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'PUT',
-        url: '/api/users/me/activeCaseLoad',
+        url: '/prison/api/users/me/activeCaseLoad',
       },
       response: {
         status: 200,
@@ -36,7 +36,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/users/me/caseLoads',
+        urlPattern: '/prison/api/users/me/caseLoads',
       },
       response: {
         status: 200,
@@ -56,7 +56,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: '/api/locations/description/.+?/inmates',
+        urlPathPattern: '/prison/api/locations/description/.+?/inmates',
       },
       response: {
         status: 200,
@@ -70,7 +70,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/users/me/locations',
+        urlPattern: '/prison/api/users/me/locations',
       },
       response: {
         status: 200,
@@ -108,7 +108,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: `/api/staff/.+?/.+?/roles`,
+        urlPattern: `/prison/api/staff/.+?/.+?/roles`,
       },
       response: {
         status: 200,
@@ -122,7 +122,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPath: '/api/offender-sentences',
+        urlPath: '/prison/api/offender-sentences',
       },
       response: {
         status: 200,
@@ -136,7 +136,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPath: '/api/offender-assessments/csra/rating',
+        urlPath: '/prison/api/offender-assessments/csra/rating',
       },
       response: {
         status: 200,
@@ -150,7 +150,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/health/ping',
+        urlPattern: '/prison/health/ping',
       },
       response: {
         status: 200,
