@@ -32,8 +32,8 @@ module.exports = {
         },
       },
     }),
-  stubUserCaseloads: (caseloads) => {
-    return stubFor({
+  stubUserCaseloads: (caseloads) =>
+    stubFor({
       request: {
         method: 'GET',
         urlPattern: '/api/users/me/caseLoads',
@@ -51,8 +51,7 @@ module.exports = {
           },
         ],
       },
-    })
-  },
+    }),
   stubSearchOffenders: (response) =>
     stubFor({
       request: {
@@ -67,8 +66,8 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubUserLocations: (locations) => {
-    return stubFor({
+  stubUserLocations: (locations) =>
+    stubFor({
       request: {
         method: 'GET',
         urlPattern: '/api/users/me/locations',
@@ -104,10 +103,9 @@ module.exports = {
           },
         ],
       },
-    })
-  },
-  stubStaffRoles: (roles) => {
-    return stubFor({
+    }),
+  stubStaffRoles: (roles) =>
+    stubFor({
       request: {
         method: 'GET',
         urlPattern: `/api/staff/.+?/.+?/roles`,
@@ -119,8 +117,7 @@ module.exports = {
         },
         jsonBody: roles || [{ role: 'KW' }],
       },
-    })
-  },
+    }),
   stubOffenderSentences: (response = []) =>
     stubFor({
       request: {
@@ -147,6 +144,20 @@ module.exports = {
           'Content-Type': 'application/json;charset=UTF-8',
         },
         jsonBody: [],
+      },
+    }),
+  stubHealth: () =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/health/ping',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: '{"status":"UP"}',
       },
     }),
 }

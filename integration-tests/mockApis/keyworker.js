@@ -199,6 +199,20 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubHealth: () =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/health/ping',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: '{"status":"UP"}',
+      },
+    }),
 
   verifyAllocateWasCalled: () => verifyRequest('/key-worker/allocate', 'POST'),
   verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),

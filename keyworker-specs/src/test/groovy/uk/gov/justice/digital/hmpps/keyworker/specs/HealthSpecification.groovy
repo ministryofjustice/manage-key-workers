@@ -37,24 +37,6 @@ class HealthSpecification extends Specification {
         }
     }
 
-    def "Health page reports ok"() {
-
-        given:
-        keyworkerApi.stubHealth()
-        elite2Api.stubHealth()
-        oauthApi.stubHealth()
-        tokenVerificationApi.stubHealth()
-        complexityOfNeedApi.stubHealth()
-
-        when:
-        def response = this.http.get()
-        then:
-        response.uptime > 0.0
-        response.name == "manage-key-workers"
-        !response.version.isEmpty()
-        response.api == [auth:'UP', elite2:'UP', keyworker:'UP', tokenverification: 'UP', complexityOfNeed: 'UP']
-    }
-
     def "Health page reports API down"() {
 
         given:
