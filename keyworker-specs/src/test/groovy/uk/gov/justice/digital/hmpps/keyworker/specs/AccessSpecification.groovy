@@ -29,50 +29,6 @@ class AccessSpecification extends BrowserReportingSpec {
     TokenVerificationApi tokenVerificationApi = new TokenVerificationApi()
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
-// see allocateKeyWorker."should not show if user is not a keyworker admin"
-//     def "should not see the auto allocation link when the current user is not a key worker admin"() {
-//         oauthApi.stubGetMyRoles([])
-//         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 1, true)
-//
-//         given: "I am logged in"
-//         fixture.loginWithoutStaffRoles(ITAG_USER)
-//
-//         when: "I am on the key worker landing page"
-//
-//         then: "I should not see the auto allocation link"
-//         assert autoAllocateLink.displayed == false
-//     }
-// see allocateKeyWorker."should show if prison is migrated, allows auto and user has permissions"
-//     def "should see the auto allocation link when the prison has been migrated and the current user is a key worker admin"() {
-//         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-//         def roles = [keyWorkerAdminRole]
-//         oauthApi.stubGetMyRoles(roles)
-//         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
-//
-//         given: "I am logged in"
-//         fixture.loginWithoutStaffRoles(ITAG_USER)
-//
-//         when: "I am on the key worker page"
-//
-//         then: "I should not see the auto allocation link"
-//         assert autoAllocateLink.displayed == true
-//     }
-//
-// see allocateKeyWorker."should not show when prison is not migrated"
-//     def "should not see auto allocation link if the prison has not been migrated regardless of role"() {
-//         def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-//         def roles = [keyWorkerAdminRole]
-//         oauthApi.stubGetMyRoles(roles)
-//         keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, false, 0, true)
-//
-//         given: "I am logged in"
-//         fixture.loginWithoutStaffRoles(ITAG_USER)
-//
-//         when: "I am on the key worker page"
-//
-//         then: "I should not see the auto allocation link"
-//         assert autoAllocateLink.displayed == false
-//     }
 
     def "should not see the edit profile and update buttons on the profile page when the current user is not a key worker admin"() {
         oauthApi.stubGetMyRoles([])
