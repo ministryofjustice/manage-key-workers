@@ -38,6 +38,9 @@ module.exports = (on) => {
     stubKeyworkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
+    stubKeyworkerAllocations: ({ userId, agencyId, response }) =>
+      keyworker.stubKeyworkerAllocations({ userId, agencyId, response }),
+    stubKeyworker: ({ userId, agencyId, response }) => keyworker.stubKeyworker({ userId, agencyId, response }),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
     stubKeyworkerSearch: (keyworkers) => keyworker.stubKeyworkerSearch(keyworkers),
     stubOffenderKeyworker: (response) => keyworker.stubOffenderKeyworker(response),
@@ -60,5 +63,6 @@ module.exports = (on) => {
     stubKeyworkerStats: (response) => keyworker.stubKeyworkerStats(response),
     verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
       keyworker.verifyKeyworkerStatsCalled({ prisonId, from, to }),
+    stubCaseNoteUsageList: prisonApi.stubCaseNoteUsageList,
   })
 }

@@ -30,7 +30,36 @@ module.exports = {
         },
       },
     }),
-  stubAvailableKeyworkers: (keyworkers) =>
+  stubKeyworkerAllocations: ({ userId, agencyId, response = {} }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPathPattern: `/key-worker/key-worker/${userId}/prison/${agencyId}/offenders`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
+
+  stubKeyworker: ({ userId, agencyId, response = {} }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPathPattern: `/key-worker/key-worker/${userId}/prison/${agencyId}`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
+  stubAvailableKeyworkers: (keyworkers = {}) =>
     stubFor({
       request: {
         method: 'GET',
@@ -128,7 +157,6 @@ module.exports = {
         jsonBody: {},
       },
     }),
-
   stubOffenderKeyworkerList: ({ agencyId, response = [] }) =>
     stubFor({
       request: {
