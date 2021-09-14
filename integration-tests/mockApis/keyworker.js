@@ -199,6 +199,20 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubKeyworkerStats: (response = {}) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/key-worker/key-worker-stats.+?',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        jsonBody: response,
+      },
+    }),
   stubHealth: () =>
     stubFor({
       request: {
@@ -210,7 +224,7 @@ module.exports = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: '{"status":"UP"}',
+        jsonBody: '{"status":"UP"}',
       },
     }),
   stubHealthTimeoutError: (timeout) =>
@@ -225,6 +239,8 @@ module.exports = {
       },
     }),
 
+  verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
+    verifyRequest(`/key-worker/key-worker-stats?prisonId=${prisonId}&fromDate=${from}&toDate=${to}`, 'GET'),
   verifyAllocateWasCalled: () => verifyRequest('/key-worker/key-worker/allocate', 'POST'),
   verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),
 }

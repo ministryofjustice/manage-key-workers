@@ -9,7 +9,7 @@ context('Manage key workers health test', () => {
       cy.task('stubComplexityHealth')
       cy.task('stubTokenHealth')
       cy.task('stubPrisonHealth')
-      cy.task('stubKeyWorkerHealth')
+      cy.task('stubKeyworkerHealth')
       cy.request('/health').then((response) => {
         expect(response.status).to.eq(200)
         expect(response.body.uptime).to.greaterThan(0)
@@ -30,7 +30,7 @@ context('Manage key workers health test', () => {
       cy.task('stubComplexityHealth')
       cy.task('stubTokenHealth')
       cy.task('stubPrisonHealth')
-      cy.task('stubKeyWorkerHealthTimoutError', 2000)
+      cy.task('stubKeyworkerHealthTimoutError', 2000)
       cy.request({ method: 'GET', url: '/health', failOnStatusCode: false }).then((response) => {
         expect(response.status).to.eq(503)
         expect(response.body.uptime).to.greaterThan(0)

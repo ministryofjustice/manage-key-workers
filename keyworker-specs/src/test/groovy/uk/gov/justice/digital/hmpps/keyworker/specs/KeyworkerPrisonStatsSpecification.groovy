@@ -34,66 +34,6 @@ class KeyworkerPrisonStatsSpecification extends BrowserReportingSpec {
     UrlPattern requestUrl =
             WireMock.urlPathEqualTo("/key-worker-stats")
 
-    def "keyworker dashboard should display correct message if there is no data"() {
-        keyworkerApi.stubNoCurrentDataKeyworkerPrisonStatsResponse()
-
-        given: "I am logged in"
-        fixture.loginAs(UserAccount.ITAG_USER)
-
-        when: "I navigate to a key worker prison stats dashboard page"
-        fixture.toKeyworkerDashboardPage()
-
-        then: "No data message should display"
-        at KeyworkerDashboardPage
-        headingText == 'Key worker statistics - LEEDS (HMP)'
-        noDataMessage == 'There is no data for this period.'
-    }
-
-    def "keyworker dashboard should display correctly"() {
-        keyworkerApi.stubKeyworkerPrisonStatsResponse()
-
-        given: "I am logged in"
-        fixture.loginAs(UserAccount.ITAG_USER)
-
-        when: "I navigate to a key worker prison stats dashboard page"
-        fixture.toKeyworkerDashboardPage()
-
-        then: "Data should display as expected"
-        at KeyworkerDashboardPage
-        headingText == 'Key worker statistics - LEEDS (HMP)'
-        numberOfActiveKeyworkers == '100'
-        numberKeyWorkerSessions == '2400'
-        percentagePrisonersWithKeyworker == '100%'
-        numProjectedKeyworkerSessions == '2400'
-        complianceRate == '100%'
-        avgNumDaysFromReceptionToAllocationDays == '-'
-        avgNumDaysFromReceptionToKeyWorkingSession == '-'
-
-        then: "Should see the prisoner to key worker ratio"
-        prisonerToKeyworkerRation == '3:1'
-    }
-
-    def "should make a request for stats for the last full month by default"() {
-        given: "I am logged in"
-        fixture.loginAs(UserAccount.ITAG_USER)
-
-        when: "I navigate to the key worker prison stats dashboard page"
-        keyworkerApi.stubKeyworkerPrisonStatsResponse()
-        fixture.toKeyworkerDashboardPage()
-
-        then: "I set the from and to dates to cover the last full calendar month"
-        at KeyworkerDashboardPage
-
-        LocalDate lastMonth = LocalDate.now().minusMonths(1)
-        LocalDate from = lastMonth.withDayOfMonth(1)
-        LocalDate to = lastMonth.withDayOfMonth(lastMonth.lengthOfMonth())
-
-        keyworkerApi.verify(WireMock.getRequestedFor(requestUrl)
-                .withQueryParam("prisonId", WireMock.equalTo("LEI"))
-                .withQueryParam("fromDate", WireMock.equalTo(from.toString()))
-                .withQueryParam("toDate", WireMock.equalTo(to.toString())))
-    }
-
     def "should load the dashboard then select the previous 7 days and make a request for stats"() {
         given: "I am logged in"
         fixture.loginAs(UserAccount.ITAG_USER)
