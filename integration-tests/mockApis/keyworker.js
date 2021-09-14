@@ -238,7 +238,6 @@ module.exports = {
         status: 500,
       },
     }),
-
   verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
     verifyRequest(`/key-worker/key-worker-stats?prisonId=${prisonId}&fromDate=${from}&toDate=${to}`, 'GET'),
   verifyAllocateWasCalled: () => verifyRequest('/key-worker/key-worker/allocate', 'POST'),
