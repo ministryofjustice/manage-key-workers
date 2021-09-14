@@ -13,7 +13,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: `/key-worker/prison/${agencyLocationId}`,
+        urlPattern: `/key-worker/key-worker/prison/${agencyLocationId}`,
       },
       response: {
         status: 200,
@@ -34,7 +34,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: '/key-worker/.+?/available',
+        urlPathPattern: '/key-worker/key-worker/.+?/available',
       },
       response: {
         status: 200,
@@ -48,7 +48,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: '/key-worker/.+?/members',
+        urlPathPattern: '/key-worker/key-worker/.+?/members',
       },
       response: {
         status: 200,
@@ -62,7 +62,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPathPattern: '/key-worker/.+?/offenders',
+        urlPathPattern: '/key-worker/key-worker/.+?/offenders',
       },
       response: {
         status: 200,
@@ -76,7 +76,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPath: `/key-worker/allocation-history/summary`,
+        urlPath: `/key-worker/key-worker/allocation-history/summary`,
       },
       response: {
         status: 200,
@@ -90,7 +90,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: `/key-worker/allocation-history/${offenderNo}`,
+        urlPattern: `/key-worker/key-worker/allocation-history/${offenderNo}`,
       },
       response: {
         status: 200,
@@ -103,7 +103,7 @@ module.exports = {
   stubAllocate: () =>
     stubFor({
       request: {
-        urlPath: '/key-worker/allocate',
+        urlPath: '/key-worker/key-worker/allocate',
         method: 'POST',
       },
       response: {
@@ -117,7 +117,7 @@ module.exports = {
   stubDeallocate: (offenderNo) =>
     stubFor({
       request: {
-        urlPath: `/key-worker/deallocate/${offenderNo}`,
+        urlPath: `/key-worker/key-worker/deallocate/${offenderNo}`,
         method: 'PUT',
       },
       response: {
@@ -133,7 +133,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPattern: `/key-worker/${agencyId}/offenders`,
+        urlPattern: `/key-worker/key-worker/${agencyId}/offenders`,
       },
       response: {
         status: 200,
@@ -147,7 +147,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: `/key-worker/${agencyId}/offenders/unallocated`,
+        urlPattern: `/key-worker/key-worker/${agencyId}/offenders/unallocated`,
       },
       response: {
         status: 200,
@@ -161,7 +161,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPattern: `/key-worker/${agencyId}/allocate/start`,
+        urlPattern: `/key-worker/key-worker/${agencyId}/allocate/start`,
       },
       response: {
         status,
@@ -175,7 +175,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: `/key-worker/${agencyId}/allocations.+?`,
+        urlPattern: `/key-worker/key-worker/${agencyId}/allocations.+?`,
       },
       response: {
         status: 200,
@@ -189,7 +189,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPattern: `/key-worker/${agencyId}/allocate/confirm`,
+        urlPattern: `/key-worker/key-worker/${agencyId}/allocate/confirm`,
       },
       response: {
         status: 200,
@@ -199,7 +199,32 @@ module.exports = {
         jsonBody: response,
       },
     }),
+  stubHealth: () =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/key-worker/health/ping',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: '{"status":"UP"}',
+      },
+    }),
+  stubHealthTimeoutError: (timeout) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/key-worker/health/ping',
+      },
+      response: {
+        fixedDelayMilliseconds: timeout,
+        status: 500,
+      },
+    }),
 
-  verifyAllocateWasCalled: () => verifyRequest('/key-worker/allocate', 'POST'),
+  verifyAllocateWasCalled: () => verifyRequest('/key-worker/key-worker/allocate', 'POST'),
   verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),
 }

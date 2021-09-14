@@ -15,4 +15,18 @@ module.exports = {
         jsonBody: offenders,
       },
     }),
+  stubHealth: () =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/complexity/ping',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: '{"status":"UP"}',
+      },
+    }),
 }

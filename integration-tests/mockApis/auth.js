@@ -53,6 +53,21 @@ const redirect = () =>
     },
   })
 
+const stubHealth = () =>
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/auth/health/ping',
+    },
+    response: {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: '{"status":"UP"}',
+    },
+  })
+
 const logout = () =>
   stubFor({
     request: {
@@ -217,4 +232,5 @@ module.exports = {
   stubEmail,
   redirect,
   stubClientCredentialsRequest,
+  stubHealth,
 }

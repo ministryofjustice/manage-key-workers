@@ -5,7 +5,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/users/me',
+        urlPattern: '/prison/api/users/me',
       },
       response: {
         status: 200,
@@ -23,7 +23,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'PUT',
-        url: '/api/users/me/activeCaseLoad',
+        url: '/prison/api/users/me/activeCaseLoad',
       },
       response: {
         status: 200,
@@ -32,11 +32,11 @@ module.exports = {
         },
       },
     }),
-  stubUserCaseloads: (caseloads) => {
-    return stubFor({
+  stubUserCaseloads: (caseloads) =>
+    stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/users/me/caseLoads',
+        urlPattern: '/prison/api/users/me/caseLoads',
       },
       response: {
         status: 200,
@@ -51,13 +51,12 @@ module.exports = {
           },
         ],
       },
-    })
-  },
+    }),
   stubSearchOffenders: (response) =>
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: '/api/locations/description/.+?/inmates',
+        urlPathPattern: '/prison/api/locations/description/.+?/inmates',
       },
       response: {
         status: 200,
@@ -67,11 +66,11 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubUserLocations: (locations) => {
-    return stubFor({
+  stubUserLocations: (locations) =>
+    stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/api/users/me/locations',
+        urlPattern: '/prison/api/users/me/locations',
       },
       response: {
         status: 200,
@@ -104,13 +103,12 @@ module.exports = {
           },
         ],
       },
-    })
-  },
-  stubStaffRoles: (roles) => {
-    return stubFor({
+    }),
+  stubStaffRoles: (roles) =>
+    stubFor({
       request: {
         method: 'GET',
-        urlPattern: `/api/staff/.+?/.+?/roles`,
+        urlPattern: `/prison/api/staff/.+?/.+?/roles`,
       },
       response: {
         status: 200,
@@ -119,13 +117,12 @@ module.exports = {
         },
         jsonBody: roles || [{ role: 'KW' }],
       },
-    })
-  },
+    }),
   stubOffenderSentences: (response = []) =>
     stubFor({
       request: {
         method: 'POST',
-        urlPath: '/api/offender-sentences',
+        urlPath: '/prison/api/offender-sentences',
       },
       response: {
         status: 200,
@@ -139,7 +136,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPath: '/api/offender-assessments/csra/rating',
+        urlPath: '/prison/api/offender-assessments/csra/rating',
       },
       response: {
         status: 200,
@@ -147,6 +144,20 @@ module.exports = {
           'Content-Type': 'application/json;charset=UTF-8',
         },
         jsonBody: [],
+      },
+    }),
+  stubHealth: () =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: '/prison/health/ping',
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: '{"status":"UP"}',
       },
     }),
 }
