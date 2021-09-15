@@ -30,44 +30,6 @@ class AccessSpecification extends BrowserReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
 
-    def "should see the edit profile and update buttons on the profile page when not a key worker admin"() {
-        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-        def roles = [keyWorkerAdminRole]
-        oauthApi.stubGetMyRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 2, true)
-
-        fixture.stubKeyworkerProfilePage()
-        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
-
-        given: "I am logged in"
-        fixture.loginWithoutStaffRoles(ITAG_USER)
-
-        when: "when navigate through to a key workers profile page"
-        fixture.toKeyWorkersProfilePage()
-
-        then: "once on the profile page I should see the edit profile and update allocations buttons"
-        assert keyworkerEditButton.displayed == true
-        assert updateKeyworkerAllocationButton.displayed == true
-    }
-
-    def "the allocate to new key worker drop down should not be disabled on the profile page when not a key worker admin"() {
-        def keyWorkerAdminRole = [roleId: -1, roleCode: 'OMIC_ADMIN']
-        def roles = [keyWorkerAdminRole]
-        oauthApi.stubGetMyRoles(roles)
-        keyworkerApi.stubPrisonMigrationStatus(AgencyLocation.LEI, true, true, 1, true)
-
-        fixture.stubKeyworkerProfilePage()
-        keyworkerApi.stubKeyworkerSearchResponse(AgencyLocation.LEI)
-
-        given: "I am logged in"
-        fixture.loginWithoutStaffRoles(ITAG_USER)
-
-        when: "when navigate through to a key workers profile page"
-        fixture.toKeyWorkersProfilePage()
-
-        then: "once on the profile page and the drop down should not be disabled"
-        assert keyworkerSelectForTestOffender.module(Select).disabled == false
-    }
 
     def "the allocate to new key worker drop down should be disabled on the manual allocations page when the current user is not a key worker admin"() {
         oauthApi.stubGetMyRoles([])

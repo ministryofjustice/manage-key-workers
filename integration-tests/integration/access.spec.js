@@ -42,36 +42,65 @@ context('Access test', () => {
   })
 
   describe('Tasks', () => {
+    before(() => {
+      cy.task('stubKeyworkerSearch', keyworkerSearchResponse)
+      cy.task('stubKeyworker', {
+        userId: keyworkerBobResponse.staffId,
+        agencyId: keyworkerBobResponse.agencyId,
+        response: keyworkerBobResponse,
+      })
+      cy.task('stubAvailableKeyworkers', [])
+      cy.task('stubKeyworkerAllocations', {
+        userId: keyworkerBobResponse.staffId,
+        agencyId: keyworkerBobResponse.agencyId,
+        response: keyworkerBobsAllocations,
+      })
+      cy.task('stubKeyworkerStats', {
+        summary: {
+          requestedFromDate: '2018-10-12',
+          requestedToDate: '2018-11-12',
+        },
+      })
+      cy.task('stubOffenderAssessments')
+      cy.task('stubOffenderSentences')
+      cy.task('stubUpdateCaseload')
+      cy.task('stubOffenderSentences')
+      cy.task('stubCaseNoteUsageList')
+    })
+
+    describe('Admins', () => {
+      beforeEach(() => {
+        cy.task('stubLogin', {
+          username: 'ITAG_USER',
+          caseload: 'MDI',
+          roles: [{ roleCode: 'OMIC_ADMIN' }],
+          migrationStatus: { migrated: true },
+        })
+        cy.login()
+      })
+      it('should see the edit profile and update buttons on the profile page when a key worker admin', () => {
+        cy.visit('/key-worker-search')
+        cy.get('button').click()
+        cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
+        cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
+        cy.get('#editProfileButton').should('exist')
+        cy.get('#updateAllocationButton').should('exist')
+      })
+      it('the allocate to new key worker drop down should not be disabled on the profile page when a key worker admin', () => {
+        cy.visit('/key-worker-search')
+        cy.get('button').click()
+        cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
+        cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
+        cy.get(`#keyworker-select-${keyworkerBobsAllocations[0].offenderNo}`).should('be.enabled')
+      })
+    })
+
     describe('Non admins', () => {
-      before(() => {
-        cy.task('stubKeyworkerSearch', keyworkerSearchResponse)
-        cy.task('stubKeyworker', {
-          userId: keyworkerBobResponse.staffId,
-          agencyId: keyworkerBobResponse.agencyId,
-          response: keyworkerBobResponse,
-        })
-        cy.task('stubAvailableKeyworkers', [])
-        cy.task('stubKeyworkerAllocations', {
-          userId: keyworkerBobResponse.staffId,
-          agencyId: keyworkerBobResponse.agencyId,
-          response: keyworkerBobsAllocations,
-        })
-        cy.task('stubKeyworkerStats', {
-          summary: {
-            requestedFromDate: '2018-10-12',
-            requestedToDate: '2018-11-12',
-          },
-        })
-        cy.task('stubOffenderAssessments')
-        cy.task('stubOffenderSentences')
-        cy.task('stubUpdateCaseload')
-        cy.task('stubOffenderSentences')
-        cy.task('stubCaseNoteUsageList')
+      beforeEach(() => {
         cy.task('stubLogin', {
           username: 'ITAG_USER',
           caseload: 'MDI',
           roles: [],
-          // roles: [{ roleCode: 'OMIC_ADMIN' }, { roleCode: 'KW_MIGRATION' }],
           migrationStatus: { migrated: true },
         })
         cy.login()
