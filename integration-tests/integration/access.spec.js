@@ -88,7 +88,7 @@ context('Access test', () => {
     })
 
     describe('Admins', () => {
-      beforeEach(() => {
+      before(() => {
         cy.task('stubLogin', {
           username: 'ITAG_USER',
           caseload: 'MDI',
@@ -114,7 +114,9 @@ context('Access test', () => {
       })
       it('the confirm and cancel buttons should not hidden on the manual allocations page when the current user is key worker admin', () => {
         cy.visit('/offender-search')
+        cy.get('#housing-location-select').select('MDI').should('exist')
         cy.get('button').click()
+        cy.get('td').contains('G6415GD')
         cy.get('.button-save').should('exist')
       })
     })
@@ -164,13 +166,15 @@ context('Access test', () => {
 
       it('the allocate to new key worker drop down should be disabled on the manual allocations page when the current user is not a key worker admin', () => {
         cy.visit('/offender-search')
+        cy.get('#housing-location-select').select('MDI').should('exist')
         cy.get('button').click()
         cy.get(`#keyworker-select-${keyworkerBobsAllocations[0].offenderNo}`).should('be.disabled')
       })
+
       it('the confirm and cancel buttons should be hidden on the manual allocations page when the current user is not a key worker admin', () => {
         cy.visit('/offender-search')
+        cy.get('#housing-location-select').select('MDI').should('exist')
         cy.get('button').click()
-        cy.get('h1').contains('Change key workers') // Ensure we are actually showing the page.
         cy.get('.button-save').should('not.exist')
       })
     })
