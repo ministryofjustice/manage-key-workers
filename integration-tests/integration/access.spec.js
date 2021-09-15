@@ -31,6 +31,21 @@ const keyworkerBobsAllocations = [
   },
 ]
 
+const offenderResponse = [
+  {
+    offenderNo: 'G6415GD',
+    firstName: 'GEORGE',
+    middleName: 'WILLIS',
+    lastName: 'PETERSON',
+    agencyId: 'MDI',
+    assignedLivingUnitId: 1,
+    assignedLivingUnitDesc: 'CSWAP',
+    staffId: null,
+    keyworkerDisplay: '--',
+    numberAllocated: 'n/a',
+  },
+]
+
 context('Access test', () => {
   before(() => {
     cy.clearCookies()
@@ -66,6 +81,10 @@ context('Access test', () => {
       cy.task('stubUpdateCaseload')
       cy.task('stubOffenderSentences')
       cy.task('stubCaseNoteUsageList')
+
+      // qqRP
+      cy.task('stubSearchOffenders', offenderResponse)
+      cy.task('stubOffenderKeyworker')
     })
 
     describe('Admins', () => {
@@ -92,6 +111,11 @@ context('Access test', () => {
         cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
         cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
         cy.get(`#keyworker-select-${keyworkerBobsAllocations[0].offenderNo}`).should('be.enabled')
+      })
+      it('the confirm and cancel buttons should not hidden on the manual allocations page when the current user is key worker admin', () => {
+        cy.visit('/offender-search')
+        cy.get('button').click()
+        cy.get('.button-save').should('exist')
       })
     })
 
@@ -136,6 +160,18 @@ context('Access test', () => {
       it('should not be able to navigate to the provisional allocation page when the current user is not a key worker admin', () => {
         cy.visit(`/unallocated/provisional-allocation`)
         cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+      })
+
+      it('the allocate to new key worker drop down should be disabled on the manual allocations page when the current user is not a key worker admin', () => {
+        cy.visit('/offender-search')
+        cy.get('button').click()
+        cy.get(`#keyworker-select-${keyworkerBobsAllocations[0].offenderNo}`).should('be.disabled')
+      })
+      it('the confirm and cancel buttons should be hidden on the manual allocations page when the current user is not a key worker admin', () => {
+        cy.visit('/offender-search')
+        cy.get('button').click()
+        cy.get('h1').contains('Change key workers') // Ensure we are actually showing the page.
+        cy.get('.button-save').should('not.exist')
       })
     })
   })
