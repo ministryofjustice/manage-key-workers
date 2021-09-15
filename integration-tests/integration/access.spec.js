@@ -1,54 +1,11 @@
 const OffenderSearchPage = require('../pages/offenderSearchPage')
 const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
-
-const keyworkerResponse = {
-  staffId: 1,
-  firstName: 'BOB',
-  lastName: 'BALL',
-  thumbnailId: 1,
-  capacity: 6,
-  numberAllocated: 6,
-  scheduleType: 'Full Time',
-  agencyId: 'MDI',
-  agencyDescription: 'Moorland (HMP & YOI)',
-  status: 'ACTIVE',
-  autoAllocationAllowed: true,
-}
+const keyworkerResponse = require('../responses/keyworkerResponse')
+const keyworkerAllocations = require('../responses/keyworkerAllocationsResponse')
+const offenderSearchResponse = require('../responses/offenderSearchResponse')
 
 const keyworkerSearchResponse = [keyworkerResponse]
-
-const keyworkerAllocations = [
-  {
-    bookingId: 2,
-    offenderNo: 'G6415GD',
-    firstName: 'GEORGE',
-    middleNames: 'WILLIS',
-    lastName: 'PETERSON',
-    staffId: keyworkerResponse.staffId,
-    agencyId: keyworkerResponse.agencyId,
-    prisonId: 'MDI',
-    assigned: '2021-06-18T09:06:17.837964',
-    allocationType: 'A',
-    internalLocationDesc: '1-2-033',
-    deallocOnly: false,
-  },
-]
-
-const offenderResponse = [
-  {
-    offenderNo: 'G6415GD',
-    firstName: 'GEORGE',
-    middleName: 'WILLIS',
-    lastName: 'PETERSON',
-    agencyId: 'MDI',
-    assignedLivingUnitId: 1,
-    assignedLivingUnitDesc: 'CSWAP',
-    staffId: null,
-    keyworkerDisplay: '--',
-    numberAllocated: 'n/a',
-  },
-]
 
 context('Access test', () => {
   before(() => {
@@ -64,7 +21,7 @@ context('Access test', () => {
     cy.task('stubUpdateCaseload')
     cy.task('stubOffenderSentences')
     cy.task('stubCaseNoteUsageList')
-    cy.task('stubSearchOffenders', offenderResponse)
+    cy.task('stubSearchOffenders', offenderSearchResponse)
     cy.task('stubOffenderKeyworker')
   })
 
@@ -87,17 +44,19 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
       keyworkerProfilePage.editProfileButton().should('exist')
       keyworkerProfilePage.updateAllocationButton().should('exist')
     })
+
     it('the allocate to new key worker drop down should not be disabled on the profile page when a key worker admin', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
       keyworkerProfilePage.allocationSelect(keyworkerAllocations[0].offenderNo).should('be.enabled')
     })
+
     it('the confirm and cancel buttons should not hidden on the manual allocations page when the current user is key worker admin', () => {
       cy.visit('/offender-search')
       const offenderSearchPage = OffenderSearchPage.verifyOnPage()
@@ -122,7 +81,7 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
       keyworkerProfilePage.editProfileButton().should('not.exist')
       keyworkerProfilePage.updateAllocationButton().should('not.exist')
     })
@@ -131,7 +90,7 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
       keyworkerProfilePage.allocationSelect(keyworkerAllocations[0].offenderNo).should('be.disabled')
     })
 
