@@ -28,36 +28,6 @@ class KeyworkerProfileSpecification extends BrowserReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
 
-    def "key worker profile is displayed correctly"() {
-        given: "I am at the key worker profile page"
-        fixture.loginAs(ITAG_USER)
-        toKeyworkerProfilePage()
-
-        when: "On the keyworker Profile page"
-
-        then: "data should display as expected"
-        status.text() == 'Active'
-        rows.size() == 5
-        //  use to provide screenshot - browser.report("Failure")
-        allocationCount.text() == '5'
-        keyworkerOptionsForTestOffender.size() == 5
-        keyworkerMovedPrison.size() == 2  // dealloc only
-        allocationStyleGreen.isDisplayed()
-        table.find("tr", 4).find("td", 0).find("a").text() == 'Talbot, Nick'
-        def row5 = table.find("tr", 5).find("td", 0)
-        row5.find("a").text() == null
-        row5.text() == 'Bowie, David'
-
-        table.find("tr", 2).find("td", 5).text() == '03/06/2018'
-        table.find("tr", 2).find("td", 6).text() == '3'
-
-        when: "Parent page link in breadcrumb is clicked"
-        parentPageLink.click()
-
-        then: "We return to KW Management page"
-        at KeyworkerManagementPage
-    }
-
     def "key worker edit profile is displayed correctly"() {
         when: "I am at the key worker profile page"
         toKeyworkerEditPage()

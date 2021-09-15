@@ -8,6 +8,12 @@ const offenderSearchPage = (keyworker) =>
     allocationCount: () => cy.get(`#allocationCount`),
     allocationSelectOptions: (offenderNo) => cy.get(`#keyworker-select-${offenderNo} option`),
     verifyAllocationStyleGreen: () => cy.get("div[class='numberCircleGreen']").should('exist'),
+    getResultElement: (row, column) =>
+      cy
+        .get('table tbody tr')
+        .eq(row - 1)
+        .find('td')
+        .eq(column - 1),
   })
 
 export default {
