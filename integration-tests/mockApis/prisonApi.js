@@ -19,7 +19,7 @@ module.exports = {
         },
       },
     }),
-  stubCaseNoteUsageList: () =>
+  stubCaseNoteUsageList: (response = []) =>
     stubFor({
       request: {
         method: 'GET',
@@ -30,7 +30,7 @@ module.exports = {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
         },
-        jsonBody: [],
+        jsonBody: response,
       },
     }),
   stubUpdateCaseload: () =>

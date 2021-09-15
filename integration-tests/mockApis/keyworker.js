@@ -30,7 +30,7 @@ module.exports = {
         },
       },
     }),
-  stubKeyworkerAllocations: (response = {}) =>
+  stubKeyworkerAllocations: (response = []) =>
     stubFor({
       request: {
         method: 'GET',
