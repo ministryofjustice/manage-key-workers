@@ -57,17 +57,8 @@ context('Access test', () => {
     cy.task('stubKeyworkerSearch', keyworkerSearchResponse)
     cy.task('stubKeyworker', keyworkerBobResponse)
     cy.task('stubAvailableKeyworkers')
-    cy.task('stubKeyworkerAllocations', {
-      userId: keyworkerBobResponse.staffId,
-      agencyId: keyworkerBobResponse.agencyId,
-      response: keyworkerBobsAllocations,
-    })
-    cy.task('stubKeyworkerStats', {
-      summary: {
-        requestedFromDate: '2018-10-12',
-        requestedToDate: '2018-11-12',
-      },
-    })
+    cy.task('stubKeyworkerAllocations', keyworkerBobsAllocations)
+    cy.task('stubKeyworkerStats')
     cy.task('stubOffenderAssessments')
     cy.task('stubOffenderSentences')
     cy.task('stubUpdateCaseload')

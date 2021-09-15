@@ -30,11 +30,11 @@ module.exports = {
         },
       },
     }),
-  stubKeyworkerAllocations: ({ userId, agencyId, response = {} }) =>
+  stubKeyworkerAllocations: (response = {}) =>
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: `/key-worker/key-worker/${userId}/prison/${agencyId}/offenders`,
+        urlPathPattern: `/key-worker/key-worker/.+?/prison/.+?/offenders`,
       },
       response: {
         status: 200,

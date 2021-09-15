@@ -38,8 +38,7 @@ module.exports = (on) => {
     stubKeyworkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
-    stubKeyworkerAllocations: ({ userId, agencyId, response }) =>
-      keyworker.stubKeyworkerAllocations({ userId, agencyId, response }),
+    stubKeyworkerAllocations: (response) => keyworker.stubKeyworkerAllocations(response),
     stubKeyworker: (response) => keyworker.stubKeyworker(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
     stubKeyworkerSearch: (keyworkers) => keyworker.stubKeyworkerSearch(keyworkers),
