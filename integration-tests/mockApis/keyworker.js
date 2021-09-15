@@ -45,11 +45,11 @@ module.exports = {
       },
     }),
 
-  stubKeyworker: ({ userId, agencyId, response = {} }) =>
+  stubKeyworker: (response = {}) =>
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: `/key-worker/key-worker/${userId}/prison/${agencyId}`,
+        urlPathPattern: `/key-worker/key-worker/.+?/prison/.+?`,
       },
       response: {
         status: 200,
@@ -59,7 +59,7 @@ module.exports = {
         jsonBody: response,
       },
     }),
-  stubAvailableKeyworkers: (keyworkers = {}) =>
+  stubAvailableKeyworkers: (keyworkers = []) =>
     stubFor({
       request: {
         method: 'GET',

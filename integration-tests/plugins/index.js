@@ -40,7 +40,7 @@ module.exports = (on) => {
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
     stubKeyworkerAllocations: ({ userId, agencyId, response }) =>
       keyworker.stubKeyworkerAllocations({ userId, agencyId, response }),
-    stubKeyworker: ({ userId, agencyId, response }) => keyworker.stubKeyworker({ userId, agencyId, response }),
+    stubKeyworker: (response) => keyworker.stubKeyworker(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
     stubKeyworkerSearch: (keyworkers) => keyworker.stubKeyworkerSearch(keyworkers),
     stubOffenderKeyworker: (response) => keyworker.stubOffenderKeyworker(response),
