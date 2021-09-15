@@ -1,5 +1,5 @@
 const HomePage = require('../../pages/homePage')
-const SearchPage = require('../../pages/searchPage')
+const SearchPage = require('../../pages/keyworkerSearchPage')
 
 context('Login functionality', () => {
   before(() => {
