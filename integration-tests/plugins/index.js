@@ -34,8 +34,8 @@ module.exports = (on) => {
     stubComplexityHealth: complexityApi.stubHealth,
     stubTokenHealth: tokenverification.stubHealth,
     stubPrisonHealth: prisonApi.stubHealth,
-    stubKeyWorkerHealth: keyworker.stubHealth,
-    stubKeyWorkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
+    stubKeyworkerHealth: keyworker.stubHealth,
+    stubKeyworkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
     stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
@@ -57,5 +57,8 @@ module.exports = (on) => {
     verifyDeallocateWasCalled: (offenderNo) => keyworker.verifyAllocateWasCalled(offenderNo),
     stubClientCredentialsRequest: () => auth.stubClientCredentialsRequest(),
     stubPrisonMigrationStatus: (settings) => keyworker.stubPrisonMigrationStatus(settings),
+    stubKeyworkerStats: (response) => keyworker.stubKeyworkerStats(response),
+    verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
+      keyworker.verifyKeyworkerStatsCalled({ prisonId, from, to }),
   })
 }

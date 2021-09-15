@@ -64,7 +64,7 @@ const stubHealth = () =>
       headers: {
         'Content-Type': 'application/json',
       },
-      body: '{"status":"UP"}',
+      jsonBody: '{"status":"UP"}',
     },
   })
 
