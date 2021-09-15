@@ -1,6 +1,6 @@
 const page = require('./page')
 
-const searchPage = () =>
+const offenderSearchPage = () =>
   page('Search for an offender', {
     verifyPageReady: () => cy.get('#housing-location-select option').its('length').should('be.gte', 0),
     search: () => cy.get('.button').click(),
@@ -9,5 +9,5 @@ const searchPage = () =>
   })
 
 export default {
-  verifyOnPage: searchPage,
+  verifyOnPage: offenderSearchPage,
 }

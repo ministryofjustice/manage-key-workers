@@ -1,4 +1,6 @@
 const OffenderSearchPage = require('../pages/offenderSearchPage')
+const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
+const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 
 const keyworkerBobResponse = {
   staffId: 1,
@@ -83,8 +85,6 @@ context('Access test', () => {
       cy.task('stubUpdateCaseload')
       cy.task('stubOffenderSentences')
       cy.task('stubCaseNoteUsageList')
-
-      // qqRP
       cy.task('stubSearchOffenders', offenderResponse)
       cy.task('stubOffenderKeyworker')
     })
@@ -101,18 +101,18 @@ context('Access test', () => {
       })
       it('should see the edit profile and update buttons on the profile page when a key worker admin', () => {
         cy.visit('/key-worker-search')
-        cy.get('button').click()
-        cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
-        cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
-        cy.get('#editProfileButton').should('exist')
-        cy.get('#updateAllocationButton').should('exist')
+        const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
+        keyworkerSearchPage.searchAndClickKeyworker(keyworkerBobResponse.staffId)
+        const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+        keyworkerProfilePage.editProfileButton().should('exist')
+        keyworkerProfilePage.updateAllocationButton().should('exist')
       })
       it('the allocate to new key worker drop down should not be disabled on the profile page when a key worker admin', () => {
         cy.visit('/key-worker-search')
-        cy.get('button').click()
-        cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
-        cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
-        cy.get(`#keyworker-select-${keyworkerBobsAllocations[0].offenderNo}`).should('be.enabled')
+        const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
+        keyworkerSearchPage.searchAndClickKeyworker(keyworkerBobResponse.staffId)
+        const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+        keyworkerProfilePage.allocationSelect(keyworkerBobsAllocations[0].offenderNo).should('be.enabled')
       })
       it('the confirm and cancel buttons should not hidden on the manual allocations page when the current user is key worker admin', () => {
         cy.visit('/offender-search')
@@ -136,19 +136,19 @@ context('Access test', () => {
 
       it('should not see the edit profile and update buttons on the profile page when the current user is not a key worker admin', () => {
         cy.visit('/key-worker-search')
-        cy.get('button').click()
-        cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
-        cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
-        cy.get('#editProfileButton').should('not.exist')
-        cy.get('#updateAllocationButton').should('not.exist')
+        const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
+        keyworkerSearchPage.searchAndClickKeyworker(keyworkerBobResponse.staffId)
+        const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+        keyworkerProfilePage.editProfileButton().should('not.exist')
+        keyworkerProfilePage.updateAllocationButton().should('not.exist')
       })
 
       it('the allocate to new key worker drop down should be disabled on the profile page when not a key worker admin', () => {
         cy.visit('/key-worker-search')
-        cy.get('button').click()
-        cy.get(`#key_worker_${keyworkerBobResponse.staffId}_link`).click()
-        cy.get('h1').contains('Bob Ball') // Ensure we are actually showing the page.
-        cy.get(`#keyworker-select-${keyworkerBobsAllocations[0].offenderNo}`).should('be.disabled')
+        const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
+        keyworkerSearchPage.searchAndClickKeyworker(keyworkerBobResponse.staffId)
+        const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+        keyworkerProfilePage.allocationSelect(keyworkerBobsAllocations[0].offenderNo).should('be.disabled')
       })
 
       it('should not be able to navigate to a key workers edit profile when the current user is not a key worker admin', () => {
