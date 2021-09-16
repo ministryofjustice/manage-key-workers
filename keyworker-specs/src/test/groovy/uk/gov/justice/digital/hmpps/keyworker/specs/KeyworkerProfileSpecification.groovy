@@ -28,43 +28,6 @@ class KeyworkerProfileSpecification extends BrowserReportingSpec {
 
     TestFixture fixture = new TestFixture(browser, elite2api, keyworkerApi, oauthApi, tokenVerificationApi)
 
-    def "key worker edit profile is displayed correctly"() {
-        when: "I am at the key worker profile page"
-        toKeyworkerEditPage()
-
-        then: "data should display as expected"
-        at KeyworkerEditPage
-        capacity.value() == '6'
-        keyworkerStatusOptions.size() == 5
-
-        when: "Parent page link in breadcrumb is clicked"
-        parentPageLink.click()
-
-        then: "We return to KW profile page"
-        at KeyworkerProfilePage
-    }
-
-    def "key worker edit confirm - INACTIVE - is displayed correctly"() {
-        given: "I am at the key worker profile page"
-        toKeyworkerEditPage()
-
-        when: "inactive is selected and saved"
-        keyworkerStatusOptions.find{ it.value() == "INACTIVE" }.click()
-        saveChangesButton.click()
-
-        then: "should go to edit confirm - inactive status should display as expected"
-        browser.report("editconfirm")
-        at KeyworkerEditConfirmPage
-        status.text() == 'Inactive'
-        inactiveWarning.isDisplayed()
-
-        when: "Parent page link in breadcrumb is clicked"
-        parentPageLink.click()
-
-        then: "We return to KW Profile page"
-        at KeyworkerProfilePage
-    }
-
     def "key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly"() {
         given: "I am at the key worker profile page"
         toKeyworkerEditPage()
