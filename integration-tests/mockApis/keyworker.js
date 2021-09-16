@@ -64,7 +64,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'POST',
-        urlPathPattern: `/key-worker/key-worker/-3/prison/[^/]+`,
+        urlPathPattern: `/key-worker/key-worker/.+?/prison/[^/]+`,
       },
       response: {
         status: 200,
