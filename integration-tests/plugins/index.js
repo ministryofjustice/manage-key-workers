@@ -62,6 +62,7 @@ module.exports = (on) => {
     stubKeyworkerStats: (response) => keyworker.stubKeyworkerStats(response),
     verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
       keyworker.verifyKeyworkerStatsCalled({ prisonId, from, to }),
-    stubCaseNoteUsageList: prisonApi.stubCaseNoteUsageList,
+    stubCaseNoteUsageList: (response) => prisonApi.stubCaseNoteUsageList(response),
+    stubKeyworkerUpdate: (response) => keyworker.stubKeyworkerUpdate(response),
   })
 }

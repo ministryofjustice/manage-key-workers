@@ -1,70 +1,28 @@
 const OffenderSearchPage = require('../pages/offenderSearchPage')
 const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
+const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
+const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
+const OffenderSearchResponse = require('../responses/offenderSearchResponse')
+const Utils = require('../support/utils')
 
-const keyworkerResponse = {
-  staffId: 1,
-  firstName: 'BOB',
-  lastName: 'BALL',
-  thumbnailId: 1,
-  capacity: 6,
-  numberAllocated: 6,
-  scheduleType: 'Full Time',
-  agencyId: 'MDI',
-  agencyDescription: 'Moorland (HMP & YOI)',
-  status: 'ACTIVE',
-  autoAllocationAllowed: true,
-}
-
-const keyworkerSearchResponse = [keyworkerResponse]
-
-const keyworkerAllocations = [
-  {
-    bookingId: 2,
-    offenderNo: 'G6415GD',
-    firstName: 'GEORGE',
-    middleNames: 'WILLIS',
-    lastName: 'PETERSON',
-    staffId: keyworkerResponse.staffId,
-    agencyId: keyworkerResponse.agencyId,
-    prisonId: 'MDI',
-    assigned: '2021-06-18T09:06:17.837964',
-    allocationType: 'A',
-    internalLocationDesc: '1-2-033',
-    deallocOnly: false,
-  },
-]
-
-const offenderResponse = [
-  {
-    offenderNo: 'G6415GD',
-    firstName: 'GEORGE',
-    middleName: 'WILLIS',
-    lastName: 'PETERSON',
-    agencyId: 'MDI',
-    assignedLivingUnitId: 1,
-    assignedLivingUnitDesc: 'CSWAP',
-    staffId: null,
-    keyworkerDisplay: '--',
-    numberAllocated: 'n/a',
-  },
-]
+const KeyworkerSearchResponse = [KeyworkerResponse]
 
 context('Access test', () => {
   before(() => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
-    cy.task('stubKeyworkerSearch', keyworkerSearchResponse)
-    cy.task('stubKeyworker', keyworkerResponse)
+    cy.task('stubKeyworkerSearch', KeyworkerSearchResponse)
+    cy.task('stubKeyworker', KeyworkerResponse)
     cy.task('stubAvailableKeyworkers')
-    cy.task('stubKeyworkerAllocations', keyworkerAllocations)
+    cy.task('stubKeyworkerAllocations', KeyworkerAllocationsResponse)
     cy.task('stubKeyworkerStats')
     cy.task('stubOffenderAssessments')
     cy.task('stubOffenderSentences')
     cy.task('stubUpdateCaseload')
     cy.task('stubOffenderSentences')
     cy.task('stubCaseNoteUsageList')
-    cy.task('stubSearchOffenders', offenderResponse)
+    cy.task('stubSearchOffenders', OffenderSearchResponse)
     cy.task('stubOffenderKeyworker')
   })
 
@@ -86,18 +44,20 @@ context('Access test', () => {
     it('should see the edit profile and update buttons on the profile page when a key worker admin', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
-      keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+      keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
       keyworkerProfilePage.editProfileButton().should('exist')
       keyworkerProfilePage.updateAllocationButton().should('exist')
     })
+
     it('the allocate to new key worker drop down should not be disabled on the profile page when a key worker admin', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
-      keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
-      keyworkerProfilePage.allocationSelect(keyworkerAllocations[0].offenderNo).should('be.enabled')
+      keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+      keyworkerProfilePage.allocationSelect(KeyworkerAllocationsResponse[0].offenderNo).should('be.enabled')
     })
+
     it('the confirm and cancel buttons should not hidden on the manual allocations page when the current user is key worker admin', () => {
       cy.visit('/offender-search')
       const offenderSearchPage = OffenderSearchPage.verifyOnPage()
@@ -121,8 +81,8 @@ context('Access test', () => {
     it('should not see the edit profile and update buttons on the profile page when the current user is not a key worker admin', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
-      keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
+      keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
       keyworkerProfilePage.editProfileButton().should('not.exist')
       keyworkerProfilePage.updateAllocationButton().should('not.exist')
     })
@@ -130,13 +90,13 @@ context('Access test', () => {
     it('the allocate to new key worker drop down should be disabled on the profile page when not a key worker admin', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
-      keyworkerSearchPage.searchAndClickKeyworker(keyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Bob Ball')
-      keyworkerProfilePage.allocationSelect(keyworkerAllocations[0].offenderNo).should('be.disabled')
+      keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+      keyworkerProfilePage.allocationSelect(KeyworkerAllocationsResponse[0].offenderNo).should('be.disabled')
     })
 
     it('should not be able to navigate to a key workers edit profile when the current user is not a key worker admin', () => {
-      cy.visit(`/key-worker/${keyworkerResponse.staffId}/edit`)
+      cy.visit(`/key-worker/${KeyworkerResponse.staffId}/edit`)
       cy.url().should('eq', `${Cypress.config().baseUrl}/`)
     })
 
@@ -155,7 +115,7 @@ context('Access test', () => {
       const offenderSearchPage = OffenderSearchPage.verifyOnPage()
       offenderSearchPage.verifyPageReady()
       offenderSearchPage.search()
-      offenderSearchPage.keyworkerSelect(keyworkerAllocations[0].offenderNo).should('be.disabled')
+      offenderSearchPage.keyworkerSelect(KeyworkerAllocationsResponse[0].offenderNo).should('be.disabled')
     })
 
     it('the confirm and cancel buttons should be hidden on the manual allocations page when the current user is not a key worker admin', () => {
