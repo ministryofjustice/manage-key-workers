@@ -4,6 +4,7 @@ const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
 const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
 const OffenderSearchResponse = require('../responses/offenderSearchResponse')
+const Utils = require('../support/utils')
 
 const KeyworkerSearchResponse = [KeyworkerResponse]
 
@@ -44,7 +45,7 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
       keyworkerProfilePage.editProfileButton().should('exist')
       keyworkerProfilePage.updateAllocationButton().should('exist')
     })
@@ -53,7 +54,7 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
       keyworkerProfilePage.allocationSelect(KeyworkerAllocationsResponse[0].offenderNo).should('be.enabled')
     })
 
@@ -81,7 +82,7 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
       keyworkerProfilePage.editProfileButton().should('not.exist')
       keyworkerProfilePage.updateAllocationButton().should('not.exist')
     })
@@ -90,7 +91,7 @@ context('Access test', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
       keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
-      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
       keyworkerProfilePage.allocationSelect(KeyworkerAllocationsResponse[0].offenderNo).should('be.disabled')
     })
 
