@@ -49,7 +49,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        urlPathPattern: `/key-worker/key-worker/.+?/prison/.+?`,
+        urlPathPattern: `/key-worker/key-worker/-3/prison/[^/]+`,
       },
       response: {
         status: 200,
@@ -59,6 +59,22 @@ module.exports = {
         jsonBody: response,
       },
     }),
+
+  stubKeyworkerUpdate: (response = {}) =>
+    stubFor({
+      request: {
+        method: 'POST',
+        urlPathPattern: `/key-worker/key-worker/-3/prison/[^/]+`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody: response,
+      },
+    }),
+
   stubAvailableKeyworkers: (keyworkers = []) =>
     stubFor({
       request: {

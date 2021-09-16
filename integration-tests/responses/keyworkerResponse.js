@@ -12,4 +12,18 @@ const keyworkerResponse = {
   autoAllocationAllowed: true,
 }
 
-export default keyworkerResponse
+const keyworkerInactiveResponse = {
+  staffId: -3,
+  firstName: 'HPA',
+  lastName: 'AUser',
+  capacity: 6,
+  numberAllocated: 0,
+  scheduleType: 'Full Time',
+  agencyId: 'LEI',
+  agencyDescription: 'LEEDS',
+  status: 'INACTIVE',
+  autoAllocationAllowed: true,
+  numKeyWorkerSessions: 2,
+}
+
+export default { keyworkerResponse, keyworkerInactiveResponse }

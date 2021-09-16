@@ -15,6 +15,8 @@ const offenderSearchPage = (keyworker) =>
         .find('td')
         .eq(column - 1),
     clickEditProfileButton: () => cy.get('#editProfileButton').click(),
+    status: () => cy.get('#keyworker-status'),
+    messageBar: () => cy.get('#messageBar'),
   })
 
 export default {

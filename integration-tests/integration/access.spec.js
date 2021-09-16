@@ -1,7 +1,7 @@
 const OffenderSearchPage = require('../pages/offenderSearchPage')
 const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
-const KeyworkerResponse = require('../responses/keyworkerResponse')
+const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
 const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
 const OffenderSearchResponse = require('../responses/offenderSearchResponse')
 

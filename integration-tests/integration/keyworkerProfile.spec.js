@@ -4,7 +4,8 @@ const KeyworkerEditProfilePage = require('../pages/keyworkerEditProfilePage')
 const KeyworkerEditProfileConfirmPage = require('../pages/keyworkerEditProfileConfirmPage')
 const Utils = require('../support/utils')
 const CaseNoteUsageResponse = require('../responses/caseNoteUsageResponse')
-const KeyworkerResponse = require('../responses/keyworkerResponse')
+const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
+const KeyworkerInactiveResponse = require('../responses/keyworkerResponse').keyworkerInactiveResponse
 const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
 const AvailableKeyworkersResponse = require('../responses/availableKeyworkersResponse')
 
@@ -24,8 +25,20 @@ context('Access test', () => {
   before(() => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
+    cy.task('stubLogin', {
+      username: 'ITAG_USER',
+      caseload: 'MDI',
+      roles: [{ roleCode: 'OMIC_ADMIN' }],
+      migrationStatus: { migrated: true },
+    })
+    cy.login()
+  })
+
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce('hmpps-session-dev')
     cy.task('stubKeyworkerSearch', KeyworkerSearchResponse)
     cy.task('stubKeyworker', KeyworkerResponse)
+    cy.task('stubKeyworkerStats')
     cy.task('stubAvailableKeyworkers', AvailableKeyworkersResponse)
     cy.task('stubKeyworkerAllocations', KeyworkerAllocationsResponse)
     cy.task('stubOffenderAssessments')
@@ -33,21 +46,7 @@ context('Access test', () => {
     cy.task('stubCaseNoteUsageList', CaseNoteUsageResponse)
   })
 
-  beforeEach(() => {
-    Cypress.Cookies.preserveOnce('hmpps-session-dev')
-  })
-
   describe('Tasks', () => {
-    before(() => {
-      cy.task('stubLogin', {
-        username: 'ITAG_USER',
-        caseload: 'MDI',
-        roles: [{ roleCode: 'OMIC_ADMIN' }],
-        migrationStatus: { migrated: true },
-      })
-      cy.login()
-    })
-
     it('key worker profile is displayed correctly', () => {
       cy.visit('/key-worker-search')
       const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
@@ -79,7 +78,6 @@ context('Access test', () => {
     })
 
     it('key worker edit profile is displayed correctly', () => {
-      cy.visit('/key-worker-search')
       const editKeyworkerProfilePage = navigateToEditPage(KeyworkerResponse)
       editKeyworkerProfilePage.keyworkerStatusSelect().select('INACTIVE')
       editKeyworkerProfilePage.save()
@@ -89,26 +87,26 @@ context('Access test', () => {
       keyworkerEditProfileConfirmPage.parentPageLink().click()
       KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
     })
+
+    it('key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly', () => {
+      const editKeyworkerProfilePage = navigateToEditPage(KeyworkerResponse)
+      editKeyworkerProfilePage.keyworkerStatusSelect().select('UNAVAILABLE_ANNUAL_LEAVE')
+      editKeyworkerProfilePage.save()
+      const keyworkerEditProfileConfirmPage = KeyworkerEditProfileConfirmPage.verifyOnPage()
+      keyworkerEditProfileConfirmPage.status().should('have.text', 'Unavailable - annual leave')
+      keyworkerEditProfileConfirmPage.annualLeaveDatePicker().should('be.visible')
+    })
+
+    it('key worker edit - saving active status', () => {
+      cy.task('stubKeyworker', KeyworkerInactiveResponse)
+      cy.task('stubKeyworkerUpdate')
+      const editKeyworkerProfilePage = navigateToEditPage(KeyworkerInactiveResponse)
+      editKeyworkerProfilePage.keyworkerStatusSelect().select('ACTIVE')
+      cy.task('stubKeyworker', KeyworkerResponse) // We simulate user now being active.
+      editKeyworkerProfilePage.save()
+      const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+      keyworkerProfilePage.status().should('have.text', 'Active')
+      keyworkerProfilePage.messageBar().should('have.text', 'Profile changed')
+    })
   })
 })
-
-// def "key worker edit confirm - INACTIVE - is displayed correctly"() {
-//   given: "I am at the key worker profile page"
-//   toKeyworkerEditPage()
-//
-//   when: "inactive is selected and saved"
-//   keyworkerStatusOptions.find{ it.value() == "INACTIVE" }.click()
-//   saveChangesButton.click()
-//
-//   then: "should go to edit confirm - inactive status should display as expected"
-//   browser.report("editconfirm")
-//   at KeyworkerEditConfirmPage
-//   status.text() == 'Inactive'
-//   inactiveWarning.isDisplayed()
-//
-//   when: "Parent page link in breadcrumb is clicked"
-//   parentPageLink.click()
-//
-//   then: "We return to KW Profile page"
-//   at KeyworkerProfilePage
-// }
