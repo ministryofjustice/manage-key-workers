@@ -9,6 +9,10 @@ const keyworkerSearchPage = () =>
       this.search()
       this.clickKeyworker(userId)
     },
+    searchRows: () => cy.get('table tbody tr'),
+    getHeaderElement: (row) => cy.get('table thead th').eq(row - 1),
+    selectStatus: (value) => cy.get('select').select(value),
+    errorSummary: () => cy.get('.error-summary'),
   })
 
 export default {

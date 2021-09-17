@@ -74,7 +74,6 @@ module.exports = {
         jsonBody: response,
       },
     }),
-
   stubAvailableKeyworkers: (keyworkers = []) =>
     stubFor({
       request: {
@@ -101,6 +100,17 @@ module.exports = {
           'Content-Type': 'application/json;charset=UTF-8',
         },
         jsonBody: keyworkers,
+      },
+    }),
+  stubKeyworkerSearchError: () =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPathPattern: '/key-worker/key-worker/.+?/members',
+      },
+      response: {
+        status: 501,
+        jsonBody: { status: '', message: 'hi there' },
       },
     }),
   stubOffenderKeyworker: (response = []) =>
@@ -282,8 +292,16 @@ module.exports = {
         status: 500,
       },
     }),
+  verifyKeyworkerSearchCalled: (queryParameters) =>
+    verifyRequest({ requestUrlPattern: `/key-worker/key-worker/MDI/members.+?`, method: 'GET', queryParameters }),
   verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
-    verifyRequest(`/key-worker/key-worker-stats?prisonId=${prisonId}&fromDate=${from}&toDate=${to}`, 'GET'),
-  verifyAllocateWasCalled: () => verifyRequest('/key-worker/key-worker/allocate', 'POST'),
-  verifyDeallocateWasCalled: (offenderNo) => verifyRequest(`/key-worker/deallocate/${offenderNo}`, 'PUT'),
+    verifyRequest({
+      requestUrl: `/key-worker/key-worker-stats?prisonId=${prisonId}&fromDate=${from}&toDate=${to}`,
+      method: 'GET',
+    }),
+  verifyAllocateWasCalled: () => verifyRequest({ requestUrl: '/key-worker/key-worker/allocate', method: 'POST' }),
+  verifyDeallocateWasCalled: (offenderNo) =>
+    verifyRequest({ requestUrl: `/key-worker/deallocate/${offenderNo}`, method: 'PUT' }),
+  verifyKeyworkerUpdate: (body) =>
+    verifyRequest({ requestUrlPattern: '/key-worker/key-worker/.+?/prison/[^/]+', method: 'POST', body }),
 }
