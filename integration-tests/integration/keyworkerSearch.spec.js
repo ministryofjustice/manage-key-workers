@@ -60,6 +60,7 @@ context('Keyworker search tests', () => {
     const keyworkerSearchPage = navigateToSearchPage()
     keyworkerSearchPage.selectStatus('UNAVAILABLE_ANNUAL_LEAVE')
     keyworkerSearchPage.search()
+    keyworkerSearchPage.searchRows().its('length').should('eq', 5)
     cy.task('verifyKeyworkerSearchCalled', {
       statusFilter: {
         equalTo: 'UNAVAILABLE_ANNUAL_LEAVE',
@@ -67,7 +68,6 @@ context('Keyworker search tests', () => {
     }).then((val) => {
       expect(JSON.parse(val.text).count).to.equal(1)
     })
-    keyworkerSearchPage.searchRows().its('length').should('eq', 5)
   })
 
   it('Search for key worker renders error', () => {
