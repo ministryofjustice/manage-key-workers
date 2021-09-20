@@ -1,6 +1,11 @@
 import moment from 'moment'
 import { switchToIsoDateFormat } from '../../src/stringUtils'
 
+const PrisonStatsPage = require('../pages/prisonStatsPage')
+const KeyworkerPrisonStatsResponse = require('../responses/keyworkerPrisonStatsResponse').keyworkerPrisonStatsResponse
+const KeyworkerPrisonStatsNoCurrentDataResponse =
+  require('../responses/keyworkerPrisonStatsResponse').keyworkerPrisonStatsNoCurrentDataResponse
+
 context('Key workers statistics test', () => {
   describe('Tasks', () => {
     beforeEach(() => {
@@ -16,46 +21,24 @@ context('Key workers statistics test', () => {
     })
 
     it('keyworker dashboard should display correct message if there is no data', () => {
-      cy.task('stubKeyworkerStats', {
-        summary: {
-          requestedFromDate: '2018-10-12',
-          requestedToDate: '2018-11-12',
-        },
-      })
+      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsNoCurrentDataResponse)
       cy.visit('/key-worker-statistics')
       cy.get('h1').contains('Key worker statistics for')
       cy.contains('There is no data for this period.')
     })
 
     it('keyworker dashboard should display correctly', () => {
-      cy.task('stubKeyworkerStats', {
-        summary: {
-          requestedFromDate: '2018-10-12',
-          requestedToDate: '2018-11-12',
-          current: {
-            dataRangeFrom: '2018-10-28',
-            dataRangeTo: '2018-11-11',
-            numPrisonersAssignedKeyWorker: 600,
-            totalNumPrisoners: 600,
-            numberKeyWorkerSessions: 2400,
-            numberKeyWorkerEntries: 400,
-            numberOfActiveKeyworkers: 100,
-            percentagePrisonersWithKeyworker: 100,
-            numProjectedKeyworkerSessions: 2400,
-            complianceRate: 100,
-          },
-        },
-      })
+      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsResponse)
       cy.visit('/key-worker-statistics')
-      cy.get('h1').contains('Key worker statistics for')
-      cy.get("[data-qa='numberOfActiveKeyworkers-value']").should('have.text', '100')
-      cy.get("[data-qa='numberKeyWorkerSessions-value']").should('have.text', '2400')
-      cy.get("[data-qa='percentagePrisonersWithKeyworker-value']").should('have.text', '100%')
-      cy.get("[data-qa='numProjectedKeyworkerSessions-value']").should('have.text', '2400')
-      cy.get("[data-qa='complianceRate-value']").should('have.text', '100%')
-      cy.get("[data-qa='avgNumDaysFromReceptionToAllocationDays-value']").should('have.text', '-')
-      cy.get("[data-qa='avgNumDaysFromReceptionToKeyWorkingSession-value']").should('have.text', '-')
-      cy.get("[data-qa='prisonerToKeyworkerRation-value']").should('have.text', '3:1')
+      const prisonStatsPage = PrisonStatsPage.verifyOnPage('Key worker statistics for Moorland')
+      prisonStatsPage.numberOfActiveKeyworkers().should('have.text', '100')
+      prisonStatsPage.numberKeyworkerSessions().should('have.text', '2400')
+      prisonStatsPage.percentagePrisonersWithKeyworker().should('have.text', '100%')
+      prisonStatsPage.numProjectedKeyworkerSessions().should('have.text', '2400')
+      prisonStatsPage.complianceRate().should('have.text', '100%')
+      prisonStatsPage.avgNumDaysFromReceptionToAllocationDays().should('have.text', '-')
+      prisonStatsPage.avgNumDaysFromReceptionToKeyWorkingSession().should('have.text', '-')
+      prisonStatsPage.prisonerToKeyworkerRation().should('have.text', '3:1')
     })
 
     it('should make a request for stats for the last full month by default', () => {
@@ -63,15 +46,10 @@ context('Key workers statistics test', () => {
       const firstDay = switchToIsoDateFormat(lastMonth.startOf('month'))
       const lastDay = switchToIsoDateFormat(lastMonth.endOf('month'))
 
-      cy.task('stubKeyworkerStats', {
-        summary: {
-          requestedFromDate: firstDay,
-          requestedToDate: lastDay,
-        },
-      })
+      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsNoCurrentDataResponse)
       cy.visit('/key-worker-statistics')
       cy.contains('There is no data for this period.')
-      cy.task('verifyKeyworkerStatsCalled', { prisonId: 'MDI', from: firstDay, to: lastDay }).then((val) => {
+      cy.task('verifyPrisonStatsCalled', { prisonId: 'MDI', from: firstDay, to: lastDay }).then((val) => {
         expect(JSON.parse(val.text).count).to.equal(1)
       })
     })
@@ -80,31 +58,14 @@ context('Key workers statistics test', () => {
       const yesterday = moment().subtract(1, 'day')
       const sevenDaysAgo = moment().subtract(7, 'day')
 
-      cy.task('stubKeyworkerStats', {
-        summary: {
-          requestedFromDate: '2018-10-12',
-          requestedToDate: '2018-11-12',
-        },
-      })
+      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsNoCurrentDataResponse)
       cy.visit('/key-worker-statistics')
-
-      cy.get('#fromDate').click()
-      cy.get('.fromDate th.rdtSwitch').click()
-      cy.get('.fromDate th.rdtSwitch').click()
-      cy.get(`.fromDate td[data-value=${sevenDaysAgo.get('year')}]`).click()
-      cy.get(`.fromDate td[data-value=${sevenDaysAgo.get('month')}]`).click()
-      cy.get(`.fromDate td.rdtDay:not(.rdtOld):not(.rdtNew)[data-value=${sevenDaysAgo.date()}]`).click()
-
-      cy.get('#toDate').click()
-      cy.get('.toDate th.rdtSwitch').click()
-      cy.get('.toDate th.rdtSwitch').click()
-      cy.get(`.toDate td[data-value=${yesterday.get('year')}]`).click()
-      cy.get(`.toDate td[data-value=${yesterday.get('month')}]`).click()
-      cy.get(`.toDate td.rdtDay:not(.rdtOld):not(.rdtNew)[data-value=${yesterday.date()}]`).click()
-      cy.get('form button').click()
+      const prisonStatsPage = PrisonStatsPage.verifyOnPage('Key worker statistics for Moorland')
+      prisonStatsPage.setFromDate(sevenDaysAgo)
+      prisonStatsPage.setToDate(yesterday)
 
       cy.contains('There is no data for this period.')
-      cy.task('verifyKeyworkerStatsCalled', {
+      cy.task('verifyPrisonStatsCalled', {
         prisonId: 'MDI',
         from: switchToIsoDateFormat(sevenDaysAgo),
         to: switchToIsoDateFormat(yesterday),
