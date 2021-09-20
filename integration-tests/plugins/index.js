@@ -65,6 +65,7 @@ module.exports = (on) => {
     verifyPrisonStatsCalled: ({ prisonId, from, to }) => keyworker.verifyPrisonStatsCalled({ prisonId, from, to }),
     stubCaseNoteUsageList: (response) => prisonApi.stubCaseNoteUsageList(response),
     stubKeyworkerUpdate: (response) => keyworker.stubKeyworkerUpdate(response),
+    stubUserLocations: (locations) => prisonApi.stubUserLocations(locations),
     verifyKeyworkerSearchCalled: (queryParameters) => keyworker.verifyKeyworkerSearchCalled(queryParameters),
     verifyKeyworkerUpdate: (body) => keyworker.verifyKeyworkerUpdate(body),
     verifyKeyworkerStatsCalled: ({ from, to }) => keyworker.verifyKeyworkerStatsCalled({ from, to }),
