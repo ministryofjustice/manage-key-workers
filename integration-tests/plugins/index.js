@@ -62,11 +62,11 @@ module.exports = (on) => {
     stubClientCredentialsRequest: () => auth.stubClientCredentialsRequest(),
     stubPrisonMigrationStatus: (settings) => keyworker.stubPrisonMigrationStatus(settings),
     stubKeyworkerStats: (response) => keyworker.stubKeyworkerStats(response),
-    verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
-      keyworker.verifyKeyworkerStatsCalled({ prisonId, from, to }),
+    verifyPrisonStatsCalled: ({ prisonId, from, to }) => keyworker.verifyPrisonStatsCalled({ prisonId, from, to }),
     stubCaseNoteUsageList: (response) => prisonApi.stubCaseNoteUsageList(response),
     stubKeyworkerUpdate: (response) => keyworker.stubKeyworkerUpdate(response),
     verifyKeyworkerSearchCalled: (queryParameters) => keyworker.verifyKeyworkerSearchCalled(queryParameters),
     verifyKeyworkerUpdate: (body) => keyworker.verifyKeyworkerUpdate(body),
+    verifyKeyworkerStatsCalled: ({ from, to }) => keyworker.verifyKeyworkerStatsCalled({ from, to }),
   })
 }

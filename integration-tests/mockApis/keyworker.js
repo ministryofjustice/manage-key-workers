@@ -294,10 +294,34 @@ module.exports = {
     }),
   verifyKeyworkerSearchCalled: (queryParameters) =>
     verifyRequest({ requestUrlPattern: `/key-worker/key-worker/MDI/members.+?`, method: 'GET', queryParameters }),
-  verifyKeyworkerStatsCalled: ({ prisonId, from, to }) =>
+  verifyPrisonStatsCalled: ({ prisonId, from, to }) =>
     verifyRequest({
-      requestUrl: `/key-worker/key-worker-stats?prisonId=${prisonId}&fromDate=${from}&toDate=${to}`,
+      requestUrlPattern: '/key-worker/key-worker-stats.+?',
       method: 'GET',
+      queryParameters: {
+        prisonId: {
+          equalTo: prisonId,
+        },
+        fromDate: {
+          equalTo: from,
+        },
+        toDate: {
+          equalTo: to,
+        },
+      },
+    }),
+  verifyKeyworkerStatsCalled: ({ from, to }) =>
+    verifyRequest({
+      requestUrlPattern: '/key-worker/key-worker-stats/.+?/prison/.+?',
+      method: 'GET',
+      queryParameters: {
+        fromDate: {
+          equalTo: from,
+        },
+        toDate: {
+          equalTo: to,
+        },
+      },
     }),
   verifyAllocateWasCalled: () => verifyRequest({ requestUrl: '/key-worker/key-worker/allocate', method: 'POST' }),
   verifyDeallocateWasCalled: (offenderNo) =>

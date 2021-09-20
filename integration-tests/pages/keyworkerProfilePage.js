@@ -17,6 +17,17 @@ const offenderSearchPage = (keyworker) =>
     clickEditProfileButton: () => cy.get('#editProfileButton').click(),
     status: () => cy.get('#keyworker-status'),
     messageBar: () => cy.get('#messageBar'),
+    statsColumn: (column) => cy.get('[data-qa="keyworker-stat"]').eq(column - 1),
+    statsColumnTitle(column) {
+      return this.statsColumn(column).find('h2')
+    },
+    statsColumnValue(column) {
+      return this.statsColumn(column).find('p').eq(0)
+    },
+    statsColumnMessage(column) {
+      return this.statsColumn(column).find('p').eq(1)
+    },
+    statsHeading: () => cy.get('[data-qa="keyworker-stat-heading"]'),
   })
 
 export default {
