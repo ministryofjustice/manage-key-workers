@@ -49,7 +49,7 @@ context('Profile test', () => {
     cy.visit('/key-worker-search')
     const keyworkerSearchPage = KeyworkerSearchPage.verifyOnPage()
     keyworkerSearchPage.searchAndClickKeyworker(KeyworkerResponse.staffId)
-    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage('Hpa Auser')
+    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
 
     // Page context
     keyworkerProfilePage.allocationCount().should('have.text', '5')
