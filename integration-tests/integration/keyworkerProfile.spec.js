@@ -8,8 +8,7 @@ const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerRes
 const KeyworkerInactiveResponse = require('../responses/keyworkerResponse').keyworkerInactiveResponse
 const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
 const AvailableKeyworkersResponse = require('../responses/availableKeyworkersResponse')
-
-const KeyworkerSearchResponse = [KeyworkerResponse]
+const KeyworkerSearchResponse = require('../responses/keyworkerSearchResponse')
 
 const navigateToEditPage = (keyworker) => {
   cy.visit('/key-worker-search')
@@ -44,7 +43,6 @@ context('Profile test', () => {
     cy.task('stubOffenderAssessments')
     cy.task('stubOffenderSentences')
     cy.task('stubCaseNoteUsageList', CaseNoteUsageResponse)
-    cy.task('stubKeyworkerUpdate')
   })
 
   it('key worker profile is displayed correctly', () => {
@@ -109,10 +107,15 @@ context('Profile test', () => {
 
   it('key worker edit - saving active status', () => {
     cy.task('stubKeyworker', KeyworkerInactiveResponse) // Stub a inactive user
+    cy.task('stubKeyworkerUpdate')
     const editKeyworkerProfilePage = navigateToEditPage(KeyworkerInactiveResponse)
     editKeyworkerProfilePage.keyworkerStatusSelect().select('ACTIVE')
-    cy.task('stubKeyworker', KeyworkerResponse) // We simulate user now being active.
+    // We simulate user now being active do this before the save to avoid race conditions
+    cy.task('stubKeyworker', KeyworkerResponse)
     editKeyworkerProfilePage.save()
+    cy.task('verifyKeyworkerUpdate', { status: 'ACTIVE', capacity: `${KeyworkerResponse.capacity}` }).then((val) => {
+      expect(JSON.parse(val.text).count).to.equal(1)
+    })
     const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
     keyworkerProfilePage.status().should('have.text', 'Active')
     keyworkerProfilePage.messageBar().should('have.text', 'Profile changed')

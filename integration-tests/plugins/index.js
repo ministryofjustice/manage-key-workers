@@ -5,6 +5,7 @@ const keyworker = require('../mockApis/keyworker')
 const complexityApi = require('../mockApis/complexityOfNeedApi')
 
 const { resetStubs } = require('../mockApis/wiremock')
+const { stubKeyworkerUpdate, verifyKeyworkerUpdate } = require('../mockApis/keyworker')
 
 module.exports = (on) => {
   on('task', {
@@ -42,6 +43,7 @@ module.exports = (on) => {
     stubKeyworker: (response) => keyworker.stubKeyworker(response),
     stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
     stubKeyworkerSearch: (keyworkers) => keyworker.stubKeyworkerSearch(keyworkers),
+    stubKeyworkerSearchError: keyworker.stubKeyworkerSearchError,
     stubOffenderKeyworker: (response) => keyworker.stubOffenderKeyworker(response),
     stubOffenderSentences: (response) => prisonApi.stubOffenderSentences(response),
     stubOffenderAssessments: () => prisonApi.stubOffenderAssessments(),
@@ -64,5 +66,7 @@ module.exports = (on) => {
       keyworker.verifyKeyworkerStatsCalled({ prisonId, from, to }),
     stubCaseNoteUsageList: (response) => prisonApi.stubCaseNoteUsageList(response),
     stubKeyworkerUpdate: (response) => keyworker.stubKeyworkerUpdate(response),
+    verifyKeyworkerSearchCalled: (queryParameters) => keyworker.verifyKeyworkerSearchCalled(queryParameters),
+    verifyKeyworkerUpdate: (body) => keyworker.verifyKeyworkerUpdate(body),
   })
 }

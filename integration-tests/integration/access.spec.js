@@ -3,10 +3,9 @@ const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
 const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
+const KeyworkerSearchResponse = require('../responses/keyworkerSearchResponse')
 const OffenderSearchResponse = require('../responses/offenderSearchResponse')
 const Utils = require('../support/utils')
-
-const KeyworkerSearchResponse = [KeyworkerResponse]
 
 context('Access test', () => {
   before(() => {
