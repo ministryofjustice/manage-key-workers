@@ -64,6 +64,7 @@ typings/
 
 # testing
 /coverage
+/integration-tests/videos
 
 # production
 **/build
