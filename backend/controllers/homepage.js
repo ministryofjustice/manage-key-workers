@@ -1,6 +1,6 @@
 const config = require('../config')
 
-const keyWorkerTasks = (prisonStatus) => [
+const keyWorkerTasks = (prisonStatus, isComplexPrison) => [
   {
     id: 'view-without-key-worker',
     heading: 'View all without a key worker',
@@ -17,7 +17,15 @@ const keyWorkerTasks = (prisonStatus) => [
       'View all prisoners in a residential location and allocate or change key workers. You can also see high complexity prisoners',
     href: '/manage-key-workers/view-residential-location',
     roles: null,
-    enabled: prisonStatus?.migrated,
+    enabled: prisonStatus?.migrated && isComplexPrison,
+  },
+  {
+    id: 'view-residential-location',
+    heading: 'View by residential location',
+    description: 'View all prisoners in a residential location and allocate or change key workers.',
+    href: '/manage-key-workers/view-residential-location',
+    roles: null,
+    enabled: prisonStatus?.migrated && !isComplexPrison,
   },
   {
     id: 'search-for-prisoner',
@@ -88,7 +96,10 @@ module.exports =
 
     const roleCodes = currentRoles.map((userRole) => userRole.roleCode)
 
-    const availableTasks = keyWorkerTasks(prisonStatus)
+    const availableTasks = keyWorkerTasks(
+      prisonStatus,
+      config?.apis?.complexity?.enabled_prisons?.includes(activeCaseLoadId)
+    )
       .filter((task) => hasAnyRole(task, roleCodes))
       .map((task) => processTask(task, roleCodes))
 
