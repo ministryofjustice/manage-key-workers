@@ -1,32 +1,109 @@
+const Utils = require('../support/utils')
 const OffenderSearchPage = require('../pages/offenderSearchPage')
-const OffenderSearchResponse = require('../responses/offenderSearchResponse').offenderSearchReponse
-const AvailableKeyworkerResponse = require('../responses/availableKeyworkersResponse')
-const KeyworkersOfOffendersResponse = require('../responses/offenderSearchResponse').keyworkersOfOffendersResponse
-const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 const HomePage = require('../pages/homePage')
-const Utils = require('../support/utils')
 
-const userLocationResponse = [
+const offenderSearchResponse = [
   {
-    locationId: 1,
-    locationType: 'INST',
-    description: 'Moorland (HMP & YOI)',
-    agencyId: 'MDI',
-    locationPrefix: 'MDI',
+    bookingId: -1,
+    bookingNo: 'A00111',
+    offenderNo: 'A1178RS',
+    firstName: 'ARTHUR',
+    middleName: 'BORIS',
+    lastName: 'ANDERSON',
+    dateOfBirth: '1969-12-30',
+    age: 48,
+    agencyId: 'LEI',
+    assignedLivingUnitId: -3,
+    assignedLivingUnitDesc: 'A-1-1',
+    facialImageId: -1,
+    iepLevel: 'Standard',
+  },
+  {
+    bookingId: -29,
+    bookingNo: 'Z00029',
+    offenderNo: 'Z0024ZZ',
+    firstName: 'NEIL',
+    middleName: 'IAN',
+    lastName: 'BRADLEY',
+    dateOfBirth: '1945-01-10',
+    age: 73,
+    agencyId: 'LEI',
+    assignedLivingUnitId: -14,
+    assignedLivingUnitDesc: 'H-1',
+    iepLevel: 'Entry',
   },
 ]
+const availableKeyworkerResponse = [
+  {
+    staffId: -3,
+    firstName: 'HPA',
+    lastName: 'AUser',
+    capacity: 6,
+    numberAllocated: 4,
+    agencyId: 'LEI',
+    status: 'ACTIVE',
+    autoAllocationAllowed: true,
+    numKeyWorkerSessions: 3,
+  },
+  {
+    staffId: -4,
+    firstName: 'Test',
+    lastName: 'TUser',
+    capacity: 6,
+    numberAllocated: 5,
+    agencyId: 'LEI',
+    status: 'ACTIVE',
+    autoAllocationAllowed: true,
+    numKeyWorkerSessions: 6,
+  },
+]
+
+const keyworkersOfOffendersResponse = [
+  {
+    offenderKeyworkerId: -1001,
+    offenderNo: 'A1178RS',
+    staffId: -3,
+    agencyId: 'LEI',
+    assigned: '2018-08-05T10:45:54.838',
+    userId: 'SRENDELL_GEN',
+    active: 'Y',
+  },
+  {
+    offenderKeyworkerId: -1002,
+    offenderNo: 'A5577RS',
+    staffId: -3,
+    agencyId: 'LEI',
+    assigned: '2018-08-07T10:47:07.845',
+    userId: 'MWILLIS_GEN',
+    active: 'Y',
+  },
+]
+
+const keyworkerResponse = {
+  staffId: -3,
+  firstName: 'HPA',
+  lastName: 'AUser',
+  thumbnailId: 1,
+  capacity: 6,
+  numberAllocated: 4,
+  scheduleType: 'Full Time',
+  agencyId: 'LEI',
+  agencyDescription: 'Moorland (HMP & YOI)',
+  status: 'ACTIVE',
+  autoAllocationAllowed: true,
+}
 
 context('manual assign and transfer test', () => {
   before(() => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
-    cy.task('stubAvailableKeyworkers', AvailableKeyworkerResponse)
-    cy.task('stubSearchOffenders', OffenderSearchResponse)
-    cy.task('stubOffenderKeyworker', KeyworkersOfOffendersResponse)
+    cy.task('stubAvailableKeyworkers', availableKeyworkerResponse)
+    cy.task('stubSearchOffenders', offenderSearchResponse)
+    cy.task('stubOffenderKeyworker', keyworkersOfOffendersResponse)
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
-    cy.task('stubKeyworker', KeyworkerResponse)
+    cy.task('stubKeyworker', keyworkerResponse)
     cy.task('stubKeyworkerAllocations')
     cy.task('stubCaseNoteUsageList')
     cy.task('stubKeyworkerStats')
@@ -44,7 +121,7 @@ context('manual assign and transfer test', () => {
     cy.visit('/offender-search')
     const offenderSearchPage = OffenderSearchPage.verifyOnPage()
     offenderSearchPage.verifyPageReady()
-    offenderSearchPage.housingLocations().eq(0).should('have.text', userLocationResponse[0].description)
+    offenderSearchPage.housingLocations().eq(0).should('have.text', 'Moorland (HMP & YOI)')
   })
 
   it('Assign and Transfer full results', () => {
@@ -52,9 +129,9 @@ context('manual assign and transfer test', () => {
     const offenderSearchPage = OffenderSearchPage.verifyOnPage()
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.search()
-    offenderSearchPage.resultRows().its('length').should('eq', 5)
-    offenderSearchPage.keyworkerLink(KeyworkersOfOffendersResponse[0].staffId).click()
-    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+    offenderSearchPage.resultRows().its('length').should('eq', 2)
+    offenderSearchPage.keyworkerLink(keyworkersOfOffendersResponse[0].staffId).click()
+    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
     keyworkerProfilePage.parentPageLink().click()
     HomePage.verifyOnPage()
   })
@@ -65,7 +142,7 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.allocationStatusSelect().select('Unallocated')
     offenderSearchPage.search()
-    offenderSearchPage.resultRows().its('length').should('eq', 3)
+    offenderSearchPage.resultRows().its('length').should('eq', 1)
   })
 
   it('Assign and Transfer filtered by allocated', () => {
@@ -74,7 +151,7 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.allocationStatusSelect().select('Allocated')
     offenderSearchPage.search()
-    offenderSearchPage.resultRows().its('length').should('eq', 2)
+    offenderSearchPage.resultRows().its('length').should('eq', 1)
   })
 
   it('Search for offender returns no results', () => {
@@ -110,7 +187,7 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.search()
     offenderSearchPage.errorSummary().should('be.visible')
 
-    cy.task('stubSearchOffenders', OffenderSearchResponse)
+    cy.task('stubSearchOffenders', offenderSearchResponse)
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.search()
     offenderSearchPage.errorSummary().should('not.exist')
@@ -122,8 +199,8 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.search()
     offenderSearchPage
-      .assignNewKeyworkeSelect(OffenderSearchResponse[0].offenderNo)
-      .select(`${AvailableKeyworkerResponse[1].staffId}`)
+      .assignNewKeyworkeSelect(offenderSearchResponse[0].offenderNo)
+      .select(`${availableKeyworkerResponse[1].staffId}`)
     offenderSearchPage.saveButton().click()
     offenderSearchPage.messageBar().should('have.text', 'Key workers successfully updated.')
   })
