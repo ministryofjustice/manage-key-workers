@@ -18,6 +18,8 @@ describe('Homepage', () => {
     keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
 
     controller = homepageController({ keyworkerApi, oauthApi })
+
+    config.apis.complexity.enabled_prisons = []
   })
 
   it('should make the required calls to endpoints', async () => {
@@ -48,8 +50,7 @@ describe('Homepage', () => {
             id: 'view-without-key-worker',
           },
           {
-            description:
-              'View all prisoners in a residential location and allocate or change key workers. You can also see high complexity prisoners',
+            description: 'View all prisoners in a residential location and allocate or change key workers.',
             heading: 'View by residential location',
             href: '/manage-key-workers/view-residential-location',
             id: 'view-residential-location',
@@ -62,6 +63,43 @@ describe('Homepage', () => {
             id: 'search-for-prisoner',
           },
         ],
+      })
+    })
+
+    describe('When the prison is complexity enabled', () => {
+      beforeEach(() => {
+        config.apis.complexity.enabled_prisons = ['MDI']
+      })
+
+      it('should show the correct tile', async () => {
+        keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({ migrated: true })
+        await controller(req, res)
+
+        expect(res.render).toHaveBeenCalledWith('homepage', {
+          tasks: [
+            {
+              description:
+                'You can allocate key workers to these prisoners. You can also automatically allocate a key worker to these prisoners if your establishment allows it.',
+              heading: 'View all without a key worker',
+              href: '/manage-key-workers/allocate-key-worker',
+              id: 'view-without-key-worker',
+            },
+            {
+              description:
+                'View all prisoners in a residential location and allocate or change key workers. You can also see high complexity prisoners',
+              heading: 'View by residential location',
+              href: '/manage-key-workers/view-residential-location',
+              id: 'view-residential-location',
+            },
+            {
+              description:
+                'You can allocate or change a key worker after searching for a prisoner. You will need the prisoner’s name or prison number.',
+              heading: 'Search for a prisoner',
+              href: '/manage-key-workers/search-for-prisoner',
+              id: 'search-for-prisoner',
+            },
+          ],
+        })
       })
     })
 
