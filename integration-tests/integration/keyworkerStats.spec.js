@@ -1,25 +1,42 @@
 import moment from 'moment'
 import { switchToIsoDateFormat } from '../../src/stringUtils'
 
-const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
-const CaseNoteUsageResponse = require('../responses/caseNoteUsageResponse')
-const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
-const AvailableKeyworkersResponse = require('../responses/availableKeyworkersResponse')
-const KeyworkerStatsResponse = require('../responses/keyworkerStatsResponse')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
+
+const keyworkerResponse = {
+  staffId: -3,
+  firstName: 'HPA',
+  lastName: 'AUser',
+  thumbnailId: 1,
+  capacity: 6,
+  numberAllocated: 4,
+  scheduleType: 'Full Time',
+  agencyId: 'LEI',
+  agencyDescription: 'Moorland (HMP & YOI)',
+  status: 'ACTIVE',
+  autoAllocationAllowed: true,
+}
+
+const keyworkerStatsResponse = {
+  caseNoteEntryCount: 10,
+  caseNoteSessionCount: 10,
+  complianceRate: 0,
+  projectedKeyworkerSessions: 0,
+}
+
 const Utils = require('../support/utils')
 
 context('Keyworker stats tests', () => {
   before(() => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
-    cy.task('stubKeyworker', KeyworkerResponse)
-    cy.task('stubKeyworkerAllocations', KeyworkerAllocationsResponse)
-    cy.task('stubAvailableKeyworkers', AvailableKeyworkersResponse)
+    cy.task('stubKeyworker', keyworkerResponse)
+    cy.task('stubKeyworkerAllocations')
+    cy.task('stubAvailableKeyworkers')
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
-    cy.task('stubKeyworkerStats', KeyworkerStatsResponse)
-    cy.task('stubCaseNoteUsageList', CaseNoteUsageResponse)
+    cy.task('stubKeyworkerStats', keyworkerStatsResponse)
+    cy.task('stubCaseNoteUsageList')
     cy.task('stubLogin', {
       username: 'ITAG_USER',
       caseload: 'MDI',
@@ -30,9 +47,9 @@ context('Keyworker stats tests', () => {
   })
 
   it('should populate the key worker profile page with stats for a member of staff', () => {
-    cy.visit(`/key-worker/${KeyworkerResponse.staffId}`)
+    cy.visit(`/key-worker/${keyworkerResponse.staffId}`)
     const lastMonth = moment().subtract(1, 'months')
-    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
     keyworkerProfilePage
       .statsHeading()
       .find('span')
@@ -56,10 +73,10 @@ context('Keyworker stats tests', () => {
   })
 
   it('should pull stats from a month ago to today', () => {
-    cy.visit(`/key-worker/${KeyworkerResponse.staffId}`)
+    cy.visit(`/key-worker/${keyworkerResponse.staffId}`)
     const lastMonth = switchToIsoDateFormat(moment().subtract(1, 'months'))
     const today = switchToIsoDateFormat(moment())
-    KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+    KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
     cy.task('verifyKeyworkerStatsCalled', { from: lastMonth, to: today }).then((val) => {
       expect(JSON.parse(val.text).count).to.equal(1)
     })
