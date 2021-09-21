@@ -1,7 +1,44 @@
 const HomePage = require('../pages/homePage')
 const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
-const KeyworkerSearchResponse = require('../responses/keyworkerSearchResponse')
-const CaseNoteUsageResponse = require('../responses/caseNoteUsageResponse')
+
+const keyworkerSearchResponse = [
+  {
+    staffId: -3,
+    firstName: 'HPA',
+    lastName: 'AUser',
+    capacity: 6,
+    numberAllocated: 4,
+    scheduleType: 'Full Time',
+    agencyId: 'LEI',
+    agencyDescription: 'LEEDS',
+    status: 'ACTIVE',
+    autoAllocationAllowed: true,
+    numKeyWorkerSessions: 5,
+  },
+  {
+    staffId: -1,
+    firstName: 'Elite2',
+    lastName: 'Buser',
+    capacity: 6,
+    numberAllocated: 0,
+    scheduleType: 'Full Time',
+    agencyId: 'LEI',
+    agencyDescription: 'LEEDS',
+    status: 'ACTIVE',
+    autoAllocationAllowed: true,
+    numKeyWorkerSessions: 2,
+  },
+]
+
+const caseNoteUsageResponse = [
+  {
+    caseNoteType: 'KA',
+    caseNoteSubType: 'KE',
+    offenderNo: 'A1178RS',
+    numCaseNotes: 2,
+    latestCaseNote: '2018-06-15T09:38:38.525Z',
+  },
+]
 
 const navigateToSearchPage = () => {
   cy.visit('/')
@@ -24,9 +61,9 @@ context('Keyworker search tests', () => {
   })
 
   beforeEach(() => {
-    // Cypress.Cookies.preserveOnce('hmpps-session-dev')
-    cy.task('stubCaseNoteUsageList', CaseNoteUsageResponse)
-    cy.task('stubKeyworkerSearch', KeyworkerSearchResponse)
+    Cypress.Cookies.preserveOnce('hmpps-session-dev')
+    cy.task('stubCaseNoteUsageList', caseNoteUsageResponse)
+    cy.task('stubKeyworkerSearch', keyworkerSearchResponse)
   })
 
   it('key worker search', () => {
@@ -47,7 +84,7 @@ context('Keyworker search tests', () => {
   it('Search for all key workers returns results', () => {
     const keyworkerSearchPage = navigateToSearchPage()
     keyworkerSearchPage.search()
-    keyworkerSearchPage.searchRows().its('length').should('eq', 5)
+    keyworkerSearchPage.searchRows().its('length').should('eq', 2)
   })
 
   it('Search for all key workers returns results show last KW Sessions in last month', () => {
@@ -60,7 +97,7 @@ context('Keyworker search tests', () => {
     const keyworkerSearchPage = navigateToSearchPage()
     keyworkerSearchPage.selectStatus('UNAVAILABLE_ANNUAL_LEAVE')
     keyworkerSearchPage.search()
-    keyworkerSearchPage.searchRows().its('length').should('eq', 5)
+    keyworkerSearchPage.searchRows().its('length').should('eq', 2)
     cy.task('verifyKeyworkerSearchCalled', {
       statusFilter: {
         equalTo: 'UNAVAILABLE_ANNUAL_LEAVE',
@@ -72,7 +109,7 @@ context('Keyworker search tests', () => {
 
   it('Search for key worker renders error', () => {
     const keyworkerSearchPage = navigateToSearchPage()
-    cy.task('stubKeyworkerSearchError', KeyworkerSearchResponse)
+    cy.task('stubKeyworkerSearchError', keyworkerSearchResponse)
     keyworkerSearchPage.search()
     keyworkerSearchPage.errorSummary().should('be.visible')
   })
