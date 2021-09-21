@@ -74,4 +74,25 @@ const offenderSearchReponse = [
   },
 ]
 
-export default offenderSearchReponse
+const keyworkersOfOffendersResponse = [
+  {
+    offenderKeyworkerId: -1001,
+    offenderNo: 'A1178RS',
+    staffId: -3,
+    agencyId: 'LEI',
+    assigned: '2018-08-05T10:45:54.838',
+    userId: 'SRENDELL_GEN',
+    active: 'Y',
+  },
+  {
+    offenderKeyworkerId: -1002,
+    offenderNo: 'A5577RS',
+    staffId: -3,
+    agencyId: 'LEI',
+    assigned: '2018-08-07T10:47:07.845',
+    userId: 'MWILLIS_GEN',
+    active: 'Y',
+  },
+]
+
+export default { offenderSearchReponse, keyworkersOfOffendersResponse }
