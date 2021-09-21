@@ -2,9 +2,32 @@ import moment from 'moment'
 import { switchToIsoDateFormat } from '../../src/stringUtils'
 
 const PrisonStatsPage = require('../pages/prisonStatsPage')
-const KeyworkerPrisonStatsResponse = require('../responses/keyworkerPrisonStatsResponse').keyworkerPrisonStatsResponse
-const KeyworkerPrisonStatsNoCurrentDataResponse =
-  require('../responses/keyworkerPrisonStatsResponse').keyworkerPrisonStatsNoCurrentDataResponse
+
+const keyworkerPrisonStatsResponse = {
+  summary: {
+    requestedFromDate: '2018-10-12',
+    requestedToDate: '2018-11-12',
+    current: {
+      dataRangeFrom: '2018-10-28',
+      dataRangeTo: '2018-11-11',
+      numPrisonersAssignedKeyWorker: 600,
+      totalNumPrisoners: 600,
+      numberKeyWorkerSessions: 2400,
+      numberKeyWorkerEntries: 400,
+      numberOfActiveKeyworkers: 100,
+      percentagePrisonersWithKeyworker: 100,
+      numProjectedKeyworkerSessions: 2400,
+      complianceRate: 100,
+    },
+  },
+}
+
+const keyworkerPrisonStatsNoCurrentDataResponse = {
+  summary: {
+    requestedFromDate: '2018-10-12',
+    requestedToDate: '2018-11-12',
+  },
+}
 
 context('Key workers statistics test', () => {
   describe('Tasks', () => {
@@ -21,14 +44,14 @@ context('Key workers statistics test', () => {
     })
 
     it('keyworker dashboard should display correct message if there is no data', () => {
-      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsNoCurrentDataResponse)
+      cy.task('stubKeyworkerStats', keyworkerPrisonStatsNoCurrentDataResponse)
       cy.visit('/key-worker-statistics')
       cy.get('h1').contains('Key worker statistics for')
       cy.contains('There is no data for this period.')
     })
 
     it('keyworker dashboard should display correctly', () => {
-      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsResponse)
+      cy.task('stubKeyworkerStats', keyworkerPrisonStatsResponse)
       cy.visit('/key-worker-statistics')
       const prisonStatsPage = PrisonStatsPage.verifyOnPage('Key worker statistics for Moorland')
       prisonStatsPage.numberOfActiveKeyworkers().should('have.text', '100')
@@ -46,7 +69,7 @@ context('Key workers statistics test', () => {
       const firstDay = switchToIsoDateFormat(lastMonth.startOf('month'))
       const lastDay = switchToIsoDateFormat(lastMonth.endOf('month'))
 
-      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsNoCurrentDataResponse)
+      cy.task('stubKeyworkerStats', keyworkerPrisonStatsNoCurrentDataResponse)
       cy.visit('/key-worker-statistics')
       cy.contains('There is no data for this period.')
       cy.task('verifyPrisonStatsCalled', { prisonId: 'MDI', from: firstDay, to: lastDay }).then((val) => {
@@ -58,7 +81,7 @@ context('Key workers statistics test', () => {
       const yesterday = moment().subtract(1, 'day')
       const sevenDaysAgo = moment().subtract(7, 'day')
 
-      cy.task('stubKeyworkerStats', KeyworkerPrisonStatsNoCurrentDataResponse)
+      cy.task('stubKeyworkerStats', keyworkerPrisonStatsNoCurrentDataResponse)
       cy.visit('/key-worker-statistics')
       const prisonStatsPage = PrisonStatsPage.verifyOnPage('Key worker statistics for Moorland')
       prisonStatsPage.setFromDate(sevenDaysAgo)
