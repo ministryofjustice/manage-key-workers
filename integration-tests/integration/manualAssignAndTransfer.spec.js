@@ -17,7 +17,7 @@ const userLocationResponse = [
   },
 ]
 
-context('Keyworker stats tests', () => {
+context('manual assign and transfer test', () => {
   before(() => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
@@ -115,7 +115,6 @@ context('Keyworker stats tests', () => {
     offenderSearchPage.search()
     offenderSearchPage.errorSummary().should('not.exist')
   })
-
   it('manual override - should stay on results page and display message bar', () => {
     cy.task('stubAllocate')
     cy.visit('/offender-search')
