@@ -112,7 +112,9 @@ context('Offender search', () => {
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'G12346', level: 'high' }])
-    cy.task('stubOffenderSentences', [{ offenderNo: 'G12346', sentenceDetail: { releaseDate: '2022-04-30' } }])
+    cy.task('stubOffenderSentences', [
+      { offenderNo: 'G12346', sentenceDetail: { releaseDate: '2022-04-30', mostRecentActiveBooking: true } },
+    ])
     cy.task('stubClientCredentialsRequest')
   })
 
