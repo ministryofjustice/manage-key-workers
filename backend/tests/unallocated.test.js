@@ -54,11 +54,11 @@ function createDataResponse() {
 
 function createSentenceDetailListResponse() {
   return [
-    { offenderNo: 'A1234AA', sentenceDetail: { releaseDate: '2024-03-03' } },
-    { offenderNo: 'A1234AB', sentenceDetail: { releaseDate: '2025-04-03' } },
-    { offenderNo: 'A1234AF', sentenceDetail: { releaseDate: '2026-03-03' } },
-    { offenderNo: 'A1234AC', sentenceDetail: { releaseDate: '2019-03-03' } },
-    { offenderNo: 'A1234AD', sentenceDetail: { releaseDate: '2018-03-03' } },
+    { offenderNo: 'A1234AA', sentenceDetail: { releaseDate: '2024-03-03', mostRecentActiveBooking: true } },
+    { offenderNo: 'A1234AB', sentenceDetail: { releaseDate: '2025-04-03', mostRecentActiveBooking: true } },
+    { offenderNo: 'A1234AF', sentenceDetail: { releaseDate: '2026-03-03', mostRecentActiveBooking: true } },
+    { offenderNo: 'A1234AC', sentenceDetail: { releaseDate: '2019-03-03', mostRecentActiveBooking: true } },
+    { offenderNo: 'A1234AD', sentenceDetail: { releaseDate: '2018-03-03', mostRecentActiveBooking: true } },
   ]
 }
 

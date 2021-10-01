@@ -18,6 +18,7 @@ function createAllocatedDataResponse() {
       lastName: 'ANDERSON',
       staffId: 123,
       agencyId: 'LEI',
+      mostRecentActiveBooking: true,
       assigned: '2017-01-01T12:00:00',
       allocationType: 'M',
       internalLocationDesc: 'A-1-1',
@@ -30,6 +31,7 @@ function createAllocatedDataResponse() {
       lastName: 'ANDERSON',
       staffId: 124,
       agencyId: 'LEI',
+      mostRecentActiveBooking: true,
       assigned: '2017-01-01T12:01:00',
       allocationType: 'M',
       internalLocationDesc: 'H-1-5',
@@ -41,6 +43,7 @@ function createAllocatedDataResponse() {
       lastName: 'ANDREWS',
       staffId: 123,
       agencyId: 'LEI',
+      mostRecentActiveBooking: true,
       assigned: '2017-01-01T12:05:00',
       allocationType: 'M',
       internalLocationDesc: 'A-1-2',
@@ -53,6 +56,7 @@ function createAllocatedDataResponse() {
       lastName: 'BATES',
       staffId: -2,
       agencyId: 'LEI',
+      mostRecentActiveBooking: true,
       assigned: '2017-01-01T12:02:00',
       allocationType: 'M',
       internalLocationDesc: 'A-1-1',
@@ -65,6 +69,7 @@ function createAllocatedDataResponse() {
       lastName: 'CHAPLIN',
       staffId: -2,
       agencyId: 'LEI',
+      mostRecentActiveBooking: true,
       assigned: '2017-01-01T12:03:00',
       allocationType: 'M',
       internalLocationDesc: 'A-1',
@@ -106,8 +111,8 @@ function createSingleKeyworkerResponse() {
 
 function createSentenceDetailListResponse() {
   return [
-    { offenderNo: 'A1234AA', sentenceDetail: { releaseDate: '2024-03-03' } },
-    { offenderNo: 'A1234AB', sentenceDetail: { releaseDate: '2025-04-03' } },
+    { offenderNo: 'A1234AA', sentenceDetail: { releaseDate: '2024-03-03', mostRecentActiveBooking: true } },
+    { offenderNo: 'A1234AB', sentenceDetail: { releaseDate: '2025-04-03', mostRecentActiveBooking: true } },
     { offenderNo: 'A1234AC', sentenceDetail: { fred: 'someValue' } },
     { offenderNo: 'A1234AD' },
   ]
@@ -162,6 +167,7 @@ describe('Allocated controller', () => {
       lastName: 'ANDERSON',
       staffId: 123,
       agencyId: 'LEI',
+      mostRecentActiveBooking: true,
       internalLocationDesc: 'A-1-1',
       keyworkerDisplay: 'Amy Hanson',
       numberAllocated: 4,

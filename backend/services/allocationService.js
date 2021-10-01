@@ -19,7 +19,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
   const findReleaseDateForOffender = (allReleaseDates, offenderNo) =>
     allReleaseDates
       .filter((d) => d.offenderNo === offenderNo)
-      .map((d) => d.sentenceDetail && d.sentenceDetail.releaseDate)
+      .map((d) => d.sentenceDetail && d.sentenceDetail.mostRecentActiveBooking && d.sentenceDetail.releaseDate)
       .find((d) => !!d) || null
 
   const findKeyworkerCaseNoteDate = (kwDates, offenderNo) =>
