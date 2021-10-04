@@ -112,10 +112,10 @@ context('Allocate key worker to unallocated prisoners', () => {
           offenderNo: 'ABC123',
           firstName: 'FERINAND',
           lastName: 'ALFF',
+          mostRecentActiveBooking: true,
           sentenceDetail: {
             confirmedReleaseDate: '2022-04-30',
             releaseDate: '2022-04-30',
-            mostRecentActiveBooking: true,
           },
           internalLocationDesc: 'MDI-1-1',
         },
@@ -123,10 +123,10 @@ context('Allocate key worker to unallocated prisoners', () => {
           offenderNo: 'ABC456',
           firstName: 'JOHN',
           lastName: 'SMITH',
+          mostRecentActiveBooking: true,
           sentenceDetail: {
             confirmedReleaseDate: '2030-05-30',
             releaseDate: '2030-05-30',
-            mostRecentActiveBooking: true,
           },
           internalLocationDesc: 'MDI-1-2',
         },
