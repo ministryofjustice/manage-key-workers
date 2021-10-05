@@ -2,37 +2,37 @@
 
 exports[`<FooterContainer /> should render correctly 1`] = `
 <footer
-  className="src__FooterContainer-sc-1t3c5e2-0 hcsLTY sc-htpNat fJjhOP"
+  className="src__FooterContainer-sc-1bvy0ac-0 eskibS sc-htpNat fJjhOP"
   role="contentinfo"
 >
   <div
-    className="width-container__WidthContainer-sc-213f5v-0 sc-bwzfXH iaUJaF"
+    className="width-container__WidthContainer-qd309x-0 sc-bwzfXH iaUJaF"
   >
     <div
-      className="meta__Meta-b55tvf-0 ekjEQT"
+      className="meta__Meta-sc-16xm6pe-0 bpdoiG"
     >
       <div
-        className="meta-item__MetaItem-nseoos-0 jUcJez"
+        className="meta-item__MetaItem-sc-16p8do8-0 jMjsRa"
       >
         <span
-          className="src__VisuallyHidden-nxwj55-0 fjBSaB"
+          className="src__VisuallyHidden-sc-1d47voq-0 HZRMW"
           focusable={false}
         >
           <h2
-            className="heading__StyledHeading-sc-1dsobun-0 loKLPh"
+            className="heading__StyledHeading-sc-1sovo83-0 ctdnFM"
             size="LARGE"
           >
             Support links
           </h2>
         </span>
         <ul
-          className="unordered-list__UnorderedList-sc-1r7pzdm-0 iyscru"
+          className="unordered-list__UnorderedList-dpwfc3-0 bdsISw"
         >
           <li
-            className="list-item__ListItem-hn98ju-0 hblyyy"
+            className="list-item__ListItem-sc-1cqophz-0 kacDc"
           >
             <a
-              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1vhdcoj-0 gDgTWc"
+              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1c8mabd-0 dXqMes"
               href="/"
               muted={false}
             >
@@ -40,10 +40,10 @@ exports[`<FooterContainer /> should render correctly 1`] = `
             </a>
           </li>
           <li
-            className="list-item__ListItem-hn98ju-0 hblyyy"
+            className="list-item__ListItem-sc-1cqophz-0 kacDc"
           >
             <a
-              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1vhdcoj-0 gDgTWc"
+              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1c8mabd-0 dXqMes"
               href="/prisonStaffHubUrl/content/terms-conditions"
               muted={false}
               target="_blank"
@@ -54,7 +54,7 @@ exports[`<FooterContainer /> should render correctly 1`] = `
         </ul>
         <div>
           <svg
-            className="licence__LicenceLogo-sc-76bcjk-0 cvIAYU"
+            className="licence__LicenceLogo-hv7ikp-0 cVvuDl"
             focusable="false"
             height="17"
             role="presentation"
@@ -68,12 +68,12 @@ exports[`<FooterContainer /> should render correctly 1`] = `
             />
           </svg>
           <span
-            className="licence__LicenceDescription-sc-76bcjk-1 byezzH"
+            className="licence__LicenceDescription-hv7ikp-1 fwUcnj"
           >
             All content is available under the
              
             <a
-              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1vhdcoj-0 gDgTWc"
+              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1c8mabd-0 dXqMes"
               href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
               muted={false}
               rel="license"
@@ -85,10 +85,10 @@ exports[`<FooterContainer /> should render correctly 1`] = `
         </div>
       </div>
       <div
-        className="meta-item__MetaItem-nseoos-0 jfJfJr"
+        className="meta-item__MetaItem-sc-16p8do8-0 dpdtYn"
       >
         <a
-          className="sc-bdVaJa copyright__StyledCopyright-sc-1i22iwf-0 sIqJy"
+          className="sc-bdVaJa copyright__StyledCopyright-y760rk-0 eFlKP"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
           muted={false}
         >
