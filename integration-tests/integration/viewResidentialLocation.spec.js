@@ -53,9 +53,9 @@ context('View residential location', () => {
       },
     ])
     cy.task('stubOffenderSentences', [
-      { offenderNo: 'ABC123', sentenceDetail: { releaseDate: '2022-04-30' } },
-      { offenderNo: 'ABC456', sentenceDetail: { releaseDate: '2030-05-30' } },
-      { offenderNo: 'ABC789', sentenceDetail: { releaseDate: '2029-02-28' } },
+      { offenderNo: 'ABC123', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2022-04-30' } },
+      { offenderNo: 'ABC456', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2030-05-30' } },
+      { offenderNo: 'ABC789', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2029-02-28' } },
     ])
     cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'ABC123', level: 'high' }])
