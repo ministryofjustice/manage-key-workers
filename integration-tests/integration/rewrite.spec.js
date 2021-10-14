@@ -2,10 +2,20 @@ const HomePage = require('../pages/homePage')
 const OffenderSearchPage = require('../pages/offenderSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 const Utils = require('../support/utils')
-const KeyworkerAllocationsResponse = require('../responses/keyworkerAllocationsResponse')
-const KeyworkerResponse = require('../responses/keyworkerResponse').keyworkerResponse
-const AvailableKeyworkersResponse = require('../responses/availableKeyworkersResponse')
-const CaseNoteUsageResponse = require('../responses/caseNoteUsageResponse')
+
+const keyworkerResponse = {
+  staffId: -3,
+  firstName: 'HPA',
+  lastName: 'AUser',
+  thumbnailId: 1,
+  capacity: 6,
+  numberAllocated: 4,
+  scheduleType: 'Full Time',
+  agencyId: 'LEI',
+  agencyDescription: 'Moorland (HMP & YOI)',
+  status: 'ACTIVE',
+  autoAllocationAllowed: true,
+}
 
 context('rewrite tests', () => {
   before(() => {
@@ -31,13 +41,13 @@ context('rewrite tests', () => {
   })
 
   it('should route to edit keyworker using old URL', () => {
-    cy.task('stubKeyworker', KeyworkerResponse)
-    cy.task('stubKeyworkerAllocations', KeyworkerAllocationsResponse)
-    cy.task('stubAvailableKeyworkers', AvailableKeyworkersResponse)
+    cy.task('stubKeyworker', keyworkerResponse)
+    cy.task('stubKeyworkerAllocations')
+    cy.task('stubAvailableKeyworkers')
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
-    cy.task('stubCaseNoteUsageList', CaseNoteUsageResponse)
-    cy.visit(`/manage-key-workers/key-worker/${KeyworkerResponse.staffId}`)
-    KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(KeyworkerResponse))
+    cy.task('stubCaseNoteUsageList')
+    cy.visit(`/manage-key-workers/key-worker/${keyworkerResponse.staffId}`)
+    KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
   })
 })

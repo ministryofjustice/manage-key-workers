@@ -53,9 +53,9 @@ context('View residential location', () => {
       },
     ])
     cy.task('stubOffenderSentences', [
-      { offenderNo: 'ABC123', sentenceDetail: { releaseDate: '2022-04-30' } },
-      { offenderNo: 'ABC456', sentenceDetail: { releaseDate: '2030-05-30' } },
-      { offenderNo: 'ABC789', sentenceDetail: { releaseDate: '2029-02-28' } },
+      { offenderNo: 'ABC123', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2022-04-30' } },
+      { offenderNo: 'ABC456', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2030-05-30' } },
+      { offenderNo: 'ABC789', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2029-02-28' } },
     ])
     cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'ABC123', level: 'high' }])
@@ -147,7 +147,7 @@ context('View residential location', () => {
             .find('a')
             .contains('Alff, Ferinand')
             .should('have.attr', 'href')
-            .should('include', 'http://localhost:3002/prisoner/ABC123')
+            .should('include', '/prisoner/ABC123')
           expect(offenders[0].prisonNo).to.eq('ABC123')
           expect(offenders[0].location).to.eq('MDI-1-1')
           expect(offenders[0].releaseDate.trim()).to.eq('30/04/2022')
@@ -160,7 +160,7 @@ context('View residential location', () => {
             .find('a')
             .contains('Smith, John')
             .should('have.attr', 'href')
-            .should('include', 'http://localhost:3002/prisoner/ABC456')
+            .should('include', '/prisoner/ABC456')
           expect(offenders[1].prisonNo).to.eq('ABC456')
           expect(offenders[1].location).to.eq('MDI-1-2')
           expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
@@ -187,7 +187,7 @@ context('View residential location', () => {
             .find('a')
             .contains('Gray, Simon')
             .should('have.attr', 'href')
-            .should('include', 'http://localhost:3002/prisoner/ABC789')
+            .should('include', '/prisoner/ABC789')
           expect(offenders[2].prisonNo).to.eq('ABC789')
           expect(offenders[2].location).to.eq('MDI-1-3')
           expect(offenders[2].releaseDate.trim()).to.eq('28/02/2029')

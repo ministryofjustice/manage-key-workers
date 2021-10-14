@@ -106,9 +106,9 @@ function createSingleKeyworkerResponse() {
 
 function createSentenceDetailListResponse() {
   return [
-    { offenderNo: 'A1234AA', sentenceDetail: { releaseDate: '2024-03-03' } },
-    { offenderNo: 'A1234AB', sentenceDetail: { releaseDate: '2025-04-03' } },
-    { offenderNo: 'A1234AC', sentenceDetail: { fred: 'someValue' } },
+    { offenderNo: 'A1234AA', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2024-03-03' } },
+    { offenderNo: 'A1234AB', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2025-04-03' } },
+    { offenderNo: 'A1234AC', mostRecentActiveBooking: true, sentenceDetail: { fred: 'someValue' } },
     { offenderNo: 'A1234AD' },
   ]
 }
