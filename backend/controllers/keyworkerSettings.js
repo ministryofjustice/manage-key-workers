@@ -13,6 +13,7 @@ const keyworkerSettingsFactory = (keyworkerApi, elite2Api) => {
       migrated: prisonStatus.migrated,
       supported: prisonStatus.supported,
       allowAuto: prisonStatus.autoAllocatedSupported,
+      highComplexity: prisonStatus.highComplexity,
     }
   }
   const keyworkerSettings = async (req, res) => {

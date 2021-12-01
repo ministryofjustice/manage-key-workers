@@ -110,10 +110,13 @@ export class KeyworkerDashboard extends Component {
   }
 
   render() {
-    const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad, sequenceFrequency } = this.props
+    const { prisonerToKeyWorkerRatio, fromDate, toDate, activeCaseLoad, sequenceFrequency, highComplexity } = this.props
 
     return (
       <Page title={`Key worker statistics for ${activeCaseLoad}`}>
+        {highComplexity && (
+          <SubHeader>These statistics do not include people with a high complexity of need level.</SubHeader>
+        )}
         <SubHeader>
           Prisoners in {activeCaseLoad} have a key worker session every {sequenceFrequency} week
           {sequenceFrequency > 1 ? 's' : ''}.
@@ -151,6 +154,7 @@ KeyworkerDashboard.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   prisonerToKeyWorkerRatio: PropTypes.number.isRequired,
   activeCaseLoad: PropTypes.string.isRequired,
+  highComplexity: PropTypes.bool.isRequired,
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -167,6 +171,7 @@ const mapStateToProps = (state) => ({
   sequenceFrequency: state.keyworkerSettings.sequenceFrequency,
   fromDate: state.prisonLevelKeyWorkerStatsDashboard.fromDate,
   toDate: state.prisonLevelKeyWorkerStatsDashboard.toDate,
+  highComplexity: state.keyworkerSettings.highComplexity,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(KeyworkerDashboard))
