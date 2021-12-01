@@ -156,6 +156,7 @@ export const setSettings = (settings) => ({
   extCapacity: settings.extCapacity,
   supported: settings.supported,
   sequenceFrequency: settings.sequenceFrequency,
+  highComplexity: settings.highComplexity,
 })
 
 export const setPrisonLevelKeyworkerStats = ({ data, prisonerToKeyWorkerRatio, fromDate, toDate }) => ({

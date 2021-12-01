@@ -28,6 +28,9 @@ const prisonStatsPage = (prison) =>
       cy.get(`.toDate td.rdtDay:not(.rdtOld):not(.rdtNew)[data-value=${to.date()}]`).click()
       cy.get('form button').click()
     },
+    keyworkerComplexitySubheading: () =>
+      cy.contains('div.page-content p', 'These statistics do not include people with a high complexity of need level.'),
+    keyworkerSessionSubheading: () => cy.contains('div.page-content p', 'have a key worker session'),
   })
 
 export default {

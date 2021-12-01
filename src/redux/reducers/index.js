@@ -350,6 +350,7 @@ export function keyworkerSettings(state = keyworkerSettingsInitialState, action)
         capacity: action.capacity,
         supported: action.supported,
         sequenceFrequency: action.sequenceFrequency,
+        highComplexity: action.highComplexity,
       }
     default:
       return state
