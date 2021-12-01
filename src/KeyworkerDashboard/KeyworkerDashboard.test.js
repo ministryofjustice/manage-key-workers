@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { KeyworkerDashboard } from './KeyworkerDashboard'
 import mockHistory from '../test/mockHistory'
+import { SubHeader } from './KeyworkerDashboard.styles'
 
 describe('<KeyworkerDashboard />', () => {
   describe('Data available for dates chosen', () => {
@@ -17,6 +18,8 @@ describe('<KeyworkerDashboard />', () => {
       handleError: jest.fn(),
       history: mockHistory,
       migrated: true,
+      sequenceFrequency: 1,
+      highComplexity: false,
       dispatchStats: jest.fn(),
       dispatchLoaded: jest.fn(),
       data: [
@@ -72,6 +75,41 @@ describe('<KeyworkerDashboard />', () => {
     })
   })
 
+  describe('Correct subheading depending on whether the prison is high complexity', () => {
+    const props = {
+      agencyId: 'TEST',
+      activeCaseLoad: 'TEST',
+      displayBack: jest.fn(),
+      handleError: jest.fn(),
+      history: mockHistory,
+      migrated: true,
+      sequenceFrequency: 1,
+      dispatchStats: jest.fn(),
+      dispatchLoaded: jest.fn(),
+      data: [],
+      prisonerToKeyWorkerRatio: 6,
+      fromDate: '2020-12-01',
+      toDate: '2020-12-31',
+    }
+    it('Shows the high complexity subheading when the prison is high complexity', () => {
+      const wrapper = shallow(<KeyworkerDashboard {...props} highComplexity />)
+      expect(wrapper.find('SubHeader').at(0).render().text()).toEqual(
+        'These statistics do not include people with a high complexity of need level.'
+      )
+      expect(wrapper.find('SubHeader').at(1).render().text()).toEqual(
+        'Prisoners in TEST have a key worker session every 1 week.'
+      )
+    })
+
+    it('Does not show the high complexity subheading when the prison is not high complexity', () => {
+      const wrapper = shallow(<KeyworkerDashboard {...props} highComplexity={false} />)
+      expect(wrapper.find('SubHeader').length).toEqual(1)
+      expect(wrapper.find('SubHeader').at(0).render().text()).toEqual(
+        'Prisoners in TEST have a key worker session every 1 week.'
+      )
+    })
+  })
+
   describe('No data for dates chosen', () => {
     const dateValues = {
       fromDate: '01/12/2018',
@@ -85,6 +123,8 @@ describe('<KeyworkerDashboard />', () => {
       handleError: jest.fn(),
       history: mockHistory,
       migrated: true,
+      sequenceFrequency: 1,
+      highComplexity: false,
       dispatchStats: jest.fn(),
       dispatchLoaded: jest.fn(),
       data: [],
