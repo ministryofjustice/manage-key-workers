@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { KeyworkerDashboard } from './KeyworkerDashboard'
 import mockHistory from '../test/mockHistory'
-import { SubHeader } from './KeyworkerDashboard.styles'
 
 describe('<KeyworkerDashboard />', () => {
   describe('Data available for dates chosen', () => {
