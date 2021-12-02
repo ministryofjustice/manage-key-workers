@@ -7,6 +7,7 @@ module.exports = {
     migrated = true,
     kwSessionFrequencyInWeeks = 1,
     allowAuto = true,
+    highComplexity = false,
     capacityTier1 = 3,
     capacityTier2 = 6,
   }) =>
@@ -26,6 +27,7 @@ module.exports = {
           autoAllocatedSupported: allowAuto,
           capacityTier1,
           capacityTier2,
+          highComplexity,
           kwSessionFrequencyInWeeks,
         },
       },

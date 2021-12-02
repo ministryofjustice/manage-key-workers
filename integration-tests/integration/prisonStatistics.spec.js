@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { switchToIsoDateFormat } from '../../src/stringUtils'
+import keyworker from '../mockApis/keyworker'
 
 const PrisonStatsPage = require('../pages/prisonStatsPage')
 
@@ -41,6 +42,26 @@ context('Key workers statistics test', () => {
         migrationStatus: { migrated: true },
       })
       cy.login()
+    })
+
+    it('keyworker dashboard should display correct text depending on whether the prison is high complexity', () => {
+      cy.task('stubKeyworkerStats', keyworkerPrisonStatsResponse)
+      cy.visit('/key-worker-statistics')
+      const prisonStatsPage = PrisonStatsPage.verifyOnPage('Key worker statistics for Moorland')
+      prisonStatsPage.keyworkerSessionSubheading().should('exist')
+      prisonStatsPage.keyworkerComplexitySubheading().should('not.exist')
+      cy.task('stubPrisonMigrationStatus', {
+        agencyLocationId: 'MDI',
+        supported: true,
+        migrated: true,
+        kwSessionFrequencyInWeeks: 1,
+        allowAuto: true,
+        highComplexity: true,
+        capacityTier1: 3,
+        capacityTier2: 6,
+      })
+      cy.visit('/key-worker-statistics')
+      prisonStatsPage.keyworkerComplexitySubheading().should('exist')
     })
 
     it('keyworker dashboard should display correct message if there is no data', () => {
