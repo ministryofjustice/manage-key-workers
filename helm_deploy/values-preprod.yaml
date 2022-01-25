@@ -10,6 +10,7 @@ image:
   port: 3000
 
 ingress:
+  contextColour: blue
   enabled: true
   enable_allowlist: true
   host: preprod.manage-key-workers.service.justice.gov.uk
