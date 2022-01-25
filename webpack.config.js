@@ -108,9 +108,6 @@ module.exports = {
               },
               {
                 loader: 'css-loader',
-                options: {
-                  includePaths: ['node_modules/react-datetime/css'],
-                },
               },
             ],
           },
@@ -122,6 +119,26 @@ module.exports = {
               },
               {
                 loader: 'css-loader',
+                options: {
+                  url: {
+                    filter: (url, resourcePath) => {
+                      if (
+                        url.includes('icon-steps') ||
+                        url.startsWith('icon-') ||
+                        url === 'separator.png' ||
+                        url.startsWith('separator-')
+                      ) {
+                        return false
+                      }
+                      // Work-round for https://issueexplorer.com/issue/webpack-contrib/css-loader/1367
+                      if (/^data:/.test(url)) {
+                        return false
+                      }
+
+                      return true
+                    },
+                  },
+                },
               },
               {
                 loader: 'sass-loader',
