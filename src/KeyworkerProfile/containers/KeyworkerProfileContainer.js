@@ -132,8 +132,8 @@ class KeyworkerProfileContainer extends Component {
     history.push(`/key-worker/${keyworker.staffId}/edit`)
   }
 
-  postAllocationChange = async (history) => {
-    const { agencyId, keyworkerChangeList, setMessageDispatch, keyworkerChangeListDispatch, handleError } = this.props
+  postAllocationChange = async () => {
+    const { agencyId, keyworkerChangeList, setMessageDispatch, handleError } = this.props
     try {
       if (keyworkerChangeList && keyworkerChangeList.length > 0) {
         await axios.post(
@@ -147,10 +147,9 @@ class KeyworkerProfileContainer extends Component {
             },
           }
         )
+        await this.getKeyworkerAllocations()
         setMessageDispatch('Offender allocation updated.')
-        keyworkerChangeListDispatch([])
       }
-      history.push('/')
     } catch (error) {
       handleError(error)
     }
