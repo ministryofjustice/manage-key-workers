@@ -133,7 +133,7 @@ class KeyworkerProfileContainer extends Component {
   }
 
   postAllocationChange = async () => {
-    const { agencyId, keyworkerChangeList, setMessageDispatch, handleError } = this.props
+    const { agencyId, keyworkerChangeList, setMessageDispatch, keyworkerChangeListDispatch, handleError } = this.props
     try {
       if (keyworkerChangeList && keyworkerChangeList.length > 0) {
         await axios.post(
@@ -149,6 +149,7 @@ class KeyworkerProfileContainer extends Component {
         )
         await this.getKeyworkerAllocations()
         setMessageDispatch('Offender allocation updated.')
+        keyworkerChangeListDispatch([])
       }
     } catch (error) {
       handleError(error)
