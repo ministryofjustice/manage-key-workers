@@ -202,6 +202,6 @@ context('manual assign and transfer test', () => {
       .assignNewKeyworkeSelect(offenderSearchResponse[0].offenderNo)
       .select(`${availableKeyworkerResponse[1].staffId}`)
     offenderSearchPage.saveButton().click()
-    offenderSearchPage.messageBar().should('have.text', 'Key workers successfully updated.')
+    offenderSearchPage.messageBar().contains('Key workers successfully updated.')
   })
 })

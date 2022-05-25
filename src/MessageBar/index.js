@@ -14,6 +14,7 @@ class MessageBar extends Component {
     if (message && message !== '') {
       renderContent = (
         <div
+          id="messageBar"
           className="govuk-notification-banner govuk-notification-banner--success"
           role="alert"
           aria-labelledby="govuk-notification-banner-title"
