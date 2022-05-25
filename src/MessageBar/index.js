@@ -13,8 +13,21 @@ class MessageBar extends Component {
     let renderContent = null
     if (message && message !== '') {
       renderContent = (
-        <div id="messageBar" className="messageBarContainer pure-g">
-          <div className="messageBar">{message}</div>
+        <div
+          id="messageBar"
+          className="govuk-notification-banner govuk-notification-banner--success"
+          role="alert"
+          aria-labelledby="govuk-notification-banner-title"
+          data-module="govuk-notification-banner"
+        >
+          <div className="govuk-notification-banner__header">
+            <h2 className="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Success
+            </h2>
+          </div>
+          <div className="govuk-notification-banner__content">
+            <h3 className="govuk-notification-banner__heading">{message}</h3>
+          </div>
         </div>
       )
       this.clearMessage(this.props)

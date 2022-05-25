@@ -4,8 +4,8 @@ import MessageBar from '.'
 
 describe('ManualAllocation component', () => {
   it('should render message correctly', async () => {
-    const component = shallow(<MessageBar message="Hello!" clearMessage={jest.fn()} />)
-    expect(component.find('div').at(1).text()).toEqual('Hello!')
+    const component = shallow(<MessageBar message="Updated" clearMessage={jest.fn()} />)
+    expect(component.find('div').at(2).text()).toEqual('Updated')
   })
 
   it('should clear message after displayTime expires', (done) => {

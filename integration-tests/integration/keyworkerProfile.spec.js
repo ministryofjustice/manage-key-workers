@@ -222,7 +222,7 @@ context('Profile test', () => {
     })
     const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
     keyworkerProfilePage.status().should('have.text', 'Active')
-    keyworkerProfilePage.messageBar().should('have.text', 'Profile changed')
+    keyworkerProfilePage.messageBar().contains('Profile changed')
   })
 
   it('key worker edit - saved with no changes - does not display message bar', () => {
@@ -242,7 +242,7 @@ context('Profile test', () => {
     keyworkerEditProfileConfirmPage.allocationRadios().check('REMOVE_ALLOCATIONS_NO_AUTO')
     keyworkerEditProfileConfirmPage.save()
     const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
-    keyworkerProfilePage.messageBar().should('have.text', 'Profile changed')
+    keyworkerProfilePage.messageBar().contains('Profile changed')
   })
 
   it('key worker edit confirm - allocations exist - should display Prisoners removed message', () => {
@@ -253,6 +253,6 @@ context('Profile test', () => {
     keyworkerEditProfileConfirmPage.allocationRadios().check('REMOVE_ALLOCATIONS_NO_AUTO')
     keyworkerEditProfileConfirmPage.save()
     const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
-    keyworkerProfilePage.messageBar().should('have.text', 'Prisoners removed from key worker')
+    keyworkerProfilePage.messageBar().contains('Prisoners removed from key worker')
   })
 })
