@@ -57,12 +57,17 @@ const elite2ApiFactory = (client) => {
     private String iepLevel;
    * }
    */
-  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) =>
-    get(
+  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) => {
+    contextProperties.setRequestPagination(context, {
+      'page-offset': 0,
+      'page-limit': 10,
+    })
+    return get(
       context,
       `/api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`,
       resultsLimit
     )
+  }
   const sentenceDetailList = (context, offenderNumbers) => post(context, '/api/offender-sentences', offenderNumbers)
 
   // NB. This function expects a caseload object.
