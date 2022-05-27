@@ -99,11 +99,11 @@ describe('View residential location', () => {
           formValues: {},
           pagination: {
             items: [
-              { href: '', text: '1' },
-              { href: '', text: '2' },
+              { href: 'undefined/page=1', text: '1' },
+              { href: 'undefined/page=2', text: '2' },
             ],
-            next: { href: '', text: 'next' },
-            previous: { href: '', text: 'previous' },
+            next: false,
+            previous: false,
             results: {
               count: undefined,
               from: NaN,
@@ -158,11 +158,11 @@ describe('View residential location', () => {
           },
           pagination: {
             items: [
-              { href: '', text: '1' },
-              { href: '', text: '2' },
+              { href: 'undefined/page=1', text: '1' },
+              { href: 'undefined/page=2', text: '2' },
             ],
-            next: { href: '', text: 'next' },
-            previous: { href: '', text: 'previous' },
+            next: false,
+            previous: false,
             results: {
               count: undefined,
               from: NaN,

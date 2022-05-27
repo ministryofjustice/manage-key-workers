@@ -5,6 +5,8 @@ const {
   apis: { complexity },
 } = require('../config')
 
+const pageSize = 20
+
 const { sortAndFormatKeyworkerNameAndAllocationCount, getDeallocateRow } = require('./keyworkerShared')
 
 const isComplexityEnabledFor = (agencyId) => complexity.enabled_prisons?.includes(agencyId)
@@ -30,12 +32,14 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       (location) => location.locationPrefix !== activeCaseLoadId
     )
 
+    const page = req.query.page || 1
+
     const { keyworkerResponse, offenderResponse, totalRecords, pageNumber } = residentialLocation
       ? await allocationService.searchOffendersPaginated(res.locals, {
           agencyId: activeCaseLoadId,
           pageRequest: {
-            'page-offset': +req.query.pageNumber - 1 || 0,
-            'page-limit': 20,
+            'page-offset': (+page - 1) * pageSize,
+            'page-limit': pageSize,
           },
           keywords: '',
           locationPrefix: residentialLocation,
@@ -59,7 +63,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       activeCaseLoadId,
       formValues: req.query,
       errors: validationErrors,
-      pagination: pagination(pageNumber, totalRecords),
+      pagination: pagination(pageNumber / pageSize, totalRecords, req.originalUrl),
       prisoners: offenderResponse.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
