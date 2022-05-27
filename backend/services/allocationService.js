@@ -266,6 +266,30 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
   }
 
+  const searchOffendersPaginated = async (context, { agencyId, keywords, locationPrefix, pageRequest }) => {
+    const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId)
+    log.debug('Response from available keyworker request')
+
+    const offenders = await elite2Api.searchOffendersPaginated(context, keywords, locationPrefix, pageRequest)
+    log.debug('Response from searchOffenders request')
+
+    if (!(offenders && offenders.length > 0)) {
+      return {
+        keyworkerResponse: availableKeyworkers,
+        offenderResponse: offenders,
+        partialResults: false,
+      }
+    }
+
+    return {
+      keyworkerResponse: availableKeyworkers,
+      offenderResponse:
+        offenders.length > 0
+          ? await offendersWithKeyworkers(context, offenders, availableKeyworkers, getKeyworkerDetails)
+          : [],
+    }
+  }
+
   const searchOffenders = async (context, { agencyId, keywords, locationPrefix, allocationStatus }) => {
     const offenderReturnSize = allocationStatus === 'all' ? offenderSearchResultMax + 1 : 3000
     const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId)

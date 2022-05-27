@@ -57,16 +57,17 @@ const elite2ApiFactory = (client) => {
     private String iepLevel;
    * }
    */
-  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) => {
-    contextProperties.setRequestPagination(context, {
-      'page-offset': 0,
-      'page-limit': 10,
-    })
-    return get(
+
+  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) =>
+    get(
       context,
       `/api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`,
       resultsLimit
     )
+
+  const searchOffendersPaginated = (context, keywords, locationPrefix, pageRequest) => {
+    contextProperties.setRequestPagination(context, pageRequest)
+    return get(context, `/api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`)
   }
   const sentenceDetailList = (context, offenderNumbers) => post(context, '/api/offender-sentences', offenderNumbers)
 
@@ -83,6 +84,7 @@ const elite2ApiFactory = (client) => {
     searchOffenders,
     sentenceDetailList,
     setActiveCaseload,
+    searchOffendersPaginated,
   }
 }
 
