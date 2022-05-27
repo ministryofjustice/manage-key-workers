@@ -16,8 +16,6 @@ describe('View residential location', () => {
     config.apis.complexity.enabled_prisons = ['MDI']
     req = {
       originalUrl: 'bla',
-      hostname: 'localhost',
-      protocol: 'http',
       session: {
         userDetails: {
           activeCaseLoadId: 'MDI',
