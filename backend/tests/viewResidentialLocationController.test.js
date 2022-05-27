@@ -98,10 +98,7 @@ describe('View residential location', () => {
           activeCaseLoadId: 'MDI',
           formValues: {},
           pagination: {
-            items: [
-              { href: 'undefined/page=1', text: '1' },
-              { href: 'undefined/page=2', text: '2' },
-            ],
+            items: [],
             next: false,
             previous: false,
             results: {
@@ -157,10 +154,7 @@ describe('View residential location', () => {
             residentialLocation: '',
           },
           pagination: {
-            items: [
-              { href: 'undefined/page=1', text: '1' },
-              { href: 'undefined/page=2', text: '2' },
-            ],
+            items: [],
             next: false,
             previous: false,
             results: {
