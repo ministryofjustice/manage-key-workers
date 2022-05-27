@@ -274,7 +274,8 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     log.debug('Response from available keyworker request')
 
     const offenders = await elite2Api.searchOffendersPaginated(context, keywords, locationPrefix, pageRequest)
-    const { totalRecords, pageOffset } = context.responseHeaders
+    const totalRecords = context.responseHeaders['total-records']
+    const pageOffset = context.responseHeaders['page-offset']
 
     log.debug('Response from searchOffenders request')
 
