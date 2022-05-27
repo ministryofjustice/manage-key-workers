@@ -63,7 +63,12 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       activeCaseLoadId,
       formValues: req.query,
       errors: validationErrors,
-      pagination: pagination(pageSize, pageNumber, totalRecords, req.originalUrl),
+      pagination: pagination(
+        pageSize,
+        pageNumber,
+        totalRecords,
+        new URL(req.originalUrl, `${req.protocol}:${req.hostname}`)
+      ),
       prisoners: offenderResponse.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
