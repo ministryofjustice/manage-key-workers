@@ -274,18 +274,22 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     log.debug('Response from available keyworker request')
 
     const offenders = await elite2Api.searchOffendersPaginated(context, keywords, locationPrefix, pageRequest)
+    const { totalRecords, pageOffset } = context.responseHeaders
+
     log.debug('Response from searchOffenders request')
 
     if (!(offenders && offenders.length > 0)) {
       return {
         keyworkerResponse: availableKeyworkers,
         offenderResponse: offenders,
-        partialResults: false,
+        totalRecords,
       }
     }
 
     return {
       keyworkerResponse: availableKeyworkers,
+      totalRecords,
+      pageNumber: pageOffset + 1,
       offenderResponse:
         offenders.length > 0
           ? await offendersWithKeyworkers(
@@ -332,7 +336,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         filteredOffenders.length > 0
           ? await offendersWithKeyworkers(context, filteredOffenders, availableKeyworkers, getKeyworkerDetails)
           : [],
-      partialResults,
+      partialResults: true,
     }
   }
 

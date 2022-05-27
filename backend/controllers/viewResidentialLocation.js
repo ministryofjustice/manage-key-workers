@@ -1,4 +1,4 @@
-import pagination from '../services/paginationService'
+import pagination from '../util/pagination'
 
 const { putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 const {
@@ -30,7 +30,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       (location) => location.locationPrefix !== activeCaseLoadId
     )
 
-    const { keyworkerResponse, offenderResponse } = residentialLocation
+    const { keyworkerResponse, offenderResponse, totalRecords, pageNumber } = residentialLocation
       ? await allocationService.searchOffendersPaginated(res.locals, {
           agencyId: activeCaseLoadId,
           pageRequest: {
@@ -59,7 +59,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       activeCaseLoadId,
       formValues: req.query,
       errors: validationErrors,
-      pagination: pagination(offenderResponse),
+      pagination: pagination(pageNumber, totalRecords),
       prisoners: offenderResponse.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
