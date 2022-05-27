@@ -288,6 +288,9 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       }
     }
 
+    const offenderNumbers = getOffenderNumbers(offenders)
+    const offenderKeyworkers = await keyworkerApi.offenderKeyworkerList(context, agencyId, offenderNumbers)
+
     return {
       keyworkerResponse: availableKeyworkers,
       totalRecords,
@@ -296,7 +299,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         offenders.length > 0
           ? await offendersWithKeyworkers(
               context,
-              decorate(offenders, availableKeyworkers),
+              decorate(offenders, offenderKeyworkers),
               availableKeyworkers,
               getKeyworkerDetails
             )

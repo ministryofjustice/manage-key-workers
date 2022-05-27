@@ -27,8 +27,8 @@ export default function pagination(pageSize, pageNumber, total, url) {
   const originalUrl = pageIdx === -1 ? url : url.substr(0, pageIdx)
   return {
     results: getResults(pageSize, actualPageNumber, total),
-    next: actualPageNumber < totalPages && getLink('next', ''),
-    previous: actualPageNumber > 1 && getLink('previous', ''),
+    next: actualPageNumber < totalPages && getLink('next', `${originalUrl}&page=${actualPageNumber + 1}`),
+    previous: actualPageNumber > 1 && getLink('previous', `${originalUrl}&page=${actualPageNumber - 1}`),
     items: getItems(totalPages, actualPageNumber, originalUrl),
   }
 }
