@@ -129,6 +129,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       .map((k) => k.staffId)
       .find((e) => !!e) || null
 
+  const decorate = (offenders, offenderKeyworkers) =>
+    offenders.map((offender) => ({
+      ...offender,
+      staffId: findKeyworkerStaffIdForOffender(offenderKeyworkers, offender.offenderNo),
+    }))
+
   const applyAllocationStatusFilter = (allocationStatus, currentOffenderResults, offenderKeyworkers) => {
     let offenderResults = currentOffenderResults
 
@@ -148,10 +154,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
     log.debug(`After allocation status filter of ${allocationStatus}`)
 
-    return offenderResults.map((offender) => ({
-      ...offender,
-      staffId: findKeyworkerStaffIdForOffender(offenderKeyworkers, offender.offenderNo),
-    }))
+    return offenderResults
   }
 
   /**
@@ -285,7 +288,12 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
       keyworkerResponse: availableKeyworkers,
       offenderResponse:
         offenders.length > 0
-          ? await offendersWithKeyworkers(context, offenders, availableKeyworkers, getKeyworkerDetails)
+          ? await offendersWithKeyworkers(
+              context,
+              decorate(offenders, availableKeyworkers),
+              availableKeyworkers,
+              getKeyworkerDetails
+            )
           : [],
     }
   }
@@ -308,7 +316,10 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
     const offenderNumbers = getOffenderNumbers(offenders)
     const offenderKeyworkers = await keyworkerApi.offenderKeyworkerList(context, agencyId, offenderNumbers)
-    const filteredOffenders = applyAllocationStatusFilter(allocationStatus, offenders, offenderKeyworkers) // adjust results if filtering by unallocated
+    const filteredOffenders = decorate(
+      applyAllocationStatusFilter(allocationStatus, offenders, offenderKeyworkers),
+      offenderKeyworkers
+    ) // adjust results if filtering by unallocated
 
     const partialResults = filteredOffenders.length > offenderSearchResultMax
     if (partialResults) {
@@ -330,6 +341,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     allocated,
     keyworkerAllocations,
     searchOffenders,
+    searchOffendersPaginated,
   }
 }
 
