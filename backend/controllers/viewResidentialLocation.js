@@ -101,6 +101,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
     const { residentialLocation } = req.query
     const { activeCaseLoadId } = req.session?.userDetails || {}
     const { allocateKeyworker } = req.body
+    const page = req.query.page || 1
 
     const selectedKeyworkerAllocations = ensureIsArray(allocateKeyworker).filter((keyworker) => keyworker)
 
@@ -132,7 +133,9 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       })
     )
 
-    return res.redirect(`/manage-key-workers/view-residential-location?residentialLocation=${residentialLocation}`)
+    return res.redirect(
+      `/manage-key-workers/view-residential-location?residentialLocation=${residentialLocation}&page=${page}`
+    )
   }
 
   return { index, post }

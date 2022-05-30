@@ -464,7 +464,7 @@ describe('View residential location', () => {
         })
 
         expect(res.redirect).toHaveBeenCalledWith(
-          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1'
+          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1&page=1'
         )
       })
 
@@ -501,7 +501,7 @@ describe('View residential location', () => {
         })
 
         expect(res.redirect).toHaveBeenCalledWith(
-          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1'
+          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1&page=1'
         )
       })
     })
