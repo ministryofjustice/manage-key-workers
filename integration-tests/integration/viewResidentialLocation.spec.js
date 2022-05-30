@@ -306,7 +306,7 @@ context('View residential location', () => {
 
   context('when there are no results', () => {
     beforeEach(() => {
-      cy.task('stubSearchOffenders', [])
+      cy.task('stubSearchOffenders')
     })
 
     it('should load the correct no results message', () => {

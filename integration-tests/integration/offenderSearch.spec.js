@@ -82,7 +82,7 @@ context('Offender search', () => {
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce('hmpps-session-dev')
-    cy.task('stubSearchOffenders', offenderResponse)
+    cy.task('stubSearchOffenders', { response: offenderResponse })
     cy.task('stubAvailableKeyworkers', keyworkerResponse)
     cy.task('stubOffenderKeyworker', [
       {
