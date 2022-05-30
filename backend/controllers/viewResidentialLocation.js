@@ -5,7 +5,7 @@ const {
   apis: { complexity },
 } = require('../config')
 
-const pageSize = 20
+const pageSize = 50
 
 const { sortAndFormatKeyworkerNameAndAllocationCount, getDeallocateRow } = require('./keyworkerShared')
 
@@ -34,7 +34,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
 
     const page = req.query.page || 1
 
-    const { keyworkerResponse, offenderResponse, totalRecords, pageNumber } = residentialLocation
+    const { keyworkerResponse, offenderResponse, totalRecords, pageOffset } = residentialLocation
       ? await allocationService.searchOffendersPaginated(res.locals, {
           agencyId: activeCaseLoadId,
           pageRequest: {
@@ -63,7 +63,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       activeCaseLoadId,
       formValues: req.query,
       errors: validationErrors,
-      pagination: pagination(pageSize, pageNumber, totalRecords, req.originalUrl),
+      pagination: pagination(pageSize, pageOffset, totalRecords, req.originalUrl),
       prisoners: offenderResponse.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)

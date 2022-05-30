@@ -20,15 +20,15 @@ const getItems = (totalPages, pageNumber, url) =>
     getItemLink(m.toString(), `${url}&page=${m.toString()}`, pageNumber === m)
   )
 
-export default function pagination(pageSize, pageNumber, total, url) {
+export default function pagination(pageSize, pageOffset, total, url) {
   const totalPages = Math.floor((total - 1) / pageSize) + 1
-  const actualPageNumber = pageNumber / pageSize + 1
+  const actualPageNumber = pageOffset / pageSize + 1
   const pageIdx = url.indexOf('&page=')
   const originalUrl = pageIdx === -1 ? url : url.substr(0, pageIdx)
   return {
     results: getResults(pageSize, actualPageNumber, total),
     next: actualPageNumber < totalPages && getLink('next', `${originalUrl}&page=${actualPageNumber + 1}`),
     previous: actualPageNumber > 1 && getLink('previous', `${originalUrl}&page=${actualPageNumber - 1}`),
-    items: getItems(totalPages, actualPageNumber, originalUrl),
+    items: (totalPages > 1 && getItems(totalPages, actualPageNumber, originalUrl)) || [],
   }
 }

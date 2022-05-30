@@ -184,6 +184,8 @@ describe('View residential location', () => {
         req.query = { residentialLocation: 'MDI-1' }
 
         allocationService.searchOffendersPaginated.mockResolvedValue({
+          totalRecords: 5,
+          pageOffset: 0,
           keyworkerResponse: [
             {
               staffId: 1,
@@ -279,7 +281,7 @@ describe('View residential location', () => {
           keywords: '',
           pageRequest: {
             'page-offset': 0,
-            'page-limit': 20,
+            'page-limit': 50,
           },
           locationPrefix: 'MDI-1',
         })
@@ -295,6 +297,16 @@ describe('View residential location', () => {
             activeCaseLoadId: 'MDI',
             formValues: {
               residentialLocation: 'MDI-1',
+            },
+            pagination: {
+              items: [],
+              next: false,
+              previous: false,
+              results: {
+                count: 5,
+                from: 1,
+                to: 5,
+              },
             },
             residentialLocations: [
               {
