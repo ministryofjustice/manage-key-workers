@@ -128,7 +128,7 @@ context('Offender search', () => {
     })
 
     it('should show default message for no offenders found', () => {
-      cy.task('stubSearchOffenders')
+      cy.task('stubSearchOffenders', { response: [] })
 
       cy.visit('/manage-key-workers/search-for-prisoner?searchText=hello')
       verifyOnPage()

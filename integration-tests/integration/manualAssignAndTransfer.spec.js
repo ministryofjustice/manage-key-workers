@@ -155,7 +155,7 @@ context('manual assign and transfer test', () => {
   })
 
   it('Search for offender returns no results', () => {
-    cy.task('stubSearchOffenders')
+    cy.task('stubSearchOffenders', { response: [] })
     cy.visit('/offender-search')
     const offenderSearchPage = OffenderSearchPage.verifyOnPage()
     offenderSearchPage.verifyPageReady()
