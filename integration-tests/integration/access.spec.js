@@ -80,7 +80,9 @@ context('Access test', () => {
     cy.task('stubUpdateCaseload')
     cy.task('stubOffenderSentences')
     cy.task('stubCaseNoteUsageList')
-    cy.task('stubSearchOffenders', offenderSearchResponse)
+    cy.task('stubSearchOffenders', {
+      response: offenderSearchResponse,
+    })
     cy.task('stubOffenderKeyworker')
   })
 

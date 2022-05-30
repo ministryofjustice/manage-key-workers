@@ -99,7 +99,7 @@ context('manual assign and transfer test', () => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
     cy.task('stubAvailableKeyworkers', availableKeyworkerResponse)
-    cy.task('stubSearchOffenders', offenderSearchResponse)
+    cy.task('stubSearchOffenders', { reponse: offenderSearchResponse })
     cy.task('stubOffenderKeyworker', keyworkersOfOffendersResponse)
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
@@ -155,7 +155,7 @@ context('manual assign and transfer test', () => {
   })
 
   it('Search for offender returns no results', () => {
-    cy.task('stubSearchOffenders', [])
+    cy.task('stubSearchOffenders')
     cy.visit('/offender-search')
     const offenderSearchPage = OffenderSearchPage.verifyOnPage()
     offenderSearchPage.verifyPageReady()
@@ -187,7 +187,7 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.search()
     offenderSearchPage.errorSummary().should('be.visible')
 
-    cy.task('stubSearchOffenders', offenderSearchResponse)
+    cy.task('stubSearchOffenders', { response: offenderSearchResponse })
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.search()
     offenderSearchPage.errorSummary().should('not.exist')
