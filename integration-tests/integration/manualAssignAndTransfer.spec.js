@@ -99,7 +99,7 @@ context('manual assign and transfer test', () => {
     cy.clearCookies()
     cy.task('resetAndStubTokenVerification')
     cy.task('stubAvailableKeyworkers', availableKeyworkerResponse)
-    cy.task('stubSearchOffenders', { reponse: offenderSearchResponse })
+    cy.task('stubSearchOffenders', { response: offenderSearchResponse })
     cy.task('stubOffenderKeyworker', keyworkersOfOffendersResponse)
     cy.task('stubOffenderSentences')
     cy.task('stubOffenderAssessments')
