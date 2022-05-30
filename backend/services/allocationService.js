@@ -341,7 +341,7 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
         filteredOffenders.length > 0
           ? await offendersWithKeyworkers(context, filteredOffenders, availableKeyworkers, getKeyworkerDetails)
           : [],
-      partialResults: true,
+      partialResults,
     }
   }
 
