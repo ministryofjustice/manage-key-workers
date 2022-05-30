@@ -119,8 +119,8 @@ context('View residential location', () => {
       cy.get('[data-test="location-select"]').select('MDI-1')
       cy.get('[data-test="view-location-button"]').click()
 
-      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('next').should('exist')
-      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('previous').should('not.exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Next').should('exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Previous').should('not.exist')
 
       cy.get('[data-test="prisoner-count"]').should('contain', '50')
       cy.get('[data-test="location-results-table"]')
@@ -186,8 +186,8 @@ context('View residential location', () => {
       cy.get('[data-test="location-select"]').select('MDI-1')
       cy.get('[data-test="view-location-button"]').click()
 
-      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('next').should('exist')
-      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('previous').should('exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Next').should('exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Previous').should('exist')
 
       cy.get('[data-test="prisoner-count"]').should('contain', '50')
       cy.get('[data-test="location-results-table"]')
@@ -266,8 +266,8 @@ context('View residential location', () => {
       cy.get('[data-test="location-select"]').select('MDI-1')
       cy.get('[data-test="view-location-button"]').click()
 
-      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('next').should('not.exist')
-      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('previous').should('exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Next').should('not.exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Previous').should('exist')
 
       cy.get('[data-test="prisoner-count"]').should('contain', '49')
       cy.get('[data-test="location-results-table"]')
