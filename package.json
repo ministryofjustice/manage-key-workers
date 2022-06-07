@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "npm": ">=7",
-    "node": ">=14.*"
+    "npm": "^8",
+    "node": "^16"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -149,7 +149,7 @@
     "webpack-cli": "^4.8.0"
   },
   "scripts": {
-    "start": "DISABLE_WEBPACK=true node dist/backend/index.js",
+    "start": "DISABLE_WEBPACK=true node dist/backend/index.js --unhandled-rejection=warn",
     "start:dev": "nodemon",
     "start-feature": "npm run compile-sass && export $(cat $npm_config_env) && npm run start:dev",
     "start-feature-no-webpack": "export $(cat $npm_config_env) && npm run start",

@@ -35,6 +35,15 @@ const log = require('./log')
 const config = require('./config')
 const { logError } = require('./logError')
 
+// We do not want the server to exit, partly because any log information will be lost.
+// Instead, log the error so we can trace, diagnose and fix the problem.
+process.on('uncaughtException', (err, origin) => {
+  logError('uncaughtException', err, origin)
+})
+process.on('unhandledRejection', (reason, promise) => {
+  logError(`unhandledRejection`, {}, `Unhandled Rejection at: ${promise} reason: ${reason}`)
+})
+
 const app = express()
 
 const sixtyDaysInSeconds = 5184000

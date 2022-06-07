@@ -1,5 +1,5 @@
 const express = require('express')
-const redis = require('redis')
+const { createClient } = require('redis')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 
@@ -13,14 +13,14 @@ module.exports = () => {
     const { enabled, host, port, password } = config.redis
     if (!enabled || !host) return null
 
-    const client = redis.createClient({
+    const client = createClient({
       host,
       port,
       password,
       tls: config.app.production ? {} : false,
     })
 
-    client.on('error', log.error.bind(log))
+    client.on('error', (e) => log.error(e, 'Redis client error'))
 
     return new RedisStore({ client })
   }
