@@ -15,6 +15,7 @@ describe('View residential location', () => {
   beforeEach(() => {
     config.apis.complexity.enabled_prisons = ['MDI']
     req = {
+      originalUrl: 'bla',
       session: {
         userDetails: {
           activeCaseLoadId: 'MDI',
@@ -28,7 +29,9 @@ describe('View residential location', () => {
       redirect: jest.fn(),
     }
 
-    allocationService.searchOffenders = jest.fn().mockResolvedValue({ keyworkerResponse: [], offenderResponse: [] })
+    allocationService.searchOffendersPaginated = jest
+      .fn()
+      .mockResolvedValue({ keyworkerResponse: [], offenderResponse: [] })
 
     complexityOfNeedApi.getComplexOffenders = jest.fn().mockResolvedValue([])
 
@@ -84,7 +87,7 @@ describe('View residential location', () => {
         await controller.index(req, res)
 
         expect(elite2Api.userLocations).toHaveBeenCalledWith(res.locals)
-        expect(allocationService.searchOffenders).not.toHaveBeenCalled()
+        expect(allocationService.searchOffendersPaginated).not.toHaveBeenCalled()
         expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
       })
@@ -95,6 +98,16 @@ describe('View residential location', () => {
         expect(res.render).toHaveBeenCalledWith('viewResidentialLocation', {
           activeCaseLoadId: 'MDI',
           formValues: {},
+          pagination: {
+            items: [],
+            next: false,
+            previous: false,
+            results: {
+              count: undefined,
+              from: NaN,
+              to: NaN,
+            },
+          },
           errors: [],
           prisoners: [],
           residentialLocations: [
@@ -122,7 +135,7 @@ describe('View residential location', () => {
         await controller.index(req, res)
 
         expect(elite2Api.userLocations).toHaveBeenCalledWith(res.locals)
-        expect(allocationService.searchOffenders).not.toHaveBeenCalled()
+        expect(allocationService.searchOffendersPaginated).not.toHaveBeenCalled()
         expect(complexityOfNeedApi.getComplexOffenders).not.toHaveBeenCalled()
         expect(keyworkerApi.allocationHistorySummary).not.toHaveBeenCalled()
       })
@@ -140,6 +153,16 @@ describe('View residential location', () => {
           ],
           formValues: {
             residentialLocation: '',
+          },
+          pagination: {
+            items: [],
+            next: false,
+            previous: false,
+            results: {
+              count: undefined,
+              from: NaN,
+              to: NaN,
+            },
           },
           prisoners: [],
           residentialLocations: [
@@ -160,7 +183,9 @@ describe('View residential location', () => {
       beforeEach(() => {
         req.query = { residentialLocation: 'MDI-1' }
 
-        allocationService.searchOffenders.mockResolvedValue({
+        allocationService.searchOffendersPaginated.mockResolvedValue({
+          totalRecords: 5,
+          pageOffset: 0,
           keyworkerResponse: [
             {
               staffId: 1,
@@ -251,10 +276,13 @@ describe('View residential location', () => {
         await controller.index(req, res)
 
         expect(elite2Api.userLocations).toHaveBeenCalledWith(res.locals)
-        expect(allocationService.searchOffenders).toHaveBeenCalledWith(res.locals, {
+        expect(allocationService.searchOffendersPaginated).toHaveBeenCalledWith(res.locals, {
           agencyId: 'MDI',
-          allocationStatus: 'all',
           keywords: '',
+          pageRequest: {
+            'page-offset': 0,
+            'page-limit': 50,
+          },
           locationPrefix: 'MDI-1',
         })
         expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(undefined, ['ABC123', 'ABC456', 'ABC789'])
@@ -269,6 +297,16 @@ describe('View residential location', () => {
             activeCaseLoadId: 'MDI',
             formValues: {
               residentialLocation: 'MDI-1',
+            },
+            pagination: {
+              items: [],
+              next: false,
+              previous: false,
+              results: {
+                count: 5,
+                from: 1,
+                to: 5,
+              },
             },
             residentialLocations: [
               {
@@ -426,7 +464,7 @@ describe('View residential location', () => {
         })
 
         expect(res.redirect).toHaveBeenCalledWith(
-          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1'
+          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1&page=1'
         )
       })
 
@@ -463,7 +501,7 @@ describe('View residential location', () => {
         })
 
         expect(res.redirect).toHaveBeenCalledWith(
-          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1'
+          '/manage-key-workers/view-residential-location?residentialLocation=MDI-1&page=1'
         )
       })
     })

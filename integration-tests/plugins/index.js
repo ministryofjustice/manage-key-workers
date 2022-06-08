@@ -38,7 +38,8 @@ module.exports = (on) => {
     stubKeyworkerHealth: keyworker.stubHealth,
     stubKeyworkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
     stubUpdateCaseload: prisonApi.stubUpdateCaseload,
-    stubSearchOffenders: (response = {}) => prisonApi.stubSearchOffenders(response),
+    stubSearchOffenders: ({ response = [], pageOffset = '0', totalRecords = '0' }) =>
+      prisonApi.stubSearchOffenders(response, pageOffset, totalRecords),
     stubSearchOffendersError: prisonApi.stubSearchOffendersError,
     stubKeyworkerAllocations: (response) => keyworker.stubKeyworkerAllocations(response),
     stubKeyworker: (response) => keyworker.stubKeyworker(response),
