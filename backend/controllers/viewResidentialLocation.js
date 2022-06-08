@@ -1,7 +1,11 @@
+import pagination from '../util/pagination'
+
 const { putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 const {
   apis: { complexity },
 } = require('../config')
+
+const pageSize = 50
 
 const { sortAndFormatKeyworkerNameAndAllocationCount, getDeallocateRow } = require('./keyworkerShared')
 
@@ -28,10 +32,15 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       (location) => location.locationPrefix !== activeCaseLoadId
     )
 
-    const { keyworkerResponse, offenderResponse } = residentialLocation
-      ? await allocationService.searchOffenders(res.locals, {
+    const page = req.query.page || 1
+
+    const { keyworkerResponse, offenderResponse, totalRecords, pageOffset } = residentialLocation
+      ? await allocationService.searchOffendersPaginated(res.locals, {
           agencyId: activeCaseLoadId,
-          allocationStatus: 'all',
+          pageRequest: {
+            'page-offset': (+page - 1) * pageSize,
+            'page-limit': pageSize,
+          },
           keywords: '',
           locationPrefix: residentialLocation,
         })
@@ -54,6 +63,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       activeCaseLoadId,
       formValues: req.query,
       errors: validationErrors,
+      pagination: pagination(pageSize, pageOffset, totalRecords, req.originalUrl),
       prisoners: offenderResponse.map((offender) => {
         const { confirmedReleaseDate, offenderNo, staffId } = offender
         const otherKeyworkers = keyworkerResponse.filter((keyworker) => keyworker.staffId !== offender.staffId)
@@ -91,6 +101,7 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
     const { residentialLocation } = req.query
     const { activeCaseLoadId } = req.session?.userDetails || {}
     const { allocateKeyworker } = req.body
+    const page = req.query.page || 1
 
     const selectedKeyworkerAllocations = ensureIsArray(allocateKeyworker).filter((keyworker) => keyworker)
 
@@ -122,7 +133,9 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       })
     )
 
-    return res.redirect(`/manage-key-workers/view-residential-location?residentialLocation=${residentialLocation}`)
+    return res.redirect(
+      `/manage-key-workers/view-residential-location?residentialLocation=${residentialLocation}&page=${page}`
+    )
   }
 
   return { index, post }

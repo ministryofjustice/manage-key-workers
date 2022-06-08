@@ -66,7 +66,8 @@ module.exports = {
         ],
       },
     }),
-  stubSearchOffenders: (response) =>
+
+  stubSearchOffenders: (response, pageOffset, totalRecords) =>
     stubFor({
       request: {
         method: 'GET',
@@ -76,10 +77,13 @@ module.exports = {
         status: 200,
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
+          'Page-Offset': pageOffset,
+          'Total-Records': totalRecords,
         },
         jsonBody: response,
       },
     }),
+
   stubSearchOffendersError: () =>
     stubFor({
       request: {

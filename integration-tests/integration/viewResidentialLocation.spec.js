@@ -80,37 +80,23 @@ context('View residential location', () => {
       .should('include', '/manage-key-workers')
   })
 
-  context('when there are results', () => {
+  context('when there are results on page 1', () => {
     beforeEach(() => {
-      cy.task('stubSearchOffenders', [
-        {
-          offenderNo: 'ABC123',
-          firstName: 'FERINAND',
-          lastName: 'ALFF',
-          dateOfBirth: '1982-04-06',
-          agencyId: 'MDI',
-          assignedLivingUnitId: 11,
-          assignedLivingUnitDesc: 'MDI-1-1',
-        },
-        {
-          offenderNo: 'ABC456',
-          firstName: 'JOHN',
-          lastName: 'SMITH',
-          dateOfBirth: '1986-03-01',
-          agencyId: 'MDI',
-          assignedLivingUnitId: 12,
-          assignedLivingUnitDesc: 'MDI-1-2',
-        },
-        {
-          offenderNo: 'ABC789',
-          firstName: 'SIMON',
-          lastName: 'GRAY',
-          dateOfBirth: '1980-04-03',
-          agencyId: 'MDI',
-          assignedLivingUnitId: 13,
-          assignedLivingUnitDesc: 'MDI-1-3',
-        },
-      ])
+      const offenders = Array.from({ length: 50 }, (_, i) => 1 + i).map((_) => ({
+        offenderNo: 'ABC123',
+        firstName: 'FERINAND',
+        lastName: 'ALFF',
+        dateOfBirth: '1982-04-06',
+        agencyId: 'MDI',
+        assignedLivingUnitId: 11,
+        assignedLivingUnitDesc: 'MDI-1-1',
+      }))
+
+      cy.task('stubSearchOffenders', {
+        response: offenders,
+        pageOffset: '0',
+        totalRecords: '149',
+      })
       cy.task('stubAllocationHistorySummary', [
         {
           offenderNo: 'ABC123',
@@ -133,12 +119,15 @@ context('View residential location', () => {
       cy.get('[data-test="location-select"]').select('MDI-1')
       cy.get('[data-test="view-location-button"]').click()
 
-      cy.get('[data-test="prisoner-count"]').should('contain', '3')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Next').should('exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Previous').should('not.exist')
+
+      cy.get('[data-test="prisoner-count"]').should('contain', '50')
       cy.get('[data-test="location-results-table"]')
         .find('tbody')
         .find('tr')
         .then(($tableRows) => {
-          cy.get($tableRows).its('length').should('eq', 3)
+          cy.get($tableRows).its('length').should('eq', 50)
 
           const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
 
@@ -154,18 +143,71 @@ context('View residential location', () => {
           expect(offenders[0].keyworker.trim()).to.eq('None')
           expect(offenders[0].changeKeyworker.textContent.trim()).to.eq('N/A - high complexity of need')
           cy.get(offenders[0].viewHistory).find('a').should('not.exist')
+        })
+    })
+  })
 
-          // Offender with keyworker
-          cy.get(offenders[1].name)
+  context('when there are results on page 2', () => {
+    beforeEach(() => {
+      const offenders = Array.from({ length: 50 }, (_, i) => 1 + i).map((_) => ({
+        offenderNo: 'ABC456',
+        firstName: 'JOHN',
+        lastName: 'SMITH',
+        dateOfBirth: '1986-03-01',
+        agencyId: 'MDI',
+        assignedLivingUnitId: 12,
+        assignedLivingUnitDesc: 'MDI-1-2',
+      }))
+
+      cy.task('stubSearchOffenders', {
+        response: offenders,
+        pageOffset: '50',
+        totalRecords: '149',
+      })
+      cy.task('stubAllocationHistorySummary', [
+        {
+          offenderNo: 'ABC123',
+          hasHistory: false,
+        },
+        {
+          offenderNo: 'ABC456',
+          hasHistory: true,
+        },
+        {
+          offenderNo: 'ABC789',
+          hasHistory: false,
+        },
+      ])
+    })
+
+    it('should display the correct results', () => {
+      cy.visit('/manage-key-workers/view-residential-location')
+
+      cy.get('[data-test="location-select"]').select('MDI-1')
+      cy.get('[data-test="view-location-button"]').click()
+
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Next').should('exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Previous').should('exist')
+
+      cy.get('[data-test="prisoner-count"]').should('contain', '50')
+      cy.get('[data-test="location-results-table"]')
+        .find('tbody')
+        .find('tr')
+        .then(($tableRows) => {
+          cy.get($tableRows).its('length').should('eq', 50)
+
+          const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
+
+          cy.get(offenders[0].name)
             .find('a')
             .contains('Smith, John')
             .should('have.attr', 'href')
             .should('include', '/prisoner/ABC456')
-          expect(offenders[1].prisonNo).to.eq('ABC456')
-          expect(offenders[1].location).to.eq('MDI-1-2')
-          expect(offenders[1].releaseDate.trim()).to.eq('30/05/2030')
-          expect(offenders[1].keyworker.trim()).to.eq('Julian Doe (9)')
-          cy.get(offenders[1].changeKeyworker)
+          expect(offenders[0].prisonNo).to.eq('ABC456')
+          expect(offenders[0].location).to.eq('MDI-1-2')
+          expect(offenders[0].releaseDate.trim()).to.eq('30/05/2030')
+          expect(offenders[0].keyworker.trim()).to.eq('Julian Doe (9)')
+          cy.get(offenders[0].changeKeyworker)
             .find('[data-test="allocate-keyworker-select"]')
             .then(($select) => {
               cy.get($select)
@@ -181,18 +223,72 @@ context('View residential location', () => {
             .contains('View history')
             .should('have.attr', 'href')
             .should('include', '/offender-history/ABC456')
+        })
+    })
+  })
+
+  context('when there are results on page 3', () => {
+    beforeEach(() => {
+      const offenders = Array.from({ length: 49 }, (_, i) => 1 + i).map((_) => ({
+        offenderNo: 'ABC789',
+        firstName: 'SIMON',
+        lastName: 'GRAY',
+        dateOfBirth: '1980-04-03',
+        agencyId: 'MDI',
+        assignedLivingUnitId: 13,
+        assignedLivingUnitDesc: 'MDI-1-3',
+      }))
+
+      cy.task('stubSearchOffenders', {
+        response: offenders,
+        pageOffset: '100',
+        totalRecords: '149',
+      })
+      cy.task('stubAllocationHistorySummary', [
+        {
+          offenderNo: 'ABC123',
+          hasHistory: false,
+        },
+        {
+          offenderNo: 'ABC456',
+          hasHistory: true,
+        },
+        {
+          offenderNo: 'ABC789',
+          hasHistory: false,
+        },
+      ])
+    })
+
+    it('should display the correct results', () => {
+      cy.visit('/manage-key-workers/view-residential-location')
+
+      cy.get('[data-test="location-select"]').select('MDI-1')
+      cy.get('[data-test="view-location-button"]').click()
+
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Next').should('not.exist')
+      cy.get('.moj-pagination').first().get('.moj-pagination__link').contains('Previous').should('exist')
+
+      cy.get('[data-test="prisoner-count"]').should('contain', '49')
+      cy.get('[data-test="location-results-table"]')
+        .find('tbody')
+        .find('tr')
+        .then(($tableRows) => {
+          cy.get($tableRows).its('length').should('eq', 49)
+
+          const offenders = Array.from($tableRows).map(($row) => toOffender($row.cells))
 
           // Offender without keyworker
-          cy.get(offenders[2].name)
+          cy.get(offenders[0].name)
             .find('a')
             .contains('Gray, Simon')
             .should('have.attr', 'href')
             .should('include', '/prisoner/ABC789')
-          expect(offenders[2].prisonNo).to.eq('ABC789')
-          expect(offenders[2].location).to.eq('MDI-1-3')
-          expect(offenders[2].releaseDate.trim()).to.eq('28/02/2029')
-          expect(offenders[2].keyworker.trim()).to.eq('Not allocated')
-          cy.get(offenders[2].changeKeyworker)
+          expect(offenders[0].prisonNo).to.eq('ABC789')
+          expect(offenders[0].location).to.eq('MDI-1-3')
+          expect(offenders[0].releaseDate.trim()).to.eq('28/02/2029')
+          expect(offenders[0].keyworker.trim()).to.eq('Not allocated')
+          cy.get(offenders[0].changeKeyworker)
             .find('[data-test="allocate-keyworker-select"]')
             .then(($select) => {
               cy.get($select)
@@ -203,14 +299,14 @@ context('View residential location', () => {
                   expect($options.get(2)).to.contain('9 - Doe, Julian')
                 })
             })
-          cy.get(offenders[2].viewHistory).find('a').should('not.exist')
+          cy.get(offenders[0].viewHistory).find('a').should('not.exist')
         })
     })
   })
 
   context('when there are no results', () => {
     beforeEach(() => {
-      cy.task('stubSearchOffenders', [])
+      cy.task('stubSearchOffenders', { response: [] })
     })
 
     it('should load the correct no results message', () => {

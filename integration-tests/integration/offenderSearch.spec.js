@@ -82,7 +82,7 @@ context('Offender search', () => {
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce('hmpps-session-dev')
-    cy.task('stubSearchOffenders', offenderResponse)
+    cy.task('stubSearchOffenders', { response: offenderResponse })
     cy.task('stubAvailableKeyworkers', keyworkerResponse)
     cy.task('stubOffenderKeyworker', [
       {
@@ -128,7 +128,7 @@ context('Offender search', () => {
     })
 
     it('should show default message for no offenders found', () => {
-      cy.task('stubSearchOffenders')
+      cy.task('stubSearchOffenders', { response: [] })
 
       cy.visit('/manage-key-workers/search-for-prisoner?searchText=hello')
       verifyOnPage()
