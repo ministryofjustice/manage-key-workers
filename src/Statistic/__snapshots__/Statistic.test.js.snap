@@ -2,22 +2,22 @@
 
 exports[`<Statistic /> should match the default snapshot 1`] = `
 <div
-  className="sc-bczRLJ FSYQs"
+  className="sc-bdVaJa jaytjN"
   data-qa="keyworker-stat"
 >
   <h2
-    className="sc-gsnTZi djAFig"
+    className="sc-bwzfXH bYNPDB"
   >
     Unknown statistic
   </h2>
   <p
-    className="sc-dkzDqf iBSKNz"
+    className="sc-htpNat ibCvOT"
     data-qa="-value"
   >
     -
   </p>
   <p
-    className="sc-hKMtZM kHcxZC"
+    className="sc-bxivhb wfIdL"
   >
     No change
   </p>
@@ -26,22 +26,22 @@ exports[`<Statistic /> should match the default snapshot 1`] = `
 
 exports[`<Statistic /> with negative change value should match the negative change snapshot 1`] = `
 <div
-  className="sc-bczRLJ FSYQs"
+  className="sc-bdVaJa jaytjN"
   data-qa="keyworker-stat"
 >
   <h2
-    className="sc-gsnTZi djAFig"
+    className="sc-bwzfXH bYNPDB"
   >
     A statistic with a negative change
   </h2>
   <p
-    className="sc-dkzDqf iBSKNz"
+    className="sc-htpNat ibCvOT"
     data-qa="statWithNegativeChange-value"
   >
     0
   </p>
   <p
-    className="sc-hKMtZM kHcxZC"
+    className="sc-bxivhb wfIdL"
   >
     -1
      
@@ -52,22 +52,22 @@ exports[`<Statistic /> with negative change value should match the negative chan
 
 exports[`<Statistic /> with no change in value over the change period should match the no change snapshot 1`] = `
 <div
-  className="sc-bczRLJ FSYQs"
+  className="sc-bdVaJa jaytjN"
   data-qa="keyworker-stat"
 >
   <h2
-    className="sc-gsnTZi djAFig"
+    className="sc-bwzfXH bYNPDB"
   >
     A statistic with no change over the change period
   </h2>
   <p
-    className="sc-dkzDqf iBSKNz"
+    className="sc-htpNat ibCvOT"
     data-qa="statWithNoChange-value"
   >
     1
   </p>
   <p
-    className="sc-hKMtZM kHcxZC"
+    className="sc-bxivhb wfIdL"
   >
     No change
   </p>
@@ -76,22 +76,22 @@ exports[`<Statistic /> with no change in value over the change period should mat
 
 exports[`<Statistic /> with percentages should decorate the value with a percent 1`] = `
 <div
-  className="sc-bczRLJ FSYQs"
+  className="sc-bdVaJa jaytjN"
   data-qa="keyworker-stat"
 >
   <h2
-    className="sc-gsnTZi djAFig"
+    className="sc-bwzfXH bYNPDB"
   >
     A statistic with a percentage
   </h2>
   <p
-    className="sc-dkzDqf iBSKNz"
+    className="sc-htpNat ibCvOT"
     data-qa="stateWithPercentageValue-value"
   >
     5%
   </p>
   <p
-    className="sc-hKMtZM kHcxZC"
+    className="sc-bxivhb wfIdL"
   >
     No change
   </p>
@@ -100,22 +100,22 @@ exports[`<Statistic /> with percentages should decorate the value with a percent
 
 exports[`<Statistic /> with positive change value should match the positive change snapshot 1`] = `
 <div
-  className="sc-bczRLJ FSYQs"
+  className="sc-bdVaJa jaytjN"
   data-qa="keyworker-stat"
 >
   <h2
-    className="sc-gsnTZi djAFig"
+    className="sc-bwzfXH bYNPDB"
   >
     A statistic with a positive change
   </h2>
   <p
-    className="sc-dkzDqf iBSKNz"
+    className="sc-htpNat ibCvOT"
     data-qa="statWithPositiveChange-value"
   >
     2
   </p>
   <p
-    className="sc-hKMtZM kHcxZC"
+    className="sc-bxivhb wfIdL"
   >
     +
     1

@@ -2,47 +2,50 @@
 
 exports[`<FooterContainer /> should render correctly 1`] = `
 <footer
-  className="src__FooterContainer-sc-1t3c5e2-0 bHUhYt sc-dkzDqf koOAoh"
+  className="src__FooterContainer-sc-1t3c5e2-0 hcsLTY sc-htpNat fJjhOP"
   role="contentinfo"
 >
   <div
-    className="width-container__WidthContainer-sc-213f5v-0 sc-gsnTZi ndzbb bgKgVb"
+    className="width-container__WidthContainer-sc-213f5v-0 sc-bwzfXH iaUJaF"
   >
     <div
-      className="meta__Meta-b55tvf-0 kiiBfs"
+      className="meta__Meta-b55tvf-0 ekjEQT"
     >
       <div
-        className="meta-item__MetaItem-nseoos-0 jMDshW"
+        className="meta-item__MetaItem-nseoos-0 jUcJez"
       >
         <span
-          className="src__VisuallyHidden-nxwj55-0 gfekfu"
+          className="src__VisuallyHidden-nxwj55-0 fjBSaB"
+          focusable={false}
         >
           <h2
-            className="heading__StyledHeading-sc-1dsobun-0 hkCaGQ"
+            className="heading__StyledHeading-sc-1dsobun-0 loKLPh"
             size="LARGE"
           >
             Support links
           </h2>
         </span>
         <ul
-          className="unordered-list__UnorderedList-sc-1r7pzdm-0 dEFoQW"
+          className="unordered-list__UnorderedList-sc-1r7pzdm-0 iyscru"
         >
           <li
-            className="list-item__ListItem-hn98ju-0 kdLuWH"
+            className="list-item__ListItem-hn98ju-0 hblyyy"
           >
             <a
-              className="sc-bczRLJ eWiYH link__StyledFooterLink-sc-1vhdcoj-0 bTGwdP"
+              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1vhdcoj-0 gDgTWc"
               href="/"
+              muted={false}
             >
               Feedback and support
             </a>
           </li>
           <li
-            className="list-item__ListItem-hn98ju-0 kdLuWH"
+            className="list-item__ListItem-hn98ju-0 hblyyy"
           >
             <a
-              className="sc-bczRLJ eWiYH link__StyledFooterLink-sc-1vhdcoj-0 bTGwdP"
+              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1vhdcoj-0 gDgTWc"
               href="/prisonStaffHubUrl/content/terms-conditions"
+              muted={false}
               target="_blank"
             >
               Terms and conditions
@@ -51,7 +54,7 @@ exports[`<FooterContainer /> should render correctly 1`] = `
         </ul>
         <div>
           <svg
-            className="licence__LicenceLogo-sc-76bcjk-0 kYWaXG"
+            className="licence__LicenceLogo-sc-76bcjk-0 cvIAYU"
             focusable="false"
             height="17"
             role="presentation"
@@ -65,13 +68,14 @@ exports[`<FooterContainer /> should render correctly 1`] = `
             />
           </svg>
           <span
-            className="licence__LicenceDescription-sc-76bcjk-1 dznhEZ"
+            className="licence__LicenceDescription-sc-76bcjk-1 byezzH"
           >
             All content is available under the
              
             <a
-              className="sc-bczRLJ eWiYH link__StyledFooterLink-sc-1vhdcoj-0 bTGwdP"
+              className="sc-bdVaJa fSPrJw link__StyledFooterLink-sc-1vhdcoj-0 gDgTWc"
               href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+              muted={false}
               rel="license"
             >
               Open Government Licence v3.0
@@ -81,18 +85,12 @@ exports[`<FooterContainer /> should render correctly 1`] = `
         </div>
       </div>
       <div
-        className="meta-item__MetaItem-nseoos-0 iGcKAb"
+        className="meta-item__MetaItem-nseoos-0 jfJfJr"
       >
         <a
-          className="sc-bczRLJ copyright__StyledCopyright-sc-1i22iwf-0 eWiYH dEIuep"
+          className="sc-bdVaJa copyright__StyledCopyright-sc-1i22iwf-0 sIqJy"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
-          image={
-            Object {
-              "height": 102,
-              "source": "govuk-crest-2x.png",
-              "width": 125,
-            }
-          }
+          muted={false}
         >
           © 
           Crown copyright
