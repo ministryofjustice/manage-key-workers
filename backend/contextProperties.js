@@ -45,6 +45,7 @@ const setRequestPagination = (context, headers) => {
   const headerNames = ['page-offset', 'page-limit', 'sort-fields', 'sort-order']
   // eslint-disable-next-line no-param-reassign
   context.requestHeaders = copyNamedHeaders(headerNames, (headers && normalizeHeaderNames(headers)) || {})
+  console.log(context.requestHeaders)
 }
 
 const getRequestPagination = (context) => context.requestHeaders || {}

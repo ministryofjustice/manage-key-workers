@@ -72,6 +72,14 @@ module.exports = {
       request: {
         method: 'GET',
         urlPathPattern: '/prison/api/locations/description/.+?/inmates',
+        headers: {
+          //     'page-offset': {
+          //       equalTo: '0',
+          //     },
+          'page-limit': {
+            equalTo: '50',
+          },
+        },
       },
       response: {
         status: 200,
