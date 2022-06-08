@@ -4,11 +4,16 @@ orbs:
   hmpps: ministryofjustice/hmpps@3.14
   browser-tools: circleci/browser-tools@1.1.1
 
+parameters:
+  node-version:
+    type: string
+    default: 16.15-browsers
+
 jobs:
   build:
     executor:
       name: hmpps/node
-      tag: 14.17-browsers
+      tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
       - restore_cache:
@@ -75,7 +80,7 @@ jobs:
   cypress_integration_tests:
     working_directory: ~/app
     docker:
-      - image: cimg/node:14.15.3-browsers
+      - image: cimg/node:16.15.1-browsers
       - image: bitnami/redis:5.0
         environment:
           ALLOW_EMPTY_PASSWORD=yes
