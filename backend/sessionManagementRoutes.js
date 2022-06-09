@@ -58,17 +58,22 @@ const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo, homeLink 
       next()
     } catch (error) {
       // need to logout here otherwise user will still be considered authenticated when we take them to /login
-      req.logout()
+      req.logout((err) => {
+        if (err) {
+          next(err)
+          return
+        }
 
-      if (isXHRRequest(req)) {
-        res.status(401)
-        res.json({ reason: 'session-expired' })
-        next(error)
-        return
-      }
+        if (isXHRRequest(req)) {
+          res.status(401)
+          res.json({ reason: 'session-expired' })
+          next(error)
+          return
+        }
 
-      const query = querystring.stringify({ returnTo: req.originalUrl })
-      res.redirect(`/login?${query}`)
+        const query = querystring.stringify({ returnTo: req.originalUrl })
+        res.redirect(`/login?${query}`)
+      })
     }
   }
 
@@ -82,15 +87,22 @@ const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo, homeLink 
       next()
       return
     }
-    req.logout() // need logout as want session recreated from latest auth credentials
-    if (isXHRRequest(req)) {
-      res.status(401)
-      res.json({ reason: 'session-expired' })
-      return
-    }
+    // need logout as want session recreated from latest auth credentials
+    req.logout((err) => {
+      if (err) {
+        next(err)
+        return
+      }
 
-    const query = querystring.stringify({ returnTo: req.originalUrl })
-    res.redirect(`/login?${query}`)
+      if (isXHRRequest(req)) {
+        res.status(401)
+        res.json({ reason: 'session-expired' })
+        return
+      }
+
+      const query = querystring.stringify({ returnTo: req.originalUrl })
+      res.redirect(`/login?${query}`)
+    })
   }
 
   app.get('/login', loginMiddleware, remoteLoginIndex)
@@ -109,11 +121,11 @@ const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo, homeLink 
         logger.info(`Auth failure due to ${JSON.stringify(info)}`)
         return res.redirect('/autherror')
       }
+      const { returnTo } = req.session
       req.logIn(user, (err2) => {
         if (err2) {
           return next(err2)
         }
-        const { returnTo } = req.session
         if (typeof returnTo === 'string' && returnTo.startsWith('/')) {
           return res.redirect(returnTo)
         }
