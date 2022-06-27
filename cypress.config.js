@@ -12,9 +12,9 @@ const { resetStubs } = require('./integration-tests/mockApis/wiremock')
 
 module.exports = defineConfig({
   chromeWebSecurity: false,
-  fixturesFolder: 'integration-tests/fixtures',
-  screenshotsFolder: 'integration-tests/screenshots',
-  videosFolder: 'integration-tests/videos',
+  fixturesFolder: 'integration_tests/fixtures',
+  screenshotsFolder: 'integration_tests/screenshots',
+  videosFolder: 'integration_tests/videos',
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
     configFile: 'reporter-config.json',
