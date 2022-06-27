@@ -2,27 +2,23 @@
 const request = require('supertest')
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieSession = require('cookie-session')
+const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
 const setCookie = require('set-cookie-parser')
-const chai = require('chai')
-
-const { expect } = chai
-const sinon = require('sinon')
-const sinonChai = require('sinon-chai')
-
-chai.use(sinonChai)
 
 const sessionManagementRoutes = require('../sessionManagementRoutes')
 const auth = require('../auth')
+const config = require('../config')
 
 const hmppsCookieName = 'testCookie'
 
 const hasCookies = (expectedNames) => (res) => {
   const cookieNames = setCookie.parse(res).map((cookie) => cookie.name)
-  expect(cookieNames).to.have.members(expectedNames)
+  expect(cookieNames).toEqual(expect.arrayContaining(expectedNames))
 }
+
+config.app.url = 'https://digital.prison.url/'
 
 describe('Test the routes and middleware installed by sessionManagementRoutes', () => {
   const app = express()
@@ -31,11 +27,16 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   app.use(bodyParser.urlencoded({ extended: false }))
 
   app.use(
-    cookieSession({
+    session({
       name: hmppsCookieName,
-      maxAge: 1 * 60 * 1000,
-      secure: false,
-      signed: false, // supertest can't cope with multiple cookies - https://github.com/visionmedia/supertest/issues/336
+      resave: false,
+      saveUninitialized: false,
+      secret: 'secret',
+      cookie: {
+        maxAge: 1 * 60 * 1000,
+        secure: false,
+        signed: true,
+      },
     })
   )
 
@@ -53,7 +54,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
    * A Token refresher that does nothing.
    * @returns {Promise<void>}
    */
-  const tokenRefresher = sinon.stub()
+  const tokenRefresher = jest.fn()
 
   sessionManagementRoutes.configureRoutes({
     app,
@@ -70,23 +71,17 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
   // because the outcome of each test depends upon the successful completion of the previous tests.
   const agent = request.agent(app)
 
-  it('GET "/" with no cookie (not authenticated) redirects to /login', () => {
-    tokenRefresher.resolves()
+  it('GET "/" with no cookie (not authenticated) redirects to /login', () =>
+    agent.get('/').expect(302).expect('location', '/login?returnTo=%2F'))
 
-    return agent.get('/').expect(302).expect('location', '/login?returnTo=%2F')
-  })
-
-  it('GET "/some-page" with no cookie (not authenticated) redirects to /login?returnTo=some-page', () => {
-    tokenRefresher.resolves()
-
-    return agent.get('/some-page').expect(302).expect('location', '/login?returnTo=%2Fsome-page')
-  })
+  it('GET "/some-page" with no cookie (not authenticated) redirects to /login?returnTo=some-page', () =>
+    agent.get('/some-page').expect(302).expect('location', '/login?returnTo=%2Fsome-page'))
 
   it('GET "/login" when not authenticated returns login page', () => agent.get('/login').expect(302))
 
   it('GET "/heart-beat"', () => agent.get('/heart-beat').set('Accept', 'application/json').expect(401))
 
-  it('GET "/logout" clears the cookie', () => {
+  it.only('GET "/logout" clears the cookie', () => {
     agent
       .get('/auth/logout')
       .expect(302)
