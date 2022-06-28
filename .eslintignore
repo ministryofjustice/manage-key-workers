@@ -8,7 +8,7 @@ static
 audit-ci.json
 package.json
 package-lock.json
-cypress.json
+cypress.config.js
 cypress-reporter-config.json
 integration-tests/mockApis/responses/*
 
