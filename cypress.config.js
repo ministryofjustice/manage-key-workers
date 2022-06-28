@@ -17,7 +17,7 @@ module.exports = defineConfig({
   videosFolder: 'integration-tests/videos',
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
-    configFile: 'reporter-config.json',
+    configFile: 'cypress-reporter-config.json',
   },
   videoUploadOnPasses: false,
   taskTimeout: 60000,
