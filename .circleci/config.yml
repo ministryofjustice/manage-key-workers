@@ -107,7 +107,7 @@ jobs:
           name: integration tests
           command: npm run int-test
       - store_test_results:
-          path: test-results
+          path: test_results
       - store_artifacts:
           path: integration-tests/videos
       - store_artifacts:
