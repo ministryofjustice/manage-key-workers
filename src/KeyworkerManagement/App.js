@@ -267,7 +267,9 @@ class App extends React.Component {
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <FeedbackBanner />
+          <div className="dashboard-feedback-banner">
+            <FeedbackBanner />
+          </div>
           <FooterContainer supportUrl={config.supportUrl} prisonStaffHubUrl={config.prisonStaffHubUrl} />
         </div>
       </Router>
