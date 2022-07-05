@@ -1,9 +1,7 @@
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
-<div style="background: {{ feedbackBannerBackground or '#fff' }}">
-  <div class="govuk-width-container">
+<div class="govuk-width-container" style="background: {{ feedbackBannerBackground or '#fff' }}">
     {% include "../components/feedbackBanner.njk" %}
-  </div>
 </div>
 
 {{ 
