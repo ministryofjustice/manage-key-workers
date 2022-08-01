@@ -1,7 +1,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-generic-serivce:
+generic-service:
   replicaCount: 4
   env:
     HMPPS_COOKIE_NAME: hmpps-session-prod
