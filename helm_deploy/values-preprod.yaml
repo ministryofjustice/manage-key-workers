@@ -54,10 +54,3 @@ generic-service:
     moj-official-tgw-preprod: "51.149.251.0/24"
     global-protect: "35.176.93.186/32"
 
-
-ingress:
-  enabled: true
-  enable_allowlist: true
-  host: preprod.manage-key-workers.service.justice.gov.uk
-  cert_secret: manage-key-workers-cert
-  path: /

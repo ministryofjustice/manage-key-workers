@@ -19,10 +19,4 @@ generic-service:
     HMPPS_COOKIE_DOMAIN: dev.manage-key-workers.service.justice.gov.uk
     MANAGE_KEY_WORKERS_URL: "https://dev.manage-key-workers.service.justice.gov.uk"
 
-ingress:
-  enabled: true
-  host: dev.manage-key-workers.service.justice.gov.uk
-  cert_secret: manage-key-workers-cert
-  path: /
-
  

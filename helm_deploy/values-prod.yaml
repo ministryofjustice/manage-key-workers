@@ -67,13 +67,6 @@ generic-service:
     fivewells-9: "194.33.248.0/29"
     global-protect: "35.176.93.186/32"
 
-ingress:
-  enabled: true
-  enable_allowlist: true
-  host: manage-key-workers.service.justice.gov.uk
-  cert_secret: manage-key-workers-cert
-  path: /
-
 # determine which slack channel alerts are sent to, via the correct Alert Manager receiver
 generic-prometheus-alerts:
   alertSeverity: digital-prison-service
