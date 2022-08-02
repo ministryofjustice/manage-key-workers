@@ -16,6 +16,8 @@ generic-service:
     SUPPORT_URL: https://support-dev.hmpps.service.justice.gov.uk/
     COMPLEXITY_OF_NEED_URI: https://complexity-of-need-staging.hmpps.service.justice.gov.uk
     PRISONS_WITH_OFFENDERS_THAT_HAVE_COMPLEX_NEEDS: "MDI,LEI"
+    HMPPS_COOKIE_DOMAIN:  dev.manage-key-workers.service.justice.gov.uk
+    MANAGE_KEY_WORKERS_URL:  dev.manage-key-workers.service.justice.gov.uk
 
 ingress:
   enabled: true
