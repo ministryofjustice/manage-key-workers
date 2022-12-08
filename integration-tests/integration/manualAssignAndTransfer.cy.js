@@ -3,37 +3,36 @@ const OffenderSearchPage = require('../pages/offenderSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 const HomePage = require('../pages/homePage')
 
-const offenderSearchResponse = [
-  {
-    bookingId: -1,
-    bookingNo: 'A00111',
-    offenderNo: 'A1178RS',
-    firstName: 'ARTHUR',
-    middleName: 'BORIS',
-    lastName: 'ANDERSON',
-    dateOfBirth: '1969-12-30',
-    age: 48,
-    agencyId: 'LEI',
-    assignedLivingUnitId: -3,
-    assignedLivingUnitDesc: 'A-1-1',
-    facialImageId: -1,
-    iepLevel: 'Standard',
-  },
-  {
-    bookingId: -29,
-    bookingNo: 'Z00029',
-    offenderNo: 'Z0024ZZ',
-    firstName: 'NEIL',
-    middleName: 'IAN',
-    lastName: 'BRADLEY',
-    dateOfBirth: '1945-01-10',
-    age: 73,
-    agencyId: 'LEI',
-    assignedLivingUnitId: -14,
-    assignedLivingUnitDesc: 'H-1',
-    iepLevel: 'Entry',
-  },
-]
+const offenderSearchResponse = {
+  content: [
+    {
+      bookingId: -1,
+      bookingNo: 'A00111',
+      prisonerNumber: 'A1178RS',
+      firstName: 'ARTHUR',
+      middleName: 'BORIS',
+      lastName: 'ANDERSON',
+      dateOfBirth: '1969-12-30',
+      prisonId: 'LEI',
+      cellLocation: 'A-1-1',
+    },
+    {
+      bookingId: -29,
+      bookingNo: 'Z00029',
+      prisonerNumber: 'Z0024ZZ',
+      firstName: 'NEIL',
+      middleName: 'IAN',
+      lastName: 'BRADLEY',
+      dateOfBirth: '1945-01-10',
+      prisonId: 'LEI',
+      cellLocation: 'H-1',
+    },
+  ],
+  totalElements: 2,
+  number: 0,
+  size: 10,
+}
+
 const availableKeyworkerResponse = [
   {
     staffId: -3,
@@ -155,7 +154,7 @@ context('manual assign and transfer test', () => {
   })
 
   it('Search for offender returns no results', () => {
-    cy.task('stubSearchOffenders', { response: [] })
+    cy.task('stubSearchOffenders', { response: { content: [], totalElements: 0 } })
     cy.visit('/offender-search')
     const offenderSearchPage = OffenderSearchPage.verifyOnPage()
     offenderSearchPage.verifyPageReady()
@@ -199,7 +198,7 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.verifyPageReady()
     offenderSearchPage.search()
     offenderSearchPage
-      .assignNewKeyworkeSelect(offenderSearchResponse[0].offenderNo)
+      .assignNewKeyworkeSelect(offenderSearchResponse.content[0].prisonerNumber)
       .select(`${availableKeyworkerResponse[1].staffId}`)
     offenderSearchPage.saveButton().click()
     offenderSearchPage.messageBar().contains('Key workers successfully updated.')

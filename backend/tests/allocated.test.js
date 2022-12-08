@@ -6,7 +6,7 @@ const { keyworkerApiFactory } = require('../api/keyworkerApi')
 
 const elite2Api = elite2ApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
-const { allocated } = serviceFactory(elite2Api, keyworkerApi)
+const { allocated } = serviceFactory(elite2Api, null, keyworkerApi)
 
 function createAllocatedDataResponse() {
   return [

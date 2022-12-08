@@ -82,21 +82,27 @@ context('View residential location', () => {
 
   context('when there are results on page 1', () => {
     beforeEach(() => {
-      const offenders = Array.from({ length: 50 }, (_, i) => 1 + i).map((_) => ({
-        offenderNo: 'ABC123',
-        firstName: 'FERINAND',
-        lastName: 'ALFF',
-        dateOfBirth: '1982-04-06',
-        agencyId: 'MDI',
-        assignedLivingUnitId: 11,
-        assignedLivingUnitDesc: 'MDI-1-1',
-      }))
+      const offenders = {
+        content: Array.from({ length: 50 }, (_, i) => 1 + i).map((_) => ({
+          prisonerNumber: 'ABC123',
+          firstName: 'FERINAND',
+          lastName: 'ALFF',
+          dateOfBirth: '1982-04-06',
+          prisonId: 'MDI',
+          cellLocation: 'MDI-1-1',
+        })),
+        totalElements: 149,
+        number: 0,
+        size: 50,
+      }
 
-      cy.task('stubSearchOffenders', {
+      cy.task('stubSearchOffendersPaginated', {
         response: offenders,
-        pageOffset: '0',
-        totalRecords: '149',
+        locationPrefix: 'MDI-1',
+        page: '0',
+        pageSize: '50',
       })
+
       cy.task('stubAllocationHistorySummary', [
         {
           offenderNo: 'ABC123',
@@ -149,21 +155,27 @@ context('View residential location', () => {
 
   context('when there are results on page 2', () => {
     beforeEach(() => {
-      const offenders = Array.from({ length: 50 }, (_, i) => 1 + i).map((_) => ({
-        offenderNo: 'ABC456',
-        firstName: 'JOHN',
-        lastName: 'SMITH',
-        dateOfBirth: '1986-03-01',
-        agencyId: 'MDI',
-        assignedLivingUnitId: 12,
-        assignedLivingUnitDesc: 'MDI-1-2',
-      }))
+      const offenders = {
+        content: Array.from({ length: 50 }, (_, i) => 1 + i).map((_) => ({
+          prisonerNumber: 'ABC456',
+          firstName: 'JOHN',
+          lastName: 'SMITH',
+          dateOfBirth: '1986-03-01',
+          prisonId: 'MDI',
+          cellLocation: 'MDI-1-2',
+        })),
+        totalElements: 149,
+        number: 1,
+        size: 50,
+      }
 
-      cy.task('stubSearchOffenders', {
+      cy.task('stubSearchOffendersPaginated', {
         response: offenders,
-        pageOffset: '50',
-        totalRecords: '149',
+        locationPrefix: 'MDI-1',
+        page: '0',
+        pageSize: '50',
       })
+
       cy.task('stubAllocationHistorySummary', [
         {
           offenderNo: 'ABC123',
@@ -229,21 +241,27 @@ context('View residential location', () => {
 
   context('when there are results on page 3', () => {
     beforeEach(() => {
-      const offenders = Array.from({ length: 49 }, (_, i) => 1 + i).map((_) => ({
-        offenderNo: 'ABC789',
-        firstName: 'SIMON',
-        lastName: 'GRAY',
-        dateOfBirth: '1980-04-03',
-        agencyId: 'MDI',
-        assignedLivingUnitId: 13,
-        assignedLivingUnitDesc: 'MDI-1-3',
-      }))
+      const offenders = {
+        content: Array.from({ length: 49 }, (_, i) => 1 + i).map((_) => ({
+          prisonerNumber: 'ABC789',
+          firstName: 'SIMON',
+          lastName: 'GRAY',
+          dateOfBirth: '1980-04-03',
+          prisonId: 'MDI',
+          cellLocation: 'MDI-1-3',
+        })),
+        totalElements: 149,
+        number: 2,
+        size: 50,
+      }
 
-      cy.task('stubSearchOffenders', {
+      cy.task('stubSearchOffendersPaginated', {
         response: offenders,
-        pageOffset: '100',
-        totalRecords: '149',
+        locationPrefix: 'MDI-1',
+        page: '0',
+        pageSize: '50',
       })
+
       cy.task('stubAllocationHistorySummary', [
         {
           offenderNo: 'ABC123',
@@ -306,7 +324,12 @@ context('View residential location', () => {
 
   context('when there are no results', () => {
     beforeEach(() => {
-      cy.task('stubSearchOffenders', { response: [] })
+      cy.task('stubSearchOffendersPaginated', {
+        response: { content: [], totalElements: 0, number: 0, size: 10 },
+        locationPrefix: 'MDI-2',
+        page: '0',
+        pageSize: '50',
+      })
     })
 
     it('should load the correct no results message', () => {

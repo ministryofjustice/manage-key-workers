@@ -67,40 +67,6 @@ module.exports = {
       },
     }),
 
-  stubSearchOffenders: (response, pageOffset, totalRecords) =>
-    stubFor({
-      request: {
-        method: 'GET',
-        urlPathPattern: '/prison/api/locations/description/.+?/inmates',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Page-Offset': pageOffset,
-          'Total-Records': totalRecords,
-        },
-        jsonBody: response,
-      },
-    }),
-
-  stubSearchOffendersError: () =>
-    stubFor({
-      request: {
-        method: 'GET',
-        urlPathPattern: '/prison/api/locations/description/.+?/inmates',
-      },
-      response: {
-        status: 403,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: {
-          status: 403,
-          userMessage: 'Something went wrong with the search',
-        },
-      },
-    }),
   stubUserLocations: (locations) =>
     stubFor({
       request: {

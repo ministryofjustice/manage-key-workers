@@ -6,7 +6,7 @@ const telemetry = require('../azure-appinsights')
 
 // TODO: There's a lot of duplication in this module...
 
-const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
+const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSearchResultMax, systemOauthClient) => {
   const getOffenderNumbers = (offenderResults) =>
     offenderResults && offenderResults.length && offenderResults.map((row) => row.offenderNo)
 
@@ -256,14 +256,18 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
     }
   }
 
-  const searchOffendersPaginated = async (context, { agencyId, keywords, locationPrefix, pageRequest }) => {
-    const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId)
+  const searchOffendersPaginated = async (context, { agencyId, locationPrefix, pageRequest }) => {
+    const systemContext = await systemOauthClient.getClientCredentialsTokens(context.username)
 
-    const offenders = await elite2Api.searchOffendersPaginated(context, keywords, locationPrefix, pageRequest)
-    const totalRecords = context.responseHeaders['total-records']
-    const pageOffset = Number(context.responseHeaders['page-offset'])
+    const [availableKeyworkers, offenders] = await Promise.all([
+      keyworkerApi.availableKeyworkers(context, agencyId),
+      prisonerSearchApi.searchOffendersPaginated(systemContext, agencyId, locationPrefix, pageRequest),
+    ])
 
-    if (!(offenders && offenders.length > 0)) {
+    const totalRecords = systemContext.totalElements
+    const pageOffset = Number(systemContext.pageOffset)
+
+    if (totalRecords === 0) {
       return {
         keyworkerResponse: availableKeyworkers,
         offenderResponse: offenders,
@@ -293,9 +297,13 @@ const serviceFactory = (elite2Api, keyworkerApi, offenderSearchResultMax) => {
 
   const searchOffenders = async (context, { agencyId, keywords, locationPrefix, allocationStatus }) => {
     const offenderReturnSize = allocationStatus === 'all' ? offenderSearchResultMax + 1 : 3000
-    const availableKeyworkers = await keyworkerApi.availableKeyworkers(context, agencyId)
 
-    const offenders = await elite2Api.searchOffenders(context, keywords, locationPrefix, offenderReturnSize)
+    const systemContext = await systemOauthClient.getClientCredentialsTokens(context.username)
+
+    const [availableKeyworkers, offenders] = await Promise.all([
+      keyworkerApi.availableKeyworkers(context, agencyId),
+      prisonerSearchApi.searchOffenders(systemContext, keywords, locationPrefix, offenderReturnSize),
+    ])
 
     if (!(offenders && offenders.length > 0)) {
       return {

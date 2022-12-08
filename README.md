@@ -57,16 +57,17 @@ tell it where to find the dependent services and other important settings.
 The following environment variables supply these values:
 
 
-| Environment Variable    | Description                                  |
-|------------------------ |:--------------------------------------------:|
-| API_CLIENT_ID           | Client ID for accessing elite2api            |
-| API_CLIENT_SECRET       | Client secret for accessing elite2api        |
-| API_ENDPOINT_URL        | URL to the elite2api                         |
-| OAUTH_ENDPOINT_URL      | URL to the Oauth2 server                     |
-| NN_ENDPOINT_URL         | New Nomis UI                                 |
-| KEYWORKER_API_URL       | URL to the Keyworker API                     |
-| PRISON_STAFF_HUB_UI_URL | URL to Prison Staff Hub UI                   |
-| SESSION_COOKIE_SECRET   | Session cookie secret                        | 
+| Environment Variable             |               Description                |
+|----------------------------------|:----------------------------------------:|
+| API_CLIENT_ID                    |    Client ID for accessing prison-api    |
+| API_CLIENT_SECRET                |  Client secret for accessing prison-api  |
+| API_ENDPOINT_URL                 |            URL to prison-api             |
+| PRISONER_SEARCH_API_ENDPOINT_URL | URL to the prisoner elastic search api   |
+| OAUTH_ENDPOINT_URL               |         URL to the Oauth2 server         |
+| NN_ENDPOINT_URL                  |               New Nomis UI               |
+| KEYWORKER_API_URL                |         URL to the Keyworker API         |
+| PRISON_STAFF_HUB_UI_URL          |        URL to Prison Staff Hub UI        |
+| SESSION_COOKIE_SECRET            |          Session cookie secret           | 
 
 
 # Production execution
@@ -94,6 +95,7 @@ docker run -p 3000:3000 -d \
      --name manage-key-workers \
      -e USE_API_GATEWAY_AUTH=yes \
      -e API_ENDPOINT_URL=https://api-dev.prison.service.justice.gov.uk \
+     -e PRISONER_SEARCH_API_ENDPOINT_URL=https://prisoner-offender-search-dev.prison.service.justice.gov.uk \
      -e API_GATEWAY_TOKEN=<add here> \
      -e API_CLIENT_SECRET=<add here> \
      -e API_GATEWAY_PRIVATE_KEY=<add here> \

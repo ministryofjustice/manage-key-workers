@@ -81,7 +81,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
 
   it('GET "/heart-beat"', () => agent.get('/heart-beat').set('Accept', 'application/json').expect(401))
 
-  it.only('GET "/logout" clears the cookie', () => {
+  it('GET "/logout" clears the cookie', () => {
     agent
       .get('/auth/logout')
       .expect(302)

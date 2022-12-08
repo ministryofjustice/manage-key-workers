@@ -23,44 +23,39 @@ const keyworkerResponse = [
   },
 ]
 
-const offenderResponse = [
+const offenderResponseContent = [
   {
-    offenderNo: 'G0276VC',
+    prisonerNumber: 'G0276VC',
     firstName: 'FERINAND',
     middleName: 'ANTHOINE',
     lastName: 'ALFF',
-    agencyId: 'MDI',
-    assignedLivingUnitId: 1,
-    assignedLivingUnitDesc: 'CSWAP',
-    staffId: null,
-    keyworkerDisplay: '--',
-    numberAllocated: 'n/a',
+    prisonId: 'MDI',
+    cellLocation: 'CSWAP',
   },
   {
-    offenderNo: 'G12345',
+    prisonerNumber: 'G12345',
     firstName: 'DANNY',
     middleName: '',
     lastName: 'Deets',
-    agencyId: 'MDI',
-    assignedLivingUnitId: 2,
-    assignedLivingUnitDesc: 'MDI',
-    staffId: 34353,
-    keyworkerDisplay: 'Bob ball',
-    numberAllocated: 'n/a',
+    prisonId: 'MDI',
+    cellLocation: 'MDI',
   },
   {
-    offenderNo: 'G12346',
+    prisonerNumber: 'G12346',
     firstName: 'Ash',
     middleName: '',
     lastName: 'Blusher',
-    agencyId: 'MDI',
-    assignedLivingUnitId: 3,
-    assignedLivingUnitDesc: 'MDI',
-    staffId: 34354,
-    keyworkerDisplay: '--',
-    numberAllocated: 'n/a',
+    prisonId: 'MDI',
+    cellLocation: 'MDI',
   },
 ]
+
+const offenderResponse = {
+  content: offenderResponseContent,
+  totalElements: 3,
+  number: 0,
+  size: 10,
+}
 
 const toOffender = ($cell) => ({
   name: $cell[0]?.textContent,
@@ -82,7 +77,6 @@ context('Offender search', () => {
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce('hmpps-session-dev')
-    cy.task('stubSearchOffenders', { response: offenderResponse })
     cy.task('stubAvailableKeyworkers', keyworkerResponse)
     cy.task('stubOffenderKeyworker', [
       {
@@ -128,7 +122,7 @@ context('Offender search', () => {
     })
 
     it('should show default message for no offenders found', () => {
-      cy.task('stubSearchOffenders', { response: [] })
+      cy.task('stubSearchOffenders', { response: { totalElements: 0, content: [] }, term: 'hello' })
 
       cy.visit('/manage-key-workers/search-for-prisoner?searchText=hello')
       verifyOnPage()
@@ -141,6 +135,7 @@ context('Offender search', () => {
     it('should make a request to allocate', () => {
       cy.task('stubAllocate')
       cy.task('stubGetComplexOffenders')
+      cy.task('stubSearchOffenders', { response: offenderResponse, term: 'smith' })
 
       cy.visit('/manage-key-workers/search-for-prisoner?searchText=smith')
 
@@ -158,6 +153,7 @@ context('Offender search', () => {
     it('should make a request to deallocate', () => {
       cy.task('stubDeallocate', 'G12345')
       cy.task('stubGetComplexOffenders')
+      cy.task('stubSearchOffenders', { response: offenderResponse, term: 'smith' })
 
       cy.visit('/manage-key-workers/search-for-prisoner?searchText=smith')
 
@@ -178,6 +174,7 @@ context('Offender search', () => {
   context('Results table', () => {
     it('no key worker allocated', () => {
       cy.visit('/manage-key-workers/search-for-prisoner')
+      cy.task('stubSearchOffenders', { response: offenderResponse, term: 'SMITH' })
 
       verifyOnPage()
 

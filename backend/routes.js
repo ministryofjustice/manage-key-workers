@@ -26,9 +26,15 @@ const manageKeyWorkerSettings = require('./controllers/manageKeyWorkerSettings')
 
 const systemOauthClient = require('./api/systemOauthClient')
 
-const configureRoutes = ({ oauthApi, elite2Api, keyworkerApi, complexityOfNeedApi }) => {
+const configureRoutes = ({ oauthApi, elite2Api, prisonerSearchApi, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
-  const allocationService = allocationServiceFactory(elite2Api, keyworkerApi, config.app.offenderSearchResultMax)
+  const allocationService = allocationServiceFactory(
+    elite2Api,
+    prisonerSearchApi,
+    keyworkerApi,
+    config.app.offenderSearchResultMax,
+    systemOauthClient
+  )
 
   const controller = controllerFactory(allocationService, keyworkerPrisonStatsFactory(keyworkerApi))
   router.use('/api/config', getConfiguration)
