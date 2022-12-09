@@ -1,10 +1,15 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@3.14
+  hmpps: ministryofjustice/hmpps@6
   browser-tools: circleci/browser-tools@1.1.1
+  slack: circleci/slack@4.4.2
 
 parameters:
+  alerts-slack-channel:
+    type: string
+    default: dps_alerts_security
+
   node-version:
     type: string
     default: 16.15-browsers
@@ -118,6 +123,28 @@ jobs:
       - store_artifacts:
           path: integration-tests/screenshots
 
+  check_outdated:
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm
+          command: 'npm ci --no-audit'
+      - run:
+          name: Check version
+          command: 'npm --version'
+      - run:
+          name: Run check
+          command: 'npm outdated typescript govuk-frontend'
+      - slack/notify:
+          event: fail
+          channel: << pipeline.parameters.alerts-slack-channel >>
+          template: basic_fail_1
+
 workflows:
   version: 2
   build-test-and-deploy:
@@ -154,6 +181,7 @@ workflows:
             - build_docker
             # - integration_tests
             - cypress_integration_tests
+          helm_timeout: 5m
       - request-preprod-approval:
           type: approval
           requires:
@@ -166,6 +194,7 @@ workflows:
             - manage-key-workers-preprod
           requires:
             - request-preprod-approval
+          helm_timeout: 5m
       - request-prod-approval:
           type: approval
           requires:
@@ -179,6 +208,7 @@ workflows:
             - manage-key-workers-prod
           requires:
             - request-prod-approval
+          helm_timeout: 5m
 
   security:
     triggers:
@@ -189,13 +219,19 @@ workflows:
               only:
                 - main
     jobs:
+      - check_outdated:
+          context:
+            - hmpps-common-vars
       - hmpps/npm_security_audit:
+          slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - hmpps-common-vars
       - hmpps/trivy_latest_scan:
+          slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - hmpps-common-vars
       - hmpps/veracode_pipeline_scan:
+          slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - veracode-credentials
             - hmpps-common-vars
