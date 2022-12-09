@@ -52,12 +52,6 @@ context('View residential location', () => {
         active: 'Y',
       },
     ])
-    cy.task('stubOffenderSentences', [
-      { offenderNo: 'ABC123', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2022-04-30' } },
-      { offenderNo: 'ABC456', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2030-05-30' } },
-      { offenderNo: 'ABC789', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2029-02-28' } },
-    ])
-    cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'ABC123', level: 'high' }])
     cy.task('stubClientCredentialsRequest')
   })
@@ -90,6 +84,7 @@ context('View residential location', () => {
           dateOfBirth: '1982-04-06',
           prisonId: 'MDI',
           cellLocation: 'MDI-1-1',
+          releaseDate: '2022-04-30',
         })),
         totalElements: 149,
         number: 0,
@@ -163,6 +158,7 @@ context('View residential location', () => {
           dateOfBirth: '1986-03-01',
           prisonId: 'MDI',
           cellLocation: 'MDI-1-2',
+          releaseDate: '2030-05-30',
         })),
         totalElements: 149,
         number: 1,
@@ -249,6 +245,7 @@ context('View residential location', () => {
           dateOfBirth: '1980-04-03',
           prisonId: 'MDI',
           cellLocation: 'MDI-1-3',
+          releaseDate: '2029-02-28',
         })),
         totalElements: 149,
         number: 2,

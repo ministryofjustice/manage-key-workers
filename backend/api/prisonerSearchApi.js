@@ -30,7 +30,12 @@ const prisonerSearchApiFactory = (client) => {
     return data.content.map(mapPrisoner)
   }
 
-  return { searchOffenders, searchOffendersPaginated }
+  const getOffenders = async (context, prisonerNumbers) => {
+    const response = await client.post(context, '/prisoner-search/prisoner-numbers', { prisonerNumbers })
+    return response.body.map(mapPrisoner)
+  }
+
+  return { searchOffenders, searchOffendersPaginated, getOffenders }
 }
 
 module.exports = { prisonerSearchApiFactory }

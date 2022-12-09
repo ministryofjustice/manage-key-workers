@@ -13,8 +13,6 @@ const elite2ApiFactory = (client) => {
 
   const get = (context, url, resultsLimit) => client.get(context, url, resultsLimit).then(processResponse(context))
 
-  const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
-
   const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
 
   const caseNoteUsageList = (context, offenderNumbers, staffId) =>
@@ -24,12 +22,9 @@ const elite2ApiFactory = (client) => {
         offenderNumbers
       )}`
     )
-  const csraRatingList = (context, offenderNumbers) =>
-    post(context, '/api/offender-assessments/csra/rating', offenderNumbers) // candidate!
+
   const userCaseLoads = (context) => (isNomisUser(context) ? get(context, '/api/users/me/caseLoads') : [])
   const userLocations = (context) => (isNomisUser(context) ? get(context, '/api/users/me/locations') : [])
-
-  const sentenceDetailList = (context, offenderNumbers) => post(context, '/api/offender-sentences', offenderNumbers) // candidate !
 
   // NB. This function expects a caseload object.
   // The object *must* have non-blank caseLoadId,  description and type properties.
@@ -38,10 +33,8 @@ const elite2ApiFactory = (client) => {
 
   return {
     caseNoteUsageList,
-    csraRatingList,
     userCaseLoads,
     userLocations,
-    sentenceDetailList,
     setActiveCaseload,
   }
 }

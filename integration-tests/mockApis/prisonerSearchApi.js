@@ -49,11 +49,11 @@ module.exports = {
       },
     }),
 
-  stubOffenderSentences: (response = []) =>
+  stubGetOffenders: (response = []) =>
     stubFor({
       request: {
         method: 'POST',
-        urlPath: '/prisoner-search/api/offender-sentences',
+        urlPath: '/prisoner-search/prisoner-search/prisoner-numbers',
       },
       response: {
         status: 200,
@@ -61,21 +61,6 @@ module.exports = {
           'Content-Type': 'application/json;charset=UTF-8',
         },
         jsonBody: response,
-      },
-    }),
-
-  stubOffenderAssessments: () =>
-    stubFor({
-      request: {
-        method: 'POST',
-        urlPath: '/prisoner-search/api/offender-assessments/csra/rating',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: [],
       },
     }),
 

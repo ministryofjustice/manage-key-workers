@@ -120,8 +120,7 @@ const navigateToEditPage = (keyworker) => {
   keyworkerSearchPage.searchAndClickKeyworker(keyworker.staffId)
   const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworker))
   keyworkerProfilePage.clickEditProfileButton()
-  const editKeyworkerProfilePage = KeyworkerEditProfilePage.verifyOnPage()
-  return editKeyworkerProfilePage
+  return KeyworkerEditProfilePage.verifyOnPage()
 }
 
 context('Profile test', () => {
@@ -144,8 +143,20 @@ context('Profile test', () => {
     cy.task('stubKeyworkerStats')
     cy.task('stubAvailableKeyworkers', availableKeyworkersResponse)
     cy.task('stubKeyworkerAllocations', keyworkerAllocationsResponse)
-    cy.task('stubOffenderAssessments')
-    cy.task('stubOffenderSentences')
+    cy.task('stubGetOffenders', [
+      {
+        prisonerNumber: 'Z0018ZZ',
+        confirmedReleaseDate: '2022-04-29',
+        releaseDate: '2022-04-30',
+        csra: 'High',
+      },
+      {
+        prisonerNumber: 'Z0018ZT',
+        confirmedReleaseDate: '2030-05-29',
+        releaseDate: '2030-05-30',
+        csra: 'Standard',
+      },
+    ])
     cy.task('stubCaseNoteUsageList', caseNoteUsageResponse)
   })
 
@@ -166,8 +177,12 @@ context('Profile test', () => {
     // Page allocations table
     keyworkerProfilePage.getResultElement(1, 1).find('a').should('have.text', 'Talbot, Nick')
     keyworkerProfilePage.getResultElement(2, 1).should('have.text', 'Bowie, David')
+    keyworkerProfilePage.getResultElement(1, 4).should('have.text', '30/04/2022')
+    keyworkerProfilePage.getResultElement(1, 5).should('have.text', 'High')
     keyworkerProfilePage.getResultElement(1, 6).should('have.text', '16/06/2018')
     keyworkerProfilePage.getResultElement(1, 7).should('have.text', '4')
+    keyworkerProfilePage.getResultElement(2, 4).should('have.text', '30/05/2030')
+    keyworkerProfilePage.getResultElement(2, 5).should('have.text', 'Standard')
     keyworkerProfilePage.getResultElement(2, 1).find('a').should('not.exist')
   })
 

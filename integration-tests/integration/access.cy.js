@@ -77,9 +77,8 @@ context('Access test', () => {
     cy.task('stubAvailableKeyworkers')
     cy.task('stubKeyworkerAllocations', keyworkerAllocationsResponse)
     cy.task('stubKeyworkerStats')
-    cy.task('stubOffenderAssessments')
     cy.task('stubUpdateCaseload')
-    cy.task('stubOffenderSentences')
+    cy.task('stubGetOffenders')
     cy.task('stubCaseNoteUsageList')
     cy.task('stubSearchOffenders', {
       response: offenderSearchResponse,

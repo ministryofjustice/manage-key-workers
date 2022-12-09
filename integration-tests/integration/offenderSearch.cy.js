@@ -47,6 +47,7 @@ const offenderResponseContent = [
     lastName: 'Blusher',
     prisonId: 'MDI',
     cellLocation: 'MDI',
+    releaseDate: '2022-04-30',
   },
 ]
 
@@ -103,12 +104,7 @@ context('Offender search', () => {
         hasHistory: true,
       },
     ])
-    cy.task('stubOffenderSentences')
-    cy.task('stubOffenderAssessments')
     cy.task('stubGetComplexOffenders', [{ offenderNo: 'G12346', level: 'high' }])
-    cy.task('stubOffenderSentences', [
-      { offenderNo: 'G12346', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2022-04-30' } },
-    ])
     cy.task('stubClientCredentialsRequest')
   })
 

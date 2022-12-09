@@ -66,7 +66,6 @@ module.exports = {
         ],
       },
     }),
-
   stubUserLocations: (locations) =>
     stubFor({
       request: {
@@ -117,34 +116,6 @@ module.exports = {
           'Content-Type': 'application/json;charset=UTF-8',
         },
         jsonBody: roles || [{ role: 'KW' }],
-      },
-    }),
-  stubOffenderSentences: (response = []) =>
-    stubFor({
-      request: {
-        method: 'POST',
-        urlPath: '/prison/api/offender-sentences',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: response,
-      },
-    }),
-  stubOffenderAssessments: () =>
-    stubFor({
-      request: {
-        method: 'POST',
-        urlPath: '/prison/api/offender-assessments/csra/rating',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: [],
       },
     }),
   stubHealth: () =>

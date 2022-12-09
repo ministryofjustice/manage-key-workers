@@ -33,8 +33,7 @@ context('Keyworker stats tests', () => {
     cy.task('stubKeyworker', keyworkerResponse)
     cy.task('stubKeyworkerAllocations')
     cy.task('stubAvailableKeyworkers')
-    cy.task('stubOffenderSentences')
-    cy.task('stubOffenderAssessments')
+    cy.task('stubGetOffenders')
     cy.task('stubKeyworkerStats', keyworkerStatsResponse)
     cy.task('stubCaseNoteUsageList')
     cy.task('stubLogin', {

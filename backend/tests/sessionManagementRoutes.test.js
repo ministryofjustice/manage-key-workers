@@ -33,7 +33,7 @@ describe('Test the routes and middleware installed by sessionManagementRoutes', 
       saveUninitialized: false,
       secret: 'secret',
       cookie: {
-        maxAge: 1 * 60 * 1000,
+        maxAge: 60 * 1000,
         secure: false,
         signed: true,
       },
