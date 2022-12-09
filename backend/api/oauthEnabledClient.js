@@ -16,7 +16,8 @@ const errorLogger = (error) => {
   const responseData = error.response ? error.response.body : '-'
   if (error.response && error.response.req) {
     logger.warn(
-      `API error in ${error.response.req.method} ${error.response.req.path} ${status} ${error.message} ${responseData}`
+      { message: error.message, responseData },
+      `API error in ${error.response.req.method} ${error.response.req.path} ${status}`
     )
   } else logger.warn(`API error with message ${error.message}`)
   return error

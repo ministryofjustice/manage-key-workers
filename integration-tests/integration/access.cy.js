@@ -3,22 +3,24 @@ const KeyworkerSearchPage = require('../pages/keyworkerSearchPage')
 const KeyworkerProfilePage = require('../pages/keyworkerProfilePage')
 const Utils = require('../support/utils')
 
-const offenderSearchResponse = [
-  {
-    bookingId: -29,
-    bookingNo: 'Z00029',
-    offenderNo: 'Z0024ZZ',
-    firstName: 'NEIL',
-    middleName: 'IAN',
-    lastName: 'BRADLEY',
-    dateOfBirth: '1945-01-10',
-    age: 73,
-    agencyId: 'LEI',
-    assignedLivingUnitId: -14,
-    assignedLivingUnitDesc: 'H-1',
-    iepLevel: 'Entry',
-  },
-]
+const offenderSearchResponse = {
+  content: [
+    {
+      bookingId: -29,
+      bookingNo: 'Z00029',
+      prisonerNumber: 'Z0024ZZ',
+      firstName: 'NEIL',
+      middleName: 'IAN',
+      lastName: 'BRADLEY',
+      dateOfBirth: '1945-01-10',
+      prisonId: 'LEI',
+      cellLocation: 'H-1',
+    },
+  ],
+  totalElements: 1,
+  number: 0,
+  size: 10,
+}
 
 const keyworkerAllocationsResponse = [
   {
@@ -75,10 +77,8 @@ context('Access test', () => {
     cy.task('stubAvailableKeyworkers')
     cy.task('stubKeyworkerAllocations', keyworkerAllocationsResponse)
     cy.task('stubKeyworkerStats')
-    cy.task('stubOffenderAssessments')
-    cy.task('stubOffenderSentences')
     cy.task('stubUpdateCaseload')
-    cy.task('stubOffenderSentences')
+    cy.task('stubGetOffenders')
     cy.task('stubCaseNoteUsageList')
     cy.task('stubSearchOffenders', {
       response: offenderSearchResponse,
@@ -118,7 +118,7 @@ context('Access test', () => {
       keyworkerProfilePage.allocationSelect(keyworkerAllocationsResponse[0].offenderNo).should('be.enabled')
     })
 
-    it('the confirm and cancel buttons should not hidden on the manual allocations page when the current user is key worker admin', () => {
+    it('the confirm and cancel buttons should not be hidden on the manual allocations page when the current user is key worker admin', () => {
       cy.visit('/offender-search')
       const offenderSearchPage = OffenderSearchPage.verifyOnPage()
       offenderSearchPage.verifyPageReady()

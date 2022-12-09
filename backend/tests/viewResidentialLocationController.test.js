@@ -278,11 +278,7 @@ describe('View residential location', () => {
         expect(elite2Api.userLocations).toHaveBeenCalledWith(res.locals)
         expect(allocationService.searchOffendersPaginated).toHaveBeenCalledWith(res.locals, {
           agencyId: 'MDI',
-          keywords: '',
-          pageRequest: {
-            'page-offset': 0,
-            'page-limit': 50,
-          },
+          pageRequest: { page: 0, pageSize: 50 },
           locationPrefix: 'MDI-1',
         })
         expect(complexityOfNeedApi.getComplexOffenders).toHaveBeenCalledWith(undefined, ['ABC123', 'ABC456', 'ABC789'])

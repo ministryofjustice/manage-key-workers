@@ -32,16 +32,12 @@ module.exports = ({ allocationService, elite2Api, keyworkerApi, complexityOfNeed
       (location) => location.locationPrefix !== activeCaseLoadId
     )
 
-    const page = req.query.page || 1
+    const page = req.query.page ? req.query.page - 1 : 0
 
     const { keyworkerResponse, offenderResponse, totalRecords, pageOffset } = residentialLocation
       ? await allocationService.searchOffendersPaginated(res.locals, {
           agencyId: activeCaseLoadId,
-          pageRequest: {
-            'page-offset': (+page - 1) * pageSize,
-            'page-limit': pageSize,
-          },
-          keywords: '',
+          pageRequest: { page, pageSize },
           locationPrefix: residentialLocation,
         })
       : { keyworkerResponse: [], offenderResponse: [] }

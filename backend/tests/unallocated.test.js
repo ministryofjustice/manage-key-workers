@@ -1,10 +1,12 @@
 const { serviceFactory } = require('../services/allocationService')
 const { elite2ApiFactory } = require('../api/elite2Api')
 const { keyworkerApiFactory } = require('../api/keyworkerApi')
+const { prisonerSearchApiFactory } = require('../api/prisonerSearchApi')
 
 const elite2Api = elite2ApiFactory(null)
+const prisonerSearchApi = prisonerSearchApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
-const { unallocated } = serviceFactory(elite2Api, keyworkerApi)
+const { unallocated } = serviceFactory(elite2Api, prisonerSearchApi, keyworkerApi)
 
 function createDataResponse() {
   return [
@@ -52,34 +54,20 @@ function createDataResponse() {
   ]
 }
 
-function createSentenceDetailListResponse() {
-  return [
-    { offenderNo: 'A1234AA', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2024-03-03' } },
-    { offenderNo: 'A1234AB', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2025-04-03' } },
-    { offenderNo: 'A1234AF', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2026-03-03' } },
-    { offenderNo: 'A1234AC', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2019-03-03' } },
-    { offenderNo: 'A1234AD', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2018-03-03' } },
-  ]
-}
-
-function createAssessmentListResponse() {
-  return [
-    { offenderNo: 'A1234AA', classificationCode: 'HI' },
-    { offenderNo: 'A1234AB', classificationCode: 'HI' },
-    { offenderNo: 'A1234AF', classificationCode: 'LOW' },
-    { offenderNo: 'A1234AC', classificationCode: 'SILLY' },
-    { offenderNo: 'A1234AD', classificationCode: 'LOW' },
-  ]
-}
+const createOffendersResponse = () => [
+  { offenderNo: 'A1234AA', releaseDate: '2024-03-03', csra: 'High' },
+  { offenderNo: 'A1234AB', releaseDate: '2025-04-03', csra: 'High' },
+  { offenderNo: 'A1234AF', releaseDate: '2026-03-03', csra: 'Low' },
+  { offenderNo: 'A1234AC', releaseDate: '2019-03-03', csra: 'Other' },
+  { offenderNo: 'A1234AD', releaseDate: '2018-03-03', csra: 'Low' },
+]
 
 const allocationResponse = createDataResponse()
 
 describe('Unallocated controller', () => {
   it('Should add keyworker details to allocated data array', async () => {
     keyworkerApi.unallocated = jest.fn()
-    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-
-    elite2Api.csraRatingList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+    prisonerSearchApi.getOffenders = jest.fn().mockImplementationOnce(() => createOffendersResponse())
 
     keyworkerApi.unallocated.mockReturnValueOnce(allocationResponse)
 

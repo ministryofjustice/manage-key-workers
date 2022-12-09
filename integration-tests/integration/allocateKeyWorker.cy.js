@@ -61,8 +61,7 @@ context('Allocate key worker to unallocated prisoners', () => {
         active: 'Y',
       },
     ])
-    cy.task('stubOffenderSentences')
-    cy.task('stubOffenderAssessments')
+    cy.task('stubGetOffenders')
     cy.task('stubUnallocated', { agencyId: 'MDI' })
   })
 
@@ -107,28 +106,20 @@ context('Allocate key worker to unallocated prisoners', () => {
         ],
       })
 
-      cy.task('stubOffenderSentences', [
+      cy.task('stubGetOffenders', [
         {
-          offenderNo: 'ABC123',
+          prisonerNumber: 'ABC123',
           firstName: 'FERINAND',
           lastName: 'ALFF',
-          mostRecentActiveBooking: true,
-          sentenceDetail: {
-            confirmedReleaseDate: '2022-04-30',
-            releaseDate: '2022-04-30',
-          },
-          internalLocationDesc: 'MDI-1-1',
+          confirmedReleaseDate: '2022-04-30',
+          releaseDate: '2022-04-30',
         },
         {
-          offenderNo: 'ABC456',
+          prisonerNumber: 'ABC456',
           firstName: 'JOHN',
           lastName: 'SMITH',
-          mostRecentActiveBooking: true,
-          sentenceDetail: {
-            confirmedReleaseDate: '2030-05-30',
-            releaseDate: '2030-05-30',
-          },
-          internalLocationDesc: 'MDI-1-2',
+          confirmedReleaseDate: '2030-05-30',
+          releaseDate: '2030-05-30',
         },
       ])
 

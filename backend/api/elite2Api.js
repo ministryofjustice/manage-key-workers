@@ -3,8 +3,6 @@ const contextProperties = require('../contextProperties')
 const encodeOffenderNumbers = (offenderNumbers) =>
   offenderNumbers.map((offenderNo) => `offenderNo=${offenderNo}`).join('&')
 
-const encodeQueryString = (input) => encodeURIComponent(input)
-
 const isNomisUser = (context) => context.authSource !== 'auth'
 
 const elite2ApiFactory = (client) => {
@@ -15,8 +13,6 @@ const elite2ApiFactory = (client) => {
 
   const get = (context, url, resultsLimit) => client.get(context, url, resultsLimit).then(processResponse(context))
 
-  const post = (context, url, data) => client.post(context, url, data).then(processResponse(context))
-
   const put = (context, url, data) => client.put(context, url, data).then(processResponse(context))
 
   const caseNoteUsageList = (context, offenderNumbers, staffId) =>
@@ -26,50 +22,9 @@ const elite2ApiFactory = (client) => {
         offenderNumbers
       )}`
     )
-  const csraRatingList = (context, offenderNumbers) =>
-    post(context, '/api/offender-assessments/csra/rating', offenderNumbers)
+
   const userCaseLoads = (context) => (isNomisUser(context) ? get(context, '/api/users/me/caseLoads') : [])
   const userLocations = (context) => (isNomisUser(context) ? get(context, '/api/users/me/locations') : [])
-
-  /**
-   * Retrive information about offender bookings that satisfy the provided selection criteria.
-   * @param context
-   * @param keywords keywords to match?
-   * @param locationPrefix The prison (agencyId)
-   * @param resultsLimit The maximum number of OffenderBooking objects to return.
-   * @returns array of OffenderBooking. Each OffenderBooking looks like:
-   * {
-    private Long bookingId;
-    private String bookingNo;
-    private String offenderNo;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private LocalDate dateOfBirth;
-    private Integer age;
-    private List<String> alertsCodes = new ArrayList<String>();
-    private String agencyId;
-    private Long assignedLivingUnitId;
-    private String assignedLivingUnitDesc;
-    private Long facialImageId;
-    private String assignedOfficerUserId;
-    private List<String> aliases;
-    private String iepLevel;
-   * }
-   */
-
-  const searchOffenders = (context, keywords, locationPrefix, resultsLimit) =>
-    get(
-      context,
-      `/api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`,
-      resultsLimit
-    )
-
-  const searchOffendersPaginated = (context, keywords, locationPrefix, pageRequest) => {
-    contextProperties.setRequestPagination(context, pageRequest)
-    return get(context, `/api/locations/description/${locationPrefix}/inmates?keywords=${encodeQueryString(keywords)}`)
-  }
-  const sentenceDetailList = (context, offenderNumbers) => post(context, '/api/offender-sentences', offenderNumbers)
 
   // NB. This function expects a caseload object.
   // The object *must* have non-blank caseLoadId,  description and type properties.
@@ -78,13 +33,9 @@ const elite2ApiFactory = (client) => {
 
   return {
     caseNoteUsageList,
-    csraRatingList,
     userCaseLoads,
     userLocations,
-    searchOffenders,
-    sentenceDetailList,
     setActiveCaseload,
-    searchOffendersPaginated,
   }
 }
 

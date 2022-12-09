@@ -2,11 +2,13 @@ Reflect.deleteProperty(process.env, 'APPINSIGHTS_INSTRUMENTATIONKEY')
 
 const { serviceFactory } = require('../services/allocationService')
 const { elite2ApiFactory } = require('../api/elite2Api')
+const { prisonerSearchApiFactory } = require('../api/prisonerSearchApi')
 const { keyworkerApiFactory } = require('../api/keyworkerApi')
 
 const elite2Api = elite2ApiFactory(null)
+const prisonerSearchApi = prisonerSearchApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
-const { allocated } = serviceFactory(elite2Api, keyworkerApi)
+const { allocated } = serviceFactory(elite2Api, prisonerSearchApi, keyworkerApi)
 
 function createAllocatedDataResponse() {
   return [
@@ -104,23 +106,13 @@ function createSingleKeyworkerResponse() {
   }
 }
 
-function createSentenceDetailListResponse() {
-  return [
-    { offenderNo: 'A1234AA', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2024-03-03' } },
-    { offenderNo: 'A1234AB', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2025-04-03' } },
-    { offenderNo: 'A1234AC', mostRecentActiveBooking: true, sentenceDetail: { fred: 'someValue' } },
-    { offenderNo: 'A1234AD' },
-  ]
-}
-
-function createAssessmentListResponse() {
-  return [
-    { offenderNo: 'A1234AA', classificationCode: 'HI' },
-    { offenderNo: 'A1234AB' },
-    { offenderNo: 'A1234AF', classificationCode: 'LOW' },
-    { offenderNo: 'A1234AC', classificationCode: 'SILLY' },
-  ]
-}
+const createSearchOffendersResponse = () => [
+  { offenderNo: 'A1234AA', releaseDate: '2024-03-03', csra: 'High' },
+  { offenderNo: 'A1234AB', releaseDate: '2025-04-03' },
+  { offenderNo: 'A1234AF', csra: 'Low' },
+  { offenderNo: 'A1234AC', fred: 'someValue', csra: 'Other' },
+  { offenderNo: 'A1234AD' },
+]
 
 function createCaseNoteUsageListResponse() {
   return [
@@ -139,8 +131,7 @@ describe('Allocated controller', () => {
     keyworkerApi.availableKeyworkers = jest.fn()
     keyworkerApi.autoallocated = jest.fn()
 
-    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-    elite2Api.csraRatingList = jest.fn().mockImplementationOnce(() => createAssessmentListResponse())
+    prisonerSearchApi.getOffenders = jest.fn().mockImplementationOnce(() => createSearchOffendersResponse())
     elite2Api.caseNoteUsageList = jest.fn().mockImplementationOnce(() => createCaseNoteUsageListResponse())
 
     keyworkerApi.keyworker = jest.fn().mockImplementation(() => createSingleKeyworkerResponse())
@@ -170,17 +161,23 @@ describe('Allocated controller', () => {
     })
   })
 
-  it('Should map classifications for offenders', () => {
-    expect(response.allocatedResponse.map((a) => a.crsaClassification)).toEqual(['High', null, 'Low', null, null])
+  it('Should get classifications for offenders', () => {
+    expect(response.allocatedResponse.map((a) => a.crsaClassification)).toEqual([
+      'High',
+      undefined,
+      'Low',
+      'Other',
+      undefined,
+    ])
   })
 
-  it('Should map release date for offenders', () => {
+  it('Should get release date for offenders', () => {
     expect(response.allocatedResponse.map((a) => a.confirmedReleaseDate)).toEqual([
       '2024-03-03',
       '2025-04-03',
-      null,
-      null,
-      null,
+      undefined,
+      undefined,
+      undefined,
     ])
   })
 

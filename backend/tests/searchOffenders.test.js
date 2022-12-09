@@ -1,77 +1,21 @@
 const { serviceFactory } = require('../services/allocationService')
 const { elite2ApiFactory } = require('../api/elite2Api')
+const { prisonerSearchApiFactory } = require('../api/prisonerSearchApi')
 const { keyworkerApiFactory } = require('../api/keyworkerApi')
+const { oauthApiFactory } = require('../api/oauthApi')
 
 const elite2Api = elite2ApiFactory(null)
+const prisonerSearchApi = prisonerSearchApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
-const { searchOffenders } = serviceFactory(elite2Api, keyworkerApi)
-
-const createDataResponse = () => [
-  {
-    bookingId: -1,
-    offenderNo: 'A1234AA',
-    firstName: 'ARTHUR',
-    lastName: 'ANDERSON',
-    agencyId: 'LEI',
-    internalLocationDesc: 'A-1-1',
-  },
-  {
-    bookingId: -2,
-    offenderNo: 'A1234AB',
-    firstName: 'GILLIAN',
-    lastName: 'ANDERSON',
-    agencyId: 'LEI',
-    internalLocationDesc: 'H-1-5',
-  },
-  {
-    bookingId: -6,
-    offenderNo: 'A1234AF',
-    firstName: 'ANTHONY',
-    lastName: 'ANDREWS',
-    agencyId: 'LEI',
-    internalLocationDesc: 'A-1-2',
-  },
-  {
-    bookingId: -3,
-    offenderNo: 'A1234AC',
-    firstName: 'NORMAN',
-    lastName: 'BATES',
-    staffId: -2,
-    agencyId: 'LEI',
-    internalLocationDesc: 'A-1-1',
-  },
-  {
-    bookingId: -4,
-    offenderNo: 'A1234AD',
-    firstName: 'CHARLES',
-    lastName: 'CHAPLIN',
-    agencyId: 'LEI',
-    internalLocationDesc: 'A-1',
-  },
-]
-
-const createSentenceDetailListResponse = () => [
-  { offenderNo: 'A1234AA', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2024-03-03' } },
-  { offenderNo: 'A1234AB', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2025-04-03' } },
-  { offenderNo: 'A1234AF', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2026-03-03' } },
-  { offenderNo: 'A1234AC', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2019-03-03' } },
-  { offenderNo: 'A1234AD', mostRecentActiveBooking: true, sentenceDetail: { releaseDate: '2018-03-03' } },
-]
+const systemOauthClient = oauthApiFactory(null, {})
+const { searchOffenders } = serviceFactory(elite2Api, prisonerSearchApi, keyworkerApi, 100, systemOauthClient)
 
 const createSearchOffendersResponse = () => [
-  { offenderNo: 'A1234AA', staffId: -3, classification: 'High' },
-  { offenderNo: 'A1234AB', staffId: -5, classification: 'High' },
-  { offenderNo: 'A1234AF', classification: 'Low' },
-  { offenderNo: 'A1234AC', classification: 'Silly' },
-  { offenderNo: 'A1234AD', classification: 'Low' },
-]
-
-const csraRatingsResponse = () => [
-  { offenderNo: 'A1234AA', classificationCode: 'HI' },
-  { offenderNo: 'A1234AB', classificationCode: 'HI' },
-  { offenderNo: 'A1234AF', classificationCode: 'LOW' },
-  { offenderNo: 'A1234AC', classificationCode: 'SILLY' },
-  { offenderNo: 'A1234AD', classificationCode: 'LOW' },
+  { offenderNo: 'A1234AA', releaseDate: '2024-03-03', staffId: -3, csra: 'High' },
+  { offenderNo: 'A1234AB', releaseDate: '2025-04-03', staffId: -5, csra: 'High' },
+  { offenderNo: 'A1234AF', releaseDate: '2026-03-03', csra: 'Low' },
+  { offenderNo: 'A1234AC', releaseDate: '2019-03-03', csra: 'Silly' },
+  { offenderNo: 'A1234AD', releaseDate: '2018-03-03', csra: 'Low' },
 ]
 
 const createAvailableKeyworkerResponse = () => [
@@ -129,8 +73,6 @@ const createOffenderKeyworkerResponse = () => [
   },
 ]
 
-const offenderResponse = createDataResponse()
-
 describe('keyworkerAllocations controller', () => {
   let response
 
@@ -139,18 +81,15 @@ describe('keyworkerAllocations controller', () => {
     keyworkerApi.offenderKeyworkerList = jest.fn().mockImplementationOnce(() => createOffenderKeyworkerResponse())
     keyworkerApi.keyworker = jest.fn().mockImplementation(() => createSingleKeyworkerResponse())
 
-    elite2Api.searchOffenders = jest.fn().mockImplementationOnce(() => createSearchOffendersResponse())
-    elite2Api.sentenceDetailList = jest.fn().mockImplementationOnce(() => createSentenceDetailListResponse())
-    elite2Api.csraRatingList = jest.fn().mockImplementationOnce(() => csraRatingsResponse())
+    prisonerSearchApi.searchOffenders = jest.fn().mockImplementationOnce(() => createSearchOffendersResponse())
 
-    keyworkerApi.searchOffenders = jest.fn().mockReturnValueOnce(offenderResponse)
+    systemOauthClient.getClientCredentialsTokens = jest.fn().mockReturnValueOnce('TOKEN')
 
     response = await searchOffenders({}, 'Dont care', 'XYZ')
   })
 
   it('Should add first full offender response details to data array', () => {
     expect(response.offenderResponse[0]).toMatchObject({
-      classification: 'High',
       confirmedReleaseDate: '2024-03-03',
       crsaClassification: 'High',
       offenderNo: 'A1234AA',
@@ -159,7 +98,6 @@ describe('keyworkerAllocations controller', () => {
 
   it('Should add second offender response details to data array', () => {
     expect(response.offenderResponse[2]).toMatchObject({
-      classification: 'Low',
       confirmedReleaseDate: '2026-03-03',
       crsaClassification: 'Low',
       offenderNo: 'A1234AF',

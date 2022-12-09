@@ -4,6 +4,7 @@ const { defineConfig } = require('cypress')
 
 const auth = require('./integration-tests/mockApis/auth')
 const prisonApi = require('./integration-tests/mockApis/prisonApi')
+const prisonerSearchApi = require('./integration-tests/mockApis/prisonerSearchApi')
 const tokenverification = require('./integration-tests/mockApis/tokenverification')
 const keyworker = require('./integration-tests/mockApis/keyworker')
 const complexityApi = require('./integration-tests/mockApis/complexityOfNeedApi')
@@ -55,17 +56,17 @@ module.exports = defineConfig({
         stubKeyworkerHealth: keyworker.stubHealth,
         stubKeyworkerHealthTimoutError: (timout) => keyworker.stubHealthTimeoutError(timout),
         stubUpdateCaseload: prisonApi.stubUpdateCaseload,
-        stubSearchOffenders: ({ response = [], pageOffset = '0', totalRecords = '0' }) =>
-          prisonApi.stubSearchOffenders(response, pageOffset, totalRecords),
-        stubSearchOffendersError: prisonApi.stubSearchOffendersError,
+        stubSearchOffendersPaginated: ({ response, locationPrefix, page, pageSize }) =>
+          prisonerSearchApi.stubSearchOffendersPaginated(response, locationPrefix, page, pageSize),
+        stubSearchOffenders: ({ response, term = '' }) => prisonerSearchApi.stubSearchOffenders(response, term),
+        stubSearchOffendersError: prisonerSearchApi.stubSearchOffendersError,
         stubKeyworkerAllocations: (response) => keyworker.stubKeyworkerAllocations(response),
         stubKeyworker: (response) => keyworker.stubKeyworker(response),
         stubAvailableKeyworkers: (keyworkers) => keyworker.stubAvailableKeyworkers(keyworkers),
         stubKeyworkerSearch: (keyworkers) => keyworker.stubKeyworkerSearch(keyworkers),
         stubKeyworkerSearchError: keyworker.stubKeyworkerSearchError,
         stubOffenderKeyworker: (response) => keyworker.stubOffenderKeyworker(response),
-        stubOffenderSentences: (response) => prisonApi.stubOffenderSentences(response),
-        stubOffenderAssessments: () => prisonApi.stubOffenderAssessments(),
+        stubGetOffenders: (response) => prisonerSearchApi.stubGetOffenders(response),
         stubGetComplexOffenders: (offenders = []) => complexityApi.stubGetComplexOffenders(offenders),
         stubAllocationHistory: ({ offenderNo, response }) => keyworker.stubAllocationHistory({ offenderNo, response }),
         stubAllocationHistorySummary: (response) => keyworker.stubAllocationHistorySummary(response),

@@ -66,41 +66,6 @@ module.exports = {
         ],
       },
     }),
-
-  stubSearchOffenders: (response, pageOffset, totalRecords) =>
-    stubFor({
-      request: {
-        method: 'GET',
-        urlPathPattern: '/prison/api/locations/description/.+?/inmates',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Page-Offset': pageOffset,
-          'Total-Records': totalRecords,
-        },
-        jsonBody: response,
-      },
-    }),
-
-  stubSearchOffendersError: () =>
-    stubFor({
-      request: {
-        method: 'GET',
-        urlPathPattern: '/prison/api/locations/description/.+?/inmates',
-      },
-      response: {
-        status: 403,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: {
-          status: 403,
-          userMessage: 'Something went wrong with the search',
-        },
-      },
-    }),
   stubUserLocations: (locations) =>
     stubFor({
       request: {
@@ -151,34 +116,6 @@ module.exports = {
           'Content-Type': 'application/json;charset=UTF-8',
         },
         jsonBody: roles || [{ role: 'KW' }],
-      },
-    }),
-  stubOffenderSentences: (response = []) =>
-    stubFor({
-      request: {
-        method: 'POST',
-        urlPath: '/prison/api/offender-sentences',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: response,
-      },
-    }),
-  stubOffenderAssessments: () =>
-    stubFor({
-      request: {
-        method: 'POST',
-        urlPath: '/prison/api/offender-assessments/csra/rating',
-      },
-      response: {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        jsonBody: [],
       },
     }),
   stubHealth: () =>
