@@ -11,7 +11,7 @@ const prisonerSearchApiFactory = (client) => {
   const searchOffendersPaginated = async (context, prisonId, locationPrefix, pageRequest) => {
     const response = await client.get(
       context,
-      `/prison/${prisonId}/prisoners?cellLocationPrefix=${locationPrefix}&page=${pageRequest.page}&size=${pageRequest.pageSize}`
+      `/prison/${prisonId}/prisoners?cellLocationPrefix=${locationPrefix}-&page=${pageRequest.page}&size=${pageRequest.pageSize}`
     )
     const data = response.body
     context.totalElements = data.totalElements

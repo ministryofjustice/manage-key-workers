@@ -5,7 +5,7 @@ module.exports = {
     stubFor({
       request: {
         method: 'GET',
-        url: `/prisoner-search/prison/MDI/prisoners?cellLocationPrefix=${locationPrefix}&page=${page}&size=${pageSize}`,
+        url: `/prisoner-search/prison/MDI/prisoners?cellLocationPrefix=${locationPrefix}-&page=${page}&size=${pageSize}`,
       },
       response: {
         status: 200,
