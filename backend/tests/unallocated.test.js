@@ -2,11 +2,14 @@ const { serviceFactory } = require('../services/allocationService')
 const { elite2ApiFactory } = require('../api/elite2Api')
 const { keyworkerApiFactory } = require('../api/keyworkerApi')
 const { prisonerSearchApiFactory } = require('../api/prisonerSearchApi')
+const { oauthApiFactory } = require('../api/oauthApi')
 
 const elite2Api = elite2ApiFactory(null)
 const prisonerSearchApi = prisonerSearchApiFactory(null)
 const keyworkerApi = keyworkerApiFactory(null)
-const { unallocated } = serviceFactory(elite2Api, prisonerSearchApi, keyworkerApi)
+const systemOauthClient = oauthApiFactory(null, {})
+
+const { unallocated } = serviceFactory(elite2Api, prisonerSearchApi, keyworkerApi, 100, systemOauthClient)
 
 function createDataResponse() {
   return [
@@ -68,6 +71,7 @@ describe('Unallocated controller', () => {
   it('Should add keyworker details to allocated data array', async () => {
     keyworkerApi.unallocated = jest.fn()
     prisonerSearchApi.getOffenders = jest.fn().mockImplementationOnce(() => createOffendersResponse())
+    systemOauthClient.getClientCredentialsTokens = jest.fn().mockReturnValueOnce('TOKEN')
 
     keyworkerApi.unallocated.mockReturnValueOnce(allocationResponse)
 

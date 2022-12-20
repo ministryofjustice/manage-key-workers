@@ -84,7 +84,8 @@ const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSear
     getKeyworkerDetails
   ) => {
     const offenderNumbers = getOffenderNumbers(offenders)
-    const allPrisoners = await prisonerSearchApi.getOffenders(context, offenderNumbers)
+    const systemContext = await systemOauthClient.getClientCredentialsTokens(context.username)
+    const allPrisoners = await prisonerSearchApi.getOffenders(systemContext, offenderNumbers)
     return offendersWithKeyworkers(context, offenders, availableKeyworkers, getKeyworkerDetails, allPrisoners)
   }
 
@@ -94,7 +95,8 @@ const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSear
     const offenderNumbers = offenderWithLocationDtos.map((offenderWithLocation) => offenderWithLocation.offenderNo)
 
     if (offenderNumbers.length > 0) {
-      const allPrisoners = await prisonerSearchApi.getOffenders(context, offenderNumbers)
+      const systemContext = await systemOauthClient.getClientCredentialsTokens(context.username)
+      const allPrisoners = await prisonerSearchApi.getOffenders(systemContext, offenderNumbers)
 
       return offenderWithLocationDtos.map((offenderWithLocation) => ({
         ...offenderWithLocation,
@@ -229,7 +231,8 @@ const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSear
       (keyworkerAllocationDetails) => keyworkerAllocationDetails.offenderNo
     )
     if (offenderNumbers.length > 0) {
-      const allPrisoners = await prisonerSearchApi.getOffenders(context, offenderNumbers)
+      const systemContext = await systemOauthClient.getClientCredentialsTokens(context.username)
+      const allPrisoners = await prisonerSearchApi.getOffenders(systemContext, offenderNumbers)
 
       const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers, staffId)
 
