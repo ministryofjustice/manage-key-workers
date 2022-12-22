@@ -18,7 +18,7 @@ generic-service:
   readinessProbe:
     httpGet:
       path: /ping
-  
+
   env:
     NODE_ENV: production
     MAINTAIN_ROLES_ENABLED: "true"
@@ -33,9 +33,7 @@ generic-service:
      enabled: true
      host: app-hostname.local
      tlsSecretName: manage-key-workers-cert
-     v1_2_enabled: true
-     v0_47_enabled: false
-   
+
   namespace_secrets:
      manage-key-workers:
        API_CLIENT_ID: "API_CLIENT_ID"
