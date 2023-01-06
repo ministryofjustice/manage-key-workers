@@ -12,6 +12,7 @@ const app = {
   keyworkerDashboardStatsEnabled: process.env.KEYWORKER_DASHBOARD_STATS_ENABLED === 'true',
   url: process.env.MANAGE_KEY_WORKERS_URL || `http://localhost:${process.env.PORT || 3001}/`,
   supportUrl: process.env.SUPPORT_URL || 'http://localhost:3000/',
+  maintenanceModeFlag: process.env.MAINTENANCE_MODE || 'false',
 }
 
 const setTestDefaults = () => {

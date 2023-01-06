@@ -34,6 +34,7 @@ const requestForwarding = require('./request-forwarding')
 const log = require('./log')
 const config = require('./config')
 const { logError } = require('./logError')
+const maintenancePage = require('./controllers/maintenancePage')
 
 // We do not want the server to exit, partly because any log information will be lost.
 // Instead, log the error so we can trace, diagnose and fix the problem.
@@ -136,11 +137,17 @@ app.use(setupWebpackForDev())
 // Extract pagination header information from requests and set on the 'context'
 app.use('/api', requestForwarding.extractRequestPaginationMiddleware)
 
-app.use(routes({ ...apis }))
-
-app.use(setupReactRoutes())
-app.use('/$', homepage({ keyworkerApi: apis.keyworkerApi, oauthApi: apis.oauthApi }))
-app.use(pageNotFound)
+if (config.app.maintenanceModeFlag === 'true') {
+  app.use('/$', maintenancePage)
+  app.all('*', (req, res) => {
+    res.redirect('/')
+  })
+} else {
+  app.use(routes({ ...apis }))
+  app.use(setupReactRoutes())
+  app.use('/$', homepage({ keyworkerApi: apis.keyworkerApi, oauthApi: apis.oauthApi }))
+  app.use(pageNotFound)
+}
 app.use(errorHandler({ logError }))
 
 app.listen(config.app.port, () => {
