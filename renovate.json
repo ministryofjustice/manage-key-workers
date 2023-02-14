@@ -24,6 +24,41 @@
       "matchPackageNames": ["@types/node"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["@ministryofjustice/frontend"],
+      "allowedVersions": "0.2.6"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["axios"],
+      "allowedVersions": "0.21.1"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["dotenv"],
+      "allowedVersions": "5.0.1"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["helmet"],
+      "allowedVersions": "4.6.0"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["jwt-decode"],
+      "allowedVersions": "2.2.0"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["react"],
+      "allowedVersions": "17.0.1"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["redis"],
+      "allowedVersions": "3.1.2"
     }
   ],
   "vulnerabilityAlerts": {
