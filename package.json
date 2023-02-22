@@ -108,7 +108,7 @@
     "audit-ci": "^6.6.1",
     "axios-mock-adapter": "^1.21.2",
     "babel-jest": "^27.2.4",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^9.1.2",
     "chai": "^4.3.7",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^6.7.3",
