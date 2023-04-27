@@ -1,6 +1,6 @@
 const { Contracts } = require('applicationinsights')
 
-export default function addUserDataToRequests(envelope, contextObjects) {
+module.exports = function addUserDataToRequests(envelope, contextObjects) {
   const isRequest = envelope.data.baseType === Contracts.TelemetryTypeString.Request
   if (isRequest) {
     const { username, activeCaseLoadId } = contextObjects?.['http.ServerRequest']?.res?.locals?.user || {}
