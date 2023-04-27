@@ -12,6 +12,7 @@ describe('Current user', () => {
     oauthApi.currentUser = jest.fn()
 
     oauthApi.currentUser.mockReturnValue({
+      username: 'BSMITH',
       name: 'Bob Smith',
       activeCaseLoadId: 'MDI',
     })
@@ -29,6 +30,7 @@ describe('Current user', () => {
 
     expect(oauthApi.currentUser).toHaveBeenCalled()
     expect(req.session.userDetails).toEqual({
+      username: 'BSMITH',
       name: 'Bob Smith',
       activeCaseLoadId: 'MDI',
     })
@@ -49,6 +51,7 @@ describe('Current user', () => {
     await controller(req, res, () => {})
 
     expect(res.locals.user).toEqual({
+      username: 'BSMITH',
       allCaseloads: [
         {
           caseLoadId: 'MDI',
@@ -78,6 +81,7 @@ describe('Current user', () => {
 
   it('should default active caseload when not set', async () => {
     oauthApi.currentUser.mockReturnValue({
+      username: 'BSMITH',
       name: 'Bob Smith',
       activeCaseLoadId: null,
     })
@@ -89,6 +93,7 @@ describe('Current user', () => {
     expect(oauthApi.currentUser).toHaveBeenCalled()
     expect(prisonApi.setActiveCaseload).toHaveBeenCalledWith(res.locals, { caseLoadId: 'MDI', description: 'Moorland' })
     expect(req.session.userDetails).toEqual({
+      username: 'BSMITH',
       name: 'Bob Smith',
       activeCaseLoadId: 'MDI',
     })
@@ -96,6 +101,7 @@ describe('Current user', () => {
 
   it('should not set caseload when already set', async () => {
     oauthApi.currentUser.mockReturnValue({
+      username: 'BSMITH',
       name: 'Bob Smith',
       activeCaseLoadId: 'MDI',
     })
@@ -104,6 +110,7 @@ describe('Current user', () => {
 
     req = {
       session: {
+        username: 'BSMITH',
         userDetails: { activeCaseLoadId: 'MDI', name: 'Bob Smith' },
         allCaseloads: [{ caseLoadId: 'MDI', description: 'Moorland' }],
       },
@@ -114,6 +121,7 @@ describe('Current user', () => {
     expect(oauthApi.currentUser).toHaveBeenCalled()
     expect(prisonApi.setActiveCaseload).not.toHaveBeenCalled()
     expect(req.session.userDetails).toEqual({
+      username: 'BSMITH',
       name: 'Bob Smith',
       activeCaseLoadId: 'MDI',
     })
