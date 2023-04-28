@@ -41,6 +41,7 @@ module.exports = ({ prisonApi, oauthApi }) => {
 
       res.locals.user = {
         ...res.locals.user,
+        username: req.session.userDetails.username,
         allCaseloads: req.session.allCaseloads,
         displayName: forenameToInitial(req.session.userDetails.name),
         activeCaseLoad,
