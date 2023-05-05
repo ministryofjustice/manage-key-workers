@@ -121,8 +121,8 @@ A choice of web browsers can be configured, though Chrome or Chrome headless are
 
    - Download the latest version of ChromeDriver and follow the installation instructions here:
      ```
-      https://sites.google.com/a/chromium.org/chromedriver/downloads
-      https://sites.google.com/a/chromium.org/chromedriver/getting-started
+      https://sites.google.com/chromium.org/driver/downloads
+      https://sites.google.com/chromium.org/driver/getting-started
      ```
    - Check that a chromedriver executable is available on your path
    - Check that the versions of chromedriver and your installed chrome browser match 
