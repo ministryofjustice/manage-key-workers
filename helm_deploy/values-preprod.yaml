@@ -1,9 +1,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-
 generic-service:
-  replicaCount: 4
+  replicaCount: 2
   ingress:
     host: preprod.manage-key-workers.service.justice.gov.uk
   env:
