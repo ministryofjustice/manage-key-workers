@@ -26,7 +26,7 @@ const manageKeyWorkerSettings = require('./controllers/manageKeyWorkerSettings')
 
 const systemOauthClient = require('./api/systemOauthClient')
 
-const configureRoutes = ({ oauthApi, elite2Api, prisonerSearchApi, keyworkerApi, complexityOfNeedApi }) => {
+const configureRoutes = ({ hmppsManageUsersApi, elite2Api, prisonerSearchApi, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
   const allocationService = allocationServiceFactory(
     elite2Api,
@@ -38,7 +38,7 @@ const configureRoutes = ({ oauthApi, elite2Api, prisonerSearchApi, keyworkerApi,
 
   const controller = controllerFactory(allocationService, keyworkerPrisonStatsFactory(keyworkerApi))
   router.use('/api/config', getConfiguration)
-  router.use('/api/me', userMeFactory(oauthApi, elite2Api, keyworkerApi).userMeService)
+  router.use('/api/me', userMeFactory(hmppsManageUsersApi, elite2Api, keyworkerApi).userMeService)
   router.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
   router.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
   router.use('/api/unallocated', controller.unallocated)
@@ -66,7 +66,7 @@ const configureRoutes = ({ oauthApi, elite2Api, prisonerSearchApi, keyworkerApi,
   const allocateKeyWorkerController = allocateKeyWorker({
     allocationService,
     keyworkerApi,
-    oauthApi,
+    hmppsManageUsersApi,
   })
 
   router.get('/manage-key-workers/search-for-prisoner', offenderSearchController.searchOffenders)

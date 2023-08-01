@@ -3,6 +3,7 @@
 const { defineConfig } = require('cypress')
 
 const auth = require('./integration-tests/mockApis/auth')
+const users = require('./integration-tests/mockApis/users')
 const prisonApi = require('./integration-tests/mockApis/prisonApi')
 const prisonerSearchApi = require('./integration-tests/mockApis/prisonerSearchApi')
 const tokenverification = require('./integration-tests/mockApis/tokenverification')
@@ -50,6 +51,7 @@ module.exports = defineConfig({
         stubVerifyToken: (active = true) => tokenverification.stubVerifyToken(active),
         stubLoginPage: auth.redirect,
         stubAuthHealth: auth.stubHealth,
+        stubManageUsersApiHealth: users.stubHealth,
         stubComplexityHealth: complexityApi.stubHealth,
         stubTokenHealth: tokenverification.stubHealth,
         stubPrisonHealth: prisonApi.stubHealth,

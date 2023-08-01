@@ -1,7 +1,7 @@
 const { formatName, putLastNameFirst, formatTimestampToDate, ensureIsArray } = require('../utils')
 const { sortAndFormatKeyworkerNameAndAllocationCount } = require('./keyworkerShared')
 
-module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
+module.exports = ({ allocationService, keyworkerApi, hmppsManageUsersApi }) => {
   const formatNumberAllocated = (number) => (number ? `(${number})` : '')
 
   const renderTemplate = async (req, res, offenderResponse, allocationMode = 'manual', warnings = {}) => {
@@ -10,7 +10,7 @@ module.exports = ({ allocationService, keyworkerApi, oauthApi }) => {
     const { noKeyworkersForAuto, insufficientKeyworkers } = warnings
 
     const [currentRoles, prisonStatus] = await Promise.all([
-      oauthApi.currentRoles(res.locals),
+      hmppsManageUsersApi.currentRoles(res.locals),
       keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId),
     ])
     const isKeyWorkerAdmin = currentRoles.some((role) => role.roleCode === 'OMIC_ADMIN')
