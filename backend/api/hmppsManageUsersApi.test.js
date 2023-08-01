@@ -29,7 +29,7 @@ describe('hmppsManageUsersApi tests', () => {
       expect(actual).toEqual(userDetails)
     })
     it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, '/api/user/me')
+      expect(client.get).toBeCalledWith(context, '/users/me')
     })
   })
 
@@ -48,7 +48,7 @@ describe('hmppsManageUsersApi tests', () => {
       expect(actual).toEqual(roles)
     })
     it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, '/api/user/me/roles')
+      expect(client.get).toBeCalledWith(context, '/users/me/roles')
     })
   })
 })
