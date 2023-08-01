@@ -17,6 +17,7 @@ context('Manage key workers health test', () => {
       expect(response.body.status).to.eq('UP')
       expect(response.body.api).to.deep.eq({
         auth: 'UP',
+        manageusers: "UP",
         elite2: 'UP',
         keyworker: 'UP',
         tokenverification: 'UP',
@@ -39,6 +40,7 @@ context('Manage key workers health test', () => {
       expect(response.body.status).to.eq('DOWN')
       expect(response.body.api).to.deep.eq({
         auth: 'UP',
+        manageusers: "UP",
         elite2: 'UP',
         keyworker: {
           timeout: 1000,
