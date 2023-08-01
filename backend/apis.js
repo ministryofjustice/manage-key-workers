@@ -62,6 +62,7 @@ module.exports = {
   elite2Api,
   prisonerSearchApi,
   oauthApi,
+  hmppsManageUsersApi,
   keyworkerApi,
   tokenVerificationApi,
   complexityOfNeedApi,
