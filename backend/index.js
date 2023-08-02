@@ -116,7 +116,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(setupWebSession())
 app.use(setupAuth({ oauthApi: apis.oauthApi, tokenVerificationApi: apis.tokenVerificationApi }))
-app.use(currentUser({ prisonApi: apis.elite2Api, oauthApi: apis.hmppsManageUsersApi }))
+app.use(currentUser({ prisonApi: apis.elite2Api, hmppsManageUsersApi: apis.hmppsManageUsersApi }))
 
 // Ensure cookie session is extended (once per minute) when user interacts with the server
 app.use((req, res, next) => {
@@ -146,7 +146,7 @@ if (config.app.maintenanceModeFlag === 'true') {
 } else {
   app.use(routes({ ...apis }))
   app.use(setupReactRoutes())
-  app.use('/$', homepage({ keyworkerApi: apis.keyworkerApi, oauthApi: apis.hmppsManageUsersApi }))
+  app.use('/$', homepage({ keyworkerApi: apis.keyworkerApi, hmppsManageUsersApi: apis.hmppsManageUsersApi }))
   app.use(pageNotFound)
 }
 app.use(errorHandler({ logError }))
