@@ -34,6 +34,7 @@ const addAppInfo = (result) => {
 
 module.exports = function healthcheckFactory(
   authUrl,
+  manageUsersApiUrl,
   elite2Url,
   keyworkerUrl,
   tokenverificationUrl,
@@ -41,6 +42,7 @@ module.exports = function healthcheckFactory(
 ) {
   const checks = [
     service('auth', `${authUrl}/health/ping`),
+    service('manageusers', `${manageUsersApiUrl}/health/ping`),
     service('elite2', `${elite2Url}/health/ping`),
     service('keyworker', `${keyworkerUrl}/health/ping`),
     service('tokenverification', `${tokenverificationUrl}/health/ping`),

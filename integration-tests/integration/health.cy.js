@@ -5,6 +5,7 @@ context('Manage key workers health test', () => {
   })
   it('Health page reports ok', () => {
     cy.task('stubAuthHealth')
+    cy.task('stubManageUsersApiHealth')
     cy.task('stubComplexityHealth')
     cy.task('stubTokenHealth')
     cy.task('stubPrisonHealth')
@@ -16,6 +17,7 @@ context('Manage key workers health test', () => {
       expect(response.body.status).to.eq('UP')
       expect(response.body.api).to.deep.eq({
         auth: 'UP',
+        manageusers: "UP",
         elite2: 'UP',
         keyworker: 'UP',
         tokenverification: 'UP',
@@ -26,6 +28,7 @@ context('Manage key workers health test', () => {
 
   it('Health page reports API down', () => {
     cy.task('stubAuthHealth')
+    cy.task('stubManageUsersApiHealth')
     cy.task('stubComplexityHealth')
     cy.task('stubTokenHealth')
     cy.task('stubPrisonHealth')
@@ -37,6 +40,7 @@ context('Manage key workers health test', () => {
       expect(response.body.status).to.eq('DOWN')
       expect(response.body.api).to.deep.eq({
         auth: 'UP',
+        manageusers: "UP",
         elite2: 'UP',
         keyworker: {
           timeout: 1000,

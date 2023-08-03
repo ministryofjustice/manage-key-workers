@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const { stubFor, getMatchingRequests } = require('./wiremock')
 
 const { stubStaffRoles, stubUserLocations } = require('./prisonApi')
+const { stubUser, stubUserMe, stubUserMeRoles } = require('./users')
 
 const createToken = () => {
   const payload = {
@@ -107,99 +108,6 @@ const token = () =>
     },
   })
 
-const stubUser = (username, caseload) => {
-  const user = username || 'ITAG_USER'
-  const activeCaseLoadId = caseload || 'MDI'
-  return stubFor({
-    request: {
-      method: 'GET',
-      url: `/auth/api/user/${encodeURI(user)}`,
-    },
-    response: {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      jsonBody: {
-        user_name: user,
-        staffId: 231232,
-        username: user,
-        active: true,
-        name: `${user} name`,
-        authSource: 'nomis',
-        activeCaseLoadId,
-      },
-    },
-  })
-}
-
-const stubUserMe = (username = 'ITAG_USER') =>
-  stubFor({
-    request: {
-      method: 'GET',
-      urlPattern: '/auth/api/user/me',
-    },
-    response: {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      jsonBody: {
-        firstName: 'JAMES',
-        lastName: 'STUART',
-        username,
-      },
-    },
-  })
-
-const stubUserMeRoles = (roles) =>
-  stubFor({
-    request: {
-      method: 'GET',
-      urlPattern: `/auth/api/user/me/roles`,
-    },
-    response: {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      jsonBody: roles,
-    },
-  })
-
-const stubEmail = (username) =>
-  stubFor({
-    request: {
-      method: 'GET',
-      url: `/auth/api/user/${encodeURI(username)}/email`,
-    },
-    response: {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      jsonBody: {
-        username,
-        email: `${username}@gov.uk`,
-      },
-    },
-  })
-
-const stubUnverifiedEmail = (username) =>
-  stubFor({
-    request: {
-      method: 'GET',
-      urlPattern: `/auth/api/user/${encodeURI(username)}/email`,
-    },
-    response: {
-      status: 204,
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      jsonBody: {},
-    },
-  })
-
 const stubClientCredentialsRequest = () =>
   stubFor({
     request: {
@@ -225,11 +133,6 @@ module.exports = {
       stubUserLocations(),
       stubStaffRoles(),
     ]),
-  stubUserDetailsRetrieval: (username) => Promise.all([stubUser(username), stubEmail(username)]),
-  stubUnverifiedUserDetailsRetrieval: (username) => Promise.all([stubUser(username), stubUnverifiedEmail(username)]),
-  stubUserMe,
-  stubUserMeRoles,
-  stubEmail,
   redirect,
   stubClientCredentialsRequest,
   stubHealth,

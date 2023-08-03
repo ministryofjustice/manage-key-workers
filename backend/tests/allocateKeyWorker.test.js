@@ -3,7 +3,7 @@ const allocateKeyWorker = require('../controllers/allocateKeyWorker')
 describe('Allocate key worker', () => {
   const allocationService = {}
   const keyworkerApi = {}
-  const oauthApi = {}
+  const hmppsManageUsersApi = {}
 
   let req
   let res
@@ -64,9 +64,9 @@ describe('Allocate key worker', () => {
     keyworkerApi.allocationHistorySummary = jest.fn()
     keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
 
-    oauthApi.currentRoles = jest.fn().mockResolvedValue([])
+    hmppsManageUsersApi.currentRoles = jest.fn().mockResolvedValue([])
 
-    controller = allocateKeyWorker({ allocationService, keyworkerApi, oauthApi })
+    controller = allocateKeyWorker({ allocationService, keyworkerApi, hmppsManageUsersApi })
   })
 
   describe('index', () => {
@@ -136,7 +136,7 @@ describe('Allocate key worker', () => {
       it('should make the expected calls', async () => {
         await controller.index(req, res)
 
-        expect(oauthApi.currentRoles).toHaveBeenCalledWith({})
+        expect(hmppsManageUsersApi.currentRoles).toHaveBeenCalledWith({})
         expect(allocationService.unallocated).toHaveBeenCalledWith(res.locals, 'MDI')
         expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith({}, 'MDI')
         expect(keyworkerApi.keyworkerSearch).toHaveBeenCalledWith(res.locals, {
@@ -351,7 +351,7 @@ describe('Allocate key worker', () => {
 
       describe('auto allocate link', () => {
         beforeEach(() => {
-          oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
+          hmppsManageUsersApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }])
           keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true, autoAllocatedSupported: true })
         })
 

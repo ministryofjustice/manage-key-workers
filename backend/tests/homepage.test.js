@@ -2,7 +2,7 @@ const config = require('../config')
 const homepageController = require('../controllers/homepage')
 
 describe('Homepage', () => {
-  const oauthApi = {}
+  const hmppsManageUsersApi = {}
   const keyworkerApi = {}
 
   let req
@@ -13,11 +13,11 @@ describe('Homepage', () => {
     req = { session: { userDetails: { activeCaseLoadId: 'MDI' } } }
     res = { locals: {}, render: jest.fn(), redirect: jest.fn() }
 
-    oauthApi.currentRoles = jest.fn().mockResolvedValue([])
+    hmppsManageUsersApi.currentRoles = jest.fn().mockResolvedValue([])
 
     keyworkerApi.getPrisonMigrationStatus = jest.fn().mockResolvedValue({})
 
-    controller = homepageController({ keyworkerApi, oauthApi })
+    controller = homepageController({ keyworkerApi, hmppsManageUsersApi })
 
     config.apis.complexity.enabled_prisons = []
   })
@@ -25,7 +25,7 @@ describe('Homepage', () => {
   it('should make the required calls to endpoints', async () => {
     await controller(req, res)
 
-    expect(oauthApi.currentRoles).toHaveBeenCalledWith({})
+    expect(hmppsManageUsersApi.currentRoles).toHaveBeenCalledWith({})
     expect(keyworkerApi.getPrisonMigrationStatus).toHaveBeenCalledWith({}, 'MDI')
   })
 
@@ -104,7 +104,7 @@ describe('Homepage', () => {
     })
 
     describe('when the user is an omic admin', () => {
-      beforeEach(() => oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }]))
+      beforeEach(() => hmppsManageUsersApi.currentRoles.mockResolvedValue([{ roleCode: 'OMIC_ADMIN' }]))
 
       it('should render home page with the key worker settings task', async () => {
         keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
@@ -129,7 +129,7 @@ describe('Homepage', () => {
     })
 
     describe('when the user is a keyworker monitor', () => {
-      beforeEach(() => oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'KEYWORKER_MONITOR' }]))
+      beforeEach(() => hmppsManageUsersApi.currentRoles.mockResolvedValue([{ roleCode: 'KEYWORKER_MONITOR' }]))
 
       it('should render home page with the key worker settings task', async () => {
         keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
@@ -180,7 +180,7 @@ describe('Homepage', () => {
     describe('when the prison is migrated and the user has keyworker migration role', () => {
       beforeEach(() => {
         keyworkerApi.getPrisonMigrationStatus.mockResolvedValue({ migrated: true })
-        oauthApi.currentRoles.mockResolvedValue([{ roleCode: 'KW_MIGRATION' }])
+        hmppsManageUsersApi.currentRoles.mockResolvedValue([{ roleCode: 'KW_MIGRATION' }])
       })
 
       it('should render home page with the key worker settings task', async () => {

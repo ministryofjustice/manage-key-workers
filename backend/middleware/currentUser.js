@@ -1,7 +1,7 @@
 const logger = require('../log')
 const { forenameToInitial } = require('../utils')
 
-module.exports = ({ prisonApi, oauthApi }) => {
+module.exports = ({ prisonApi, hmppsManageUsersApi }) => {
   const getActiveCaseload = async (req, res) => {
     const { activeCaseLoadId, username } = req.session.userDetails
     const { allCaseloads: caseloads } = req.session
@@ -33,7 +33,7 @@ module.exports = ({ prisonApi, oauthApi }) => {
         req.session.allCaseloads = allCaseloads
       }
 
-      const userDetails = await oauthApi.currentUser(res.locals)
+      const userDetails = await hmppsManageUsersApi.currentUser(res.locals)
 
       req.session.userDetails = userDetails
 

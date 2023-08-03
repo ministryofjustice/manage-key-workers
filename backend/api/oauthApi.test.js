@@ -8,7 +8,6 @@ const clientSecret = 'clientSecret'
 const client = {}
 const oauthApi = oauthApiFactory(client, { url, clientId, clientSecret })
 const mock = nock(url, { reqheaders: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-const context = { some: 'context' }
 
 describe('oauthApi tests', () => {
   beforeEach(() => {
@@ -32,44 +31,6 @@ describe('oauthApi tests', () => {
       const response = await oauthApi.refresh('refreshToken')
       expect(response.access_token).toEqual('newAccessToken')
       expect(response.refresh_token).toEqual('newRefreshToken')
-    })
-  })
-
-  describe('currentUser', () => {
-    const userDetails = { bob: 'hello there' }
-    let actual
-
-    beforeEach(() => {
-      client.get = jest.fn().mockReturnValue({
-        then: () => userDetails,
-      })
-      actual = oauthApi.currentUser(context)
-    })
-
-    it('should return user details from endpoint', () => {
-      expect(actual).toEqual(userDetails)
-    })
-    it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, '/api/user/me')
-    })
-  })
-
-  describe('currentRoles', () => {
-    const roles = { bob: 'hello there' }
-    let actual
-
-    beforeEach(() => {
-      client.get = jest.fn().mockReturnValue({
-        then: () => roles,
-      })
-      actual = oauthApi.currentRoles(context)
-    })
-
-    it('should return roles from endpoint', () => {
-      expect(actual).toEqual(roles)
-    })
-    it('should call user endpoint', () => {
-      expect(client.get).toBeCalledWith(context, '/api/user/me/roles')
     })
   })
 })

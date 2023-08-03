@@ -85,12 +85,12 @@ const processTask = (task, userRoles) => {
 }
 
 module.exports =
-  ({ keyworkerApi, oauthApi }) =>
+  ({ keyworkerApi, hmppsManageUsersApi }) =>
   async (req, res) => {
     const { activeCaseLoadId } = req.session?.userDetails || {}
 
     const [currentRoles, prisonStatus] = await Promise.all([
-      oauthApi.currentRoles(res.locals),
+      hmppsManageUsersApi.currentRoles(res.locals),
       keyworkerApi.getPrisonMigrationStatus(res.locals, activeCaseLoadId),
     ])
 

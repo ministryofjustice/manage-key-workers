@@ -57,17 +57,18 @@ tell it where to find the dependent services and other important settings.
 The following environment variables supply these values:
 
 
-| Environment Variable             |               Description                |
-|----------------------------------|:----------------------------------------:|
-| API_CLIENT_ID                    |    Client ID for accessing prison-api    |
-| API_CLIENT_SECRET                |  Client secret for accessing prison-api  |
-| API_ENDPOINT_URL                 |            URL to prison-api             |
-| PRISONER_SEARCH_API_ENDPOINT_URL | URL to the prisoner elastic search api   |
-| OAUTH_ENDPOINT_URL               |         URL to the Oauth2 server         |
-| NN_ENDPOINT_URL                  |               New Nomis UI               |
-| KEYWORKER_API_URL                |         URL to the Keyworker API         |
-| PRISON_STAFF_HUB_UI_URL          |        URL to Prison Staff Hub UI        |
-| SESSION_COOKIE_SECRET            |          Session cookie secret           | 
+| Environment Variable             |              Description               |
+|----------------------------------|:--------------------------------------:|
+| API_CLIENT_ID                    |   Client ID for accessing prison-api   |
+| API_CLIENT_SECRET                | Client secret for accessing prison-api |
+| API_ENDPOINT_URL                 |           URL to prison-api            |
+| PRISONER_SEARCH_API_ENDPOINT_URL | URL to the prisoner elastic search api |
+| OAUTH_ENDPOINT_URL               |        URL to the Oauth2 server        |
+| HMPPS_MANAGE_USERS_API_URL       |      URL to the Manage Users API       |
+| NN_ENDPOINT_URL                  |              New Nomis UI              |
+| KEYWORKER_API_URL                |        URL to the Keyworker API        |
+| PRISON_STAFF_HUB_UI_URL          |       URL to Prison Staff Hub UI       |
+| SESSION_COOKIE_SECRET            |         Session cookie secret          | 
 
 
 # Production execution
