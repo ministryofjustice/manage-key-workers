@@ -5,6 +5,8 @@ generic-prometheus-alerts:
   targetApplication: manage-key-workers
 
 generic-service:
+  productId: DPS023
+
   image:
     repository: quay.io/hmpps/manage-key-workers
     tag: latest
