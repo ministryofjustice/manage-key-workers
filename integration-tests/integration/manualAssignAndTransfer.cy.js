@@ -129,8 +129,7 @@ context('manual assign and transfer test', () => {
     offenderSearchPage.search()
     offenderSearchPage.resultRows().its('length').should('eq', 2)
     offenderSearchPage.keyworkerLink(keyworkersOfOffendersResponse[0].staffId).click()
-    const keyworkerProfilePage = KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
-    keyworkerProfilePage.parentPageLink().click()
+    cy.get('[data-qa="breadcrumb-key-workers-link"]').click()
     HomePage.verifyOnPage()
   })
 
