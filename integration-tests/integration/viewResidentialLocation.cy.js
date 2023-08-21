@@ -69,7 +69,7 @@ context('View residential location', () => {
       })
     cy.get('[data-test="view-location-button"]').contains('View')
     cy.get('[data-test="return-link"]')
-      .contains('Return to manage key workers')
+      .contains('Return to key workers')
       .should('have.attr', 'href')
       .should('include', '/manage-key-workers')
   })

@@ -75,7 +75,7 @@ context('Allocate key worker to unallocated prisoners', () => {
     cy.get('h1').contains('Allocate a key worker')
     cy.get('[data-test="no-results-message"]').contains('All prisoners have a key worker allocated.')
     cy.get('[data-test="return-link"]')
-      .contains('Return to manage key workers')
+      .contains('Return to key workers')
       .should('have.attr', 'href')
       .should('include', '/manage-key-workers')
   })
@@ -202,7 +202,7 @@ context('Allocate key worker to unallocated prisoners', () => {
         })
 
       cy.get('[data-test="return-link"]')
-        .contains('Return to manage key workers')
+        .contains('Return to key workers')
         .should('have.attr', 'href')
         .should('include', '/manage-key-workers')
     })

@@ -2,7 +2,7 @@
 // See: https://reacttraining.com/react-router/web/example/route-config
 
 export default [
-  { path: '/', breadcrumb: 'Manage key workers' },
+  { path: '/', breadcrumb: 'Key workers' },
   { path: '/unallocated', breadcrumb: 'Auto-allocate key workers' },
   { path: '/unallocated/provisional-allocation', breadcrumb: 'Suggested key worker allocation' },
   { path: '/key-worker-statistics', breadcrumb: 'Key worker statistics' },

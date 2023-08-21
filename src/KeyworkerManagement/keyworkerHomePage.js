@@ -17,7 +17,7 @@ class KeyworkerHomePage extends Component {
     const showKeyworkerSettings = user && user.migration
 
     return (
-      <Page title="Manage key workers">
+      <Page title="Key workers">
         <MessageBar {...this.props} />
         <div className="pure-g">
           <div className="pure-u-md-8-12 padding-bottom-large">
@@ -76,7 +76,7 @@ class KeyworkerHomePage extends Component {
                   className="link"
                   to="/manage-key-worker-settings"
                 >
-                  Manage key worker settings
+                  Key worker settings
                 </Link>
                 <div>Allow auto-allocation. Edit key worker capacity and session frequency.</div>
               </div>
