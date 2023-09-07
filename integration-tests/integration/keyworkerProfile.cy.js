@@ -190,8 +190,8 @@ context('Profile test', () => {
     const editKeyworkerProfilePage = navigateToEditPage(keyworkerResponse)
     editKeyworkerProfilePage.capacity().should('have.value', 6)
     editKeyworkerProfilePage.keyworkerStatusSelect().find('option').its('length').should('be.eq', 5)
-    editKeyworkerProfilePage.parentPageLink().click()
-    KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
+    cy.get('[data-qa="breadcrumb-key-workers-link"]').click()
+    KeyworkerProfilePage.verifyOnPage('Key workers')
   })
 
   it('key worker edit confirm - INACTIVE - is displayed correctly', () => {
@@ -201,8 +201,8 @@ context('Profile test', () => {
     const keyworkerEditProfileConfirmPage = KeyworkerEditProfileConfirmPage.verifyOnPage()
     keyworkerEditProfileConfirmPage.status().should('have.text', 'Inactive')
     keyworkerEditProfileConfirmPage.inactiveWarning().should('exist')
-    keyworkerEditProfileConfirmPage.parentPageLink().click()
-    KeyworkerProfilePage.verifyOnPage(Utils.properCaseName(keyworkerResponse))
+    cy.get('[data-qa="breadcrumb-key-workers-link"]').click()
+    KeyworkerProfilePage.verifyOnPage('Key workers')
   })
 
   it('key worker edit confirm - UNAVAILABLE_ANNUAL_LEAVE - is displayed correctly', () => {
