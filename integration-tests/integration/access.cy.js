@@ -87,7 +87,10 @@ context('Access test', () => {
   })
 
   beforeEach(() => {
-    Cypress.Cookies.preserveOnce('hmpps-session-dev')
+    // Cypress.Cookies.preserveOnce('hmpps-session-dev')
+    cy.session('cookies', () => {
+      cy.setCookie('session_id', 'hmpps-session-dev')
+    })
   })
 
   describe('Admins', () => {
