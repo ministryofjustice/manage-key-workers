@@ -7,6 +7,7 @@ const { keyworkerApiFactory } = require('./api/keyworkerApi')
 const { tokenVerificationApiFactory } = require('./api/tokenVerificationApi')
 const { complexityOfNeedApiFactory } = require('./api/complexityOfNeedApi')
 const { hmppsManageUsersApiFactory } = require('./api/hmppsManageUsersApi')
+const { frontendComponentApiFactory } = require('./api/frontendComponentApi')
 
 const elite2Api = elite2ApiFactory(
   clientFactory({
@@ -58,6 +59,13 @@ const tokenVerificationApi = tokenVerificationApiFactory(
   })
 )
 
+const frontendComponentApi = frontendComponentApiFactory(
+  clientFactory({
+    baseUrl: config.apis.frontendComponent.url,
+    timeout: config.apis.frontendComponent.timeoutSeconds * 1000,
+  })
+)
+
 module.exports = {
   elite2Api,
   prisonerSearchApi,
@@ -66,4 +74,5 @@ module.exports = {
   keyworkerApi,
   tokenVerificationApi,
   complexityOfNeedApi,
+  frontendComponentApi,
 }

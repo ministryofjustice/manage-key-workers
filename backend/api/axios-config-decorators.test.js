@@ -27,4 +27,13 @@ describe('Axios request configuration decorator tests', () => {
     const headers = decorators.getHeaders(context)
     expect(headers).toEqual({ 'page-limit': '5' })
   })
+
+  it('should return user token', () => {
+    const context = {}
+    contextProperties.setTokens({ access_token: 'access', refresh_token: 'refresh' }, context)
+    contextProperties.setRequestPagination(context, { 'page-limit': 5 })
+
+    const headers = decorators.getHeaders(context)
+    expect(headers).toEqual({ authorization: 'Bearer access', 'page-limit': 5 })
+  })
 })
