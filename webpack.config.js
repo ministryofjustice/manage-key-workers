@@ -1,10 +1,9 @@
-import crypto from 'crypto'
-
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const crypto = require('crypto')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isAnalyse = process.env.BUNDLE_ANALYSE !== undefined
