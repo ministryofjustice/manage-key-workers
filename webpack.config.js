@@ -3,9 +3,12 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const crypto = require('crypto')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isAnalyse = process.env.BUNDLE_ANALYSE !== undefined
+
+const nonce = crypto.randomBytes(16).toString('hex')
 
 const developmentEntries =
   process.env.NODE_ENV === 'development'
@@ -31,6 +34,8 @@ const plugins = [
     template: 'html-template/index.html',
     filename: 'index.html',
     publicPath: process.env.PUBLIC_URL || '/',
+    frontendComponentPath: process.env.FRONTEND_COMPONENT_API_URL || '/',
+    nonce,
   }),
 ]
 

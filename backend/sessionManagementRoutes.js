@@ -148,6 +148,9 @@ const configureRoutes = ({ app, tokenRefresher, tokenVerifier, mailTo, homeLink 
   app.get('/logout', (req, res) => {
     res.redirect('/auth/logout')
   })
+  app.get('/sign-out', (req, res) => {
+    res.redirect('/auth/logout')
+  })
 
   app.use(refreshTokenMiddleware)
   app.use(requireLoginMiddleware)

@@ -74,6 +74,8 @@ export const configType = shape({
   mailTo: string.isRequired,
   notmEndpointUrl: string.isRequired,
   prisonStaffHubUrl: string.isRequired,
+  headerHtml: string,
+  footerHtml: string,
 })
 
 export const keyworkerType = shape({

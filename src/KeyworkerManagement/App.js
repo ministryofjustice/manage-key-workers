@@ -54,6 +54,16 @@ class App extends React.Component {
       (error) => Promise.reject(error)
     )
 
+    let headerHtml
+    let footerHtml
+    try {
+      const feComponents = await axios.get('/api/getFeComponents')
+      headerHtml = feComponents.data.header.html
+      footerHtml = feComponents.data.footer.html
+    } catch (error) {
+      // use fallback header and footer
+    }
+
     try {
       await this.loadUserAndCaseload()
       const config = await axios.get('/api/config')
@@ -63,7 +73,11 @@ class App extends React.Component {
         ReactGA.initialize(config.data.googleAnalyticsId)
       }
 
-      configDispatch(config.data)
+      configDispatch({
+        ...config.data,
+        headerHtml,
+        footerHtml,
+      })
     } catch (error) {
       setErrorDispatch(error.message)
     }
@@ -240,6 +254,7 @@ class App extends React.Component {
       </div>
     )
 
+    const shouldShowFeedbackBanner = !config.footerHtml
     if (this.shouldDisplayInnerContent()) {
       innerContent = routes
     } else {
@@ -262,15 +277,28 @@ class App extends React.Component {
                 ReactGA.pageview(props.location.pathname)
               }
 
-              return <Header dpsUrl={config.prisonStaffHubUrl} authUrl={config.authUrl} user={user} />
+              return (
+                <Header
+                  dpsUrl={config.prisonStaffHubUrl}
+                  authUrl={config.authUrl}
+                  user={user}
+                  headerHtml={config.headerHtml}
+                />
+              )
             }}
           />
           {shouldShowTerms && <Terms close={() => this.hideTermsAndConditions()} />}
           {innerContent}
-          <div className="dashboard-feedback-banner">
-            <FeedbackBanner />
-          </div>
-          <FooterContainer supportUrl={config.supportUrl} prisonStaffHubUrl={config.prisonStaffHubUrl} />
+          {shouldShowFeedbackBanner && (
+            <div className="dashboard-feedback-banner">
+              <FeedbackBanner />
+            </div>
+          )}
+          <FooterContainer
+            supportUrl={config.supportUrl}
+            prisonStaffHubUrl={config.prisonStaffHubUrl}
+            footerHtml={config.footerHtml}
+          />
         </div>
       </Router>
     )

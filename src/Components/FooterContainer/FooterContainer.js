@@ -25,7 +25,12 @@ const StyledFooter = styled(Footer)`
   }
 `
 
-const FooterContainer = ({ supportUrl, prisonStaffHubUrl }) => {
+const FooterContainer = ({ supportUrl, prisonStaffHubUrl, footerHtml }) => {
+  if (footerHtml) {
+    // eslint-disable-next-line react/no-danger
+    return <div dangerouslySetInnerHTML={{ __html: footerHtml }} />
+  }
+
   const copyright = {
     text: 'Crown copyright',
     link: 'https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/',
@@ -51,10 +56,12 @@ const FooterContainer = ({ supportUrl, prisonStaffHubUrl }) => {
 FooterContainer.propTypes = {
   supportUrl: PropTypes.string.isRequired,
   prisonStaffHubUrl: PropTypes.string,
+  footerHtml: PropTypes.string,
 }
 
 FooterContainer.defaultProps = {
   prisonStaffHubUrl: undefined,
+  footerHtml: '',
 }
 
 export default FooterContainer
