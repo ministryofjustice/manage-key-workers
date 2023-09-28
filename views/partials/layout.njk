@@ -22,20 +22,8 @@
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
     crossorigin="anonymous"></script>
 
-  {% if feComponents.jsIncludes %}
-    {% for js in feComponents.jsIncludes %}
-      <script src="{{ js }}" nonce="{{ cspNonce }}"></script>
-    {% endfor %}
-  {% endif %}
-
   <link href = "https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
   <link href="/static/stylesheets/application.css" rel="stylesheet" />
-  {% if feComponents.cssIncludes %}
-    {% for css in feComponents.cssIncludes %}
-      <link href="{{ css }}" nonce="{{ cspNonce }}" rel="stylesheet" />
-    {% endfor %}
-  {% endif %}
-
   <title>{% block pageTitle %}{% if errors.length %}Error: {% endif %}{{title}} - Digital Prison Services{% endblock %}</title>
   <!--<![endif]-->
 
@@ -54,11 +42,7 @@
 {% endblock %}
 
 {% block header %}
-  {% if feComponents.header %}
-    {{ feComponents.header | safe }}
-  {% else %}
-    {% include "./header.njk" %}
-  {% endif %}
+  {% include "./header.njk" %}
 {% endblock %}
 
 {% block content %}
@@ -66,11 +50,7 @@
 {% endblock %}
 
 {% block footer %}
-  {% if feComponents.footer %}
-    {{ feComponents.footer | safe }}
-  {% else %}
-    {% include "./footer.njk" %}
-  {% endif %}
+  {% include "./footer.njk" %}
 {% endblock %}
 
 {% block bodyEnd %}

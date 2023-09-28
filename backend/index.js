@@ -9,23 +9,21 @@ require('express-async-errors')
 const bodyParser = require('body-parser')
 const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
+const helmet = require('helmet')
 const noCache = require('nocache')
 const apis = require('./apis')
 
 const ensureHttps = require('./middleware/ensureHttps')
 const errorHandler = require('./middleware/errorHandler')
 const currentUser = require('./middleware/currentUser')
-const fetchFrontendComponent = require('./middleware/fetchFrontendComponent')
 
 const healthFactory = require('./services/healthCheck')
 
 const setupAuth = require('./setupAuth')
 const setupWebSession = require('./setupWebSession')
-const setupWebSecurity = require('./setupWebSecurity')
 const setupWebpackForDev = require('./setupWebpackForDev')
 const setupNunjucks = require('./setupNunjucks')
 const setupPhaseName = require('./setupPhaseName')
-const setUpEnvironmentName = require('./setUpEnvironmentName')
 const setupStaticContent = require('./setupStaticContent')
 const setupReactRoutes = require('./setupReactRoutes')
 
@@ -56,8 +54,16 @@ app.set('view engine', 'njk')
 
 setupNunjucks(app)
 setupPhaseName(app, config)
-setUpEnvironmentName(app, config)
 
+app.use(helmet())
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      'script-src': ["'self'", "'unsafe-inline'", 'https://code.jquery.com/'],
+    },
+  })
+)
 app.use(setupStaticContent())
 app.use(
   hsts({
@@ -109,10 +115,8 @@ app.use(noCache())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(setupWebSession())
-app.use(setupWebSecurity())
 app.use(setupAuth({ oauthApi: apis.oauthApi, tokenVerificationApi: apis.tokenVerificationApi }))
 app.use(currentUser({ prisonApi: apis.elite2Api, hmppsManageUsersApi: apis.hmppsManageUsersApi }))
-app.get('*', fetchFrontendComponent(apis.frontendComponentApi))
 
 // Ensure cookie session is extended (once per minute) when user interacts with the server
 app.use((req, res, next) => {
