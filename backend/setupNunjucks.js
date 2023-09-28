@@ -143,13 +143,5 @@ module.exports = (app) => {
   njkEnv.addGlobal('authUrl', config.apis.oauth2.url)
   njkEnv.addGlobal('googleTagManagerId', config.analytics.googleTagManagerId)
 
-  njkEnv.addFilter('initialiseName', (fullName) => {
-    // this check is for the authError page
-    if (!fullName) return null
-
-    const array = fullName.split(' ')
-    return `${array[0][0]}. ${array.reverse()[0]}`
-  })
-
   return njkEnv
 }

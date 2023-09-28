@@ -1,1 +1,23 @@
-<footer class="govuk-footer govuk-!-display-none-print"></footer>
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+<div class="govuk-width-container" style="background: {{ feedbackBannerBackground or '#fff' }}">
+    {% include "../components/feedbackBanner.njk" %}
+</div>
+
+{{ 
+  govukFooter({
+    meta: {
+      items: [
+        {
+          href: supportUrl,
+          text: "Get help"
+        },
+        {
+          href: dpsUrl + "content/terms-conditions",
+          text: "Terms and conditions"
+        }
+      ]
+    },
+    classes: "govuk-!-display-none-print"
+  }) 
+}}

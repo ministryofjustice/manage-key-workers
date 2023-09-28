@@ -13,7 +13,6 @@ const app = {
   url: process.env.MANAGE_KEY_WORKERS_URL || `http://localhost:${process.env.PORT || 3001}/`,
   supportUrl: process.env.SUPPORT_URL || 'http://localhost:3000/',
   maintenanceModeFlag: process.env.MAINTENANCE_MODE || 'false',
-  environmentName: process.env.ENVIRONMENT_NAME || '',
 }
 
 const setTestDefaults = () => {
@@ -74,10 +73,6 @@ const apis = {
     url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',
     timeoutSeconds: process.env.TOKENVERIFICATION_API_TIMEOUT_SECONDS || 10,
     enabled: process.env.TOKENVERIFICATION_API_ENABLED === 'true',
-  },
-  frontendComponent: {
-    url: process.env.FRONTEND_COMPONENT_API_URL || 'http://localhost:8080',
-    timeoutSeconds: process.env.API_ENDPOINT_TIMEOUT_SECONDS || 5,
   },
 }
 
