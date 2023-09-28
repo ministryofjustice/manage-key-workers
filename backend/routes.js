@@ -19,7 +19,7 @@ const { keyworkerPrisonStatsFactory } = require('./controllers/keyworkerPrisonSt
 const controllerFactory = require('./controllers/controller').factory
 const allocationServiceFactory = require('./services/allocationService').serviceFactory
 const offenderSearchFactory = require('./controllers/searchOffendersController')
-const frontendComponentFactory = require('./controllers/frontendComponent').frontendComponentFactory
+const { frontendComponentFactory } = require('./controllers/frontendComponent')
 
 const viewResidentialLocation = require('./controllers/viewResidentialLocation')
 const allocateKeyWorker = require('./controllers/allocateKeyWorker')

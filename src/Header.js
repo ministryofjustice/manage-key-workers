@@ -6,6 +6,7 @@ import { forenameToInitial } from './stringUtils'
 const Header = ({ authUrl, dpsUrl, user, headerHtml }) => (
   <>
     {headerHtml ? (
+      // eslint-disable-next-line react/no-danger
       <div dangerouslySetInnerHTML={{ __html: headerHtml }} />
     ) : (
       <header className="fallback-dps-header" role="banner">
