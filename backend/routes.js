@@ -19,7 +19,6 @@ const { keyworkerPrisonStatsFactory } = require('./controllers/keyworkerPrisonSt
 const controllerFactory = require('./controllers/controller').factory
 const allocationServiceFactory = require('./services/allocationService').serviceFactory
 const offenderSearchFactory = require('./controllers/searchOffendersController')
-const { frontendComponentFactory } = require('./controllers/frontendComponent')
 
 const viewResidentialLocation = require('./controllers/viewResidentialLocation')
 const allocateKeyWorker = require('./controllers/allocateKeyWorker')
@@ -27,14 +26,7 @@ const manageKeyWorkerSettings = require('./controllers/manageKeyWorkerSettings')
 
 const systemOauthClient = require('./api/systemOauthClient')
 
-const configureRoutes = ({
-  hmppsManageUsersApi,
-  elite2Api,
-  prisonerSearchApi,
-  keyworkerApi,
-  complexityOfNeedApi,
-  frontendComponentApi,
-}) => {
+const configureRoutes = ({ hmppsManageUsersApi, elite2Api, prisonerSearchApi, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
   const allocationService = allocationServiceFactory(
     elite2Api,
@@ -49,7 +41,6 @@ const configureRoutes = ({
   router.use('/api/me', userMeFactory(hmppsManageUsersApi, elite2Api, keyworkerApi).userMeService)
   router.use('/api/usercaseloads', userCaseLoadsFactory(elite2Api).userCaseloads)
   router.use('/api/setactivecaseload', setActiveCaseLoadFactory(elite2Api).setActiveCaseload)
-  router.use('/api/getFeComponents', frontendComponentFactory(frontendComponentApi).getFeComponents)
   router.use('/api/unallocated', controller.unallocated)
   router.use('/api/allocated', controller.allocated)
   router.use('/api/keyworkerAllocations', controller.keyworkerAllocations)
