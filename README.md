@@ -96,7 +96,7 @@ docker run -p 3000:3000 -d \
      --name manage-key-workers \
      -e USE_API_GATEWAY_AUTH=yes \
      -e API_ENDPOINT_URL=https://prison-api-dev.prison.service.justice.gov.uk \
-     -e PRISONER_SEARCH_API_ENDPOINT_URL=https://prisoner-offender-search-dev.prison.service.justice.gov.uk \
+     -e PRISONER_SEARCH_API_ENDPOINT_URL=https://prisoner-search-dev.prison.service.justice.gov.uk \
      -e API_GATEWAY_TOKEN=<add here> \
      -e API_CLIENT_SECRET=<add here> \
      -e API_GATEWAY_PRIVATE_KEY=<add here> \
