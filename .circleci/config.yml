@@ -12,7 +12,7 @@ parameters:
 
   node-version:
     type: string
-    default: 16.15-browsers
+    default: 20.9-browsers
 
 jobs:
   build:
