@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "npm": "^8",
-    "node": "^16"
+    "npm": "^10",
+    "node": "^20"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -56,6 +56,7 @@
     "nocache": "^3.0.4",
     "nock": "^13.3.0",
     "nodemon": "^2.0.20",
+    "npm": "^10.2.1",
     "nunjucks": "^3.2.4",
     "passport": "^0.6.0",
     "passport-oauth2": "^1.6.1",
