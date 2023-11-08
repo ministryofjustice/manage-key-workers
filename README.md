@@ -103,70 +103,14 @@ docker run -p 3000:3000 -d \
      quay.io/hmpps/manage-key-workers:latest
 ```
 
-# Integration tests
-
-The `keyworker-specs` directory contains a set of integration tests for the `manage-key-workers` application.
-
-The tests are written in the Groovy programming language using a test framework called Spock. 
-
-The tests drive the UI using 'Geb', a Groovy wrapper for Selenium Webdriver and use WireMock to 
-stub the application's dependencies on the elite2 and keyworker-api RESTful APIs.
-
-# Running the feature tests
-
-They do not need the dependent services to be running as it uses a special version of the service with wiremocked stubs for these.
-Feature tests may be run either from the commandline of from within IntelliJ.
-A choice of web browsers can be configured, though Chrome or Chrome headless are configured by default.
-
-* Preparation (do this whether running from commandline or IntelliJ)
-
-   - Download the latest version of ChromeDriver and follow the installation instructions here:
-     ```
-      https://sites.google.com/chromium.org/driver/downloads
-      https://sites.google.com/chromium.org/driver/getting-started
-     ```
-   - Check that a chromedriver executable is available on your path
-   - Check that the versions of chromedriver and your installed chrome browser match 
-   - Check and alter if necessary keyworker-specs/build.gradle to set the chrome version to your installed version.
-   - Alter the keywork-specs/build.gradle to choose either the 'headless' driver or standard chrome - the latter will display the browser during test execution.
-
-* From the commandline:
-
-   - In one terminal session, from the project root : 
-
-       ```npm run start-feature --env=feature.env```
-
-   - In another terminal, from the project root :
-
-       ```./gradlew test```
-
-   - The tests will run and produce reports in `keyworker-specs/reports/tests`
-
-   - Choose the Chrome web driver (rather than headless) to see the tests excute in a browser window
-
-
-* From IntelliJ IDE
-
-  - Ensure that `build.gradle` is linked to the IDE project (See here: https://www.jetbrains.com/help/idea/gradle.html)
-
-  - Ensure that chromedriver` is in your executable PATH (as above)
-
-  - Ensure that your chrome and chromedriver versions match, and are set in the build.gradle file.
-
-  - Open a Spock Specification (`uk.gov.justice.digital.hmpps.keyworker.specs.LoginSpecification` for example). 
-
-  - The IDE gutter should now display the green 'run' icons for both the class and each of its test methods.
-
-  - Click the green run icon to start test
-
-## Cypress integration tests
+# Cypress integration tests
 The `integration-tests` directory contains a set of Cypress integration tests.
-These tests WireMock to stub the application's dependencies on the elite2, ouath and whreabouts RESTful APIs.
+These tests use WireMock to stub the application's dependencies on prison-api, oauth and whereabouts RESTful APIs.
 ### Running the Cypress tests
-You need to fire up the wiremock server first:
+You need to fire up the wiremock and redis servers first:
 ```docker-compose -f docker-compose-test.yaml up```
 This will give you useful feedback if the app is making requests that you haven't mocked out. You can see
-the reqest log at `localhost:9191/__admin/requests/` and a JSON representation of the mocks `localhost:9191/__admin/mappings`.
+the request log at `localhost:9191/__admin/requests/` and a JSON representation of the mocks `localhost:9191/__admin/mappings`.
 ### Starting feature tests node instance
 A separate node instance needs to be started for the feature tests. This will run on port 3008 and won't conflict
 with any of the api services, e.g. elite2-api or oauth. It will also not conflict with the Groovy integration tests.
@@ -186,10 +130,5 @@ npm run int-test
 
 ### Useful links
 
-- Spock: http://spockframework.org/
-- Geb: http://www.gebish.org/
-- Groovy: http://groovy-lang.org/index.html
-- Gradle: https://gradle.org/
 - WireMock: http://wiremock.org/
-- Chromedriver: https://sites.google.com/a/chromium.org/chromedriver
 

@@ -2,6 +2,8 @@ version: '3.1'
 services:
   manage-hmpps-auth-accounts-wiremock:
     image: rodolpheche/wiremock
+    networks:
+      - hmpps
     container_name: manage-key-workers-wiremock
     restart: always
     ports:
@@ -9,5 +11,10 @@ services:
   
   redis:
     image: redis
+    networks:
+      - hmpps
     ports:
       - 6379:6379
+
+networks:
+  hmpps:
