@@ -234,7 +234,7 @@ const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSear
       const systemContext = await systemOauthClient.getClientCredentialsTokens(context.username)
       const allPrisoners = await prisonerSearchApi.getOffenders(systemContext, offenderNumbers)
 
-      const kwDates = await elite2Api.caseNoteUsageList(context, offenderNumbers, staffId)
+      const kwDates = await elite2Api.caseNoteUsageList(systemContext, offenderNumbers, staffId)
 
       const allocatedResponse = keyworkerAllocationDetailsDtos.map((keyworkerAllocation) => ({
         ...keyworkerAllocation,
