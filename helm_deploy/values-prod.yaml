@@ -2,7 +2,7 @@ generic-service:
   replicaCount: 4
   env:
     HMPPS_COOKIE_NAME: hmpps-session-prod
-    API_ENDPOINT_URL: https://api.prison.service.justice.gov.uk
+    API_ENDPOINT_URL: https://prison-api.prison.service.justice.gov.uk
     PRISONER_SEARCH_API_ENDPOINT_URL: https://prisoner-search.prison.service.justice.gov.uk
     OAUTH_ENDPOINT_URL: https://sign-in.hmpps.service.justice.gov.uk/auth
     HMPPS_MANAGE_USERS_API_URL: https://manage-users-api.hmpps.service.justice.gov.uk
