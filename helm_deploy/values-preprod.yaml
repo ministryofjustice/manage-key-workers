@@ -23,3 +23,6 @@ generic-service:
       - internal
       - prisons
       - private_prisons
+
+generic-prometheus-alerts:
+  alertSeverity: move-and-improve-alerts-non-prod

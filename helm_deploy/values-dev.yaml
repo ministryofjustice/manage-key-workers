@@ -21,3 +21,6 @@ generic-service:
     HMPPS_COOKIE_DOMAIN: dev.manage-key-workers.service.justice.gov.uk
     MANAGE_KEY_WORKERS_URL: "https://dev.manage-key-workers.service.justice.gov.uk/"
     MAINTENANCE_MODE: false
+
+generic-prometheus-alerts:
+  alertSeverity: move-and-improve-alerts-non-prod
