@@ -1,6 +1,7 @@
 const express = require('express')
 const passport = require('passport')
 const flash = require('connect-flash')
+const Sentry = require('@sentry/node')
 const tokenRefresherFactory = require('./tokenRefresher').factory
 const sessionManagementRoutes = require('./sessionManagementRoutes')
 const auth = require('./auth')
@@ -23,6 +24,12 @@ module.exports = ({ oauthApi, tokenVerificationApi }) => {
     tokenVerifier: tokenVerificationApi.verifyToken,
     mailTo: config.app.mailTo,
     homeLink: config.app.notmEndpointUrl,
+  })
+
+  router.use((req, res, next) => {
+    if (req.isAuthenticated()) Sentry.setUser({ username: req.user.username })
+    res.locals.user = req.user
+    next()
   })
 
   return router

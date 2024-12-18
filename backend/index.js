@@ -11,7 +11,10 @@ const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
 const helmet = require('helmet')
 const noCache = require('nocache')
+const Sentry = require('@sentry/node')
 const apis = require('./apis')
+require('./sentry')
+const sentryMiddleware = require('./middleware/sentryMiddleware')
 
 const ensureHttps = require('./middleware/ensureHttps')
 const errorHandler = require('./middleware/errorHandler')
@@ -52,6 +55,7 @@ const sixtyDaysInSeconds = 5184000
 app.set('trust proxy', 1) // trust first proxy
 app.set('view engine', 'njk')
 
+app.use(sentryMiddleware())
 setupNunjucks(app)
 setupPhaseName(app, config)
 
@@ -60,7 +64,14 @@ app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
-      'script-src': ["'self'", "'unsafe-inline'", 'https://code.jquery.com/'],
+      'connect-src': ["'self' https://*.sentry.io"],
+      'worker-src': ["'self' blob:"],
+      'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        'https://code.jquery.com/',
+        'https://browser.sentry-cdn.com https://js.sentry-cdn.com',
+      ],
     },
   })
 )
@@ -147,6 +158,7 @@ if (config.app.maintenanceModeFlag === 'true') {
   app.use(routes({ ...apis }))
   app.use(setupReactRoutes())
   app.use('/$', homepage({ keyworkerApi: apis.keyworkerApi, hmppsManageUsersApi: apis.hmppsManageUsersApi }))
+  if (config.sentry.dsn) Sentry.setupExpressErrorHandler(app)
   app.use(pageNotFound)
 }
 app.use(errorHandler({ logError }))

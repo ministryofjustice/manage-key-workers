@@ -15,7 +15,11 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    // This improves issue grouping in Sentry.
+    "sourceRoot": "/"
   },
   "baseUrl": ".",
   "include": ["./backend/**/*.js", "./backend/**/*.ts", "./backend/**/*.d.ts"],
