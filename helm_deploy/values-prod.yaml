@@ -16,6 +16,7 @@ generic-service:
     MANAGE_KEY_WORKERS_URL: "https://manage-key-workers.service.justice.gov.uk/"
     HMPPS_COOKIE_DOMAIN: manage-key-workers.service.justice.gov.uk
     MAINTENANCE_MODE: false
+    SENTRY_ENVIRONMENT: PRODUCTION
   ingress:
     host: manage-key-workers.service.justice.gov.uk
   allowlist:
