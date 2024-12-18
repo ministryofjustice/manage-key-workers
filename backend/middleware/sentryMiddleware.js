@@ -1,9 +1,7 @@
-import config from '../config'
+const config = require('../config')
 
-export default function sentryMiddleware() {
-  // Pass-through Sentry config into locals, for use in the Sentry loader script (see layout.njk)
-  return (_req, res, next) => {
-    res.locals.sentry = config.sentry
-    return next()
-  }
+// Pass-through Sentry config into locals, for use in the Sentry loader script (see layout.njk)
+module.exports = () => (_req, res, next) => {
+  res.locals.sentry = config.sentry
+  next()
 }
