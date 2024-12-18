@@ -21,8 +21,8 @@ USER 2000
 WORKDIR /app
 ADD --chown=appuser:appgroup . .
 
-RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit && \
-    npm run build && \
+RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit
+RUN --mount=type=secret,id=sentry SENTRY_AUTH_TOKEN=$(cat /run/secrets/sentry) npm run build && \
     export BUILD_NUMBER=${BUILD_NUMBER} && \
     export GIT_REF=${GIT_REF} && \
     npm run record-build-info

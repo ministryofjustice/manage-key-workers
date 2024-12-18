@@ -123,6 +123,7 @@ workflows:
       - hmpps/build_docker:
           name: build_docker
           image_name: "quay.io/hmpps/manage-key-workers"
+          additional_docker_build_args: --secret id=sentry,env=SENTRY_AUTH_TOKEN
           filters:
             branches:
               only:

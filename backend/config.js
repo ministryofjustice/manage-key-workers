@@ -1,3 +1,18 @@
+const production = process.env.NODE_ENV === 'production'
+
+function get(name, fallback, options = { requireInProduction: false }) {
+  const envVar = process.env[name]
+  if (envVar) {
+    return envVar
+  }
+  if (fallback !== undefined && (!production || !options.requireInProduction)) {
+    return fallback
+  }
+  throw new Error(`Missing env var ${name}`)
+}
+
+const requiredInProduction = { requireInProduction: true }
+
 const app = {
   port: process.env.PORT || 3001,
   production: process.env.NODE_ENV === 'production',
@@ -73,6 +88,14 @@ const apis = {
     url: process.env.TOKENVERIFICATION_API_URL || 'http://localhost:8100',
     timeoutSeconds: process.env.TOKENVERIFICATION_API_TIMEOUT_SECONDS || 10,
     enabled: process.env.TOKENVERIFICATION_API_ENABLED === 'true',
+  },
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+    loaderScriptId: process.env.SENTRY_LOADER_SCRIPT_ID,
+    environment: get('SENTRY_ENVIRONMENT', 'local', requiredInProduction),
+    tracesSampleRate: Number(get('SENTRY_TRACES_SAMPLE_RATE', 0.05)),
+    replaySampleRate: Number(get('SENTRY_REPLAY_SAMPLE_RATE', 0.0)),
+    replayOnErrorSampleRate: Number(get('SENTRY_REPLAY_ON_ERROR_SAMPLE_RATE', 0.1)),
   },
 }
 
