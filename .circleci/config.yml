@@ -148,8 +148,6 @@ workflows:
       - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
-          slack_notification: true
-          slack_channel_name: move-and-improve-alerts-non-prod
           context:
             - hmpps-common-vars
             - manage-key-workers-preprod
