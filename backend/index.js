@@ -7,7 +7,6 @@ const express = require('express')
 require('express-async-errors')
 
 const bodyParser = require('body-parser')
-const bunyanMiddleware = require('bunyan-middleware')
 const hsts = require('hsts')
 const helmet = require('helmet')
 const noCache = require('nocache')
@@ -34,7 +33,6 @@ const homepage = require('./controllers/homepage')
 const pageNotFound = require('./pageNotFound')
 const routes = require('./routes')
 const requestForwarding = require('./request-forwarding')
-const log = require('./log')
 const config = require('./config')
 const { logError } = require('./logError')
 const maintenancePage = require('./controllers/maintenancePage')
@@ -81,12 +79,6 @@ app.use(
     maxAge: sixtyDaysInSeconds,
     includeSubDomains: true,
     preload: true,
-  })
-)
-app.use(
-  bunyanMiddleware({
-    logger: log,
-    obscureHeaders: ['Authorization'],
   })
 )
 
