@@ -22,6 +22,13 @@ generic-service:
     MANAGE_KEY_WORKERS_URL: "https://dev.manage-key-workers.service.justice.gov.uk/"
     MAINTENANCE_MODE: false
     SENTRY_ENVIRONMENT: DEV
+  allowlist:
+    groups:
+      - digital_staff_and_mojo
+      - moj_cloud_platform
+      - prisons
+      - private_prisons
+      - accessibility-testing-1
 
 generic-prometheus-alerts:
   alertSeverity: hmpps-alerts-api-non-prod
