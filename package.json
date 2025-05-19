@@ -5,7 +5,7 @@
   "private": true,
   "engines": {
     "npm": "^10",
-    "node": "^20"
+    "node": "^22"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -32,7 +32,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "agentkeepalive": "^4.2.1",
     "applicationinsights": "^2.5.1",
-    "axios": "^0.21.1",
+    "axios": "^1.9.0",
     "body-parser": "^1.20.1",
     "bunyan": "^1.8.15",
     "connect-flash": "^0.1.1",
