@@ -8,7 +8,7 @@ orbs:
 parameters:
   alerts-slack-channel:
     type: string
-    default: dps_alerts_security
+    default: move-and-improve-alerts-non-prod
 
   node-version:
     type: string
@@ -177,9 +177,6 @@ workflows:
               only:
                 - main
     jobs:
-      - check_outdated:
-          context:
-            - hmpps-common-vars
       - hmpps/npm_security_audit:
           slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
