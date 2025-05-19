@@ -150,6 +150,11 @@
     "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "^4.8.0"
   },
+  "overrides": {
+    "cypress": {
+      "@cypress/request": ">=3.0.0"
+    }
+  },
   "scripts": {
     "start": "DISABLE_WEBPACK=true node dist/backend/index.js",
     "start:dev": "nodemon",
