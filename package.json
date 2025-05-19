@@ -5,7 +5,7 @@
   "private": true,
   "engines": {
     "npm": "^10",
-    "node": "^20"
+    "node": "^22"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -32,7 +32,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "agentkeepalive": "^4.2.1",
     "applicationinsights": "^2.5.1",
-    "axios": "^0.21.1",
+    "axios": "^1.9.0",
     "body-parser": "^1.20.1",
     "bunyan": "^1.8.15",
     "connect-flash": "^0.1.1",
@@ -58,7 +58,7 @@
     "moment-timezone": "^0.5.40",
     "nocache": "^3.0.4",
     "nock": "^13.3.0",
-    "nodemon": "^2.0.20",
+    "nodemon": "^3.1.10",
     "npm": "^10.2.1",
     "nunjucks": "^3.2.4",
     "passport": "^0.6.0",
@@ -149,6 +149,11 @@
     "url-loader": "^4.1.1",
     "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "^4.8.0"
+  },
+  "overrides": {
+    "cypress": {
+      "@cypress/request": ">=3.0.0"
+    }
   },
   "scripts": {
     "start": "DISABLE_WEBPACK=true node dist/backend/index.js",

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactGA from 'react-ga'
+import axios from 'axios'
 import Header from '../Header'
 import UnauthPage from './unauthPage'
 import KeyworkerProfileContainer from '../KeyworkerProfile/containers/KeyworkerProfileContainer'
@@ -33,8 +34,6 @@ import {
 } from '../redux/actions/index'
 import { configType, errorType, userType } from '../types'
 import FooterContainer from '../Components/FooterContainer'
-
-const axios = require('axios')
 
 class App extends React.Component {
   async componentDidMount() {

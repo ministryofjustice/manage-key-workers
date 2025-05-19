@@ -1,4 +1,5 @@
-const axios = require('axios')
+import axios from 'axios'
+
 const querystring = require('querystring')
 const logger = require('../log')
 const errorStatusCode = require('../error-status-code')
