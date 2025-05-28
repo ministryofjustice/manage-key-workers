@@ -128,6 +128,7 @@ workflows:
             branches:
               only:
                 - main
+                - chore/upgrade-docker-base-image
       - hmpps/deploy_env:
           name: deploy_dev
           env: "dev"
