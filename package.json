@@ -59,7 +59,6 @@
     "nocache": "^3.0.4",
     "nock": "^13.3.0",
     "nodemon": "^3.1.10",
-    "npm": "^10.2.1",
     "nunjucks": "^3.2.4",
     "passport": "^0.6.0",
     "passport-oauth2": "^1.6.1",
