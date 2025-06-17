@@ -21,7 +21,7 @@ generic-service:
     HMPPS_COOKIE_DOMAIN: dev.manage-key-workers.service.justice.gov.uk
     MANAGE_KEY_WORKERS_URL: "https://dev.manage-key-workers.service.justice.gov.uk/"
     MAINTENANCE_MODE: false
-    SENTRY_ENVIRONMENT: DEV
+    ENVIRONMENT_NAME: DEV
   allowlist:
     groups:
       - digital_staff_and_mojo

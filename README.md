@@ -108,7 +108,7 @@ The `integration-tests` directory contains a set of Cypress integration tests.
 These tests use WireMock to stub the application's dependencies on prison-api, oauth and whereabouts RESTful APIs.
 ### Running the Cypress tests
 You need to fire up the wiremock and redis servers first:
-```docker-compose -f docker-compose-test.yaml up```
+```docker compose -f docker-compose-test.yaml up```
 This will give you useful feedback if the app is making requests that you haven't mocked out. You can see
 the request log at `localhost:9191/__admin/requests/` and a JSON representation of the mocks `localhost:9191/__admin/mappings`.
 ### Starting feature tests node instance
