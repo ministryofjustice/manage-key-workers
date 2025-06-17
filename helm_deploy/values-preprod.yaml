@@ -18,7 +18,7 @@ generic-service:
     HMPPS_COOKIE_DOMAIN: preprod.manage-key-workers.service.justice.gov.uk
     MANAGE_KEY_WORKERS_URL: "https://preprod.manage-key-workers.service.justice.gov.uk/"
     MAINTENANCE_MODE: false
-    SENTRY_ENVIRONMENT: PRE-PRODUCTION
+    ENVIRONMENT_NAME: PRE-PRODUCTION
   allowlist:
     groups:
       - internal

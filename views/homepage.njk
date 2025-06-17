@@ -1,6 +1,7 @@
 {% extends "./partials/layout.njk" %}
 {% from "./components/card.njk" import card %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./components/alert/macro.njk" import mojAlert %}
 
 {% set title = 'Key workers' %}
 {% set feedbackBannerBackground = '#f0f4f5 '%}
@@ -15,6 +16,16 @@
       }
     ]
   }) }}
+
+  {% if announcement %}
+    {{ mojAlert({
+      variant: "information",
+      title: announcement.title,
+      html: announcement.html,
+      showTitleAsHeading: true,
+      dismissible: true
+    }) }}
+  {% endif %}
 
     <h1 class="govuk-heading-l govuk-!-margin-top-7">{{ title }}</h1>
   </div>
@@ -40,4 +51,5 @@
 
 {% block pageScripts %}
   <script src="/static/js/card.js"></script>
+  <script src="/static/js/alert.js"></script>
 {% endblock %}
