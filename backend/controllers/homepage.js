@@ -108,8 +108,6 @@ module.exports =
 
     return res.render('homepage', {
       announcement: homepageAnnouncement[process.env.ENVIRONMENT_NAME]?.[activeCaseLoadId],
-      homepageAnnouncement,
-      activeCaseLoadId,
       tasks: availableTasks
         // eslint-disable-next-line no-unused-vars
         .map(({ roles, enabled, ...task }) => task),
