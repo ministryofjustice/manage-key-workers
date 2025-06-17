@@ -41,9 +41,7 @@ const caseNoteUsageResponse = [
 ]
 
 const navigateToSearchPage = () => {
-  cy.visit('/')
-  const homePage = HomePage.verifyOnPage()
-  homePage.keyworkerSettings().click()
+  cy.visit('/key-worker-search')
   return KeyworkerSearchPage.verifyOnPage()
 }
 
@@ -64,13 +62,6 @@ context('Keyworker search tests', () => {
     Cypress.Cookies.preserveOnce('hmpps-session-dev')
     cy.task('stubCaseNoteUsageList', caseNoteUsageResponse)
     cy.task('stubKeyworkerSearch', keyworkerSearchResponse)
-  })
-
-  it('key worker search', () => {
-    cy.visit('/')
-    const homePage = HomePage.verifyOnPage()
-    homePage.keyworkerSettings().click()
-    KeyworkerSearchPage.verifyOnPage()
   })
 
   it('Search for key worker returns no results', () => {
