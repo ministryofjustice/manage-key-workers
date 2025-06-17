@@ -1,5 +1,5 @@
 const config = require('../config')
-const { homepageAnnouncement } = require('../homepageAnnouncement.ts')
+const { homepageAnnouncement } = require('../homepageAnnouncement')
 
 const keyWorkerTasks = (prisonStatus, isComplexPrison) => [
   {
