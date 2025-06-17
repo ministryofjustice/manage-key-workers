@@ -1,5 +1,5 @@
 const config = require('../config')
-const { homepageAnnouncement } = require('../homepageAnnouncement.ts')
+const { homepageAnnouncement } = require('../homepageAnnouncement')
 
 const keyWorkerTasks = (prisonStatus, isComplexPrison) => [
   {
@@ -108,6 +108,8 @@ module.exports =
 
     return res.render('homepage', {
       announcement: homepageAnnouncement[process.env.ENVIRONMENT_NAME]?.[activeCaseLoadId],
+      homepageAnnouncement,
+      activeCaseLoadId,
       tasks: availableTasks
         // eslint-disable-next-line no-unused-vars
         .map(({ roles, enabled, ...task }) => task),
