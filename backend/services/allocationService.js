@@ -107,16 +107,10 @@ const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSear
   }
 
   function warning(error) {
-    if (error.response && error.response.body) {
-      const msg = error.response.body.userMessage
-      if (
-        msg === 'No Key workers available for allocation.' ||
-        msg === 'All available Key workers are at full capacity.'
-      ) {
-        return msg
-      }
-    }
-    return null
+    const devMsg = error.response?.body?.developerMessage
+    const userMsg = error.response?.body?.userMessage
+    const filter = ['No Key workers available for allocation.', 'All available Key workers are at full capacity.']
+    return filter.find((msg) => devMsg?.includes(msg) || userMsg?.includes(msg))
   }
 
   const findKeyworkerStaffIdForOffender = (offenderKeyworkers, offenderNo) =>
@@ -211,7 +205,7 @@ const serviceFactory = (elite2Api, prisonerSearchApi, keyworkerApi, offenderSear
     return {
       keyworkerResponse: availableKeyworkers,
       allocatedResponse:
-        offenderWithAllocatedKeyworkerDtos.length > 0
+        offenderWithAllocatedKeyworkerDtos?.length > 0
           ? await offendersWithKeyworkersGettingPrisoners(
               context,
               offenderWithAllocatedKeyworkerDtos,
