@@ -187,4 +187,21 @@ describe('Allocated controller', () => {
   it('Should add keyworker details to allocated data array', () => {
     expect(response.allocatedResponse[4].keyworkerDisplay).toBe('Ben Lard')
   })
+
+  it('Should handle allocation capacity errors', async () => {
+    keyworkerApi.autoAllocate.mockImplementationOnce(() => {
+      const error = new Error('Internal Server Error')
+      error.response = {
+        body: {
+          developerMessage: 'No Key workers available for allocation.',
+          userMessage: 'An unexpected server error occurred.',
+        },
+      }
+      throw error
+    })
+
+    const res = await allocated({}, 'LEI')
+
+    expect(res.warning).toEqual('No Key workers available for allocation.')
+  })
 })
