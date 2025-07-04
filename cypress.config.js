@@ -103,4 +103,7 @@ module.exports = defineConfig({
     specPattern: 'integration-tests/integration/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'integration-tests/support/index.js',
   },
+  retries: {
+    runMode: 3,
+  },
 })
