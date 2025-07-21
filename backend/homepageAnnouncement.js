@@ -5,7 +5,7 @@ const launchSoonAnnouncement = {
 
 const launchedAnnouncement = {
   title: 'You should use the updated Key Worker service',
-  html: `You can access this using <a href="${process.env.ALLOCATIONS_UI_URL}">this link</a>. You can find out more on <a target="_blank" href="https://justiceuk.sharepoint.com/sites/prisons-digital/SitePages/Keyworker.aspx">SharePoint</a>.`,
+  html: `You can access this using <a href="${process.env.ALLOCATIONS_UI_URL}/key-worker">this link</a>. You can find out more on <a target="_blank" href="https://justiceuk.sharepoint.com/sites/prisons-digital/SitePages/Keyworker.aspx">SharePoint</a>.`,
 }
 
 // eslint-disable-next-line import/prefer-default-export
