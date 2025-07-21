@@ -27,7 +27,7 @@
     "@govuk-react/select": "^0.9.1",
     "@govuk-react/table": "^0.9.1",
     "@ministryofjustice/frontend": "^0.2.6",
-    "@sentry/cli": "^2.39.1",
+    "@sentry/cli": "^2.46.0",
     "@sentry/node": "^8.46.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "agentkeepalive": "^4.2.1",
