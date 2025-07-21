@@ -12,6 +12,7 @@ const launchedAnnouncement = {
 export const homepageAnnouncement = {
   DEV: {
     MDI: launchedAnnouncement,
+    LEI: launchSoonAnnouncement,
   },
   'PRE-PRODUCTION': {
     BCI: launchedAnnouncement,
@@ -23,12 +24,12 @@ export const homepageAnnouncement = {
     WMI: launchedAnnouncement,
   },
   PRODUCTION: {
-    BCI: launchSoonAnnouncement,
-    HII: launchSoonAnnouncement,
-    LFI: launchSoonAnnouncement,
-    LPI: launchSoonAnnouncement,
-    PNI: launchSoonAnnouncement,
-    RSI: launchSoonAnnouncement,
-    WMI: launchSoonAnnouncement,
+    BCI: launchedAnnouncement,
+    HII: launchedAnnouncement,
+    LFI: launchedAnnouncement,
+    LPI: launchedAnnouncement,
+    PNI: launchedAnnouncement,
+    RSI: launchedAnnouncement,
+    WMI: launchedAnnouncement,
   },
 }
