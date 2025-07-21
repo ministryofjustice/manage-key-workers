@@ -57,7 +57,7 @@
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "nocache": "^3.0.4",
-    "nock": "^13.3.0",
+    "nock": "^13.5.6",
     "nodemon": "^3.1.10",
     "nunjucks": "^3.2.4",
     "passport": "^0.6.0",
