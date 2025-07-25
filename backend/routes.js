@@ -26,6 +26,8 @@ const manageKeyWorkerSettings = require('./controllers/manageKeyWorkerSettings')
 
 const systemOauthClient = require('./api/systemOauthClient')
 
+const redirectToNewService = require('./middleware/redirectToNewService')
+
 const configureRoutes = ({ hmppsManageUsersApi, elite2Api, prisonerSearchApi, keyworkerApi, complexityOfNeedApi }) => {
   const router = express.Router()
   const allocationService = allocationServiceFactory(
@@ -35,6 +37,7 @@ const configureRoutes = ({ hmppsManageUsersApi, elite2Api, prisonerSearchApi, ke
     config.app.offenderSearchResultMax,
     systemOauthClient
   )
+  router.get('*', redirectToNewService())
 
   const controller = controllerFactory(allocationService, keyworkerPrisonStatsFactory(keyworkerApi))
   router.use('/api/config', getConfiguration)
