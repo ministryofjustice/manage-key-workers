@@ -21,6 +21,7 @@ generic-service:
     HMPPS_COOKIE_DOMAIN: dev.manage-key-workers.service.justice.gov.uk
     MANAGE_KEY_WORKERS_URL: "https://dev.manage-key-workers.service.justice.gov.uk/"
     ALLOCATIONS_UI_URL: "https://allocate-key-workers-dev.hmpps.service.justice.gov.uk"
+    REDIRECT_ENABLED_PRISONS: "MDI"
     MAINTENANCE_MODE: false
     ENVIRONMENT_NAME: DEV
   allowlist:
