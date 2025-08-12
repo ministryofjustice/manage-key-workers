@@ -22,6 +22,7 @@ export const homepageAnnouncement = {
     PNI: launchedAnnouncement,
     RSI: launchedAnnouncement,
     WMI: launchedAnnouncement,
+    DWI: launchSoonAnnouncement,
   },
   PRODUCTION: {
     BCI: launchedAnnouncement,
@@ -31,5 +32,6 @@ export const homepageAnnouncement = {
     PNI: launchedAnnouncement,
     RSI: launchedAnnouncement,
     WMI: launchedAnnouncement,
+    DWI: launchSoonAnnouncement,
   },
 }
