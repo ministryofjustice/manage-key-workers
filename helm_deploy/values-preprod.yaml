@@ -18,7 +18,7 @@ generic-service:
     HMPPS_COOKIE_DOMAIN: preprod.manage-key-workers.service.justice.gov.uk
     MANAGE_KEY_WORKERS_URL: "https://preprod.manage-key-workers.service.justice.gov.uk/"
     ALLOCATIONS_UI_URL: "https://allocate-key-workers-preprod.hmpps.service.justice.gov.uk"
-    REDIRECT_ENABLED_PRISONS: "BCI,HII,LFI,LPI,PNI,RSI,WMI"
+    REDIRECT_ENABLED_PRISONS: "BCI,DWI,HII,LFI,LPI,PNI,RSI,WMI"
     MAINTENANCE_MODE: false
     ENVIRONMENT_NAME: PRE-PRODUCTION
   allowlist:
